@@ -102,7 +102,7 @@ function bindForms() {
   document.querySelectorAll("form[data-probe-form]").forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const data = new FormData(form);
+      const data = new FormData(form, event.submitter);
       const entries = [...data.entries()];
       const submitter = event.submitter;
       document.querySelector("#last-submit").textContent = JSON.stringify(
@@ -148,3 +148,32 @@ function bindToolbar() {
 bindForms();
 bindToolbar();
 window.runProbes = runProbes;
+
+function autoSubmitEach() {
+  const results = {};
+  const forms = [...document.querySelectorAll("form[data-probe-form]")];
+  forms.forEach((form) => {
+    const variant = form.closest("[data-variant]")?.dataset.variant;
+    const native = form.querySelector("button[type=submit]");
+    const wasNoValidate = form.noValidate;
+    form.noValidate = true;
+    form.addEventListener(
+      "submit",
+      (event) => {
+        results[variant] = {
+          submitter: event.submitter && event.submitter.tagName.toLowerCase(),
+          keys: [...new FormData(form, event.submitter).keys()],
+        };
+        form.noValidate = wasNoValidate;
+      },
+      { capture: true, once: true }
+    );
+    if (native) native.click();
+    else form.querySelector("sd-button")?.click();
+  });
+  window.setTimeout(() => {
+    document.querySelector("#auto-submit").textContent = JSON.stringify(results, null, 2);
+  }, 50);
+}
+
+autoSubmitEach();
