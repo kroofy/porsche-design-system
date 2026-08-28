@@ -10,7 +10,9 @@ describe('PButton', () => {
     expect(container.childElementCount).toBe(1);
     expect(container.firstElementChild?.tagName).toBe('BUTTON');
     expect(container.querySelector('p-button')).toBeNull();
-    expect(container.innerHTML).toBe('<button type="submit" class="p-button">Save</button>');
+    expect(container.innerHTML).toBe(
+      '<button type="submit" class="p-button"><span class="p-button__label">Save</span></button>'
+    );
   });
 
   it('puts aria attributes on the button', () => {

@@ -7,4 +7,5 @@ export {
   serializeResponsive,
 } from './link.appearance';
 export type { LinkAppearanceProps, LinkVariant, NativeAppearance, Responsive } from './link.appearance';
+export { getNativeLinkCss } from '../link-button-css';
 export { rewriteShadowLinkCss } from './to-light-dom-link-css';

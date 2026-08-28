@@ -1,5 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import {
+  BUTTON_LABEL_CLASS,
   buttonAppearance,
   type ButtonAppearanceProps,
 } from '../../../../../components/src/elements/button';
@@ -25,7 +26,7 @@ export const PButton = forwardRef<HTMLButtonElement, PButtonProps>(function PBut
       aria-busy={loading || undefined}
       className={[appearance.className, className].filter(Boolean).join(' ')}
     >
-      {children}
+      <span className={BUTTON_LABEL_CLASS}>{children}</span>
     </button>
   );
 });
