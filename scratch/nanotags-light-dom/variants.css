@@ -1,0 +1,104 @@
+/* Light-DOM PDS-like styles. Scoped to host tags so .root / input resets do not leak. */
+
+nt-button,
+co-button {
+  display: contents;
+}
+
+nt-field,
+co-field {
+  display: contents;
+}
+
+nt-link,
+co-link {
+  display: contents;
+}
+
+nt-button > button.root,
+co-button > button.root {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--p-button-px, 28px);
+  border-radius: var(--p-button-radius, var(--p-radius-xl));
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+  cursor: pointer;
+  transition: background-color var(--p-duration-sm) var(--p-ease-in-out);
+}
+
+nt-button[variant="primary"] > button.root,
+co-button[variant="primary"] > button.root {
+  background: var(--p-button-bg, var(--p-color-primary));
+  color: var(--p-button-fg, var(--p-color-canvas));
+}
+
+nt-button[variant="secondary"] > button.root,
+co-button[variant="secondary"] > button.root {
+  background: var(--p-button-bg, var(--p-color-surface));
+  color: var(--p-button-fg, var(--p-color-primary));
+  box-shadow: inset 0 0 0 1px var(--p-color-primary);
+}
+
+nt-button > button.root:focus-visible,
+co-button > button.root:focus-visible {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+
+nt-button > button.root:disabled,
+co-button > button.root:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+nt-field > label,
+co-field > label {
+  display: block;
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+  color: var(--p-color-primary);
+  margin-block-end: var(--p-spacing-static-sm);
+}
+
+nt-field > input.root,
+co-field > input.root {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--p-spacing-static-md);
+  border-radius: var(--p-radius-xl);
+  background: var(--p-color-surface);
+  color: var(--p-color-primary);
+  font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+  box-shadow: inset 0 0 0 1px var(--p-color-contrast-medium);
+}
+
+nt-field > input.root:focus-visible,
+co-field > input.root:focus-visible {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+
+nt-link > a.root,
+co-link > a.root {
+  all: unset;
+  color: var(--p-color-primary);
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+nt-link > a.root:focus-visible,
+co-link > a.root:focus-visible {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}

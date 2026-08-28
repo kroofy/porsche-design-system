@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>nanotags vs shadow DOM</title>
+    <link rel="stylesheet" href="./tokens.css" />
+    <link rel="stylesheet" href="./app.css" />
+    <link rel="stylesheet" href="./variants.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "nanotags": "https://esm.sh/nanotags@0.15.2",
+          "nanostores": "https://esm.sh/nanostores@1"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Can light DOM keep native form/link behavior and PDS tokens?</h1>
+    <p class="lede">
+      Throwaway prototype. Three variants of the same signup form. Shadow is today's PDS shape.
+      nanotags hydrates light-DOM wrappers. CSS-only uses the same markup with no custom-element JS.
+    </p>
+
+    <div class="toolbar">
+      <button type="button" data-show="all" aria-pressed="true">all</button>
+      <button type="button" data-show="shadow">shadow</button>
+      <button type="button" data-show="nanotags">nanotags</button>
+      <button type="button" data-show="css">css-only</button>
+      <button type="button" id="scheme">toggle dark</button>
+      <button type="button" id="leak">toggle app button leak</button>
+    </div>
+
+    <div class="grid">
+      <section class="panel" data-variant="shadow">
+        <h2>shadow</h2>
+        <form data-probe-form class="stack">
+          <sd-field name="email" required>
+            <span slot="label">Email</span>
+          </sd-field>
+          <sd-field name="note">
+            <span slot="label">Note</span>
+          </sd-field>
+          <div class="row">
+            <sd-button variant="primary" name="intent" value="save">Save</sd-button>
+            <span class="token-override">
+              <sd-button variant="primary">Token override</sd-button>
+            </span>
+          </div>
+          <sd-link href="#shadow-docs">Docs</sd-link>
+        </form>
+      </section>
+
+      <section class="panel" data-variant="nanotags">
+        <h2>nanotags</h2>
+        <form data-probe-form class="stack">
+          <nt-field>
+            <label for="nt-email">Email</label>
+            <input class="root" id="nt-email" name="email" type="email" required data-ref="control" />
+          </nt-field>
+          <nt-field>
+            <label for="nt-note">Note</label>
+            <input class="root" id="nt-note" name="note" type="text" data-ref="control" />
+          </nt-field>
+          <div class="row">
+            <nt-button variant="primary">
+              <button class="root" type="submit" name="intent" value="save" data-ref="control">
+                Save
+              </button>
+            </nt-button>
+            <span class="token-override">
+              <nt-button variant="primary">
+                <button class="root" type="button" data-ref="control">Token override</button>
+              </nt-button>
+            </span>
+          </div>
+          <nt-link>
+            <a class="root" href="#nanotags-docs" data-ref="control">Docs</a>
+          </nt-link>
+        </form>
+      </section>
+
+      <section class="panel" data-variant="css">
+        <h2>css-only</h2>
+        <form data-probe-form class="stack">
+          <co-field>
+            <label for="co-email">Email</label>
+            <input class="root" id="co-email" name="email" type="email" required />
+          </co-field>
+          <co-field>
+            <label for="co-note">Note</label>
+            <input class="root" id="co-note" name="note" type="text" />
+          </co-field>
+          <div class="row">
+            <co-button variant="primary">
+              <button class="root" type="submit" name="intent" value="save">Save</button>
+            </co-button>
+            <span class="token-override">
+              <co-button variant="primary">
+                <button class="root" type="button">Token override</button>
+              </co-button>
+            </span>
+          </div>
+          <co-link>
+            <a class="root" href="#css-docs">Docs</a>
+          </co-link>
+        </form>
+      </section>
+    </div>
+
+    <label class="note">
+      App-owned input. Must stay a dashed error box if PDS input resets stay scoped.
+      <input class="app-native-input" name="app-owned" value="not a PDS field" />
+    </label>
+
+    <section id="probes">
+      <h2>probes</h2>
+      <p class="note">
+        Green means the variant matches the goal for that cell. Shadow is expected to fail native
+        light-DOM queries. Light-DOM variants must keep token paint and unique ids.
+      </p>
+      <table>
+        <tbody id="probe-body"></tbody>
+      </table>
+      <h2>last submit</h2>
+      <pre id="last-submit">submit a form</pre>
+      <h2>auto submit</h2>
+      <pre id="auto-submit">running</pre>
+    </section>
+
+    <script type="module" src="./shadow.js"></script>
+    <script type="module" src="./nanotags.js"></script>
+    <script type="module" src="./probes.js"></script>
+  </body>
+</html>
