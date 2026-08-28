@@ -1,0 +1,124 @@
+html,
+body {
+  margin: 0;
+  background: var(--p-color-canvas);
+  color: var(--p-color-primary);
+  font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+}
+
+body {
+  padding: var(--p-spacing-static-lg);
+}
+
+h1 {
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+  margin: 0 0 var(--p-spacing-static-sm);
+}
+
+.lede,
+.note {
+  color: var(--p-color-contrast-medium);
+  max-width: 72ch;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--p-spacing-static-sm);
+  margin: var(--p-spacing-static-md) 0;
+}
+
+.toolbar button {
+  min-height: 36px;
+  padding: 0 12px;
+}
+
+.toolbar button[aria-pressed="true"] {
+  outline: 2px solid var(--p-color-focus);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--p-spacing-static-lg);
+}
+
+.panel {
+  padding: var(--p-spacing-static-md);
+  background: var(--p-color-surface);
+  border-radius: var(--p-radius-xl);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel h2 {
+  margin: 0 0 var(--p-spacing-static-md);
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal)
+    var(--p-font-porsche-next);
+}
+
+.stack {
+  display: grid;
+  gap: var(--p-spacing-static-md);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--p-spacing-static-sm);
+  align-items: center;
+}
+
+.token-override {
+  --p-button-bg: hotpink;
+  --p-button-fg: black;
+}
+
+/* App CSS that would fight PDS internals in light DOM. */
+body.leak-app button {
+  background: magenta !important;
+}
+
+/* App field that PDS @global input { all: unset } must not destroy. */
+.app-native-input {
+  display: block;
+  margin-top: var(--p-spacing-static-md);
+  padding: 8px;
+  border: 2px dashed var(--p-color-error);
+}
+
+#probes {
+  margin-top: var(--p-spacing-static-lg);
+}
+
+#probes table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#probes th,
+#probes td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--p-color-surface);
+  vertical-align: top;
+}
+
+.pass {
+  color: #0a7a2f;
+}
+
+.fail {
+  color: #b00020;
+}
+
+#last-submit {
+  white-space: pre-wrap;
+  background: var(--p-color-surface);
+  padding: var(--p-spacing-static-sm);
+  border-radius: var(--p-radius-xl);
+}
