@@ -2326,12 +2326,12 @@
 }
 .p-input,.p-textarea,.p-select,.p-checkbox,.p-radio,.p-label{color-scheme:inherit}
 @layer pds.elements {
-.p-field:has(:disabled) .p-label {
+.p-field:has(:disabled:not([data-p-loading="true"])) .p-label {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.4;
 }
-.p-field:has(:disabled) .p-description {
+.p-field:has(:disabled:not([data-p-loading="true"])) .p-description {
   opacity: 0.4;
 }
 .p-label[data-p-hide-label="true"] + .p-description {
@@ -2593,11 +2593,11 @@
 }
 
 @media(forced-colors:active) {
-  .p-field:has(:disabled) .p-label {
+  .p-field:has(:disabled:not([data-p-loading="true"])) .p-label {
     opacity: 1;
     color: GrayText;
   }
-  .p-field:has(:disabled) .p-description {
+  .p-field:has(:disabled:not([data-p-loading="true"])) .p-description {
     opacity: 1;
     color: GrayText;
   }

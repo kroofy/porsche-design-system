@@ -26,3 +26,5 @@ ts	phase	decision	why	evidence	result
 2026-08-29T13:05:00Z	implement	Chrome+Safari VRT native-button/native-link light and dark	8/8 pass; spinner C and dark tokens match Stencil	native-*-{light,dark}-{chrome,safari}.png	VERIFIED
 2026-08-29T14:20:00Z	implement	native PInputText/PLabel/PTextarea are bare input/label/textarea	label is sibling with for; required mark inside label	field-css.ts PInputText PLabel PTextarea	VERIFIED unit
 2026-08-29T14:20:00Z	implement	Chrome+Safari VRT native-input-text/native-textarea light and dark	8/8 pass; compact required error/success match	native-input-text-* native-textarea-*	VERIFIED
+2026-08-29T14:50:00Z	implement	native PCheckbox/PRadio/PSelect are bare input/select	label sibling with for; p-field/p-radios CSS-only	field-css.ts PCheckbox PRadio PSelect	VERIFIED unit
+2026-08-29T14:50:00Z	implement	Chrome+Safari VRT native-checkbox/radio/select light and dark	12/12 pass; check/dot/chevron match Stencil	native-checkbox-* native-radio-* native-select-*	VERIFIED
