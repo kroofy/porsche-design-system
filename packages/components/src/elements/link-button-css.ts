@@ -278,3 +278,5 @@ const toLayeredCss = (styles: Styles): string => `@layer pds.elements {\n${getCs
 export const getNativeButtonCss = (): string => toLayeredCss(getNativeLinkButtonStyles(BUTTON_CONFIG));
 
 export const getNativeLinkCss = (): string => toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG));
+
+export const getElementsCss = (): string => `${getNativeButtonCss()}${getNativeLinkCss()}`;

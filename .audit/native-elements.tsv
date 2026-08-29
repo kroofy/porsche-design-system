@@ -15,3 +15,4 @@ ts	phase	decision	why	evidence	result
 2026-08-28T21:54:30Z	implement	buttonAppearance + rewriteShadowButtonCss, shared appearance/css rewrite	same encoder as link; loading is data-p-loading plus native disabled	packages/components/src/elements/button 17 component + 5 react tests	VERIFIED
 2026-08-28T22:51:24Z	implement	static getNativeButtonCss/getNativeLinkCss, one sheet all variants	shadow CSS is per-instance; light DOM needs data-p-* selectors	link-button-css.spec.ts token contract vs getComponentCss	VERIFIED
 2026-08-28T22:51:24Z	implement	PLink returns bare a; PButton label span inside button	hide-label needs an inner label node; host still forbidden	PLink.spec.tsx PButton.spec.tsx innerHTML	VERIFIED
+2026-08-29T09:18:28Z	implement	native-button/native-link VRT pages, side by side with Stencil	misread pause; fixtures ready, docker VRT not run here	packages/components-js/src/pages/native-button.html + elements.css	INCONCLUSIVE on pixels

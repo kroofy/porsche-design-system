@@ -1,6 +1,8 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { getComponentCss as getShadowButtonCss } from '../components/button/button-styles';
 import { getComponentCss as getShadowLinkCss } from '../components/link/link-styles';
-import { getNativeButtonCss, getNativeLinkCss } from './link-button-css';
+import { getElementsCss, getNativeButtonCss, getNativeLinkCss } from './link-button-css';
 
 const shadowRootBackground = (css: string): string => {
   const match = css.match(/\.root \{[\s\S]*?background-color: ([^;]+);/);
@@ -65,5 +67,12 @@ describe('getNativeLinkCss()', () => {
 
   it('matches the rewritten snapshot', () => {
     expect(css).toMatchSnapshot();
+  });
+});
+
+describe('elements.css', () => {
+  it('stays generated from getNativeButtonCss and getNativeLinkCss', () => {
+    const committed = readFileSync(resolve(__dirname, 'elements.css'), 'utf8');
+    expect(committed).toBe(getElementsCss());
   });
 });

@@ -8,7 +8,7 @@ import { convertToReactRouterVRTPage } from './convertToReactRouterVRTPage';
 import { convertToReactVRTPage, type ReactCharacteristics } from './convertToReactVRTPage';
 
 /** array of html file names that don't get converted */
-const PAGES_TO_SKIP: string[] = [];
+const PAGES_TO_SKIP: string[] = ['native-button', 'native-link'];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];
 

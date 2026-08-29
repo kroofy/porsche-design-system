@@ -4,6 +4,7 @@
 @import "@porsche-design-system/components-js";
 @import "@porsche-design-system/components-js/tailwindcss";
 @import "@porsche-design-system/shared/css/styles.css";
+@import "../components/src/elements/elements.css";
 
 :not(:defined) {
   visibility: hidden;

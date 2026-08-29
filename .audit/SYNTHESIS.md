@@ -20,6 +20,6 @@ Stencil hosts stay frozen until a major removal.
 
 ## Next
 
-VRT hand-authored markup against current `p-button` / `p-link` pixels.
-Icon / spinner children. Vue. Angular `button[pButton]` / `a[pLink]`.
-Then `link-pure` / `button-pure`.
+Run `./docker.sh npm run test:vrt:components-js` on `native-button` / `native-link`.
+Those pages put Stencil and native side by side. No icon/spinner yet.
+Then icon children, Vue, Angular `button[pButton]`.
