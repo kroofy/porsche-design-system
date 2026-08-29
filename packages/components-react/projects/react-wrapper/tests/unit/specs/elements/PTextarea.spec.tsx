@@ -9,7 +9,7 @@ describe('PTextarea', () => {
     expect(container.childElementCount).toBe(1);
     expect(container.firstElementChild?.tagName).toBe('TEXTAREA');
     expect(container.querySelector('p-textarea')).toBeNull();
-    expect(container.innerHTML).toBe('<textarea id="bio" dir="auto" class="p-textarea"></textarea>');
+    expect(container.innerHTML).toBe('<textarea id="bio" dir="auto" rows="7" class="p-textarea"></textarea>');
   });
 
   it('encodes non-default appearance on the textarea', () => {

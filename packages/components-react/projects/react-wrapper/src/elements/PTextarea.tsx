@@ -5,7 +5,7 @@ export type PTextareaProps = InputAppearanceProps &
   Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, keyof InputAppearanceProps>;
 
 export const PTextarea = forwardRef<HTMLTextAreaElement, PTextareaProps>(function PTextarea(
-  { compact, state, loading = false, disabled = false, className, ...rest },
+  { compact, state, loading = false, disabled = false, className, rows = 7, ...rest },
   ref
 ) {
   const appearance = textareaAppearance({ compact, state, loading });
@@ -18,6 +18,7 @@ export const PTextarea = forwardRef<HTMLTextAreaElement, PTextareaProps>(functio
       disabled={Boolean(disabled || loading)}
       aria-busy={loading || undefined}
       dir="auto"
+      rows={rows}
       className={[appearance.className, className].filter(Boolean).join(' ')}
     />
   );

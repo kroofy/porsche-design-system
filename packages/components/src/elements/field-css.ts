@@ -64,15 +64,15 @@ const stateColors = (state: FieldState) => getThemedFormStateColors(state);
 
 const hiddenDescriptionAfterLabel = (): JssStyle => {
   const styles: JssStyle = {
-    [`${LABEL_ROOT_CLASS}[data-p-hide-label="true"] + .${DESCRIPTION_ROOT_CLASS}`]: getHiddenTextJssStyle(true),
-    [`${LABEL_ROOT_CLASS}[data-p-hide-label="false"] + .${DESCRIPTION_ROOT_CLASS}`]: getHiddenTextJssStyle(false),
+    [`.${LABEL_ROOT_CLASS}[data-p-hide-label="true"] + .${DESCRIPTION_ROOT_CLASS}`]: getHiddenTextJssStyle(true),
+    [`.${LABEL_ROOT_CLASS}[data-p-hide-label="false"] + .${DESCRIPTION_ROOT_CLASS}`]: getHiddenTextJssStyle(false),
   };
   for (const breakpoint of RESPONSIVE_BREAKPOINTS) {
     Object.assign(styles, {
       [mediaQueryMin(breakpoint)]: {
-        [`${LABEL_ROOT_CLASS}[data-p-hide-label-${breakpoint}="true"] + .${DESCRIPTION_ROOT_CLASS}`]:
+        [`.${LABEL_ROOT_CLASS}[data-p-hide-label-${breakpoint}="true"] + .${DESCRIPTION_ROOT_CLASS}`]:
           getHiddenTextJssStyle(true),
-        [`${LABEL_ROOT_CLASS}[data-p-hide-label-${breakpoint}="false"] + .${DESCRIPTION_ROOT_CLASS}`]:
+        [`.${LABEL_ROOT_CLASS}[data-p-hide-label-${breakpoint}="false"] + .${DESCRIPTION_ROOT_CLASS}`]:
           getHiddenTextJssStyle(false),
       },
     });
@@ -180,6 +180,15 @@ const stateOverrides = (): JssStyle => {
 };
 
 const getNativeFieldStyles = (): Styles => ({
+  '@global': {
+    [`.${FIELD_ROOT_CLASS}:has(:disabled) .${LABEL_ROOT_CLASS}`]: {
+      cursor: 'not-allowed',
+      pointerEvents: 'none',
+      ...getDisabledBaseStyles(),
+    },
+    [`.${FIELD_ROOT_CLASS}:has(:disabled) .${DESCRIPTION_ROOT_CLASS}`]: getDisabledBaseStyles(),
+    ...hiddenDescriptionAfterLabel(),
+  },
   [FIELD_ROOT_CLASS]: {
     display: 'grid',
     gap: ref(spacingStaticXs),
@@ -199,13 +208,7 @@ const getNativeFieldStyles = (): Styles => ({
     [`& .${LABEL_REQUIRED_CLASS}`]: {
       userSelect: 'none',
     },
-    '&[for]:has(~ input:disabled), &[for]:has(~ textarea:disabled)': {
-      cursor: 'not-allowed',
-      pointerEvents: 'none',
-      ...getDisabledBaseStyles(),
-    },
   },
-  ...hiddenDescriptionAfterLabel(),
   [DESCRIPTION_ROOT_CLASS]: {
     display: 'block',
     font: `${ref(fontWeightNormal)} ${ref(typescaleXs)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
@@ -216,20 +219,19 @@ const getNativeFieldStyles = (): Styles => ({
   [MESSAGE_ROOT_CLASS]: {
     display: 'flex',
     gap: ref(spacingStaticXs),
+    alignItems: 'flex-start',
     font: `${ref(fontWeightNormal)} ${ref(typescaleSm)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
     '&:empty': {
       opacity: 0,
       position: 'absolute',
     },
-  },
-  [`${INPUT_ROOT_CLASS}[data-p-state="error"] ~ .${MESSAGE_ROOT_CLASS}, ${TEXTAREA_ROOT_CLASS}[data-p-state="error"] ~ .${MESSAGE_ROOT_CLASS}`]:
-    {
+    '&[data-p-state="error"]': {
       color: stateColors('error').formStateColor,
     },
-  [`${INPUT_ROOT_CLASS}[data-p-state="success"] ~ .${MESSAGE_ROOT_CLASS}, ${TEXTAREA_ROOT_CLASS}[data-p-state="success"] ~ .${MESSAGE_ROOT_CLASS}`]:
-    {
+    '&[data-p-state="success"]': {
       color: stateColors('success').formStateColor,
     },
+  },
   [INPUT_ROOT_CLASS]: {
     ...controlChrome(SCALING_VAR, false),
     ...stateOverrides(),

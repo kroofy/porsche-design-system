@@ -10,6 +10,7 @@ export const PTextarea = defineComponent({
     state: { type: String as PropType<FieldState>, default: undefined },
     loading: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    rows: { type: Number, default: 7 },
   },
   setup(props, { attrs }) {
     return () => {
@@ -23,6 +24,7 @@ export const PTextarea = defineComponent({
       return h('textarea', {
         ...rest,
         ...appearance.attrs,
+        rows: props.rows,
         disabled: Boolean(props.disabled || props.loading),
         'aria-busy': props.loading || undefined,
         dir: 'auto',

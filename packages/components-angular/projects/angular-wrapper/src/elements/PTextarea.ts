@@ -12,6 +12,7 @@ import { syncAppearance } from './apply-appearance';
     '[disabled]': 'disabled || loading',
     '[attr.aria-busy]': 'loading ? "true" : null',
     '[attr.dir]': '"auto"',
+    '[attr.rows]': 'rows',
   },
 })
 export class PTextarea implements OnInit, OnChanges {
@@ -19,6 +20,7 @@ export class PTextarea implements OnInit, OnChanges {
   @Input() state?: FieldState;
   @Input({ transform: booleanAttribute }) loading = false;
   @Input({ transform: booleanAttribute }) disabled = false;
+  @Input() rows = 7;
 
   private readonly el = inject(ElementRef).nativeElement as HTMLElement;
   private readonly applied = new Set<string>();
