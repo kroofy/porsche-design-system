@@ -28,3 +28,5 @@ ts	phase	decision	why	evidence	result
 2026-08-29T14:20:00Z	implement	Chrome+Safari VRT native-input-text/native-textarea light and dark	8/8 pass; compact required error/success match	native-input-text-* native-textarea-*	VERIFIED
 2026-08-29T14:50:00Z	implement	native PCheckbox/PRadio/PSelect are bare input/select	label sibling with for; p-field/p-radios CSS-only	field-css.ts PCheckbox PRadio PSelect	VERIFIED unit
 2026-08-29T14:50:00Z	implement	Chrome+Safari VRT native-checkbox/radio/select light and dark	12/12 pass; check/dot/chevron match Stencil	native-checkbox-* native-radio-* native-select-*	VERIFIED
+2026-08-29T15:00:00Z	implement	typed native inputs reuse .p-input with real type	password toggle search clear steppers calendar stay out of the wrapper	PInputTypes.tsx field-css.ts NATIVE_INPUT_TYPES	VERIFIED unit
+2026-08-29T15:01:00Z	implement	Chrome+Safari VRT native-input-types light and dark	8/8 pass; date/time values visible; stencil extra chrome stays stencil-only	native-input-types-1000-{light,dark}-{chrome,safari}.png	VERIFIED

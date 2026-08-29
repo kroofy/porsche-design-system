@@ -40,6 +40,13 @@ Stencil hosts stay frozen until a major removal.
 - Loading does not fade the label (`:disabled:not([data-p-loading])`). Spinner is a sibling `span.p-checkbox__spinner` SVG.
 - Chrome and Safari VRT: native checkbox/radio/select sit next to Stencil. Light, dark, compact, required, error/success match.
 
+## Typed inputs
+
+- `PInputEmail` / `Tel` / `Url` / `Search` / `Password` / `Number` / `Date` / `Time` / `Month` / `Week` are the same bare `<input class="p-input">` with a real `type`.
+- Extra Stencil chrome stays out: no password toggle, search clear, number steppers, or calendar button on the wrapper. Native UA picker still works.
+- Search cancel, number spinners, and webkit calendar indicators are stripped so the field matches `.p-input`. Datetime-edit inherits color so date/time values stay visible under `all: unset`.
+- Chrome and Safari VRT: native typed inputs sit next to Stencil. Light, dark, compact, disabled, error match. Stencil date/time/month/week keep their extra buttons; native does not.
+
 ## Out of this family
 
 Public export swap. Generated ID helper. Mitosis.
