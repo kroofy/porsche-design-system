@@ -38,9 +38,11 @@ describe('PLink', () => {
     expect(link.getAttribute('data-p-variant')).toBe('secondary');
     expect(link.getAttribute('data-p-icon')).toBe('arrow-right');
     expect(link.getAttribute('data-p-compact')).toBe('true');
-    const icon = link.querySelector('p-icon.p-link__icon');
-    expect(icon?.getAttribute('name')).toBe('arrow-right');
+    const icon = link.querySelector('img.p-icon.p-link__icon');
+    expect(icon?.getAttribute('data-p-size')).toBe('inherit');
+    expect(icon?.getAttribute('data-p-color')).toBe('inherit');
     expect(icon?.parentElement).toBe(link);
+    expect(container.querySelector('p-icon')).toBeNull();
     expect(container.querySelector('p-link')).toBeNull();
   });
 

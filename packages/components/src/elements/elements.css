@@ -880,3 +880,1390 @@
 
 }
 }
+@layer pds.elements {
+.p-icon {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  object-position: -9999px -9999px;
+  pointer-events: none;
+  width: var(--p-icon-size,var(--p-leading-normal));
+  height: var(--p-icon-size,var(--p-leading-normal));
+  font-family: var(--p-font-porsche-next);
+  font-size: var(--p-typescale-sm);
+  background: var(--p-icon-color,var(--p-color-primary));
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg");
+  -webkit-mask: var(--_p-icon-mask) center / contain no-repeat;
+  mask: var(--_p-icon-mask) center / contain no-repeat;
+}
+.p-icon:dir(rtl):not([data-p-name]) {
+  transform: scaleX(-1);
+}
+.p-icon[hidden] {
+  display: none !important;
+}
+.p-icon[data-p-color="contrast-higher"] {
+  background: var(--p-icon-color,var(--p-color-contrast-higher));
+}
+.p-icon[data-p-color="contrast-high"] {
+  background: var(--p-icon-color,var(--p-color-contrast-high));
+}
+.p-icon[data-p-color="contrast-medium"] {
+  background: var(--p-icon-color,var(--p-color-contrast-medium));
+}
+.p-icon[data-p-color="contrast-low"] {
+  background: var(--p-icon-color,var(--p-color-contrast-low));
+}
+.p-icon[data-p-color="contrast-lower"] {
+  background: var(--p-icon-color,var(--p-color-contrast-lower));
+}
+.p-icon[data-p-color="success"] {
+  background: var(--p-icon-color,var(--p-color-success));
+}
+.p-icon[data-p-color="warning"] {
+  background: var(--p-icon-color,var(--p-color-warning));
+}
+.p-icon[data-p-color="error"] {
+  background: var(--p-icon-color,var(--p-color-error));
+}
+.p-icon[data-p-color="info"] {
+  background: var(--p-icon-color,var(--p-color-info));
+}
+.p-icon[data-p-color="inherit"] {
+  background: var(--p-icon-color,currentcolor);
+}
+.p-icon[data-p-size="xx-small"] {
+  font-size: var(--p-typescale-2xs);
+}
+.p-icon[data-p-size="x-small"] {
+  font-size: var(--p-typescale-xs);
+}
+.p-icon[data-p-size="small"] {
+  font-size: var(--p-typescale-sm);
+}
+.p-icon[data-p-size="medium"] {
+  font-size: var(--p-typescale-md);
+}
+.p-icon[data-p-size="large"] {
+  font-size: var(--p-typescale-lg);
+}
+.p-icon[data-p-size="x-large"] {
+  font-size: var(--p-typescale-xl);
+}
+.p-icon[data-p-size="xx-large"] {
+  font-size: var(--p-typescale-2xl);
+}
+.p-icon[data-p-size="2xs"] {
+  font-size: var(--p-typescale-2xs);
+}
+.p-icon[data-p-size="xs"] {
+  font-size: var(--p-typescale-xs);
+}
+.p-icon[data-p-size="md"] {
+  font-size: var(--p-typescale-md);
+}
+.p-icon[data-p-size="lg"] {
+  font-size: var(--p-typescale-lg);
+}
+.p-icon[data-p-size="xl"] {
+  font-size: var(--p-typescale-xl);
+}
+.p-icon[data-p-size="2xl"] {
+  font-size: var(--p-typescale-2xl);
+}
+.p-icon[data-p-size="3xl"] {
+  font-size: var(--p-typescale-3xl);
+}
+.p-icon[data-p-size="4xl"] {
+  font-size: var(--p-typescale-4xl);
+}
+.p-icon[data-p-size="5xl"] {
+  font-size: var(--p-typescale-5xl);
+}
+.p-icon[data-p-size="inherit"] {
+  font-size: inherit;
+}
+.p-icon[data-p-name="360"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/360.0600731.svg");
+}
+.p-icon[data-p-name="4-wheel-drive"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/4-wheel-drive.9c218bf.svg");
+}
+.p-icon[data-p-name="accessibility"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/accessibility.087d747.svg");
+}
+.p-icon[data-p-name="active-cabin-ventilation"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/active-cabin-ventilation.b081399.svg");
+}
+.p-icon[data-p-name="add"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/add.fac861a.svg");
+}
+.p-icon[data-p-name="adjust"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/adjust.ca46bd4.svg");
+}
+.p-icon[data-p-name="aggregation"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/aggregation.96f06e5.svg");
+}
+.p-icon[data-p-name="ai-3d-object"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-3d-object.7a85dd7.svg");
+}
+.p-icon[data-p-name="ai-chat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-chat.54d305d.svg");
+}
+.p-icon[data-p-name="ai-code"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-code.9afafb7.svg");
+}
+.p-icon[data-p-name="ai-edit"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-edit.75a4765.svg");
+}
+.p-icon[data-p-name="ai-image"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-image.c786d48.svg");
+}
+.p-icon[data-p-name="ai-scale"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-scale.846fde0.svg");
+}
+.p-icon[data-p-name="ai-sound"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-sound.727ea7a.svg");
+}
+.p-icon[data-p-name="ai-spark"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-spark.a134e18.svg");
+}
+.p-icon[data-p-name="ai-spark-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-spark-filled.2d5d971.svg");
+}
+.p-icon[data-p-name="ai-text"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-text.fc84e09.svg");
+}
+.p-icon[data-p-name="ai-video"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ai-video.759a7f2.svg");
+}
+.p-icon[data-p-name="arrow-compact-down"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-compact-down.9b37afe.svg");
+}
+.p-icon[data-p-name="arrow-compact-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-compact-left.7169de6.svg");
+}
+.p-icon[data-p-name="arrow-compact-right"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-compact-right.cc2d1d2.svg");
+}
+.p-icon[data-p-name="arrow-compact-up"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-compact-up.36724bb.svg");
+}
+.p-icon[data-p-name="arrow-double-down"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-double-down.61ae4d7.svg");
+}
+.p-icon[data-p-name="arrow-double-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-double-left.1b576eb.svg");
+}
+.p-icon[data-p-name="arrow-double-right"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-double-right.dcfabff.svg");
+}
+.p-icon[data-p-name="arrow-double-up"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-double-up.fb73db5.svg");
+}
+.p-icon[data-p-name="arrow-down"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-down.49c6983.svg");
+}
+.p-icon[data-p-name="arrow-down-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-down-left.83597e3.svg");
+}
+.p-icon[data-p-name="arrow-down-right"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-down-right.f6ec21e.svg");
+}
+.p-icon[data-p-name="arrow-first"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-first.beb7d9f.svg");
+}
+.p-icon[data-p-name="arrow-head-down"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-head-down.1e3cbb8.svg");
+}
+.p-icon[data-p-name="arrow-head-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-head-left.cf1395d.svg");
+}
+.p-icon[data-p-name="arrow-head-right"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-head-right.304b330.svg");
+}
+.p-icon[data-p-name="arrow-head-up"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-head-up.6d3fd23.svg");
+}
+.p-icon[data-p-name="arrow-last"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-last.cc24903.svg");
+}
+.p-icon[data-p-name="arrow-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-left.e03c25b.svg");
+}
+.p-icon[data-p-name="arrow-up"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-up.9d294d1.svg");
+}
+.p-icon[data-p-name="arrow-up-left"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-up-left.9e7da2c.svg");
+}
+.p-icon[data-p-name="arrow-up-right"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-up-right.776feb2.svg");
+}
+.p-icon[data-p-name="arrows"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/arrows.de040f9.svg");
+}
+.p-icon[data-p-name="attachment"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/attachment.8f3dd0a.svg");
+}
+.p-icon[data-p-name="augmented-reality"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/augmented-reality.8b6ce95.svg");
+}
+.p-icon[data-p-name="battery-empty"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-empty.38b4b15.svg");
+}
+.p-icon[data-p-name="battery-empty-co2"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-empty-co2.c4cabef.svg");
+}
+.p-icon[data-p-name="battery-empty-fuel"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-empty-fuel.e833e13.svg");
+}
+.p-icon[data-p-name="battery-full"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-full.03de75d.svg");
+}
+.p-icon[data-p-name="battery-half"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-half.11f1ef8.svg");
+}
+.p-icon[data-p-name="battery-one-quarter"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-one-quarter.91235a0.svg");
+}
+.p-icon[data-p-name="battery-three-quarters"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/battery-three-quarters.dcf768f.svg");
+}
+.p-icon[data-p-name="bell"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/bell.1eab3a2.svg");
+}
+.p-icon[data-p-name="bookmark"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/bookmark.9d6982f.svg");
+}
+.p-icon[data-p-name="bookmark-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/bookmark-filled.327ac78.svg");
+}
+.p-icon[data-p-name="brain"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/brain.838387a.svg");
+}
+.p-icon[data-p-name="broadcast"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/broadcast.0ad5a15.svg");
+}
+.p-icon[data-p-name="cabriolet"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/cabriolet.ab33aab.svg");
+}
+.p-icon[data-p-name="calculator"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/calculator.a323a2d.svg");
+}
+.p-icon[data-p-name="calendar"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/calendar.70a6a12.svg");
+}
+.p-icon[data-p-name="camera"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/camera.e5e95b9.svg");
+}
+.p-icon[data-p-name="car"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg");
+}
+.p-icon[data-p-name="car-battery"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/car-battery.895510f.svg");
+}
+.p-icon[data-p-name="card"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/card.f284448.svg");
+}
+.p-icon[data-p-name="charging-active"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/charging-active.c3aa214.svg");
+}
+.p-icon[data-p-name="charging-network"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/charging-network.a40072f.svg");
+}
+.p-icon[data-p-name="charging-state"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/charging-state.f56d8df.svg");
+}
+.p-icon[data-p-name="charging-station"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/charging-station.5ff1ed4.svg");
+}
+.p-icon[data-p-name="chart"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/chart.c8c32d2.svg");
+}
+.p-icon[data-p-name="chat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/chat.7945544.svg");
+}
+.p-icon[data-p-name="check"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/check.8ba06be.svg");
+}
+.p-icon[data-p-name="city"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/city.5ae672c.svg");
+}
+.p-icon[data-p-name="climate"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/climate.a9d5818.svg");
+}
+.p-icon[data-p-name="climate-control"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/climate-control.ce31939.svg");
+}
+.p-icon[data-p-name="clock"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/clock.c88a1ef.svg");
+}
+.p-icon[data-p-name="close"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg");
+}
+.p-icon[data-p-name="closed-caption"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/closed-caption.ceaf6cb.svg");
+}
+.p-icon[data-p-name="cloud"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/cloud.2c3959e.svg");
+}
+.p-icon[data-p-name="co2-class"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/co2-class.fc49211.svg");
+}
+.p-icon[data-p-name="co2-emission"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/co2-emission.c42e7f8.svg");
+}
+.p-icon[data-p-name="color-picker"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/color-picker.598f402.svg");
+}
+.p-icon[data-p-name="compare"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/compare.6578829.svg");
+}
+.p-icon[data-p-name="compass"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/compass.f90f319.svg");
+}
+.p-icon[data-p-name="configurate"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/configurate.5311c8d.svg");
+}
+.p-icon[data-p-name="connect-services"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/connect-services.52dd9a4.svg");
+}
+.p-icon[data-p-name="copy"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/copy.0fcd086.svg");
+}
+.p-icon[data-p-name="country-road"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/country-road.d2bbc5a.svg");
+}
+.p-icon[data-p-name="coupe"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/coupe.7549e3e.svg");
+}
+.p-icon[data-p-name="cubic-capacity"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/cubic-capacity.7b0b8c8.svg");
+}
+.p-icon[data-p-name="customer-support"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/customer-support.6d630e3.svg");
+}
+.p-icon[data-p-name="cut"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/cut.851e5c2.svg");
+}
+.p-icon[data-p-name="delete"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/delete.5a8c8ca.svg");
+}
+.p-icon[data-p-name="disable"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/disable.5918c32.svg");
+}
+.p-icon[data-p-name="dislike"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/dislike.51614b0.svg");
+}
+.p-icon[data-p-name="dislike-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/dislike-filled.e1a8c4d.svg");
+}
+.p-icon[data-p-name="document"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/document.df36b6c.svg");
+}
+.p-icon[data-p-name="door"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/door.61c32d6.svg");
+}
+.p-icon[data-p-name="download"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/download.c06f455.svg");
+}
+.p-icon[data-p-name="drag"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/drag.9e893fd.svg");
+}
+.p-icon[data-p-name="duration"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/duration.94e5252.svg");
+}
+.p-icon[data-p-name="ear"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/ear.27a802f.svg");
+}
+.p-icon[data-p-name="edit"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/edit.330f321.svg");
+}
+.p-icon[data-p-name="email"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/email.f2530de.svg");
+}
+.p-icon[data-p-name="error"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/error.b8ae9ad.svg");
+}
+.p-icon[data-p-name="error-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/error-filled.a4d06ed.svg");
+}
+.p-icon[data-p-name="exclamation"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation.46cd17b.svg");
+}
+.p-icon[data-p-name="exclamation-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation-filled.9d09ed1.svg");
+}
+.p-icon[data-p-name="external"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/external.fb677b9.svg");
+}
+.p-icon[data-p-name="fast-backward"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/fast-backward.aaca8b9.svg");
+}
+.p-icon[data-p-name="fast-forward"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/fast-forward.4bc43ff.svg");
+}
+.p-icon[data-p-name="file-csv"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/file-csv.4140e24.svg");
+}
+.p-icon[data-p-name="file-excel"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/file-excel.56d577d.svg");
+}
+.p-icon[data-p-name="filter"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/filter.610f808.svg");
+}
+.p-icon[data-p-name="fingerprint"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/fingerprint.6a85170.svg");
+}
+.p-icon[data-p-name="flag"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/flag.7af5baf.svg");
+}
+.p-icon[data-p-name="flash"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/flash.88a2ada.svg");
+}
+.p-icon[data-p-name="fuel-station"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/fuel-station.f7bdf51.svg");
+}
+.p-icon[data-p-name="garage"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/garage.5014e8d.svg");
+}
+.p-icon[data-p-name="genuine-parts"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/genuine-parts.6bfddde.svg");
+}
+.p-icon[data-p-name="geo-localization"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/geo-localization.516d603.svg");
+}
+.p-icon[data-p-name="gift"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/gift.7beb1eb.svg");
+}
+.p-icon[data-p-name="globe"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/globe.56cc8fc.svg");
+}
+.p-icon[data-p-name="grid"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/grid.06bc31a.svg");
+}
+.p-icon[data-p-name="grip"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/grip.5ec4289.svg");
+}
+.p-icon[data-p-name="group"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/group.051436a.svg");
+}
+.p-icon[data-p-name="hand"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/hand.4e85714.svg");
+}
+.p-icon[data-p-name="heart"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/heart.9a5962e.svg");
+}
+.p-icon[data-p-name="heart-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/heart-filled.dd7decf.svg");
+}
+.p-icon[data-p-name="highway"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/highway.bf0eb24.svg");
+}
+.p-icon[data-p-name="highway-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/highway-filled.38e93fb.svg");
+}
+.p-icon[data-p-name="history"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/history.f09645c.svg");
+}
+.p-icon[data-p-name="home"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/home.7b1d1da.svg");
+}
+.p-icon[data-p-name="horn"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/horn.bf47b1a.svg");
+}
+.p-icon[data-p-name="image"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/image.b2614f0.svg");
+}
+.p-icon[data-p-name="increase"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/increase.700012f.svg");
+}
+.p-icon[data-p-name="information"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/information.da41162.svg");
+}
+.p-icon[data-p-name="information-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/information-filled.8f08911.svg");
+}
+.p-icon[data-p-name="key"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/key.ee5d89b.svg");
+}
+.p-icon[data-p-name="laptop"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/laptop.c422480.svg");
+}
+.p-icon[data-p-name="leaf"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/leaf.92ca6a6.svg");
+}
+.p-icon[data-p-name="leather"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/leather.1d2769a.svg");
+}
+.p-icon[data-p-name="light"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/light.f0eb8e4.svg");
+}
+.p-icon[data-p-name="like"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/like.a7468cd.svg");
+}
+.p-icon[data-p-name="like-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/like-filled.a0126c1.svg");
+}
+.p-icon[data-p-name="limousine"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/limousine.87799d5.svg");
+}
+.p-icon[data-p-name="linked"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/linked.8f30cb5.svg");
+}
+.p-icon[data-p-name="list"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/list.411dd00.svg");
+}
+.p-icon[data-p-name="locate"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/locate.6554f9e.svg");
+}
+.p-icon[data-p-name="lock"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/lock.243281a.svg");
+}
+.p-icon[data-p-name="lock-open"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/lock-open.95803d2.svg");
+}
+.p-icon[data-p-name="logo-apple-carplay"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-apple-carplay.c872af9.svg");
+}
+.p-icon[data-p-name="logo-apple-music"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-apple-music.1395f37.svg");
+}
+.p-icon[data-p-name="logo-apple-podcast"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-apple-podcast.09be038.svg");
+}
+.p-icon[data-p-name="logo-baidu"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-baidu.9e89c7d.svg");
+}
+.p-icon[data-p-name="logo-delicious"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-delicious.e83f574.svg");
+}
+.p-icon[data-p-name="logo-digg"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-digg.f096670.svg");
+}
+.p-icon[data-p-name="logo-facebook"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-facebook.74abe88.svg");
+}
+.p-icon[data-p-name="logo-foursquare"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-foursquare.d638fd8.svg");
+}
+.p-icon[data-p-name="logo-gmail"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-gmail.5f96ee2.svg");
+}
+.p-icon[data-p-name="logo-google"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-google.1dee423.svg");
+}
+.p-icon[data-p-name="logo-hatena"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-hatena.da509f0.svg");
+}
+.p-icon[data-p-name="logo-instagram"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-instagram.b916daa.svg");
+}
+.p-icon[data-p-name="logo-kaixin"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-kaixin.b1211a2.svg");
+}
+.p-icon[data-p-name="logo-kakaotalk"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-kakaotalk.38f5396.svg");
+}
+.p-icon[data-p-name="logo-kununu"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-kununu.79344ff.svg");
+}
+.p-icon[data-p-name="logo-linkedin"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-linkedin.b72559f.svg");
+}
+.p-icon[data-p-name="logo-naver"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-naver.75588fe.svg");
+}
+.p-icon[data-p-name="logo-pinterest"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-pinterest.e8f6963.svg");
+}
+.p-icon[data-p-name="logo-qq"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-qq.6d9b6d9.svg");
+}
+.p-icon[data-p-name="logo-qq-share"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-qq-share.ee864d9.svg");
+}
+.p-icon[data-p-name="logo-reddit"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-reddit.da13e44.svg");
+}
+.p-icon[data-p-name="logo-skyrock"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-skyrock.eb2f28d.svg");
+}
+.p-icon[data-p-name="logo-snapchat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-snapchat.ef706a2.svg");
+}
+.p-icon[data-p-name="logo-sohu"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-sohu.a30c66b.svg");
+}
+.p-icon[data-p-name="logo-spotify"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-spotify.2ec4b2d.svg");
+}
+.p-icon[data-p-name="logo-tecent"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-tecent.d119e85.svg");
+}
+.p-icon[data-p-name="logo-telegram"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-telegram.d151481.svg");
+}
+.p-icon[data-p-name="logo-tiktok"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-tiktok.2f3a465.svg");
+}
+.p-icon[data-p-name="logo-tumblr"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-tumblr.c689f44.svg");
+}
+.p-icon[data-p-name="logo-twitter"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-twitter.5f2490a.svg");
+}
+.p-icon[data-p-name="logo-viber"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-viber.198bd43.svg");
+}
+.p-icon[data-p-name="logo-vk"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-vk.37b94e0.svg");
+}
+.p-icon[data-p-name="logo-wechat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-wechat.83b2b98.svg");
+}
+.p-icon[data-p-name="logo-weibo"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-weibo.c8dacee.svg");
+}
+.p-icon[data-p-name="logo-whatsapp"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-whatsapp.add9a6d.svg");
+}
+.p-icon[data-p-name="logo-x"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-x.5f2490a.svg");
+}
+.p-icon[data-p-name="logo-xing"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-xing.3a8df0f.svg");
+}
+.p-icon[data-p-name="logo-yahoo"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-yahoo.8cbd0ba.svg");
+}
+.p-icon[data-p-name="logo-youku"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-youku.fe988d0.svg");
+}
+.p-icon[data-p-name="logo-youtube"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logo-youtube.da3798f.svg");
+}
+.p-icon[data-p-name="logout"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/logout.7ec7451.svg");
+}
+.p-icon[data-p-name="map"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/map.c16f618.svg");
+}
+.p-icon[data-p-name="menu-dots-horizontal"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/menu-dots-horizontal.788f7fa.svg");
+}
+.p-icon[data-p-name="menu-dots-vertical"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/menu-dots-vertical.4970a65.svg");
+}
+.p-icon[data-p-name="menu-lines"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/menu-lines.e332216.svg");
+}
+.p-icon[data-p-name="microphone"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/microphone.8ecdce6.svg");
+}
+.p-icon[data-p-name="minus"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/minus.f6d964c.svg");
+}
+.p-icon[data-p-name="mobile"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/mobile.7f35446.svg");
+}
+.p-icon[data-p-name="moon"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/moon.5b73246.svg");
+}
+.p-icon[data-p-name="new-chat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/new-chat.6ba4fae.svg");
+}
+.p-icon[data-p-name="news"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/news.5b604b0.svg");
+}
+.p-icon[data-p-name="north-arrow"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/north-arrow.2da1dbe.svg");
+}
+.p-icon[data-p-name="oil-can"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/oil-can.cb58fc7.svg");
+}
+.p-icon[data-p-name="online-search"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/online-search.90e9ab1.svg");
+}
+.p-icon[data-p-name="parking-brake"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/parking-brake.45704bd.svg");
+}
+.p-icon[data-p-name="parking-light"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/parking-light.c49a231.svg");
+}
+.p-icon[data-p-name="paste"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/paste.dd60261.svg");
+}
+.p-icon[data-p-name="pause"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/pause.65f20ae.svg");
+}
+.p-icon[data-p-name="phone"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/phone.f4f774b.svg");
+}
+.p-icon[data-p-name="pin"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/pin.3417cec.svg");
+}
+.p-icon[data-p-name="pin-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/pin-filled.7b8e9ba.svg");
+}
+.p-icon[data-p-name="pivot"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/pivot.3ae18b8.svg");
+}
+.p-icon[data-p-name="play"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/play.03ae554.svg");
+}
+.p-icon[data-p-name="play-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/play-filled.0fb6689.svg");
+}
+.p-icon[data-p-name="plug"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/plug.c159935.svg");
+}
+.p-icon[data-p-name="plus"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/plus.319993e.svg");
+}
+.p-icon[data-p-name="preheating"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/preheating.e2a796f.svg");
+}
+.p-icon[data-p-name="price-tag"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/price-tag.f0d3917.svg");
+}
+.p-icon[data-p-name="printer"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/printer.f59b0ee.svg");
+}
+.p-icon[data-p-name="purchase"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/purchase.9cd6d65.svg");
+}
+.p-icon[data-p-name="push-pin"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/push-pin.89e4ead.svg");
+}
+.p-icon[data-p-name="push-pin-off"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/push-pin-off.ba99213.svg");
+}
+.p-icon[data-p-name="qr"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/qr.87a49a3.svg");
+}
+.p-icon[data-p-name="qr-off"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/qr-off.64e21b9.svg");
+}
+.p-icon[data-p-name="question"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/question.3402a63.svg");
+}
+.p-icon[data-p-name="question-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/question-filled.cf25dd5.svg");
+}
+.p-icon[data-p-name="racing-flag"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/racing-flag.b7ddcc8.svg");
+}
+.p-icon[data-p-name="radar"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/radar.de5a6c1.svg");
+}
+.p-icon[data-p-name="radio"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/radio.2b48e53.svg");
+}
+.p-icon[data-p-name="refresh"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/refresh.41fd868.svg");
+}
+.p-icon[data-p-name="replay"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/replay.55a99f2.svg");
+}
+.p-icon[data-p-name="reset"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/reset.e53d52f.svg");
+}
+.p-icon[data-p-name="return"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/return.46d30de.svg");
+}
+.p-icon[data-p-name="road"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/road.bd3d4bc.svg");
+}
+.p-icon[data-p-name="roof-closed"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/roof-closed.018d021.svg");
+}
+.p-icon[data-p-name="roof-open"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/roof-open.51c8ee6.svg");
+}
+.p-icon[data-p-name="route"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/route.f4fbbb4.svg");
+}
+.p-icon[data-p-name="rss"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/rss.0e77baf.svg");
+}
+.p-icon[data-p-name="save"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/save.6171ff5.svg");
+}
+.p-icon[data-p-name="screen"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/screen.420be15.svg");
+}
+.p-icon[data-p-name="search"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/search.3f0f1ce.svg");
+}
+.p-icon[data-p-name="seat"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/seat.a3ebc40.svg");
+}
+.p-icon[data-p-name="send"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/send.b32099c.svg");
+}
+.p-icon[data-p-name="service-technician"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/service-technician.8749028.svg");
+}
+.p-icon[data-p-name="share"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/share.a0b30da.svg");
+}
+.p-icon[data-p-name="shopping-bag"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/shopping-bag.3f91a9b.svg");
+}
+.p-icon[data-p-name="shopping-bag-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/shopping-bag-filled.abf6c98.svg");
+}
+.p-icon[data-p-name="shopping-cart"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/shopping-cart.370e224.svg");
+}
+.p-icon[data-p-name="shopping-cart-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/shopping-cart-filled.e0c3a65.svg");
+}
+.p-icon[data-p-name="shopping-cart-off"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/shopping-cart-off.d0bc0ea.svg");
+}
+.p-icon[data-p-name="sidebar"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/sidebar.8e43896.svg");
+}
+.p-icon[data-p-name="sidelights"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/sidelights.65c9dd9.svg");
+}
+.p-icon[data-p-name="skip-backward"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/skip-backward.05fe8cd.svg");
+}
+.p-icon[data-p-name="skip-forward"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/skip-forward.45a7bc0.svg");
+}
+.p-icon[data-p-name="snowflake"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/snowflake.83907b3.svg");
+}
+.p-icon[data-p-name="sort"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/sort.92b50bd.svg");
+}
+.p-icon[data-p-name="stack"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/stack.804af93.svg");
+}
+.p-icon[data-p-name="star"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/star.4c5bb15.svg");
+}
+.p-icon[data-p-name="star-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/star-filled.84ef2f6.svg");
+}
+.p-icon[data-p-name="steering-wheel"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/steering-wheel.4dea19e.svg");
+}
+.p-icon[data-p-name="stop"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/stop.173b6ac.svg");
+}
+.p-icon[data-p-name="stopwatch"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/stopwatch.0e048a4.svg");
+}
+.p-icon[data-p-name="subtract"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/subtract.57eed1d.svg");
+}
+.p-icon[data-p-name="success"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/success.b16d4c1.svg");
+}
+.p-icon[data-p-name="success-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/success-filled.1832d98.svg");
+}
+.p-icon[data-p-name="sun"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/sun.4301cbd.svg");
+}
+.p-icon[data-p-name="suv"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/suv.33ac4aa.svg");
+}
+.p-icon[data-p-name="switch"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/switch.66f74c4.svg");
+}
+.p-icon[data-p-name="tablet"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/tablet.07341ac.svg");
+}
+.p-icon[data-p-name="tachometer"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/tachometer.3a2fc3c.svg");
+}
+.p-icon[data-p-name="theme"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/theme.08f6508.svg");
+}
+.p-icon[data-p-name="tire"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/tire.e5c9372.svg");
+}
+.p-icon[data-p-name="trigger-finger"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/trigger-finger.65aa6e2.svg");
+}
+.p-icon[data-p-name="truck"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/truck.2c26c04.svg");
+}
+.p-icon[data-p-name="turismo"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/turismo.a066b9f.svg");
+}
+.p-icon[data-p-name="unlinked"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/unlinked.e9afe39.svg");
+}
+.p-icon[data-p-name="upload"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/upload.d1f5a2a.svg");
+}
+.p-icon[data-p-name="user"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/user.c18dabe.svg");
+}
+.p-icon[data-p-name="user-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/user-filled.2ea646d.svg");
+}
+.p-icon[data-p-name="user-group"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/user-group.79cdf86.svg");
+}
+.p-icon[data-p-name="user-manual"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/user-manual.470e243.svg");
+}
+.p-icon[data-p-name="video"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/video.7590689.svg");
+}
+.p-icon[data-p-name="view"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/view.5b4d7f6.svg");
+}
+.p-icon[data-p-name="view-off"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/view-off.a4ede54.svg");
+}
+.p-icon[data-p-name="volume-off"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/volume-off.bcd49e7.svg");
+}
+.p-icon[data-p-name="volume-up"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/volume-up.2084f60.svg");
+}
+.p-icon[data-p-name="warning"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/warning.59927e6.svg");
+}
+.p-icon[data-p-name="warning-filled"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/warning-filled.1f6fe21.svg");
+}
+.p-icon[data-p-name="weather"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/weather.9c96bd7.svg");
+}
+.p-icon[data-p-name="weight"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/weight.b57a60d.svg");
+}
+.p-icon[data-p-name="wifi"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/wifi.e2a8d9c.svg");
+}
+.p-icon[data-p-name="work"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/work.9dd71a4.svg");
+}
+.p-icon[data-p-name="wrench"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/wrench.09a2a67.svg");
+}
+.p-icon[data-p-name="wrenches"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/wrenches.d2ed45d.svg");
+}
+.p-icon[data-p-name="zoom-in"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/zoom-in.ff299b8.svg");
+}
+.p-icon[data-p-name="zoom-out"] {
+  --_p-icon-mask: url("https://cdn.ui.porsche.com/porsche-design-system/icons/zoom-out.ebb6246.svg");
+}
+.p-icon[data-p-name="send"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="return"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="logout"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="list"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="increase"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="external"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="copy"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="chat"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="chart"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-left"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-last"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-head-right"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-head-left"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-first"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-double-right"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-double-left"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-compact-right"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+.p-icon[data-p-name="arrow-compact-left"]:dir(rtl) {
+  transform: scaleX(-1);
+}
+@media(min-width:480px) {
+  .p-icon[data-p-size-xs="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xs="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xs="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xs="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xs="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xs="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xs="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xs="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xs="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xs="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xs="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xs="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xs="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xs="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xs="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-xs="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-xs="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-xs="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:760px) {
+  .p-icon[data-p-size-s="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-s="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-s="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-s="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-s="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-s="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-s="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-s="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-s="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-s="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-s="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-s="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-s="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-s="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-s="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-s="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-s="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-s="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1000px) {
+  .p-icon[data-p-size-m="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-m="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-m="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-m="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-m="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-m="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-m="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-m="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-m="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-m="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-m="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-m="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-m="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-m="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-m="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-m="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-m="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-m="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1300px) {
+  .p-icon[data-p-size-l="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-l="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-l="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-l="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-l="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-l="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-l="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-l="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-l="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-l="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-l="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-l="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-l="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-l="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-l="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-l="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-l="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-l="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1760px) {
+  .p-icon[data-p-size-xl="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xl="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xl="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xl="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xl="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xl="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xl="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xl="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xl="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xl="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xl="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xl="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xl="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xl="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xl="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-xl="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-xl="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-xl="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1920px) {
+  .p-icon[data-p-size-xxl="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xxl="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xxl="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xxl="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xxl="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xxl="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xxl="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xxl="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-icon[data-p-size-xxl="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-icon[data-p-size-xxl="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-icon[data-p-size-xxl="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-icon[data-p-size-xxl="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-icon[data-p-size-xxl="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-icon[data-p-size-xxl="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-icon[data-p-size-xxl="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-icon[data-p-size-xxl="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-icon[data-p-size-xxl="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-icon[data-p-size-xxl="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(forced-colors:active) {
+  .p-icon {
+    background: CanvasText;
+  }
+}
+}

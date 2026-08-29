@@ -17,7 +17,7 @@ Stencil hosts stay frozen until a major removal.
 - `getNativeButtonCss()` / `getNativeLinkCss()`: one stylesheet, all variants via `data-p-*`
 - React `PButton` / `PLink` return the native tag. Public export still the CE wrapper.
 - Label lives in a span *inside* the native tag so hide-label works.
-- Icon is a `p-icon` child *inside* the native tag (`p-button__icon` / `p-link__icon`). Nothing wraps the control.
+- Icon is a native `<img class="p-icon">` *inside* the control (`p-button__icon` / `p-link__icon`). Nothing wraps the button, link, or icon. Stencil `p-icon` stays frozen.
 
 ## Next
 

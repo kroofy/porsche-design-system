@@ -16,3 +16,4 @@ ts	phase	decision	why	evidence	result
 2026-08-28T22:51:24Z	implement	static getNativeButtonCss/getNativeLinkCss, one sheet all variants	shadow CSS is per-instance; light DOM needs data-p-* selectors	link-button-css.spec.ts token contract vs getComponentCss	VERIFIED
 2026-08-28T22:51:24Z	implement	PLink returns bare a; PButton label span inside button	hide-label needs an inner label node; host still forbidden	PLink.spec.tsx PButton.spec.tsx innerHTML	VERIFIED
 2026-08-29T09:18:28Z	implement	native-button/native-link VRT pages, side by side with Stencil	misread pause; fixtures ready, docker VRT not run here	packages/components-js/src/pages/native-button.html + elements.css	INCONCLUSIVE on pixels
+2026-08-29T11:36:00Z	implement	native PIcon is bare img, mask via data-p-name, used inside button/link	CE inside native control still needs load(); img + one sheet is vanilla	PIcon.tsx icon-css.ts PButton/PLink	VERIFIED unit

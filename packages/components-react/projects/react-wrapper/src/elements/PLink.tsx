@@ -1,10 +1,11 @@
-import { type AnchorHTMLAttributes, createElement, forwardRef, type ReactNode } from 'react';
+import { type AnchorHTMLAttributes, forwardRef, type ReactNode } from 'react';
 import {
   LINK_ICON_CLASS,
   LINK_LABEL_CLASS,
   type LinkAppearanceProps,
   linkAppearance,
 } from '../../../../../components/src/elements/link';
+import { PIcon } from './PIcon';
 
 export type PLinkProps = LinkAppearanceProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkAppearanceProps> & {
@@ -24,14 +25,9 @@ export const PLink = forwardRef<HTMLAnchorElement, PLinkProps>(function PLink(
       ref={ref}
       className={[appearance.className, className].filter(Boolean).join(' ')}
     >
-      {icon !== 'none' &&
-        createElement('p-icon', {
-          className: LINK_ICON_CLASS,
-          name: icon,
-          size: 'inherit',
-          color: 'inherit',
-          'aria-hidden': 'true',
-        })}
+      {icon !== 'none' && (
+        <PIcon className={LINK_ICON_CLASS} name={icon} size="inherit" color="inherit" aria-hidden="true" />
+      )}
       <span className={LINK_LABEL_CLASS}>{children}</span>
     </a>
   );

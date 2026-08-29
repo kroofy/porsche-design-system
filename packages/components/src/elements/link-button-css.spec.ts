@@ -71,7 +71,7 @@ describe('getNativeLinkCss()', () => {
 });
 
 describe('elements.css', () => {
-  it('stays generated from getNativeButtonCss and getNativeLinkCss', () => {
+  it('stays generated from getNativeButtonCss, getNativeLinkCss and getNativeIconCss', () => {
     const committed = readFileSync(resolve(__dirname, 'elements.css'), 'utf8');
     expect(committed).toBe(getElementsCss());
   });
