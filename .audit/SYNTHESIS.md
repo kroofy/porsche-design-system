@@ -7,7 +7,7 @@ Rejected: Mitosis, light-DOM CE, schema IR.
 ## Contract
 
 If the user interacts with one native element, PDS does not wrap it.
-`PButton` is `<button class="p-button">`. `PLink` is `<a class="p-link">`.
+`PButton` is `<button class="p-button">`. `PLink` is `<a class="p-link">`. `PIcon` is `<img class="p-icon">`.
 Stencil hosts stay frozen until a major removal.
 
 ## Done
@@ -20,8 +20,10 @@ Stencil hosts stay frozen until a major removal.
 - Label lives in a span *inside* the native tag so hide-label works.
 - Icon is a native `<img class="p-icon">` *inside* the control (`p-button__icon` / `p-link__icon`). Nothing wraps the button, link, or icon. Stencil `p-icon` stays frozen.
 - Loading is native `disabled` + `aria-busy` + `data-p-loading` + a `span.p-button__spinner` SVG. Not `p-spinner`.
-- Chrome VRT: native button/link sit next to Stencil. Labels, icons, compact match. Loading spinner freeze-frame does not.
+- Spinner freeze-frame matches `p-spinner` under Playwright `animations: 'disabled'` (no static dashoffset; `--p-temporary-spinner-stroke-dasharray`).
+- Unlayered `color-scheme: inherit` on `.p-button` / `.p-link` / `.p-icon` so dark tokens resolve against demo/UA `button,a { color-scheme: light }`.
+- Chrome and Safari VRT: native button/link sit next to Stencil. Light, dark, labels, icons, compact, loading match.
 
-## Next
+## Out of this family
 
-Safari VRT. Spinner freeze-frame vs Stencil still differs (~C vs track ring) when `--p-animation-duration: 0s`.
+Public export swap. Fields. Generated IDs. Mitosis.

@@ -21,3 +21,6 @@ ts	phase	decision	why	evidence	result
 2026-08-29T12:20:00Z	implement	Angular button[pButton] a[pLink] img[pIcon], host is the tag	wrapping host would bring the CE back	angular-wrapper/src/elements	VERIFIED unit
 2026-08-29T12:25:00Z	implement	loading spinner is span.p-button__spinner SVG, not p-spinner	CE spinner would need load(); CSS already reserved the class	link-button-css + PButton wrappers	VERIFIED unit
 2026-08-29T12:55:00Z	implement	Chrome VRT native-button/native-link vs Stencil side by side	Playwright linux image, host node_modules, CDN chunks copied	native-*.png 4 chrome	VERIFIED chrome; spinner freeze-frame differs
+2026-08-29T13:00:00Z	implement	native spinner freeze-frame matches p-spinner	drop static dashoffset and fill-mode; use --p-temporary-spinner-stroke-dasharray	link-button-css.ts native-button VRT	VERIFIED
+2026-08-29T13:01:00Z	implement	unlayered color-scheme inherit on .p-button/.p-link/.p-icon	layered all:unset lost to unlayered button,a { color-scheme: light }	elements.css dark VRT	VERIFIED
+2026-08-29T13:05:00Z	implement	Chrome+Safari VRT native-button/native-link light and dark	8/8 pass; spinner C and dark tokens match Stencil	native-*-{light,dark}-{chrome,safari}.png	VERIFIED
