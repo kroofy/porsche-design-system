@@ -40,3 +40,5 @@ export type { PSelectProps } from './PSelect';
 export { PSelect } from './PSelect';
 export type { PTextareaProps } from './PTextarea';
 export { PTextarea } from './PTextarea';
+export type { FieldDescribedByOptions, FieldIds } from './useFieldIds';
+export { createFieldIds, fieldDescribedBy, fieldIds, nextFieldId, useFieldIds } from './useFieldIds';

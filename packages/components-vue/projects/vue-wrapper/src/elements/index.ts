@@ -19,3 +19,5 @@ export { PLink } from './PLink';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
 export { PTextarea } from './PTextarea';
+export type { FieldDescribedByOptions, FieldIds } from './useFieldIds';
+export { createFieldIds, fieldDescribedBy, fieldIds, nextFieldId, useFieldIds } from './useFieldIds';

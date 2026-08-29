@@ -47,6 +47,13 @@ Stencil hosts stay frozen until a major removal.
 - Search cancel, number spinners, and webkit calendar indicators are stripped so the field matches `.p-input`. Datetime-edit inherits color so date/time values stay visible under `all: unset`.
 - Chrome and Safari VRT: native typed inputs sit next to Stencil. Light, dark, compact, disabled, error match. Stencil date/time/month/week keep their extra buttons; native does not.
 
+## Field ids
+
+- `fieldIds()` / `useFieldIds()` mint a control id plus `-description` / `-message`. `fieldDescribedBy()` joins them for `aria-describedby`.
+- Label stays a sibling with `for`. The helper does not wrap the control.
+- React and Vue use `useId()`. Angular/vanilla use `fieldIds()` / `nextFieldId()`. Pass an id to pin it.
+- Not a public export.
+
 ## Out of this family
 
-Public export swap. Generated ID helper. Mitosis.
+Public export swap. Mitosis.
