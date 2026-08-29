@@ -11,6 +11,10 @@ describe('getNativeIconCss()', () => {
     expect(css).toContain('.p-icon[hidden]');
   });
 
+  it('inherits color-scheme outside the layer so unlayered img resets lose', () => {
+    expect(css.startsWith('.p-icon{color-scheme:inherit}')).toBe(true);
+  });
+
   it('drops shadow-only selectors', () => {
     expect(css).not.toContain(':host');
     expect(css).not.toContain('::slotted');

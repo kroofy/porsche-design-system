@@ -22,6 +22,10 @@ describe('getNativeButtonCss()', () => {
     expect(css).toContain('.p-button:focus-visible');
   });
 
+  it('inherits color-scheme outside the layer so unlayered button resets lose', () => {
+    expect(css.startsWith('.p-button{color-scheme:inherit}')).toBe(true);
+  });
+
   it('drops shadow-only selectors', () => {
     expect(css).not.toContain(':host');
     expect(css).not.toMatch(/(^|[^\w-])\.root\b/);
@@ -62,6 +66,10 @@ describe('getNativeLinkCss()', () => {
     expect(css).toContain('@layer pds.elements');
     expect(css).toContain('.p-link {');
     expect(css).toContain('.p-link[hidden]');
+  });
+
+  it('inherits color-scheme outside the layer so unlayered link resets lose', () => {
+    expect(css.startsWith('.p-link{color-scheme:inherit}')).toBe(true);
   });
 
   it.each(['primary', 'secondary'] as const)('keeps the %s token contract', (variant) => {

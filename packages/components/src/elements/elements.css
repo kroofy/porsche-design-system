@@ -1,3 +1,4 @@
+.p-button{color-scheme:inherit}
 @layer pds.elements {
 @keyframes p-spin-rotate {
   0% {
@@ -520,6 +521,7 @@
     }
 }
 }
+.p-link{color-scheme:inherit}
 @layer pds.elements {
 .p-link {
   all: unset;
@@ -934,6 +936,7 @@
 
 }
 }
+.p-icon{color-scheme:inherit}
 @layer pds.elements {
 .p-icon {
   display: block;

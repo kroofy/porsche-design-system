@@ -332,8 +332,13 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
 
 const toLayeredCss = (styles: Styles): string => `@layer pds.elements {\n${getCss(styles).trim()}\n}\n`;
 
-export const getNativeButtonCss = (): string => toLayeredCss(getNativeLinkButtonStyles(BUTTON_CONFIG));
+const inheritColorScheme = (selector: string, layered: string): string =>
+  `${selector}{color-scheme:inherit}\n${layered}`;
 
-export const getNativeLinkCss = (): string => toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG));
+export const getNativeButtonCss = (): string =>
+  inheritColorScheme('.p-button', toLayeredCss(getNativeLinkButtonStyles(BUTTON_CONFIG)));
+
+export const getNativeLinkCss = (): string =>
+  inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string => `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeIconCss()}`;

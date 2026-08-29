@@ -1,7 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`getNativeButtonCss() > matches the rewritten snapshot 1`] = `
-"@layer pds.elements {
+".p-button{color-scheme:inherit}
+@layer pds.elements {
 @keyframes p-spin-rotate {
   0% {
     transform: rotateZ(0deg);
@@ -527,7 +528,8 @@ exports[`getNativeButtonCss() > matches the rewritten snapshot 1`] = `
 `;
 
 exports[`getNativeLinkCss() > matches the rewritten snapshot 1`] = `
-"@layer pds.elements {
+".p-link{color-scheme:inherit}
+@layer pds.elements {
 .p-link {
   all: unset;
   display: inline-flex;

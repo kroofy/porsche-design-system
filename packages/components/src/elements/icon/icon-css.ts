@@ -130,4 +130,5 @@ const getNativeIconStyles = (): Styles => ({
   } as JssStyle,
 });
 
-export const getNativeIconCss = (): string => `@layer pds.elements {\n${getCss(getNativeIconStyles()).trim()}\n}\n`;
+export const getNativeIconCss = (): string =>
+  `.p-icon{color-scheme:inherit}\n@layer pds.elements {\n${getCss(getNativeIconStyles()).trim()}\n}\n`;
