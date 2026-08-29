@@ -32,7 +32,7 @@
     "ng:update": "./scripts/ng-update.sh",
     "test": "npm run test:unit && npm run test:e2e && npm run test:vrt && npm run test:smoke",
     "test:unit": "npm run test:unit:vitest && npm run test:unit:karma",
-    "test:unit:vitest": "vitest -c tests/unit/config/vitest.config.ts",
+    "test:unit:vitest": "vitest -c tests/unit/config/vitest.config.ts && vitest -c tests/unit/config/vitest.elements.config.ts",
     "test:unit:karma": "concurrently -k -s 'first' -n 'cdn,test' 'serve-cdn' 'ng test'",
     "test:unit:karma-ci": "concurrently -k -s 'first' -n 'cdn,test' 'serve-cdn' 'ng test --browsers=ChromeHeadlessCI --watch=false'",
     "test:e2e": "npm run build-app && playwright test --config=tests/e2e/config/playwright.config.ts",

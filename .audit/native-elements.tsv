@@ -18,3 +18,4 @@ ts	phase	decision	why	evidence	result
 2026-08-29T09:18:28Z	implement	native-button/native-link VRT pages, side by side with Stencil	misread pause; fixtures ready, docker VRT not run here	packages/components-js/src/pages/native-button.html + elements.css	INCONCLUSIVE on pixels
 2026-08-29T11:36:00Z	implement	native PIcon is bare img, mask via data-p-name, used inside button/link	CE inside native control still needs load(); img + one sheet is vanilla	PIcon.tsx icon-css.ts PButton/PLink	VERIFIED unit
 2026-08-29T12:09:00Z	implement	Vue PButton/PLink/PIcon same native contract, not public export	was pausing between slices; keep going	vue-wrapper/src/elements 9 tests	VERIFIED
+2026-08-29T12:20:00Z	implement	Angular button[pButton] a[pLink] img[pIcon], host is the tag	wrapping host would bring the CE back	angular-wrapper/src/elements	INCONCLUSIVE until unit
