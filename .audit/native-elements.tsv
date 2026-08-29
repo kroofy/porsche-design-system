@@ -24,3 +24,5 @@ ts	phase	decision	why	evidence	result
 2026-08-29T13:00:00Z	implement	native spinner freeze-frame matches p-spinner	drop static dashoffset and fill-mode; use --p-temporary-spinner-stroke-dasharray	link-button-css.ts native-button VRT	VERIFIED
 2026-08-29T13:01:00Z	implement	unlayered color-scheme inherit on .p-button/.p-link/.p-icon	layered all:unset lost to unlayered button,a { color-scheme: light }	elements.css dark VRT	VERIFIED
 2026-08-29T13:05:00Z	implement	Chrome+Safari VRT native-button/native-link light and dark	8/8 pass; spinner C and dark tokens match Stencil	native-*-{light,dark}-{chrome,safari}.png	VERIFIED
+2026-08-29T14:20:00Z	implement	native PInputText/PLabel/PTextarea are bare input/label/textarea	label is sibling with for; required mark inside label	field-css.ts PInputText PLabel PTextarea	VERIFIED unit
+2026-08-29T14:20:00Z	implement	Chrome+Safari VRT native-input-text/native-textarea light and dark	8/8 pass; compact required error/success match	native-input-text-* native-textarea-*	VERIFIED
