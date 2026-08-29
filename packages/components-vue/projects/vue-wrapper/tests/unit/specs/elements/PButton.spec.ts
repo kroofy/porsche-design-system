@@ -38,6 +38,10 @@ describe('PButton', () => {
     expect(button().disabled).toBe(true);
     expect(button().getAttribute('aria-busy')).toBe('true');
     expect(button().getAttribute('data-p-loading')).toBe('true');
+    const spinner = button().querySelector('span.p-button__spinner svg');
+    expect(spinner).not.toBeNull();
+    expect(spinner?.parentElement?.parentElement).toBe(button());
+    expect(container.querySelector('p-spinner')).toBeNull();
   });
 
   it('encodes non-default appearance on the button', () => {

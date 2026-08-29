@@ -3,6 +3,7 @@ import type { Responsive } from '../../../../../components/src/elements/appearan
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
+  BUTTON_SPINNER_CLASS,
   type ButtonVariant,
   buttonAppearance,
 } from '../../../../../components/src/elements/button';
@@ -51,6 +52,23 @@ export const PButton = defineComponent({
                   color: 'inherit',
                   'aria-hidden': 'true',
                 }),
+              ]
+            : []),
+          ...(props.loading
+            ? [
+                h('span', { class: BUTTON_SPINNER_CLASS, 'aria-hidden': 'true' }, [
+                  h(
+                    'svg',
+                    {
+                      viewBox: '-16 -16 32 32',
+                      width: '100%',
+                      height: '100%',
+                      focusable: 'false',
+                      'aria-hidden': 'true',
+                    },
+                    [h('circle', { r: '11' }), h('circle', { r: '11' })]
+                  ),
+                ]),
               ]
             : []),
           h('span', { class: BUTTON_LABEL_CLASS }, slots.default?.()),

@@ -45,30 +45,40 @@ describe('PButton', () => {
     expect(button.getAttribute('aria-label')).toBe('Close');
   });
 
-  it('uses native disabled and loading state', () => {
+  it('uses native disabled', () => {
     @Component({
       standalone: true,
       imports: [PButton],
-      template: `<button pButton [disabled]="disabled" [loading]="loading">Save</button>`,
+      template: `<button pButton disabled>Save</button>`,
     })
-    class Host {
-      disabled = true;
-      loading = false;
-    }
+    class Host {}
 
     const fixture = render(Host);
-    const button = () => fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
 
-    expect(button().disabled).toBe(true);
-    expect(button().getAttribute('aria-busy')).toBeNull();
+    expect(button.disabled).toBe(true);
+    expect(button.getAttribute('aria-busy')).toBeNull();
+    expect(button.getAttribute('data-p-loading')).toBeNull();
+  });
 
-    fixture.componentInstance.disabled = false;
-    fixture.componentInstance.loading = true;
-    fixture.detectChanges();
+  it('uses native disabled and aria-busy when loading', () => {
+    @Component({
+      standalone: true,
+      imports: [PButton],
+      template: `<button pButton loading>Save</button>`,
+    })
+    class Host {}
 
-    expect(button().disabled).toBe(true);
-    expect(button().getAttribute('aria-busy')).toBe('true');
-    expect(button().getAttribute('data-p-loading')).toBe('true');
+    const fixture = render(Host);
+    const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+    expect(button.disabled).toBe(true);
+    expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(button.getAttribute('data-p-loading')).toBe('true');
+    const spinner = button.querySelector('span.p-button__spinner svg');
+    expect(spinner).not.toBeNull();
+    expect(spinner?.parentElement?.parentElement).toBe(button);
+    expect(fixture.nativeElement.querySelector('p-spinner')).toBeNull();
   });
 
   it('encodes non-default appearance on the button', () => {

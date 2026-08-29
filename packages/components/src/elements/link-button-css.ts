@@ -3,11 +3,13 @@ import {
   blurFrosted,
   colorCanvas,
   colorContrastHigh,
+  colorContrastLower,
   colorError,
   colorErrorMedium,
   colorFrosted,
   colorFrostedStrong,
   colorPrimary,
+  durationXl,
   fontPorscheNext,
   fontWeightNormal,
   leadingNormal,
@@ -20,6 +22,7 @@ import {
 import type { JssStyle, Styles } from 'jss';
 import {
   addImportantToRule,
+  cssVariableAnimationDuration,
   forcedColorsMediaQuery,
   getDisabledBaseStyles,
   getFocusBaseStyles,
@@ -29,7 +32,13 @@ import {
 } from '../styles';
 import { getCss, mergeDeep } from '../utils';
 import { BREAKPOINTS } from './appearance';
-import { BUTTON_ICON_CLASS, BUTTON_LABEL_CLASS, BUTTON_ROOT_CLASS, BUTTON_VARIANTS } from './button/button.appearance';
+import {
+  BUTTON_ICON_CLASS,
+  BUTTON_LABEL_CLASS,
+  BUTTON_ROOT_CLASS,
+  BUTTON_SPINNER_CLASS,
+  BUTTON_VARIANTS,
+} from './button/button.appearance';
 import { getNativeIconCss } from './icon/icon-css';
 import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
 
@@ -64,7 +73,7 @@ const BUTTON_CONFIG: NativeLinkButtonConfig = {
   rootClass: BUTTON_ROOT_CLASS,
   labelClass: BUTTON_LABEL_CLASS,
   iconClass: BUTTON_ICON_CLASS,
-  spinnerClass: 'p-button__spinner',
+  spinnerClass: BUTTON_SPINNER_CLASS,
   scalingVar: '--_p-button-a',
   bgVar: '--p-button-bg',
   fgVar: '--p-button-fg',
@@ -196,6 +205,21 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
     }, {});
 
   return {
+    ...(isButton
+      ? {
+          '@global': {
+            '@keyframes p-spin-rotate': {
+              '0%': { transform: 'rotateZ(0deg)' },
+              '100%': { transform: 'rotateZ(360deg)' },
+            },
+            '@keyframes p-spin-dash': {
+              '0%': { strokeDashoffset: 69, transform: 'rotateZ(0)' },
+              '50%, 75%': { strokeDashoffset: 24, transform: 'rotateZ(80deg)' },
+              '100%': { strokeDashoffset: 69, transform: 'rotateZ(360deg)' },
+            },
+          },
+        }
+      : {}),
     [rootClass]: mergeDeep(
       {
         all: 'unset',
@@ -263,6 +287,38 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
+              display: 'inline-flex',
+              width: ref(leadingNormal),
+              height: ref(leadingNormal),
+              '& svg': {
+                display: 'block',
+                fill: 'none',
+                strokeWidth: 1.5,
+                width: '100%',
+                height: '100%',
+                animation: `p-spin-rotate ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+              },
+              '& circle:first-child': {
+                stroke: ref('--p-spinner-track-color', ref(colorContrastLower)),
+                '@supports (color: oklch(from red l c h))': {
+                  stroke: ref(
+                    '--p-spinner-track-color',
+                    `oklch(from ${ref('--p-spinner-color', 'currentcolor')} l c h/.2)`
+                  ),
+                },
+                ...forcedColorsMediaQuery({
+                  stroke: addImportantToRule('none'),
+                }),
+              },
+              '& circle:last-child': {
+                stroke: ref('--p-spinner-color', 'currentcolor'),
+                strokeDasharray: 69,
+                strokeLinecap: 'round',
+                animation: `p-spin-dash ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+                ...forcedColorsMediaQuery({
+                  stroke: 'CanvasText',
+                }),
+              },
             },
           },
         }),

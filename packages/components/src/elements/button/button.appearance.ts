@@ -3,6 +3,7 @@ import { type NativeAppearance, type Responsive, serializeResponsive } from '../
 export const BUTTON_ROOT_CLASS = 'p-button' as const;
 export const BUTTON_LABEL_CLASS = 'p-button__label' as const;
 export const BUTTON_ICON_CLASS = 'p-button__icon' as const;
+export const BUTTON_SPINNER_CLASS = 'p-button__spinner' as const;
 
 export const BUTTON_VARIANTS = ['primary', 'secondary', 'destructive'] as const;
 export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];

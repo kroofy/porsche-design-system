@@ -44,6 +44,8 @@ describe('getNativeButtonCss()', () => {
     expect(css).toContain('[data-p-loading="true"]');
     expect(css).toContain('.p-button:disabled');
     expect(css).toContain('--p-button-bg');
+    expect(css).toContain('@keyframes p-spin-rotate');
+    expect(css).toContain('.p-button__spinner svg');
   });
 
   it('matches the rewritten snapshot', () => {

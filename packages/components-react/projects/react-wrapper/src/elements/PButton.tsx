@@ -2,6 +2,7 @@ import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from 'react';
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
+  BUTTON_SPINNER_CLASS,
   type ButtonAppearanceProps,
   buttonAppearance,
 } from '../../../../../components/src/elements/button';
@@ -41,6 +42,14 @@ export const PButton = forwardRef<HTMLButtonElement, PButtonProps>(function PBut
     >
       {icon !== 'none' && (
         <PIcon className={BUTTON_ICON_CLASS} name={icon} size="inherit" color="inherit" aria-hidden="true" />
+      )}
+      {loading && (
+        <span className={BUTTON_SPINNER_CLASS} aria-hidden="true">
+          <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
+            <circle r="11" />
+            <circle r="11" />
+          </svg>
+        </span>
       )}
       <span className={BUTTON_LABEL_CLASS}>{children}</span>
     </button>
