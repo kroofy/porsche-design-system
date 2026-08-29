@@ -4,18 +4,24 @@ import { getNativeFieldCss } from './field-css';
 describe('getNativeFieldCss()', () => {
   const css = getNativeFieldCss();
 
-  it('scopes input, textarea and label inside a cascade layer', () => {
+  it('scopes input, textarea, select, checkbox, radio and label inside a cascade layer', () => {
     expect(css).toContain('@layer pds.elements');
     expect(css).toContain('.p-input {');
     expect(css).toContain('.p-textarea {');
+    expect(css).toContain('.p-select {');
+    expect(css).toContain('.p-checkbox {');
+    expect(css).toContain('.p-radio {');
     expect(css).toContain('.p-label {');
     expect(css).toContain('.p-field {');
     expect(css).toContain('.p-description {');
     expect(css).toContain('.p-message {');
+    expect(css).toContain('.p-radios {');
   });
 
   it('inherits color-scheme outside the layer so unlayered input resets lose', () => {
-    expect(css.startsWith('.p-input,.p-textarea,.p-label{color-scheme:inherit}')).toBe(true);
+    expect(
+      css.startsWith('.p-input,.p-textarea,.p-select,.p-checkbox,.p-radio,.p-label{color-scheme:inherit}')
+    ).toBe(true);
   });
 
   it('drops shadow-only selectors', () => {
@@ -43,6 +49,10 @@ describe('getNativeFieldCss()', () => {
     expect(css).toContain('.p-input:disabled');
     expect(css).toContain('.p-input[readonly]');
     expect(css).toContain('.p-label__required');
+    expect(css).toContain('.p-checkbox:checked');
+    expect(css).toContain('.p-checkbox:indeterminate');
+    expect(css).toContain('.p-radio:checked');
+    expect(css).toContain('.p-select {');
   });
 
   it('matches the rewritten snapshot', () => {

@@ -1,9 +1,18 @@
-export type { FieldState, InputAppearanceProps } from './input.appearance';
+export type { CheckboxAppearanceProps, FieldState, InputAppearanceProps } from './input.appearance';
 export {
+  CHECKBOX_ROOT_CLASS,
+  CHECKBOX_SPINNER_CLASS,
+  checkboxAppearance,
   FIELD_ROOT_CLASS,
   FIELD_STATES,
   INPUT_ROOT_CLASS,
   inputAppearance,
+  RADIO_ROOT_CLASS,
+  RADIO_SPINNER_CLASS,
+  RADIOS_ROOT_CLASS,
+  radioAppearance,
+  SELECT_ROOT_CLASS,
+  selectAppearance,
   TEXTAREA_ROOT_CLASS,
   textareaAppearance,
 } from './input.appearance';

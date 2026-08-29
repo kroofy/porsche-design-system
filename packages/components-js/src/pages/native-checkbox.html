@@ -1,0 +1,102 @@
+<style>
+  p-checkbox,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+<div class="playground auto-layout-inline" title="label">
+  <p-checkbox name="some-name" label="Some label"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-label" class="p-checkbox" type="checkbox" name="native-cb-label" />
+    <label class="p-label" for="native-cb-label">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="checked">
+  <p-checkbox name="some-name" label="Some label" checked="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-checked" class="p-checkbox" type="checkbox" name="native-cb-checked" checked />
+    <label class="p-label" for="native-cb-checked">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="indeterminate">
+  <p-checkbox name="some-name" label="Some label" indeterminate="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-indeterminate" class="p-checkbox" type="checkbox" name="native-cb-indeterminate" data-p-indeterminate="true" />
+    <label class="p-label" for="native-cb-indeterminate">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="disabled">
+  <p-checkbox name="some-name" label="Some label" disabled="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-disabled" class="p-checkbox" type="checkbox" name="native-cb-disabled" disabled />
+    <label class="p-label" for="native-cb-disabled">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="disabled checked">
+  <p-checkbox name="some-name" label="Some label" checked="true" disabled="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-disabled-checked" class="p-checkbox" type="checkbox" name="native-cb-disabled-checked" checked disabled />
+    <label class="p-label" for="native-cb-disabled-checked">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="compact">
+  <p-checkbox name="some-name" label="Some label" compact="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-compact" class="p-checkbox" type="checkbox" name="native-cb-compact" data-p-compact="true" />
+    <label class="p-label" for="native-cb-compact">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="required">
+  <p-checkbox name="some-name" label="Some label" required="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-required" class="p-checkbox" type="checkbox" name="native-cb-required" required />
+    <label class="p-label" for="native-cb-required">Some label<span class="p-label__required" aria-hidden="true"> *</span></label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="error">
+  <p-checkbox name="some-name" label="Some label" state="error" message="Some error"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-error" class="p-checkbox" type="checkbox" name="native-cb-error" data-p-state="error" aria-invalid="true" aria-describedby="native-cb-error-msg" />
+    <label class="p-label" for="native-cb-error">Some label</label>
+    <span class="p-message" id="native-cb-error-msg" data-p-state="error">
+      <img class="p-icon" data-p-name="exclamation" data-p-color="error" src="https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation.46cd17b.svg" alt="" width="24" height="24" aria-hidden="true" />
+      Some error
+    </span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="success checked">
+  <p-checkbox name="some-name" label="Some label" state="success" message="Some success" checked="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-success" class="p-checkbox" type="checkbox" name="native-cb-success" checked data-p-state="success" aria-describedby="native-cb-success-msg" />
+    <label class="p-label" for="native-cb-success">Some label</label>
+    <span class="p-message" id="native-cb-success-msg" data-p-state="success">
+      <img class="p-icon" data-p-name="check" data-p-color="success" src="https://cdn.ui.porsche.com/porsche-design-system/icons/check.8ba06be.svg" alt="" width="24" height="24" aria-hidden="true" />
+      Some success
+    </span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="hide-label">
+  <p-checkbox name="some-name" label="Some label" hide-label="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-hide-label" class="p-checkbox" type="checkbox" name="native-cb-hide-label" />
+    <label class="p-label" for="native-cb-hide-label" data-p-hide-label="true">Some label</label>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="loading">
+  <p-checkbox name="some-name" label="Some label" loading="true"></p-checkbox>
+  <div class="p-field">
+    <input id="native-cb-loading" class="p-checkbox" type="checkbox" name="native-cb-loading" disabled aria-busy="true" data-p-loading="true" />
+    <span class="p-checkbox__spinner" aria-hidden="true">
+      <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+    </span>
+    <label class="p-label" for="native-cb-loading">Some label</label>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('.p-checkbox[data-p-indeterminate]').forEach((el) => {
+    el.indeterminate = true;
+  });
+</script>

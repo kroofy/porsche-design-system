@@ -1,0 +1,121 @@
+<style>
+  p-select,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+<div class="playground auto-layout-inline" title="label">
+  <p-select name="options" value="a" label="Some Label">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+    <p-select-option value="c">Option C</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-label">Some Label</label>
+    <select id="native-select-label" class="p-select" name="native-select-label">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+      <option value="c">Option C</option>
+    </select>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="description">
+  <p-select name="options" value="a" label="Some Label" description="Some description">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-description">Some Label</label>
+    <span class="p-description" id="native-select-description-hint">Some description</span>
+    <select id="native-select-description" class="p-select" name="native-select-description" aria-describedby="native-select-description-hint">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="disabled">
+  <p-select name="options" value="a" label="Some Label disabled" disabled="true">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-disabled">Some Label disabled</label>
+    <select id="native-select-disabled" class="p-select" name="native-select-disabled" disabled>
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="compact">
+  <p-select name="options" value="a" label="Some Label" compact="true">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-compact">Some Label</label>
+    <select id="native-select-compact" class="p-select" name="native-select-compact" data-p-compact="true">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="required">
+  <p-select name="options" value="a" label="Some label required" required="true">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-required">Some label required<span class="p-label__required" aria-hidden="true"> *</span></label>
+    <select id="native-select-required" class="p-select" name="native-select-required" required>
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="error">
+  <p-select name="options" value="a" label="Some Label" state="error" message="Some error">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-error">Some Label</label>
+    <select id="native-select-error" class="p-select" name="native-select-error" data-p-state="error" aria-invalid="true" aria-describedby="native-select-error-msg">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+    <span class="p-message" id="native-select-error-msg" data-p-state="error">
+      <img class="p-icon" data-p-name="exclamation" data-p-color="error" src="https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation.46cd17b.svg" alt="" width="24" height="24" aria-hidden="true" />
+      Some error
+    </span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="success">
+  <p-select name="options" value="a" label="Some Label" state="success" message="Some success">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-success">Some Label</label>
+    <select id="native-select-success" class="p-select" name="native-select-success" data-p-state="success" aria-describedby="native-select-success-msg">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+    <span class="p-message" id="native-select-success-msg" data-p-state="success">
+      <img class="p-icon" data-p-name="check" data-p-color="success" src="https://cdn.ui.porsche.com/porsche-design-system/icons/check.8ba06be.svg" alt="" width="24" height="24" aria-hidden="true" />
+      Some success
+    </span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="hide-label">
+  <p-select name="options" value="a" label="Some Label" hide-label="true">
+    <p-select-option value="a">Option A</p-select-option>
+    <p-select-option value="b">Option B</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-select-hide" data-p-hide-label="true">Some Label</label>
+    <select id="native-select-hide" class="p-select" name="native-select-hide">
+      <option value="a" selected>Option A</option>
+      <option value="b">Option B</option>
+    </select>
+  </div>
+</div>

@@ -1,12 +1,17 @@
 import {
+  colorCanvas,
   colorContrastHigh,
+  colorContrastLower,
   colorContrastMedium,
   colorFrosted,
   colorPrimary,
+  durationXl,
   fontPorscheNext,
   fontWeightNormal,
   leadingNormal,
+  radiusFull,
   radiusLg,
+  radiusMd,
   radiusXl,
   ref,
   spacingStaticXs,
@@ -15,22 +20,48 @@ import {
 } from '@porsche-design-system/stylesheets';
 import type { JssStyle, Styles } from 'jss';
 import {
+  addImportantToRule,
+  cssVariableAnimationDuration,
   forcedColorsMediaQuery,
   getDisabledBaseStyles,
+  getFocusBaseStyles,
   getHiddenTextJssStyle,
   getTransition,
   hoverMediaQuery,
 } from '../styles';
+import { getCheckboxBaseStyles } from '../styles/checkbox/checkbox-base-styles';
+import { getCheckboxCheckedBaseStyles } from '../styles/checkbox/checkbox-checked-base-styles';
+import { cssVarInternalCheckboxScaling } from '../styles/checkbox/checkbox-css-vars';
+import { getCheckboxIndeterminateBaseStyles } from '../styles/checkbox/checkbox-indeterminate-base-styles';
 import { getThemedFormStateColors } from '../styles/form-state-color-styles';
 import { getCss } from '../utils';
+import { getInlineSVGBackgroundImage } from '../utils/svg/getInlineSVGBackgroundImage';
 import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from './appearance';
-import { FIELD_ROOT_CLASS, type FieldState, INPUT_ROOT_CLASS, TEXTAREA_ROOT_CLASS } from './input';
+import {
+  CHECKBOX_ROOT_CLASS,
+  CHECKBOX_SPINNER_CLASS,
+  FIELD_ROOT_CLASS,
+  type FieldState,
+  INPUT_ROOT_CLASS,
+  RADIO_ROOT_CLASS,
+  RADIO_SPINNER_CLASS,
+  RADIOS_ROOT_CLASS,
+  SELECT_ROOT_CLASS,
+  TEXTAREA_ROOT_CLASS,
+} from './input';
 import { DESCRIPTION_ROOT_CLASS, LABEL_REQUIRED_CLASS, LABEL_ROOT_CLASS, MESSAGE_ROOT_CLASS } from './label';
 
 const SCALING_VAR = '--_p-input-base-a';
 const TEXTAREA_SCALING_VAR = '--_p-textarea-a';
+const SELECT_SCALING_VAR = '--_p-select-a';
+const RADIO_SCALING_VAR = '--_p-radio-a';
 const DEFAULT_SCALE = 1;
 const COMPACT_SCALE = 0.64285714;
+
+const selectChevron = getInlineSVGBackgroundImage(
+  `<path fill="CanvasText" d="m12 15.125h-.001l-.005-.006-6.494-5.476.642-.768 5.858 4.94 5.858-4.94.642.769-6.497 5.477z"/>`
+);
+const radioCheckedIcon = getInlineSVGBackgroundImage(`<circle cx="12" cy="12" r="6"/>`);
 
 const inheritColorScheme = (selectors: string, layered: string): string =>
   `${selectors}{color-scheme:inherit}\n${layered}`;
@@ -61,6 +92,80 @@ const responsiveAttrStyles = (name: string, apply: (value: boolean) => JssStyle)
 const hideLabelStyles = (hide: boolean): JssStyle => getHiddenTextJssStyle(hide);
 
 const stateColors = (state: FieldState) => getThemedFormStateColors(state);
+
+const choiceCompactVars = (scalingVar: string, compact: boolean): JssStyle => ({
+  [scalingVar]: compact ? COMPACT_SCALE : DEFAULT_SCALE,
+  borderRadius: compact ? ref(radiusMd) : ref(radiusLg),
+});
+
+const choiceLabelPadding = (scalingVar: string): JssStyle => {
+  const dimension = `calc(${ref(scalingVar)} * 1.75rem)`;
+  return {
+    paddingTop: `max(0px, calc((${dimension} - ${ref(leadingNormal)}) / 2))`,
+    paddingInlineStart: `calc(11.2px * (${ref(scalingVar)} - 0.64285714) + 4px)`,
+  };
+};
+
+const choiceFieldLayout = (controlClass: string, scalingVar: string, spinnerClass: string): JssStyle => ({
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass})`]: {
+    gridTemplateColumns: 'auto minmax(0, 1fr)',
+    [scalingVar]: DEFAULT_SCALE,
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}[data-p-compact="true"])`]: {
+    [scalingVar]: COMPACT_SCALE,
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}) > .${controlClass}`]: {
+    gridColumn: 1,
+    gridRow: 1,
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}) > .${LABEL_ROOT_CLASS}`]: {
+    gridColumn: 2,
+    gridRow: 1,
+    ...choiceLabelPadding(scalingVar),
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}) > .${DESCRIPTION_ROOT_CLASS}`]: {
+    gridColumn: '1 / -1',
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}) > .${MESSAGE_ROOT_CLASS}`]: {
+    gridColumn: '1 / -1',
+  },
+  [`.${FIELD_ROOT_CLASS}:has(> .${controlClass}) > .${spinnerClass}`]: {
+    gridColumn: 1,
+    gridRow: 1,
+    alignSelf: 'center',
+    justifySelf: 'center',
+    pointerEvents: 'none',
+    width: `calc(${ref(scalingVar)} * 1.75rem - 2px)`,
+    height: `calc(${ref(scalingVar)} * 1.75rem - 2px)`,
+    '--p-spinner-color': 'currentcolor',
+    '& svg': {
+      display: 'block',
+      fill: 'none',
+      strokeWidth: 1.5,
+      width: '100%',
+      height: '100%',
+      animation: `p-spin-rotate ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+    },
+    '& circle:first-child': {
+      stroke: ref('--p-spinner-track-color', ref(colorContrastLower)),
+      '@supports (color: oklch(from red l c h))': {
+        stroke: ref('--p-spinner-track-color', `oklch(from ${ref('--p-spinner-color', 'currentcolor')} l c h/.2)`),
+      },
+      ...forcedColorsMediaQuery({
+        stroke: addImportantToRule('none'),
+      }),
+    },
+    '& circle:last-child': {
+      stroke: ref('--p-spinner-color', 'currentcolor'),
+      strokeDasharray: ref('--p-temporary-spinner-stroke-dasharray', '69'),
+      strokeLinecap: 'round',
+      animation: `p-spin-dash ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+      ...forcedColorsMediaQuery({
+        stroke: 'CanvasText',
+      }),
+    },
+  },
+});
 
 const hiddenDescriptionAfterLabel = (): JssStyle => {
   const styles: JssStyle = {
@@ -179,6 +284,154 @@ const stateOverrides = (): JssStyle => {
   return styles;
 };
 
+const checkboxStateOverrides = (): JssStyle => {
+  const styles: JssStyle = {};
+  for (const state of ['error', 'success'] as const) {
+    const colors = stateColors(state);
+    Object.assign(styles, {
+      [`&[data-p-state="${state}"]`]: {
+        borderColor: colors.formStateBorderColor,
+        background: colors.formStateBackgroundColor,
+        ...hoverMediaQuery({
+          '&:hover:not(:disabled):not([data-p-loading="true"])': {
+            borderColor: colors.formStateBorderHoverColor,
+          },
+        }),
+        '&:checked': getCheckboxCheckedBaseStyles(false, state),
+        '&:indeterminate, &[data-p-indeterminate="true"]': getCheckboxIndeterminateBaseStyles(false, state),
+      },
+    });
+  }
+  return styles;
+};
+
+const radioStateOverrides = (): JssStyle => {
+  const styles: JssStyle = {};
+  for (const state of ['error', 'success'] as const) {
+    const colors = stateColors(state);
+    Object.assign(styles, {
+      [`&[data-p-state="${state}"]`]: {
+        borderColor: colors.formStateBorderColor,
+        background: colors.formStateBackgroundColor,
+        ...hoverMediaQuery({
+          '&:hover:not(:disabled):not([data-p-loading="true"])': {
+            borderColor: colors.formStateBorderHoverColor,
+          },
+        }),
+        '&:checked': {
+          background: colors.formStateBorderColor,
+        },
+      },
+    });
+  }
+  return styles;
+};
+
+const checkboxChrome = (): JssStyle => ({
+  ...getCheckboxBaseStyles(false, false, false, 'none'),
+  [cssVarInternalCheckboxScaling]: DEFAULT_SCALE,
+  cursor: 'pointer',
+  '&:checked': getCheckboxCheckedBaseStyles(false, 'none'),
+  '&:indeterminate, &[data-p-indeterminate="true"]': getCheckboxIndeterminateBaseStyles(false, 'none'),
+  '&:focus-visible': getFocusBaseStyles(),
+  '&:disabled, &[data-p-loading="true"]': {
+    cursor: 'not-allowed',
+    pointerEvents: 'none',
+  },
+  '&:disabled:not([data-p-loading="true"])': getDisabledBaseStyles({
+    borderColor: 'GrayText',
+  }),
+  '&[data-p-loading="true"]:checked::before, &[data-p-loading="true"]:indeterminate::before': {
+    mask: 'none',
+    background: 'none',
+  },
+  ...checkboxStateOverrides(),
+  ...responsiveAttrStyles('compact', (compact) => choiceCompactVars(cssVarInternalCheckboxScaling, compact)),
+});
+
+const radioChrome = (): JssStyle => {
+  const none = stateColors('none');
+  const radioDimension = `calc(${ref(RADIO_SCALING_VAR)} * 1.75rem)`;
+  const radioMarginBlock = `max(0px, calc((${ref(leadingNormal)} - ${radioDimension}) / 2))`;
+  const radioTouchInset = 'calc(-1px - max(0px, calc(24px - ' + radioDimension + ') / 2))';
+
+  return {
+    all: 'unset',
+    display: 'grid',
+    width: radioDimension,
+    height: radioDimension,
+    marginBlock: radioMarginBlock,
+    boxSizing: 'border-box',
+    font: `${ref(typescaleSm)} ${ref(fontPorscheNext)}`,
+    background: none.formStateBackgroundColor,
+    transition: `${getTransition('background-color')}, ${getTransition('border-color')}`,
+    border: `1px solid ${none.formStateBorderColor}`,
+    borderRadius: ref(radiusFull),
+    cursor: 'pointer',
+    [RADIO_SCALING_VAR]: DEFAULT_SCALE,
+    '&::before': {
+      content: '""',
+      gridArea: '1/1',
+    },
+    '&::after': {
+      content: '""',
+      margin: radioTouchInset,
+      gridArea: '1/1',
+    },
+    '&:checked': {
+      background: ref(colorPrimary),
+      '&::before': {
+        WebkitMask: `${radioCheckedIcon} center/contain no-repeat`,
+        mask: `${radioCheckedIcon} center/contain no-repeat`,
+        backgroundColor: ref(colorCanvas),
+        ...forcedColorsMediaQuery({
+          background: 'CanvasText',
+        }),
+      },
+    },
+    '&:focus-visible': getFocusBaseStyles(),
+    '&:disabled, &[data-p-loading="true"]': {
+      cursor: 'not-allowed',
+      pointerEvents: 'none',
+    },
+    '&:disabled:not([data-p-loading="true"])': getDisabledBaseStyles({
+      borderColor: 'GrayText',
+    }),
+    '&[data-p-loading="true"]:checked::before': {
+      mask: 'none',
+      background: 'none',
+    },
+    ...hoverMediaQuery({
+      '&:hover:not(:disabled):not([data-p-loading="true"])': {
+        borderColor: none.formStateBorderHoverColor,
+      },
+    }),
+    ...radioStateOverrides(),
+    ...responsiveAttrStyles('compact', (compact) => ({
+      [RADIO_SCALING_VAR]: compact ? COMPACT_SCALE : DEFAULT_SCALE,
+    })),
+    '&[hidden]': {
+      display: 'none !important',
+    },
+  };
+};
+
+const selectChrome = (): JssStyle => {
+  const paddingInline = `calc(22.4px * (${ref(SELECT_SCALING_VAR)} - 0.64285714) + 8px)`;
+  return {
+    ...controlChrome(SELECT_SCALING_VAR, false),
+    cursor: 'pointer',
+    appearance: 'none',
+    paddingInlineEnd: `calc(${paddingInline} + 1.5rem)`,
+    backgroundImage: selectChevron,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: `right ${paddingInline} center`,
+    backgroundSize: '1.5rem',
+    ...stateOverrides(),
+    ...responsiveAttrStyles('compact', (compact) => compactVars(SELECT_SCALING_VAR, compact)),
+  };
+};
+
 const getNativeFieldStyles = (): Styles => ({
   '@global': {
     [`.${FIELD_ROOT_CLASS}:has(:disabled) .${LABEL_ROOT_CLASS}`]: {
@@ -188,6 +441,8 @@ const getNativeFieldStyles = (): Styles => ({
     },
     [`.${FIELD_ROOT_CLASS}:has(:disabled) .${DESCRIPTION_ROOT_CLASS}`]: getDisabledBaseStyles(),
     ...hiddenDescriptionAfterLabel(),
+    ...choiceFieldLayout(CHECKBOX_ROOT_CLASS, cssVarInternalCheckboxScaling, CHECKBOX_SPINNER_CLASS),
+    ...choiceFieldLayout(RADIO_ROOT_CLASS, RADIO_SCALING_VAR, RADIO_SPINNER_CLASS),
   },
   [FIELD_ROOT_CLASS]: {
     display: 'grid',
@@ -242,10 +497,23 @@ const getNativeFieldStyles = (): Styles => ({
     ...stateOverrides(),
     ...responsiveAttrStyles('compact', (compact) => compactVars(TEXTAREA_SCALING_VAR, compact)),
   },
+  [SELECT_ROOT_CLASS]: selectChrome(),
+  [CHECKBOX_ROOT_CLASS]: checkboxChrome(),
+  [RADIO_ROOT_CLASS]: radioChrome(),
+  [RADIOS_ROOT_CLASS]: {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+    alignItems: 'stretch',
+    rowGap: `calc(11.2px * (${ref(RADIO_SCALING_VAR)} - 0.64285714) + 4px)`,
+    [RADIO_SCALING_VAR]: DEFAULT_SCALE,
+    '&[data-p-compact="true"]': {
+      [RADIO_SCALING_VAR]: COMPACT_SCALE,
+    },
+  },
 });
 
 export const getNativeFieldCss = (): string =>
   inheritColorScheme(
-    `.${INPUT_ROOT_CLASS},.${TEXTAREA_ROOT_CLASS},.${LABEL_ROOT_CLASS}`,
+    `.${INPUT_ROOT_CLASS},.${TEXTAREA_ROOT_CLASS},.${SELECT_ROOT_CLASS},.${CHECKBOX_ROOT_CLASS},.${RADIO_ROOT_CLASS},.${LABEL_ROOT_CLASS}`,
     toLayeredCss(getNativeFieldStyles())
   );

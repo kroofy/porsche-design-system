@@ -1,4 +1,12 @@
-import { INPUT_ROOT_CLASS, inputAppearance, TEXTAREA_ROOT_CLASS, textareaAppearance } from './input.appearance';
+import {
+  checkboxAppearance,
+  INPUT_ROOT_CLASS,
+  inputAppearance,
+  radioAppearance,
+  selectAppearance,
+  TEXTAREA_ROOT_CLASS,
+  textareaAppearance,
+} from './input.appearance';
 
 describe('inputAppearance()', () => {
   it('emits only the root class for defaults', () => {
@@ -36,5 +44,24 @@ describe('textareaAppearance()', () => {
         'data-p-state': 'success',
       },
     });
+  });
+});
+
+describe('checkboxAppearance()', () => {
+  it('uses the checkbox class and indeterminate attr', () => {
+    expect(checkboxAppearance({ indeterminate: true, compact: true })).toEqual({
+      className: 'p-checkbox',
+      attrs: {
+        'data-p-compact': 'true',
+        'data-p-indeterminate': 'true',
+      },
+    });
+  });
+});
+
+describe('radioAppearance() / selectAppearance()', () => {
+  it('uses the radio and select classes', () => {
+    expect(radioAppearance({ state: 'error' }).className).toBe('p-radio');
+    expect(selectAppearance({ compact: true }).className).toBe('p-select');
   });
 });

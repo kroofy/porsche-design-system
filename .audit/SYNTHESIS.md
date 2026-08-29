@@ -32,10 +32,11 @@ Stencil hosts stay frozen until a major removal.
 - Chrome and Safari VRT: native input/textarea sit next to Stencil. Light, dark, compact, required, error/success match.
 - Disabled text is slightly less faded than Stencil (native applies opacity once; Stencil stacks wrapper + child).
 
-## Choice (in progress)
+## Choice
 
 - `PCheckbox` is `<input type="checkbox" class="p-checkbox">`. `PRadio` is `<input type="radio" class="p-radio">`. `PSelect` is `<select class="p-select">`.
 - Label is a sibling with `for`. `div.p-field` / `div.p-radios` are CSS-only layout.
+- Checkbox/radio use the same check/dot tokens as Stencil. Select is a native closed control plus CSS chevron.
 - Public export still the CE. Stencil hosts stay frozen.
 
 ## Out of this family
