@@ -1,4 +1,10 @@
-import { LINK_LABEL_CLASS, LINK_ROOT_CLASS, linkAppearance, serializeResponsive } from './link.appearance';
+import {
+  LINK_ICON_CLASS,
+  LINK_LABEL_CLASS,
+  LINK_ROOT_CLASS,
+  linkAppearance,
+  serializeResponsive,
+} from './link.appearance';
 
 describe('linkAppearance()', () => {
   it('emits only the root class for defaults', () => {
@@ -28,8 +34,9 @@ describe('linkAppearance()', () => {
     });
   });
 
-  it('keeps the label class name stable for wrappers', () => {
+  it('keeps the label and icon class names stable for wrappers', () => {
     expect(LINK_LABEL_CLASS).toBe('p-link__label');
+    expect(LINK_ICON_CLASS).toBe('p-link__icon');
   });
 });
 

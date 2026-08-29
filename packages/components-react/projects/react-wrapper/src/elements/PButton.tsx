@@ -1,8 +1,9 @@
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { type ButtonHTMLAttributes, createElement, forwardRef, type ReactNode } from 'react';
 import {
+  BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
-  buttonAppearance,
   type ButtonAppearanceProps,
+  buttonAppearance,
 } from '../../../../../components/src/elements/button';
 
 export type PButtonProps = ButtonAppearanceProps &
@@ -11,7 +12,18 @@ export type PButtonProps = ButtonAppearanceProps &
   };
 
 export const PButton = forwardRef<HTMLButtonElement, PButtonProps>(function PButton(
-  { variant, icon, hideLabel, compact, loading = false, disabled = false, type = 'submit', className, children, ...rest },
+  {
+    variant,
+    icon = 'none',
+    hideLabel,
+    compact,
+    loading = false,
+    disabled = false,
+    type = 'submit',
+    className,
+    children,
+    ...rest
+  },
   ref
 ) {
   const appearance = buttonAppearance({ variant, icon, hideLabel, compact, loading });
@@ -26,6 +38,14 @@ export const PButton = forwardRef<HTMLButtonElement, PButtonProps>(function PBut
       aria-busy={loading || undefined}
       className={[appearance.className, className].filter(Boolean).join(' ')}
     >
+      {icon !== 'none' &&
+        createElement('p-icon', {
+          className: BUTTON_ICON_CLASS,
+          name: icon,
+          size: 'inherit',
+          color: 'inherit',
+          'aria-hidden': 'true',
+        })}
       <span className={BUTTON_LABEL_CLASS}>{children}</span>
     </button>
   );

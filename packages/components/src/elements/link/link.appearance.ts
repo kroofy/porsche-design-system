@@ -5,6 +5,7 @@ export type { Breakpoint, NativeAppearance, Responsive } from '../appearance';
 
 export const LINK_ROOT_CLASS = 'p-link' as const;
 export const LINK_LABEL_CLASS = 'p-link__label' as const;
+export const LINK_ICON_CLASS = 'p-link__icon' as const;
 
 export const LINK_VARIANTS = ['primary', 'secondary'] as const;
 export type LinkVariant = (typeof LINK_VARIANTS)[number];

@@ -1,4 +1,4 @@
-import { BUTTON_LABEL_CLASS, BUTTON_ROOT_CLASS, buttonAppearance } from './button.appearance';
+import { BUTTON_ICON_CLASS, BUTTON_LABEL_CLASS, BUTTON_ROOT_CLASS, buttonAppearance } from './button.appearance';
 
 describe('buttonAppearance()', () => {
   it('emits only the root class for defaults', () => {
@@ -30,7 +30,8 @@ describe('buttonAppearance()', () => {
     });
   });
 
-  it('keeps the label class name stable for wrappers', () => {
+  it('keeps the label and icon class names stable for wrappers', () => {
     expect(BUTTON_LABEL_CLASS).toBe('p-button__label');
+    expect(BUTTON_ICON_CLASS).toBe('p-button__icon');
   });
 });

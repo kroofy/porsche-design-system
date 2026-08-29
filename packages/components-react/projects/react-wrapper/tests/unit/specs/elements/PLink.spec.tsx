@@ -38,6 +38,10 @@ describe('PLink', () => {
     expect(link.getAttribute('data-p-variant')).toBe('secondary');
     expect(link.getAttribute('data-p-icon')).toBe('arrow-right');
     expect(link.getAttribute('data-p-compact')).toBe('true');
+    const icon = link.querySelector('p-icon.p-link__icon');
+    expect(icon?.getAttribute('name')).toBe('arrow-right');
+    expect(icon?.parentElement).toBe(link);
+    expect(container.querySelector('p-link')).toBeNull();
   });
 
   it('forwards a ref to the anchor', () => {

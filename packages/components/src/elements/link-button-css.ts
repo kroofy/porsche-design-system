@@ -29,8 +29,8 @@ import {
 } from '../styles';
 import { getCss, mergeDeep } from '../utils';
 import { BREAKPOINTS } from './appearance';
-import { BUTTON_LABEL_CLASS, BUTTON_ROOT_CLASS, BUTTON_VARIANTS } from './button/button.appearance';
-import { LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
+import { BUTTON_ICON_CLASS, BUTTON_LABEL_CLASS, BUTTON_ROOT_CLASS, BUTTON_VARIANTS } from './button/button.appearance';
+import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
 
 const COMPACT_SCALE = 0.64285714;
 const DEFAULT_SCALE = 1;
@@ -62,7 +62,7 @@ type NativeLinkButtonConfig = {
 const BUTTON_CONFIG: NativeLinkButtonConfig = {
   rootClass: BUTTON_ROOT_CLASS,
   labelClass: BUTTON_LABEL_CLASS,
-  iconClass: 'p-button__icon',
+  iconClass: BUTTON_ICON_CLASS,
   spinnerClass: 'p-button__spinner',
   scalingVar: '--_p-button-a',
   bgVar: '--p-button-bg',
@@ -78,7 +78,7 @@ const BUTTON_CONFIG: NativeLinkButtonConfig = {
 const LINK_CONFIG: NativeLinkButtonConfig = {
   rootClass: LINK_ROOT_CLASS,
   labelClass: LINK_LABEL_CLASS,
-  iconClass: 'p-link__icon',
+  iconClass: LINK_ICON_CLASS,
   spinnerClass: 'p-link__spinner',
   scalingVar: '--_p-link-a',
   bgVar: '--p-link-bg',

@@ -47,6 +47,10 @@ describe('PButton', () => {
     expect(button.getAttribute('data-p-variant')).toBe('destructive');
     expect(button.getAttribute('data-p-icon')).toBe('delete');
     expect(button.getAttribute('data-p-compact')).toBe('true');
+    const icon = button.querySelector('p-icon.p-button__icon');
+    expect(icon?.getAttribute('name')).toBe('delete');
+    expect(icon?.parentElement).toBe(button);
+    expect(container.querySelector('p-button')).toBeNull();
   });
 
   it('forwards a ref to the button', () => {

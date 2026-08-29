@@ -17,9 +17,9 @@ Stencil hosts stay frozen until a major removal.
 - `getNativeButtonCss()` / `getNativeLinkCss()`: one stylesheet, all variants via `data-p-*`
 - React `PButton` / `PLink` return the native tag. Public export still the CE wrapper.
 - Label lives in a span *inside* the native tag so hide-label works.
+- Icon is a `p-icon` child *inside* the native tag (`p-button__icon` / `p-link__icon`). Nothing wraps the control.
 
 ## Next
 
 Run `./docker.sh npm run test:vrt:components-js` on `native-button` / `native-link`.
-Those pages put Stencil and native side by side. No icon/spinner yet.
-Then icon children, Vue, Angular `button[pButton]`.
+Then Vue, Angular `button[pButton]` / `a[pLink]`, spinner for loading.
