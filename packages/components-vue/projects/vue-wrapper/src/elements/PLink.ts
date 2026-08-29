@@ -5,7 +5,7 @@ import {
   LINK_LABEL_CLASS,
   type LinkVariant,
   linkAppearance,
-} from '../../../../../components/src/elements/link';
+} from '../../../../../components/src/elements/link/link.appearance';
 import { PIcon } from './PIcon';
 
 export const PLink = defineComponent({

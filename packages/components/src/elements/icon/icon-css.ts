@@ -5,7 +5,8 @@ import { ICON_COLORS, type IconColor, type IconSize } from '../../components/ico
 import { forcedColorsMediaQuery } from '../../styles';
 import { colorMap, sizeMap } from '../../styles/maps';
 import { getCss } from '../../utils';
-import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from '../appearance';
+import { mediaQueryMin } from '../appearance-mq';
+import { RESPONSIVE_BREAKPOINTS } from '../appearance';
 import { ICON_ROOT_CLASS } from './icon.appearance';
 import { DEFAULT_ICON_NAME, nativeIconUrl } from './icon-url';
 

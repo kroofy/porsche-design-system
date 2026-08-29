@@ -5,7 +5,7 @@ import {
   LINK_LABEL_CLASS,
   type LinkVariant,
   linkAppearance,
-} from '../../../../../components/src/elements/link';
+} from '../../../../../components/src/elements/link/link.appearance';
 import { syncAppearance } from './apply-appearance';
 import { PIcon } from './PIcon';
 

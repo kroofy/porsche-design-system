@@ -36,7 +36,8 @@ import { getCheckboxIndeterminateBaseStyles } from '../styles/checkbox/checkbox-
 import { getThemedFormStateColors } from '../styles/form-state-color-styles';
 import { getCss } from '../utils';
 import { getInlineSVGBackgroundImage } from '../utils/svg/getInlineSVGBackgroundImage';
-import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from './appearance';
+import { mediaQueryMin } from './appearance-mq';
+import { RESPONSIVE_BREAKPOINTS } from './appearance';
 import {
   CHECKBOX_ROOT_CLASS,
   CHECKBOX_SPINNER_CLASS,

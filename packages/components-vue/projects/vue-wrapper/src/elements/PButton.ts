@@ -6,7 +6,7 @@ import {
   BUTTON_SPINNER_CLASS,
   type ButtonVariant,
   buttonAppearance,
-} from '../../../../../components/src/elements/button';
+} from '../../../../../components/src/elements/button/button.appearance';
 import { PIcon } from './PIcon';
 
 export const PButton = defineComponent({

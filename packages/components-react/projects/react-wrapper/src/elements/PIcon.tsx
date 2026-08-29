@@ -1,5 +1,6 @@
 import { type CSSProperties, forwardRef, type ImgHTMLAttributes } from 'react';
-import { type IconAppearanceProps, iconAppearance, nativeIconUrl } from '../../../../../components/src/elements/icon';
+import { type IconAppearanceProps, iconAppearance } from '../../../../../components/src/elements/icon/icon.appearance';
+import { nativeIconUrl } from '../../../../../components/src/elements/icon/icon-url';
 
 export type PIconProps = IconAppearanceProps &
   Omit<ImgHTMLAttributes<HTMLImageElement>, keyof IconAppearanceProps | 'src'> & {

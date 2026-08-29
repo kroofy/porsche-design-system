@@ -4,7 +4,7 @@ import {
   LINK_LABEL_CLASS,
   type LinkAppearanceProps,
   linkAppearance,
-} from '../../../../../components/src/elements/link';
+} from '../../../../../components/src/elements/link/link.appearance';
 import { PIcon } from './PIcon';
 
 export type PLinkProps = LinkAppearanceProps &

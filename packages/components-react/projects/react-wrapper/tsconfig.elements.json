@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "skipLibCheck": true
+  },
+  "include": ["./src/elements/**/*.ts", "./src/elements/**/*.tsx", "../../../components/src/elements/**/*.ts"],
+  "exclude": ["**/*.spec.ts", "**/*-css.ts", "**/write-elements-css.ts", "**/appearance-mq.ts"]
+}

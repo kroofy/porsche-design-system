@@ -86,6 +86,13 @@
       "import": "./vanilla-extract/esm/index.mjs",
       "default": "./vanilla-extract/cjs/index.cjs"
     },
+    "./elements": {
+      "types": "./elements/esm/index.d.ts",
+      "style": "./elements/index.css",
+      "import": "./elements/esm/index.mjs",
+      "default": "./elements/cjs/index.cjs"
+    },
+    "./elements.css": "./elements/index.css",
     "./ag-grid": {
       "types": "./ag-grid/esm/index.d.ts",
       "import": "./ag-grid/esm/index.mjs",

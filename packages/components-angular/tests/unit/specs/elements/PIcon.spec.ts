@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
-import { nativeIconUrl } from '../../../../../components/src/elements/icon';
+import { nativeIconUrl } from '../../../../../components/src/elements/icon/icon-url';
 import { PIcon } from '../../../../projects/angular-wrapper/src/elements/PIcon';
 
 const render = (component: Parameters<typeof TestBed.createComponent>[0]) => {

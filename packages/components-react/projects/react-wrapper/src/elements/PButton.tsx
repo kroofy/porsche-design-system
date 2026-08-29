@@ -5,7 +5,7 @@ import {
   BUTTON_SPINNER_CLASS,
   type ButtonAppearanceProps,
   buttonAppearance,
-} from '../../../../../components/src/elements/button';
+} from '../../../../../components/src/elements/button/button.appearance';
 import { PIcon } from './PIcon';
 
 export type PButtonProps = ButtonAppearanceProps &

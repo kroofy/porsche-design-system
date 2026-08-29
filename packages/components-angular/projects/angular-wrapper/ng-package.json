@@ -4,5 +4,5 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "allowedNonPeerDependencies": ["@porsche-design-system/components-js"]
+  "allowedNonPeerDependencies": ["@porsche-design-system/components-js", "@porsche-design-system/icons"]
 }

@@ -6,6 +6,18 @@
     "declarationMap": true,
     "inlineSources": true
   },
+  "include": [
+    "src/**/*.ts",
+    "../../../components/src/elements/appearance.ts",
+    "../../../components/src/elements/field-ids.ts",
+    "../../../components/src/elements/button/button.appearance.ts",
+    "../../../components/src/elements/link/link.appearance.ts",
+    "../../../components/src/elements/icon/icon.appearance.ts",
+    "../../../components/src/elements/icon/icon-url.ts",
+    "../../../components/src/elements/input/**/*.ts",
+    "../../../components/src/elements/label/**/*.ts"
+  ],
+  "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,

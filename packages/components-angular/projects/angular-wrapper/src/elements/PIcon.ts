@@ -4,8 +4,8 @@ import {
   type IconColor,
   type IconSize,
   iconAppearance,
-  nativeIconUrl,
-} from '../../../../../components/src/elements/icon';
+} from '../../../../../components/src/elements/icon/icon.appearance';
+import { nativeIconUrl } from '../../../../../components/src/elements/icon/icon-url';
 import { syncAppearance } from './apply-appearance';
 
 @Component({

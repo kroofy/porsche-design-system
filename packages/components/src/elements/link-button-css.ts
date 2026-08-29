@@ -30,7 +30,8 @@ import {
   hoverMediaQuery,
 } from '../styles';
 import { getCss, mergeDeep } from '../utils';
-import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from './appearance';
+import { RESPONSIVE_BREAKPOINTS } from './appearance';
+import { mediaQueryMin } from './appearance-mq';
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,

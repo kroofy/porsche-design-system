@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
-import { nativeIconUrl } from '../../../../../../../components/src/elements/icon';
+import { nativeIconUrl } from '../../../../../../../components/src/elements/icon/icon-url';
 import { PIcon } from '../../../../src/elements/PIcon';
 
 describe('PIcon', () => {

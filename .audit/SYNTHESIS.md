@@ -52,8 +52,15 @@ Stencil hosts stay frozen until a major removal.
 - `fieldIds()` / `useFieldIds()` mint a control id plus `-description` / `-message`. `fieldDescribedBy()` joins them for `aria-describedby`.
 - Label stays a sibling with `for`. The helper does not wrap the control.
 - React and Vue use `useId()`. Angular/vanilla use `fieldIds()` / `nextFieldId()`. Pass an id to pin it.
-- Not a public export.
+- Parallel `./elements` export. `.` stays the generated CE wrapper.
+
+## Public export
+
+- `import { PButton } from '@porsche-design-system/components-react/elements'` is the native button. Same for Vue and Angular.
+- `import { PButton } from '@porsche-design-system/components-react'` stays the generated CE.
+- Vanilla: `@porsche-design-system/components-js/elements.css` plus `fieldIds` from `./elements`.
+- Forced `aria` JSON bag stays on the CE. Native wrappers take real `aria-*`.
 
 ## Out of this family
 
-Public export swap. Mitosis.
+Replacing the `.` public CE export. Mitosis.

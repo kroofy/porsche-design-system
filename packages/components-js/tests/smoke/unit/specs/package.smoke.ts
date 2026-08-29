@@ -10,6 +10,13 @@ import componentsJsPackageJson from '../../../../dist/components-wrapper/package
 const nodeRequire = createRequire(import.meta.url);
 
 const packageJsonExports = {
+  './elements': {
+    types: './elements/esm/index.d.ts',
+    style: './elements/index.css',
+    import: './elements/esm/index.mjs',
+    default: './elements/cjs/index.cjs',
+  },
+  './elements.css': './elements/index.css',
   './ag-grid': {
     types: './ag-grid/esm/index.d.ts',
     import: './ag-grid/esm/index.mjs',
@@ -135,6 +142,9 @@ describe('package.json files', () => {
       expect(pkgJson.version).toBe(componentsJsPackageJson.version);
 
       if (packageName === '@porsche-design-system/components-angular') {
+        const sharedExports = Object.fromEntries(
+          Object.entries(packageJsonExports).filter(([key]) => key !== './elements')
+        );
         expect(pkgJson.exports).toEqual({
           '.': {
             default: './fesm2022/porsche-design-system-components-angular.mjs',
@@ -143,7 +153,12 @@ describe('package.json files', () => {
           './package.json': {
             default: './package.json',
           },
-          ...packageJsonExports,
+          './elements': {
+            types: './elements/index.d.ts',
+            style: './elements/index.css',
+            default: './fesm2022/porsche-design-system-components-angular-elements.mjs',
+          },
+          ...sharedExports,
         });
       } else {
         expect(pkgJson.exports).toEqual({
@@ -182,7 +197,8 @@ describe('package.json files', () => {
             prob.kind === 'FalseCJS' ||
             prob.resolutionKind === 'node10' ||
             ('entrypoint' in prob &&
-              (prob.entrypoint === './ag-grid' ||
+              (                prob.entrypoint === './ag-grid' ||
+                prob.entrypoint === './elements' ||
                 prob.entrypoint === '.' ||
                 prob.entrypoint === './scss' ||
                 prob.entrypoint === './emotion' ||
