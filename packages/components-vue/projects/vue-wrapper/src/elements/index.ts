@@ -3,6 +3,7 @@ export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';
 export { PDisplay } from './PDisplay';
 export { PDivider } from './PDivider';
+export { PFieldset } from './PFieldset';
 export { PHeading } from './PHeading';
 export { PIcon } from './PIcon';
 export { PInputText } from './PInputText';

@@ -13,6 +13,7 @@
     "../../../components/src/elements/button-pure/button-pure.appearance.ts",
     "../../../components/src/elements/divider/divider.appearance.ts",
     "../../../components/src/elements/display/display.appearance.ts",
+    "../../../components/src/elements/fieldset/fieldset.appearance.ts",
     "../../../components/src/elements/heading/heading.appearance.ts",
     "../../../components/src/elements/text/text.appearance.ts",
     "../../../components/src/elements/link/link.appearance.ts",

@@ -12,6 +12,7 @@ const files = [
   'button-pure/button-pure.appearance.ts',
   'divider/divider.appearance.ts',
   'display/display.appearance.ts',
+  'fieldset/fieldset.appearance.ts',
   'heading/heading.appearance.ts',
   'text/text.appearance.ts',
   'link/link.appearance.ts',

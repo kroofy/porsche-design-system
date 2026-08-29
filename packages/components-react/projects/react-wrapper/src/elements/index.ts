@@ -8,6 +8,8 @@ export type { PDisplayProps } from './PDisplay';
 export { PDisplay } from './PDisplay';
 export type { PDividerProps } from './PDivider';
 export { PDivider } from './PDivider';
+export type { PFieldsetProps } from './PFieldset';
+export { PFieldset } from './PFieldset';
 export type { PHeadingProps } from './PHeading';
 export { PHeading } from './PHeading';
 export type { PIconProps } from './PIcon';
