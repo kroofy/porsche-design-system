@@ -1,0 +1,86 @@
+<style>
+  p-input-text,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+<div class="playground auto-layout-inline" title="label">
+  <p-input-text name="some-name" label="Some label"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-label">Some label</label>
+    <input id="native-label" class="p-input" type="text" name="native-label" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="value">
+  <p-input-text name="some-name" label="Some label" value="some-value"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-value">Some label</label>
+    <input id="native-value" class="p-input" type="text" name="native-value" value="some-value" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="placeholder">
+  <p-input-text name="some-name" label="Some label" placeholder="Some placeholder"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-placeholder">Some label</label>
+    <input id="native-placeholder" class="p-input" type="text" name="native-placeholder" placeholder="Some placeholder" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="description">
+  <p-input-text name="some-name" label="Some label" description="Some description"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-description">Some label</label>
+    <span class="p-description" id="native-description-hint">Some description</span>
+    <input id="native-description" class="p-input" type="text" name="native-description" aria-describedby="native-description-hint" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="disabled">
+  <p-input-text name="some-name" label="Some label" value="some-value" disabled="true"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-disabled">Some label</label>
+    <input id="native-disabled" class="p-input" type="text" name="native-disabled" value="some-value" disabled dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="readonly">
+  <p-input-text name="some-name" label="Some label" value="some-value" read-only="true"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-readonly">Some label</label>
+    <input id="native-readonly" class="p-input" type="text" name="native-readonly" value="some-value" readonly dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="compact">
+  <p-input-text name="some-name" label="Some label" compact="true"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-compact">Some label</label>
+    <input id="native-compact" class="p-input" type="text" name="native-compact" data-p-compact="true" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="required">
+  <p-input-text name="some-name" label="Some label" required="true"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-required">Some label<span class="p-label__required" aria-hidden="true"> *</span></label>
+    <input id="native-required" class="p-input" type="text" name="native-required" required dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="error">
+  <p-input-text name="some-name" label="Some label" state="error" message="Some error"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-error">Some label</label>
+    <input id="native-error" class="p-input" type="text" name="native-error" data-p-state="error" aria-invalid="true" aria-describedby="native-error-msg" dir="auto" />
+    <span class="p-message" id="native-error-msg">Some error</span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="success">
+  <p-input-text name="some-name" label="Some label" state="success" message="Some success"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-success">Some label</label>
+    <input id="native-success" class="p-input" type="text" name="native-success" data-p-state="success" aria-describedby="native-success-msg" dir="auto" />
+    <span class="p-message" id="native-success-msg">Some success</span>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="hide-label">
+  <p-input-text name="some-name" label="Some label" hide-label="true"></p-input-text>
+  <div class="p-field">
+    <label class="p-label" for="native-hide-label" data-p-hide-label="true">Some label</label>
+    <input id="native-hide-label" class="p-input" type="text" name="native-hide-label" dir="auto" />
+  </div>
+</div>

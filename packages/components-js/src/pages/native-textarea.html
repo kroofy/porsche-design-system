@@ -1,0 +1,42 @@
+<style>
+  p-textarea,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+<div class="playground auto-layout-inline" title="label">
+  <p-textarea name="some-name" label="Some label"></p-textarea>
+  <div class="p-field">
+    <label class="p-label" for="native-ta-label">Some label</label>
+    <textarea id="native-ta-label" class="p-textarea" name="native-ta-label" dir="auto"></textarea>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="value">
+  <p-textarea name="some-name" label="Some label" value="some-value"></p-textarea>
+  <div class="p-field">
+    <label class="p-label" for="native-ta-value">Some label</label>
+    <textarea id="native-ta-value" class="p-textarea" name="native-ta-value" dir="auto">some-value</textarea>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="disabled">
+  <p-textarea name="some-name" label="Some label" value="some-value" disabled="true"></p-textarea>
+  <div class="p-field">
+    <label class="p-label" for="native-ta-disabled">Some label</label>
+    <textarea id="native-ta-disabled" class="p-textarea" name="native-ta-disabled" disabled dir="auto">some-value</textarea>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="compact">
+  <p-textarea name="some-name" label="Some label" compact="true"></p-textarea>
+  <div class="p-field">
+    <label class="p-label" for="native-ta-compact">Some label</label>
+    <textarea id="native-ta-compact" class="p-textarea" name="native-ta-compact" data-p-compact="true" dir="auto"></textarea>
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="error">
+  <p-textarea name="some-name" label="Some label" state="error" message="Some error"></p-textarea>
+  <div class="p-field">
+    <label class="p-label" for="native-ta-error">Some label</label>
+    <textarea id="native-ta-error" class="p-textarea" name="native-ta-error" data-p-state="error" aria-invalid="true" aria-describedby="native-ta-error-msg" dir="auto"></textarea>
+    <span class="p-message" id="native-ta-error-msg">Some error</span>
+  </div>
+</div>

@@ -24,6 +24,12 @@ Stencil hosts stay frozen until a major removal.
 - Unlayered `color-scheme: inherit` on `.p-button` / `.p-link` / `.p-icon` so dark tokens resolve against demo/UA `button,a { color-scheme: light }`.
 - Chrome and Safari VRT: native button/link sit next to Stencil. Light, dark, labels, icons, compact, loading match.
 
+## Fields (in progress)
+
+- `PInputText` is `<input class="p-input">`. `PLabel` is `<label class="p-label" for>`. `PTextarea` is `<textarea class="p-textarea">`.
+- Label is a sibling, never a host around the control. Required mark lives inside the label.
+- Public export still the CE. Stencil hosts stay frozen.
+
 ## Out of this family
 
-Public export swap. Fields. Generated IDs. Mitosis.
+Public export swap. Checkbox/radio/select. Generated ID helper. Mitosis.
