@@ -1,4 +1,3 @@
-import { getMediaQueryMin } from '@porsche-design-system/emotion';
 import {
   blurFrosted,
   colorCanvas,
@@ -31,7 +30,7 @@ import {
   hoverMediaQuery,
 } from '../styles';
 import { getCss, mergeDeep } from '../utils';
-import { BREAKPOINTS } from './appearance';
+import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from './appearance';
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
@@ -44,7 +43,6 @@ import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } fro
 
 const COMPACT_SCALE = 0.64285714;
 const DEFAULT_SCALE = 1;
-const RESPONSIVE_BREAKPOINTS = BREAKPOINTS.filter((breakpoint) => breakpoint !== 'base');
 
 type VariantColors = {
   textColor: string;
@@ -136,10 +134,12 @@ const responsiveAttrStyles = (name: string, apply: (value: boolean) => JssStyle)
     [`&[data-p-${name}="false"]`]: apply(false),
   };
   for (const breakpoint of RESPONSIVE_BREAKPOINTS) {
-    styles[getMediaQueryMin(breakpoint as Exclude<typeof breakpoint, 'base'>)] = {
-      [`&[data-p-${name}-${breakpoint}="true"]`]: apply(true),
-      [`&[data-p-${name}-${breakpoint}="false"]`]: apply(false),
-    };
+    Object.assign(styles, {
+      [mediaQueryMin(breakpoint)]: {
+        [`&[data-p-${name}-${breakpoint}="true"]`]: apply(true),
+        [`&[data-p-${name}-${breakpoint}="false"]`]: apply(false),
+      },
+    });
   }
   return styles;
 };
@@ -200,7 +200,7 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
   const variantOverrides = variants
     .filter((variant) => variant !== 'primary')
     .reduce<JssStyle>((result, variant) => {
-      result[`&[data-p-variant="${variant}"]`] = variantStyles(variant);
+      Object.assign(result, { [`&[data-p-variant="${variant}"]`]: variantStyles(variant) });
       return result;
     }, {});
 

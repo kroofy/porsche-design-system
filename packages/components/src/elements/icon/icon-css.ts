@@ -1,4 +1,3 @@
-import { getMediaQueryMin } from '@porsche-design-system/emotion';
 import { ICONS_MANIFEST } from '@porsche-design-system/icons';
 import { fontPorscheNext, leadingNormal, ref } from '@porsche-design-system/stylesheets';
 import type { JssStyle, Styles } from 'jss';
@@ -6,13 +5,12 @@ import { ICON_COLORS, type IconColor, type IconSize } from '../../components/ico
 import { forcedColorsMediaQuery } from '../../styles';
 import { colorMap, sizeMap } from '../../styles/maps';
 import { getCss } from '../../utils';
-import { BREAKPOINTS } from '../appearance';
+import { mediaQueryMin, RESPONSIVE_BREAKPOINTS } from '../appearance';
 import { ICON_ROOT_CLASS } from './icon.appearance';
 import { DEFAULT_ICON_NAME, nativeIconUrl } from './icon-url';
 
 const cssVarSize = '--p-icon-size';
 const cssVarColor = '--p-icon-color';
-const RESPONSIVE_BREAKPOINTS = BREAKPOINTS.filter((breakpoint) => breakpoint !== 'base');
 
 const FLIPPABLE_ICONS = new Set([
   'arrow-compact-left',
@@ -58,15 +56,14 @@ const responsiveSizeStyles = (): JssStyle => {
     if (size === 'sm') {
       continue;
     }
-    styles[`&[data-p-size="${size}"]`] = sizeStyles(size);
+    Object.assign(styles, { [`&[data-p-size="${size}"]`]: sizeStyles(size) });
   }
   for (const breakpoint of RESPONSIVE_BREAKPOINTS) {
-    const query = getMediaQueryMin(breakpoint as Exclude<typeof breakpoint, 'base'>);
     const atBreakpoint: JssStyle = {};
     for (const size of Object.keys(sizeMap) as IconSize[]) {
-      atBreakpoint[`&[data-p-size-${breakpoint}="${size}"]`] = sizeStyles(size);
+      Object.assign(atBreakpoint, { [`&[data-p-size-${breakpoint}="${size}"]`]: sizeStyles(size) });
     }
-    styles[query] = atBreakpoint;
+    Object.assign(styles, { [mediaQueryMin(breakpoint)]: atBreakpoint });
   }
   return styles;
 };
@@ -77,7 +74,7 @@ const colorOverrides = (): JssStyle => {
     if (color === 'primary') {
       continue;
     }
-    styles[`&[data-p-color="${color}"]`] = colorStyles(color);
+    Object.assign(styles, { [`&[data-p-color="${color}"]`]: colorStyles(color) });
   }
   return styles;
 };
@@ -88,10 +85,12 @@ const nameOverrides = (): JssStyle => {
     if (name === DEFAULT_ICON_NAME) {
       continue;
     }
-    styles[`&[data-p-name="${name}"]`] = {
-      ...maskVar(name),
-      ...(FLIPPABLE_ICONS.has(name) ? { '&:dir(rtl)': rtlFlip } : {}),
-    };
+    Object.assign(styles, {
+      [`&[data-p-name="${name}"]`]: {
+        ...maskVar(name),
+        ...(FLIPPABLE_ICONS.has(name) ? { '&:dir(rtl)': rtlFlip } : {}),
+      },
+    });
   }
   return styles;
 };
