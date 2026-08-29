@@ -153,18 +153,15 @@ exports[`getNativeButtonCss() > matches the rewritten snapshot 1`] = `
     width: 100%;
     height: 100%;
     animation: p-spin-rotate var(--p-animation-duration,var(--p-duration-xl)) steps(50) infinite;
-    animation-fill-mode: both;
   }
   .p-button[data-p-loading="true"] .p-button__spinner circle:first-child {
     stroke: var(--p-spinner-track-color,var(--p-color-contrast-lower));
   }
   .p-button[data-p-loading="true"] .p-button__spinner circle:last-child {
     stroke: var(--p-spinner-color,currentcolor);
-    stroke-dasharray: 69;
-    stroke-dashoffset: 69;
+    stroke-dasharray: var(--p-temporary-spinner-stroke-dasharray,69);
     stroke-linecap: round;
     animation: p-spin-dash var(--p-animation-duration,var(--p-duration-xl)) steps(50) infinite;
-    animation-fill-mode: both;
   }
   .p-button:disabled:not([data-p-loading="true"]) .p-button__label {
     opacity: 0.4;

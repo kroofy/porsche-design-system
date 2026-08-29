@@ -46,6 +46,8 @@ describe('getNativeButtonCss()', () => {
     expect(css).toContain('--p-button-bg');
     expect(css).toContain('@keyframes p-spin-rotate');
     expect(css).toContain('.p-button__spinner svg');
+    expect(css).toContain('--p-temporary-spinner-stroke-dasharray');
+    expect(css).not.toMatch(/circle:last-child \{[\s\S]*?stroke-dashoffset/);
   });
 
   it('matches the rewritten snapshot', () => {
