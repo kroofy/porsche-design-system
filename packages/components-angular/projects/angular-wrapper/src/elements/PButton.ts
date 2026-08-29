@@ -1,12 +1,12 @@
 import { booleanAttribute, Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
+import type { Responsive } from './core/appearance';
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
   BUTTON_SPINNER_CLASS,
   type ButtonVariant,
   buttonAppearance,
-} from '../../../../../components/src/elements/button/button.appearance';
+} from './core/button/button.appearance';
 import { syncAppearance } from './apply-appearance';
 import { PIcon } from './PIcon';
 

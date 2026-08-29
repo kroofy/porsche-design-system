@@ -1,5 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
-import { type InputAppearanceProps, radioAppearance } from '../../../../../components/src/elements/input';
+import { type InputAppearanceProps, radioAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export type PRadioProps = InputAppearanceProps &
   Omit<InputHTMLAttributes<HTMLInputElement>, keyof InputAppearanceProps | 'type'>;

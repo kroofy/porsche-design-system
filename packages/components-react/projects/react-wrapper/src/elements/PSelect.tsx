@@ -1,5 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from 'react';
-import { type InputAppearanceProps, selectAppearance } from '../../../../../components/src/elements/input';
+import { type InputAppearanceProps, selectAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export type PSelectProps = InputAppearanceProps &
   Omit<SelectHTMLAttributes<HTMLSelectElement>, keyof InputAppearanceProps>;

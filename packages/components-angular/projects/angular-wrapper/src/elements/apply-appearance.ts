@@ -1,4 +1,4 @@
-import type { NativeAppearance } from '../../../../../components/src/elements/appearance';
+import type { NativeAppearance } from './core/appearance';
 
 export const syncAppearance = (el: HTMLElement, appearance: NativeAppearance, applied: Set<string>): void => {
   el.classList.add(appearance.className);

@@ -1,7 +1,7 @@
-export type { FieldDescribedByOptions, FieldIds } from '../../../../../components/src/elements/field-ids';
+export type { FieldDescribedByOptions, FieldIds } from './core/field-ids';
 export {
   createFieldIds,
   fieldDescribedBy,
   fieldIds,
   nextFieldId,
-} from '../../../../../components/src/elements/field-ids';
+} from './core/field-ids';

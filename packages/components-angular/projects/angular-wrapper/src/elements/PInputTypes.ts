@@ -1,6 +1,6 @@
 import { booleanAttribute, Component, Directive, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { type FieldState, inputAppearance } from '../../../../../components/src/elements/input';
+import type { Responsive } from './core/appearance';
+import { type FieldState, inputAppearance } from './core/input/input.appearance';
 import { syncAppearance } from './apply-appearance';
 
 @Directive()
@@ -34,19 +34,17 @@ export abstract class NativeInputBase implements OnInit, OnChanges {
   }
 }
 
-const nativeInputHost = (type: string) => ({
-  '[class.p-input]': 'true',
-  '[attr.type]': `"${type}"`,
-  '[disabled]': 'disabled || loading',
-  '[attr.aria-busy]': 'loading ? "true" : null',
-  '[attr.dir]': '"auto"',
-});
-
 @Component({
   selector: 'input[pInputEmail]',
   standalone: true,
   template: '',
-  host: nativeInputHost('email'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'email'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputEmail extends NativeInputBase {}
 
@@ -54,7 +52,13 @@ export class PInputEmail extends NativeInputBase {}
   selector: 'input[pInputTel]',
   standalone: true,
   template: '',
-  host: nativeInputHost('tel'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'tel'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputTel extends NativeInputBase {}
 
@@ -62,7 +66,13 @@ export class PInputTel extends NativeInputBase {}
   selector: 'input[pInputUrl]',
   standalone: true,
   template: '',
-  host: nativeInputHost('url'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'url'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputUrl extends NativeInputBase {}
 
@@ -70,7 +80,13 @@ export class PInputUrl extends NativeInputBase {}
   selector: 'input[pInputSearch]',
   standalone: true,
   template: '',
-  host: nativeInputHost('search'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'search'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputSearch extends NativeInputBase {}
 
@@ -78,7 +94,13 @@ export class PInputSearch extends NativeInputBase {}
   selector: 'input[pInputPassword]',
   standalone: true,
   template: '',
-  host: nativeInputHost('password'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'password'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputPassword extends NativeInputBase {}
 
@@ -86,7 +108,13 @@ export class PInputPassword extends NativeInputBase {}
   selector: 'input[pInputNumber]',
   standalone: true,
   template: '',
-  host: nativeInputHost('number'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'number'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputNumber extends NativeInputBase {}
 
@@ -94,7 +122,13 @@ export class PInputNumber extends NativeInputBase {}
   selector: 'input[pInputDate]',
   standalone: true,
   template: '',
-  host: nativeInputHost('date'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'date'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputDate extends NativeInputBase {}
 
@@ -102,7 +136,13 @@ export class PInputDate extends NativeInputBase {}
   selector: 'input[pInputTime]',
   standalone: true,
   template: '',
-  host: nativeInputHost('time'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'time'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputTime extends NativeInputBase {}
 
@@ -110,7 +150,13 @@ export class PInputTime extends NativeInputBase {}
   selector: 'input[pInputMonth]',
   standalone: true,
   template: '',
-  host: nativeInputHost('month'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'month'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputMonth extends NativeInputBase {}
 
@@ -118,6 +164,12 @@ export class PInputMonth extends NativeInputBase {}
   selector: 'input[pInputWeek]',
   standalone: true,
   template: '',
-  host: nativeInputHost('week'),
+  host: {
+    '[class.p-input]': 'true',
+    '[attr.type]': "'week'",
+    '[disabled]': 'disabled || loading',
+    '[attr.aria-busy]': 'loading ? "true" : null',
+    '[attr.dir]': '"auto"',
+  },
 })
 export class PInputWeek extends NativeInputBase {}

@@ -1,11 +1,27 @@
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
+import * as esbuild from 'esbuild';
 import bin from 'rollup-plugin-bin';
 import copy from 'rollup-plugin-copy';
 import { dts } from 'rollup-plugin-dts';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
+
+const esbuildTs = (jsx) => ({
+  name: 'esbuild-ts',
+  async transform(code, id) {
+    if (!/\.[cm]?tsx?$/.test(id) || id.includes('node_modules')) {
+      return null;
+    }
+    const result = await esbuild.transform(code, {
+      loader: id.endsWith('tsx') ? 'tsx' : 'ts',
+      jsx: jsx ? 'automatic' : undefined,
+      sourcemap: true,
+    });
+    return { code: result.code, map: result.map };
+  },
+});
 
 const rootDir = '../..';
 const projectDir = 'projects/react-wrapper';
@@ -49,7 +65,7 @@ const sharedPlugins = [
   resolve(),
 ];
 
-export default [
+const configs = [
   {
     input,
     external,
@@ -132,8 +148,8 @@ export default [
       },
     ],
     plugins: [
-      ...sharedPlugins,
-      typescript({ tsconfig: `${projectDir}/tsconfig.elements.json` }),
+      resolve({ extensions: ['.ts', '.tsx', '.js', '.mjs'] }),
+      esbuildTs(true),
       copy({
         targets: [
           {
@@ -365,3 +381,7 @@ export default [
     plugins: [typescript(typescriptOpts), bin()],
   },
 ];
+
+export default process.env.ELEMENTS_ONLY
+  ? configs.filter((config) => String(config.input).includes('/elements/'))
+  : configs;

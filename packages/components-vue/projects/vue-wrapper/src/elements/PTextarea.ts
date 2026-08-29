@@ -1,6 +1,6 @@
 import { defineComponent, h, type PropType } from 'vue';
 import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { type FieldState, textareaAppearance } from '../../../../../components/src/elements/input';
+import { type FieldState, textareaAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export const PTextarea = defineComponent({
   name: 'PTextarea',

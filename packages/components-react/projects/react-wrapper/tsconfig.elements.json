@@ -4,6 +4,16 @@
     "declaration": false,
     "skipLibCheck": true
   },
-  "include": ["./src/elements/**/*.ts", "./src/elements/**/*.tsx", "../../../components/src/elements/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "**/*-css.ts", "**/write-elements-css.ts", "**/appearance-mq.ts"]
+  "include": [
+    "./src/elements/**/*.ts",
+    "./src/elements/**/*.tsx",
+    "../../../components/src/elements/appearance.ts",
+    "../../../components/src/elements/field-ids.ts",
+    "../../../components/src/elements/button/button.appearance.ts",
+    "../../../components/src/elements/link/link.appearance.ts",
+    "../../../components/src/elements/icon/icon.appearance.ts",
+    "../../../components/src/elements/icon/icon-url.ts",
+    "../../../components/src/elements/input/input.appearance.ts",
+    "../../../components/src/elements/label/label.appearance.ts"
+  ]
 }

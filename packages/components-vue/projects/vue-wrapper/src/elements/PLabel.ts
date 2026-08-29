@@ -1,6 +1,6 @@
 import { defineComponent, h, type PropType } from 'vue';
 import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { LABEL_REQUIRED_CLASS, labelAppearance } from '../../../../../components/src/elements/label';
+import { LABEL_REQUIRED_CLASS, labelAppearance } from '../../../../../components/src/elements/label/label.appearance';
 
 export const PLabel = defineComponent({
   name: 'PLabel',

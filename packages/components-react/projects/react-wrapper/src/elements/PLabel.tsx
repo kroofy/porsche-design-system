@@ -3,7 +3,7 @@ import {
   LABEL_REQUIRED_CLASS,
   type LabelAppearanceProps,
   labelAppearance,
-} from '../../../../../components/src/elements/label';
+} from '../../../../../components/src/elements/label/label.appearance';
 
 export type PLabelProps = LabelAppearanceProps &
   Omit<LabelHTMLAttributes<HTMLLabelElement>, keyof LabelAppearanceProps> & {

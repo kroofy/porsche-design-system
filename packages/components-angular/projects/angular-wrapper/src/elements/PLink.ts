@@ -1,11 +1,11 @@
 import { Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
+import type { Responsive } from './core/appearance';
 import {
   LINK_ICON_CLASS,
   LINK_LABEL_CLASS,
   type LinkVariant,
   linkAppearance,
-} from '../../../../../components/src/elements/link/link.appearance';
+} from './core/link/link.appearance';
 import { syncAppearance } from './apply-appearance';
 import { PIcon } from './PIcon';
 

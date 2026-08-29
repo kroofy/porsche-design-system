@@ -1,5 +1,5 @@
 import { forwardRef, type TextareaHTMLAttributes } from 'react';
-import { type InputAppearanceProps, textareaAppearance } from '../../../../../components/src/elements/input';
+import { type InputAppearanceProps, textareaAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export type PTextareaProps = InputAppearanceProps &
   Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, keyof InputAppearanceProps>;

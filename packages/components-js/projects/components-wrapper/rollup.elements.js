@@ -1,7 +1,22 @@
-import typescript from '@rollup/plugin-typescript';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import * as esbuild from 'esbuild';
 import copy from 'rollup-plugin-copy';
 import { dts } from 'rollup-plugin-dts';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
+
+const esbuildTs = () => ({
+  name: 'esbuild-ts',
+  async transform(code, id) {
+    if (!/\.[cm]?tsx?$/.test(id) || id.includes('node_modules')) {
+      return null;
+    }
+    const result = await esbuild.transform(code, {
+      loader: 'ts',
+      sourcemap: true,
+    });
+    return { code: result.code, map: result.map };
+  },
+});
 
 const projectDir = 'projects/components-wrapper';
 const outputDir = 'dist/components-wrapper';
@@ -20,7 +35,8 @@ export default [
       },
     ],
     plugins: [
-      typescript({ tsconfig: `${projectDir}/tsconfig.elements.json` }),
+      nodeResolve({ extensions: ['.ts', '.js', '.mjs'] }),
+      esbuildTs(),
       copy({
         targets: [
           {

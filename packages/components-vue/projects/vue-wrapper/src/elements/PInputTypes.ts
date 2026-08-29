@@ -1,6 +1,6 @@
 import { defineComponent, h, type PropType } from 'vue';
 import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { type FieldState, type NativeInputType, inputAppearance } from '../../../../../components/src/elements/input';
+import { type FieldState, type NativeInputType, inputAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 const nativeInputProps = (defaultType: NativeInputType) => ({
   compact: { type: [Boolean, Object] as PropType<Responsive<boolean>>, default: undefined },

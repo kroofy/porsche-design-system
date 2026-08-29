@@ -1,6 +1,6 @@
 import { booleanAttribute, Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { LABEL_REQUIRED_CLASS, labelAppearance } from '../../../../../components/src/elements/label';
+import type { Responsive } from './core/appearance';
+import { LABEL_REQUIRED_CLASS, labelAppearance } from './core/label/label.appearance';
 import { syncAppearance } from './apply-appearance';
 
 @Component({

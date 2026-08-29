@@ -1,11 +1,11 @@
 import { Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
+import type { Responsive } from './core/appearance';
 import {
   type IconColor,
   type IconSize,
   iconAppearance,
-} from '../../../../../components/src/elements/icon/icon.appearance';
-import { nativeIconUrl } from '../../../../../components/src/elements/icon/icon-url';
+} from './core/icon/icon.appearance';
+import { nativeIconUrl } from './core/icon/icon-url';
 import { syncAppearance } from './apply-appearance';
 
 @Component({

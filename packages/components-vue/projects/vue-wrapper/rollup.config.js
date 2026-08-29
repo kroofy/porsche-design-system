@@ -1,8 +1,23 @@
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import * as esbuild from 'esbuild';
 import copy from 'rollup-plugin-copy';
 import { dts } from 'rollup-plugin-dts';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
+
+const esbuildTs = () => ({
+  name: 'esbuild-ts',
+  async transform(code, id) {
+    if (!/\.[cm]?tsx?$/.test(id) || id.includes('node_modules')) {
+      return null;
+    }
+    const result = await esbuild.transform(code, {
+      loader: 'ts',
+      sourcemap: true,
+    });
+    return { code: result.code, map: result.map };
+  },
+});
 
 const projectDir = 'projects/vue-wrapper';
 const outputDir = 'dist/vue-wrapper';
@@ -59,7 +74,7 @@ const buildConfig = (packagePath) => {
   };
 };
 
-export default [
+const configs = [
   {
     input: `${projectDir}/src/elements/index.ts`,
     external: [...external, 'vue'],
@@ -74,8 +89,8 @@ export default [
       },
     ],
     plugins: [
-      resolve(),
-      typescript({ tsconfig: `${projectDir}/tsconfig.elements.json` }),
+      resolve({ extensions: ['.ts', '.tsx', '.js', '.mjs'] }),
+      esbuildTs(),
       copy({
         targets: [
           {
@@ -290,3 +305,7 @@ export default [
     ],
   },
 ];
+
+export default process.env.ELEMENTS_ONLY
+  ? configs.filter((config) => String(config.input).includes('/elements/'))
+  : configs;

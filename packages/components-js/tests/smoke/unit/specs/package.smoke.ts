@@ -154,7 +154,7 @@ describe('package.json files', () => {
             default: './package.json',
           },
           './elements': {
-            types: './elements/index.d.ts',
+            types: './types/porsche-design-system-components-angular-elements.d.ts',
             style: './elements/index.css',
             default: './fesm2022/porsche-design-system-components-angular-elements.mjs',
           },

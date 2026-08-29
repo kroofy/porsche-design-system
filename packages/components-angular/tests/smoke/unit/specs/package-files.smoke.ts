@@ -14,7 +14,7 @@ describe('angular-wrapper distribution files', () => {
 
   test.each([
     'elements/index.css',
-    'elements/index.d.ts',
+    'types/porsche-design-system-components-angular-elements.d.ts',
     'fesm2022/porsche-design-system-components-angular-elements.mjs',
   ])('should contain native elements %s', (file) => {
     expect(fs.existsSync(path.resolve(distDir, file))).toBe(true);

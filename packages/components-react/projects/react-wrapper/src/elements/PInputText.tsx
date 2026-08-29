@@ -1,5 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
-import { type InputAppearanceProps, inputAppearance } from '../../../../../components/src/elements/input';
+import { type InputAppearanceProps, inputAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export type PInputTextProps = InputAppearanceProps &
   Omit<InputHTMLAttributes<HTMLInputElement>, keyof InputAppearanceProps | 'type'> & {

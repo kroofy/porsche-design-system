@@ -59,6 +59,7 @@ Stencil hosts stay frozen until a major removal.
 - `import { PButton } from '@porsche-design-system/components-react/elements'` is the native button. Same for Vue and Angular.
 - `import { PButton } from '@porsche-design-system/components-react'` stays the generated CE.
 - Vanilla: `@porsche-design-system/components-js/elements.css` plus `fieldIds` from `./elements`.
+- Angular `./elements` is an ng-packagr secondary entry. Appearance is copied into `src/elements/core` so ngc stays inside rootDir. Icons stay bundled.
 - Forced `aria` JSON bag stays on the CE. Native wrappers take real `aria-*`.
 
 ## Out of this family

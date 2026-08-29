@@ -1,6 +1,6 @@
 import { booleanAttribute, Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
-import type { Responsive } from '../../../../../components/src/elements/appearance';
-import { type FieldState, radioAppearance } from '../../../../../components/src/elements/input';
+import type { Responsive } from './core/appearance';
+import { type FieldState, radioAppearance } from './core/input/input.appearance';
 import { syncAppearance } from './apply-appearance';
 
 @Component({

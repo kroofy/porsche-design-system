@@ -1,5 +1,5 @@
 import { forwardRef, type InputHTMLAttributes, type Ref, useCallback } from 'react';
-import { type CheckboxAppearanceProps, checkboxAppearance } from '../../../../../components/src/elements/input';
+import { type CheckboxAppearanceProps, checkboxAppearance } from '../../../../../components/src/elements/input/input.appearance';
 
 export type PCheckboxProps = CheckboxAppearanceProps &
   Omit<InputHTMLAttributes<HTMLInputElement>, keyof CheckboxAppearanceProps | 'type'>;
