@@ -1,10 +1,6 @@
 import { booleanAttribute, Component, ElementRef, Input, inject, type OnChanges, type OnInit } from '@angular/core';
 import { syncAppearance } from './apply-appearance';
-import {
-  type FieldsetLabelSize,
-  type FieldsetState,
-  fieldsetAppearance,
-} from './core/fieldset/fieldset.appearance';
+import { type FieldsetLabelSize, type FieldsetState, fieldsetAppearance } from './core/fieldset/fieldset.appearance';
 
 @Component({
   selector: 'fieldset[pFieldset]',

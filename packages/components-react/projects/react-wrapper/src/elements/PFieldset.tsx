@@ -1,4 +1,4 @@
-import { forwardRef, type FieldsetHTMLAttributes, type ReactNode } from 'react';
+import { type FieldsetHTMLAttributes, forwardRef, type ReactNode } from 'react';
 import {
   type FieldsetAppearanceProps,
   fieldsetAppearance,

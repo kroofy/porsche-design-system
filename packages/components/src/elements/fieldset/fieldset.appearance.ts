@@ -1,5 +1,5 @@
-import { type NativeAppearance } from '../appearance';
-import { type FieldState } from '../input/input.appearance';
+import type { NativeAppearance } from '../appearance';
+import type { FieldState } from '../input/input.appearance';
 
 export const FIELDSET_ROOT_CLASS = 'p-fieldset' as const;
 
