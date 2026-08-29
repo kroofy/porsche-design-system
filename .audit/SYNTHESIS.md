@@ -15,11 +15,11 @@ Stencil hosts stay frozen until a major removal.
 - `linkAppearance()` / `buttonAppearance()`
 - Shared `serializeResponsive` and `rewriteShadowElementCss`
 - `getNativeButtonCss()` / `getNativeLinkCss()`: one stylesheet, all variants via `data-p-*`
-- React `PButton` / `PLink` return the native tag. Public export still the CE wrapper.
+- React and Vue `PButton` / `PLink` / `PIcon` return the native tag. Public export still the CE wrapper.
 - Label lives in a span *inside* the native tag so hide-label works.
 - Icon is a native `<img class="p-icon">` *inside* the control (`p-button__icon` / `p-link__icon`). Nothing wraps the button, link, or icon. Stencil `p-icon` stays frozen.
 
 ## Next
 
 Run `./docker.sh npm run test:vrt:components-js` on `native-button` / `native-link`.
-Then Vue, Angular `button[pButton]` / `a[pLink]`, spinner for loading.
+Then Angular `button[pButton]` / `a[pLink]`, spinner for loading.
