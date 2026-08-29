@@ -20,3 +20,4 @@ ts	phase	decision	why	evidence	result
 2026-08-29T12:09:00Z	implement	Vue PButton/PLink/PIcon same native contract, not public export	was pausing between slices; keep going	vue-wrapper/src/elements 9 tests	VERIFIED
 2026-08-29T12:20:00Z	implement	Angular button[pButton] a[pLink] img[pIcon], host is the tag	wrapping host would bring the CE back	angular-wrapper/src/elements	VERIFIED unit
 2026-08-29T12:25:00Z	implement	loading spinner is span.p-button__spinner SVG, not p-spinner	CE spinner would need load(); CSS already reserved the class	link-button-css + PButton wrappers	VERIFIED unit
+2026-08-29T12:55:00Z	implement	Chrome VRT native-button/native-link vs Stencil side by side	Playwright linux image, host node_modules, CDN chunks copied	native-*.png 4 chrome	VERIFIED chrome; spinner freeze-frame differs

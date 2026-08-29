@@ -297,6 +297,7 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
                 width: '100%',
                 height: '100%',
                 animation: `p-spin-rotate ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+                animationFillMode: 'both',
               },
               '& circle:first-child': {
                 stroke: ref('--p-spinner-track-color', ref(colorContrastLower)),
@@ -313,8 +314,10 @@ const getNativeLinkButtonStyles = (config: NativeLinkButtonConfig): Styles => {
               '& circle:last-child': {
                 stroke: ref('--p-spinner-color', 'currentcolor'),
                 strokeDasharray: 69,
+                strokeDashoffset: 69,
                 strokeLinecap: 'round',
                 animation: `p-spin-dash ${ref(cssVariableAnimationDuration, ref(durationXl))} steps(50) infinite`,
+                animationFillMode: 'both',
                 ...forcedColorsMediaQuery({
                   stroke: 'CanvasText',
                 }),

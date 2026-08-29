@@ -20,7 +20,8 @@ Stencil hosts stay frozen until a major removal.
 - Label lives in a span *inside* the native tag so hide-label works.
 - Icon is a native `<img class="p-icon">` *inside* the control (`p-button__icon` / `p-link__icon`). Nothing wraps the button, link, or icon. Stencil `p-icon` stays frozen.
 - Loading is native `disabled` + `aria-busy` + `data-p-loading` + a `span.p-button__spinner` SVG. Not `p-spinner`.
+- Chrome VRT: native button/link sit next to Stencil. Labels, icons, compact match. Loading spinner freeze-frame does not.
 
 ## Next
 
-`./docker.sh` VRT on `native-button` / `native-link`.
+Safari VRT. Spinner freeze-frame vs Stencil still differs (~C vs track ring) when `--p-animation-duration: 0s`.
