@@ -492,6 +492,27 @@ const getNativeFieldStyles = (): Styles => ({
     ...controlChrome(SCALING_VAR, false),
     ...stateOverrides(),
     ...responsiveAttrStyles('compact', (compact) => compactVars(SCALING_VAR, compact)),
+    '&[type="search"]::-webkit-search-decoration, &[type="search"]::-webkit-search-cancel-button, &[type="search"]::-webkit-search-results-button, &[type="search"]::-webkit-search-results-decoration':
+      {
+        appearance: 'none',
+        display: 'none',
+      },
+    '&[type="number"]': {
+      MozAppearance: 'textfield',
+    },
+    '&[type="number"]::-webkit-inner-spin-button, &[type="number"]::-webkit-outer-spin-button': {
+      appearance: 'none',
+      margin: 0,
+    },
+    '&[type="date"]::-webkit-calendar-picker-indicator, &[type="time"]::-webkit-calendar-picker-indicator, &[type="month"]::-webkit-calendar-picker-indicator, &[type="week"]::-webkit-calendar-picker-indicator':
+      {
+        display: 'none',
+      },
+    '&::-webkit-datetime-edit, &::-webkit-datetime-edit-fields-wrapper, &::-webkit-datetime-edit-text, &::-webkit-datetime-edit-year-field, &::-webkit-datetime-edit-month-field, &::-webkit-datetime-edit-day-field, &::-webkit-datetime-edit-hour-field, &::-webkit-datetime-edit-minute-field, &::-webkit-datetime-edit-second-field, &::-webkit-datetime-edit-ampm-field, &::-webkit-datetime-edit-week-field':
+      {
+        padding: 0,
+        color: 'inherit',
+      },
   },
   [TEXTAREA_ROOT_CLASS]: {
     ...controlChrome(TEXTAREA_SCALING_VAR, true),

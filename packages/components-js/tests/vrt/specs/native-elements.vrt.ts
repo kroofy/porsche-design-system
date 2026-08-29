@@ -10,6 +10,7 @@ const pages = [
   'native-checkbox',
   'native-radio',
   'native-select',
+  'native-input-types',
 ] as const;
 
 for (const pageName of pages) {

@@ -55,6 +55,13 @@ describe('getNativeFieldCss()', () => {
     expect(css).toContain('.p-select {');
   });
 
+  it('strips UA chrome on search, number and datetime types', () => {
+    expect(css).toContain('[type="search"]::-webkit-search-cancel-button');
+    expect(css).toContain('[type="number"]::-webkit-inner-spin-button');
+    expect(css).toContain('[type="date"]::-webkit-calendar-picker-indicator');
+    expect(css).toContain('::-webkit-datetime-edit');
+  });
+
   it('matches the rewritten snapshot', () => {
     expect(css).toMatchSnapshot();
   });

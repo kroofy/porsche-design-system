@@ -1,0 +1,110 @@
+<style>
+  p-input-email,
+  p-input-password,
+  p-input-search,
+  p-input-tel,
+  p-input-url,
+  p-input-number,
+  p-input-date,
+  p-input-time,
+  p-input-month,
+  p-input-week,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+<div class="playground auto-layout-inline" title="email">
+  <p-input-email name="some-name" label="Some label" value="example@porsche.de"></p-input-email>
+  <div class="p-field">
+    <label class="p-label" for="native-email">Some label</label>
+    <input id="native-email" class="p-input" type="email" name="native-email" value="example@porsche.de" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="password">
+  <p-input-password name="some-name" label="Some label" value="secret"></p-input-password>
+  <div class="p-field">
+    <label class="p-label" for="native-password">Some label</label>
+    <input id="native-password" class="p-input" type="password" name="native-password" value="secret" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="search">
+  <p-input-search name="some-name" label="Some label" value="some-value"></p-input-search>
+  <div class="p-field">
+    <label class="p-label" for="native-search">Some label</label>
+    <input id="native-search" class="p-input" type="search" name="native-search" value="some-value" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="tel">
+  <p-input-tel name="some-name" label="Some label" value="+491234"></p-input-tel>
+  <div class="p-field">
+    <label class="p-label" for="native-tel">Some label</label>
+    <input id="native-tel" class="p-input" type="tel" name="native-tel" value="+491234" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="url">
+  <p-input-url name="some-name" label="Some label" value="https://porsche.com"></p-input-url>
+  <div class="p-field">
+    <label class="p-label" for="native-url">Some label</label>
+    <input id="native-url" class="p-input" type="url" name="native-url" value="https://porsche.com" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="number">
+  <p-input-number name="some-name" label="Some label" value="42"></p-input-number>
+  <div class="p-field">
+    <label class="p-label" for="native-number">Some label</label>
+    <input id="native-number" class="p-input" type="number" name="native-number" value="42" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="date">
+  <p-input-date name="some-name" label="Some label" value="2025-07-22"></p-input-date>
+  <div class="p-field">
+    <label class="p-label" for="native-date">Some label</label>
+    <input id="native-date" class="p-input" type="date" name="native-date" value="2025-07-22" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="time">
+  <p-input-time name="some-name" label="Some label" value="13:30"></p-input-time>
+  <div class="p-field">
+    <label class="p-label" for="native-time">Some label</label>
+    <input id="native-time" class="p-input" type="time" name="native-time" value="13:30" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="month">
+  <p-input-month name="some-name" label="Some label" value="2025-07"></p-input-month>
+  <div class="p-field">
+    <label class="p-label" for="native-month">Some label</label>
+    <input id="native-month" class="p-input" type="month" name="native-month" value="2025-07" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="week">
+  <p-input-week name="some-name" label="Some label" value="2025-W30"></p-input-week>
+  <div class="p-field">
+    <label class="p-label" for="native-week">Some label</label>
+    <input id="native-week" class="p-input" type="week" name="native-week" value="2025-W30" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="email compact">
+  <p-input-email name="some-name" label="Some label" compact="true"></p-input-email>
+  <div class="p-field">
+    <label class="p-label" for="native-email-compact">Some label</label>
+    <input id="native-email-compact" class="p-input" type="email" name="native-email-compact" data-p-compact="true" dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="email disabled">
+  <p-input-email name="some-name" label="Some label" value="example@porsche.de" disabled="true"></p-input-email>
+  <div class="p-field">
+    <label class="p-label" for="native-email-disabled">Some label</label>
+    <input id="native-email-disabled" class="p-input" type="email" name="native-email-disabled" value="example@porsche.de" disabled dir="auto" />
+  </div>
+</div>
+<div class="playground auto-layout-inline" title="email error">
+  <p-input-email name="some-name" label="Some label" state="error" message="Some error"></p-input-email>
+  <div class="p-field">
+    <label class="p-label" for="native-email-error">Some label</label>
+    <input id="native-email-error" class="p-input" type="email" name="native-email-error" data-p-state="error" aria-invalid="true" aria-describedby="native-email-error-msg" dir="auto" />
+    <span class="p-message" id="native-email-error-msg" data-p-state="error">
+      <img class="p-icon" data-p-name="exclamation" data-p-color="error" src="https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation.46cd17b.svg" alt="" width="24" height="24" aria-hidden="true" />
+      Some error
+    </span>
+  </div>
+</div>

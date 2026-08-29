@@ -6,6 +6,30 @@ export type { PIconProps } from './PIcon';
 export { PIcon } from './PIcon';
 export type { PInputTextProps } from './PInputText';
 export { PInputText } from './PInputText';
+export type {
+  PInputDateProps,
+  PInputEmailProps,
+  PInputMonthProps,
+  PInputNumberProps,
+  PInputPasswordProps,
+  PInputSearchProps,
+  PInputTelProps,
+  PInputTimeProps,
+  PInputUrlProps,
+  PInputWeekProps,
+} from './PInputTypes';
+export {
+  PInputDate,
+  PInputEmail,
+  PInputMonth,
+  PInputNumber,
+  PInputPassword,
+  PInputSearch,
+  PInputTel,
+  PInputTime,
+  PInputUrl,
+  PInputWeek,
+} from './PInputTypes';
 export type { PLabelProps } from './PLabel';
 export { PLabel } from './PLabel';
 export type { PLinkProps } from './PLink';

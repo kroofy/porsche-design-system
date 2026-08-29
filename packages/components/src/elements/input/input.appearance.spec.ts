@@ -2,6 +2,7 @@ import {
   checkboxAppearance,
   INPUT_ROOT_CLASS,
   inputAppearance,
+  NATIVE_INPUT_TYPES,
   radioAppearance,
   selectAppearance,
   TEXTAREA_ROOT_CLASS,
@@ -11,6 +12,22 @@ import {
 describe('inputAppearance()', () => {
   it('emits only the root class for defaults', () => {
     expect(inputAppearance()).toEqual({ className: INPUT_ROOT_CLASS, attrs: {} });
+  });
+
+  it('lists the typed native input types', () => {
+    expect(NATIVE_INPUT_TYPES).toEqual([
+      'text',
+      'email',
+      'tel',
+      'url',
+      'search',
+      'password',
+      'number',
+      'date',
+      'time',
+      'month',
+      'week',
+    ]);
   });
 
   it('omits the default none state', () => {

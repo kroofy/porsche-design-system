@@ -13,6 +13,21 @@ export const FIELD_ROOT_CLASS = 'p-field' as const;
 export const FIELD_STATES = ['none', 'error', 'success'] as const;
 export type FieldState = (typeof FIELD_STATES)[number];
 
+export const NATIVE_INPUT_TYPES = [
+  'text',
+  'email',
+  'tel',
+  'url',
+  'search',
+  'password',
+  'number',
+  'date',
+  'time',
+  'month',
+  'week',
+] as const;
+export type NativeInputType = (typeof NATIVE_INPUT_TYPES)[number];
+
 export type InputAppearanceProps = {
   compact?: Responsive<boolean>;
   state?: FieldState;

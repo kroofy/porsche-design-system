@@ -1,4 +1,4 @@
-export type { CheckboxAppearanceProps, FieldState, InputAppearanceProps } from './input.appearance';
+export type { CheckboxAppearanceProps, FieldState, InputAppearanceProps, NativeInputType } from './input.appearance';
 export {
   CHECKBOX_ROOT_CLASS,
   CHECKBOX_SPINNER_CLASS,
@@ -7,6 +7,7 @@ export {
   FIELD_STATES,
   INPUT_ROOT_CLASS,
   inputAppearance,
+  NATIVE_INPUT_TYPES,
   RADIO_ROOT_CLASS,
   RADIO_SPINNER_CLASS,
   RADIOS_ROOT_CLASS,
