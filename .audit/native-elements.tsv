@@ -35,3 +35,4 @@ ts	phase	decision	why	evidence	result
 2026-08-29T18:20:00Z	implement	native PButtonPure/PLinkPure are bare button/a	default icon arrow-right; no slotted-anchor; loading replaces icon	button-pure.appearance.ts PButtonPure PLinkPure	VERIFIED unit
 2026-08-29T18:25:00Z	implement	Chrome+Safari VRT native-button-pure/link-pure	fixtures side by side with Stencil	native-button-pure.html native-link-pure.html	INCONCLUSIVE on pixels
 2026-08-29T18:33:00Z	fix	loading :disabled does not fade; inner icon needs data-p-name	UA/CSS :disabled was contrast-low; mask defaults to arrow-right without data-p-name	pure-css.ts native-button-pure.html native-link-pure.html	VERIFIED chrome light/dark vs Stencil
+2026-08-29T18:40:00Z	implement	native PDivider is bare hr	color/direction on data-p-*; default contrast-lower horizontal	divider.appearance.ts PDivider native-divider.html	VERIFIED unit + chrome light/dark vs Stencil

@@ -72,6 +72,12 @@ Stencil hosts stay frozen until a major removal.
 - Label stays in a span inside the tag so hide-label keeps a focus box.
 - Chrome VRT: native button-pure/link-pure sit next to Stencil. Light, dark, loading, delete/phone icons match.
 
+## Divider
+
+- `PDivider` is `<hr class="p-divider">`. Angular is `hr[pDivider]`.
+- Color and direction live on `data-p-*`. Default is contrast-lower, horizontal.
+- No wrapper. Stencil `p-divider` stays frozen.
+
 ## Out of this family
 
 Replacing the `.` public CE export. Mitosis.

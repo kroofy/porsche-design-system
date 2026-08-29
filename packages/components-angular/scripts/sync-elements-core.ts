@@ -10,6 +10,7 @@ const files = [
   'field-ids.ts',
   'button/button.appearance.ts',
   'button-pure/button-pure.appearance.ts',
+  'divider/divider.appearance.ts',
   'link/link.appearance.ts',
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',
@@ -33,8 +34,5 @@ writeFileSync(
 const iconUrl = join(dest, 'icon/icon-url.ts');
 writeFileSync(
   iconUrl,
-  readFileSync(iconUrl, 'utf8').replace(
-    "from '@porsche-design-system/icons'",
-    "from './icons-manifest'"
-  )
+  readFileSync(iconUrl, 'utf8').replace("from '@porsche-design-system/icons'", "from './icons-manifest'")
 );

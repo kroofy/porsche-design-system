@@ -4,6 +4,8 @@ export type { PButtonPureProps } from './PButtonPure';
 export { PButtonPure } from './PButtonPure';
 export type { PCheckboxProps } from './PCheckbox';
 export { PCheckbox } from './PCheckbox';
+export type { PDividerProps } from './PDivider';
+export { PDivider } from './PDivider';
 export type { PIconProps } from './PIcon';
 export { PIcon } from './PIcon';
 export type { PInputTextProps } from './PInputText';

@@ -11,6 +11,7 @@
     "../../../components/src/elements/field-ids.ts",
     "../../../components/src/elements/button/button.appearance.ts",
     "../../../components/src/elements/button-pure/button-pure.appearance.ts",
+    "../../../components/src/elements/divider/divider.appearance.ts",
     "../../../components/src/elements/link/link.appearance.ts",
     "../../../components/src/elements/link-pure/link-pure.appearance.ts",
     "../../../components/src/elements/icon/icon.appearance.ts",

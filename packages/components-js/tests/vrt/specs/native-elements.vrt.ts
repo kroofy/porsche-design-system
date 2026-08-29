@@ -13,6 +13,7 @@ const pages = [
   'native-input-types',
   'native-button-pure',
   'native-link-pure',
+  'native-divider',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

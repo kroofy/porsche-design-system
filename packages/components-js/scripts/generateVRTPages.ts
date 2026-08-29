@@ -1,6 +1,6 @@
 import { camelCase, capitalCase, kebabCase, pascalCase } from 'change-case';
-import * as fs from 'fs';
 import { sync as globbySync } from 'fast-glob';
+import * as fs from 'fs';
 import * as path from 'path';
 import { type AngularCharacteristics, convertToAngularVRTPage } from './convertToAngularVRTPage';
 import { convertToNextJsVRTPage } from './convertToNextJsVRTPage';
@@ -19,6 +19,7 @@ const PAGES_TO_SKIP: string[] = [
   'native-input-types',
   'native-button-pure',
   'native-link-pure',
+  'native-divider',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

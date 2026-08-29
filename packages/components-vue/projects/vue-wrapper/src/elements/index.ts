@@ -1,6 +1,7 @@
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';
+export { PDivider } from './PDivider';
 export { PIcon } from './PIcon';
 export { PInputText } from './PInputText';
 export {
