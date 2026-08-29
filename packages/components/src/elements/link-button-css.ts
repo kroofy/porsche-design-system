@@ -42,6 +42,7 @@ import {
 import { getNativeFieldCss } from './field-css';
 import { getNativeIconCss } from './icon/icon-css';
 import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
+import { getNativeButtonPureCss, getNativeLinkPureCss } from './pure-css';
 
 const COMPACT_SCALE = 0.64285714;
 const DEFAULT_SCALE = 1;
@@ -344,4 +345,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeIconCss()}${getNativeFieldCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}`;

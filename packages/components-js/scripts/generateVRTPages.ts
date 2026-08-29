@@ -17,6 +17,8 @@ const PAGES_TO_SKIP: string[] = [
   'native-radio',
   'native-select',
   'native-input-types',
+  'native-button-pure',
+  'native-link-pure',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

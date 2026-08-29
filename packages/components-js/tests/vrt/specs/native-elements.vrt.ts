@@ -11,6 +11,8 @@ const pages = [
   'native-radio',
   'native-select',
   'native-input-types',
+  'native-button-pure',
+  'native-link-pure',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

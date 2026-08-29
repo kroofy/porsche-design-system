@@ -1,5 +1,7 @@
 export type { PButtonProps } from './PButton';
 export { PButton } from './PButton';
+export type { PButtonPureProps } from './PButtonPure';
+export { PButtonPure } from './PButtonPure';
 export type { PCheckboxProps } from './PCheckbox';
 export { PCheckbox } from './PCheckbox';
 export type { PIconProps } from './PIcon';
@@ -34,6 +36,8 @@ export type { PLabelProps } from './PLabel';
 export { PLabel } from './PLabel';
 export type { PLinkProps } from './PLink';
 export { PLink } from './PLink';
+export type { PLinkPureProps } from './PLinkPure';
+export { PLinkPure } from './PLinkPure';
 export type { PRadioProps } from './PRadio';
 export { PRadio } from './PRadio';
 export type { PSelectProps } from './PSelect';

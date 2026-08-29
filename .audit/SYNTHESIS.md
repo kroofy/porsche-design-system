@@ -62,6 +62,14 @@ Stencil hosts stay frozen until a major removal.
 - Angular `./elements` is an ng-packagr secondary entry. Appearance is copied into `src/elements/core` so ngc stays inside rootDir. Icons stay bundled.
 - Forced `aria` JSON bag stays on the CE. Native wrappers take real `aria-*`.
 
+## Pure
+
+- `PButtonPure` is `<button class="p-button-pure">`. `PLinkPure` is `<a class="p-link-pure">`.
+- Default icon is `arrow-right`. `icon="none"` drops it. No slotted-anchor span.
+- Size, color, hide-label, align-label, stretch, underline, active live on `data-p-*`.
+- Loading replaces the icon with the same SVG spinner. Not `p-spinner`.
+- Label stays in a span inside the tag so hide-label keeps a focus box.
+
 ## Out of this family
 
 Replacing the `.` public CE export. Mitosis.
