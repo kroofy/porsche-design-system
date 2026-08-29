@@ -59,6 +59,7 @@ describe('getNativeButtonPureCss()', () => {
     expect(css).toContain('[data-p-active="true"]');
     expect(css).toContain('[data-p-loading="true"]');
     expect(css).toContain('.p-button-pure:disabled');
+    expect(css).toContain('.p-button-pure:disabled:not([data-p-loading="true"])');
     expect(css).toContain('text-indent: -999999px');
     expect(css).toContain('.p-button-pure__spinner svg');
     expect(css).toContain('--p-temporary-spinner-stroke-dasharray');

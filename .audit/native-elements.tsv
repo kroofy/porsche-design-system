@@ -34,3 +34,4 @@ ts	phase	decision	why	evidence	result
 2026-08-29T16:00:00Z	implement	parallel ./elements export, . stays CE	consumers opt in; icons bundled; appearance not JSS	package.json exports rollup/ng-packagr	VERIFIED react/vue/js/angular builds + unit
 2026-08-29T18:20:00Z	implement	native PButtonPure/PLinkPure are bare button/a	default icon arrow-right; no slotted-anchor; loading replaces icon	button-pure.appearance.ts PButtonPure PLinkPure	VERIFIED unit
 2026-08-29T18:25:00Z	implement	Chrome+Safari VRT native-button-pure/link-pure	fixtures side by side with Stencil	native-button-pure.html native-link-pure.html	INCONCLUSIVE on pixels
+2026-08-29T18:33:00Z	fix	loading :disabled does not fade; inner icon needs data-p-name	UA/CSS :disabled was contrast-low; mask defaults to arrow-right without data-p-name	pure-css.ts native-button-pure.html native-link-pure.html	VERIFIED chrome light/dark vs Stencil

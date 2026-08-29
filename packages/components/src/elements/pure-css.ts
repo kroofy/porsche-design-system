@@ -276,8 +276,10 @@ const getNativePureStyles = (config: NativePureConfig): Styles => {
       isButton
         ? {
             '&:disabled': {
-              color: ref(colorContrastLow),
               cursor: 'not-allowed',
+            },
+            '&:disabled:not([data-p-loading="true"])': {
+              color: ref(colorContrastLow),
             },
           }
         : {}

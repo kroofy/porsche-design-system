@@ -1086,8 +1086,10 @@
   color: currentcolor;
 }
 .p-button-pure:disabled {
-  color: var(--p-color-contrast-low);
   cursor: not-allowed;
+}
+.p-button-pure:disabled:not([data-p-loading="true"]) {
+  color: var(--p-color-contrast-low);
 }
 .p-button-pure[data-p-align-label="end"] .p-button-pure__label {
   order: 0;

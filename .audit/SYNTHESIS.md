@@ -67,8 +67,10 @@ Stencil hosts stay frozen until a major removal.
 - `PButtonPure` is `<button class="p-button-pure">`. `PLinkPure` is `<a class="p-link-pure">`.
 - Default icon is `arrow-right`. `icon="none"` drops it. No slotted-anchor span.
 - Size, color, hide-label, align-label, stretch, underline, active live on `data-p-*`.
-- Loading replaces the icon with the same SVG spinner. Not `p-spinner`.
+- Loading replaces the icon with the same SVG spinner. Not `p-spinner`. `:disabled:not([data-p-loading])` fades; loading stays primary.
+- Vanilla inner icons need `data-p-name` or the mask stays `arrow-right`.
 - Label stays in a span inside the tag so hide-label keeps a focus box.
+- Chrome VRT: native button-pure/link-pure sit next to Stencil. Light, dark, loading, delete/phone icons match.
 
 ## Out of this family
 
