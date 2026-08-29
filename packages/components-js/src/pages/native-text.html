@@ -1,0 +1,64 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+</style>
+
+<div class="playground" title="default">
+  <div class="native-pair">
+    <p-text>The quick brown fox jumps over the lazy dog</p-text>
+    <p class="p-text">The quick brown fox jumps over the lazy dog</p>
+  </div>
+</div>
+
+<div class="playground" title="size xs">
+  <div class="native-pair">
+    <p-text size="xs">The quick brown fox jumps over the lazy dog</p-text>
+    <p class="p-text" data-p-size="xs">The quick brown fox jumps over the lazy dog</p>
+  </div>
+</div>
+
+<div class="playground" title="size lg">
+  <div class="native-pair">
+    <p-text size="lg">The quick brown fox jumps over the lazy dog</p-text>
+    <p class="p-text" data-p-size="lg">The quick brown fox jumps over the lazy dog</p>
+  </div>
+</div>
+
+<div class="playground" title="weight semibold">
+  <div class="native-pair">
+    <p-text weight="semibold">The quick brown fox jumps over the lazy dog</p-text>
+    <p class="p-text" data-p-weight="semibold">The quick brown fox jumps over the lazy dog</p>
+  </div>
+</div>
+
+<div class="playground" title="color error">
+  <div class="native-pair">
+    <p-text color="error">The quick brown fox jumps over the lazy dog</p-text>
+    <p class="p-text" data-p-color="error">The quick brown fox jumps over the lazy dog</p>
+  </div>
+</div>
+
+<div class="playground" title="align end">
+  <div class="native-pair">
+    <p-text align="end">End</p-text>
+    <p class="p-text" data-p-align="end">End</p>
+  </div>
+</div>
+
+<div class="playground" title="ellipsis">
+  <div class="native-pair">
+    <p-text ellipsis="true">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p-text>
+    <p class="p-text" data-p-ellipsis="true">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+  </div>
+</div>
+
+<div class="playground" title="native is the tag">
+  <div class="native-pair">
+    <p-text tag="blockquote">The quick brown fox jumps over the lazy dog</p-text>
+    <blockquote class="p-text">The quick brown fox jumps over the lazy dog</blockquote>
+  </div>
+</div>

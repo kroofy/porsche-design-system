@@ -20,6 +20,9 @@ const PAGES_TO_SKIP: string[] = [
   'native-button-pure',
   'native-link-pure',
   'native-divider',
+  'native-heading',
+  'native-text',
+  'native-display',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

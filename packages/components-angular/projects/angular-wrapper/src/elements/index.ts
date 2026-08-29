@@ -3,7 +3,9 @@ export { createFieldIds, fieldDescribedBy, fieldIds, nextFieldId } from './field
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';
+export { PDisplay } from './PDisplay';
 export { PDivider } from './PDivider';
+export { PHeading } from './PHeading';
 export { PIcon } from './PIcon';
 export { PInputText } from './PInputText';
 export {
@@ -23,4 +25,5 @@ export { PLink } from './PLink';
 export { PLinkPure } from './PLinkPure';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
+export { PText } from './PText';
 export { PTextarea } from './PTextarea';

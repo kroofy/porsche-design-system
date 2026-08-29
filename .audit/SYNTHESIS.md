@@ -78,6 +78,14 @@ Stencil hosts stay frozen until a major removal.
 - Color and direction live on `data-p-*`. Default is contrast-lower, horizontal.
 - No wrapper. Stencil `p-divider` stays frozen.
 
+## Typography
+
+- `PHeading` is `<h2 class="p-heading">` (tag from `size`, or `tag`). Angular is `h1[pHeading]`…`h6[pHeading]`.
+- `PText` is `<p class="p-text">` (or `blockquote`, `span`, …). Angular is `p[pText]`, `blockquote[pText]`, …
+- `PDisplay` is `<h1 class="p-display">`. Angular is `h1[pDisplay]`…`h6[pDisplay]`.
+- No slotted heading/text. Native is the tag.
+- Size, weight, align, color, hyphens, ellipsis live on `data-p-*`.
+
 ## Out of this family
 
 Replacing the `.` public CE export. Mitosis.

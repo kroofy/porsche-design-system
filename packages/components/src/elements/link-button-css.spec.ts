@@ -83,7 +83,7 @@ describe('getNativeLinkCss()', () => {
 });
 
 describe('elements.css', () => {
-  it('stays generated from button, link, button-pure, link-pure, icon, field and divider css', () => {
+  it('stays generated from button, link, button-pure, link-pure, icon, field, divider and typography css', () => {
     const committed = readFileSync(resolve(__dirname, 'elements.css'), 'utf8');
     expect(committed).toBe(getElementsCss());
   });
