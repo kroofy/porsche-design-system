@@ -18,4 +18,5 @@ migrate-link-pure	migrate	done	cursor/mitosis-migration-41e6	3	76d8e86f32	briefs
 migrate-link	migrate	done	cursor/mitosis-migration-41e6	3	5e0e89280c	briefs/migrate-link.md
 migrate-button-pure	migrate	done	cursor/mitosis-migration-41e6	3	6baa018a19	briefs/migrate-button-pure.md
 migrate-button	migrate	done	cursor/mitosis-migration-41e6	3	be67982f60	briefs/migrate-button.md
-migrate-switch	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-switch.md
+migrate-switch	migrate	done	cursor/mitosis-migration-41e6	3	21f0480a7a	briefs/migrate-switch.md
+migrate-checkbox	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-checkbox.md
