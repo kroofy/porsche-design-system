@@ -1,3 +1,4 @@
+export { PAccordion } from './PAccordion';
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';

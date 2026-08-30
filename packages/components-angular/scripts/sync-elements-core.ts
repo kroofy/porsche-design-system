@@ -7,6 +7,7 @@ const dest = join(import.meta.dirname, '../projects/angular-wrapper/src/elements
 
 const files = [
   'appearance.ts',
+  'accordion/accordion.appearance.ts',
   'field-ids.ts',
   'button/button.appearance.ts',
   'button-pure/button-pure.appearance.ts',

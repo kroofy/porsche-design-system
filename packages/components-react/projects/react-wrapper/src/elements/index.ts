@@ -1,3 +1,5 @@
+export type { PAccordionProps } from './PAccordion';
+export { PAccordion } from './PAccordion';
 export type { PButtonProps } from './PButton';
 export { PButton } from './PButton';
 export type { PButtonPureProps } from './PButtonPure';

@@ -8,6 +8,7 @@
     "./src/elements/**/*.ts",
     "./src/elements/**/*.tsx",
     "../../../components/src/elements/appearance.ts",
+    "../../../components/src/elements/accordion/accordion.appearance.ts",
     "../../../components/src/elements/field-ids.ts",
     "../../../components/src/elements/button/button.appearance.ts",
     "../../../components/src/elements/button-pure/button-pure.appearance.ts",

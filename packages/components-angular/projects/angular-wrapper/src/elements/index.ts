@@ -1,5 +1,6 @@
 export type { FieldDescribedByOptions, FieldIds } from './fieldIds';
 export { createFieldIds, fieldDescribedBy, fieldIds, nextFieldId } from './fieldIds';
+export { PAccordion } from './PAccordion';
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';
