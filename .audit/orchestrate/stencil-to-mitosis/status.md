@@ -1,15 +1,16 @@
 # Orchestrate status
 
-Generated: 2026-08-30T21:11:17.852Z
+Generated: 2026-08-30T21:13:31.527Z
 
 ## Units
 
-States: done=2
+States: done=2, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
 | fitness-divider | fitness | done | cursor/mitosis-migration-41e6 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | briefs/fitness-divider.md |
 | baseline-divider | baseline | done | cursor/mitosis-migration-41e6 | 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | briefs/baseline-divider.md |
+| fitness-lit | fitness | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/fitness-lit.md |
 
 ## Verification ledger
 
@@ -31,4 +32,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":2},"ledgerVerdicts":{"live-ui-verified":1,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":2,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":1,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
