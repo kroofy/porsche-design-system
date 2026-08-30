@@ -212,6 +212,7 @@ const getNativeAccordionStyles = (): Styles => ({
       gridArea: '2/1/auto/-1',
       zIndex: 0,
       display: 'grid',
+      minHeight: 0,
       opacity: 0,
       marginTop: '0px',
       gridTemplateRows: '0fr',
@@ -219,6 +220,10 @@ const getNativeAccordionStyles = (): Styles => ({
       overflow: 'hidden',
       transform: 'translate3d(0,0,0)',
       transition: `visibility 0s linear ${ref(cssVariableTransitionDuration, motionDurationMap.short)}, ${getTransition('grid-template-rows', 'short', 'out')}, ${getTransition('padding-top', 'short', 'out')}, ${getTransition('opacity', 'short', 'out')}`,
+      '& > *': {
+        minHeight: 0,
+        overflow: 'hidden',
+      },
     },
     '&[open] > :not(summary)': {
       opacity: 1,
@@ -230,6 +235,9 @@ const getNativeAccordionStyles = (): Styles => ({
       visibility: 'inherit',
       overflow: 'visible',
       transition: `visibility 0s linear 0s, ${getTransition('grid-template-rows', 'moderate', 'in')}, ${getTransition('margin-top', 'moderate', 'in')}, ${getTransition('opacity', 'moderate', 'in')}`,
+      '& > *': {
+        overflow: 'visible',
+      },
     },
     ...responsiveIndent(),
   } as JssStyle),

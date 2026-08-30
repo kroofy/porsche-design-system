@@ -8693,6 +8693,7 @@
   grid-area: 2/1/auto/-1;
   z-index: 0;
   display: grid;
+  min-height: 0;
   opacity: 0;
   margin-top: 0px;
   grid-template-rows: 0fr;
@@ -8723,6 +8724,13 @@
 }
 .p-accordion[data-p-indent="true"][data-p-align-marker="start"] > :not(summary) {
   grid-column-start: 2;
+}
+.p-accordion[open] > :not(summary) > * {
+  overflow: visible;
+}
+.p-accordion > :not(summary) > * {
+  min-height: 0;
+  overflow: hidden;
 }
 .p-accordion > summary::-webkit-details-marker {
   display: none;
