@@ -35,6 +35,7 @@ export { PSelect } from './PSelect';
 export { PSpinner } from './PSpinner';
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export { PTag } from './PTag';
+export { PTagDismissible } from './PTagDismissible';
 export { PText } from './PText';
 export { PTextarea } from './PTextarea';
 export { PTextList } from './PTextList';

@@ -26,6 +26,7 @@ const pages = [
   'native-model-signature',
   'native-accordion',
   'native-tag',
+  'native-tag-dismissible',
   'native-spinner',
   'native-modal',
   'native-optgroup',

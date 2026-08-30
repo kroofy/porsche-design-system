@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getNativeTagDismissibleCss() > matches the rewritten snapshot 1`] = `
+".p-tag-dismissible{color-scheme:inherit}
+@layer pds.elements {
+.p-tag-dismissible {
+  all: unset;
+  --_p-tag-dismissible-a: 1;
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  gap: calc(22.4px * (var(--_p-tag-dismissible-a) - 0.64285714) + 4px);
+  padding: calc(28px * (var(--_p-tag-dismissible-a) - 0.64285714) + 6px) calc(22.4px * (var(--_p-tag-dismissible-a) - 0.64285714) + 4px);
+  border-radius: var(--p-radius-xl);
+  cursor: pointer;
+  background: var(--p-color-frosted);
+  color: var(--p-color-primary);
+  text-align: start;
+  font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);
+}
+.p-tag-dismissible[hidden] {
+  display: none !important;
+}
+.p-tag-dismissible[data-p-compact="true"] {
+  --_p-tag-dismissible-a: 0.64285714;
+  border-radius: var(--p-radius-lg);
+}
+.p-tag-dismissible:has(.p-tag-dismissible__label) {
+  padding-block: calc(16.8px * (var(--_p-tag-dismissible-a) - 0.64285714));
+}
+.p-tag-dismissible:focus-visible {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+.p-tag-dismissible > .p-tag-dismissible__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+.p-tag-dismissible .p-tag-dismissible__label {
+  display: block;
+  margin-bottom: -4px;
+  color: var(--p-color-contrast-high);
+  font-size: var(--p-typescale-xs);
+}
+.p-tag-dismissible > .p-tag-dismissible__icon {
+  padding: calc(11.2px * (var(--_p-tag-dismissible-a) - 0.64285714));
+  margin: calc(-1 * calc(11.2px * (var(--_p-tag-dismissible-a) - 0.64285714)));
+  transition: background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);
+  border-radius: var(--p-radius-full);
+}
+@media(forced-colors:active) {
+  .p-tag-dismissible {
+    outline: 2px solid CanvasText;
+    outline-offset: -2px;
+  }
+  .p-tag-dismissible:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+@media(hover:hover) {
+  .p-tag-dismissible:hover > .p-tag-dismissible__icon {
+    background-color: var(--p-color-frosted);
+  }
+}
+}
+"
+`;

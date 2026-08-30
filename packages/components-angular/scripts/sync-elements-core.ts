@@ -23,6 +23,7 @@ const files = [
   'text-list/text-list.appearance.ts',
   'table/table.appearance.ts',
   'tag/tag.appearance.ts',
+  'tag-dismissible/tag-dismissible.appearance.ts',
   'spinner/spinner.appearance.ts',
   'modal/modal.appearance.ts',
   'link/link.appearance.ts',

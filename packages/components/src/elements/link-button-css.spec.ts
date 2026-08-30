@@ -83,7 +83,7 @@ describe('getNativeLinkCss()', () => {
 });
 
 describe('elements.css', () => {
-  it('stays generated from button, link, pure, icon, field, fieldset, text-list, table, divider, typography, brand, accordion, tag, spinner and modal css', () => {
+  it('stays generated from button, link, pure, icon, field, fieldset, text-list, table, divider, typography, brand, accordion, tag, tag-dismissible, spinner and modal css', () => {
     const committed = readFileSync(resolve(__dirname, 'elements.css'), 'utf8');
     expect(committed).toBe(getElementsCss());
     expect(committed).toContain('.p-flag {');
@@ -92,6 +92,7 @@ describe('elements.css', () => {
     expect(committed).toContain('.p-model-signature {');
     expect(committed).toContain('.p-accordion {');
     expect(committed).toContain('.p-tag {');
+    expect(committed).toContain('.p-tag-dismissible {');
     expect(committed).toContain('.p-spinner {');
     expect(committed).toContain('.p-modal {');
     expect(committed).toContain('.p-optgroup {');

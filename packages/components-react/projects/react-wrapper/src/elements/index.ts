@@ -75,6 +75,8 @@ export type {
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export type { PTagProps } from './PTag';
 export { PTag } from './PTag';
+export type { PTagDismissibleProps } from './PTagDismissible';
+export { PTagDismissible } from './PTagDismissible';
 export type { PTextProps } from './PText';
 export { PText } from './PText';
 export type { PTextareaProps } from './PTextarea';

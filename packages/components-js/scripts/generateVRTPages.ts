@@ -32,6 +32,7 @@ const PAGES_TO_SKIP: string[] = [
   'native-model-signature',
   'native-accordion',
   'native-tag',
+  'native-tag-dismissible',
   'native-spinner',
   'native-modal',
   'native-optgroup',

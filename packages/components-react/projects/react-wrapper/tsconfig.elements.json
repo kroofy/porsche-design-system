@@ -20,6 +20,7 @@
     "../../../components/src/elements/text-list/text-list.appearance.ts",
     "../../../components/src/elements/table/table.appearance.ts",
     "../../../components/src/elements/tag/tag.appearance.ts",
+    "../../../components/src/elements/tag-dismissible/tag-dismissible.appearance.ts",
     "../../../components/src/elements/spinner/spinner.appearance.ts",
     "../../../components/src/elements/modal/modal.appearance.ts",
     "../../../components/src/elements/link/link.appearance.ts",
