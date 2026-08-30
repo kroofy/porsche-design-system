@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-30T21:40:35.398Z
+Generated: 2026-08-30T21:42:06.408Z
 
 ## Units
 
-States: done=5, in-progress=1
+States: done=6, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -13,11 +13,12 @@ States: done=5, in-progress=1
 | fitness-lit | fitness | done | cursor/mitosis-migration-41e6 | 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | briefs/fitness-lit.md |
 | lever-migrate-recipe | primitives | done | cursor/mitosis-migration-41e6 | 3 | 36c4774e5cb40277cd44f1229e547ece70828ff3 | briefs/lever-migrate-recipe.md |
 | migrate-crest | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2cbcee0ebe22bd6c3f4fcbe3ee8e5341a5923f99 | briefs/migrate-crest.md |
-| migrate-wordmark | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-wordmark.md |
+| migrate-wordmark | migrate | done | cursor/mitosis-migration-41e6 | 3 | adcb403aa5617fafce8206125dc84cbf5fc451b1 | briefs/migrate-wordmark.md |
+| migrate-flag | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-flag.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=3, verifier-failed=1
+Verdicts: live-ui-verified=4, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -25,6 +26,7 @@ Verdicts: live-ui-verified=3, verifier-failed=1
 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | verifier-failed | /workspace/.audit/orchestrate/stencil-to-mitosis/reports/fitness-divider.md | coordinator-receipt | 2026-08-30T21:11:17.772Z |
 | 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_divider_after.png | coordinator-byte-equal-png | 2026-08-30T21:31:04.657Z |
 | 3 | 2cbcee0ebe22bd6c3f4fcbe3ee8e5341a5923f99 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_crest_after.png | coordinator-byte-equal-png | 2026-08-30T21:38:06.734Z |
+| 3 | adcb403aa5617fafce8206125dc84cbf5fc451b1 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_wordmark_after.png | coordinator-byte-equal-png | 2026-08-30T21:42:06.265Z |
 
 ## Frontier
 
@@ -37,4 +39,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":5,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":3,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":6,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":4,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
