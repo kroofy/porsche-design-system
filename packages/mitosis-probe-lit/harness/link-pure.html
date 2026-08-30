@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-link-pure harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-link-pure.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <div
+      id="contrast-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-medium)"
+    ></div>
+    <section id="default">
+      <lit-link-pure>
+        <a href="#">Some anchor</a>
+      </lit-link-pure>
+    </section>
+    <section id="active">
+      <lit-link-pure size="5xl" color="primary" underline="true" active="true">
+        <a href="#">Some anchor</a>
+      </lit-link-pure>
+    </section>
+    <section id="href">
+      <lit-link-pure href="#" size="sm">Some label</lit-link-pure>
+    </section>
+    <section id="hidden">
+      <lit-link-pure hidden>
+        <a href="#">Some anchor</a>
+      </lit-link-pure>
+    </section>
+    <section id="breakpoint">
+      <lit-link-pure size='{"base":"sm","m":"5xl"}'>
+        <a href="#">bp</a>
+      </lit-link-pure>
+    </section>
+    <section id="noicon">
+      <lit-link-pure icon="none">
+        <a href="#">No icon</a>
+      </lit-link-pure>
+    </section>
+  </body>
+</html>
