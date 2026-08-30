@@ -32,4 +32,5 @@ migrate-input-month	migrate	done	cursor/mitosis-migration-41e6	3	4ee7e76eb3	brie
 migrate-input-time	migrate	done	cursor/mitosis-migration-41e6	3	4bd2a33b0d	briefs/migrate-input-time.md
 migrate-input-week	migrate	done	cursor/mitosis-migration-41e6	3	351781a0a3	briefs/migrate-input-week.md
 migrate-textarea	migrate	done	cursor/mitosis-migration-41e6	3	ff19cc9e95	briefs/migrate-textarea.md
-migrate-fieldset	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-fieldset.md
+migrate-fieldset	migrate	done	cursor/mitosis-migration-41e6	3	4ce75102fa	briefs/migrate-fieldset.md
+migrate-text-list	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-text-list.md
