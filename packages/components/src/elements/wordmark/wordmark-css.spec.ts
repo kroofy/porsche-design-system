@@ -8,6 +8,7 @@ describe('getNativeWordmarkCss()', () => {
     expect(css).toContain('.p-wordmark {');
     expect(css).toContain('.p-wordmark[hidden]');
     expect(css).toContain('.p-wordmark:is(svg)');
+    expect(css).toContain('.p-wordmark svg');
   });
 
   it('inherits color-scheme outside the layer', () => {

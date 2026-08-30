@@ -10,11 +10,15 @@ const svgStyles: JssStyle = {
   display: 'block',
   maxWidth: '100%',
   maxHeight: '100%',
-  height: 'inherit',
   fill: ref(colorPrimary),
   ...forcedColorsMediaQuery({
     fill: 'CanvasText',
   }),
+};
+
+const childSvgStyles: JssStyle = {
+  ...svgStyles,
+  height: 'inherit',
 };
 
 const getNativeWordmarkStyles = (): Styles => ({
@@ -38,7 +42,8 @@ const getNativeWordmarkStyles = (): Styles => ({
         height: 'inherit',
       },
     },
-    '& svg, &:is(svg)': svgStyles,
+    '& svg': childSvgStyles,
+    '&:is(svg)': svgStyles,
     '&:is(a)': {
       cursor: 'pointer',
       textDecoration: 'none',

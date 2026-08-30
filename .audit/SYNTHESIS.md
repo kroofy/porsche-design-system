@@ -100,6 +100,7 @@ Stencil hosts stay frozen until a major removal.
 - `PWordmark` is `<svg class="p-wordmark">`, or `<a class="p-wordmark">` wrapping svg when `href` is set. Angular is `svg[pWordmark], a[pWordmark]`.
 - `PModelSignature` is `<img class="p-model-signature">`. Mask + background like icon. Overlay slot stays stencil-only.
 - Forced `aria` JSON bag stays on the CE. Native takes real `alt` / `aria-*`.
+- Chrome VRT: native flag/crest/wordmark/model-signature sit next to Stencil. Light and dark match.
 
 ## Out of this family
 
