@@ -24,7 +24,7 @@ describe('PTable', () => {
     expect(container.firstElementChild?.tagName).toBe('TABLE');
     expect(container.querySelector('p-table')).toBeNull();
     expect(container.innerHTML).toBe(
-      '<table class="p-table"><thead class="p-table-head"><tr class="p-table-row"><th class="p-table-head-cell" scope="col">Col</th></tr></thead><tbody class="p-table-body"><tr class="p-table-row"><td class="p-table-cell">Cell</td></tr></tbody></table>'
+      '<table class="p-table"><thead class="p-table-head"><tr class="p-table-row"><th scope="col" class="p-table-head-cell">Col</th></tr></thead><tbody class="p-table-body"><tr class="p-table-row"><td class="p-table-cell">Cell</td></tr></tbody></table>'
     );
   });
 

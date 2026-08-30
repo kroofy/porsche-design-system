@@ -1,0 +1,101 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getNativeTableCss() > matches the rewritten snapshot 1`] = `
+".p-table,.p-table-head,.p-table-body,.p-table-row,.p-table-head-cell,.p-table-cell{color-scheme:inherit}
+@layer pds.elements {
+.p-table {
+  --_p-table-b: var(--p-color-frosted);
+  --_p-table-c: var(--p-color-contrast-low);
+  --_p-table-a: var(--p-spacing-fluid-sm);
+  --_p-table-d: 1px;
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  white-space: nowrap;
+  font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);
+  color: var(--p-color-primary);
+  text-align: start;
+}
+.p-table[hidden] {
+  display: none !important;
+}
+.p-table > caption {
+  margin-bottom: var(--p-spacing-fluid-md);
+  white-space: normal;
+  text-align: start;
+}
+.p-table[data-p-compact="true"] {
+  --_p-table-a: var(--p-spacing-static-sm);
+}
+.p-table[data-p-layout="fixed"] {
+  table-layout: fixed;
+  min-width: 100%;
+  width: auto;
+}
+.p-table-head {
+  display: table-header-group;
+  font: var(--p-font-weight-semibold) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next);
+  border-bottom: 1px solid var(--_p-table-c);
+}
+.p-table-head[hidden] {
+  display: none !important;
+}
+.p-table-head > .p-table-row {
+  --_p-table-d: 0px;
+  --_p-table-b: none;
+}
+.p-table-body {
+  display: table-row-group;
+}
+.p-table-body[hidden] {
+  display: none !important;
+}
+.p-table-row {
+  display: table-row;
+  border-bottom: var(--_p-table-d) solid var(--_p-table-c);
+  transition: background var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);
+}
+.p-table-row[hidden] {
+  display: none !important;
+}
+.p-table-head-cell {
+  display: table-cell;
+  font: inherit;
+  text-align: inherit;
+  padding: 2px var(--_p-table-a,var(--p-spacing-fluid-sm)) var(--_p-table-a,var(--p-spacing-fluid-sm));
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.p-table-head-cell[hidden] {
+  display: none !important;
+}
+.p-table-head-cell[data-p-multiline="true"] {
+  white-space: normal;
+}
+.p-table-head-cell[data-p-hide-label="true"] {
+  font-size: 0;
+  line-height: 0;
+}
+.p-table-cell {
+  display: table-cell;
+  font: inherit;
+  text-align: inherit;
+  padding: var(--_p-table-a);
+  margin: 0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.p-table-cell[hidden] {
+  display: none !important;
+}
+.p-table-cell[data-p-multiline="true"] {
+  white-space: normal;
+}
+@media(hover:hover) {
+  .p-table-row:hover {
+    background: var(--_p-table-b);
+  }
+}
+}
+"
+`;

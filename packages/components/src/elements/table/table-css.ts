@@ -70,6 +70,7 @@ const getNativeTableStyles = (): Styles => ({
     },
   } as JssStyle),
   [TABLE_HEAD_CLASS]: mergeDeep({
+    display: 'table-header-group',
     font: `${ref(fontWeightSemibold)} ${ref(typescaleXs)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
     borderBottom: `1px solid ${ref(cssVariableTableBorderColor)}`,
     ...hidden,
@@ -79,10 +80,12 @@ const getNativeTableStyles = (): Styles => ({
     },
   } as JssStyle),
   [TABLE_BODY_CLASS]: mergeDeep({
+    display: 'table-row-group',
     ...hidden,
   } as JssStyle),
   [TABLE_ROW_CLASS]: mergeDeep(
     {
+      display: 'table-row',
       borderBottom: `${ref(cssVariableTableBorderWidth)} solid ${ref(cssVariableTableBorderColor)}`,
       transition: getTransition('background'),
       ...hidden,
@@ -94,6 +97,7 @@ const getNativeTableStyles = (): Styles => ({
     })
   ),
   [TABLE_HEAD_CELL_CLASS]: mergeDeep({
+    display: 'table-cell',
     font: 'inherit',
     textAlign: 'inherit',
     padding: `2px ${ref(cssVariableTablePadding, ref(spacingFluidSm))} ${ref(cssVariableTablePadding, ref(spacingFluidSm))}`,
@@ -109,6 +113,7 @@ const getNativeTableStyles = (): Styles => ({
     },
   } as JssStyle),
   [TABLE_CELL_CLASS]: mergeDeep({
+    display: 'table-cell',
     font: 'inherit',
     textAlign: 'inherit',
     padding: ref(cssVariableTablePadding),
