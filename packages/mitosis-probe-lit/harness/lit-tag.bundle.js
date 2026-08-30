@@ -670,7 +670,7 @@
       return this.iconSource || this.getAttribute("icon-source") || this.getAttribute("iconsource") || "";
     }
     render() {
-      return b2`<span><style .innerHTML="${this.cssText}"></style><p-icon class="icon" name="${this.iconName}" source="${this.iconSrc}" color="inherit" size="x-small" aria-hidden="true"></p-icon><slot></slot></span>`;
+      return b2`<span><style .innerHTML="${this.cssText}"></style><p-icon class="icon" name=${this.iconName || A} source=${this.iconSrc || A} color="inherit" size="x-small" aria-hidden="true"></p-icon><slot></slot></span>`;
     }
   };
   LitTag.styles = i`
