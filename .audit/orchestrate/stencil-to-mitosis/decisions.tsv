@@ -40,3 +40,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T22:57:40Z	migrate	accepted p-checkbox, spawned p-input-text	after PNG is byte-identical to Stencil checkbox card, 80326 bytes. Mitosis drops indeterminate unless strip restores it	/opt/cursor/artifacts/mitosis_lit_checkbox_after.png	live-ui-verified, probe tags 18, packages/components still 0/75
 2026-08-30T23:00:20Z	drain	tick: input-text worker running, InputText.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-30T23:06:40Z	migrate	accepted p-input-text, spawned p-input-email	after PNG is byte-identical to Stencil input-text card, 62660 bytes	/opt/cursor/artifacts/mitosis_lit_input_text_after.png	live-ui-verified, probe tags 19, packages/components still 0/75
+2026-08-30T23:10:20Z	drain	tick: input-email worker running, source committed, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING c956f007b6	in flight
