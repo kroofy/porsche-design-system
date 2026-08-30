@@ -130,9 +130,17 @@ async function main() {
     const facts = await collectFlagFacts(page);
     assertLiveFlag(facts);
 
-    const card = page.locator('[data-card="flag"]');
-    await card.scrollIntoViewIfNeeded();
-    const png = await card.screenshot({ type: 'png' });
+    const box = await page.locator('[data-card="flag"]').boundingBox();
+    if (!box) fail('Flag card has no bounding box');
+    // The card is taller than the 900px viewport. locator.screenshot() of a
+    // clipped p-canvas descendant returns the layout box without the flags.
+    const clip = {
+      x: Math.max(0, box.x),
+      y: Math.max(0, box.y),
+      width: box.width,
+      height: Math.min(box.height, VIEWPORT.height - Math.max(0, box.y)),
+    };
+    const png = await page.screenshot({ type: 'png', clip });
 
     await mkdir(dirname(ARTIFACT_PNG), { recursive: true });
     await mkdir(dirname(BASELINE_PNG), { recursive: true });

@@ -37,10 +37,17 @@ await page.waitForFunction(() => {
   );
 });
 
-const card = page.locator('[data-card="flag"]');
-await card.scrollIntoViewIfNeeded();
+const clipOf = async () => {
+  const box = await page.locator('[data-card="flag"]').boundingBox();
+  return {
+    x: Math.max(0, box.x),
+    y: Math.max(0, box.y),
+    width: box.width,
+    height: Math.min(box.height, VIEWPORT.height - Math.max(0, box.y)),
+  };
+};
 
-await writeFile(CONTROL_PNG, await card.screenshot({ type: 'png' }));
+await writeFile(CONTROL_PNG, await page.screenshot({ type: 'png', clip: await clipOf() }));
 
 await page.addScriptTag({ path: `${HARNESS_DIR}/lit-flag.bundle.js` });
 await page.waitForFunction(() => customElements.get('lit-flag'));
@@ -74,7 +81,7 @@ swap.fragment = await page.evaluate(
 );
 
 await mkdir(dirname(AFTER_PNG), { recursive: true });
-await writeFile(AFTER_PNG, await card.screenshot({ type: 'png' }));
+await writeFile(AFTER_PNG, await page.screenshot({ type: 'png', clip: await clipOf() }));
 await browser.close();
 
 const diffPair = (aBuf, bBuf, outPath) => {

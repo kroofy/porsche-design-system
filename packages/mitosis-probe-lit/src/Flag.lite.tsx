@@ -58,20 +58,17 @@ export default function LitFlag(props: { name?: string; size?: any; aria?: any }
       return 'http://localhost:3001/flags/' + (files[name] || files.xx);
     },
     get alt(): string {
-      const raw = props.aria;
+      let raw: any = props.aria;
       if (!raw) return '';
+      if (typeof raw === 'string') {
+        try {
+          raw = JSON.parse(raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":'));
+        } catch (e) {
+          raw = null;
+        }
+      }
       if (typeof raw === 'object' && raw !== null) return raw['aria-label'] || '';
-      const str = String(raw);
-      const key = 'aria-label';
-      const idx = str.indexOf(key);
-      if (idx < 0) return '';
-      const after = str.slice(idx + key.length);
-      const quote = after.indexOf("'") >= 0 && (after.indexOf('"') < 0 || after.indexOf("'") < after.indexOf('"')) ? "'" : '"';
-      const start = after.indexOf(quote);
-      if (start < 0) return '';
-      const rest = after.slice(start + 1);
-      const end = rest.indexOf(quote);
-      return end < 0 ? '' : rest.slice(0, end);
+      return '';
     },
   });
 
