@@ -29,4 +29,5 @@ migrate-input-tel	migrate	done	cursor/mitosis-migration-41e6	3	9effa727d4	briefs
 migrate-input-number	migrate	done	cursor/mitosis-migration-41e6	3	e75a3157ec	briefs/migrate-input-number.md
 migrate-input-date	migrate	done	cursor/mitosis-migration-41e6	3	4f57c21f09	briefs/migrate-input-date.md
 migrate-input-month	migrate	done	cursor/mitosis-migration-41e6	3	4ee7e76eb3	briefs/migrate-input-month.md
-migrate-input-time	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-time.md
+migrate-input-time	migrate	done	cursor/mitosis-migration-41e6	3	4bd2a33b0d	briefs/migrate-input-time.md
+migrate-input-week	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-week.md
