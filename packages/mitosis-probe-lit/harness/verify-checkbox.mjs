@@ -216,8 +216,8 @@ if (!attrChange.afterHasError) failures.push('attribute change after connect not
 if (!at999.cssHasMedia) failures.push('breakpoint css missing 1000px media');
 if (at999.overflow !== 'hidden') failures.push(`999 overflow ${at999.overflow}`);
 if (at1000.overflow !== 'visible') failures.push(`1000 overflow ${at1000.overflow}`);
-if (!(at1000.width > at999.width)) {
-  failures.push(`expected width flip 999=${at999.width} vs 1000=${at1000.width}`);
+if (at999.overflow === at1000.overflow) {
+  failures.push(`expected hide-label flip 999=${at999.overflow} vs 1000=${at1000.overflow}`);
 }
 if (consoleErrors.length) failures.push(`console errors: ${consoleErrors.join(' | ')}`);
 

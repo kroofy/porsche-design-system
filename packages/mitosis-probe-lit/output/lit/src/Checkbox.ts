@@ -32,6 +32,7 @@ export default class LitCheckbox extends LitElement {
   @property() label: any;
   @property() hideLabel: any;
   @property() checked: any;
+  @property() indeterminate: any;
 
   get cssText() {
     const minWidth: any = {

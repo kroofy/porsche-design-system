@@ -16,17 +16,31 @@ let after = before
   .replace(
     'const hideLabel = parse(this.hideLabel, false);',
     'const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);',
+  )
+  .replace(
+    '@property() checked: any;',
+    '@property() checked: any;\n  @property() indeterminate: any;',
   );
+after = after.replace(
+  /  updated\(\) \{[\s\S]*?\n  \}\n\n  render\(\) \{/,
+  `  updated() {
+    const input = this.renderRoot?.querySelector("input");
+    if (input) {
+      const raw = this.indeterminate ?? this.getAttribute("indeterminate");
+      input.indeterminate = raw === true || raw === "true" || raw === "";
+    }
+  }
+
+  render() {`,
+);
 if (!after.includes('updated()')) {
   after = after.replace(
     '  render() {',
     `  updated() {
     const input = this.renderRoot?.querySelector("input");
     if (input) {
-      input.indeterminate =
-        this.indeterminate === true ||
-        this.indeterminate === "true" ||
-        this.indeterminate === "";
+      const raw = this.indeterminate ?? this.getAttribute("indeterminate");
+      input.indeterminate = raw === true || raw === "true" || raw === "";
     }
   }
 

@@ -801,6 +801,9 @@
   __decorateClass([
     n4()
   ], LitCheckbox.prototype, "checked", 2);
+  __decorateClass([
+    n4()
+  ], LitCheckbox.prototype, "indeterminate", 2);
   LitCheckbox = __decorateClass([
     t3("lit-checkbox")
   ], LitCheckbox);
