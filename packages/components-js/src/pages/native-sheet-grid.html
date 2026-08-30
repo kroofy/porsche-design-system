@@ -1,0 +1,55 @@
+<style>
+  .visualize-grid {
+    position: static;
+    row-gap: 16px;
+  }
+
+  .visualize-grid > span {
+    grid-row: 1 / 6;
+  }
+
+  .visualize-grid > div {
+    padding: 0 16px;
+    background: rgba(255, 0, 0, 0.1);
+  }
+</style>
+
+<dialog class="p-sheet" aria-label="Some Heading" aria-modal="true" tabindex="-1">
+  <div class="p-sheet__scroller">
+    <div class="p-sheet__panel">
+      <button type="button" class="p-sheet__dismiss" aria-label="Dismiss sheet"><span>Dismiss sheet</span></button>
+      <header class="p-sheet__header">Some Header</header>
+      <div class="visualize-grid">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <div style="grid-area: 1 / full-start / auto / full-end">Full</div>
+        <div style="grid-area: 2 / wide-start / auto / wide-end">Wide</div>
+        <div style="grid-area: 3 / extended-start / auto / extended-end">Extended</div>
+        <div style="grid-area: 4 / basic-start / auto / basic-end">Basic</div>
+        <div style="grid-area: 5 / narrow-start / auto / narrow-end">Narrow</div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native sheet</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-sheet');
+  dialog.showModal();
+  dialog.focus();
+</script>

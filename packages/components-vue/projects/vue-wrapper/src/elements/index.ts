@@ -30,6 +30,7 @@ export { PModelSignature } from './PModelSignature';
 export { POptgroup } from './POptgroup';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
+export { PSheet } from './PSheet';
 export { PSpinner } from './PSpinner';
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export { PTag } from './PTag';

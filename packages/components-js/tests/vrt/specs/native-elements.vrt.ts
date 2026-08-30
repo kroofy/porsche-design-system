@@ -30,6 +30,7 @@ const pages = [
   'native-spinner',
   'native-modal',
   'native-optgroup',
+  'native-sheet',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

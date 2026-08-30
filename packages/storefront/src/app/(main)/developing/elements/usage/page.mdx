@@ -55,12 +55,13 @@ export const metadata = {
 | `PTagDismissible`                                                                 | `<button class="p-tag-dismissible">`                              |
 | `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
 | `PModal`                                                                          | `<dialog class="p-modal">`                                        |
+| `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
 
 Children stay real tags too. Legend is a `<legend>` inside the fieldset. Accordion summary is a `<summary>`. Modal
 header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Select options are
 `<option>`. Optgroup labels use the native `label` attribute.
 
-Open a modal with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
+Open a modal or sheet with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
 
 Native `<select>` optgroups follow UA dropdown styling. They will not match the custom stencil list. `size` or
 `multiple` shows groups in-page.
