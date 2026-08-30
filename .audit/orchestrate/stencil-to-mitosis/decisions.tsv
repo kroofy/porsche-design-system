@@ -18,3 +18,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T21:40:35Z	drain	tick: wordmark worker running, source committed, no pixel-diff yet	do not accept until after PNG exists	bc-2ea9dd10 RUNNING d4e4019792	in flight
 2026-08-30T21:42:06Z	migrate	accepted p-wordmark, spawned p-flag	after PNG is byte-identical to Stencil wordmark card, 68376 pixels	/opt/cursor/artifacts/mitosis_lit_wordmark_after.png	live-ui-verified, probe tags 3, packages/components still 0/75
 2026-08-30T21:50:42Z	drain	flag after PNG is byte-identical, holding next spawn until flag worker exits	one writer per packages/mitosis-probe-lit	bc-7473d449 RUNNING /opt/cursor/artifacts/mitosis_lit_flag_after.png	receipts ok, spawn deferred
+2026-08-30T21:51:12Z	migrate	accepted p-flag, spawned p-model-signature	after PNG is byte-identical to Stencil flag card, 754400 pixels	/opt/cursor/artifacts/mitosis_lit_flag_after.png	live-ui-verified, probe tags 4, packages/components still 0/75
