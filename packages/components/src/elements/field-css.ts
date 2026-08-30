@@ -453,12 +453,12 @@ const optgroupChrome = (): JssStyle => ({
 
 const getNativeFieldStyles = (): Styles => ({
   '@global': {
-    [`.${FIELD_ROOT_CLASS}:has(:disabled:not([data-p-loading="true"])) .${LABEL_ROOT_CLASS}`]: {
+    [`.${FIELD_ROOT_CLASS}:has(> :disabled:not([data-p-loading="true"])) .${LABEL_ROOT_CLASS}`]: {
       cursor: 'not-allowed',
       pointerEvents: 'none',
       ...getDisabledBaseStyles(),
     },
-    [`.${FIELD_ROOT_CLASS}:has(:disabled:not([data-p-loading="true"])) .${DESCRIPTION_ROOT_CLASS}`]:
+    [`.${FIELD_ROOT_CLASS}:has(> :disabled:not([data-p-loading="true"])) .${DESCRIPTION_ROOT_CLASS}`]:
       getDisabledBaseStyles(),
     ...hiddenDescriptionAfterLabel(),
     ...choiceFieldLayout(CHECKBOX_ROOT_CLASS, cssVarInternalCheckboxScaling, CHECKBOX_SPINNER_CLASS),

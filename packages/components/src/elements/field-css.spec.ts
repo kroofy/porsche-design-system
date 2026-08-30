@@ -57,6 +57,8 @@ describe('getNativeFieldCss()', () => {
     expect(css).toContain('.p-select optgroup');
     expect(css).toContain('.p-select[multiple]');
     expect(css).toContain('.p-optgroup:disabled');
+    expect(css).toContain('.p-field:has(> :disabled');
+    expect(css).not.toContain('.p-field:has(:disabled');
   });
 
   it('strips UA chrome on search, number and datetime types', () => {
