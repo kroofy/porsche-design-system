@@ -23,8 +23,9 @@ const consoleErrors = [];
 page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
-  if (text.includes('ERR_CONNECTION_REFUSED') && text.includes('localhost:3002')) return;
-  consoleErrors.push(text);
+  const loc = msg.location()?.url ?? '';
+  if (text.includes('ERR_CONNECTION_REFUSED') && (text.includes('3002') || loc.includes('3002'))) return;
+  consoleErrors.push(loc ? `${text} @ ${loc}` : text);
 });
 page.on('pageerror', (err) => consoleErrors.push(String(err)));
 
