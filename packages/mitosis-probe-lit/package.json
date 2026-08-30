@@ -5,8 +5,11 @@
   "description": "Throwaway fitness probe: Mitosis Lit target for p-divider. Not wired into the monorepo build. Install with --workspaces=false.",
   "scripts": {
     "build": "mitosis build && esbuild output/lit/src/Divider.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-divider.bundle.js",
+    "build:crest": "mitosis build && if rg -q my-fragment output/lit/src/Crest.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Crest.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-crest.bundle.js",
     "verify": "node harness/verify.mjs",
-    "pixel-diff": "node harness/pixel-diff.mjs"
+    "verify:crest": "node harness/verify-crest.mjs",
+    "pixel-diff": "node harness/pixel-diff.mjs",
+    "pixel-diff:crest": "node harness/pixel-diff-crest.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
