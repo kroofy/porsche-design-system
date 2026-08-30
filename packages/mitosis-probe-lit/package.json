@@ -22,6 +22,7 @@
     "build:button": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && node harness/strip-link-pure-whitespace.mjs && node harness/strip-link-whitespace.mjs && node harness/strip-button-pure-whitespace.mjs && node harness/strip-button-whitespace.mjs && if rg -q my-fragment output/lit/src/Button.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Button.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-button.bundle.js",
     "build:switch": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && node harness/strip-link-pure-whitespace.mjs && node harness/strip-link-whitespace.mjs && node harness/strip-button-pure-whitespace.mjs && node harness/strip-button-whitespace.mjs && node harness/strip-switch-whitespace.mjs && if rg -q my-fragment output/lit/src/Switch.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Switch.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-switch.bundle.js",
     "build:checkbox": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && node harness/strip-link-pure-whitespace.mjs && node harness/strip-link-whitespace.mjs && node harness/strip-button-pure-whitespace.mjs && node harness/strip-button-whitespace.mjs && node harness/strip-switch-whitespace.mjs && node harness/strip-checkbox-whitespace.mjs && if rg -q my-fragment output/lit/src/Checkbox.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Checkbox.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-checkbox.bundle.js",
+    "build:input-text": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && node harness/strip-link-pure-whitespace.mjs && node harness/strip-link-whitespace.mjs && node harness/strip-button-pure-whitespace.mjs && node harness/strip-button-whitespace.mjs && node harness/strip-switch-whitespace.mjs && node harness/strip-checkbox-whitespace.mjs && node harness/strip-input-text-whitespace.mjs && if rg -q my-fragment output/lit/src/InputText.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/InputText.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-input-text.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -40,6 +41,7 @@
     "verify:button": "node harness/verify-button.mjs",
     "verify:switch": "node harness/verify-switch.mjs",
     "verify:checkbox": "node harness/verify-checkbox.mjs",
+    "verify:input-text": "node harness/verify-input-text.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -57,7 +59,8 @@
     "pixel-diff:button-pure": "node harness/pixel-diff-button-pure.mjs",
     "pixel-diff:button": "node harness/pixel-diff-button.mjs",
     "pixel-diff:switch": "node harness/pixel-diff-switch.mjs",
-    "pixel-diff:checkbox": "node harness/pixel-diff-checkbox.mjs"
+    "pixel-diff:checkbox": "node harness/pixel-diff-checkbox.mjs",
+    "pixel-diff:input-text": "node harness/pixel-diff-input-text.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
