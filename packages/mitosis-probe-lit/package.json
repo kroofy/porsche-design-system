@@ -7,12 +7,15 @@
     "build": "mitosis build && esbuild output/lit/src/Divider.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-divider.bundle.js",
     "build:crest": "mitosis build && if rg -q my-fragment output/lit/src/Crest.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Crest.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-crest.bundle.js",
     "build:wordmark": "mitosis build && if rg -q my-fragment output/lit/src/Wordmark.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Wordmark.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-wordmark.bundle.js",
+    "build:flag": "mitosis build && node harness/strip-flag-fragment.mjs && if rg -q my-fragment output/lit/src/Flag.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Flag.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-flag.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
+    "verify:flag": "node harness/verify-flag.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
-    "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs"
+    "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
+    "pixel-diff:flag": "node harness/pixel-diff-flag.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
