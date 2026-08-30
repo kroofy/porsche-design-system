@@ -37,6 +37,7 @@ const PAGES_TO_SKIP: string[] = [
   'native-modal',
   'native-optgroup',
   'native-sheet',
+  'native-inline-notification',
   'native-sheet-basic',
   'native-sheet-without-heading',
   'native-sheet-scrollable',

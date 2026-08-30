@@ -56,10 +56,13 @@ export const metadata = {
 | `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
 | `PModal`                                                                          | `<dialog class="p-modal">`                                        |
 | `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
+| `PInlineNotification`                                                             | `<aside class="p-inline-notification">`                           |
 
 Children stay real tags too. Legend is a `<legend>` inside the fieldset. Accordion summary is a `<summary>`. Modal
-header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Select options are
-`<option>`. Optgroup labels use the native `label` attribute.
+header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Inline notification
+heading is a real `h1`–`h6`, description is a `<p>`, and dismiss is
+`<button class="p-inline-notification__dismiss">`. Select options are `<option>`. Optgroup labels use the native
+`label` attribute.
 
 Open a modal or sheet with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
 

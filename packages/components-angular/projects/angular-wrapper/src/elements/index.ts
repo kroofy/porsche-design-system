@@ -11,6 +11,7 @@ export { PFieldset } from './PFieldset';
 export { PFlag } from './PFlag';
 export { PHeading } from './PHeading';
 export { PIcon } from './PIcon';
+export { PInlineNotification } from './PInlineNotification';
 export { PInputText } from './PInputText';
 export {
   PInputDate,

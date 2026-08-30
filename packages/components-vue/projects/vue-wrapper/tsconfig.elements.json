@@ -28,6 +28,7 @@
     "../../../components/src/elements/link-pure/link-pure.appearance.ts",
     "../../../components/src/elements/icon/icon.appearance.ts",
     "../../../components/src/elements/icon/icon-url.ts",
+    "../../../components/src/elements/inline-notification/inline-notification.appearance.ts",
     "../../../components/src/elements/flag/flag.appearance.ts",
     "../../../components/src/elements/flag/flag-url.ts",
     "../../../components/src/elements/crest/crest.appearance.ts",

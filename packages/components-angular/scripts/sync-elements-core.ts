@@ -31,6 +31,7 @@ const files = [
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',
   'icon/icon-url.ts',
+  'inline-notification/inline-notification.appearance.ts',
   'input/input.appearance.ts',
   'label/label.appearance.ts',
   'model-signature/model-signature.appearance.ts',

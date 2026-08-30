@@ -31,6 +31,7 @@ const pages = [
   'native-modal',
   'native-optgroup',
   'native-sheet',
+  'native-inline-notification',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

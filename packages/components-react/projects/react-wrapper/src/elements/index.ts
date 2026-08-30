@@ -20,6 +20,8 @@ export type { PHeadingProps } from './PHeading';
 export { PHeading } from './PHeading';
 export type { PIconProps } from './PIcon';
 export { PIcon } from './PIcon';
+export type { PInlineNotificationProps } from './PInlineNotification';
+export { PInlineNotification } from './PInlineNotification';
 export type { PInputTextProps } from './PInputText';
 export { PInputText } from './PInputText';
 export type {
