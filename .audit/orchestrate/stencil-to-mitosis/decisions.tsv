@@ -38,3 +38,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T22:50:20Z	drain	tick: switch worker running, Switch.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-30T22:52:00Z	migrate	accepted p-switch, spawned p-checkbox	after PNG is byte-identical to Stencil switch card, 35256 bytes	/opt/cursor/artifacts/mitosis_lit_switch_after.png	live-ui-verified, probe tags 17, packages/components still 0/75
 2026-08-30T22:57:40Z	migrate	accepted p-checkbox, spawned p-input-text	after PNG is byte-identical to Stencil checkbox card, 80326 bytes. Mitosis drops indeterminate unless strip restores it	/opt/cursor/artifacts/mitosis_lit_checkbox_after.png	live-ui-verified, probe tags 18, packages/components still 0/75
+2026-08-30T23:00:20Z	drain	tick: input-text worker running, InputText.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
