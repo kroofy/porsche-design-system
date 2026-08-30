@@ -20,4 +20,5 @@ migrate-button-pure	migrate	done	cursor/mitosis-migration-41e6	3	6baa018a19	brie
 migrate-button	migrate	done	cursor/mitosis-migration-41e6	3	be67982f60	briefs/migrate-button.md
 migrate-switch	migrate	done	cursor/mitosis-migration-41e6	3	21f0480a7a	briefs/migrate-switch.md
 migrate-checkbox	migrate	done	cursor/mitosis-migration-41e6	3	1c30147f75	briefs/migrate-checkbox.md
-migrate-input-text	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-text.md
+migrate-input-text	migrate	done	cursor/mitosis-migration-41e6	3	ad2c0b2800	briefs/migrate-input-text.md
+migrate-input-email	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-email.md
