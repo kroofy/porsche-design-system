@@ -32,6 +32,7 @@ const PAGES_TO_SKIP: string[] = [
   'native-model-signature',
   'native-accordion',
   'native-tag',
+  'native-spinner',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

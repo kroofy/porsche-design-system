@@ -58,6 +58,8 @@ export type { PRadioProps } from './PRadio';
 export { PRadio } from './PRadio';
 export type { PSelectProps } from './PSelect';
 export { PSelect } from './PSelect';
+export type { PSpinnerProps } from './PSpinner';
+export { PSpinner } from './PSpinner';
 export type {
   PTableBodyProps,
   PTableCellProps,

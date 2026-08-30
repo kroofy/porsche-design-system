@@ -30,6 +30,7 @@ export { PLinkPure } from './PLinkPure';
 export { PModelSignature } from './PModelSignature';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
+export { PSpinner } from './PSpinner';
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export { PTag } from './PTag';
 export { PText } from './PText';

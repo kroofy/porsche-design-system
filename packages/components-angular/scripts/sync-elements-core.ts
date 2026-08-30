@@ -23,6 +23,7 @@ const files = [
   'text-list/text-list.appearance.ts',
   'table/table.appearance.ts',
   'tag/tag.appearance.ts',
+  'spinner/spinner.appearance.ts',
   'link/link.appearance.ts',
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',
