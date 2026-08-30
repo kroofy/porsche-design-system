@@ -7,3 +7,4 @@ pr	sha	verdict	evidence	verifier	ts
 3	4edd6127ec542c2b7b5310e7501a8e7f2997cae8	live-ui-verified	/opt/cursor/artifacts/mitosis_lit_flag_after.png	coordinator-byte-equal-png	2026-08-30T21:51:12.288Z
 3	3ab704f859	live-ui-verified	/opt/cursor/artifacts/mitosis_lit_model_signature_after.png	coordinator-byte-equal-png	2026-08-30T21:57:25.184Z
 3	d702e8eb4f	live-ui-verified	/opt/cursor/artifacts/mitosis_lit_icon_after.png	coordinator-byte-equal-png	2026-08-30T22:01:26.766Z
+3	0fe05aaab6	live-ui-verified	/opt/cursor/artifacts/mitosis_lit_heading_after.png	coordinator-byte-equal-png	2026-08-30T22:06:22.642Z
