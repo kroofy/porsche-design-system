@@ -7,7 +7,7 @@ export const metadata = {
 
 # Introduction
 
-<TableOfContents headings={['Start Coding', 'Requirements']} />
+<TableOfContents headings={['Start Coding', 'Native elements', 'Requirements']} />
 
 ## Start Coding
 
@@ -18,6 +18,12 @@ definitions.
 To enable a smooth start with the Porsche Design System we have created **sample projects** in all common frameworks.
 These projects show how to install and the usage of the Porsche Design System. Furthermore, the example projects contain
 examples and solutions for testing.
+
+## Native elements
+
+If the control is one native HTML tag, PDS does not wrap it. Use the parallel [`./elements`](/developing/elements)
+export for a real `button`, `input`, `dialog`, and the rest. The public `.` import still returns generated
+custom-element wrappers. Stencil custom-element hosts stay until a breaking major.
 
 ## Requirements
 

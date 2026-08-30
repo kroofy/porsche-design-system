@@ -1,0 +1,170 @@
+import { ContentTab, ContentTabs } from '@/components/common/ContentTabs';
+import { Notification } from '@/components/common/Notification';
+import { TableOfContents } from '@/components/common/TableOfContents';
+
+export const metadata = {
+  title: 'Native Elements: Getting started - Porsche Design System',
+  description: 'Use Porsche Design System styles on real HTML tags via the parallel ./elements export.',
+};
+
+# Native Elements
+
+<TableOfContents headings={['What this is', 'Setup', 'First control', 'Mix with custom elements']} />
+
+<Notification heading="Parallel export" state="info">
+  The public `.` import still returns custom-element wrappers. Native controls live on `./elements`. Stencil
+  custom-element hosts stay until a breaking major.
+</Notification>
+
+## What this is
+
+If the user interacts with one native HTML tag, PDS does not wrap it. `./elements` is that path: a stylesheet plus thin
+framework wrappers that emit the real tag.
+
+Vanilla is HTML plus one extra stylesheet. React and Vue components return `<button>`, `<input>`, `<dialog>`. Angular
+directives sit on those tags. There is no wrapping host.
+
+Keep custom elements for composites and for anything that is not a 1:1 native tag. See
+[Usage](/developing/elements/usage) for the mapping and the contract.
+
+## Setup
+
+Install the package you already use, then import the global stylesheet **and** `elements.css`. Tokens, fonts, and
+normalize still come from the main stylesheet. Native controls will not look right without both.
+
+You do not need `porscheDesignSystem.load()` or `<PorscheDesignSystemProvider>` if the page only uses native elements.
+
+<ContentTabs label="Setup by framework">
+
+<ContentTab label="Vanilla JS">
+
+```css
+/* src/style.css */
+@import '@porsche-design-system/components-js';
+@import '@porsche-design-system/components-js/elements.css';
+```
+
+`@porsche-design-system/components-js/elements` also exports `fieldIds` helpers. There is no JS wrapper around the tags.
+You write the HTML.
+
+</ContentTab>
+
+<ContentTab label="React">
+
+```css
+/* src/index.css */
+@import '@porsche-design-system/components-react';
+@import '@porsche-design-system/components-react/elements.css';
+```
+
+```ts
+import { PButton } from '@porsche-design-system/components-react/elements';
+```
+
+Next.js, Remix, and React Router use this same `./elements` export. Do not import native wrappers from `/ssr`.
+
+</ContentTab>
+
+<ContentTab label="Vue">
+
+```css
+/* src/style.css */
+@import '@porsche-design-system/components-vue';
+@import '@porsche-design-system/components-vue/elements.css';
+```
+
+```ts
+import { PButton } from '@porsche-design-system/components-vue/elements';
+```
+
+</ContentTab>
+
+<ContentTab label="Angular">
+
+```css
+/* src/styles.css */
+@import '@porsche-design-system/components-angular/index.css';
+@import '@porsche-design-system/components-angular/elements.css';
+```
+
+```ts
+import { PButton } from '@porsche-design-system/components-angular/elements';
+```
+
+Import each directive into the standalone component. Do not put native wrappers on `PorscheDesignSystemModule`.
+
+</ContentTab>
+
+</ContentTabs>
+
+## First control
+
+<ContentTabs label="First control by framework">
+
+<ContentTab label="Vanilla JS">
+
+```html
+<button type="button" class="p-button">
+  <span class="p-button__label">Save</span>
+</button>
+```
+
+Secondary is `data-p-variant="secondary"`. Compact is `data-p-compact="true"`. Loading is native `disabled`,
+`aria-busy="true"`, and `data-p-loading="true"`.
+
+</ContentTab>
+
+<ContentTab label="React">
+
+```tsx
+import { PButton } from '@porsche-design-system/components-react/elements';
+
+export const Save = () => <PButton type="button">Save</PButton>;
+```
+
+`PButton` is the `<button>`. Children go into `.p-button__label`. Variant, compact, and loading are props. Loading also
+sets native `disabled` and `aria-busy`.
+
+</ContentTab>
+
+<ContentTab label="Vue">
+
+```vue
+<script setup lang="ts">
+  import { PButton } from '@porsche-design-system/components-vue/elements';
+</script>
+
+<template>
+  <PButton type="button">Save</PButton>
+</template>
+```
+
+</ContentTab>
+
+<ContentTab label="Angular">
+
+```ts
+import { Component } from '@angular/core';
+import { PButton } from '@porsche-design-system/components-angular/elements';
+
+@Component({
+  selector: 'app-save',
+  standalone: true,
+  imports: [PButton],
+  template: `<button pButton type="button">Save</button>`,
+})
+export class Save {}
+```
+
+The host **is** the native tag: `button[pButton]`, `input[pInputText]`, `dialog[pModal]`.
+
+</ContentTab>
+
+</ContentTabs>
+
+## Mix with custom elements
+
+You can put a native control next to a custom element on the same page. Load the Porsche Design System as usual for the
+custom elements, and keep `elements.css` for the native ones.
+
+Do not wrap a native `./elements` control in a `p-*` host. If the tag is native, the host is that tag.
