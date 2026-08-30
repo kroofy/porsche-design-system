@@ -15,6 +15,7 @@ const files = [
   'fieldset/fieldset.appearance.ts',
   'heading/heading.appearance.ts',
   'text/text.appearance.ts',
+  'text-list/text-list.appearance.ts',
   'link/link.appearance.ts',
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',

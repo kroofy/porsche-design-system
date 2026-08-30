@@ -5621,6 +5621,67 @@
   margin-top: var(--p-spacing-static-md);
 }
 }
+.p-text-list,.p-text-list-item{color-scheme:inherit}
+@layer pds.elements {
+.p-text-list {
+  display: block;
+  counter-reset: p-text-list-counter;
+  font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);
+  margin: 0;
+  padding: var(--_p-text-list-d,0) 0 var(--_p-text-list-c,0) 0;
+  list-style-type: none;
+  color: var(--p-color-primary);
+}
+.p-text-list[hidden] {
+  display: none !important;
+}
+.p-text-list > .p-text-list-item {
+  --_p-text-list-d: var(--p-spacing-static-xs);
+  --_p-text-list-c: var(--p-spacing-static-md);
+  --_p-text-list-e: var(--_p-text-list-f,.375rem);
+}
+.p-text-list[data-p-type="numbered"] > .p-text-list-item {
+  --_p-text-list-e: var(--_p-text-list-a,1.5rem);
+}
+.p-text-list[data-p-type="alphabetically"] > .p-text-list-item {
+  --_p-text-list-e: var(--_p-text-list-a,1.5rem);
+}
+.p-text-list[data-p-type="alphabetically"] > .p-text-list-item::before {
+  content: counters(p-text-list-counter,'.',lower-latin) var(--_p-text-list-b,'.');
+  counter-increment: p-text-list-counter;
+  justify-self: flex-end;
+  white-space: nowrap;
+}
+.p-text-list[data-p-type="numbered"] > .p-text-list-item::before {
+  content: counters(p-text-list-counter,'.',decimal) var(--_p-text-list-b,'.');
+  counter-increment: p-text-list-counter;
+  justify-self: flex-end;
+  white-space: nowrap;
+}
+.p-text-list > .p-text-list-item::before {
+  content: var(--_p-text-list-g,'•');
+}
+.p-text-list-item {
+  display: grid;
+  list-style: none;
+  grid-template-columns: var(--_p-text-list-e) 1fr;
+  column-gap: var(--p-spacing-static-md);
+  font: inherit;
+  color: inherit;
+}
+.p-text-list-item[hidden] {
+  display: none !important;
+}
+.p-text-list-item > .p-text-list {
+  --_p-text-list-f: .625rem;
+  --_p-text-list-g: "–";
+  --_p-text-list-a: 2rem;
+  --_p-text-list-b: "";
+}
+.p-text-list-item > .p-text-list:last-child {
+  grid-column: 2;
+}
+}
 .p-divider{color-scheme:inherit}
 @layer pds.elements {
 .p-divider {

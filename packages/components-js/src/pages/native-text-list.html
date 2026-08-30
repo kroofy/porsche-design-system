@@ -1,0 +1,128 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+</style>
+
+<div class="playground" title="unordered">
+  <div class="native-pair">
+    <p-text-list>
+      <p-text-list-item>Unordered root list item</p-text-list-item>
+      <p-text-list-item>
+        Unordered root list item
+        <p-text-list>
+          <p-text-list-item>Unordered nested list item</p-text-list-item>
+          <p-text-list-item>Unordered nested list item</p-text-list-item>
+        </p-text-list>
+      </p-text-list-item>
+      <p-text-list-item>Unordered root list item</p-text-list-item>
+    </p-text-list>
+    <ul class="p-text-list">
+      <li class="p-text-list-item">Unordered root list item</li>
+      <li class="p-text-list-item">
+        Unordered root list item
+        <ul class="p-text-list">
+          <li class="p-text-list-item">Unordered nested list item</li>
+          <li class="p-text-list-item">Unordered nested list item</li>
+        </ul>
+      </li>
+      <li class="p-text-list-item">Unordered root list item</li>
+    </ul>
+  </div>
+</div>
+
+<div class="playground" title="numbered">
+  <div class="native-pair">
+    <p-text-list type="numbered">
+      <p-text-list-item>Numbered root list item</p-text-list-item>
+      <p-text-list-item>
+        Numbered root list item
+        <p-text-list type="numbered">
+          <p-text-list-item>Numbered nested list item</p-text-list-item>
+          <p-text-list-item>Numbered nested list item</p-text-list-item>
+        </p-text-list>
+      </p-text-list-item>
+      <p-text-list-item>Numbered root list item</p-text-list-item>
+    </p-text-list>
+    <ol class="p-text-list" data-p-type="numbered">
+      <li class="p-text-list-item">Numbered root list item</li>
+      <li class="p-text-list-item">
+        Numbered root list item
+        <ol class="p-text-list" data-p-type="numbered">
+          <li class="p-text-list-item">Numbered nested list item</li>
+          <li class="p-text-list-item">Numbered nested list item</li>
+        </ol>
+      </li>
+      <li class="p-text-list-item">Numbered root list item</li>
+    </ol>
+  </div>
+</div>
+
+<div class="playground" title="alphabetically">
+  <div class="native-pair">
+    <p-text-list type="alphabetically">
+      <p-text-list-item>Alphabetically root list item</p-text-list-item>
+      <p-text-list-item>
+        Alphabetically root list item
+        <p-text-list type="alphabetically">
+          <p-text-list-item>Alphabetically nested list item</p-text-list-item>
+          <p-text-list-item>Alphabetically nested list item</p-text-list-item>
+        </p-text-list>
+      </p-text-list-item>
+      <p-text-list-item>Alphabetically root list item</p-text-list-item>
+    </p-text-list>
+    <ol class="p-text-list" data-p-type="alphabetically">
+      <li class="p-text-list-item">Alphabetically root list item</li>
+      <li class="p-text-list-item">
+        Alphabetically root list item
+        <ol class="p-text-list" data-p-type="alphabetically">
+          <li class="p-text-list-item">Alphabetically nested list item</li>
+          <li class="p-text-list-item">Alphabetically nested list item</li>
+        </ol>
+      </li>
+      <li class="p-text-list-item">Alphabetically root list item</li>
+    </ol>
+  </div>
+</div>
+
+<div class="playground" title="numbered mixed nested">
+  <div class="native-pair">
+    <p-text-list type="numbered">
+      <p-text-list-item>
+        Numbered, ordered root list item
+        <p-text-list>
+          <p-text-list-item>Unordered nested list item</p-text-list-item>
+          <p-text-list-item>Unordered nested list item</p-text-list-item>
+        </p-text-list>
+      </p-text-list-item>
+      <p-text-list-item>
+        Numbered, ordered root list item
+        <p-text-list type="numbered">
+          <p-text-list-item>Numbered, ordered nested list item</p-text-list-item>
+          <p-text-list-item>Numbered, ordered nested list item</p-text-list-item>
+        </p-text-list>
+      </p-text-list-item>
+      <p-text-list-item>Numbered, ordered root list item</p-text-list-item>
+    </p-text-list>
+    <ol class="p-text-list" data-p-type="numbered">
+      <li class="p-text-list-item">
+        Numbered, ordered root list item
+        <ul class="p-text-list">
+          <li class="p-text-list-item">Unordered nested list item</li>
+          <li class="p-text-list-item">Unordered nested list item</li>
+        </ul>
+      </li>
+      <li class="p-text-list-item">
+        Numbered, ordered root list item
+        <ol class="p-text-list" data-p-type="numbered">
+          <li class="p-text-list-item">Numbered, ordered nested list item</li>
+          <li class="p-text-list-item">Numbered, ordered nested list item</li>
+        </ol>
+      </li>
+      <li class="p-text-list-item">Numbered, ordered root list item</li>
+    </ol>
+  </div>
+</div>

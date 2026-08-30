@@ -25,6 +25,8 @@ export { PLinkPure } from './PLinkPure';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
 export { PText } from './PText';
+export { PTextList } from './PTextList';
+export { PTextListItem } from './PTextListItem';
 export { PTextarea } from './PTextarea';
 export type { FieldDescribedByOptions, FieldIds } from './useFieldIds';
 export { createFieldIds, fieldDescribedBy, fieldIds, nextFieldId, useFieldIds } from './useFieldIds';

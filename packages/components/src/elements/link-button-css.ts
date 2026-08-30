@@ -45,6 +45,7 @@ import { getNativeFieldsetCss } from './fieldset/fieldset-css';
 import { getNativeIconCss } from './icon/icon-css';
 import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
 import { getNativeButtonPureCss, getNativeLinkPureCss } from './pure-css';
+import { getNativeTextListCss } from './text-list/text-list-css';
 import { getNativeDisplayCss, getNativeHeadingCss, getNativeTextCss } from './typography-css';
 
 const COMPACT_SCALE = 0.64285714;
@@ -348,4 +349,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}`;
