@@ -32,6 +32,7 @@ const pages = [
   'native-optgroup',
   'native-sheet',
   'native-inline-notification',
+  'native-ai-tag',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

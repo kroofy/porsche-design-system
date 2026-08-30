@@ -8,6 +8,7 @@ const dest = join(import.meta.dirname, '../projects/angular-wrapper/src/elements
 const files = [
   'appearance.ts',
   'accordion/accordion.appearance.ts',
+  'ai-tag/ai-tag.appearance.ts',
   'field-ids.ts',
   'button/button.appearance.ts',
   'button-pure/button-pure.appearance.ts',
@@ -45,6 +46,20 @@ for (const file of files) {
   mkdirSync(dirname(to), { recursive: true });
   copyFileSync(join(root, file), to);
 }
+
+const componentsRoot = join(import.meta.dirname, '../../components/src/components');
+for (const file of ['ai-tag/ai-tag-utils.ts', 'ai-tag/ai-tag-locales.ts']) {
+  const to = join(dest, file);
+  mkdirSync(dirname(to), { recursive: true });
+  copyFileSync(join(componentsRoot, file), to);
+}
+writeFileSync(
+  join(dest, 'ai-tag/ai-tag.appearance.ts'),
+  readFileSync(join(dest, 'ai-tag/ai-tag.appearance.ts'), 'utf8').replaceAll(
+    "from '../../components/ai-tag/ai-tag-utils'",
+    "from './ai-tag-utils'"
+  )
+);
 
 const { ICONS_MANIFEST } = createRequire(import.meta.url)('@porsche-design-system/icons');
 writeFileSync(

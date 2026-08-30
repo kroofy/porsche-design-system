@@ -1,4 +1,5 @@
 export { PAccordion } from './PAccordion';
+export { PAiTag } from './PAiTag';
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
 export { PCheckbox } from './PCheckbox';
