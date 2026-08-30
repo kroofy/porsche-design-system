@@ -29,3 +29,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T22:20:20Z	drain	tick: tag worker running, Tag.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-30T22:23:40Z	migrate	accepted p-tag, spawned p-tag-dismissible	after PNG is byte-identical to Stencil tag card, 53760 bytes. Inner icons stayed p-icon	/opt/cursor/artifacts/mitosis_lit_tag_after.png	live-ui-verified, probe tags 11, packages/components still 0/75
 2026-08-30T22:26:40Z	migrate	accepted p-tag-dismissible, spawned p-link-pure	after PNG is byte-identical to Stencil tag-dismissible card, 13152 bytes	/opt/cursor/artifacts/mitosis_lit_tag_dismissible_after.png	live-ui-verified, probe tags 12, packages/components still 0/75
+2026-08-30T22:30:20Z	drain	tick: link-pure worker running, LinkPure.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
