@@ -94,5 +94,6 @@ describe('elements.css', () => {
     expect(committed).toContain('.p-tag {');
     expect(committed).toContain('.p-spinner {');
     expect(committed).toContain('.p-modal {');
+    expect(committed).toContain('.p-optgroup {');
   });
 });

@@ -8,6 +8,8 @@ export {
   INPUT_ROOT_CLASS,
   inputAppearance,
   NATIVE_INPUT_TYPES,
+  OPTGROUP_ROOT_CLASS,
+  optgroupAppearance,
   RADIO_ROOT_CLASS,
   RADIO_SPINNER_CLASS,
   RADIOS_ROOT_CLASS,

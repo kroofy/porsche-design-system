@@ -578,11 +578,34 @@ exports[`getNativeFieldCss() > matches the rewritten snapshot 1`] = `
   --_p-select-a: 1;
   border-radius: var(--p-radius-xl);
 }
+.p-select[multiple], .p-select[size]:not([size="1"]) {
+  height: auto;
+  min-height: calc(8 * (var(--p-leading-normal) + 6px));
+  background-image: none;
+  padding-block: calc(11.2px * (var(--_p-select-a) - 0.64285714) + 4px);
+  padding-inline-end: calc(22.4px * (var(--_p-select-a) - 0.64285714) + 8px);
+  overflow: auto;
+  text-overflow: unset;
+}
+.p-select optgroup {
+  font: var(--p-font-weight-semibold) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next);
+  color: var(--p-color-primary);
+}
+.p-select optgroup:disabled {
+  opacity: 0.4;
+}
 .p-select[data-p-state="success"]:focus, .p-select[data-p-state="success"]:focus-visible {
   border-color: var(--p-color-success);
 }
 .p-select[data-p-state="error"]:focus, .p-select[data-p-state="error"]:focus-visible {
   border-color: var(--p-color-error);
+}
+.p-optgroup {
+  font: var(--p-font-weight-semibold) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next);
+  color: var(--p-color-primary);
+}
+.p-optgroup:disabled {
+  opacity: 0.4;
 }
 .p-checkbox {
   all: unset;
@@ -1165,6 +1188,10 @@ exports[`getNativeFieldCss() > matches the rewritten snapshot 1`] = `
     color: FieldText;
     border-color: FieldText;
   }
+  .p-select optgroup:disabled {
+    opacity: 1;
+    color: GrayText;
+  }
   .p-select:disabled, .p-select[data-p-loading="true"] {
     opacity: 1;
     color: GrayText;
@@ -1175,6 +1202,10 @@ exports[`getNativeFieldCss() > matches the rewritten snapshot 1`] = `
   .p-select:focus, .p-select:focus-visible {
     outline: 2px solid Highlight;
     outline-offset: 2px;
+  }
+  .p-optgroup:disabled {
+    opacity: 1;
+    color: GrayText;
   }
   .p-checkbox[data-p-state="success"]:indeterminate::before, .p-checkbox[data-p-state="success"][data-p-indeterminate="true"]::before {
     background: CanvasText;

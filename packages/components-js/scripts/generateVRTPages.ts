@@ -34,6 +34,7 @@ const PAGES_TO_SKIP: string[] = [
   'native-tag',
   'native-spinner',
   'native-modal',
+  'native-optgroup',
   'native-modal-basic',
   'native-modal-fullscreen',
   'native-modal-stretch-to-full-width',

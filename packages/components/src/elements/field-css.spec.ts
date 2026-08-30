@@ -9,6 +9,7 @@ describe('getNativeFieldCss()', () => {
     expect(css).toContain('.p-input {');
     expect(css).toContain('.p-textarea {');
     expect(css).toContain('.p-select {');
+    expect(css).toContain('.p-optgroup {');
     expect(css).toContain('.p-checkbox {');
     expect(css).toContain('.p-radio {');
     expect(css).toContain('.p-label {');
@@ -53,6 +54,9 @@ describe('getNativeFieldCss()', () => {
     expect(css).toContain('.p-checkbox:indeterminate');
     expect(css).toContain('.p-radio:checked');
     expect(css).toContain('.p-select {');
+    expect(css).toContain('.p-select optgroup');
+    expect(css).toContain('.p-select[multiple]');
+    expect(css).toContain('.p-optgroup:disabled');
   });
 
   it('strips UA chrome on search, number and datetime types', () => {

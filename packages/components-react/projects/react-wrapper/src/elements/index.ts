@@ -56,6 +56,8 @@ export type { PModalProps } from './PModal';
 export { PModal } from './PModal';
 export type { PModelSignatureProps } from './PModelSignature';
 export { PModelSignature } from './PModelSignature';
+export type { POptgroupProps } from './POptgroup';
+export { POptgroup } from './POptgroup';
 export type { PRadioProps } from './PRadio';
 export { PRadio } from './PRadio';
 export type { PSelectProps } from './PSelect';

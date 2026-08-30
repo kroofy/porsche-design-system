@@ -29,6 +29,7 @@ export { PLink } from './PLink';
 export { PLinkPure } from './PLinkPure';
 export { PModal } from './PModal';
 export { PModelSignature } from './PModelSignature';
+export { POptgroup } from './POptgroup';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
 export { PSpinner } from './PSpinner';

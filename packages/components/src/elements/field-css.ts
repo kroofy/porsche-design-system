@@ -8,6 +8,7 @@ import {
   durationXl,
   fontPorscheNext,
   fontWeightNormal,
+  fontWeightSemibold,
   leadingNormal,
   radiusFull,
   radiusLg,
@@ -44,6 +45,7 @@ import {
   FIELD_ROOT_CLASS,
   type FieldState,
   INPUT_ROOT_CLASS,
+  OPTGROUP_ROOT_CLASS,
   RADIO_ROOT_CLASS,
   RADIO_SPINNER_CLASS,
   RADIOS_ROOT_CLASS,
@@ -430,8 +432,24 @@ const selectChrome = (): JssStyle => {
     backgroundSize: '1.5rem',
     ...stateOverrides(),
     ...responsiveAttrStyles('compact', (compact) => compactVars(SELECT_SCALING_VAR, compact)),
+    '&[multiple], &[size]:not([size="1"])': {
+      height: 'auto',
+      minHeight: `calc(8 * (${ref(leadingNormal)} + 6px))`,
+      backgroundImage: 'none',
+      paddingBlock: `calc(11.2px * (${ref(SELECT_SCALING_VAR)} - 0.64285714) + 4px)`,
+      paddingInlineEnd: paddingInline,
+      overflow: 'auto',
+      textOverflow: 'unset',
+    },
+    '& optgroup': optgroupChrome(),
   };
 };
+
+const optgroupChrome = (): JssStyle => ({
+  font: `${ref(fontWeightSemibold)} ${ref(typescaleXs)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
+  color: ref(colorPrimary),
+  '&:disabled': getDisabledBaseStyles(),
+});
 
 const getNativeFieldStyles = (): Styles => ({
   '@global': {
@@ -521,6 +539,7 @@ const getNativeFieldStyles = (): Styles => ({
     ...responsiveAttrStyles('compact', (compact) => compactVars(TEXTAREA_SCALING_VAR, compact)),
   },
   [SELECT_ROOT_CLASS]: selectChrome(),
+  [OPTGROUP_ROOT_CLASS]: optgroupChrome(),
   [CHECKBOX_ROOT_CLASS]: checkboxChrome(),
   [RADIO_ROOT_CLASS]: radioChrome(),
   [RADIOS_ROOT_CLASS]: {

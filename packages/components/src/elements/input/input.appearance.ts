@@ -3,6 +3,7 @@ import { type NativeAppearance, type Responsive, serializeResponsive } from '../
 export const INPUT_ROOT_CLASS = 'p-input' as const;
 export const TEXTAREA_ROOT_CLASS = 'p-textarea' as const;
 export const SELECT_ROOT_CLASS = 'p-select' as const;
+export const OPTGROUP_ROOT_CLASS = 'p-optgroup' as const;
 export const CHECKBOX_ROOT_CLASS = 'p-checkbox' as const;
 export const CHECKBOX_SPINNER_CLASS = 'p-checkbox__spinner' as const;
 export const RADIO_ROOT_CLASS = 'p-radio' as const;
@@ -56,6 +57,11 @@ export const textareaAppearance = (props: InputAppearanceProps = {}): NativeAppe
 export const selectAppearance = (props: InputAppearanceProps = {}): NativeAppearance => ({
   ...inputAppearance(props),
   className: SELECT_ROOT_CLASS,
+});
+
+export const optgroupAppearance = (): NativeAppearance => ({
+  className: OPTGROUP_ROOT_CLASS,
+  attrs: {},
 });
 
 export type CheckboxAppearanceProps = InputAppearanceProps & {
