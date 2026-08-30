@@ -50,6 +50,15 @@ export type { PRadioProps } from './PRadio';
 export { PRadio } from './PRadio';
 export type { PSelectProps } from './PSelect';
 export { PSelect } from './PSelect';
+export type {
+  PTableBodyProps,
+  PTableCellProps,
+  PTableHeadCellProps,
+  PTableHeadProps,
+  PTableProps,
+  PTableRowProps,
+} from './PTable';
+export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export type { PTextProps } from './PText';
 export { PText } from './PText';
 export type { PTextListProps } from './PTextList';

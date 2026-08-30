@@ -16,6 +16,7 @@ const files = [
   'heading/heading.appearance.ts',
   'text/text.appearance.ts',
   'text-list/text-list.appearance.ts',
+  'table/table.appearance.ts',
   'link/link.appearance.ts',
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',

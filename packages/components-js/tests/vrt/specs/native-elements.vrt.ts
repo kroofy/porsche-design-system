@@ -19,6 +19,7 @@ const pages = [
   'native-display',
   'native-fieldset',
   'native-text-list',
+  'native-table',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

@@ -24,6 +24,7 @@ export { PLink } from './PLink';
 export { PLinkPure } from './PLinkPure';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
+export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export { PText } from './PText';
 export { PTextList } from './PTextList';
 export { PTextListItem } from './PTextListItem';
