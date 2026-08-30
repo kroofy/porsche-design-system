@@ -35,6 +35,11 @@ describe('getNativeAiTagCss()', () => {
     expect(css).toContain(shadowPillBackground(getShadowAiTagCss()));
   });
 
+  it('uses the host sm line-height so the pill is not shorter than stencil', () => {
+    expect(css).toContain('font-size: var(--p-typescale-2xs)');
+    expect(css).toContain('line-height: calc(6px + 2.125ex * var(--p-typescale-sm) / 1em)');
+  });
+
   it('matches the rewritten snapshot', () => {
     expect(css).toMatchSnapshot();
   });

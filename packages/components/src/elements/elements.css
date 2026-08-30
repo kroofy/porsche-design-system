@@ -10355,7 +10355,10 @@
   gap: 2px;
   padding: 0 var(--p-spacing-static-sm) 0 var(--p-spacing-static-xs);
   border-radius: calc(var(--p-spacing-static-xs) + (var(--p-leading-normal) / 2));
-  font: var(--p-font-weight-normal) var(--p-typescale-2xs) / var(--p-leading-normal) var(--p-font-porsche-next);
+  font-family: var(--p-font-porsche-next);
+  font-weight: var(--p-font-weight-normal);
+  font-size: var(--p-typescale-2xs);
+  line-height: calc(6px + 2.125ex * var(--p-typescale-sm) / 1em);
   color: var(--p-color-contrast-high);
   background: var(--p-color-frosted-strong);
   -webkit-backdrop-filter: var(--p-blur-frosted);

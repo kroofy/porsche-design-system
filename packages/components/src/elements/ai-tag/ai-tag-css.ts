@@ -9,6 +9,7 @@ import {
   spacingStaticSm,
   spacingStaticXs,
   typescale2Xs,
+  typescaleSm,
 } from '@porsche-design-system/stylesheets';
 import type { JssStyle, Styles } from 'jss';
 import { AI_TAG_ICON_PATH } from '../../components/ai-tag/ai-tag-utils';
@@ -33,7 +34,11 @@ const getNativeAiTagStyles = (): Styles => ({
     gap: '2px',
     padding: `0 ${ref(spacingStaticSm)} 0 ${ref(spacingStaticXs)}`,
     borderRadius: `calc(${ref(spacingStaticXs)} + (${ref(leadingNormal)} / 2))`,
-    font: `${ref(fontWeightNormal)} ${ref(typescale2Xs)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
+    fontFamily: ref(fontPorscheNext),
+    fontWeight: ref(fontWeightNormal),
+    fontSize: ref(typescale2Xs),
+    // Stencil computes line-height on the 1rem host (`ex` of typescaleSm) and the inner pill inherits that length.
+    lineHeight: `calc(6px + 2.125ex * ${ref(typescaleSm)} / 1em)`,
     color: ref(colorContrastHigh),
     background: ref(colorFrostedStrong),
     WebkitBackdropFilter: ref(blurFrosted),
