@@ -1,0 +1,22 @@
+<style>
+  .p-modal {
+    --p-modal-width: 50dvw;
+    --p-modal-spacing-top: 7rem;
+    --p-modal-spacing-bottom: 1rem;
+  }
+</style>
+
+<dialog class="p-modal" aria-modal="true" tabindex="-1">
+  <div class="p-modal__scroller">
+    <div class="p-modal__panel">
+      <button type="button" class="p-modal__dismiss" aria-label="Dismiss modal"><span>Dismiss modal</span></button>
+      <header class="p-modal__header">
+        <p-heading size="large" tag="h2">Some Heading</p-heading>
+      </header>
+      <div>Some Content</div>
+    </div>
+  </div>
+</dialog>
+<script>
+  document.querySelector('dialog.p-modal').showModal();
+</script>

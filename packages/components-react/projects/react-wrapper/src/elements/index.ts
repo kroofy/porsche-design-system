@@ -52,6 +52,8 @@ export type { PLinkProps } from './PLink';
 export { PLink } from './PLink';
 export type { PLinkPureProps } from './PLinkPure';
 export { PLinkPure } from './PLinkPure';
+export type { PModalProps } from './PModal';
+export { PModal } from './PModal';
 export type { PModelSignatureProps } from './PModelSignature';
 export { PModelSignature } from './PModelSignature';
 export type { PRadioProps } from './PRadio';

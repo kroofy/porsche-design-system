@@ -24,6 +24,7 @@ const files = [
   'table/table.appearance.ts',
   'tag/tag.appearance.ts',
   'spinner/spinner.appearance.ts',
+  'modal/modal.appearance.ts',
   'link/link.appearance.ts',
   'link-pure/link-pure.appearance.ts',
   'icon/icon.appearance.ts',

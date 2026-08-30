@@ -33,6 +33,21 @@ const PAGES_TO_SKIP: string[] = [
   'native-accordion',
   'native-tag',
   'native-spinner',
+  'native-modal',
+  'native-modal-basic',
+  'native-modal-fullscreen',
+  'native-modal-stretch-to-full-width',
+  'native-modal-fullscreen-responsive',
+  'native-modal-without-heading',
+  'native-modal-scrollable',
+  'native-modal-without-dismiss-button',
+  'native-modal-sticky-footer',
+  'native-modal-backdrop-blur',
+  'native-modal-backdrop-shading',
+  'native-modal-slotted-header',
+  'native-modal-grid',
+  'native-modal-css-variables',
+  'native-modal-footer-scrolled',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

@@ -47,6 +47,7 @@ import { getNativeFieldsetCss } from './fieldset/fieldset-css';
 import { getNativeFlagCss } from './flag/flag-css';
 import { getNativeIconCss } from './icon/icon-css';
 import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
+import { getNativeModalCss } from './modal/modal-css';
 import { getNativeModelSignatureCss } from './model-signature/model-signature-css';
 import { getNativeButtonPureCss, getNativeLinkPureCss } from './pure-css';
 import { getNativeSpinnerCss } from './spinner/spinner-css';
@@ -357,4 +358,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeSpinnerCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeSpinnerCss()}${getNativeModalCss()}`;

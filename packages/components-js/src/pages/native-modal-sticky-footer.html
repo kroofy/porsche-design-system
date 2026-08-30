@@ -1,0 +1,15 @@
+<dialog class="p-modal" aria-modal="true" tabindex="-1">
+  <div class="p-modal__scroller">
+    <div class="p-modal__panel">
+      <button type="button" class="p-modal__dismiss" aria-label="Dismiss modal"><span>Dismiss modal</span></button>
+      <header class="p-modal__header">
+        <p-heading size="large" tag="h2">Some Heading</p-heading>
+      </header>
+      <div style="height: 110vh">Some Content</div>
+      <footer class="p-modal__footer" style="height: auto">Sticky footer</footer>
+    </div>
+  </div>
+</dialog>
+<script>
+  document.querySelector('dialog.p-modal').showModal();
+</script>

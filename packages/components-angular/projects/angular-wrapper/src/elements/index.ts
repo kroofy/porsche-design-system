@@ -27,6 +27,7 @@ export {
 export { PLabel } from './PLabel';
 export { PLink } from './PLink';
 export { PLinkPure } from './PLinkPure';
+export { PModal } from './PModal';
 export { PModelSignature } from './PModelSignature';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';

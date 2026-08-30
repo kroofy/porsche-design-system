@@ -1,0 +1,57 @@
+<style>
+  .p-modal {
+    --p-modal-width: clamp(276px, 78.688vw + 24px, 1535px);
+  }
+
+  .visualize-grid {
+    position: static;
+    row-gap: 16px;
+  }
+
+  .visualize-grid > span {
+    grid-row: 1 / 6;
+  }
+
+  .visualize-grid > div {
+    padding: 0 16px;
+    background: rgba(255, 0, 0, 0.1);
+  }
+</style>
+
+<dialog class="p-modal" aria-modal="true" tabindex="-1">
+  <div class="p-modal__scroller">
+    <div class="p-modal__panel">
+      <button type="button" class="p-modal__dismiss" aria-label="Dismiss modal"><span>Dismiss modal</span></button>
+      <header class="p-modal__header">Some Header</header>
+      <div class="visualize-grid">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <div style="grid-area: 1 / full-start / auto / full-end">Full</div>
+        <div style="grid-area: 2 / wide-start / auto / wide-end">Wide</div>
+        <div style="grid-area: 3 / extended-start / auto / extended-end">Extended</div>
+        <div style="grid-area: 4 / basic-start / auto / basic-end">Basic</div>
+        <div style="grid-area: 5 / narrow-start / auto / narrow-end">Narrow</div>
+      </div>
+      <footer class="p-modal__footer">Some Footer</footer>
+    </div>
+  </div>
+</dialog>
+<script>
+  document.querySelector('dialog.p-modal').showModal();
+</script>

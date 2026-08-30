@@ -27,6 +27,7 @@ const pages = [
   'native-accordion',
   'native-tag',
   'native-spinner',
+  'native-modal',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {
