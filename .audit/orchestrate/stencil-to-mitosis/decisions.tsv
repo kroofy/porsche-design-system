@@ -26,3 +26,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T22:10:20Z	drain	tick: display worker running, no Display.lite.tsx or after PNG yet	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-30T22:14:10Z	migrate	accepted p-display, spawned p-spinner	after PNG is byte-identical to Stencil display card, 30525 bytes. Tag deferred: nests p-icon	/opt/cursor/artifacts/mitosis_lit_display_after.png	live-ui-verified, probe tags 9, packages/components still 0/75
 2026-08-30T22:18:40Z	migrate	accepted p-spinner, spawned p-tag	after PNG is byte-identical to Stencil spinner card, 41461 bytes. Animation paused both sides via --p-animation-duration 0s	/opt/cursor/artifacts/mitosis_lit_spinner_after.png	live-ui-verified, probe tags 10, packages/components still 0/75
+2026-08-30T22:20:20Z	drain	tick: tag worker running, Tag.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
