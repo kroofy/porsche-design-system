@@ -62,18 +62,21 @@ export const metadata = {
 | `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
 | `PFlyout`                                                                         | `<dialog class="p-flyout">`                                       |
 | `PInlineNotification`                                                             | `<aside class="p-inline-notification">`                           |
+| `PBanner`                                                                         | `<aside popover="manual" class="p-banner">`                       |
 
 Children stay real tags too. Legend is a `<legend>` inside the fieldset. Accordion summary is a `<summary>`. Modal
 header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Flyout header, footer,
 and sub-footer are `<header class="p-flyout__header">`, `<footer class="p-flyout__footer">`, and
 `<div class="p-flyout__sub-footer">`. Inline notification heading is a real `h1`–`h6`, description is a `<p>`, and
-dismiss is `<button class="p-inline-notification__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
+dismiss is `<button class="p-inline-notification__dismiss">`. Banner heading is a real `h1`–`h6`, description is a
+`<p>`, and dismiss is `<button class="p-banner__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
 `<option>`. Optgroup labels use the native `label` attribute. Switch checked is `aria-checked`, not an HTML `checked`
 attribute. The track is `.p-switch__toggle`; the label is `.p-switch__label`. Button tile and link tile **are** the
 control. Header, media, description, and footer are real children. The inner CTA is a presentational
 `.p-button` / `.p-link` span (`aria-hidden`). Do not nest a real button or anchor inside the tile.
 
 Open a modal, sheet, or flyout with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
+Open a banner with `showPopover()`. There is no `open` prop on the native wrapper.
 
 Native `<select>` optgroups follow UA dropdown styling. They will not match the custom stencil list. `size` or
 `multiple` shows groups in-page.
@@ -200,7 +203,8 @@ PDS-only look goes on `data-p-*`. Native behaviour stays on native attributes.
 
 Defaults are omitted. Primary, `compact=false`, and `state="none"` do not write a data attribute.
 
-Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-width`, and `--p-flyout-width`.
+Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-width`, `--p-flyout-width`,
+`--p-banner-max-w`, `--p-banner-top`, `--p-banner-bottom`, and `--p-banner-inset-x`.
 
 ## Not this family
 
@@ -212,5 +216,7 @@ These are not 1:1 native tags. Keep the custom-element wrappers:
 - Model-signature overlay-as-mask
 - Modal stuck-footer frost
 - Flyout sticky-top JS (`--p-flyout-sticky-top`) and stuck-footer frost
+- Toast / toast-item (internal manager)
+- Popover (trigger + floating panel)
 
 Do not start a Mitosis rewrite from this export. Do not swap the public `.` CE export to native.

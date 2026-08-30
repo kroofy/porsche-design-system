@@ -102,6 +102,7 @@ describe('elements.css', () => {
     expect(committed).toContain('.p-flyout {');
     expect(committed).toContain('.p-inline-notification {');
     expect(committed).toContain('.p-ai-tag {');
+    expect(committed).toContain('.p-banner {');
     expect(committed).toContain('.p-optgroup {');
   });
 });

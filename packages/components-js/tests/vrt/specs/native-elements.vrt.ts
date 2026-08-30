@@ -37,6 +37,7 @@ const pages = [
   'native-switch',
   'native-button-tile',
   'native-link-tile',
+  'native-banner',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

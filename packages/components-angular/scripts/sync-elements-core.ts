@@ -9,6 +9,7 @@ const files = [
   'appearance.ts',
   'accordion/accordion.appearance.ts',
   'ai-tag/ai-tag.appearance.ts',
+  'banner/banner.appearance.ts',
   'field-ids.ts',
   'button/button.appearance.ts',
   'button-pure/button-pure.appearance.ts',

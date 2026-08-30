@@ -34,6 +34,7 @@ import { getNativeAccordionCss } from './accordion/accordion-css';
 import { getNativeAiTagCss } from './ai-tag/ai-tag-css';
 import { RESPONSIVE_BREAKPOINTS } from './appearance';
 import { mediaQueryMin } from './appearance-mq';
+import { getNativeBannerCss } from './banner/banner-css';
 import {
   BUTTON_ICON_CLASS,
   BUTTON_LABEL_CLASS,
@@ -365,4 +366,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeTagDismissibleCss()}${getNativeSpinnerCss()}${getNativeSwitchCss()}${getNativeButtonTileCss()}${getNativeLinkTileCss()}${getNativeModalCss()}${getNativeSheetCss()}${getNativeFlyoutCss()}${getNativeInlineNotificationCss()}${getNativeAiTagCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeTagDismissibleCss()}${getNativeSpinnerCss()}${getNativeSwitchCss()}${getNativeButtonTileCss()}${getNativeLinkTileCss()}${getNativeModalCss()}${getNativeSheetCss()}${getNativeFlyoutCss()}${getNativeInlineNotificationCss()}${getNativeAiTagCss()}${getNativeBannerCss()}`;
