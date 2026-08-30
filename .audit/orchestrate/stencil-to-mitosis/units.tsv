@@ -26,4 +26,5 @@ migrate-input-password	migrate	done	cursor/mitosis-migration-41e6	3	83f7074dfa	b
 migrate-input-search	migrate	done	cursor/mitosis-migration-41e6	3	f769bb4bd1	briefs/migrate-input-search.md
 migrate-input-url	migrate	done	cursor/mitosis-migration-41e6	3	76cd1db714	briefs/migrate-input-url.md
 migrate-input-tel	migrate	done	cursor/mitosis-migration-41e6	3	9effa727d4	briefs/migrate-input-tel.md
-migrate-input-number	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-number.md
+migrate-input-number	migrate	done	cursor/mitosis-migration-41e6	3	e75a3157ec	briefs/migrate-input-number.md
+migrate-input-date	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-date.md
