@@ -52,6 +52,8 @@ const PAGES_TO_SKIP: string[] = [
   'native-flyout-scrollable',
   'native-flyout-fixed-footer',
   'native-switch',
+  'native-button-tile',
+  'native-link-tile',
   'native-sheet-basic',
   'native-sheet-without-heading',
   'native-sheet-scrollable',

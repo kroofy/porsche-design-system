@@ -35,6 +35,8 @@ const pages = [
   'native-ai-tag',
   'native-flyout',
   'native-switch',
+  'native-button-tile',
+  'native-link-tile',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

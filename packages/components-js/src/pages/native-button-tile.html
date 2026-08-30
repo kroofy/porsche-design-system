@@ -1,0 +1,981 @@
+<style>
+  p-button-tile,
+  .p-button-tile {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .tile-group-grid {
+    display: grid;
+    max-width: 60rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .tile-group-grid p-button-tile,
+  .tile-group-grid .p-button-tile {
+    width: auto;
+    max-width: none;
+  }
+
+  img {
+    opacity: 0.5;
+  }
+</style>
+
+<div class="playground auto-layout-inline" title="should render default button-tile">
+  <p-button-tile gradient="true" label="Some Label" description="Default" class="a11ytree-snapshot-test">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile a11ytree-snapshot-test" aria-label="Some Label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Default</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render with slotted header">
+  <p-button-tile gradient="true" label="Some Label" description="Some description">
+    <p-text slot="header">Some header</p-text>
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true">
+    <span class="p-button-tile__header"><p class="p-text">Some header</p></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some description</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" style="font-size: 24px" title="should render different sizes">
+  <p-button-tile gradient="true" label="Some label" description="medium" size="medium">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">medium</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="default" size="medium">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">default</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="large" size="large">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-size="large">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">large</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="inherit" size="inherit">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-size="inherit">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">inherit</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Size responsive"
+    size="{ base: 'medium', xs: 'inherit', s: 'medium', m: 'inherit', l: 'medium', xl: 'inherit' }">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-size-xs="inherit" data-p-size-s="medium" data-p-size-m="inherit" data-p-size-l="medium" data-p-size-xl="inherit">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Size responsive</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render different weights">
+  <p-button-tile gradient="true" label="Some label" description="regular" weight="regular">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-weight="regular">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">regular</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="semi-bold" weight="semi-bold">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">semi-bold</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Weight responsive"
+    weight="{ base: 'regular', xs: 'semi-bold', s: 'regular', m: 'semi-bold', l: 'regular', xl: 'semi-bold' }">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-weight="regular" data-p-weight-xs="semi-bold" data-p-weight-s="regular" data-p-weight-m="semi-bold" data-p-weight-l="regular" data-p-weight-xl="semi-bold">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Weight responsive</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render different aspect ratios">
+  <p-button-tile gradient="true" label="Some label" description="16/9" aspect-ratio="16/9">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="16/9">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">16/9</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="1/1" aspect-ratio="1/1">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="1/1">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">1/1</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="3/4" aspect-ratio="3/4">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="3/4">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">3/4</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true" label="Some label" description="9/16" aspect-ratio="9/16">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="9/16">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">9/16</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Aspect ratio responsive"
+    aspect-ratio="{ base: '16/9', xs: '1/1', s: '3/4', m: '9/16', l: '4/3', xl: '16/9'}">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="16/9" data-p-aspect-ratio-xs="1/1" data-p-aspect-ratio-s="3/4" data-p-aspect-ratio-m="9/16" data-p-aspect-ratio-l="4/3" data-p-aspect-ratio-xl="16/9">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Aspect ratio responsive</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render compact">
+  <p-button-tile gradient="true" label="Some label" description="Compact" compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-compact="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Compact</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Compact responsive"
+    compact="{ base: true, xs: false, s: true, m: false, l: true, xl: false }">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-compact="true" data-p-compact-xs="false" data-p-compact-s="true" data-p-compact-m="false" data-p-compact-l="true" data-p-compact-xl="false">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Compact responsive</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render align top">
+  <p-button-tile gradient="true" label="Some label" description="Align top" align="top" compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-align="top" data-p-compact="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Align top</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render without gradient">
+  <p-button-tile gradient="false" label="Some label" description="Gradient false">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Gradient false</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render with readable overflowing text on different backgrounds">
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Some long text on white background to overflow the box. Some long text on white background  to overflow the box. Some long text on white background  to overflow the box.">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some long text on white background to overflow the box. Some long text on white background  to overflow the box. Some long text on white background  to overflow the box.</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render with picture tag and multiple sources depending on viewport">
+  <p-button-tile gradient="true" label="Some label" description="Picture tag">
+    <picture>
+      <img
+        src="http://localhost:3002/lights.jpg"
+        alt="Some alt text"
+        width="1366"
+        height="2048"
+      />
+    </picture>
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><picture>
+      <img
+        src="http://localhost:3002/lights.jpg"
+        alt="Some alt text"
+        width="1366"
+        height="2048"
+      />
+    </picture></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Picture tag</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render with video">
+  <p-button-tile gradient="true" label="Some label" description="Video tag">
+    <video
+      poster="http://localhost:3002/ocean.jpg"
+      src="http://localhost:3002/ocean.mp4"
+      loop
+      muted
+      aria-hidden="true"
+    ></video>
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true">
+    <span class="p-button-tile__media"><video
+      poster="http://localhost:3002/ocean.jpg"
+      src="http://localhost:3002/ocean.mp4"
+      loop
+      muted
+      aria-hidden="true"
+    ></video></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Video tag</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground" title="should render with max width description text">
+  <p-button-tile gradient="true"
+    style="max-width: 50rem"
+    aspect-ratio="16/9"
+    label="Some label"
+    description="Some long text on white background to show how it renders on wide tiles. Some long text on white background to show how it renders on wide tiles. Some long text on white background to show how it renders on wide tiles."
+    compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" style="max-width: 50rem" aria-label="Some label" data-p-gradient="true" data-p-aspect-ratio="16/9" data-p-compact="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some long text on white background to show how it renders on wide tiles. Some long text on white background to show how it renders on wide tiles. Some long text on white background to show how it renders on wide tiles.</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground" title="should render within grid context and break out of aspect-ratio in case content overflows or to align with the highest grid item per row">
+  <div class="tile-group-grid">
+    <p-button-tile gradient="true"
+      aspect-ratio="1/1"
+      label="Some Label"
+      size="large"
+      description="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.">
+    <p-tag slot="header" variant="secondary" compact="true">1/1</p-tag>
+      <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+    <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-aspect-ratio="1/1" data-p-size="large">
+    <span class="p-button-tile__header"><span class="p-tag" data-p-compact="true">1/1</span></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+    <p-button-tile gradient="true" aspect-ratio="1/1" label="Some Label" description="Some description">
+    <p-tag slot="header" variant="secondary" compact="true">1/1</p-tag>
+      <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+    <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-aspect-ratio="1/1">
+    <span class="p-button-tile__header"><span class="p-tag" data-p-compact="true">1/1</span></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some description</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+    <p-button-tile gradient="true" aspect-ratio="1/1" label="Some Label" description="Some description">
+    <p-tag slot="header" variant="secondary" compact="true">1/1</p-tag>
+      <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+    <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-aspect-ratio="1/1">
+    <span class="p-button-tile__header"><span class="p-tag" data-p-compact="true">1/1</span></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some description</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+    <p-button-tile gradient="true" aspect-ratio="9/16" label="Some Label" description="Some description">
+    <p-tag slot="header" variant="secondary" compact="true">9/16</p-tag>
+      <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+    <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-aspect-ratio="9/16">
+    <span class="p-button-tile__header"><span class="p-tag" data-p-compact="true">9/16</span></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some description</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+    <p-button-tile gradient="true" aspect-ratio="1/1" label="Some Label" description="Some description">
+    <p-tag slot="header" variant="secondary" compact="true">1/1</p-tag>
+      <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+    <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-aspect-ratio="1/1">
+    <span class="p-button-tile__header"><span class="p-tag" data-p-compact="true">1/1</span></span>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Some description</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="should render disabled button-tile">
+  <p-button-tile gradient="true" label="Some Label" description="Disabled" disabled="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" disabled>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Disabled</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render compact disabled button-tile">
+  <p-button-tile gradient="true" label="Some Label" description="Disabled" disabled="true" compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-compact="true" disabled>
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Disabled</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render loading button-tile">
+  <p-button-tile gradient="true" label="Some Label" description="Loading" loading="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" disabled aria-busy="true" data-p-loading="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Loading</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true" data-p-loading="true">
+        <span class="p-button__spinner" aria-hidden="true">
+          <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
+            <circle r="11"></circle>
+            <circle r="11"></circle>
+          </svg>
+        </span>
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render loading compact button-tile">
+  <p-button-tile gradient="true" label="Some Label" description="Loading" loading="true" compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-compact="true" disabled aria-busy="true" data-p-loading="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Loading</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true" data-p-loading="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__spinner" aria-hidden="true">
+          <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
+            <circle r="11"></circle>
+            <circle r="11"></circle>
+          </svg>
+        </span>
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render button-tile with specific icon">
+  <p-button-tile gradient="true" label="Some Label" description="Icon" icon="delete">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Icon</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true" data-p-icon="delete">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/delete.5a8c8ca.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render compact button-tile with specific icon">
+  <p-button-tile gradient="true" label="Some Label" description="Icon" icon="delete" compact="true">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true" data-p-compact="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Icon</p>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="delete" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/delete.5a8c8ca.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render default button-tile with custom styles on media element">
+  <p-button-tile gradient="true" label="Some Label" description="Default">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+      style="position: absolute; inset: 0; object-fit: cover; object-position: 42% 0; aspect-ratio: 3 / 4"
+    />
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some Label" data-p-gradient="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+      style="position: absolute; inset: 0; object-fit: cover; object-position: 42% 0; aspect-ratio: 3 / 4"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Default</p>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some Label</span>
+      </span>
+    </span>
+  </button>
+</div>
+
+<div class="playground auto-layout-inline" title="should render compact with footer">
+  <p-button-tile gradient="true" label="Some label" description="Compact" compact="true" class="a11ytree-snapshot-test">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+    <p-text slot="footer">Some footer</p-text>
+  </p-button-tile>
+  <button type="submit" class="p-button-tile a11ytree-snapshot-test" aria-label="Some label" data-p-gradient="true" data-p-compact="true">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Compact</p>
+      <span class="p-button-tile__footer"><p class="p-text">Some footer</p></span>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+  <p-button-tile gradient="true"
+    label="Some label"
+    description="Compact responsive"
+    compact="{ base: true, xs: false, s: true, m: false, l: true, xl: false }">
+    <img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    />
+    <p-text slot="footer">Some footer</p-text>
+  </p-button-tile>
+  <button type="submit" class="p-button-tile" aria-label="Some label" data-p-gradient="true" data-p-compact="true" data-p-compact-xs="false" data-p-compact-s="true" data-p-compact-m="false" data-p-compact-l="true" data-p-compact-xl="false">
+    <span class="p-button-tile__media"><img
+      src="http://localhost:3002/lights.jpg"
+      alt="Some alt text"
+      width="1366"
+      height="2048"
+    /></span>
+    <span class="p-button-tile__content">
+      <p class="p-button-tile__description">Compact responsive</p>
+      <span class="p-button-tile__footer"><p class="p-text">Some footer</p></span>
+      <span class="p-button p-button-tile__action" data-p-variant="secondary" aria-hidden="true">
+        <span class="p-button__label">Some label</span>
+      </span>
+      <span class="p-button p-button-tile__action-compact" data-p-variant="secondary" aria-hidden="true" data-p-icon="arrow-right" data-p-hide-label="true" data-p-compact="true">
+        <img class="p-icon p-button__icon" data-p-size="inherit" data-p-color="inherit" src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        <span class="p-button__label">Some label</span>
+      </span>
+    </span>
+  </button>
+</div>

@@ -56,6 +56,8 @@ export const metadata = {
 | `PTagDismissible`                                                                 | `<button class="p-tag-dismissible">`                              |
 | `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
 | `PSwitch`                                                                         | `<button type="button" role="switch" class="p-switch">`           |
+| `PButtonTile`                                                                     | `<button class="p-button-tile">`                                  |
+| `PLinkTile`                                                                       | `<a class="p-link-tile">`                                         |
 | `PModal`                                                                          | `<dialog class="p-modal">`                                        |
 | `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
 | `PFlyout`                                                                         | `<dialog class="p-flyout">`                                       |
@@ -67,7 +69,9 @@ and sub-footer are `<header class="p-flyout__header">`, `<footer class="p-flyout
 `<div class="p-flyout__sub-footer">`. Inline notification heading is a real `h1`–`h6`, description is a `<p>`, and
 dismiss is `<button class="p-inline-notification__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
 `<option>`. Optgroup labels use the native `label` attribute. Switch checked is `aria-checked`, not an HTML `checked`
-attribute. The track is `.p-switch__toggle`; the label is `.p-switch__label`.
+attribute. The track is `.p-switch__toggle`; the label is `.p-switch__label`. Button tile and link tile **are** the
+control. Header, media, description, and footer are real children. The inner CTA is a presentational
+`.p-button` / `.p-link` span (`aria-hidden`). Do not nest a real button or anchor inside the tile.
 
 Open a modal, sheet, or flyout with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
 
@@ -202,7 +206,6 @@ Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-wid
 
 These are not 1:1 native tags. Keep the custom-element wrappers:
 
-- Button tile / link tile
 - Multi-select (not a native `<select multiple>` skin of the custom dropdown)
 - Table sort and scroller
 - Accordion summary-before / summary-after and the deprecated heading API

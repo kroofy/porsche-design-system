@@ -4,6 +4,7 @@ export { PAccordion } from './PAccordion';
 export { PAiTag } from './PAiTag';
 export { PButton } from './PButton';
 export { PButtonPure } from './PButtonPure';
+export { PButtonTile } from './PButtonTile';
 export { PCheckbox } from './PCheckbox';
 export { PCrest } from './PCrest';
 export { PDisplay } from './PDisplay';
@@ -30,6 +31,7 @@ export {
 export { PLabel } from './PLabel';
 export { PLink } from './PLink';
 export { PLinkPure } from './PLinkPure';
+export { PLinkTile } from './PLinkTile';
 export { PModal } from './PModal';
 export { PModelSignature } from './PModelSignature';
 export { POptgroup } from './POptgroup';

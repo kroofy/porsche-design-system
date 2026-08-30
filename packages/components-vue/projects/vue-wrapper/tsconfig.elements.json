@@ -24,6 +24,7 @@
     "../../../components/src/elements/tag-dismissible/tag-dismissible.appearance.ts",
     "../../../components/src/elements/spinner/spinner.appearance.ts",
     "../../../components/src/elements/switch/switch.appearance.ts",
+    "../../../components/src/elements/tile/tile.appearance.ts",
     "../../../components/src/elements/sheet/sheet.appearance.ts",
     "../../../components/src/elements/modal/modal.appearance.ts",
     "../../../components/src/elements/link/link.appearance.ts",

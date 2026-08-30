@@ -95,6 +95,8 @@ describe('elements.css', () => {
     expect(committed).toContain('.p-tag-dismissible {');
     expect(committed).toContain('.p-spinner {');
     expect(committed).toContain('.p-switch {');
+    expect(committed).toContain('.p-button-tile {');
+    expect(committed).toContain('.p-link-tile {');
     expect(committed).toContain('.p-modal {');
     expect(committed).toContain('.p-sheet {');
     expect(committed).toContain('.p-flyout {');
