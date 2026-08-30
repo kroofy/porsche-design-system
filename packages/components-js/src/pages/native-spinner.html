@@ -1,0 +1,174 @@
+<style>
+  .custom-size {
+    --p-spinner-size: 99px;
+  }
+
+  .custom-color {
+    --p-spinner-color: deeppink;
+    --p-spinner-track-color: lightpink;
+  }
+
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+</style>
+
+<div class="playground" title="default">
+  <div class="native-pair">
+    <p-spinner></p-spinner>
+    <svg
+      class="p-spinner"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-16 -16 32 32"
+      role="alert"
+      aria-live="assertive"
+      focusable="false"
+    >
+      <circle r="11"></circle>
+      <circle r="11"></circle>
+    </svg>
+  </div>
+</div>
+
+<div class="playground" title="size=2xs, xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, inherit">
+  <div class="native-pair">
+    <div>
+      <p-spinner size="2xs"></p-spinner>
+      <p-spinner size="xs"></p-spinner>
+      <p-spinner size="sm"></p-spinner>
+      <p-spinner size="md"></p-spinner>
+      <p-spinner size="lg"></p-spinner>
+      <p-spinner size="xl"></p-spinner>
+      <p-spinner size="2xl"></p-spinner>
+      <p-spinner size="3xl"></p-spinner>
+      <p-spinner size="4xl"></p-spinner>
+      <p-spinner size="5xl"></p-spinner>
+      <p-spinner size="inherit" style="font-size: 99px"></p-spinner>
+    </div>
+    <div>
+      <svg class="p-spinner" data-p-size="2xs" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="xs" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="md" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="lg" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="xl" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="2xl" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="3xl" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="4xl" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="5xl" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-size="inherit" style="font-size: 99px" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="size={ base: '2xs', xs: 'xs', s: 'sm', m: 'md', l: 'lg', xl: 'xl' }">
+  <div class="native-pair">
+    <p-spinner size="{ base: '2xs', xs: 'xs', s: 'sm', m: 'md', l: 'lg', xl: 'xl' }"></p-spinner>
+    <svg
+      class="p-spinner"
+      data-p-size="2xs"
+      data-p-size-xs="xs"
+      data-p-size-s="sm"
+      data-p-size-m="md"
+      data-p-size-l="lg"
+      data-p-size-xl="xl"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-16 -16 32 32"
+      role="alert"
+      aria-live="assertive"
+      focusable="false"
+    >
+      <circle r="11"></circle>
+      <circle r="11"></circle>
+    </svg>
+  </div>
+</div>
+
+<div class="playground" title="--p-spinner-size: 99px">
+  <div class="native-pair">
+    <p-spinner class="custom-size"></p-spinner>
+    <svg
+      class="p-spinner custom-size"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-16 -16 32 32"
+      role="alert"
+      aria-live="assertive"
+      focusable="false"
+    >
+      <circle r="11"></circle>
+      <circle r="11"></circle>
+    </svg>
+  </div>
+</div>
+
+<div class="playground" title="color=primary, inherit">
+  <div class="native-pair">
+    <div>
+      <p-spinner color="primary"></p-spinner>
+      <p-spinner color="inherit" style="color: deeppink"></p-spinner>
+    </div>
+    <div>
+      <svg class="p-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+      <svg class="p-spinner" data-p-color="inherit" style="color: deeppink" xmlns="http://www.w3.org/2000/svg" viewBox="-16 -16 32 32" role="alert" aria-live="assertive" focusable="false">
+        <circle r="11"></circle>
+        <circle r="11"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="--p-spinner-color: deeppink, --p-spinner-track-color: lightpink">
+  <div class="native-pair">
+    <p-spinner class="custom-color"></p-spinner>
+    <svg
+      class="p-spinner custom-color"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="-16 -16 32 32"
+      role="alert"
+      aria-live="assertive"
+      focusable="false"
+    >
+      <circle r="11"></circle>
+      <circle r="11"></circle>
+    </svg>
+  </div>
+</div>

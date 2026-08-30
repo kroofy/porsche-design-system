@@ -84,6 +84,12 @@
       "import": "./vanilla-extract/esm/index.mjs",
       "default": "./vanilla-extract/cjs/index.cjs"
     },
+    "./elements": {
+      "types": "./types/porsche-design-system-components-angular-elements.d.ts",
+      "style": "./elements/index.css",
+      "default": "./fesm2022/porsche-design-system-components-angular-elements.mjs"
+    },
+    "./elements.css": "./elements/index.css",
     "./ag-grid": {
       "types": "./ag-grid/esm/index.d.ts",
       "import": "./ag-grid/esm/index.mjs",

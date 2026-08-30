@@ -1,0 +1,34 @@
+<div class="visualize-grid">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<aside popover="manual" class="p-banner" role="status" aria-live="polite" aria-label="Slotted heading">
+  <p-heading size="lg">Slotted heading</p-heading>
+  <p-text>Slotted description</p-text>
+  <button type="button" class="p-banner__dismiss" aria-label="Close banner" aria-description="Slotted heading">
+    <span>Close banner</span>
+  </button>
+</aside>
+<p-text hidden>native banner</p-text>
+<script>
+  const banner = document.querySelector('.p-banner');
+  banner.showPopover();
+  banner.querySelector('.p-banner__dismiss')?.addEventListener('click', () => banner.hidePopover());
+</script>

@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getNativeFieldsetCss() > matches the rewritten snapshot 1`] = `
+".p-fieldset{color-scheme:inherit}
+@layer pds.elements {
+.p-fieldset {
+  all: unset;
+  display: block;
+}
+.p-fieldset[hidden] {
+  display: none !important;
+}
+.p-fieldset > legend {
+  all: unset;
+  margin-bottom: var(--p-spacing-static-md);
+  color: var(--p-color-primary);
+  font: var(--p-font-weight-normal) var(--p-typescale-md) / var(--p-leading-normal) var(--p-font-porsche-next);
+}
+.p-fieldset[data-p-label-size="small"] > legend {
+  font: var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);
+}
+.p-fieldset[data-p-required="true"] > legend::after {
+  content: " *";
+  user-select: none;
+}
+.p-fieldset > .p-message {
+  margin-top: var(--p-spacing-static-md);
+}
+}
+"
+`;

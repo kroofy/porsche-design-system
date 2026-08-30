@@ -1,0 +1,307 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  p-accordion ~ p-accordion,
+  .p-accordion ~ .p-accordion {
+    margin-block: 16px;
+  }
+  .custom-padding {
+    --p-accordion-px: 48px;
+    --p-accordion-py: 48px;
+  }
+</style>
+
+<div class="playground" title="closed">
+  <div class="native-pair">
+    <p-accordion>
+      <p-heading slot="summary" tag="h3" size="small">Some summary</p-heading>
+      <p-text>Some details</p-text>
+    </p-accordion>
+    <details class="p-accordion">
+      <summary>
+        <p-heading tag="h3" size="small">Some summary</p-heading>
+      </summary>
+      <div>
+        <p-text>Some details</p-text>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="playground" title="open">
+  <div class="native-pair">
+    <p-accordion open="true">
+      <p-heading slot="summary" tag="h3" size="small">Some summary</p-heading>
+      <p-text>Some details</p-text>
+    </p-accordion>
+    <details class="p-accordion" open>
+      <summary>
+        <p-heading tag="h3" size="small">Some summary</p-heading>
+      </summary>
+      <div>
+        <p-text>Some details</p-text>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="playground" title="backgrounds">
+  <div class="native-pair">
+    <div>
+      <p-accordion open="true" background="canvas">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (background=canvas)</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="surface">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (background=surface)</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="frosted">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (background=frosted)</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+    </div>
+    <div>
+      <details class="p-accordion" open data-p-background="canvas">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (background=canvas)</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="surface">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (background=surface)</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="frosted">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (background=frosted)</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="align-marker">
+  <div class="native-pair">
+    <div>
+      <p-accordion open="true" background="surface" align-marker="start">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="surface" align-marker="end">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (align-marker="end")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="none" align-marker="start">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="none" align-marker="end">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (align-marker="end")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+    </div>
+    <div>
+      <details class="p-accordion" open data-p-background="surface" data-p-align-marker="start">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="surface">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (align-marker="end")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-align-marker="start">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open>
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (align-marker="end")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="compact">
+  <div class="native-pair">
+    <div>
+      <p-accordion background="surface" compact="true">
+        <span slot="summary">Some summary</span>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion background="surface" compact="true" open="true">
+        <span slot="summary">Some summary</span>
+        <p-text
+          >Some details. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+          ut labore et dolore magna aliquyam erat, sed diam voluptua.</p-text
+        >
+      </p-accordion>
+    </div>
+    <div>
+      <details class="p-accordion" data-p-background="surface" data-p-compact="true">
+        <summary><span>Some summary</span></summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="surface" data-p-compact="true">
+        <summary><span>Some summary</span></summary>
+        <div>
+          <p-text
+            >Some details. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p-text
+          >
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="indent">
+  <div class="native-pair">
+    <div>
+      <p-accordion open="true" indent="true">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (indent="true")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion open="true" background="surface" align-marker="start" indent="true">
+        <p-heading slot="summary" tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        <p-text>Some details</p-text>
+      </p-accordion>
+    </div>
+    <div>
+      <details class="p-accordion" open data-p-indent="true">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (indent="true")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="surface" data-p-align-marker="start" data-p-indent="true">
+        <summary>
+          <p-heading tag="h3" size="small">Some summary (align-marker="start")</p-heading>
+        </summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="custom padding">
+  <div class="native-pair">
+    <p-accordion background="surface" class="custom-padding">
+      <span slot="summary">Some summary</span>
+      <p-text>Some details</p-text>
+    </p-accordion>
+    <details class="p-accordion custom-padding" data-p-background="surface">
+      <summary><span>Some summary</span></summary>
+      <div>
+        <p-text>Some details</p-text>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="playground" title="long summary">
+  <div class="native-pair">
+    <p-accordion style="max-width: 400px">
+      <span slot="summary"
+        >Some summary. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+        rebum.</span
+      >
+      <p-text>Some details</p-text>
+    </p-accordion>
+    <details class="p-accordion" style="max-width: 400px">
+      <summary>
+        <span
+          >Some summary. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+          ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+          rebum.</span
+        >
+      </summary>
+      <div>
+        <p-text>Some details</p-text>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="playground" title="stacked">
+  <div class="native-pair">
+    <div>
+      <p-accordion background="surface">
+        <span slot="summary">Some summary</span>
+        <p-text>Some details</p-text>
+      </p-accordion>
+      <p-accordion background="surface" open="true">
+        <span slot="summary">Some summary</span>
+        <p-text
+          >Some details. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+          ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+          rebum.</p-text
+        >
+      </p-accordion>
+      <p-accordion background="surface">
+        <span slot="summary">Some summary</span>
+        <p-text>Some details</p-text>
+      </p-accordion>
+    </div>
+    <div>
+      <details class="p-accordion" data-p-background="surface">
+        <summary><span>Some summary</span></summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+      <details class="p-accordion" open data-p-background="surface">
+        <summary><span>Some summary</span></summary>
+        <div>
+          <p-text
+            >Some details. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+            invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+            dolores et ea rebum.</p-text
+          >
+        </div>
+      </details>
+      <details class="p-accordion" data-p-background="surface">
+        <summary><span>Some summary</span></summary>
+        <div>
+          <p-text>Some details</p-text>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>

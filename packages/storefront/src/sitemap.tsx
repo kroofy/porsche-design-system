@@ -409,6 +409,23 @@ export const sitemap: Routes = {
           },
         },
       },
+      elements: {
+        name: 'Native Elements',
+        path: '/developing/elements',
+        type: 'PAGE',
+        subPaths: {
+          'getting-started': {
+            name: 'Getting Started',
+            path: '/developing/elements/getting-started',
+            type: 'TAB',
+          },
+          usage: {
+            name: 'Usage',
+            path: '/developing/elements/usage',
+            type: 'TAB',
+          },
+        },
+      },
       'components-ready': {
         name: 'Components Ready',
         path: '/developing/components-ready',

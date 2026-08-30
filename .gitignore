@@ -68,6 +68,9 @@ packages/components/src/styles-entry.ts
 packages/components/src/test-utils/tag-names-constructor-map.ts
 packages/components/src/assets/tailwind.css
 
+# Angular native elements: appearance copies for ng-packagr rootDir
+packages/components-angular/projects/angular-wrapper/src/elements/core/
+
 # Components JS
 packages/components-js/public/assets/styles.css
 packages/components-js/public/assets/index.css

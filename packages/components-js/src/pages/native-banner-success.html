@@ -1,0 +1,42 @@
+<div class="visualize-grid">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<aside
+  popover="manual"
+  class="p-banner"
+  data-p-state="success"
+  data-p-position="top"
+  role="status"
+  aria-live="polite"
+  aria-label="Heading"
+>
+  <h5>Heading</h5>
+  <p>Description</p>
+  <button type="button" class="p-banner__dismiss" aria-label="Close banner" aria-description="Heading">
+    <span>Close banner</span>
+  </button>
+</aside>
+<p-text hidden>native banner</p-text>
+<script>
+  const banner = document.querySelector('.p-banner');
+  banner.showPopover();
+  banner.querySelector('.p-banner__dismiss')?.addEventListener('click', () => banner.hidePopover());
+</script>

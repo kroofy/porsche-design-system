@@ -1,0 +1,57 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+</style>
+
+<div class="playground" title="default 911">
+  <div class="native-pair">
+    <p-model-signature></p-model-signature>
+    <img class="p-model-signature" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+  </div>
+</div>
+
+<div class="playground" title="model 718">
+  <div class="native-pair">
+    <p-model-signature model="718"></p-model-signature>
+    <img class="p-model-signature" data-p-model="718" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/718.493a9e3.svg" alt="718" />
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="colors">
+  <div class="native-pair">
+    <div>
+      <p-model-signature color="primary"></p-model-signature>
+      <p-model-signature color="contrast-low"></p-model-signature>
+      <p-model-signature color="contrast-medium"></p-model-signature>
+      <p-model-signature color="contrast-high"></p-model-signature>
+    </div>
+    <div>
+      <img class="p-model-signature" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+      <img class="p-model-signature" data-p-color="contrast-low" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+      <img class="p-model-signature" data-p-color="contrast-medium" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+      <img class="p-model-signature" data-p-color="contrast-high" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="size inherit">
+  <div class="native-pair">
+    <p-model-signature size="inherit" style="width: 50px"></p-model-signature>
+    <img class="p-model-signature" data-p-size="inherit" style="width: 50px" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+  </div>
+</div>
+
+<div class="playground" title="safe-zone false">
+  <div class="native-pair">
+    <div style="background: #ff000033">
+      <p-model-signature safe-zone="false"></p-model-signature>
+    </div>
+    <div style="background: #ff000033">
+      <img class="p-model-signature" data-p-safe-zone="false" src="https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg" alt="911" />
+    </div>
+  </div>
+</div>

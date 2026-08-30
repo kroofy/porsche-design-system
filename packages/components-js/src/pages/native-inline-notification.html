@@ -1,0 +1,239 @@
+<style>
+  .native-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+</style>
+
+<div class="playground" title="should show inline-notification">
+  <div class="native-pair">
+    <p-inline-notification heading="Heading" description="Description"></p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Heading">
+      <h5>Heading</h5>
+      <p>Description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Heading">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with slotted heading and description">
+  <div class="native-pair">
+    <p-inline-notification>
+      <span slot="heading">Slotted heading</span>
+      <span>Slotted description</span>
+    </p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Slotted heading">
+      <h5>Slotted heading</h5>
+      <p>Slotted description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Slotted heading">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with state info">
+  <div class="native-pair">
+    <p-inline-notification state="info">
+      <span slot="heading">Slotted heading (state=info)</span>
+      <span>Slotted description</span>
+    </p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Slotted heading (state=info)">
+      <h5>Slotted heading (state=info)</h5>
+      <p>Slotted description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Slotted heading (state=info)">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with state success">
+  <div class="native-pair">
+    <p-inline-notification state="success">
+      <span slot="heading">Slotted heading (state=success)</span>
+      <span>Slotted description</span>
+    </p-inline-notification>
+    <aside class="p-inline-notification" data-p-state="success" role="status" aria-live="polite" aria-label="Slotted heading (state=success)">
+      <h5>Slotted heading (state=success)</h5>
+      <p>Slotted description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Slotted heading (state=success)">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with state warning">
+  <div class="native-pair">
+    <p-inline-notification state="warning">
+      <span slot="heading">Slotted heading (state=warning)</span>
+      <span>Slotted description</span>
+    </p-inline-notification>
+    <aside class="p-inline-notification" data-p-state="warning" role="alert" aria-live="assertive" aria-label="Slotted heading (state=warning)">
+      <h5>Slotted heading (state=warning)</h5>
+      <p>Slotted description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Slotted heading (state=warning)">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with state error">
+  <div class="native-pair">
+    <p-inline-notification state="error">
+      <span slot="heading">Slotted heading (state=error)</span>
+      <span>Slotted description</span>
+    </p-inline-notification>
+    <aside class="p-inline-notification" data-p-state="error" role="alert" aria-live="assertive" aria-label="Slotted heading (state=error)">
+      <h5>Slotted heading (state=error)</h5>
+      <p>Slotted description</p>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Slotted heading (state=error)">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with action button">
+  <div class="native-pair">
+    <p-inline-notification
+      heading="Some heading with action button"
+      description="Some description"
+      action-label="Some action label"
+    ></p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Some heading with action button">
+      <h5>Some heading with action button</h5>
+      <p>Some description</p>
+      <button type="button" class="p-button-pure p-inline-notification__action">
+        <img
+          class="p-icon p-button-pure__icon"
+          data-p-size="inherit"
+          data-p-color="inherit"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+        />
+        <span class="p-button-pure__label">Some action label</span>
+      </button>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Some heading with action button">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with loading action button">
+  <div class="native-pair">
+    <p-inline-notification
+      heading="Some heading"
+      description="Some description"
+      action-label="Some label"
+      action-loading="true"
+    ></p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Some heading">
+      <h5>Some heading</h5>
+      <p>Some description</p>
+      <button type="button" class="p-button-pure p-inline-notification__action" disabled aria-busy="true" data-p-loading="true">
+        <span class="p-button-pure__spinner" aria-hidden="true">
+          <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
+            <circle r="11"></circle>
+            <circle r="11"></circle>
+          </svg>
+        </span>
+        <span class="p-button-pure__label">Some label</span>
+      </button>
+      <button type="button" class="p-inline-notification__dismiss" aria-label="Close notification" aria-description="Some heading">
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification without dismiss button">
+  <div class="native-pair">
+    <p-inline-notification heading="Some heading" description="Some description" dismiss-button="false"></p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Some heading">
+      <h5>Some heading</h5>
+      <p>Some description</p>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification without dismiss button but with action button and custom icon">
+  <div class="native-pair">
+    <p-inline-notification
+      heading="Some heading"
+      description="Some description"
+      dismiss-button="false"
+      action-label="Some label"
+      action-icon="refresh"
+    ></p-inline-notification>
+    <aside class="p-inline-notification" role="status" aria-live="polite" aria-label="Some heading">
+      <h5>Some heading</h5>
+      <p>Some description</p>
+      <button type="button" class="p-button-pure p-inline-notification__action" data-p-icon="refresh">
+        <img
+          class="p-icon p-button-pure__icon"
+          data-p-name="refresh"
+          data-p-size="inherit"
+          data-p-color="inherit"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/refresh.41fd868.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+        />
+        <span class="p-button-pure__label">Some label</span>
+      </button>
+    </aside>
+  </div>
+</div>
+
+<div class="playground" title="should show inline-notification with multiline heading and description">
+  <div class="native-pair">
+    <p-inline-notification
+      style="max-width: 15rem"
+      heading="Some heading: Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+      description="Some description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+      action-label="Some label: Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+    ></p-inline-notification>
+    <aside
+      class="p-inline-notification"
+      role="status"
+      aria-live="polite"
+      aria-label="Some heading: Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+      style="max-width: 15rem"
+    >
+      <h5>Some heading: Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</h5>
+      <p>Some description: Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+      <button type="button" class="p-button-pure p-inline-notification__action">
+        <img
+          class="p-icon p-button-pure__icon"
+          data-p-size="inherit"
+          data-p-color="inherit"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/arrow-right.872716b.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+        />
+        <span class="p-button-pure__label">Some label: Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</span>
+      </button>
+      <button
+        type="button"
+        class="p-inline-notification__dismiss"
+        aria-label="Close notification"
+        aria-description="Some heading: Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+      >
+        <span>Close notification</span>
+      </button>
+    </aside>
+  </div>
+</div>

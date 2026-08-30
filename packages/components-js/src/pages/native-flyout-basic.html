@@ -1,0 +1,14 @@
+<dialog class="p-flyout" aria-label="Flyout" aria-modal="true" tabindex="-1">
+  <div class="p-flyout__scroller">
+    <div class="p-flyout__panel">
+      <button type="button" class="p-flyout__dismiss" aria-label="Dismiss flyout"><span>Dismiss flyout</span></button>
+      <div>Some Content</div>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native flyout</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-flyout');
+  dialog.showModal();
+  dialog.focus();
+</script>

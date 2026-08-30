@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`rewriteShadowLinkCss() > matches the rewritten snapshot 1`] = `
+"@layer pds.elements {
+.p-link {
+  display: inline-block;
+  --p-link-bg: red;
+}
+.p-link[hidden] {
+  display: none !important;
+}
+
+.p-link {
+  display: flex;
+}
+.p-link:focus-visible {
+  outline: 2px solid;
+}
+}
+"
+`;

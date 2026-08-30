@@ -29,7 +29,7 @@
     "build-app": "vue-tsc --noEmit --project tsconfig.app.json && vite build -c vite.config.app.mts",
     "test": "npm run test:unit && npm run test:e2e && npm run test:vrt && npm run test:smoke",
     "test:unit": "npm run test:unit:vue-wrapper",
-    "test:unit:vue-wrapper": "vitest --config projects/vue-wrapper/tests/unit/config/vitest.config.ts",
+    "test:unit:vue-wrapper": "vitest --config projects/vue-wrapper/tests/unit/config/vitest.config.ts && vitest --config projects/vue-wrapper/tests/unit/config/vitest.elements.config.ts",
     "test:e2e": "npm run build-app && playwright test --config=tests/e2e/config/playwright.config.ts",
     "test:vrt": "playwright test --config=tests/vrt/config/playwright.config.ts",
     "test:smoke": "npm run test:smoke:unit && npm run test:smoke:vue-wrapper",

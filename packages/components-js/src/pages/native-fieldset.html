@@ -1,0 +1,84 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+</style>
+
+<div class="playground" title="default">
+  <div class="native-pair">
+    <p-fieldset label="Some label"></p-fieldset>
+    <fieldset class="p-fieldset">
+      <legend>Some label</legend>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="label size small">
+  <div class="native-pair">
+    <p-fieldset label="Some label" label-size="small"></p-fieldset>
+    <fieldset class="p-fieldset" data-p-label-size="small">
+      <legend>Some label</legend>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="required">
+  <div class="native-pair">
+    <p-fieldset label="Some label" required="true"></p-fieldset>
+    <fieldset class="p-fieldset" data-p-required="true">
+      <legend>Some label</legend>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="label size small and required">
+  <div class="native-pair">
+    <p-fieldset label="Some label" label-size="small" required="true"></p-fieldset>
+    <fieldset class="p-fieldset" data-p-label-size="small" data-p-required="true">
+      <legend>Some label</legend>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="error">
+  <div class="native-pair">
+    <p-fieldset label="Some label" state="error" message="Some error message"></p-fieldset>
+    <fieldset class="p-fieldset" data-p-state="error" aria-invalid="true" aria-describedby="native-fieldset-error">
+      <legend>Some label</legend>
+      <span class="p-message" id="native-fieldset-error" data-p-state="error">
+        <img class="p-icon" data-p-name="exclamation" data-p-color="error" src="https://cdn.ui.porsche.com/porsche-design-system/icons/exclamation.46cd17b.svg" alt="" width="24" height="24" aria-hidden="true" />
+        Some error message
+      </span>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="success">
+  <div class="native-pair">
+    <p-fieldset label="Some label" state="success" message="Some success message"></p-fieldset>
+    <fieldset class="p-fieldset" data-p-state="success" aria-describedby="native-fieldset-success">
+      <legend>Some label</legend>
+      <span class="p-message" id="native-fieldset-success" data-p-state="success">
+        <img class="p-icon" data-p-name="check" data-p-color="success" src="https://cdn.ui.porsche.com/porsche-design-system/icons/check.8ba06be.svg" alt="" width="24" height="24" aria-hidden="true" />
+        Some success message
+      </span>
+    </fieldset>
+  </div>
+</div>
+
+<div class="playground" title="nested">
+  <div class="native-pair">
+    <p-fieldset label="Some label">
+      <p-fieldset label="Some label" label-size="small"></p-fieldset>
+    </p-fieldset>
+    <fieldset class="p-fieldset">
+      <legend>Some label</legend>
+      <fieldset class="p-fieldset" data-p-label-size="small">
+        <legend>Some label</legend>
+      </fieldset>
+    </fieldset>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<style>
+  .media {
+    margin: calc(var(--ref-p-sheet-pt) * -1) calc(var(--ref-p-sheet-px) * -1) calc(var(--ref-p-sheet-pb) * -1);
+    height: 50vh;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<dialog class="p-sheet" aria-label="Some Heading" aria-modal="true" tabindex="-1">
+  <div class="p-sheet__scroller">
+    <div class="p-sheet__panel">
+      <button type="button" class="p-sheet__dismiss" aria-label="Dismiss sheet"><span>Dismiss sheet</span></button>
+      <div class="media">
+        <img src="http://localhost:3002/lights.jpg" alt="Some alt text" width="1366" height="2048" />
+      </div>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native sheet</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-sheet');
+  dialog.showModal();
+  dialog.focus();
+</script>

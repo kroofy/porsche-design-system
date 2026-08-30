@@ -1,0 +1,117 @@
+<style>
+  .native-pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+  }
+</style>
+
+<div class="playground auto-layout-inline" title="should show different background colors">
+  <div class="native-pair">
+    <p-tag-dismissible>Default</p-tag-dismissible>
+    <button type="button" class="p-tag-dismissible">
+      <span class="p-tag-dismissible__sr">Remove:</span>
+      <span class="p-tag-dismissible__content">Default</span>
+      <span class="p-tag-dismissible__icon"
+        ><img
+          class="p-icon"
+          data-p-name="close"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+      /></span>
+    </button>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="should show different background colors and label">
+  <div class="native-pair">
+    <p-tag-dismissible label="Some label">Default</p-tag-dismissible>
+    <button type="button" class="p-tag-dismissible">
+      <span class="p-tag-dismissible__sr">Remove:</span>
+      <span class="p-tag-dismissible__content"
+        ><span class="p-tag-dismissible__label">Some label</span>Default</span
+      >
+      <span class="p-tag-dismissible__icon"
+        ><img
+          class="p-icon"
+          data-p-name="close"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+      /></span>
+    </button>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="should show long label and break into next line">
+  <div class="native-pair">
+    <p-tag-dismissible
+      label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+      >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+      dolore magna aliquyam erat, sed diam voluptua.</p-tag-dismissible
+    >
+    <button type="button" class="p-tag-dismissible">
+      <span class="p-tag-dismissible__sr">Remove:</span>
+      <span class="p-tag-dismissible__content"
+        ><span class="p-tag-dismissible__label"
+          >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+          dolore magna aliquyam erat, sed diam voluptua.</span
+        >Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua.</span
+      >
+      <span class="p-tag-dismissible__icon"
+        ><img
+          class="p-icon"
+          data-p-name="close"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+      /></span>
+    </button>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="should render tag dismissible in compact mode">
+  <div class="native-pair">
+    <p-tag-dismissible compact="true">Default</p-tag-dismissible>
+    <button type="button" class="p-tag-dismissible" data-p-compact="true">
+      <span class="p-tag-dismissible__sr">Remove:</span>
+      <span class="p-tag-dismissible__content">Default</span>
+      <span class="p-tag-dismissible__icon"
+        ><img
+          class="p-icon"
+          data-p-name="close"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+      /></span>
+    </button>
+    <p-tag-dismissible compact="true" label="Some label">Default</p-tag-dismissible>
+    <button type="button" class="p-tag-dismissible" data-p-compact="true">
+      <span class="p-tag-dismissible__sr">Remove:</span>
+      <span class="p-tag-dismissible__content"
+        ><span class="p-tag-dismissible__label">Some label</span>Default</span
+      >
+      <span class="p-tag-dismissible__icon"
+        ><img
+          class="p-icon"
+          data-p-name="close"
+          src="https://cdn.ui.porsche.com/porsche-design-system/icons/close.eec3c5d.svg"
+          alt=""
+          width="24"
+          height="24"
+          aria-hidden="true"
+      /></span>
+    </button>
+  </div>
+</div>

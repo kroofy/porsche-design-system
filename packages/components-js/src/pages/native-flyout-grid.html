@@ -1,0 +1,60 @@
+<style>
+  .p-flyout {
+    --p-flyout-width: 1000px;
+  }
+
+  .visualize-grid {
+    position: static;
+    row-gap: 16px;
+  }
+
+  .visualize-grid > span {
+    grid-row: 1 / 6;
+  }
+
+  .visualize-grid > div {
+    padding: 0 16px;
+    background: rgba(255, 0, 0, 0.1);
+  }
+</style>
+
+<dialog class="p-flyout" aria-label="Some Header" aria-modal="true" tabindex="-1">
+  <div class="p-flyout__scroller">
+    <div class="p-flyout__panel">
+      <button type="button" class="p-flyout__dismiss" aria-label="Dismiss flyout"><span>Dismiss flyout</span></button>
+      <header class="p-flyout__header">Some Header</header>
+      <div class="visualize-grid">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <div style="grid-area: 1 / full-start / auto / full-end">Full</div>
+        <div style="grid-area: 2 / wide-start / auto / wide-end">Wide</div>
+        <div style="grid-area: 3 / extended-start / auto / extended-end">Extended</div>
+        <div style="grid-area: 4 / basic-start / auto / basic-end">Basic</div>
+        <div style="grid-area: 5 / narrow-start / auto / narrow-end">Narrow</div>
+      </div>
+      <footer class="p-flyout__footer">Some Footer</footer>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native flyout</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-flyout');
+  dialog.showModal();
+  dialog.focus();
+</script>

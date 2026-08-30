@@ -1,0 +1,54 @@
+<style>
+  .native-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .custom-size {
+    --p-flag-size: 99px;
+  }
+</style>
+
+<div class="playground" title="default">
+  <div class="native-pair">
+    <p-flag></p-flag>
+    <img class="p-flag" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+  </div>
+</div>
+
+<div class="playground" title="size 2xs sm lg">
+  <div class="native-pair">
+    <div>
+      <p-flag size="2xs"></p-flag>
+      <p-flag size="sm"></p-flag>
+      <p-flag size="lg"></p-flag>
+    </div>
+    <div>
+      <img class="p-flag" data-p-size="2xs" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+      <img class="p-flag" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+      <img class="p-flag" data-p-size="lg" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+    </div>
+  </div>
+</div>
+
+<div class="playground" title="size inherit">
+  <div class="native-pair">
+    <p-flag size="inherit" style="font-size: 99px"></p-flag>
+    <img class="p-flag" data-p-size="inherit" style="font-size: 99px" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+  </div>
+</div>
+
+<div class="playground" title="--p-flag-size">
+  <div class="native-pair">
+    <p-flag class="custom-size"></p-flag>
+    <img class="p-flag custom-size" src="https://cdn.ui.porsche.com/porsche-design-system/flags/de.b575e11.svg" width="24" height="24" alt="" loading="lazy" />
+  </div>
+</div>
+
+<div class="playground" title="name us">
+  <div class="native-pair">
+    <p-flag name="us"></p-flag>
+    <img class="p-flag" src="https://cdn.ui.porsche.com/porsche-design-system/flags/us.10d7b02.svg" width="24" height="24" alt="" loading="lazy" />
+  </div>
+</div>

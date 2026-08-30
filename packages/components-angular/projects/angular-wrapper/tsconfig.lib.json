@@ -6,6 +6,8 @@
     "declarationMap": true,
     "inlineSources": true
   },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,

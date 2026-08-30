@@ -11,4 +11,11 @@ describe('components-wrapper distribution files', () => {
       expect(fs.existsSync(path.resolve(distDir, file))).toBe(true);
     },
   );
+
+  test.each(['elements/index.css', 'elements/esm/index.mjs', 'elements/cjs/index.cjs', 'elements/esm/index.d.ts'])(
+    'should contain native elements %s',
+    (file) => {
+      expect(fs.existsSync(path.resolve(distDir, file))).toBe(true);
+    },
+  );
 });

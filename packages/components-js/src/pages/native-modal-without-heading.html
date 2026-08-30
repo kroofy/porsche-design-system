@@ -1,0 +1,14 @@
+<dialog class="p-modal" aria-label="Some Heading" aria-modal="true" tabindex="-1">
+  <div class="p-modal__scroller">
+    <div class="p-modal__panel">
+      <button type="button" class="p-modal__dismiss" aria-label="Dismiss modal"><span>Dismiss modal</span></button>
+      <div>Some Content</div>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native modal</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-modal');
+  dialog.showModal();
+  dialog.focus();
+</script>

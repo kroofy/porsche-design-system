@@ -1,0 +1,158 @@
+<style>
+  p-select,
+  .p-field {
+    width: 20rem;
+  }
+</style>
+
+<div class="playground auto-layout-inline" title="optgroups">
+  <p-select name="options" value="a" label="Some Label">
+    <p-optgroup label="Some optgroup label 1">
+      <p-select-option value="a">Option A</p-select-option>
+      <p-select-option value="b">Option B</p-select-option>
+      <p-select-option value="c">Option C</p-select-option>
+    </p-optgroup>
+    <p-optgroup label="Some optgroup label 2">
+      <p-select-option value="d">Option D</p-select-option>
+      <p-select-option value="e">Option E</p-select-option>
+      <p-select-option value="f">Option F</p-select-option>
+    </p-optgroup>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup">Some Label</label>
+    <select id="native-optgroup" class="p-select" name="native-optgroup">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" selected>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c">Option C</option>
+      </optgroup>
+      <optgroup class="p-optgroup" label="Some optgroup label 2">
+        <option value="d">Option D</option>
+        <option value="e">Option E</option>
+        <option value="f">Option F</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="disabled optgroup">
+  <p-select name="options" value="c" label="Some Label">
+    <p-optgroup label="Some optgroup label 1">
+      <p-select-option value="a" disabled="true">Option A</p-select-option>
+      <p-select-option value="b">Option B</p-select-option>
+      <p-select-option value="c">Option C</p-select-option>
+    </p-optgroup>
+    <p-optgroup label="Some optgroup label 2" disabled="true">
+      <p-select-option value="d">Option D</p-select-option>
+      <p-select-option value="e">Option E</p-select-option>
+      <p-select-option value="f">Option F</p-select-option>
+    </p-optgroup>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup-disabled">Some Label</label>
+    <select id="native-optgroup-disabled" class="p-select" name="native-optgroup-disabled">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" disabled>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c" selected>Option C</option>
+      </optgroup>
+      <optgroup class="p-optgroup" label="Some optgroup label 2" disabled>
+        <option value="d">Option D</option>
+        <option value="e">Option E</option>
+        <option value="f">Option F</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="options inside and outside optgroup">
+  <p-select name="options" value="a" label="Some Label">
+    <p-optgroup label="Some optgroup label 1">
+      <p-select-option value="a">Option A</p-select-option>
+      <p-select-option value="b">Option B</p-select-option>
+      <p-select-option value="c">Option C</p-select-option>
+    </p-optgroup>
+    <p-select-option value="d">Option D</p-select-option>
+    <p-select-option value="e">Option E</p-select-option>
+    <p-select-option value="f">Option F</p-select-option>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup-mixed">Some Label</label>
+    <select id="native-optgroup-mixed" class="p-select" name="native-optgroup-mixed">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" selected>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c">Option C</option>
+      </optgroup>
+      <option value="d">Option D</option>
+      <option value="e">Option E</option>
+      <option value="f">Option F</option>
+    </select>
+  </div>
+</div>
+
+<div class="playground auto-layout-inline" title="compact">
+  <p-select name="options" value="a" label="Some Label" compact="true">
+    <p-optgroup label="Some optgroup label 1">
+      <p-select-option value="a">Option A</p-select-option>
+      <p-select-option value="b">Option B</p-select-option>
+      <p-select-option value="c">Option C</p-select-option>
+    </p-optgroup>
+    <p-optgroup label="Some optgroup label 2">
+      <p-select-option value="d">Option D</p-select-option>
+      <p-select-option value="e">Option E</p-select-option>
+      <p-select-option value="f">Option F</p-select-option>
+    </p-optgroup>
+  </p-select>
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup-compact">Some Label</label>
+    <select id="native-optgroup-compact" class="p-select" name="native-optgroup-compact" data-p-compact="true">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" selected>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c">Option C</option>
+      </optgroup>
+      <optgroup class="p-optgroup" label="Some optgroup label 2">
+        <option value="d">Option D</option>
+        <option value="e">Option E</option>
+        <option value="f">Option F</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
+<div class="playground" title="listbox">
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup-listbox">Some Label</label>
+    <select id="native-optgroup-listbox" class="p-select" name="native-optgroup-listbox" size="10">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" selected>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c">Option C</option>
+      </optgroup>
+      <optgroup class="p-optgroup" label="Some optgroup label 2">
+        <option value="d">Option D</option>
+        <option value="e">Option E</option>
+        <option value="f">Option F</option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
+<div class="playground" title="listbox disabled optgroup">
+  <div class="p-field">
+    <label class="p-label" for="native-optgroup-listbox-disabled">Some Label</label>
+    <select id="native-optgroup-listbox-disabled" class="p-select" name="native-optgroup-listbox-disabled" size="10">
+      <optgroup class="p-optgroup" label="Some optgroup label 1">
+        <option value="a" disabled>Option A</option>
+        <option value="b">Option B</option>
+        <option value="c" selected>Option C</option>
+      </optgroup>
+      <optgroup class="p-optgroup" label="Some optgroup label 2" disabled>
+        <option value="d">Option D</option>
+        <option value="e">Option E</option>
+        <option value="f">Option F</option>
+      </optgroup>
+    </select>
+  </div>
+</div>

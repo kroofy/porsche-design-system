@@ -25,7 +25,7 @@
     "build:typings:ag-grid": "DEST=./dist/react-wrapper && SRC=$DEST/esm && mv $SRC/ag-grid/index.d.ts $DEST/ag-grid/esm/index.d.ts && rm -rf $SRC/ag-grid",
     "test": "npm run test:unit && npm run test:e2e && npm run test:vrt",
     "test:unit": "npm run test:unit:react-wrapper && npm run test:unit:react-ssr-wrapper",
-    "test:unit:react-wrapper": "vitest -c projects/react-wrapper/tests/unit/config/vitest.config.ts",
+    "test:unit:react-wrapper": "vitest -c projects/react-wrapper/tests/unit/config/vitest.config.ts && vitest -c projects/react-wrapper/tests/unit/config/vitest.elements.config.ts",
     "test:unit:react-ssr-wrapper": "npm run test:unit --workspace=@porsche-design-system/react-ssr-wrapper",
     "test:e2e": "npm run build-app && playwright test --config=tests/e2e/config/playwright.config.ts",
     "test:vrt": "playwright test --config=tests/vrt/config/playwright.config.ts",

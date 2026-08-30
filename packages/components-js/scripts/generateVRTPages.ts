@@ -1,6 +1,6 @@
 import { camelCase, capitalCase, kebabCase, pascalCase } from 'change-case';
-import * as fs from 'fs';
 import { sync as globbySync } from 'fast-glob';
+import * as fs from 'fs';
 import * as path from 'path';
 import { type AngularCharacteristics, convertToAngularVRTPage } from './convertToAngularVRTPage';
 import { convertToNextJsVRTPage } from './convertToNextJsVRTPage';
@@ -8,7 +8,83 @@ import { convertToReactRouterVRTPage } from './convertToReactRouterVRTPage';
 import { convertToReactVRTPage, type ReactCharacteristics } from './convertToReactVRTPage';
 
 /** array of html file names that don't get converted */
-const PAGES_TO_SKIP: string[] = [];
+const PAGES_TO_SKIP: string[] = [
+  'native-button',
+  'native-link',
+  'native-input-text',
+  'native-textarea',
+  'native-checkbox',
+  'native-radio',
+  'native-select',
+  'native-input-types',
+  'native-button-pure',
+  'native-link-pure',
+  'native-divider',
+  'native-heading',
+  'native-text',
+  'native-display',
+  'native-fieldset',
+  'native-text-list',
+  'native-table',
+  'native-flag',
+  'native-crest',
+  'native-wordmark',
+  'native-model-signature',
+  'native-accordion',
+  'native-tag',
+  'native-tag-dismissible',
+  'native-spinner',
+  'native-modal',
+  'native-optgroup',
+  'native-sheet',
+  'native-inline-notification',
+  'native-ai-tag',
+  'native-flyout',
+  'native-flyout-basic',
+  'native-flyout-position-start',
+  'native-flyout-header',
+  'native-flyout-header-footer',
+  'native-flyout-header-footer-subfooter',
+  'native-flyout-fullscreen',
+  'native-flyout-backdrop-shading',
+  'native-flyout-grid',
+  'native-flyout-css-variables',
+  'native-flyout-scrollable',
+  'native-flyout-fixed-footer',
+  'native-switch',
+  'native-button-tile',
+  'native-link-tile',
+  'native-banner',
+  'native-banner-basic',
+  'native-banner-info',
+  'native-banner-success',
+  'native-banner-warning',
+  'native-banner-error',
+  'native-banner-no-dismiss',
+  'native-banner-css-variables',
+  'native-banner-slotted-description-heading',
+  'native-sheet-basic',
+  'native-sheet-without-heading',
+  'native-sheet-scrollable',
+  'native-sheet-without-dismiss-button',
+  'native-sheet-css-variables',
+  'native-sheet-grid',
+  'native-sheet-scrolled',
+  'native-modal-basic',
+  'native-modal-fullscreen',
+  'native-modal-stretch-to-full-width',
+  'native-modal-fullscreen-responsive',
+  'native-modal-without-heading',
+  'native-modal-scrollable',
+  'native-modal-without-dismiss-button',
+  'native-modal-sticky-footer',
+  'native-modal-backdrop-blur',
+  'native-modal-backdrop-shading',
+  'native-modal-slotted-header',
+  'native-modal-grid',
+  'native-modal-css-variables',
+  'native-modal-footer-scrolled',
+];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];
 

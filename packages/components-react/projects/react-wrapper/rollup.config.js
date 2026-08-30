@@ -1,10 +1,27 @@
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
+import * as esbuild from 'esbuild';
 import bin from 'rollup-plugin-bin';
 import copy from 'rollup-plugin-copy';
+import { dts } from 'rollup-plugin-dts';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
 import preserveDirectives from 'rollup-plugin-preserve-directives';
+
+const esbuildTs = (jsx) => ({
+  name: 'esbuild-ts',
+  async transform(code, id) {
+    if (!/\.[cm]?tsx?$/.test(id) || id.includes('node_modules')) {
+      return null;
+    }
+    const result = await esbuild.transform(code, {
+      loader: id.endsWith('tsx') ? 'tsx' : 'ts',
+      jsx: jsx ? 'automatic' : undefined,
+      sourcemap: true,
+    });
+    return { code: result.code, map: result.map };
+  },
+});
 
 const rootDir = '../..';
 const projectDir = 'projects/react-wrapper';
@@ -48,7 +65,7 @@ const sharedPlugins = [
   resolve(),
 ];
 
-export default [
+const configs = [
   {
     input,
     external,
@@ -116,6 +133,53 @@ export default [
         },
       }),
     ],
+  },
+  {
+    input: `${projectDir}/src/elements/index.ts`,
+    external: ['react', 'react/jsx-runtime'],
+    output: [
+      {
+        file: `${outputDir}/elements/cjs/index.cjs`,
+        format: 'cjs',
+      },
+      {
+        file: `${outputDir}/elements/esm/index.mjs`,
+        format: 'esm',
+      },
+    ],
+    plugins: [
+      resolve({ extensions: ['.ts', '.tsx', '.js', '.mjs'] }),
+      esbuildTs(true),
+      copy({
+        targets: [
+          {
+            src: '../components/src/elements/elements.css',
+            dest: `${outputDir}/elements`,
+            rename: 'index.css',
+          },
+        ],
+      }),
+      generatePackageJson({
+        outputFolder: `${outputDir}/elements`,
+        baseContents: {
+          main: 'cjs/index.cjs',
+          module: 'esm/index.mjs',
+          types: 'esm/index.d.ts',
+          style: 'index.css',
+          sideEffects: ['*.css'],
+        },
+      }),
+    ],
+    onwarn,
+  },
+  {
+    input: `${projectDir}/src/elements/index.ts`,
+    external: ['react', 'react/jsx-runtime'],
+    output: {
+      file: `${outputDir}/elements/esm/index.d.ts`,
+      format: 'es',
+    },
+    plugins: [dts({ tsconfig: `${projectDir}/tsconfig.elements.json` })],
   },
   {
     input: `${projectDir}/src/testing/index.ts`,
@@ -317,3 +381,7 @@ export default [
     plugins: [typescript(typescriptOpts), bin()],
   },
 ];
+
+export default process.env.ELEMENTS_ONLY
+  ? configs.filter((config) => String(config.input).includes('/elements/'))
+  : configs;

@@ -1,0 +1,222 @@
+import { ContentTab, ContentTabs } from '@/components/common/ContentTabs';
+import { TableOfContents } from '@/components/common/TableOfContents';
+
+export const metadata = {
+  title: 'Native Elements: Usage - Porsche Design System',
+  description: 'Contract, tag mapping, and form wiring for the Porsche Design System ./elements export.',
+};
+
+# Native Elements
+
+<TableOfContents headings={['Contract', 'Mapping', 'Forms', 'Appearance', 'Not this family']} />
+
+## Contract
+
+- One native tag, no wrapping host.
+- Public `.` export stays the generated custom-element wrapper.
+- Native wrappers ship on `./elements`.
+- Angular hosts are the native tags.
+- Real attributes only. The forced `aria` JSON bag is for custom elements, not for these.
+- Vanilla is HTML plus the stylesheet.
+- No slotted heading, text, or anchor. Native is always the real tag.
+- Stencil custom-element hosts stay until a breaking major.
+
+## Mapping
+
+| Wrapper                                                                           | Native tag                                                        |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `PButton`                                                                         | `<button class="p-button">`                                       |
+| `PLink`                                                                           | `<a class="p-link">`                                              |
+| `PButtonPure`                                                                     | `<button class="p-button-pure">`                                  |
+| `PLinkPure`                                                                       | `<a class="p-link-pure">`                                         |
+| `PIcon`                                                                           | `<img class="p-icon">`                                            |
+| `PLabel`                                                                          | `<label class="p-label">`                                         |
+| `PInputText`                                                                      | `<input class="p-input" type="text">`                             |
+| `PInputEmail`, `PInputPassword`, …                                                | `<input class="p-input" type="…">`                                |
+| `PTextarea`                                                                       | `<textarea class="p-textarea">`                                   |
+| `PCheckbox`                                                                       | `<input class="p-checkbox" type="checkbox">`                      |
+| `PRadio`                                                                          | `<input class="p-radio" type="radio">`                            |
+| `PSelect`                                                                         | `<select class="p-select">`                                       |
+| `POptgroup`                                                                       | `<optgroup class="p-optgroup">`                                   |
+| `PFieldset`                                                                       | `<fieldset class="p-fieldset">`                                   |
+| `PDivider`                                                                        | `<hr class="p-divider">`                                          |
+| `PHeading`                                                                        | `<h1>` to `<h6 class="p-heading">`                                |
+| `PText`                                                                           | `<p class="p-text">`                                              |
+| `PDisplay`                                                                        | heading or `<p class="p-display">`                                |
+| `PTextList`                                                                       | `<ul>` / `<ol class="p-text-list">`                               |
+| `PTextListItem`                                                                   | `<li class="p-text-list-item">`                                   |
+| `PTable`, `PTableHead`, `PTableBody`, `PTableRow`, `PTableHeadCell`, `PTableCell` | `<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`           |
+| `PFlag`                                                                           | `<img class="p-flag">`                                            |
+| `PCrest`                                                                          | `<picture class="p-crest">`, or `<a>` wrapping that picture       |
+| `PWordmark`                                                                       | `<svg class="p-wordmark">`, or `<a>` wrapping that svg            |
+| `PModelSignature`                                                                 | `<img class="p-model-signature">`                                 |
+| `PAccordion`                                                                      | `<details class="p-accordion">`                                   |
+| `PAiTag`                                                                          | `<span class="p-ai-tag">`                                         |
+| `PTag`                                                                            | `<span>`, `<a>` when `href` is set, `<button>` when `type` is set |
+| `PTagDismissible`                                                                 | `<button class="p-tag-dismissible">`                              |
+| `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
+| `PSwitch`                                                                         | `<button type="button" role="switch" class="p-switch">`           |
+| `PButtonTile`                                                                     | `<button class="p-button-tile">`                                  |
+| `PLinkTile`                                                                       | `<a class="p-link-tile">`                                         |
+| `PModal`                                                                          | `<dialog class="p-modal">`                                        |
+| `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
+| `PFlyout`                                                                         | `<dialog class="p-flyout">`                                       |
+| `PInlineNotification`                                                             | `<aside class="p-inline-notification">`                           |
+| `PBanner`                                                                         | `<aside popover="manual" class="p-banner">`                       |
+
+Children stay real tags too. Legend is a `<legend>` inside the fieldset. Accordion summary is a `<summary>`. Modal
+header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Flyout header, footer,
+and sub-footer are `<header class="p-flyout__header">`, `<footer class="p-flyout__footer">`, and
+`<div class="p-flyout__sub-footer">`. Inline notification heading is a real `h1`–`h6`, description is a `<p>`, and
+dismiss is `<button class="p-inline-notification__dismiss">`. Banner heading is a real `h1`–`h6`, description is a
+`<p>`, and dismiss is `<button class="p-banner__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
+`<option>`. Optgroup labels use the native `label` attribute. Switch checked is `aria-checked`, not an HTML `checked`
+attribute. The track is `.p-switch__toggle`; the label is `.p-switch__label`. Button tile and link tile **are** the
+control. Header, media, description, and footer are real children. The inner CTA is a presentational
+`.p-button` / `.p-link` span (`aria-hidden`). Do not nest a real button or anchor inside the tile.
+
+Open a modal, sheet, or flyout with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
+Open a banner with `showPopover()`. There is no `open` prop on the native wrapper.
+
+Native `<select>` optgroups follow UA dropdown styling. They will not match the custom stencil list. `size` or
+`multiple` shows groups in-page.
+
+## Forms
+
+The label is a sibling with `for` / `htmlFor`. It is not a slot on the control.
+
+Wrap the field in `.p-field`. Wire description and message with `aria-describedby`. Use `fieldIds` so the ids stay
+stable.
+
+<ContentTabs label="Labeled field by framework">
+
+<ContentTab label="Vanilla JS">
+
+```html
+<div class="p-field">
+  <label class="p-label" for="email">Email</label>
+  <span class="p-description" id="email-description">Work email</span>
+  <input id="email" class="p-input" type="text" name="email" dir="auto" aria-describedby="email-description" />
+</div>
+```
+
+```js
+import { fieldIds, fieldDescribedBy } from '@porsche-design-system/components-js/elements';
+
+const ids = fieldIds();
+input.id = ids.control;
+label.htmlFor = ids.control;
+hint.id = ids.description;
+input.setAttribute('aria-describedby', fieldDescribedBy(ids, { description: true }));
+```
+
+</ContentTab>
+
+<ContentTab label="React">
+
+```tsx
+import { fieldDescribedBy, PInputText, PLabel, useFieldIds } from '@porsche-design-system/components-react/elements';
+
+export const EmailField = () => {
+  const ids = useFieldIds();
+
+  return (
+    <div className="p-field">
+      <PLabel htmlFor={ids.control} required>
+        Email
+      </PLabel>
+      <span className="p-description" id={ids.description}>
+        Work email
+      </span>
+      <PInputText id={ids.control} name="email" aria-describedby={fieldDescribedBy(ids, { description: true })} />
+    </div>
+  );
+};
+```
+
+</ContentTab>
+
+<ContentTab label="Vue">
+
+```vue
+<script setup lang="ts">
+  import { fieldDescribedBy, PInputText, PLabel, useFieldIds } from '@porsche-design-system/components-vue/elements';
+
+  const ids = useFieldIds();
+</script>
+
+<template>
+  <div class="p-field">
+    <PLabel :htmlFor="ids.control" required>Email</PLabel>
+    <span class="p-description" :id="ids.description">Work email</span>
+    <PInputText :id="ids.control" name="email" :aria-describedby="fieldDescribedBy(ids, { description: true })" />
+  </div>
+</template>
+```
+
+</ContentTab>
+
+<ContentTab label="Angular">
+
+```ts
+import { Component } from '@angular/core';
+import { fieldIds, fieldDescribedBy, PInputText, PLabel } from '@porsche-design-system/components-angular/elements';
+
+@Component({
+  selector: 'app-email-field',
+  standalone: true,
+  imports: [PLabel, PInputText],
+  template: `
+    <div class="p-field">
+      <label pLabel [attr.for]="ids.control" required>Email</label>
+      <span class="p-description" [id]="ids.description">Work email</span>
+      <input pInputText [id]="ids.control" name="email" [attr.aria-describedby]="describedBy" />
+    </div>
+  `,
+})
+export class EmailField {
+  readonly ids = fieldIds();
+  readonly describedBy = fieldDescribedBy(this.ids, { description: true });
+}
+```
+
+</ContentTab>
+
+</ContentTabs>
+
+Error and success sit on the control as `data-p-state` plus `aria-invalid` when needed. The message is a sibling
+`.p-message`. Required is a `*` inside the label (`PLabel required` or `.p-label__required`), not a slot.
+
+Loading is native `disabled` + `aria-busy` + `data-p-loading`. There is no fake overlay host.
+
+## Appearance
+
+PDS-only look goes on `data-p-*`. Native behaviour stays on native attributes.
+
+| Look        | How                                                            |
+| ----------- | -------------------------------------------------------------- |
+| Variant     | `data-p-variant="secondary"`                                   |
+| Compact     | `data-p-compact="true"`                                        |
+| Hide label  | `data-p-hide-label="true"` on the label                        |
+| Field state | `data-p-state="error"` on the control                          |
+| Loading     | `data-p-loading="true"` plus native `disabled` and `aria-busy` |
+
+Defaults are omitted. Primary, `compact=false`, and `state="none"` do not write a data attribute.
+
+Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-width`, `--p-flyout-width`,
+`--p-banner-max-w`, `--p-banner-top`, `--p-banner-bottom`, and `--p-banner-inset-x`.
+
+## Not this family
+
+These are not 1:1 native tags. Keep the custom-element wrappers:
+
+- Multi-select (not a native `<select multiple>` skin of the custom dropdown)
+- Table sort and scroller
+- Accordion summary-before / summary-after and the deprecated heading API
+- Model-signature overlay-as-mask
+- Modal stuck-footer frost
+- Flyout sticky-top JS (`--p-flyout-sticky-top`) and stuck-footer frost
+- Toast / toast-item (internal manager)
+- Popover (trigger + floating panel)
+
+Do not start a Mitosis rewrite from this export. Do not swap the public `.` CE export to native.

@@ -1,0 +1,27 @@
+<dialog
+  class="p-modal"
+  data-p-fullscreen="true"
+  data-p-fullscreen-xs="false"
+  data-p-fullscreen-s="true"
+  data-p-fullscreen-m="false"
+  data-p-fullscreen-l="true"
+  data-p-fullscreen-xl="false"
+  data-p-fullscreen-xxl="true"
+  aria-modal="true"
+  tabindex="-1"
+>
+  <div class="p-modal__scroller">
+    <div class="p-modal__panel">
+      <button type="button" class="p-modal__dismiss" aria-label="Dismiss modal"><span>Dismiss modal</span></button>
+      <header class="p-modal__header">
+        <p-heading size="large" tag="h2">Some Heading</p-heading>
+      </header>
+      <div>Some Content</div>
+    </div>
+  </div>
+</dialog>
+<script>
+  const dialog = document.querySelector('dialog.p-modal');
+  dialog.showModal();
+  dialog.focus();
+</script>

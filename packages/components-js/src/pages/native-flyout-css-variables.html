@@ -1,0 +1,22 @@
+<style>
+  .p-flyout {
+    --p-flyout-width: 70dvw;
+  }
+</style>
+
+<dialog class="p-flyout" aria-label="Some header" aria-modal="true" tabindex="-1">
+  <div class="p-flyout__scroller">
+    <div class="p-flyout__panel">
+      <button type="button" class="p-flyout__dismiss" aria-label="Dismiss flyout"><span>Dismiss flyout</span></button>
+      <header class="p-flyout__header">Some header</header>
+      <div>Some Content</div>
+      <footer class="p-flyout__footer">Some footer</footer>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native flyout</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-flyout');
+  dialog.showModal();
+  dialog.focus();
+</script>
