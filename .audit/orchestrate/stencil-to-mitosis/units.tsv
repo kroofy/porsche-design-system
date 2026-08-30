@@ -11,4 +11,5 @@ migrate-icon	migrate	done	cursor/mitosis-migration-41e6	3	d702e8eb4f	briefs/migr
 migrate-heading	migrate	done	cursor/mitosis-migration-41e6	3	0fe05aaab6	briefs/migrate-heading.md
 migrate-text	migrate	done	cursor/mitosis-migration-41e6	3	fa008afa41	briefs/migrate-text.md
 migrate-display	migrate	done	cursor/mitosis-migration-41e6	3	6825564b24	briefs/migrate-display.md
-migrate-spinner	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-spinner.md
+migrate-spinner	migrate	done	cursor/mitosis-migration-41e6	3	d04025d34b	briefs/migrate-spinner.md
+migrate-tag	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-tag.md
