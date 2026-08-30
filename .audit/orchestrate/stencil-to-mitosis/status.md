@@ -1,17 +1,18 @@
 # Orchestrate status
 
-Generated: 2026-08-30T21:31:04.789Z
+Generated: 2026-08-30T21:34:09.904Z
 
 ## Units
 
-States: done=3, in-progress=1
+States: done=4, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
 | fitness-divider | fitness | done | cursor/mitosis-migration-41e6 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | briefs/fitness-divider.md |
 | baseline-divider | baseline | done | cursor/mitosis-migration-41e6 | 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | briefs/baseline-divider.md |
 | fitness-lit | fitness | done | cursor/mitosis-migration-41e6 | 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | briefs/fitness-lit.md |
-| lever-migrate-recipe | primitives | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/lever-migrate-recipe.md |
+| lever-migrate-recipe | primitives | done | cursor/mitosis-migration-41e6 | 3 | 36c4774e5cb40277cd44f1229e547ece70828ff3 | briefs/lever-migrate-recipe.md |
+| migrate-crest | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-crest.md |
 
 ## Verification ledger
 
@@ -34,4 +35,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":3,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":2,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":4,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":2,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
