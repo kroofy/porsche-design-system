@@ -19,6 +19,7 @@
     "../../../components/src/elements/text/text.appearance.ts",
     "../../../components/src/elements/text-list/text-list.appearance.ts",
     "../../../components/src/elements/table/table.appearance.ts",
+    "../../../components/src/elements/tag/tag.appearance.ts",
     "../../../components/src/elements/link/link.appearance.ts",
     "../../../components/src/elements/link-pure/link-pure.appearance.ts",
     "../../../components/src/elements/icon/icon.appearance.ts",

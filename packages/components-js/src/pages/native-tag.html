@@ -1,0 +1,217 @@
+<style>
+  .playground > div {
+    width: 100px;
+    overflow: auto;
+    border: 1px solid deeppink;
+  }
+</style>
+
+<div class="playground auto-layout-inline" title="default">
+  <p-tag>Default</p-tag>
+  <span class="p-tag">Default</span>
+</div>
+
+<div class="playground auto-layout-inline" title="variants">
+  <p-tag variant="primary">primary</p-tag>
+  <span class="p-tag" data-p-variant="primary">primary</span>
+  <p-tag variant="secondary">secondary</p-tag>
+  <span class="p-tag">secondary</span>
+  <p-tag variant="info">info</p-tag>
+  <span class="p-tag" data-p-variant="info">info</span>
+  <p-tag variant="info-frosted">info-frosted</p-tag>
+  <span class="p-tag" data-p-variant="info-frosted">info-frosted</span>
+  <p-tag variant="success">success</p-tag>
+  <span class="p-tag" data-p-variant="success">success</span>
+  <p-tag variant="success-frosted">success-frosted</p-tag>
+  <span class="p-tag" data-p-variant="success-frosted">success-frosted</span>
+  <p-tag variant="error">error</p-tag>
+  <span class="p-tag" data-p-variant="error">error</span>
+  <p-tag variant="error-frosted">error-frosted</p-tag>
+  <span class="p-tag" data-p-variant="error-frosted">error-frosted</span>
+  <p-tag variant="warning">warning</p-tag>
+  <span class="p-tag" data-p-variant="warning">warning</span>
+  <p-tag variant="warning-frosted">warning-frosted</p-tag>
+  <span class="p-tag" data-p-variant="warning-frosted">warning-frosted</span>
+</div>
+
+<div class="playground auto-layout-inline surface" title="variants on surface">
+  <p-tag variant="primary">primary</p-tag>
+  <span class="p-tag" data-p-variant="primary">primary</span>
+  <p-tag variant="secondary">secondary</p-tag>
+  <span class="p-tag">secondary</span>
+  <p-tag variant="info-frosted">info-frosted</p-tag>
+  <span class="p-tag" data-p-variant="info-frosted">info-frosted</span>
+</div>
+
+<div class="playground auto-layout-inline" title="icons">
+  <p-tag icon="car" variant="primary">primary</p-tag>
+  <span class="p-tag" data-p-variant="primary"
+    ><img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      data-p-name="car"
+      src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />primary</span
+  >
+  <p-tag icon="car" variant="secondary">secondary</p-tag>
+  <span class="p-tag"
+    ><img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      data-p-name="car"
+      src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />secondary</span
+  >
+  <p-tag icon-source="http://localhost:3002/icon-custom-kaixin.svg" variant="warning">warning</p-tag>
+  <span class="p-tag" data-p-variant="warning"
+    ><img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      src="http://localhost:3002/icon-custom-kaixin.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+      style="--_p-icon-mask: url('http://localhost:3002/icon-custom-kaixin.svg')"
+    />warning</span
+  >
+</div>
+
+<div class="playground auto-layout-inline" title="link">
+  <p-tag icon="car" variant="primary">
+    <a href="#">primary</a>
+  </p-tag>
+  <a class="p-tag" href="#" data-p-variant="primary"
+    ><img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      data-p-name="car"
+      src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />primary</a
+  >
+  <p-tag variant="secondary">
+    <a href="#">secondary</a>
+  </p-tag>
+  <a class="p-tag" href="#">secondary</a>
+</div>
+
+<div class="playground auto-layout-inline" title="button">
+  <p-tag icon="car" variant="primary">
+    <button>primary</button>
+  </p-tag>
+  <button type="button" class="p-tag" data-p-variant="primary">
+    <img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      data-p-name="car"
+      src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />primary
+  </button>
+  <p-tag variant="secondary">
+    <button>secondary</button>
+  </p-tag>
+  <button type="button" class="p-tag">secondary</button>
+</div>
+
+<div class="playground auto-layout-inline" title="compact">
+  <p-tag compact="true">Some label</p-tag>
+  <span class="p-tag" data-p-compact="true">Some label</span>
+  <p-tag compact="true" icon="car">Some label</p-tag>
+  <span class="p-tag" data-p-compact="true"
+    ><img
+      class="p-icon p-tag__icon"
+      data-p-size="xs"
+      data-p-color="inherit"
+      data-p-name="car"
+      src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+      alt=""
+      width="24"
+      height="24"
+      aria-hidden="true"
+    />Some label</span
+  >
+  <p-tag compact="true">
+    <a href="#">Some anchor</a>
+  </p-tag>
+  <a class="p-tag" href="#" data-p-compact="true">Some anchor</a>
+  <p-tag compact="true">
+    <button>Some button</button>
+  </p-tag>
+  <button type="button" class="p-tag" data-p-compact="true">Some button</button>
+</div>
+
+<div class="playground auto-layout-inline" title="line break">
+  <p-tag>
+    Default <br />
+    with line break
+  </p-tag>
+  <span class="p-tag">
+    Default <br />
+    with line break
+  </span>
+</div>
+
+<div class="playground" title="nowrap overflow">
+  <div>
+    <p-tag variant="primary">Text that is very long</p-tag>
+    <span class="p-tag" data-p-variant="primary">Text that is very long</span>
+    <p-tag variant="primary" icon="car">Text with icon that is very long</p-tag>
+    <span class="p-tag" data-p-variant="primary"
+      ><img
+        class="p-icon p-tag__icon"
+        data-p-size="xs"
+        data-p-color="inherit"
+        data-p-name="car"
+        src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+        alt=""
+        width="24"
+        height="24"
+        aria-hidden="true"
+      />Text with icon that is very long</span
+    >
+  </div>
+</div>
+
+<div class="playground" title="multiline">
+  <div>
+    <p-tag variant="primary" style="white-space: normal">Text that is very long</p-tag>
+    <span class="p-tag" data-p-variant="primary" style="white-space: normal">Text that is very long</span>
+    <p-tag variant="success" icon="car" style="white-space: normal">
+      <a href="#">Link with icon that is very long</a>
+    </p-tag>
+    <a class="p-tag" href="#" data-p-variant="success" style="white-space: normal"
+      ><img
+        class="p-icon p-tag__icon"
+        data-p-size="xs"
+        data-p-color="inherit"
+        data-p-name="car"
+        src="https://cdn.ui.porsche.com/porsche-design-system/icons/car.35229c9.svg"
+        alt=""
+        width="24"
+        height="24"
+        aria-hidden="true"
+      />Link with icon that is very long</a
+    >
+  </div>
+</div>

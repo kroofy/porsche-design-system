@@ -8883,3 +8883,141 @@
   }
 }
 }
+.p-tag{color-scheme:inherit}
+@layer pds.elements {
+.p-tag {
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  white-space: nowrap;
+  gap: 2px;
+  padding: var(--p-spacing-static-xs) calc(12 * var(--p-spacing-static-2xs));
+  border-radius: calc(var(--p-spacing-static-xs) + (var(--p-leading-normal) / 2));
+  font: var(--p-font-weight-normal) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next);
+  transition: color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), backdrop-filter var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);
+  color: var(--p-color-primary);
+  background: var(--p-color-frosted-strong);
+  -webkit-backdrop-filter: var(--p-blur-frosted);
+  backdrop-filter: var(--p-blur-frosted);
+}
+.p-tag[hidden] {
+  display: none !important;
+}
+.p-tag[data-p-compact="true"] {
+  padding: var(--p-spacing-static-2xs) var(--p-spacing-static-sm);
+  border-radius: calc(1px + (var(--p-leading-normal) / 2));
+}
+.p-tag:is(a), .p-tag:is(button) {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.p-tag:is(a):focus-visible, .p-tag:is(button):focus-visible {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+.p-tag > br {
+  display: none;
+}
+.p-tag > .p-tag__icon {
+  margin-inline-start: -2px;
+}
+.p-tag[data-p-variant="primary"] {
+  color: var(--p-color-canvas);
+  background: var(--p-color-primary);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.p-tag[data-p-variant="info"] {
+  color: var(--p-color-canvas);
+  background: var(--p-color-info);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.p-tag[data-p-variant="info-frosted"] {
+  color: var(--p-color-primary);
+  background: var(--p-color-info-frosted);
+  -webkit-backdrop-filter: var(--p-blur-frosted);
+  backdrop-filter: var(--p-blur-frosted);
+}
+.p-tag[data-p-variant="success"] {
+  color: var(--p-color-canvas);
+  background: var(--p-color-success);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.p-tag[data-p-variant="success-frosted"] {
+  color: var(--p-color-primary);
+  background: var(--p-color-success-frosted);
+  -webkit-backdrop-filter: var(--p-blur-frosted);
+  backdrop-filter: var(--p-blur-frosted);
+}
+.p-tag[data-p-variant="warning"] {
+  color: var(--p-color-canvas);
+  background: var(--p-color-warning);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.p-tag[data-p-variant="warning-frosted"] {
+  color: var(--p-color-primary);
+  background: var(--p-color-warning-frosted);
+  -webkit-backdrop-filter: var(--p-blur-frosted);
+  backdrop-filter: var(--p-blur-frosted);
+}
+.p-tag[data-p-variant="error"] {
+  color: var(--p-color-canvas);
+  background: var(--p-color-error);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.p-tag[data-p-variant="error-frosted"] {
+  color: var(--p-color-primary);
+  background: var(--p-color-error-frosted);
+  -webkit-backdrop-filter: var(--p-blur-frosted);
+  backdrop-filter: var(--p-blur-frosted);
+}
+@media(forced-colors:active) {
+  .p-tag {
+    outline: 2px solid CanvasText;
+    outline-offset: -2px;
+    background-color: Canvas;
+    color: CanvasText;
+  }
+  .p-tag:is(a):focus-visible, .p-tag:is(button):focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+@media(hover:hover) {
+  .p-tag:is(a):hover, .p-tag:is(button):hover {
+    background: var(--p-color-frosted);
+  }
+  .p-tag[data-p-variant="error-frosted"]:is(a):hover, .p-tag[data-p-variant="error-frosted"]:is(button):hover {
+    background: var(--p-color-error-frosted-soft);
+  }
+  .p-tag[data-p-variant="error"]:is(a):hover, .p-tag[data-p-variant="error"]:is(button):hover {
+    background: var(--p-color-error-medium);
+  }
+  .p-tag[data-p-variant="warning-frosted"]:is(a):hover, .p-tag[data-p-variant="warning-frosted"]:is(button):hover {
+    background: var(--p-color-warning-frosted-soft);
+  }
+  .p-tag[data-p-variant="warning"]:is(a):hover, .p-tag[data-p-variant="warning"]:is(button):hover {
+    background: var(--p-color-warning-medium);
+  }
+  .p-tag[data-p-variant="success-frosted"]:is(a):hover, .p-tag[data-p-variant="success-frosted"]:is(button):hover {
+    background: var(--p-color-success-frosted-soft);
+  }
+  .p-tag[data-p-variant="success"]:is(a):hover, .p-tag[data-p-variant="success"]:is(button):hover {
+    background: var(--p-color-success-medium);
+  }
+  .p-tag[data-p-variant="info-frosted"]:is(a):hover, .p-tag[data-p-variant="info-frosted"]:is(button):hover {
+    background: var(--p-color-info-frosted-soft);
+  }
+  .p-tag[data-p-variant="info"]:is(a):hover, .p-tag[data-p-variant="info"]:is(button):hover {
+    background: var(--p-color-info-medium);
+  }
+  .p-tag[data-p-variant="primary"]:is(a):hover, .p-tag[data-p-variant="primary"]:is(button):hover {
+    background: var(--p-color-contrast-high);
+  }
+}
+}

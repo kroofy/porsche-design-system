@@ -83,7 +83,7 @@ describe('getNativeLinkCss()', () => {
 });
 
 describe('elements.css', () => {
-  it('stays generated from button, link, pure, icon, field, fieldset, text-list, table, divider, typography, brand and accordion css', () => {
+  it('stays generated from button, link, pure, icon, field, fieldset, text-list, table, divider, typography, brand, accordion and tag css', () => {
     const committed = readFileSync(resolve(__dirname, 'elements.css'), 'utf8');
     expect(committed).toBe(getElementsCss());
     expect(committed).toContain('.p-flag {');
@@ -91,5 +91,6 @@ describe('elements.css', () => {
     expect(committed).toContain('.p-wordmark {');
     expect(committed).toContain('.p-model-signature {');
     expect(committed).toContain('.p-accordion {');
+    expect(committed).toContain('.p-tag {');
   });
 });

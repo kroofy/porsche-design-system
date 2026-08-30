@@ -29,6 +29,7 @@ export { PModelSignature } from './PModelSignature';
 export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
+export { PTag } from './PTag';
 export { PText } from './PText';
 export { PTextarea } from './PTextarea';
 export { PTextList } from './PTextList';
