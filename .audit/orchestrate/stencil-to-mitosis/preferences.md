@@ -8,3 +8,4 @@
 8. No production deploys. No force-push to main. Escalate only irreversible actions or a program-level dead end.
 9. STOP: Mitosis customElement cannot replace PDS Stencil at pixel-diff 0. No further migrate units. Leave the probe as evidence.
 10. customElement is dead for PDS parity. One remaining fitness unit: Mitosis Lit webcomponent target for p-divider. Same dead-end criteria. Viewport must make breakpoint m active. Run a real pixel-diff against the Stencil baseline, not two unrelated crops. Do not fan out migrate units until Lit is live-verified or also fails.
+11. Mitosis target is lit, not webcomponent (webcomponent aliases customElement). PDS m breakpoint is 1000px. Do not fan out 74 components until the migrate lever exists: cssText stylesheet pattern, no JSX fragments, lit/decorators.js alias.

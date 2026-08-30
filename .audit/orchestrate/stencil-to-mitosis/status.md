@@ -1,25 +1,27 @@
 # Orchestrate status
 
-Generated: 2026-08-30T21:20:22.223Z
+Generated: 2026-08-30T21:31:04.789Z
 
 ## Units
 
-States: done=2, in-progress=1
+States: done=3, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
 | fitness-divider | fitness | done | cursor/mitosis-migration-41e6 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | briefs/fitness-divider.md |
 | baseline-divider | baseline | done | cursor/mitosis-migration-41e6 | 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | briefs/baseline-divider.md |
-| fitness-lit | fitness | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/fitness-lit.md |
+| fitness-lit | fitness | done | cursor/mitosis-migration-41e6 | 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | briefs/fitness-lit.md |
+| lever-migrate-recipe | primitives | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/lever-migrate-recipe.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=1, verifier-failed=1
+Verdicts: live-ui-verified=2, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
 | 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | live-ui-verified | /opt/cursor/artifacts/stencil_divider_before.png | coordinator-receipt | 2026-08-30T21:03:11.275Z |
 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | verifier-failed | /workspace/.audit/orchestrate/stencil-to-mitosis/reports/fitness-divider.md | coordinator-receipt | 2026-08-30T21:11:17.772Z |
+| 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_divider_after.png | coordinator-byte-equal-png | 2026-08-30T21:31:04.657Z |
 
 ## Frontier
 
@@ -32,4 +34,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":2,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":1,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":3,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":2,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->

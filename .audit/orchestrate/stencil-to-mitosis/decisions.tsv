@@ -11,3 +11,5 @@ ts	phase	decision	why	evidence	result
 2026-08-30T21:13:31Z	close	kept customElement as failed, reopened one Lit fitness unit	trail review said the JSON proves this probe failed, not that every Mitosis path is dead	bc-17db1fd9 reports/fitness-divider.md Follow-ups	open, 0/75
 2026-08-30T21:13:31Z	review	logged trail-review flags: no pixel-diff, 640px may not hit m, Lit untested, probe in workspace glob	cross-model scan of the trail	bc-17db1fd9	flags recorded
 2026-08-30T21:20:22Z	drain	tick: Lit worker still running, no packages/mitosis-probe-lit yet	inbox empty, timebox 45m not expired	bc-ae25a7d1 RUNNING	in flight
+2026-08-30T21:31:04Z	fitness	accepted Lit p-divider as live-ui-verified, files byte-identical to Stencil baseline	independent recompute: strictMismatch 0, baseline and after PNGs are the same bytes	/opt/cursor/artifacts/mitosis_lit_divider_after.png reports/fitness-lit.md	live-ui-verified pixel-diff 0, 1/75 visual analog not a TAG_NAME migration
+2026-08-30T21:31:04Z	lever	next unit is a migrate recipe, not p-text	fragment wrapper, decorators import, and JSS port would be copied 74 times if we fan out now	reports/fitness-lit.md gaps 2 3 5	in flight
