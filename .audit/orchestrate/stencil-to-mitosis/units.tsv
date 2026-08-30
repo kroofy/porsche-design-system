@@ -16,4 +16,5 @@ migrate-tag	migrate	done	cursor/mitosis-migration-41e6	3	4ece9a7b58	briefs/migra
 migrate-tag-dismissible	migrate	done	cursor/mitosis-migration-41e6	3	c81276e448	briefs/migrate-tag-dismissible.md
 migrate-link-pure	migrate	done	cursor/mitosis-migration-41e6	3	76d8e86f32	briefs/migrate-link-pure.md
 migrate-link	migrate	done	cursor/mitosis-migration-41e6	3	5e0e89280c	briefs/migrate-link.md
-migrate-button-pure	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-button-pure.md
+migrate-button-pure	migrate	done	cursor/mitosis-migration-41e6	3	6baa018a19	briefs/migrate-button-pure.md
+migrate-button	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-button.md
