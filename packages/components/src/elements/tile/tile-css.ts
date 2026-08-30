@@ -132,11 +132,11 @@ const contentLayout = (compact: boolean): JssStyle =>
       };
 
 const actionVisibility = (compact: boolean): JssStyle => ({
-  display: compact ? 'none' : 'inline-block',
+  display: compact ? 'none' : 'inline-flex',
 });
 
 const actionCompactVisibility = (compact: boolean): JssStyle => ({
-  display: compact ? 'inline-block' : 'none',
+  display: compact ? 'inline-flex' : 'none',
 });
 
 const mediaFill: JssStyle = {

@@ -45,6 +45,8 @@ describe('getNativeButtonTileCss()', () => {
     expect(css).toContain('[data-p-compact="true"]');
     expect(css).toContain('[data-p-aspect-ratio="16/9"]');
     expect(css).toContain('[data-p-align="top"]');
+    expect(css).toContain('.p-button-tile__action {');
+    expect(css).toMatch(/\.p-button-tile__action \{[^}]*display: inline-flex;/);
   });
 
   it('matches the rewritten snapshot', () => {
