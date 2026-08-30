@@ -1,0 +1,69 @@
+import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
+
+export type DividerColor = 'contrast-lower' | 'contrast-low' | 'contrast-medium' | 'contrast-high';
+export type DividerDirection = 'horizontal' | 'vertical';
+
+export type DividerProps = {
+  color?: DividerColor;
+  /**
+   * Flat values only. PDS accepts BreakpointCustomizable<DividerDirection>
+   * ({ base, xs, s, m, l, xl }); Mitosis has no way to compile a prop object
+   * into media queries, so the breakpoint form is dropped here. See report.
+   */
+  direction?: DividerDirection;
+};
+
+useMetadata({ isAttachedToShadowDom: true });
+
+// Named ProbeDivider because the customElement target derives the tag from the
+// component name with no override option; "Divider" yields the invalid tag "divider".
+export default function ProbeDivider(props: DividerProps) {
+  const state = useStore({
+    get background(): string {
+      // Mirrors colorMap in divider-styles.ts: PDS token var with light-theme fallback.
+      const map = {
+        'contrast-lower': 'var(--p-color-contrast-lower, hsl(234 6% 32.9% / 0.324))',
+        'contrast-low': 'var(--p-color-contrast-low, hsl(240 5.3% 14.9% / 0.5))',
+        'contrast-medium': 'var(--p-color-contrast-medium, hsl(240 6.1% 7% / 0.6))',
+        'contrast-high': 'var(--p-color-contrast-high, hsl(240 7.1% 11% / 0.7))',
+      };
+      return map[props.color || 'contrast-lower'];
+    },
+    get isVertical(): boolean {
+      return props.direction === 'vertical';
+    },
+  });
+
+  useStyle(`
+    :host {
+      display: block;
+    }
+    :host([hidden]) {
+      display: none !important;
+    }
+    hr {
+      all: unset;
+      display: block;
+    }
+    @media (forced-colors: active) {
+      hr {
+        background: CanvasText;
+      }
+    }
+  `);
+
+  // background must be bound directly: the customElement target applies style
+  // bindings via Object.assign(el.style, ...), which silently drops CSS custom
+  // properties (they need style.setProperty). Direct inline background is the
+  // only binding that renders, at the cost of the forced-colors CanvasText
+  // override, since inline non-system colors get forced in HCM. See report.
+  return (
+    <hr
+      style={{
+        background: state.background,
+        height: state.isVertical ? '100%' : '1px',
+        width: state.isVertical ? '1px' : '100%',
+      }}
+    />
+  );
+}

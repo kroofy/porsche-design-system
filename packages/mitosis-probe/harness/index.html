@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mitosis probe-divider harness</title>
+    <script src="../output/custom-element/src/Divider.js"></script>
+    <style>
+      body { font: 14px/1.4 sans-serif; margin: 0; padding: 24px; background: #fff; color: #010205; }
+      section { margin-bottom: 24px; max-width: 640px; }
+      h2 { font-size: 14px; margin: 0 0 8px; }
+      .row { display: flex; gap: 12px; height: 60px; align-items: stretch; }
+    </style>
+  </head>
+  <body>
+    <h1>Mitosis customElement output: probe-divider</h1>
+
+    <section id="default">
+      <h2>default (horizontal, contrast-lower)</h2>
+      <probe-divider></probe-divider>
+    </section>
+
+    <section id="colors">
+      <h2>color variants</h2>
+      <probe-divider color="contrast-lower"></probe-divider><br />
+      <probe-divider color="contrast-low"></probe-divider><br />
+      <probe-divider color="contrast-medium"></probe-divider><br />
+      <probe-divider color="contrast-high"></probe-divider>
+    </section>
+
+    <section id="vertical">
+      <h2>direction="vertical" in a 60px-tall row</h2>
+      <div class="row">
+        left
+        <probe-divider direction="vertical"></probe-divider>
+        right
+      </div>
+    </section>
+
+    <section id="breakpoint">
+      <h2>breakpoint object (PDS syntax; expected unsupported)</h2>
+      <probe-divider id="bp" direction='{"base":"horizontal","m":"vertical"}'></probe-divider>
+    </section>
+  </body>
+</html>
