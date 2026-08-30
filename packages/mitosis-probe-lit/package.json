@@ -12,6 +12,7 @@
     "build:icon": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && if rg -q my-fragment output/lit/src/Icon.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Icon.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-icon.bundle.js",
     "build:heading": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && if rg -q my-fragment output/lit/src/Heading.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Heading.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-heading.bundle.js",
     "build:text": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && if rg -q my-fragment output/lit/src/Text.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Text.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-text.bundle.js",
+    "build:display": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && if rg -q my-fragment output/lit/src/Display.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Display.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-display.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -20,6 +21,7 @@
     "verify:icon": "node harness/verify-icon.mjs",
     "verify:heading": "node harness/verify-heading.mjs",
     "verify:text": "node harness/verify-text.mjs",
+    "verify:display": "node harness/verify-display.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -27,7 +29,8 @@
     "pixel-diff:model-signature": "node harness/pixel-diff-model-signature.mjs",
     "pixel-diff:icon": "node harness/pixel-diff-icon.mjs",
     "pixel-diff:heading": "node harness/pixel-diff-heading.mjs",
-    "pixel-diff:text": "node harness/pixel-diff-text.mjs"
+    "pixel-diff:text": "node harness/pixel-diff-text.mjs",
+    "pixel-diff:display": "node harness/pixel-diff-display.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
