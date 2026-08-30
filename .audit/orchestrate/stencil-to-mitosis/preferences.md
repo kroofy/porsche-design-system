@@ -6,3 +6,4 @@
 6. Verification bar: live screenshot of the real component, not compile-success. Ledger verdicts use live-ui-verified or verifier-failed.
 7. Commit without asking. Decision log at .audit/orchestrate/stencil-to-mitosis/decisions.tsv. Timebox: if still blocked after a few hours, stop and write why.
 8. No production deploys. No force-push to main. Escalate only irreversible actions or a program-level dead end.
+9. STOP: Mitosis customElement cannot replace PDS Stencil at pixel-diff 0. No further migrate units. Leave the probe as evidence.

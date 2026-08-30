@@ -1,3 +1,3 @@
 id	track	state	branch	pr	sha	brief
-fitness-divider	fitness	in-progress	cursor/mitosis-migration-41e6	3	6f0d67f30ad260804bc4954090fca5dd93ba727e	briefs/fitness-divider.md
+fitness-divider	fitness	done	cursor/mitosis-migration-41e6	3	d3d2baa45c118ff183ef52501e82ac865f53a646	briefs/fitness-divider.md
 baseline-divider	baseline	done	cursor/mitosis-migration-41e6	3	ad0d909eee3bd4b645954069cffd352020bc9ac3	briefs/baseline-divider.md
