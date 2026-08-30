@@ -9576,6 +9576,9 @@
 }
 .p-switch .p-switch__spinner {
   --p-spinner-size: calc(var(--_p-switch-a) * 1.75rem);
+  flex-shrink: 0;
+  width: calc(var(--_p-switch-a) * 1.75rem);
+  height: calc(var(--_p-switch-a) * 1.75rem);
 }
 .p-switch .p-switch__label {
   font: var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);

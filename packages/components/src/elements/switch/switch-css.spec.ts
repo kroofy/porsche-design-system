@@ -45,6 +45,7 @@ describe('getNativeSwitchCss()', () => {
     expect(css).toContain('.p-switch__knob');
     expect(css).toContain('.p-switch__label');
     expect(css).toContain('--p-spinner-size');
+    expect(css).toMatch(/\.p-switch__spinner \{[\s\S]*?flex-shrink: 0/);
   });
 
   it('matches the rewritten snapshot', () => {

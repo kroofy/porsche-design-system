@@ -200,6 +200,9 @@ const getNativeSwitchStyles = (): Styles => ({
       },
       [`& .${SWITCH_SPINNER_CLASS}`]: {
         '--p-spinner-size': buttonHeight,
+        flexShrink: 0,
+        width: buttonHeight,
+        height: buttonHeight,
       },
       [`& .${SWITCH_LABEL_CLASS}`]: {
         font: `${ref(fontWeightNormal)} ${ref(typescaleSm)} / ${ref(leadingNormal)} ${ref(fontPorscheNext)}`,
