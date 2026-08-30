@@ -39,15 +39,19 @@ import {
   BUTTON_SPINNER_CLASS,
   BUTTON_VARIANTS,
 } from './button/button.appearance';
+import { getNativeCrestCss } from './crest/crest-css';
 import { getNativeDividerCss } from './divider/divider-css';
 import { getNativeFieldCss } from './field-css';
 import { getNativeFieldsetCss } from './fieldset/fieldset-css';
+import { getNativeFlagCss } from './flag/flag-css';
 import { getNativeIconCss } from './icon/icon-css';
 import { LINK_ICON_CLASS, LINK_LABEL_CLASS, LINK_ROOT_CLASS, LINK_VARIANTS } from './link/link.appearance';
+import { getNativeModelSignatureCss } from './model-signature/model-signature-css';
 import { getNativeButtonPureCss, getNativeLinkPureCss } from './pure-css';
 import { getNativeTableCss } from './table/table-css';
 import { getNativeTextListCss } from './text-list/text-list-css';
 import { getNativeDisplayCss, getNativeHeadingCss, getNativeTextCss } from './typography-css';
+import { getNativeWordmarkCss } from './wordmark/wordmark-css';
 
 const COMPACT_SCALE = 0.64285714;
 const DEFAULT_SCALE = 1;
@@ -350,4 +354,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}`;

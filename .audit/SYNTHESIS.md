@@ -86,6 +86,21 @@ Stencil hosts stay frozen until a major removal.
 - No slotted heading/text. Native is the tag.
 - Size, weight, align, color, hyphens, ellipsis live on `data-p-*`.
 
+## Table
+
+- `PTable` is `<table class="p-table">`. Head is `<thead>`, body `<tbody>`, row `<tr>`, head cell `<th scope="col">`, cell `<td>`.
+- Caption is native `<caption>` or `aria-label`. Sort button and scroller stay stencil-only.
+- Angular hosts are `table[pTable]`, `thead[pTableHead]`, `tbody[pTableBody]`, `tr[pTableRow]`, `th[pTableHeadCell]`, `td[pTableCell]`.
+- Chrome VRT: native table sits next to Stencil. Light, dark, compact, multiline, caption, layout fixed match.
+
+## Brand marks
+
+- `PFlag` is `<img class="p-flag">`. Size on `data-p-*`. Src is the flag CDN URL.
+- `PCrest` is `<picture class="p-crest">`, or `<a class="p-crest">` wrapping picture when `href` is set. Angular is `picture[pCrest], a[pCrest]`.
+- `PWordmark` is `<svg class="p-wordmark">`, or `<a class="p-wordmark">` wrapping svg when `href` is set. Angular is `svg[pWordmark], a[pWordmark]`.
+- `PModelSignature` is `<img class="p-model-signature">`. Mask + background like icon. Overlay slot stays stencil-only.
+- Forced `aria` JSON bag stays on the CE. Native takes real `alt` / `aria-*`.
+
 ## Out of this family
 
 Replacing the `.` public CE export. Mitosis.

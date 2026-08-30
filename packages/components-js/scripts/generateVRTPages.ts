@@ -26,6 +26,10 @@ const PAGES_TO_SKIP: string[] = [
   'native-fieldset',
   'native-text-list',
   'native-table',
+  'native-flag',
+  'native-crest',
+  'native-wordmark',
+  'native-model-signature',
 ];
 /** array of html file names that are converted but without route since it is maintained manually */
 const PAGES_WITHOUT_ROUTE: string[] = ['core-initializer', 'overview', 'overview-notifications'];

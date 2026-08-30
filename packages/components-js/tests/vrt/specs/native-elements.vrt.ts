@@ -20,17 +20,26 @@ const pages = [
   'native-fieldset',
   'native-text-list',
   'native-table',
+  'native-flag',
+  'native-crest',
+  'native-wordmark',
+  'native-model-signature',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {
   await page.evaluate(async () => {
     const urls = new Set<string>();
-    for (const el of document.querySelectorAll('#app .p-icon')) {
+    for (const el of document.querySelectorAll('#app .p-icon, #app .p-model-signature')) {
       const style = getComputedStyle(el);
       const mask = style.getPropertyValue('mask-image') || style.getPropertyValue('-webkit-mask-image');
       const match = /url\("?([^")]+)"?\)/.exec(mask);
       if (match?.[1]) {
         urls.add(match[1]);
+      }
+    }
+    for (const img of document.querySelectorAll('#app img.p-flag, #app img.p-model-signature, #app .p-crest img')) {
+      if (img instanceof HTMLImageElement && img.src) {
+        urls.add(img.src);
       }
     }
     await Promise.all(

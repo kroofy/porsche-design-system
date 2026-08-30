@@ -22,6 +22,14 @@
     "../../../components/src/elements/link-pure/link-pure.appearance.ts",
     "../../../components/src/elements/icon/icon.appearance.ts",
     "../../../components/src/elements/icon/icon-url.ts",
+    "../../../components/src/elements/flag/flag.appearance.ts",
+    "../../../components/src/elements/flag/flag-url.ts",
+    "../../../components/src/elements/crest/crest.appearance.ts",
+    "../../../components/src/elements/crest/crest-url.ts",
+    "../../../components/src/elements/wordmark/wordmark.appearance.ts",
+    "../../../components/src/elements/wordmark/wordmark-svg.ts",
+    "../../../components/src/elements/model-signature/model-signature.appearance.ts",
+    "../../../components/src/elements/model-signature/model-signature-url.ts",
     "../../../components/src/elements/input/input.appearance.ts",
     "../../../components/src/elements/label/label.appearance.ts"
   ]

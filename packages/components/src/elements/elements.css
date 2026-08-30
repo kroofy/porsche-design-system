@@ -7940,3 +7940,661 @@
   }
 }
 }
+.p-flag{color-scheme:inherit}
+@layer pds.elements {
+.p-flag {
+  display: inline-flex;
+  vertical-align: top;
+  margin: 0;
+  padding: 1px;
+  border: 0;
+  outline: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  pointer-events: none;
+  width: var(--p-flag-size,var(--p-leading-normal));
+  height: var(--p-flag-size,var(--p-leading-normal));
+  font-family: var(--p-font-porsche-next);
+  font-size: var(--p-typescale-sm);
+}
+.p-flag[hidden] {
+  display: none !important;
+}
+.p-flag[data-p-size="xx-small"] {
+  font-size: var(--p-typescale-2xs);
+}
+.p-flag[data-p-size="x-small"] {
+  font-size: var(--p-typescale-xs);
+}
+.p-flag[data-p-size="small"] {
+  font-size: var(--p-typescale-sm);
+}
+.p-flag[data-p-size="medium"] {
+  font-size: var(--p-typescale-md);
+}
+.p-flag[data-p-size="large"] {
+  font-size: var(--p-typescale-lg);
+}
+.p-flag[data-p-size="x-large"] {
+  font-size: var(--p-typescale-xl);
+}
+.p-flag[data-p-size="xx-large"] {
+  font-size: var(--p-typescale-2xl);
+}
+.p-flag[data-p-size="2xs"] {
+  font-size: var(--p-typescale-2xs);
+}
+.p-flag[data-p-size="xs"] {
+  font-size: var(--p-typescale-xs);
+}
+.p-flag[data-p-size="md"] {
+  font-size: var(--p-typescale-md);
+}
+.p-flag[data-p-size="lg"] {
+  font-size: var(--p-typescale-lg);
+}
+.p-flag[data-p-size="xl"] {
+  font-size: var(--p-typescale-xl);
+}
+.p-flag[data-p-size="2xl"] {
+  font-size: var(--p-typescale-2xl);
+}
+.p-flag[data-p-size="3xl"] {
+  font-size: var(--p-typescale-3xl);
+}
+.p-flag[data-p-size="4xl"] {
+  font-size: var(--p-typescale-4xl);
+}
+.p-flag[data-p-size="5xl"] {
+  font-size: var(--p-typescale-5xl);
+}
+.p-flag[data-p-size="inherit"] {
+  font-size: inherit;
+}
+@media(min-width:480px) {
+  .p-flag[data-p-size-xs="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xs="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xs="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xs="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xs="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xs="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xs="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xs="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xs="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xs="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xs="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xs="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xs="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xs="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xs="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-xs="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-xs="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-xs="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:760px) {
+  .p-flag[data-p-size-s="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-s="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-s="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-s="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-s="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-s="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-s="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-s="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-s="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-s="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-s="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-s="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-s="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-s="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-s="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-s="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-s="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-s="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1000px) {
+  .p-flag[data-p-size-m="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-m="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-m="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-m="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-m="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-m="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-m="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-m="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-m="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-m="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-m="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-m="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-m="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-m="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-m="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-m="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-m="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-m="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1300px) {
+  .p-flag[data-p-size-l="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-l="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-l="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-l="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-l="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-l="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-l="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-l="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-l="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-l="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-l="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-l="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-l="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-l="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-l="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-l="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-l="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-l="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1760px) {
+  .p-flag[data-p-size-xl="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xl="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xl="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xl="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xl="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xl="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xl="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xl="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xl="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xl="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xl="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xl="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xl="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xl="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xl="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-xl="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-xl="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-xl="inherit"] {
+    font-size: inherit;
+  }
+}
+
+@media(min-width:1920px) {
+  .p-flag[data-p-size-xxl="xx-small"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xxl="x-small"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xxl="small"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xxl="medium"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xxl="large"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xxl="x-large"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xxl="xx-large"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xxl="2xs"] {
+    font-size: var(--p-typescale-2xs);
+  }
+  .p-flag[data-p-size-xxl="xs"] {
+    font-size: var(--p-typescale-xs);
+  }
+  .p-flag[data-p-size-xxl="sm"] {
+    font-size: var(--p-typescale-sm);
+  }
+  .p-flag[data-p-size-xxl="md"] {
+    font-size: var(--p-typescale-md);
+  }
+  .p-flag[data-p-size-xxl="lg"] {
+    font-size: var(--p-typescale-lg);
+  }
+  .p-flag[data-p-size-xxl="xl"] {
+    font-size: var(--p-typescale-xl);
+  }
+  .p-flag[data-p-size-xxl="2xl"] {
+    font-size: var(--p-typescale-2xl);
+  }
+  .p-flag[data-p-size-xxl="3xl"] {
+    font-size: var(--p-typescale-3xl);
+  }
+  .p-flag[data-p-size-xxl="4xl"] {
+    font-size: var(--p-typescale-4xl);
+  }
+  .p-flag[data-p-size-xxl="5xl"] {
+    font-size: var(--p-typescale-5xl);
+  }
+  .p-flag[data-p-size-xxl="inherit"] {
+    font-size: inherit;
+  }
+}
+}
+.p-crest{color-scheme:inherit}
+@layer pds.elements {
+.p-crest {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: content-box;
+  max-width: 30px;
+  max-height: 40px;
+  width: inherit;
+  height: inherit;
+}
+.p-crest[hidden] {
+  display: none !important;
+}
+.p-crest picture, .p-crest:is(picture) {
+  display: block;
+  width: min(30px, 100%);
+  height: min(40px, 100%);
+}
+.p-crest img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+.p-crest:is(a) {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.p-crest:is(a)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1px;
+}
+.p-crest:is(a):focus-visible::before {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+@media(forced-colors:active) {
+  .p-crest:is(a):focus-visible::before {
+    outline-color: Highlight;
+  }
+}
+}
+.p-wordmark{color-scheme:inherit}
+@layer pds.elements {
+.p-wordmark {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: content-box;
+  height: clamp(0.63rem, 0.42vw + 0.5rem, 1rem);
+}
+.p-wordmark[hidden] {
+  display: none !important;
+}
+.p-wordmark[data-p-size="inherit"] {
+  height: inherit;
+}
+.p-wordmark svg, .p-wordmark:is(svg) {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  height: inherit;
+  fill: var(--p-color-primary);
+}
+.p-wordmark:is(a) {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.p-wordmark:is(a)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1px;
+}
+.p-wordmark:is(a):focus-visible::before {
+  outline: 2px solid var(--p-color-focus);
+  outline-offset: 2px;
+}
+@supports (height: round(down, 1px, 1px)) {
+  .p-wordmark {
+    height: round(down, clamp(0.63rem, 0.42vw + 0.5rem, 1rem), 1px);
+  }
+  .p-wordmark[data-p-size="inherit"] {
+    height: inherit;
+  }
+}
+
+@media(forced-colors:active) {
+  .p-wordmark:is(a):focus-visible::before {
+    outline-color: Highlight;
+  }
+  .p-wordmark svg, .p-wordmark:is(svg) {
+    fill: CanvasText;
+  }
+}
+}
+.p-model-signature{color-scheme:inherit}
+@layer pds.elements {
+.p-model-signature {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+  max-height: 100%;
+  height: var(--p-model-signature-height,auto);
+  overflow: hidden;
+  object-position: -9999px -9999px;
+  width: var(--p-model-signature-width,94px);
+  aspect-ratio: 94 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/911.b68f913.svg");
+  background: var(--p-model-signature-color,var(--p-color-primary));
+  -webkit-mask: var(--_p-ms-mask) no-repeat left top / contain;
+  mask: var(--_p-ms-mask) no-repeat left top / contain;
+}
+.p-model-signature[hidden] {
+  display: none !important;
+}
+.p-model-signature[data-p-size="inherit"] {
+  width: var(--p-model-signature-width,auto);
+}
+.p-model-signature[data-p-color="contrast-low"] {
+  background: var(--p-model-signature-color,var(--p-color-contrast-low));
+}
+.p-model-signature[data-p-color="contrast-medium"] {
+  background: var(--p-model-signature-color,var(--p-color-contrast-medium));
+}
+.p-model-signature[data-p-color="contrast-high"] {
+  background: var(--p-model-signature-color,var(--p-color-contrast-high));
+}
+.p-model-signature[data-p-color="inherit"] {
+  background: var(--p-model-signature-color,currentcolor);
+}
+.p-model-signature[data-p-model="718"] {
+  width: var(--p-model-signature-width,79px);
+  aspect-ratio: 79 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/718.493a9e3.svg");
+}
+.p-model-signature[data-p-model="718"][data-p-safe-zone="false"] {
+  aspect-ratio: 79 / 26;
+}
+.p-model-signature[data-p-model="boxster"] {
+  width: var(--p-model-signature-width,239px);
+  aspect-ratio: 239 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/boxster.c321738.svg");
+}
+.p-model-signature[data-p-model="boxster"][data-p-safe-zone="false"] {
+  aspect-ratio: 239 / 26;
+}
+.p-model-signature[data-p-model="cayenne"] {
+  width: var(--p-model-signature-width,245px);
+  aspect-ratio: 245 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/cayenne.2556201.svg");
+}
+.p-model-signature[data-p-model="cayenne"][data-p-safe-zone="false"] {
+  aspect-ratio: 245 / 35;
+}
+.p-model-signature[data-p-model="cayman"] {
+  width: var(--p-model-signature-width,229px);
+  aspect-ratio: 229 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/cayman.cc89196.svg");
+}
+.p-model-signature[data-p-model="cayman"][data-p-safe-zone="false"] {
+  aspect-ratio: 229 / 35;
+}
+.p-model-signature[data-p-model="gt3-rs"] {
+  width: var(--p-model-signature-width,238px);
+  aspect-ratio: 238 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/gt3-rs.03ac3ee.svg");
+}
+.p-model-signature[data-p-model="gt3-rs"][data-p-safe-zone="false"] {
+  aspect-ratio: 238 / 25;
+}
+.p-model-signature[data-p-model="gt3"] {
+  width: var(--p-model-signature-width,151px);
+  aspect-ratio: 151 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/gt3.bd3186c.svg");
+}
+.p-model-signature[data-p-model="gt3"][data-p-safe-zone="false"] {
+  aspect-ratio: 151 / 25;
+}
+.p-model-signature[data-p-model="gts"] {
+  width: var(--p-model-signature-width,121px);
+  aspect-ratio: 121 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/gts.99bd35e.svg");
+}
+.p-model-signature[data-p-model="gts"][data-p-safe-zone="false"] {
+  aspect-ratio: 121 / 25;
+}
+.p-model-signature[data-p-model="macan"] {
+  width: var(--p-model-signature-width,196px);
+  aspect-ratio: 196 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/macan.a1844f4.svg");
+}
+.p-model-signature[data-p-model="macan"][data-p-safe-zone="false"] {
+  aspect-ratio: 196 / 26;
+}
+.p-model-signature[data-p-model="panamera"] {
+  width: var(--p-model-signature-width,260px);
+  aspect-ratio: 260 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/panamera.6dae809.svg");
+}
+.p-model-signature[data-p-model="panamera"][data-p-safe-zone="false"] {
+  aspect-ratio: 260 / 25;
+}
+.p-model-signature[data-p-model="taycan"] {
+  width: var(--p-model-signature-width,167px);
+  aspect-ratio: 167 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/taycan.df444c6.svg");
+}
+.p-model-signature[data-p-model="taycan"][data-p-safe-zone="false"] {
+  aspect-ratio: 167 / 36;
+}
+.p-model-signature[data-p-model="turbo-s"] {
+  width: var(--p-model-signature-width,199px);
+  aspect-ratio: 199 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/turbo-s.73f1e10.svg");
+}
+.p-model-signature[data-p-model="turbo-s"][data-p-safe-zone="false"] {
+  aspect-ratio: 199 / 25;
+}
+.p-model-signature[data-p-model="turbo"] {
+  width: var(--p-model-signature-width,143px);
+  aspect-ratio: 143 / 36;
+  --_p-ms-mask: url("https://cdn.ui.porsche.com/porsche-design-system/model-signatures/turbo.6a4084a.svg");
+}
+.p-model-signature[data-p-model="turbo"][data-p-safe-zone="false"] {
+  aspect-ratio: 143 / 25;
+}
+.p-model-signature[data-p-safe-zone="false"] {
+  aspect-ratio: 94 / 25;
+}
+@media(forced-colors:active) {
+  .p-model-signature {
+    background: CanvasText;
+  }
+}
+}
