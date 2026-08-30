@@ -57,15 +57,17 @@ export const metadata = {
 | `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
 | `PModal`                                                                          | `<dialog class="p-modal">`                                        |
 | `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
+| `PFlyout`                                                                         | `<dialog class="p-flyout">`                                       |
 | `PInlineNotification`                                                             | `<aside class="p-inline-notification">`                           |
 
 Children stay real tags too. Legend is a `<legend>` inside the fieldset. Accordion summary is a `<summary>`. Modal
-header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Inline notification
-heading is a real `h1`–`h6`, description is a `<p>`, and dismiss is
-`<button class="p-inline-notification__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
+header and footer are `<header class="p-modal__header">` and `<footer class="p-modal__footer">`. Flyout header, footer,
+and sub-footer are `<header class="p-flyout__header">`, `<footer class="p-flyout__footer">`, and
+`<div class="p-flyout__sub-footer">`. Inline notification heading is a real `h1`–`h6`, description is a `<p>`, and
+dismiss is `<button class="p-inline-notification__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
 `<option>`. Optgroup labels use the native `label` attribute.
 
-Open a modal or sheet with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
+Open a modal, sheet, or flyout with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
 
 Native `<select>` optgroups follow UA dropdown styling. They will not match the custom stencil list. `size` or
 `multiple` shows groups in-page.
@@ -192,7 +194,7 @@ PDS-only look goes on `data-p-*`. Native behaviour stays on native attributes.
 
 Defaults are omitted. Primary, `compact=false`, and `state="none"` do not write a data attribute.
 
-Public CSS variables still work, for example `--p-spinner-color` and `--p-modal-width`.
+Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-width`, and `--p-flyout-width`.
 
 ## Not this family
 
@@ -205,5 +207,6 @@ These are not 1:1 native tags. Keep the custom-element wrappers:
 - Accordion summary-before / summary-after and the deprecated heading API
 - Model-signature overlay-as-mask
 - Modal stuck-footer frost
+- Flyout sticky-top JS (`--p-flyout-sticky-top`) and stuck-footer frost
 
 Do not start a Mitosis rewrite from this export. Do not swap the public `.` CE export to native.

@@ -10,6 +10,7 @@ export { PDisplay } from './PDisplay';
 export { PDivider } from './PDivider';
 export { PFieldset } from './PFieldset';
 export { PFlag } from './PFlag';
+export { PFlyout } from './PFlyout';
 export { PHeading } from './PHeading';
 export { PIcon } from './PIcon';
 export { PInlineNotification } from './PInlineNotification';

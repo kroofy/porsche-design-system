@@ -33,6 +33,7 @@ const pages = [
   'native-sheet',
   'native-inline-notification',
   'native-ai-tag',
+  'native-flyout',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

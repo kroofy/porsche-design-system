@@ -18,6 +18,8 @@ export type { PFieldsetProps } from './PFieldset';
 export { PFieldset } from './PFieldset';
 export type { PFlagProps } from './PFlag';
 export { PFlag } from './PFlag';
+export type { PFlyoutProps } from './PFlyout';
+export { PFlyout } from './PFlyout';
 export type { PHeadingProps } from './PHeading';
 export { PHeading } from './PHeading';
 export type { PIconProps } from './PIcon';

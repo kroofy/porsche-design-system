@@ -1,0 +1,17 @@
+<dialog class="p-flyout" data-p-footer-behavior="fixed" aria-label="Flyout" aria-modal="true" tabindex="-1">
+  <div class="p-flyout__scroller">
+    <div class="p-flyout__panel">
+      <button type="button" class="p-flyout__dismiss" aria-label="Dismiss flyout"><span>Dismiss flyout</span></button>
+      Some Content
+      <footer class="p-flyout__footer">
+        <button>Sticky Footer Button</button>
+      </footer>
+    </div>
+  </div>
+</dialog>
+<p-text hidden>native flyout</p-text>
+<script>
+  const dialog = document.querySelector('dialog.p-flyout');
+  dialog.showModal();
+  dialog.focus();
+</script>

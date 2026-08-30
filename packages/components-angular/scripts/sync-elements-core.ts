@@ -19,6 +19,7 @@ const files = [
   'fieldset/fieldset.appearance.ts',
   'flag/flag.appearance.ts',
   'flag/flag-url.ts',
+  'flyout/flyout.appearance.ts',
   'heading/heading.appearance.ts',
   'text/text.appearance.ts',
   'text-list/text-list.appearance.ts',

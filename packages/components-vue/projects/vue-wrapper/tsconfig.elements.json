@@ -32,6 +32,7 @@
     "../../../components/src/elements/inline-notification/inline-notification.appearance.ts",
     "../../../components/src/elements/flag/flag.appearance.ts",
     "../../../components/src/elements/flag/flag-url.ts",
+    "../../../components/src/elements/flyout/flyout.appearance.ts",
     "../../../components/src/elements/crest/crest.appearance.ts",
     "../../../components/src/elements/crest/crest-url.ts",
     "../../../components/src/elements/wordmark/wordmark.appearance.ts",
