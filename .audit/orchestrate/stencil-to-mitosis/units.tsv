@@ -9,4 +9,5 @@ migrate-flag	migrate	done	cursor/mitosis-migration-41e6	3	4edd6127ec542c2b7b5310
 migrate-model-signature	migrate	done	cursor/mitosis-migration-41e6	3	3ab704f859	briefs/migrate-model-signature.md
 migrate-icon	migrate	done	cursor/mitosis-migration-41e6	3	d702e8eb4f	briefs/migrate-icon.md
 migrate-heading	migrate	done	cursor/mitosis-migration-41e6	3	0fe05aaab6	briefs/migrate-heading.md
-migrate-text	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-text.md
+migrate-text	migrate	done	cursor/mitosis-migration-41e6	3	fa008afa41	briefs/migrate-text.md
+migrate-display	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-display.md
