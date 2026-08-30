@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-text harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-text.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-sm)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <div
+      id="info-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-info)"
+    ></div>
+    <section id="default">
+      <lit-text size="sm" color="primary">ABC</lit-text>
+    </section>
+    <section id="xl">
+      <lit-text size="5xl" color="primary">ABC</lit-text>
+    </section>
+    <section id="inherit">
+      <lit-text class="text-[deeppink] text-[48px]" size="inherit" color="inherit">ABC</lit-text>
+    </section>
+    <section id="info">
+      <lit-text size="sm" color="info">ABC</lit-text>
+    </section>
+    <section id="bold">
+      <lit-text size="2xs" weight="bold" color="info">ABC</lit-text>
+    </section>
+    <section id="bp">
+      <lit-text size='{"base":"sm","m":"5xl"}' color="primary">ABC</lit-text>
+    </section>
+    <section id="hidden">
+      <lit-text size="sm" hidden>ABC</lit-text>
+    </section>
+    <section id="rich">
+      <lit-text>Some <i>italic</i> and <b>bold</b> text.</lit-text>
+    </section>
+  </body>
+</html>
