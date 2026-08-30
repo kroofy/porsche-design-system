@@ -1,0 +1,4 @@
+ts	phase	decision	why	evidence	result
+2026-08-30T20:57:55Z	frame	counted 75 TAG_NAMES and set done as all of them in Mitosis with Stencil gone and pixel-diff 0	needed a countable stop condition before starting a multi-hour rewrite	packages/shared/src/lib/tagNames.ts	open
+2026-08-30T20:57:55Z	frame	chose Orchestrate plus Autonomous run, not a single-agent rewrite	75 production web components will not finish inside this session budget	playbooks/orchestrate.md	open
+2026-08-30T20:57:55Z	frame	pilot is p-divider only	it is the smallest visual component, one hr and two props, so Mitosis fitness fails cheap	packages/components/src/components/divider/divider.tsx	open
