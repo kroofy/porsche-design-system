@@ -15,6 +15,7 @@
     "build:display": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && if rg -q my-fragment output/lit/src/Display.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Display.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-display.bundle.js",
     "build:spinner": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && if rg -q my-fragment output/lit/src/Spinner.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Spinner.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-spinner.bundle.js",
     "build:tag": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && if rg -q my-fragment output/lit/src/Tag.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Tag.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-tag.bundle.js",
+    "build:tag-dismissible": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && if rg -q my-fragment output/lit/src/TagDismissible.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TagDismissible.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-tag-dismissible.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -26,6 +27,7 @@
     "verify:display": "node harness/verify-display.mjs",
     "verify:spinner": "node harness/verify-spinner.mjs",
     "verify:tag": "node harness/verify-tag.mjs",
+    "verify:tag-dismissible": "node harness/verify-tag-dismissible.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -36,7 +38,8 @@
     "pixel-diff:text": "node harness/pixel-diff-text.mjs",
     "pixel-diff:display": "node harness/pixel-diff-display.mjs",
     "pixel-diff:spinner": "node harness/pixel-diff-spinner.mjs",
-    "pixel-diff:tag": "node harness/pixel-diff-tag.mjs"
+    "pixel-diff:tag": "node harness/pixel-diff-tag.mjs",
+    "pixel-diff:tag-dismissible": "node harness/pixel-diff-tag-dismissible.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
