@@ -34,6 +34,7 @@ const pages = [
   'native-inline-notification',
   'native-ai-tag',
   'native-flyout',
+  'native-switch',
 ] as const;
 
 const waitForNativeIcons = async (page: Parameters<typeof setupScenario>[0]): Promise<void> => {

@@ -35,6 +35,7 @@ export { PRadio } from './PRadio';
 export { PSelect } from './PSelect';
 export { PSheet } from './PSheet';
 export { PSpinner } from './PSpinner';
+export { PSwitch } from './PSwitch';
 export { PTable, PTableBody, PTableCell, PTableHead, PTableHeadCell, PTableRow } from './PTable';
 export { PTag } from './PTag';
 export { PTagDismissible } from './PTagDismissible';

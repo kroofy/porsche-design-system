@@ -27,6 +27,7 @@ const files = [
   'tag/tag.appearance.ts',
   'tag-dismissible/tag-dismissible.appearance.ts',
   'spinner/spinner.appearance.ts',
+  'switch/switch.appearance.ts',
   'sheet/sheet.appearance.ts',
   'modal/modal.appearance.ts',
   'link/link.appearance.ts',

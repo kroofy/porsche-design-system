@@ -55,6 +55,7 @@ import { getNativeModelSignatureCss } from './model-signature/model-signature-cs
 import { getNativeButtonPureCss, getNativeLinkPureCss } from './pure-css';
 import { getNativeSheetCss } from './sheet/sheet-css';
 import { getNativeSpinnerCss } from './spinner/spinner-css';
+import { getNativeSwitchCss } from './switch/switch-css';
 import { getNativeTableCss } from './table/table-css';
 import { getNativeTagCss } from './tag/tag-css';
 import { getNativeTagDismissibleCss } from './tag-dismissible/tag-dismissible-css';
@@ -363,4 +364,4 @@ export const getNativeLinkCss = (): string =>
   inheritColorScheme('.p-link', toLayeredCss(getNativeLinkButtonStyles(LINK_CONFIG)));
 
 export const getElementsCss = (): string =>
-  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeTagDismissibleCss()}${getNativeSpinnerCss()}${getNativeModalCss()}${getNativeSheetCss()}${getNativeFlyoutCss()}${getNativeInlineNotificationCss()}${getNativeAiTagCss()}`;
+  `${getNativeButtonCss()}${getNativeLinkCss()}${getNativeButtonPureCss()}${getNativeLinkPureCss()}${getNativeIconCss()}${getNativeFieldCss()}${getNativeFieldsetCss()}${getNativeTextListCss()}${getNativeTableCss()}${getNativeDividerCss()}${getNativeHeadingCss()}${getNativeTextCss()}${getNativeDisplayCss()}${getNativeFlagCss()}${getNativeCrestCss()}${getNativeWordmarkCss()}${getNativeModelSignatureCss()}${getNativeAccordionCss()}${getNativeTagCss()}${getNativeTagDismissibleCss()}${getNativeSpinnerCss()}${getNativeSwitchCss()}${getNativeModalCss()}${getNativeSheetCss()}${getNativeFlyoutCss()}${getNativeInlineNotificationCss()}${getNativeAiTagCss()}`;

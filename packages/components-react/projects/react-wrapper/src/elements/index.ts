@@ -72,6 +72,8 @@ export type { PSheetProps } from './PSheet';
 export { PSheet } from './PSheet';
 export type { PSpinnerProps } from './PSpinner';
 export { PSpinner } from './PSpinner';
+export type { PSwitchProps } from './PSwitch';
+export { PSwitch } from './PSwitch';
 export type {
   PTableBodyProps,
   PTableCellProps,

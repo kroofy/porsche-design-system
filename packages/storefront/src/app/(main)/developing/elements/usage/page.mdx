@@ -55,6 +55,7 @@ export const metadata = {
 | `PTag`                                                                            | `<span>`, `<a>` when `href` is set, `<button>` when `type` is set |
 | `PTagDismissible`                                                                 | `<button class="p-tag-dismissible">`                              |
 | `PSpinner`                                                                        | `<svg class="p-spinner">`                                         |
+| `PSwitch`                                                                         | `<button type="button" role="switch" class="p-switch">`           |
 | `PModal`                                                                          | `<dialog class="p-modal">`                                        |
 | `PSheet`                                                                          | `<dialog class="p-sheet">`                                        |
 | `PFlyout`                                                                         | `<dialog class="p-flyout">`                                       |
@@ -65,7 +66,8 @@ header and footer are `<header class="p-modal__header">` and `<footer class="p-m
 and sub-footer are `<header class="p-flyout__header">`, `<footer class="p-flyout__footer">`, and
 `<div class="p-flyout__sub-footer">`. Inline notification heading is a real `h1`–`h6`, description is a `<p>`, and
 dismiss is `<button class="p-inline-notification__dismiss">`. AI tag abbreviation is a real `<abbr>`. Select options are
-`<option>`. Optgroup labels use the native `label` attribute.
+`<option>`. Optgroup labels use the native `label` attribute. Switch checked is `aria-checked`, not an HTML `checked`
+attribute. The track is `.p-switch__toggle`; the label is `.p-switch__label`.
 
 Open a modal, sheet, or flyout with `showModal()`, not by toggling the `open` attribute. That attribute is modeless.
 
@@ -200,7 +202,6 @@ Public CSS variables still work, for example `--p-spinner-color`, `--p-modal-wid
 
 These are not 1:1 native tags. Keep the custom-element wrappers:
 
-- Switch
 - Button tile / link tile
 - Multi-select (not a native `<select multiple>` skin of the custom dropdown)
 - Table sort and scroller
