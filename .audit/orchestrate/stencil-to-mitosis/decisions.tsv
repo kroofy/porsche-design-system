@@ -5,3 +5,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T20:59:06Z	install	opened PR 3 and armed a 10m loop	overnight run needs a durable trail and a wake, not a local sleep	https://github.com/kroofy/porsche-design-system/pull/3 sub_1e6f4232-d1d0-4e53-81f9-0bfd9c173ed4	open
 2026-08-30T20:59:06Z	pilot	spawned baseline and fitness workers on p-divider	prove Mitosis can even emit a divider before touching the other 74 tags	briefs/fitness-divider.md briefs/baseline-divider.md	in flight
 2026-08-30T21:00:41Z	drain	tick 1 found both workers still running, no artifacts	inbox empty and mitosis-probe missing, so no next unit yet	bc-9e70cce0 RUNNING bc-64add396 RUNNING	in flight
+2026-08-30T21:01:49Z	baseline	captured live Stencil p-divider card from the playground before any rewrite	later pixel-diff needs a before image of the real component, not a fixture	.audit/orchestrate/stencil-to-mitosis/baseline/stencil_divider_before.png reports/baseline-divider.md	live-ui-verified
