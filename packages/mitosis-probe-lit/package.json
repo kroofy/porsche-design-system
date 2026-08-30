@@ -9,16 +9,19 @@
     "build:wordmark": "mitosis build && if rg -q my-fragment output/lit/src/Wordmark.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Wordmark.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-wordmark.bundle.js",
     "build:flag": "mitosis build && node harness/strip-flag-fragment.mjs && if rg -q my-fragment output/lit/src/Flag.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Flag.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-flag.bundle.js",
     "build:model-signature": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && if rg -q my-fragment output/lit/src/ModelSignature.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/ModelSignature.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-model-signature.bundle.js",
+    "build:icon": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && if rg -q my-fragment output/lit/src/Icon.ts; then echo 'my-fragment leaked'; exit 1; fi && esbuild output/lit/src/Icon.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-icon.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
     "verify:flag": "node harness/verify-flag.mjs",
     "verify:model-signature": "node harness/verify-model-signature.mjs",
+    "verify:icon": "node harness/verify-icon.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
     "pixel-diff:flag": "node harness/pixel-diff-flag.mjs",
-    "pixel-diff:model-signature": "node harness/pixel-diff-model-signature.mjs"
+    "pixel-diff:model-signature": "node harness/pixel-diff-model-signature.mjs",
+    "pixel-diff:icon": "node harness/pixel-diff-icon.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
