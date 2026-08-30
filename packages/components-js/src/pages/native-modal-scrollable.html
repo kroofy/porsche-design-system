@@ -50,5 +50,7 @@ Some content
   </div>
 </dialog>
 <script>
-  document.querySelector('dialog.p-modal').showModal();
+  const dialog = document.querySelector('dialog.p-modal');
+  dialog.showModal();
+  dialog.focus();
 </script>

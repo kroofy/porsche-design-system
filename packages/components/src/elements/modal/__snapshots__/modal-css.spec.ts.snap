@@ -69,6 +69,18 @@ exports[`getNativeModalCss() > matches the rewritten snapshot 1`] = `
   transform: translate3d(0,0,0);
 }
 .p-modal .p-modal__panel {
+  position: relative;
+  display: grid;
+  grid-template: auto/var(--p-spacing-fluid-sm) minmax(0,1fr) var(--p-spacing-fluid-sm);
+  gap: var(--p-spacing-fluid-md) calc(var(--p-spacing-fluid-lg) - var(--p-spacing-fluid-sm));
+  padding-top: var(--p-spacing-fluid-md);
+  padding-bottom: calc(var(--p-radius-3xl) + var(--p-spacing-fluid-md));
+  align-content: flex-start;
+  transform: translate3d(0,25vh,0);
+  color: var(--p-color-primary);
+  background: var(--_p-dialog-a);
+  opacity: 0;
+  transition: opacity var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-out), transform var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-out);
   width: var(--p-modal-width,auto);
   min-width: 276px;
   max-width: 1535.5px;
@@ -209,6 +221,9 @@ exports[`getNativeModalCss() > matches the rewritten snapshot 1`] = `
   border-radius: var(--p-radius-2xl);
   -webkit-backdrop-filter: var(--p-blur-frosted);
   backdrop-filter: var(--p-blur-frosted);
+}
+.p-modal .p-modal__panel:dir(rtl) {
+  transform: translate3d(0,25vh,0);
 }
 @media(min-width:480px) {
   .p-modal[data-p-fullscreen-xs="true"] .p-modal__panel {

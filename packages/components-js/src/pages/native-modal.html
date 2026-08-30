@@ -1,117 +1,63 @@
-<style>
-  .native-pair {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .native-pair iframe {
-    margin: 0;
-    width: 100%;
-    height: 20rem;
-    border: 0;
-  }
-</style>
+<p-text hidden>native modal</p-text>
 
 <div class="playground a11ytree-snapshot-test" title="should show modal">
-  <div class="native-pair">
-    <iframe src="/modal-basic?iframe=true" loading="eager" title="stencil-modal-basic"></iframe>
-    <iframe src="/native-modal-basic?iframe=true" loading="eager" title="native-modal-basic"></iframe>
-  </div>
+  <iframe src="/native-modal-basic?iframe=true" loading="eager" title="native-modal-basic"></iframe>
 </div>
 
 <div class="playground" title="should show modal (fullscreen=true)">
-  <div class="native-pair">
-    <iframe src="/modal-fullscreen?iframe=true" loading="eager" title="stencil-modal-fullscreen"></iframe>
-    <iframe src="/native-modal-fullscreen?iframe=true" loading="eager" title="native-modal-fullscreen"></iframe>
-  </div>
+  <iframe src="/native-modal-fullscreen?iframe=true" loading="eager" title="native-modal-fullscreen"></iframe>
 </div>
 
 <div
   class="playground"
   title="should display a full width div when using read only CSS variables to stretch the content to the edge and clip the radius"
 >
-  <div class="native-pair">
-    <iframe src="/modal-stretch-to-full-width?iframe=true" loading="eager" title="stencil-modal-stretch"></iframe>
-    <iframe src="/native-modal-stretch-to-full-width?iframe=true" loading="eager" title="native-modal-stretch"></iframe>
-  </div>
+  <iframe src="/native-modal-stretch-to-full-width?iframe=true" loading="eager" title="native-modal-stretch"></iframe>
 </div>
 
 <div class="playground" title="should show modal (fullscreen=responsive)">
-  <div class="native-pair">
-    <iframe src="/modal-fullscreen-responsive?iframe=true" loading="eager" title="stencil-modal-fullscreen-responsive"></iframe>
-    <iframe src="/native-modal-fullscreen-responsive?iframe=true" loading="eager" title="native-modal-fullscreen-responsive"></iframe>
-  </div>
+  <iframe src="/native-modal-fullscreen-responsive?iframe=true" loading="eager" title="native-modal-fullscreen-responsive"></iframe>
 </div>
 
 <div class="playground" title="should display close button on the correct position without a heading">
-  <div class="native-pair">
-    <iframe src="/modal-without-heading?iframe=true" loading="eager" title="stencil-modal-without-heading"></iframe>
-    <iframe src="/native-modal-without-heading?iframe=true" loading="eager" title="native-modal-without-heading"></iframe>
-  </div>
+  <iframe src="/native-modal-without-heading?iframe=true" loading="eager" title="native-modal-without-heading"></iframe>
 </div>
 
 <div class="playground" title="should show scrollable modal">
-  <div class="native-pair">
-    <iframe src="/modal-scrollable?iframe=true" loading="eager" title="stencil-modal-scrollable"></iframe>
-    <iframe src="/native-modal-scrollable?iframe=true" loading="eager" title="native-modal-scrollable"></iframe>
-  </div>
+  <iframe src="/native-modal-scrollable?iframe=true" loading="eager" title="native-modal-scrollable"></iframe>
 </div>
 
 <div class="playground" title="should show modal with dismissButton=false">
-  <div class="native-pair">
-    <iframe src="/modal-without-dismiss-button?iframe=true" loading="eager" title="stencil-modal-without-dismiss"></iframe>
-    <iframe src="/native-modal-without-dismiss-button?iframe=true" loading="eager" title="native-modal-without-dismiss"></iframe>
-  </div>
+  <iframe src="/native-modal-without-dismiss-button?iframe=true" loading="eager" title="native-modal-without-dismiss"></iframe>
 </div>
 
 <div class="playground" title="should show modal with sticky footer">
-  <div class="native-pair">
-    <iframe src="/modal-sticky-footer?iframe=true" loading="eager" title="stencil-modal-sticky-footer"></iframe>
-    <iframe src="/native-modal-sticky-footer?iframe=true" loading="eager" title="native-modal-sticky-footer"></iframe>
-  </div>
+  <iframe src="/native-modal-sticky-footer?iframe=true" loading="eager" title="native-modal-sticky-footer"></iframe>
 </div>
 
 <div class="playground" title="should show modal with backdrop=blur">
-  <div class="native-pair">
-    <iframe src="/modal-backdrop-blur?iframe=true" loading="eager" title="stencil-modal-backdrop-blur"></iframe>
-    <iframe src="/native-modal-backdrop-blur?iframe=true" loading="eager" title="native-modal-backdrop-blur"></iframe>
-  </div>
+  <iframe src="/native-modal-backdrop-blur?iframe=true" loading="eager" title="native-modal-backdrop-blur"></iframe>
 </div>
 
 <div class="playground" title="should show modal with backdrop=shading">
-  <div class="native-pair">
-    <iframe src="/modal-backdrop-shading?iframe=true" loading="eager" title="stencil-modal-backdrop-shading"></iframe>
-    <iframe src="/native-modal-backdrop-shading?iframe=true" loading="eager" title="native-modal-backdrop-shading"></iframe>
-  </div>
+  <iframe src="/native-modal-backdrop-shading?iframe=true" loading="eager" title="native-modal-backdrop-shading"></iframe>
 </div>
 
 <div class="playground" title="should show modal with slotted header">
-  <div class="native-pair">
-    <iframe src="/modal-slotted-header?iframe=true" loading="eager" title="stencil-modal-slotted-header"></iframe>
-    <iframe src="/native-modal-slotted-header?iframe=true" loading="eager" title="native-modal-slotted-header"></iframe>
-  </div>
+  <iframe src="/native-modal-slotted-header?iframe=true" loading="eager" title="native-modal-slotted-header"></iframe>
 </div>
 
 <div class="playground" title="should show modal with the porsche grid">
-  <div class="native-pair">
-    <iframe src="/modal-grid?iframe=true" loading="eager" title="stencil-modal-grid" class="skip-axe-core-test"></iframe>
-    <iframe src="/native-modal-grid?iframe=true" loading="eager" title="native-modal-grid" class="skip-axe-core-test"></iframe>
-  </div>
+  <iframe src="/native-modal-grid?iframe=true" loading="eager" title="native-modal-grid" class="skip-axe-core-test"></iframe>
 </div>
 
 <div
   class="playground"
   title="should show modal with custom css variables (--p-modal-width, --p-modal-spacing-top, --p-modal-spacing-bottom)"
 >
-  <div class="native-pair">
-    <iframe src="/modal-css-variables?iframe=true" loading="eager" title="stencil-modal-css-variables"></iframe>
-    <iframe src="/native-modal-css-variables?iframe=true" loading="eager" title="native-modal-css-variables"></iframe>
-  </div>
+  <iframe src="/native-modal-css-variables?iframe=true" loading="eager" title="native-modal-css-variables"></iframe>
 </div>
 
 <div class="playground" title="should show scrolled down modal with footer and scrollable content">
-  <div class="native-pair">
-    <iframe src="/modal-footer-scrolled?iframe=true" loading="eager" title="stencil-modal-footer-scrolled"></iframe>
-    <iframe src="/native-modal-footer-scrolled?iframe=true" loading="eager" title="native-modal-footer-scrolled"></iframe>
-  </div>
+  <iframe src="/native-modal-footer-scrolled?iframe=true" loading="eager" title="native-modal-footer-scrolled"></iframe>
 </div>

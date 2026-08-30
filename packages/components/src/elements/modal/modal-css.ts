@@ -70,7 +70,6 @@ const panelLayout = (fullscreen: boolean): JssStyle =>
 
 const responsiveFullscreen = (): JssStyle => {
   const styles: JssStyle = {
-    [`& .${MODAL_PANEL_CLASS}`]: panelLayout(false),
     [`&[data-p-fullscreen="true"] .${MODAL_PANEL_CLASS}`]: panelLayout(true),
     [`&[data-p-fullscreen="false"] .${MODAL_PANEL_CLASS}`]: panelLayout(false),
   };
@@ -114,6 +113,7 @@ const getNativeModalStyles = (): Styles => ({
       ...dialogGridJssStyle(),
       ...getDialogColorJssStyle(),
       ...getDialogTransitionJssStyle(false, '^'),
+      ...panelLayout(false),
     },
     [`&:modal .${MODAL_PANEL_CLASS}, &[open] .${MODAL_PANEL_CLASS}`]: getDialogTransitionJssStyle(true, '^'),
     [`& .${MODAL_PANEL_CLASS} > *`]: getSlotMainJssStyle(),

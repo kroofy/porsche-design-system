@@ -6,6 +6,9 @@
     </div>
   </div>
 </dialog>
+<p-text hidden>native modal</p-text>
 <script>
-  document.querySelector('dialog.p-modal').showModal();
+  const dialog = document.querySelector('dialog.p-modal');
+  dialog.showModal();
+  dialog.focus();
 </script>
