@@ -6,4 +6,5 @@ lever-migrate-recipe	primitives	done	cursor/mitosis-migration-41e6	3	36c4774e5cb
 migrate-crest	migrate	done	cursor/mitosis-migration-41e6	3	2cbcee0ebe22bd6c3f4fcbe3ee8e5341a5923f99	briefs/migrate-crest.md
 migrate-wordmark	migrate	done	cursor/mitosis-migration-41e6	3	adcb403aa5617fafce8206125dc84cbf5fc451b1	briefs/migrate-wordmark.md
 migrate-flag	migrate	done	cursor/mitosis-migration-41e6	3	4edd6127ec542c2b7b5310e7501a8e7f2997cae8	briefs/migrate-flag.md
-migrate-model-signature	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-model-signature.md
+migrate-model-signature	migrate	done	cursor/mitosis-migration-41e6	3	3ab704f859	briefs/migrate-model-signature.md
+migrate-icon	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-icon.md
