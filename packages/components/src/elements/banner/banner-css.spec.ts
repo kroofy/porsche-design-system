@@ -17,11 +17,13 @@ describe('getNativeBannerCss()', () => {
     expect(css).toContain('.p-banner {');
     expect(css).toContain('.p-banner[hidden]');
     expect(css).toContain('.p-banner:popover-open');
+    expect(css).toContain('.p-banner > p-heading');
     expect(css).toContain('.p-banner__dismiss');
+    expect(css).toContain('color-scheme: inherit');
   });
 
   it('resets popover UA styles outside the layer', () => {
-    expect(css.startsWith('.p-banner{color-scheme:inherit;position:fixed;margin:0')).toBe(true);
+    expect(css.startsWith('.p-banner,.p-banner .p-banner__dismiss{color-scheme:inherit}')).toBe(true);
     expect(css).toContain('.p-banner:popover-open{display:grid}');
   });
 

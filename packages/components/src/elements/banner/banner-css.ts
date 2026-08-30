@@ -35,7 +35,7 @@ import {
 const toLayeredCss = (styles: Styles): string => `@layer pds.elements {\n${getCss(styles).trim()}\n}\n`;
 
 const popoverHost = (selector: string, layered: string): string =>
-  `${selector}{color-scheme:inherit;position:fixed;margin:0;border:none;overflow:visible}\n${selector}:popover-open{display:grid}\n${layered}`;
+  `${selector},${selector} .${BANNER_DISMISS_CLASS}{color-scheme:inherit}\n${selector}{position:fixed;margin:0;border:none;overflow:visible}\n${selector}:popover-open{display:grid}\n${layered}`;
 
 const cssVarMaxWidth = '--p-banner-max-w';
 const cssVarTop = '--p-banner-top';
@@ -50,7 +50,7 @@ const HEADING_CHILD = '& > h1, & > h2, & > h3, & > h4, & > h5, & > h6';
 const HAS_HEADING_DESCRIPTION =
   '&:has(> h1) > p, &:has(> h2) > p, &:has(> h3) > p, &:has(> h4) > p, &:has(> h5) > p, &:has(> h6) > p';
 const HAS_HEADING_BEFORE =
-  '&:has(> h1)::before, &:has(> h2)::before, &:has(> h3)::before, &:has(> h4)::before, &:has(> h5)::before, &:has(> h6)::before';
+  '&:has(> h1)::before, &:has(> h2)::before, &:has(> h3)::before, &:has(> h4)::before, &:has(> h5)::before, &:has(> h6)::before, &:has(> p-heading)::before';
 
 const stateIcon = (state: BannerState): JssStyle => ({
   background: notificationColorMap[state],
@@ -150,8 +150,19 @@ const getNativeBannerStyles = (): Styles => {
           gridArea: '2/2',
           marginTop: ref(spacingStaticXs),
         },
+        '& > p-heading': {
+          gridArea: '1/2',
+        },
+        '& > p-text': {
+          gridArea: '1/2',
+        },
+        '&:has(> p-heading) > p-text, &:has(> p-heading) > p': {
+          gridArea: '2/2',
+          marginTop: ref(spacingStaticXs),
+        },
         [`& .${BANNER_DISMISS_CLASS}`]: {
           ...getFCDismissButtonStyles('frosted'),
+          colorScheme: 'inherit',
           gridArea: '1/4/-1',
           alignSelf: 'flex-start',
           marginBlock: `calc(-6 * ${ref(spacingStatic2Xs)})`,

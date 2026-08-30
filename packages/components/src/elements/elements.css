@@ -12638,7 +12638,8 @@
   }
 }
 }
-.p-banner{color-scheme:inherit;position:fixed;margin:0;border:none;overflow:visible}
+.p-banner,.p-banner .p-banner__dismiss{color-scheme:inherit}
+.p-banner{position:fixed;margin:0;border:none;overflow:visible}
 .p-banner:popover-open{display:grid}
 @layer pds.elements {
 .p-banner {
@@ -12698,6 +12699,16 @@
   grid-area: 2/2;
   margin-top: var(--p-spacing-static-xs);
 }
+.p-banner > p-heading {
+  grid-area: 1/2;
+}
+.p-banner > p-text {
+  grid-area: 1/2;
+}
+.p-banner:has(> p-heading) > p-text, .p-banner:has(> p-heading) > p {
+  grid-area: 2/2;
+  margin-top: var(--p-spacing-static-xs);
+}
 .p-banner .p-banner__dismiss {
   all: unset;
   box-sizing: border-box;
@@ -12712,6 +12723,7 @@
   -webkit-backdrop-filter: var(--p-blur-frosted);
   backdrop-filter: var(--p-blur-frosted);
   transition: background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);
+  color-scheme: inherit;
   grid-area: 1/4/-1;
   align-self: flex-start;
   margin-block: calc(-6 * var(--p-spacing-static-2xs));
@@ -12774,7 +12786,7 @@
     -webkit-mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-4.95 0-9 4.05-9 9s4.05 9 9 9 9-4.05 9-9-4.05-9-9-9m-.75 4.5h1.5V9h-1.5zm1.5 8.5h-1.5v-6h1.5z"/></svg>') center/contain no-repeat;
     mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c-4.95 0-9 4.05-9 9s4.05 9 9 9 9-4.05 9-9-4.05-9-9-9m-.75 4.5h1.5V9h-1.5zm1.5 8.5h-1.5v-6h1.5z"/></svg>') center/contain no-repeat;
   }
-  .p-banner:has(> h1)::before, .p-banner:has(> h2)::before, .p-banner:has(> h3)::before, .p-banner:has(> h4)::before, .p-banner:has(> h5)::before, .p-banner:has(> h6)::before {
+  .p-banner:has(> h1)::before, .p-banner:has(> h2)::before, .p-banner:has(> h3)::before, .p-banner:has(> h4)::before, .p-banner:has(> h5)::before, .p-banner:has(> h6)::before, .p-banner:has(> p-heading)::before {
     place-self: center;
   }
   .p-banner[data-p-state="success"]::before {
