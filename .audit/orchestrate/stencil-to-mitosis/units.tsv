@@ -22,4 +22,5 @@ migrate-switch	migrate	done	cursor/mitosis-migration-41e6	3	21f0480a7a	briefs/mi
 migrate-checkbox	migrate	done	cursor/mitosis-migration-41e6	3	1c30147f75	briefs/migrate-checkbox.md
 migrate-input-text	migrate	done	cursor/mitosis-migration-41e6	3	ad2c0b2800	briefs/migrate-input-text.md
 migrate-input-email	migrate	done	cursor/mitosis-migration-41e6	3	04eeb6103b	briefs/migrate-input-email.md
-migrate-input-password	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-password.md
+migrate-input-password	migrate	done	cursor/mitosis-migration-41e6	3	83f7074dfa	briefs/migrate-input-password.md
+migrate-input-search	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-input-search.md
