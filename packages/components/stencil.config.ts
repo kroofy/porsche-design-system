@@ -327,6 +327,14 @@ export const config: Config = {
           src: './assets/p-scroller.iife.js',
           dest: 'build/p-scroller.iife.js',
         },
+        {
+          src: './assets/p-pin-code.iife.js',
+          dest: 'assets/p-pin-code.iife.js',
+        },
+        {
+          src: './assets/p-pin-code.iife.js',
+          dest: 'build/p-pin-code.iife.js',
+        },
       ],
     },
   ],
@@ -372,6 +380,7 @@ export const config: Config = {
     'p-banner',
     'p-pagination',
     'p-scroller',
+    'p-pin-code',
   ],
   enableCache: true,
   rollupPlugins: {
