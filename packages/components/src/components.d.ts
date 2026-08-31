@@ -20,7 +20,6 @@ import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelect
 import { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-import { ScrollerAlignScrollIndicator, ScrollerAriaAttribute, ScrollerScrollToPosition } from "./components/scroller/scroller-utils";
 import { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
 import { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
@@ -47,7 +46,6 @@ export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelect
 export { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-export { ScrollerAlignScrollIndicator, ScrollerAriaAttribute, ScrollerScrollToPosition } from "./components/scroller/scroller-utils";
 export { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
 export { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
@@ -815,35 +813,6 @@ export namespace Components {
          */
         "value": string | number;
     }
-    interface PScroller {
-        /**
-          * @deprecated since v4.0.0, will be removed with next major release, has no effect anymore.
-          * @default 'center'
-         */
-        "alignScrollIndicator"?: ScrollerAlignScrollIndicator;
-        /**
-          * Sets ARIA role and attributes on the scroller's scroll container, useful for tablist navigation patterns and additional accessibility context.
-         */
-        "aria"?: SelectedAriaAttributes<ScrollerAriaAttribute>;
-        /**
-          * Reduces the scroller's padding and the gap between slotted items for use in dense layouts.
-         */
-        "compact"?: boolean;
-        /**
-          * @deprecated since v4.0.0, use native `scrollIntoView()` on the slotted element itself.
-         */
-        "scrollToPosition"?: ScrollerScrollToPosition;
-        /**
-          * Shows the browser's native scrollbar inside the scroller, in addition to the scroll indicator arrows.
-          * @default false
-         */
-        "scrollbar"?: boolean;
-        /**
-          * @experimental Makes the indicator sticky at the top or bottom while scrolling depending on the scroll direction.
-          * @default false
-         */
-        "sticky"?: boolean;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -1557,12 +1526,6 @@ declare global {
         prototype: HTMLPRadioGroupOptionElement;
         new (): HTMLPRadioGroupOptionElement;
     };
-    interface HTMLPScrollerElement extends Components.PScroller, HTMLStencilElement {
-    }
-    var HTMLPScrollerElement: {
-        prototype: HTMLPScrollerElement;
-        new (): HTMLPScrollerElement;
-    };
     interface HTMLPSegmentedControlElementEventMap {
         "blur": void;
         "change": SegmentedControlChangeEventDetail;
@@ -1804,7 +1767,6 @@ declare global {
         "p-popover": HTMLPPopoverElement;
         "p-radio-group": HTMLPRadioGroupElement;
         "p-radio-group-option": HTMLPRadioGroupOptionElement;
-        "p-scroller": HTMLPScrollerElement;
         "p-segmented-control": HTMLPSegmentedControlElement;
         "p-segmented-control-item": HTMLPSegmentedControlItemElement;
         "p-select": HTMLPSelectElement;
@@ -2666,35 +2628,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | number;
     }
-    interface PScroller {
-        /**
-          * @deprecated since v4.0.0, will be removed with next major release, has no effect anymore.
-          * @default 'center'
-         */
-        "alignScrollIndicator"?: ScrollerAlignScrollIndicator;
-        /**
-          * Sets ARIA role and attributes on the scroller's scroll container, useful for tablist navigation patterns and additional accessibility context.
-         */
-        "aria"?: SelectedAriaAttributes<ScrollerAriaAttribute>;
-        /**
-          * Reduces the scroller's padding and the gap between slotted items for use in dense layouts.
-         */
-        "compact"?: boolean;
-        /**
-          * @deprecated since v4.0.0, use native `scrollIntoView()` on the slotted element itself.
-         */
-        "scrollToPosition"?: ScrollerScrollToPosition;
-        /**
-          * Shows the browser's native scrollbar inside the scroller, in addition to the scroll indicator arrows.
-          * @default false
-         */
-        "scrollbar"?: boolean;
-        /**
-          * @experimental Makes the indicator sticky at the top or bottom while scrolling depending on the scroll direction.
-          * @default false
-         */
-        "sticky"?: boolean;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -3285,14 +3218,6 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "loading": boolean;
     }
-    interface PScrollerAttributes {
-        "scrollbar": boolean;
-        "compact": boolean;
-        "aria": SelectedAriaAttributes<ScrollerAriaAttribute>;
-        "sticky": boolean;
-        "alignScrollIndicator": ScrollerAlignScrollIndicator;
-        "scrollToPosition": ScrollerScrollToPosition;
-    }
     interface PSegmentedControlAttributes {
         "label": string;
         "description": string;
@@ -3405,7 +3330,6 @@ declare namespace LocalJSX {
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
         "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
-        "p-scroller": Omit<PScroller, keyof PScrollerAttributes> & { [K in keyof PScroller & keyof PScrollerAttributes]?: PScroller[K] } & { [K in keyof PScroller & keyof PScrollerAttributes as `attr:${K}`]?: PScrollerAttributes[K] } & { [K in keyof PScroller & keyof PScrollerAttributes as `prop:${K}`]?: PScroller[K] };
         "p-segmented-control": Omit<PSegmentedControl, keyof PSegmentedControlAttributes> & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes]?: PSegmentedControl[K] } & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes as `attr:${K}`]?: PSegmentedControlAttributes[K] } & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes as `prop:${K}`]?: PSegmentedControl[K] };
         "p-segmented-control-item": Omit<PSegmentedControlItem, keyof PSegmentedControlItemAttributes> & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes]?: PSegmentedControlItem[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `attr:${K}`]?: PSegmentedControlItemAttributes[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `prop:${K}`]?: PSegmentedControlItem[K] };
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
@@ -3488,7 +3412,6 @@ declare module "@stencil/core" {
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
             "p-radio-group": LocalJSX.IntrinsicElements["p-radio-group"] & JSXBase.HTMLAttributes<HTMLPRadioGroupElement>;
             "p-radio-group-option": LocalJSX.IntrinsicElements["p-radio-group-option"] & JSXBase.HTMLAttributes<HTMLPRadioGroupOptionElement>;
-            "p-scroller": LocalJSX.IntrinsicElements["p-scroller"] & JSXBase.HTMLAttributes<HTMLPScrollerElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
              */
