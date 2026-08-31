@@ -639,9 +639,9 @@
     }
     render() {
       if (this.isAbbreviation) {
-        return b2`<div><style .innerHTML="${this.cssText}"></style><abbr title="${this.longLabel}">${this.shortLabel}</abbr></div>`;
+        return b2`<style .innerHTML="${this.cssText}"></style><div><abbr title="${this.longLabel}">${this.shortLabel}</abbr></div>`;
       }
-      return b2`<div><style .innerHTML="${this.cssText}"></style>${this.copyLabel}</div>`;
+      return b2`<style .innerHTML="${this.cssText}"></style><div>${this.copyLabel}</div>`;
     }
   };
   LitAiTag.styles = i`

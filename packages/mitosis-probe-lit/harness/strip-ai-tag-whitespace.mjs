@@ -37,9 +37,9 @@ after = after.replace(
   /  render\(\) \{[\s\S]*?\n  \}\n\}/,
   `  render() {
     if (this.isAbbreviation) {
-      return html\`<div><style .innerHTML="\${this.cssText}"></style><abbr title="\${this.longLabel}">\${this.shortLabel}</abbr></div>\`;
+      return html\`<style .innerHTML="\${this.cssText}"></style><div><abbr title="\${this.longLabel}">\${this.shortLabel}</abbr></div>\`;
     }
-    return html\`<div><style .innerHTML="\${this.cssText}"></style>\${this.copyLabel}</div>\`;
+    return html\`<style .innerHTML="\${this.cssText}"></style><div>\${this.copyLabel}</div>\`;
   }
 }`,
 );
