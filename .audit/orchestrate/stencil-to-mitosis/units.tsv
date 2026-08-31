@@ -75,4 +75,5 @@ migrate-sheet	migrate	done	cursor/mitosis-migration-41e6	3	e98b7e33d4	briefs/mig
 migrate-drilldown	migrate	done	cursor/mitosis-migration-41e6	3	919e9d5271	briefs/migrate-drilldown.md
 migrate-drilldown-item	migrate	done	cursor/mitosis-migration-41e6	3	84322dac41	briefs/migrate-drilldown-item.md
 migrate-drilldown-link	migrate	done	cursor/mitosis-migration-41e6	3	432ed0bf80	briefs/migrate-drilldown-link.md
-migrate-carousel	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-carousel.md
+migrate-carousel	migrate	done	cursor/mitosis-migration-41e6	3	e69e169b9e	briefs/migrate-carousel.md
+migrate-canvas	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-canvas.md
