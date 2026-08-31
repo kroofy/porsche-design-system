@@ -231,6 +231,14 @@ export const config: Config = {
           src: './assets/p-input-date.iife.js',
           dest: 'build/p-input-date.iife.js',
         },
+        {
+          src: './assets/p-input-month.iife.js',
+          dest: 'assets/p-input-month.iife.js',
+        },
+        {
+          src: './assets/p-input-month.iife.js',
+          dest: 'build/p-input-month.iife.js',
+        },
       ],
     },
   ],
@@ -264,6 +272,7 @@ export const config: Config = {
     'p-input-tel',
     'p-input-number',
     'p-input-date',
+    'p-input-month',
   ],
   enableCache: true,
   rollupPlugins: {
