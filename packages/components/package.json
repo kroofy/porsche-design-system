@@ -26,6 +26,7 @@
     "build:lit-icon": "node scripts/build-lit-icon.mjs",
     "build:lit-heading": "node scripts/build-lit-heading.mjs",
     "build:lit-text": "node scripts/build-lit-text.mjs",
+    "build:lit-display": "node scripts/build-lit-display.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",

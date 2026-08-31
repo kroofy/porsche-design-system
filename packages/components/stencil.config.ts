@@ -87,6 +87,14 @@ export const config: Config = {
           src: './assets/p-text.iife.js',
           dest: 'build/p-text.iife.js',
         },
+        {
+          src: './assets/p-display.iife.js',
+          dest: 'assets/p-display.iife.js',
+        },
+        {
+          src: './assets/p-display.iife.js',
+          dest: 'build/p-display.iife.js',
+        },
       ],
     },
   ],
@@ -102,6 +110,7 @@ export const config: Config = {
     'p-icon',
     'p-heading',
     'p-text',
+    'p-display',
   ],
   enableCache: true,
   rollupPlugins: {
