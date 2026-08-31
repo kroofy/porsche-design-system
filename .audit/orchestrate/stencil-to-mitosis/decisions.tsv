@@ -146,3 +146,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T06:19:00Z	land	accepted land-button-pure, spawned land-button	after PNG is byte-identical to stored Stencil button-pure baseline, 97644 bytes	/opt/cursor/artifacts/mitosis_land_button_pure_after.png	live-ui-verified, 15 real p- tags from Mitosis
 2026-08-31T06:20:20Z	drain	tick: leftover timer for button; worker running, mitosis/button started, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
 2026-08-31T06:27:00Z	land	accepted land-button, spawned land-switch	after PNG is byte-identical to stored Stencil button baseline, 52720 bytes	/opt/cursor/artifacts/mitosis_land_button_after.png	live-ui-verified, 16 real p- tags from Mitosis
+2026-08-31T06:30:20Z	drain	tick: leftover timer for switch; worker running, source 5136d6e54c, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
