@@ -17,7 +17,6 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
-import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
@@ -53,7 +52,6 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
-export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
@@ -538,88 +536,6 @@ export namespace Components {
           * @default 'info'
          */
         "state"?: InlineNotificationState;
-    }
-    interface PInputTime {
-        /**
-          * Provides the browser with a time autofill hint.
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing time selection. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the latest selectable time in `hh:mm` or `hh:mm:ss` format. Times after this are disabled in the picker.
-         */
-        "max"?: string;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the earliest selectable time in `hh:mm` or `hh:mm:ss` format. Times before this are disabled in the picker.
-         */
-        "min"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be changed. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while no time is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTimeState;
-        /**
-          * Sets the stepping interval in seconds. Use `60` for minute-level selection, `1` to also expose seconds.
-          * @default 60
-         */
-        "step"?: number;
-        /**
-          * Sets the current time value in `hh:mm` or `hh:mm:ss` format (e.g. `14:00`).
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputWeek {
         /**
@@ -1676,10 +1592,6 @@ export interface PInlineNotificationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInlineNotificationElement;
 }
-export interface PInputTimeCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputTimeElement;
-}
 export interface PInputWeekCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputWeekElement;
@@ -1928,25 +1840,6 @@ declare global {
     var HTMLPInlineNotificationElement: {
         prototype: HTMLPInlineNotificationElement;
         new (): HTMLPInlineNotificationElement;
-    };
-    interface HTMLPInputTimeElementEventMap {
-        "change": InputTimeChangeEventDetail;
-        "blur": InputTimeBlurEventDetail;
-        "input": InputTimeInputEventDetail;
-    }
-    interface HTMLPInputTimeElement extends Components.PInputTime, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputTimeElementEventMap>(type: K, listener: (this: HTMLPInputTimeElement, ev: PInputTimeCustomEvent<HTMLPInputTimeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputTimeElementEventMap>(type: K, listener: (this: HTMLPInputTimeElement, ev: PInputTimeCustomEvent<HTMLPInputTimeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputTimeElement: {
-        prototype: HTMLPInputTimeElement;
-        new (): HTMLPInputTimeElement;
     };
     interface HTMLPInputWeekElementEventMap {
         "change": InputWeekChangeEventDetail;
@@ -2407,7 +2300,6 @@ declare global {
         "p-fieldset": HTMLPFieldsetElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
-        "p-input-time": HTMLPInputTimeElement;
         "p-input-week": HTMLPInputWeekElement;
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
@@ -2954,100 +2846,6 @@ declare namespace LocalJSX {
           * @default 'info'
          */
         "state"?: InlineNotificationState;
-    }
-    interface PInputTime {
-        /**
-          * Provides the browser with a time autofill hint.
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing time selection. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the latest selectable time in `hh:mm` or `hh:mm:ss` format. Times after this are disabled in the picker.
-         */
-        "max"?: string;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the earliest selectable time in `hh:mm` or `hh:mm:ss` format. Times before this are disabled in the picker.
-         */
-        "min"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputTimeCustomEvent<InputTimeBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputTimeCustomEvent<InputTimeChangeEventDetail>) => void;
-        /**
-          * Emitted on every value change as the user interacts with the time picker.
-         */
-        "onInput"?: (event: PInputTimeCustomEvent<InputTimeInputEventDetail>) => void;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be changed. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while no time is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTimeState;
-        /**
-          * Sets the stepping interval in seconds. Use `60` for minute-level selection, `1` to also expose seconds.
-          * @default 60
-         */
-        "step"?: number;
-        /**
-          * Sets the current time value in `hh:mm` or `hh:mm:ss` format (e.g. `14:00`).
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputWeek {
         /**
@@ -4313,25 +4111,6 @@ declare namespace LocalJSX {
         "actionLoading": boolean;
         "actionIcon": InlineNotificationActionIcon;
     }
-    interface PInputTimeAttributes {
-        "label": string;
-        "step": number;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "max": string;
-        "min": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputTimeState;
-        "message": string;
-        "hideLabel": string;
-    }
     interface PInputWeekAttributes {
         "label": string;
         "step": number;
@@ -4599,7 +4378,6 @@ declare namespace LocalJSX {
         "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
-        "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-week": Omit<PInputWeek, keyof PInputWeekAttributes> & { [K in keyof PInputWeek & keyof PInputWeekAttributes]?: PInputWeek[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `attr:${K}`]?: PInputWeekAttributes[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `prop:${K}`]?: PInputWeek[K] };
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
@@ -4679,7 +4457,6 @@ declare module "@stencil/core" {
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
             "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
-            "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-week": LocalJSX.IntrinsicElements["p-input-week"] & JSXBase.HTMLAttributes<HTMLPInputWeekElement>;
             "p-link-tile": LocalJSX.IntrinsicElements["p-link-tile"] & JSXBase.HTMLAttributes<HTMLPLinkTileElement>;
             /**
