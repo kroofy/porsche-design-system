@@ -407,6 +407,14 @@ export const config: Config = {
           src: './assets/p-multi-select.iife.js',
           dest: 'build/p-multi-select.iife.js',
         },
+        {
+          src: './assets/p-multi-select-option.iife.js',
+          dest: 'assets/p-multi-select-option.iife.js',
+        },
+        {
+          src: './assets/p-multi-select-option.iife.js',
+          dest: 'build/p-multi-select-option.iife.js',
+        },
       ],
     },
   ],
@@ -462,6 +470,7 @@ export const config: Config = {
     'p-select-option',
     'p-optgroup',
     'p-multi-select',
+    'p-multi-select-option',
   ],
   enableCache: true,
   rollupPlugins: {

@@ -1,76 +1,29 @@
-import { Component, Element, Host, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes, ValidatorFunction } from '../../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  getOptionAriaAttributes,
-  throwIfParentIsNotOfKind,
-  throwIfPropIsUndefined,
-  validateProps,
-} from '../../../utils';
-import { getComponentCss } from './multi-select-option-styles';
-import type { MultiSelectOptionInternalHTMLProps } from './multi-select-option-utils';
-
-const propTypes: PropTypes<typeof MultiSelectOption> = {
-  value: AllowedTypes.oneOf<ValidatorFunction>([AllowedTypes.string, AllowedTypes.number]),
-  disabled: AllowedTypes.boolean,
-};
-
 /**
- * @slot {"name": "", "description": "Default slot for the option text." }
+ * Stencil no longer owns p-multi-select-option. The playground tag is the Mitosis Lit
+ * custom element from mitosis/multi-select-option/MultiSelectOption.lite.tsx.
+ * This file stays so generateConstructorMap can still import class MultiSelectOption.
  */
-@Component({
-  tag: 'p-multi-select-option',
-  shadow: true,
-})
+import type { HTMLStencilElement } from '@stencil/core/internal';
+
 export class MultiSelectOption {
-  @Element() public host!: HTMLElement & MultiSelectOptionInternalHTMLProps;
+  host!: HTMLElement;
+  value?: string | number;
+  disabled?: boolean = false;
+  selected?: boolean;
+  highlighted?: boolean;
+  disabledParent?: boolean;
+  render(): void {}
+}
 
-  /** Sets the required option value submitted with the form data when selected. Must be a string or number. */
-  @Prop() public value: string | number;
-
-  /** Disables the option, preventing it from being selected. */
-  @Prop() public disabled?: boolean = false;
-
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, ['p-multi-select', 'p-optgroup']);
+declare global {
+  interface HTMLPMultiSelectOptionElement extends HTMLStencilElement {
+    value?: string | number;
+    disabled?: boolean;
+    selected?: boolean;
+    highlighted?: boolean;
+    disabledParent?: boolean;
   }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    throwIfPropIsUndefined(this.host, 'value', this.value);
-    const { selected: isSelected, highlighted, hidden } = this.host;
-    const isDisabled = this.disabled || this.host.disabledParent;
-
-    attachComponentCss(this.host, getComponentCss, isDisabled, isSelected);
-
-    return (
-      // TODO: get rid of ARIA sprouting and use `elementInternals` API when AXE-CORE supports it: https://github.com/dequelabs/axe-core/issues/4259
-      <Host
-        onClick={!isDisabled && this.onClick}
-        role="option"
-        {...getOptionAriaAttributes(isSelected, isDisabled, hidden, this.value !== undefined && this.value !== null)}
-      >
-        <div
-          class={{
-            option: true,
-            'option--selected': isSelected,
-            'option--highlighted': highlighted,
-            'option--disabled': isDisabled,
-          }}
-        >
-          <span class="checkbox" aria-hidden="true" />
-          <slot />
-        </div>
-      </Host>
-    );
+  interface HTMLElementTagNameMap {
+    'p-multi-select-option': HTMLPMultiSelectOptionElement;
   }
-
-  private onClick = (): void => {
-    this.host.dispatchEvent(
-      new CustomEvent('internalOptionUpdate', {
-        bubbles: true,
-      })
-    );
-  };
 }

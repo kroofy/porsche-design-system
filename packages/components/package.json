@@ -66,6 +66,7 @@
     "build:lit-select-option": "node scripts/build-lit-select-option.mjs",
     "build:lit-optgroup": "node scripts/build-lit-optgroup.mjs",
     "build:lit-multi-select": "node scripts/build-lit-multi-select.mjs",
+    "build:lit-multi-select-option": "node scripts/build-lit-multi-select-option.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
