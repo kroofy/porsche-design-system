@@ -75,10 +75,21 @@ const proof = await page.evaluate(() => {
   };
 });
 
-const card = page.locator('[data-card="flag"]');
-await card.scrollIntoViewIfNeeded();
+const box = await page.locator('[data-card="flag"]').boundingBox();
+if (!box) {
+  console.error('land-flag-pixel-diff: flag card has no bounding box');
+  process.exit(1);
+}
+// The card is taller than the 900px viewport. locator.screenshot() of a
+// clipped p-canvas descendant returns the layout box without the flags.
+const clip = {
+  x: Math.max(0, box.x),
+  y: Math.max(0, box.y),
+  width: box.width,
+  height: Math.min(box.height, VIEWPORT.height - Math.max(0, box.y)),
+};
 await mkdir(dirname(AFTER_PNG), { recursive: true });
-await writeFile(AFTER_PNG, await card.screenshot({ type: 'png' }));
+await writeFile(AFTER_PNG, await page.screenshot({ type: 'png', clip }));
 await browser.close();
 
 const a = PNG.sync.read(await readFile(BASELINE_PNG));

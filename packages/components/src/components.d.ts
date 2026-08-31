@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, FlagName, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 import { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 import { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -19,7 +19,6 @@ import { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./component
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
-import { FlagAriaAttribute, FlagSize } from "./components/flag/flag-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
 import { IconAriaAttribute, IconColor, IconSize } from "./components/icon/icon-utils";
@@ -66,7 +65,7 @@ import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventD
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, FlagName, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 export { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -79,7 +78,6 @@ export { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./component
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
-export { FlagAriaAttribute, FlagSize } from "./components/flag/flag-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
 export { IconAriaAttribute, IconColor, IconSize } from "./components/icon/icon-utils";
@@ -730,22 +728,6 @@ export namespace Components {
           * @default 'none'
          */
         "state"?: FieldsetState;
-    }
-    interface PFlag {
-        /**
-          * A map of ARIA attributes to enhance the flag's accessibility. For example, use `{ 'aria-label': 'German flag' }` to provide a descriptive label for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<FlagAriaAttribute>;
-        /**
-          * Specifies the country flag to display. Use the two-letter ISO 3166-1 alpha-2 country code. For example, use `us` for the United States, `de` for Germany, `gb` for Great Britain.
-          * @default 'de'
-         */
-        "name"?: FlagName;
-        /**
-          * Defines the size of the flag, aligned with the typographic scale used by components such as p-icon, p-spinner, p-text, and p-heading. When set to `inherit`, the size is derived from a custom font-size defined on a parent element, calculated against the global line-height (based on `ex`-unit) to remain visually consistent with other typographic-scale-based components.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<FlagSize>;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -3409,12 +3391,6 @@ declare global {
         prototype: HTMLPFieldsetElement;
         new (): HTMLPFieldsetElement;
     };
-    interface HTMLPFlagElement extends Components.PFlag, HTMLStencilElement {
-    }
-    var HTMLPFlagElement: {
-        prototype: HTMLPFlagElement;
-        new (): HTMLPFlagElement;
-    };
     interface HTMLPFlyoutElementEventMap {
         "dismiss": FlyoutDismissEventDetail;
         "motionVisibleEnd": FlyoutMotionVisibleEndEventDetail;
@@ -4180,7 +4156,6 @@ declare global {
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-fieldset": HTMLPFieldsetElement;
-        "p-flag": HTMLPFlagElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-heading": HTMLPHeadingElement;
         "p-icon": HTMLPIconElement;
@@ -4881,22 +4856,6 @@ declare namespace LocalJSX {
           * @default 'none'
          */
         "state"?: FieldsetState;
-    }
-    interface PFlag {
-        /**
-          * A map of ARIA attributes to enhance the flag's accessibility. For example, use `{ 'aria-label': 'German flag' }` to provide a descriptive label for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<FlagAriaAttribute>;
-        /**
-          * Specifies the country flag to display. Use the two-letter ISO 3166-1 alpha-2 country code. For example, use `us` for the United States, `de` for Germany, `gb` for Great Britain.
-          * @default 'de'
-         */
-        "name"?: FlagName;
-        /**
-          * Defines the size of the flag, aligned with the typographic scale used by components such as p-icon, p-spinner, p-text, and p-heading. When set to `inherit`, the size is derived from a custom font-size defined on a parent element, calculated against the global line-height (based on `ex`-unit) to remain visually consistent with other typographic-scale-based components.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<FlagSize>;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -7651,11 +7610,6 @@ declare namespace LocalJSX {
         "state": FieldsetState;
         "message": string;
     }
-    interface PFlagAttributes {
-        "name": FlagName;
-        "size": BreakpointCustomizable<FlagSize>;
-        "aria": SelectedAriaAttributes<FlagAriaAttribute>;
-    }
     interface PFlyoutAttributes {
         "open": boolean;
         "position": FlyoutPosition;
@@ -8236,7 +8190,6 @@ declare namespace LocalJSX {
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
-        "p-flag": Omit<PFlag, keyof PFlagAttributes> & { [K in keyof PFlag & keyof PFlagAttributes]?: PFlag[K] } & { [K in keyof PFlag & keyof PFlagAttributes as `attr:${K}`]?: PFlagAttributes[K] } & { [K in keyof PFlag & keyof PFlagAttributes as `prop:${K}`]?: PFlag[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-heading": Omit<PHeading, keyof PHeadingAttributes> & { [K in keyof PHeading & keyof PHeadingAttributes]?: PHeading[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `attr:${K}`]?: PHeadingAttributes[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `prop:${K}`]?: PHeading[K] };
         "p-icon": Omit<PIcon, keyof PIconAttributes> & { [K in keyof PIcon & keyof PIconAttributes]?: PIcon[K] } & { [K in keyof PIcon & keyof PIconAttributes as `attr:${K}`]?: PIconAttributes[K] } & { [K in keyof PIcon & keyof PIconAttributes as `prop:${K}`]?: PIcon[K] };
@@ -8340,7 +8293,6 @@ declare module "@stencil/core" {
              */
             "p-drilldown-link": LocalJSX.IntrinsicElements["p-drilldown-link"] & JSXBase.HTMLAttributes<HTMLPDrilldownLinkElement>;
             "p-fieldset": LocalJSX.IntrinsicElements["p-fieldset"] & JSXBase.HTMLAttributes<HTMLPFieldsetElement>;
-            "p-flag": LocalJSX.IntrinsicElements["p-flag"] & JSXBase.HTMLAttributes<HTMLPFlagElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
