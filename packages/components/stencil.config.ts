@@ -279,6 +279,14 @@ export const config: Config = {
           src: './assets/p-text-list.iife.js',
           dest: 'build/p-text-list.iife.js',
         },
+        {
+          src: './assets/p-text-list-item.iife.js',
+          dest: 'assets/p-text-list-item.iife.js',
+        },
+        {
+          src: './assets/p-text-list-item.iife.js',
+          dest: 'build/p-text-list-item.iife.js',
+        },
       ],
     },
   ],
@@ -318,6 +326,7 @@ export const config: Config = {
     'p-textarea',
     'p-fieldset',
     'p-text-list',
+    'p-text-list-item',
   ],
   enableCache: true,
   rollupPlugins: {
