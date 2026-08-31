@@ -34,7 +34,6 @@ import { StepperHorizontalItemState } from "./components/stepper-horizontal/step
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
@@ -66,7 +65,6 @@ export { StepperHorizontalItemState } from "./components/stepper-horizontal/step
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-export { TextListType } from "./components/text-list/text-list/text-list-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
@@ -1319,13 +1317,6 @@ export namespace Components {
          */
         "label": string;
     }
-    interface PTextList {
-        /**
-          * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
-          * @default 'unordered'
-         */
-        "type"?: TextListType;
-    }
     interface PTextListItem {
     }
     interface PToast {
@@ -1980,12 +1971,6 @@ declare global {
         prototype: HTMLPTabsItemElement;
         new (): HTMLPTabsItemElement;
     };
-    interface HTMLPTextListElement extends Components.PTextList, HTMLStencilElement {
-    }
-    var HTMLPTextListElement: {
-        prototype: HTMLPTextListElement;
-        new (): HTMLPTextListElement;
-    };
     interface HTMLPTextListItemElement extends Components.PTextListItem, HTMLStencilElement {
     }
     var HTMLPTextListItemElement: {
@@ -2056,7 +2041,6 @@ declare global {
         "p-tabs": HTMLPTabsElement;
         "p-tabs-bar": HTMLPTabsBarElement;
         "p-tabs-item": HTMLPTabsItemElement;
-        "p-text-list": HTMLPTextListElement;
         "p-text-list-item": HTMLPTextListItemElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
@@ -3460,13 +3444,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
-    interface PTextList {
-        /**
-          * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
-          * @default 'unordered'
-         */
-        "type"?: TextListType;
-    }
     interface PTextListItem {
     }
     interface PToast {
@@ -3795,9 +3772,6 @@ declare namespace LocalJSX {
     interface PTabsItemAttributes {
         "label": string;
     }
-    interface PTextListAttributes {
-        "type": TextListType;
-    }
     interface PToastItemAttributes {
         "text": string;
         "state": ToastState;
@@ -3844,7 +3818,6 @@ declare namespace LocalJSX {
         "p-tabs": Omit<PTabs, keyof PTabsAttributes> & { [K in keyof PTabs & keyof PTabsAttributes]?: PTabs[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `attr:${K}`]?: PTabsAttributes[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `prop:${K}`]?: PTabs[K] };
         "p-tabs-bar": Omit<PTabsBar, keyof PTabsBarAttributes> & { [K in keyof PTabsBar & keyof PTabsBarAttributes]?: PTabsBar[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `attr:${K}`]?: PTabsBarAttributes[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `prop:${K}`]?: PTabsBar[K] };
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
-        "p-text-list": Omit<PTextList, keyof PTextListAttributes> & { [K in keyof PTextList & keyof PTextListAttributes]?: PTextList[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `attr:${K}`]?: PTextListAttributes[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `prop:${K}`]?: PTextList[K] };
         "p-text-list-item": PTextListItem;
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
@@ -3954,7 +3927,6 @@ declare module "@stencil/core" {
              */
             "p-tabs-bar": LocalJSX.IntrinsicElements["p-tabs-bar"] & JSXBase.HTMLAttributes<HTMLPTabsBarElement>;
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
-            "p-text-list": LocalJSX.IntrinsicElements["p-text-list"] & JSXBase.HTMLAttributes<HTMLPTextListElement>;
             "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
