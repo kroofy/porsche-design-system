@@ -5,10 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
+import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
@@ -20,10 +19,9 @@ import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMoti
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
-export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
+export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
@@ -36,74 +34,6 @@ export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./compon
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
-    interface PButtonTile {
-        /**
-          * Controls the vertical placement of the description and button — `top` or `bottom`.
-          * @default 'bottom'
-         */
-        "align"?: ButtonTileAlign;
-        /**
-          * Sets ARIA attributes on the tile's action button to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<ButtonTileAriaAttribute>;
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '4/3'
-         */
-        "aspectRatio"?: BreakpointCustomizable<ButtonTileAspectRatio>;
-        /**
-          * Renders only the icon button without the full label. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the description text displayed in the tile's content area.
-         */
-        "description": string;
-        /**
-          * Disables the tile, preventing button interaction.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Shows a gradient overlay over the media slot to improve text legibility on bright images or videos.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the icon displayed in the tile's action button. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: ButtonTileIcon;
-        /**
-          * Sets a path to a custom SVG icon for the action button, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the accessible label text of the action button rendered inside the tile.
-         */
-        "label": string;
-        /**
-          * Disables the tile and shows a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the font size of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'medium'
-         */
-        "size"?: BreakpointCustomizable<ButtonTileSize>;
-        /**
-          * Sets the button's HTML type — `submit` sends the form, `reset` clears it, `button` performs no default action.
-          * @default 'submit'
-         */
-        "type"?: ButtonTileType;
-        /**
-          * Sets the font weight of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'semi-bold'
-         */
-        "weight"?: BreakpointCustomizable<ButtonTileWeight>;
-    }
     /**
      * @experimental 
      */
@@ -641,12 +571,6 @@ export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLPToastItemElement;
 }
 declare global {
-    interface HTMLPButtonTileElement extends Components.PButtonTile, HTMLStencilElement {
-    }
-    var HTMLPButtonTileElement: {
-        prototype: HTMLPButtonTileElement;
-        new (): HTMLPButtonTileElement;
-    };
     interface HTMLPCanvasElementEventMap {
         "sidebarStartUpdate": CanvasSidebarStartUpdateEventDetail;
         "sidebarEndDismiss": void;
@@ -919,7 +843,6 @@ declare global {
         new (): HTMLPToastItemElement;
     };
     interface HTMLElementTagNameMap {
-        "p-button-tile": HTMLPButtonTileElement;
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
         "p-drilldown": HTMLPDrilldownElement;
@@ -943,74 +866,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface PButtonTile {
-        /**
-          * Controls the vertical placement of the description and button — `top` or `bottom`.
-          * @default 'bottom'
-         */
-        "align"?: ButtonTileAlign;
-        /**
-          * Sets ARIA attributes on the tile's action button to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<ButtonTileAriaAttribute>;
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '4/3'
-         */
-        "aspectRatio"?: BreakpointCustomizable<ButtonTileAspectRatio>;
-        /**
-          * Renders only the icon button without the full label. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the description text displayed in the tile's content area.
-         */
-        "description"?: string;
-        /**
-          * Disables the tile, preventing button interaction.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Shows a gradient overlay over the media slot to improve text legibility on bright images or videos.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the icon displayed in the tile's action button. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: ButtonTileIcon;
-        /**
-          * Sets a path to a custom SVG icon for the action button, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the accessible label text of the action button rendered inside the tile.
-         */
-        "label"?: string;
-        /**
-          * Disables the tile and shows a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the font size of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'medium'
-         */
-        "size"?: BreakpointCustomizable<ButtonTileSize>;
-        /**
-          * Sets the button's HTML type — `submit` sends the form, `reset` clears it, `button` performs no default action.
-          * @default 'submit'
-         */
-        "type"?: ButtonTileType;
-        /**
-          * Sets the font weight of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'semi-bold'
-         */
-        "weight"?: BreakpointCustomizable<ButtonTileWeight>;
-    }
     /**
      * @experimental 
      */
@@ -1578,22 +1433,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
 
-    interface PButtonTileAttributes {
-        "size": BreakpointCustomizable<ButtonTileSize>;
-        "weight": BreakpointCustomizable<ButtonTileWeight>;
-        "aspectRatio": BreakpointCustomizable<ButtonTileAspectRatio>;
-        "label": string;
-        "description": string;
-        "align": ButtonTileAlign;
-        "gradient": boolean;
-        "compact": string;
-        "type": ButtonTileType;
-        "disabled": boolean;
-        "loading": boolean;
-        "icon": ButtonTileIcon;
-        "iconSource": string;
-        "aria": SelectedAriaAttributes<ButtonTileAriaAttribute>;
-    }
     interface PCanvasAttributes {
         "sidebarStartOpen": boolean;
         "sidebarEndOpen": boolean;
@@ -1716,7 +1555,6 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
-        "p-button-tile": Omit<PButtonTile, keyof PButtonTileAttributes> & { [K in keyof PButtonTile & keyof PButtonTileAttributes]?: PButtonTile[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `attr:${K}`]?: PButtonTileAttributes[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `prop:${K}`]?: PButtonTile[K] };
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
@@ -1743,7 +1581,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "p-button-tile": LocalJSX.IntrinsicElements["p-button-tile"] & JSXBase.HTMLAttributes<HTMLPButtonTileElement>;
             /**
              * @experimental 
              */
