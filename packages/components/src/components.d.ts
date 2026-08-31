@@ -14,7 +14,6 @@ import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
@@ -44,7 +43,6 @@ export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
@@ -442,47 +440,6 @@ export namespace Components {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PInlineNotification {
-        /**
-          * Sets the icon displayed inside the action button using a PDS icon name.
-          * @default 'arrow-right'
-         */
-        "actionIcon"?: InlineNotificationActionIcon;
-        /**
-          * Sets the label text of the optional action button inside the notification.
-         */
-        "actionLabel"?: string;
-        /**
-          * Disables the action button and shows a spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "actionLoading"?: boolean;
-        /**
-          * Sets the supporting description text shown below the heading.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Shows a dismiss button so the user can manually close the notification.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Sets the heading text displayed at the top of the inline notification.
-          * @default ''
-         */
-        "heading"?: string;
-        /**
-          * Sets the HTML heading tag (e.g. h2, h3) to maintain correct document structure.
-          * @default 'h5'
-         */
-        "headingTag"?: InlineNotificationHeadingTag;
-        /**
-          * Sets the visual state — controls the icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: InlineNotificationState;
     }
     interface PLinkTile {
         /**
@@ -1343,10 +1300,6 @@ export interface PFlyoutCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPFlyoutElement;
 }
-export interface PInlineNotificationCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInlineNotificationElement;
-}
 export interface PLinkTileProductCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPLinkTileProductElement;
@@ -1557,24 +1510,6 @@ declare global {
     var HTMLPFlyoutElement: {
         prototype: HTMLPFlyoutElement;
         new (): HTMLPFlyoutElement;
-    };
-    interface HTMLPInlineNotificationElementEventMap {
-        "dismiss": void;
-        "action": void;
-    }
-    interface HTMLPInlineNotificationElement extends Components.PInlineNotification, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInlineNotificationElementEventMap>(type: K, listener: (this: HTMLPInlineNotificationElement, ev: PInlineNotificationCustomEvent<HTMLPInlineNotificationElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInlineNotificationElementEventMap>(type: K, listener: (this: HTMLPInlineNotificationElement, ev: PInlineNotificationCustomEvent<HTMLPInlineNotificationElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInlineNotificationElement: {
-        prototype: HTMLPInlineNotificationElement;
-        new (): HTMLPInlineNotificationElement;
     };
     interface HTMLPLinkTileElement extends Components.PLinkTile, HTMLStencilElement {
     }
@@ -1982,7 +1917,6 @@ declare global {
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-flyout": HTMLPFlyoutElement;
-        "p-inline-notification": HTMLPInlineNotificationElement;
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
@@ -2433,55 +2367,6 @@ declare namespace LocalJSX {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PInlineNotification {
-        /**
-          * Sets the icon displayed inside the action button using a PDS icon name.
-          * @default 'arrow-right'
-         */
-        "actionIcon"?: InlineNotificationActionIcon;
-        /**
-          * Sets the label text of the optional action button inside the notification.
-         */
-        "actionLabel"?: string;
-        /**
-          * Disables the action button and shows a spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "actionLoading"?: boolean;
-        /**
-          * Sets the supporting description text shown below the heading.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Shows a dismiss button so the user can manually close the notification.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Sets the heading text displayed at the top of the inline notification.
-          * @default ''
-         */
-        "heading"?: string;
-        /**
-          * Sets the HTML heading tag (e.g. h2, h3) to maintain correct document structure.
-          * @default 'h5'
-         */
-        "headingTag"?: InlineNotificationHeadingTag;
-        /**
-          * Emitted when the user clicks the action button.
-         */
-        "onAction"?: (event: PInlineNotificationCustomEvent<void>) => void;
-        /**
-          * Emitted when the user clicks the dismiss button.
-         */
-        "onDismiss"?: (event: PInlineNotificationCustomEvent<void>) => void;
-        /**
-          * Sets the visual state — controls the icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: InlineNotificationState;
     }
     interface PLinkTile {
         /**
@@ -3510,16 +3395,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
     }
-    interface PInlineNotificationAttributes {
-        "heading": string;
-        "headingTag": InlineNotificationHeadingTag;
-        "description": string;
-        "state": InlineNotificationState;
-        "dismissButton": boolean;
-        "actionLabel": string;
-        "actionLoading": boolean;
-        "actionIcon": InlineNotificationActionIcon;
-    }
     interface PLinkTileAttributes {
         "size": BreakpointCustomizable<LinkTileSize>;
         "weight": BreakpointCustomizable<LinkTileWeight>;
@@ -3739,7 +3614,6 @@ declare namespace LocalJSX {
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
-        "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
@@ -3812,7 +3686,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
-            "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
             "p-link-tile": LocalJSX.IntrinsicElements["p-link-tile"] & JSXBase.HTMLAttributes<HTMLPLinkTileElement>;
             /**
              * @controlled {"props": ["liked"], "event": "like"}
