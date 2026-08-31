@@ -567,6 +567,14 @@ export const config: Config = {
           src: './assets/p-modal.iife.js',
           dest: 'build/p-modal.iife.js',
         },
+        {
+          src: './assets/p-flyout.iife.js',
+          dest: 'assets/p-flyout.iife.js',
+        },
+        {
+          src: './assets/p-flyout.iife.js',
+          dest: 'build/p-flyout.iife.js',
+        },
       ],
     },
   ],
@@ -642,6 +650,7 @@ export const config: Config = {
     'p-toast',
     'p-toast-item',
     'p-modal',
+    'p-flyout',
   ],
   enableCache: true,
   rollupPlugins: {
