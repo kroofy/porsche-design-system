@@ -319,6 +319,14 @@ export const config: Config = {
           src: './assets/p-pagination.iife.js',
           dest: 'build/p-pagination.iife.js',
         },
+        {
+          src: './assets/p-scroller.iife.js',
+          dest: 'assets/p-scroller.iife.js',
+        },
+        {
+          src: './assets/p-scroller.iife.js',
+          dest: 'build/p-scroller.iife.js',
+        },
       ],
     },
   ],
@@ -363,6 +371,7 @@ export const config: Config = {
     'p-inline-notification',
     'p-banner',
     'p-pagination',
+    'p-scroller',
   ],
   enableCache: true,
   rollupPlugins: {
