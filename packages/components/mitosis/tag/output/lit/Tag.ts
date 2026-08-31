@@ -90,7 +90,7 @@ export default class LitTag extends LitElement {
       ? "-webkit-backdrop-filter:var(--p-blur-frosted);backdrop-filter:var(--p-blur-frosted);"
       : "";
     const iconRule = hasIcon
-      ? ".icon{margin-inline-start:-2px}"
+      ? "p-icon{margin-inline-start:-2px}"
       : "p-icon{display:none}";
     return (
       ":not(:defined,[data-ssr]){visibility:hidden}" +
