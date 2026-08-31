@@ -1,0 +1,42 @@
+{
+  "lite": "icon/Icon.lite.tsx",
+  "mitosisExit": 0,
+  "targets": {
+    "react": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/react/Icon.tsx"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "vue": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/vue/Icon.vue"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "angular": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/angular/Icon.ts"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "svelte": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/svelte/Icon.svelte"
+      ],
+      "myFragment": [],
+      "stripped": false
+    }
+  }
+}

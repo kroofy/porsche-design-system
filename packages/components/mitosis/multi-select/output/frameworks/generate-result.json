@@ -1,0 +1,42 @@
+{
+  "lite": "multi-select/MultiSelect.lite.tsx",
+  "mitosisExit": 0,
+  "targets": {
+    "react": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/react/MultiSelect.tsx"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "vue": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/vue/MultiSelect.vue"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "angular": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/angular/MultiSelect.ts"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "svelte": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/svelte/MultiSelect.svelte"
+      ],
+      "myFragment": [],
+      "stripped": false
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "lite": "spinner/Spinner.lite.tsx",
+  "mitosisExit": 0,
+  "targets": {
+    "react": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/react/Spinner.tsx"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "vue": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/vue/Spinner.vue"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "angular": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/angular/Spinner.ts"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "svelte": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/svelte/Spinner.svelte"
+      ],
+      "myFragment": [],
+      "stripped": false
+    }
+  }
+}

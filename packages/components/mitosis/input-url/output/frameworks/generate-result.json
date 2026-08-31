@@ -1,0 +1,42 @@
+{
+  "lite": "input-url/InputUrl.lite.tsx",
+  "mitosisExit": 0,
+  "targets": {
+    "react": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/react/InputUrl.tsx"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "vue": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/vue/InputUrl.vue"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "angular": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/angular/InputUrl.ts"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "svelte": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/svelte/InputUrl.svelte"
+      ],
+      "myFragment": [],
+      "stripped": false
+    }
+  }
+}

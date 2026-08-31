@@ -1,0 +1,41 @@
+{
+  "lite": "button-pure/ButtonPure.lite.tsx",
+  "mitosisExit": 1,
+  "targets": {
+    "react": {
+      "compiled": false,
+      "mitosisExit": 1,
+      "files": [],
+      "myFragment": [],
+      "stripped": false,
+      "stderr": "Format error for file: import * as React from 'react';\n\n\n\n\n\n  export interface LitButtonPureProps {\ntype?: string;\nsize?: any;\ncolor?: string;\nunderline?: any;\nactive?: any;\nstretch?: any;\nhideLabel?: any;\nalignLabel?: any;\nicon?: string;\niconSource?: string;\ndisabled?: any;\nloading?: any;\nname?: string;\nvalue?: string;\naria?: any;\n}\n\n\n\n\n\n  function LitButtonPure(props:LitButtonPureProps) {\n\n  function cssText() {\nconst sizeMap: any = {\n'xx-small': 'var(--p-typescale-2xs)',\n'x-small': 'var(--p-typescale-xs)',\nsmall: 'var(--p-typescale-sm)',\nmedium: 'var(--p-typescale-md)',\nlarge: 'var(--p-typescale-lg)',\n'x-large': 'var(--p-typescale-xl)',\n'xx-large': 'var(--p-typescale-2xl)',\n'2xs': 'var(--p-typescale-2xs)',\nxs: 'var(--p-typescale-xs)',\nsm: 'var(--p-typescale-sm)',\nmd: 'var(--p-typescale-md)',\nlg: 'var(--p-typescale-lg)',\nxl: 'var(--p-typescale-xl)',\n'2xl': 'var(--p-typescale-2xl)',\n'3xl': 'var(--p-typescale-3xl)',\n'4xl': 'var(--p-typescale-4xl)',\n'5xl': 'var(--p-typescale-5xl)',\ninherit: 'inherit'\n};\nconst colorMap: any = {\nprimary: 'var(--p-color-primary)',\n'contrast-higher': 'var(--p-color-contrast-higher)',\n'contrast-high': 'var(--p-color-contrast-high)',\n'contrast-medium': 'var(--p-color-contrast-medium)',\ninherit: 'currentcolor'\n};\nconst minWidth: any = {\nxs: 480,\ns: 760,\nm: 1000,\nl: 1300,\nxl: 1760,\nxxl: 1920\n};\nconst parse = (raw: any, fallback: any) => {\nif (raw === undefined || raw === null || raw === '') return fallback;\nif (typeof raw === 'string' && raw.charAt(0)"
+    },
+    "vue": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/vue/ButtonPure.vue"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "angular": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/angular/ButtonPure.ts"
+      ],
+      "myFragment": [],
+      "stripped": false
+    },
+    "svelte": {
+      "compiled": true,
+      "mitosisExit": 0,
+      "files": [
+        "output/frameworks/svelte/ButtonPure.svelte"
+      ],
+      "myFragment": [],
+      "stripped": false
+    }
+  }
+}

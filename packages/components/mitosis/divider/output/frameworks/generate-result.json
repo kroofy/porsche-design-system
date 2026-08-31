@@ -1,4 +1,5 @@
 {
+  "lite": "divider/Divider.lite.tsx",
   "mitosisExit": 0,
   "targets": {
     "react": {
@@ -7,7 +8,8 @@
       "files": [
         "output/frameworks/react/Divider.tsx"
       ],
-      "myFragment": []
+      "myFragment": [],
+      "stripped": false
     },
     "vue": {
       "compiled": true,
@@ -15,7 +17,8 @@
       "files": [
         "output/frameworks/vue/Divider.vue"
       ],
-      "myFragment": []
+      "myFragment": [],
+      "stripped": false
     },
     "angular": {
       "compiled": true,
@@ -23,7 +26,8 @@
       "files": [
         "output/frameworks/angular/Divider.ts"
       ],
-      "myFragment": []
+      "myFragment": [],
+      "stripped": false
     },
     "svelte": {
       "compiled": true,
@@ -31,7 +35,8 @@
       "files": [
         "output/frameworks/svelte/Divider.svelte"
       ],
-      "myFragment": []
+      "myFragment": [],
+      "stripped": false
     }
   }
 }
