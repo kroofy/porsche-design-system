@@ -24,7 +24,6 @@ import { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberIn
 import { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
 import { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 import { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
-import { InputTextBlurEventDetail, InputTextChangeEventDetail, InputTextInputEventDetail, InputTextState } from "./components/input-text/input-text-utils";
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
 import { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
@@ -69,7 +68,6 @@ export { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberIn
 export { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
 export { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 export { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
-export { InputTextBlurEventDetail, InputTextChangeEventDetail, InputTextInputEventDetail, InputTextState } from "./components/input-text/input-text-utils";
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
 export { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
@@ -1182,97 +1180,6 @@ export namespace Components {
           * @default ''
          */
         "value"?: string | null;
-    }
-    interface PInputText {
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions (e.g. `autocomplete='name'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Shows a live character counter below the field indicating how many characters have been entered relative to `maxLength`.
-          * @default false
-         */
-        "counter"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, to hint at the expected format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited by the user. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Controls whether the browser's built-in spell-checking is enabled for this field.
-         */
-        "spellCheck"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTextState;
-        /**
-          * Sets the current text value. Numbers are accepted for programmatic assignment, but user input updates the value as a string.
-          * @default ''
-         */
-        "value"?: string | number | null;
     }
     interface PInputTime {
         /**
@@ -2530,10 +2437,6 @@ export interface PInputTelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputTelElement;
 }
-export interface PInputTextCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputTextElement;
-}
 export interface PInputTimeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputTimeElement;
@@ -2923,25 +2826,6 @@ declare global {
     var HTMLPInputTelElement: {
         prototype: HTMLPInputTelElement;
         new (): HTMLPInputTelElement;
-    };
-    interface HTMLPInputTextElementEventMap {
-        "change": InputTextChangeEventDetail;
-        "blur": InputTextBlurEventDetail;
-        "input": InputTextInputEventDetail;
-    }
-    interface HTMLPInputTextElement extends Components.PInputText, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputTextElementEventMap>(type: K, listener: (this: HTMLPInputTextElement, ev: PInputTextCustomEvent<HTMLPInputTextElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputTextElementEventMap>(type: K, listener: (this: HTMLPInputTextElement, ev: PInputTextCustomEvent<HTMLPInputTextElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputTextElement: {
-        prototype: HTMLPInputTextElement;
-        new (): HTMLPInputTextElement;
     };
     interface HTMLPInputTimeElementEventMap {
         "change": InputTimeChangeEventDetail;
@@ -3447,7 +3331,6 @@ declare global {
         "p-input-password": HTMLPInputPasswordElement;
         "p-input-search": HTMLPInputSearchElement;
         "p-input-tel": HTMLPInputTelElement;
-        "p-input-text": HTMLPInputTextElement;
         "p-input-time": HTMLPInputTimeElement;
         "p-input-url": HTMLPInputUrlElement;
         "p-input-week": HTMLPInputWeekElement;
@@ -4706,109 +4589,6 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string | null;
-    }
-    interface PInputText {
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions (e.g. `autocomplete='name'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Shows a live character counter below the field indicating how many characters have been entered relative to `maxLength`.
-          * @default false
-         */
-        "counter"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputTextCustomEvent<InputTextBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed. The component value and native event target value are strings after user input.
-         */
-        "onChange"?: (event: PInputTextCustomEvent<InputTextChangeEventDetail>) => void;
-        /**
-          * Emitted on every value change as the user types. The component value and native event target value are strings.
-         */
-        "onInput"?: (event: PInputTextCustomEvent<InputTextInputEventDetail>) => void;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, to hint at the expected format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited by the user. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Controls whether the browser's built-in spell-checking is enabled for this field.
-         */
-        "spellCheck"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTextState;
-        /**
-          * Sets the current text value. Numbers are accepted for programmatic assignment, but user input updates the value as a string.
-          * @default ''
-         */
-        "value"?: string | number | null;
     }
     interface PInputTime {
         /**
@@ -6415,27 +6195,6 @@ declare namespace LocalJSX {
         "hideLabel": string;
         "pattern": string;
     }
-    interface PInputTextAttributes {
-        "label": string;
-        "spellCheck": boolean;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "maxLength": number;
-        "minLength": number;
-        "placeholder": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputTextState;
-        "message": string;
-        "hideLabel": string;
-        "counter": boolean;
-    }
     interface PInputTimeAttributes {
         "label": string;
         "step": number;
@@ -6750,7 +6509,6 @@ declare namespace LocalJSX {
         "p-input-password": Omit<PInputPassword, keyof PInputPasswordAttributes> & { [K in keyof PInputPassword & keyof PInputPasswordAttributes]?: PInputPassword[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `attr:${K}`]?: PInputPasswordAttributes[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `prop:${K}`]?: PInputPassword[K] };
         "p-input-search": Omit<PInputSearch, keyof PInputSearchAttributes> & { [K in keyof PInputSearch & keyof PInputSearchAttributes]?: PInputSearch[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `attr:${K}`]?: PInputSearchAttributes[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `prop:${K}`]?: PInputSearch[K] };
         "p-input-tel": Omit<PInputTel, keyof PInputTelAttributes> & { [K in keyof PInputTel & keyof PInputTelAttributes]?: PInputTel[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `attr:${K}`]?: PInputTelAttributes[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `prop:${K}`]?: PInputTel[K] };
-        "p-input-text": Omit<PInputText, keyof PInputTextAttributes> & { [K in keyof PInputText & keyof PInputTextAttributes]?: PInputText[K] } & { [K in keyof PInputText & keyof PInputTextAttributes as `attr:${K}`]?: PInputTextAttributes[K] } & { [K in keyof PInputText & keyof PInputTextAttributes as `prop:${K}`]?: PInputText[K] };
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-url": Omit<PInputUrl, keyof PInputUrlAttributes> & { [K in keyof PInputUrl & keyof PInputUrlAttributes]?: PInputUrl[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `attr:${K}`]?: PInputUrlAttributes[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `prop:${K}`]?: PInputUrl[K] };
         "p-input-week": Omit<PInputWeek, keyof PInputWeekAttributes> & { [K in keyof PInputWeek & keyof PInputWeekAttributes]?: PInputWeek[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `attr:${K}`]?: PInputWeekAttributes[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `prop:${K}`]?: PInputWeek[K] };
@@ -6839,7 +6597,6 @@ declare module "@stencil/core" {
             "p-input-password": LocalJSX.IntrinsicElements["p-input-password"] & JSXBase.HTMLAttributes<HTMLPInputPasswordElement>;
             "p-input-search": LocalJSX.IntrinsicElements["p-input-search"] & JSXBase.HTMLAttributes<HTMLPInputSearchElement>;
             "p-input-tel": LocalJSX.IntrinsicElements["p-input-tel"] & JSXBase.HTMLAttributes<HTMLPInputTelElement>;
-            "p-input-text": LocalJSX.IntrinsicElements["p-input-text"] & JSXBase.HTMLAttributes<HTMLPInputTextElement>;
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-url": LocalJSX.IntrinsicElements["p-input-url"] & JSXBase.HTMLAttributes<HTMLPInputUrlElement>;
             "p-input-week": LocalJSX.IntrinsicElements["p-input-week"] & JSXBase.HTMLAttributes<HTMLPInputWeekElement>;
