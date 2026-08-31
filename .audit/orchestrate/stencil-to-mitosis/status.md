@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T03:09:56.108Z
+Generated: 2026-08-31T03:13:38.636Z
 
 ## Units
 
-States: done=65, in-progress=1
+States: done=66, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -73,11 +73,12 @@ States: done=65, in-progress=1
 | migrate-table-head | migrate | done | cursor/mitosis-migration-41e6 | 3 | 8fee620d21 | briefs/migrate-table-head.md |
 | migrate-table-head-row | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2cf82f85af | briefs/migrate-table-head-row.md |
 | migrate-table-head-cell | migrate | done | cursor/mitosis-migration-41e6 | 3 | b2cc71f145 | briefs/migrate-table-head-cell.md |
-| migrate-table-body | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-table-body.md |
+| migrate-table-body | migrate | done | cursor/mitosis-migration-41e6 | 3 | 6d7bd9f688 | briefs/migrate-table-body.md |
+| migrate-table-row | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-table-row.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=63, verifier-failed=1
+Verdicts: live-ui-verified=64, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -145,6 +146,7 @@ Verdicts: live-ui-verified=63, verifier-failed=1
 | 3 | 8fee620d21 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_after.png | coordinator-byte-equal-png | 2026-08-31T03:00:34.953Z |
 | 3 | 2cf82f85af | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_row_after.png | coordinator-byte-equal-png | 2026-08-31T03:04:38.605Z |
 | 3 | b2cc71f145 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_cell_after.png | coordinator-byte-equal-png | 2026-08-31T03:09:56.011Z |
+| 3 | 6d7bd9f688 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_body_after.png | coordinator-byte-equal-png | 2026-08-31T03:13:38.535Z |
 
 ## Frontier
 
@@ -157,4 +159,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":65,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":63,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":66,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":64,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
