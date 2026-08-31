@@ -13,7 +13,6 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { TableHeadCellSort } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
@@ -24,7 +23,6 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { TableHeadCellSort } from "./components/table/table/table-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
@@ -328,22 +326,6 @@ export namespace Components {
          */
         "multiline"?: boolean;
     }
-    interface PTableHeadCell {
-        /**
-          * Hides the visible column label while keeping it accessible to screen readers. Only applies when `sort` is not set.
-          * @default false
-         */
-        "hideLabel"?: boolean;
-        /**
-          * Allows the column header text to wrap onto multiple lines instead of being truncated to a single line.
-          * @default false
-         */
-        "multiline"?: boolean;
-        /**
-          * Configures sorting behavior for this column by providing an `id`, `active` state, and current `direction` (`asc` or `desc`).
-         */
-        "sort"?: TableHeadCellSort;
-    }
     interface PTableRow {
     }
     interface PToast {
@@ -551,12 +533,6 @@ declare global {
         prototype: HTMLPTableCellElement;
         new (): HTMLPTableCellElement;
     };
-    interface HTMLPTableHeadCellElement extends Components.PTableHeadCell, HTMLStencilElement {
-    }
-    var HTMLPTableHeadCellElement: {
-        prototype: HTMLPTableHeadCellElement;
-        new (): HTMLPTableHeadCellElement;
-    };
     interface HTMLPTableRowElement extends Components.PTableRow, HTMLStencilElement {
     }
     var HTMLPTableRowElement: {
@@ -597,7 +573,6 @@ declare global {
         "p-sheet": HTMLPSheetElement;
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
-        "p-table-head-cell": HTMLPTableHeadCellElement;
         "p-table-row": HTMLPTableRowElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
@@ -960,22 +935,6 @@ declare namespace LocalJSX {
          */
         "multiline"?: boolean;
     }
-    interface PTableHeadCell {
-        /**
-          * Hides the visible column label while keeping it accessible to screen readers. Only applies when `sort` is not set.
-          * @default false
-         */
-        "hideLabel"?: boolean;
-        /**
-          * Allows the column header text to wrap onto multiple lines instead of being truncated to a single line.
-          * @default false
-         */
-        "multiline"?: boolean;
-        /**
-          * Configures sorting behavior for this column by providing an `id`, `active` state, and current `direction` (`asc` or `desc`).
-         */
-        "sort"?: TableHeadCellSort;
-    }
     interface PTableRow {
     }
     interface PToast {
@@ -1069,10 +1028,6 @@ declare namespace LocalJSX {
     interface PTableCellAttributes {
         "multiline": boolean;
     }
-    interface PTableHeadCellAttributes {
-        "hideLabel": boolean;
-        "multiline": boolean;
-    }
     interface PToastItemAttributes {
         "text": string;
         "state": ToastState;
@@ -1089,7 +1044,6 @@ declare namespace LocalJSX {
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
-        "p-table-head-cell": Omit<PTableHeadCell, keyof PTableHeadCellAttributes> & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes]?: PTableHeadCell[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `attr:${K}`]?: PTableHeadCellAttributes[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `prop:${K}`]?: PTableHeadCell[K] };
         "p-table-row": PTableRow;
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
@@ -1135,7 +1089,6 @@ declare module "@stencil/core" {
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
-            "p-table-head-cell": LocalJSX.IntrinsicElements["p-table-head-cell"] & JSXBase.HTMLAttributes<HTMLPTableHeadCellElement>;
             "p-table-row": LocalJSX.IntrinsicElements["p-table-row"] & JSXBase.HTMLAttributes<HTMLPTableRowElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
