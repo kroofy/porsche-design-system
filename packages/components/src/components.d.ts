@@ -18,7 +18,6 @@ import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
-import { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
 import { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 import { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
 import { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
@@ -62,7 +61,6 @@ export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
-export { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
 export { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 export { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
 export { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
@@ -633,102 +631,6 @@ export namespace Components {
         "step"?: number;
         /**
           * Sets the current date value in YYYY-MM-DD format (e.g. `2025-07-02`).
-          * @default ''
-         */
-        "value"?: string | null;
-    }
-    interface PInputEmail {
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions (e.g. `autocomplete='email'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows an email icon at the start of the field as a visual indicator.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Allows entry of multiple email addresses separated by commas. The browser validates each address individually.
-          * @default false
-         */
-        "multiple"?: boolean;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets a regular expression the entered value must match to be valid. Overrides the browser's default email validation.
-         */
-        "pattern"?: string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, to hint at the expected format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputEmailState;
-        /**
-          * Sets the current email value. When `multiple` is enabled, accepts a comma-separated list of email addresses.
           * @default ''
          */
         "value"?: string | null;
@@ -2413,10 +2315,6 @@ export interface PInputDateCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputDateElement;
 }
-export interface PInputEmailCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputEmailElement;
-}
 export interface PInputMonthCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputMonthElement;
@@ -2712,25 +2610,6 @@ declare global {
     var HTMLPInputDateElement: {
         prototype: HTMLPInputDateElement;
         new (): HTMLPInputDateElement;
-    };
-    interface HTMLPInputEmailElementEventMap {
-        "change": InputEmailChangeEventDetail;
-        "blur": InputEmailBlurEventDetail;
-        "input": InputEmailInputEventDetail;
-    }
-    interface HTMLPInputEmailElement extends Components.PInputEmail, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputEmailElementEventMap>(type: K, listener: (this: HTMLPInputEmailElement, ev: PInputEmailCustomEvent<HTMLPInputEmailElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputEmailElementEventMap>(type: K, listener: (this: HTMLPInputEmailElement, ev: PInputEmailCustomEvent<HTMLPInputEmailElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputEmailElement: {
-        prototype: HTMLPInputEmailElement;
-        new (): HTMLPInputEmailElement;
     };
     interface HTMLPInputMonthElementEventMap {
         "change": InputMonthChangeEventDetail;
@@ -3325,7 +3204,6 @@ declare global {
         "p-flyout": HTMLPFlyoutElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
         "p-input-date": HTMLPInputDateElement;
-        "p-input-email": HTMLPInputEmailElement;
         "p-input-month": HTMLPInputMonthElement;
         "p-input-number": HTMLPInputNumberElement;
         "p-input-password": HTMLPInputPasswordElement;
@@ -3970,114 +3848,6 @@ declare namespace LocalJSX {
         "step"?: number;
         /**
           * Sets the current date value in YYYY-MM-DD format (e.g. `2025-07-02`).
-          * @default ''
-         */
-        "value"?: string | null;
-    }
-    interface PInputEmail {
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions (e.g. `autocomplete='email'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows an email icon at the start of the field as a visual indicator.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Allows entry of multiple email addresses separated by commas. The browser validates each address individually.
-          * @default false
-         */
-        "multiple"?: boolean;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputEmailCustomEvent<InputEmailBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputEmailCustomEvent<InputEmailChangeEventDetail>) => void;
-        /**
-          * Emitted on every value change as the user types.
-         */
-        "onInput"?: (event: PInputEmailCustomEvent<InputEmailInputEventDetail>) => void;
-        /**
-          * Sets a regular expression the entered value must match to be valid. Overrides the browser's default email validation.
-         */
-        "pattern"?: string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, to hint at the expected format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputEmailState;
-        /**
-          * Sets the current email value. When `multiple` is enabled, accepts a comma-separated list of email addresses.
           * @default ''
          */
         "value"?: string | null;
@@ -6070,28 +5840,6 @@ declare namespace LocalJSX {
         "message": string;
         "hideLabel": string;
     }
-    interface PInputEmailAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "maxLength": number;
-        "minLength": number;
-        "placeholder": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputEmailState;
-        "indicator": boolean;
-        "message": string;
-        "hideLabel": string;
-        "multiple": boolean;
-        "pattern": string;
-    }
     interface PInputMonthAttributes {
         "label": string;
         "step": number;
@@ -6503,7 +6251,6 @@ declare namespace LocalJSX {
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
-        "p-input-email": Omit<PInputEmail, keyof PInputEmailAttributes> & { [K in keyof PInputEmail & keyof PInputEmailAttributes]?: PInputEmail[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `attr:${K}`]?: PInputEmailAttributes[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `prop:${K}`]?: PInputEmail[K] };
         "p-input-month": Omit<PInputMonth, keyof PInputMonthAttributes> & { [K in keyof PInputMonth & keyof PInputMonthAttributes]?: PInputMonth[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `attr:${K}`]?: PInputMonthAttributes[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `prop:${K}`]?: PInputMonth[K] };
         "p-input-number": Omit<PInputNumber, keyof PInputNumberAttributes> & { [K in keyof PInputNumber & keyof PInputNumberAttributes]?: PInputNumber[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `attr:${K}`]?: PInputNumberAttributes[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `prop:${K}`]?: PInputNumber[K] };
         "p-input-password": Omit<PInputPassword, keyof PInputPasswordAttributes> & { [K in keyof PInputPassword & keyof PInputPasswordAttributes]?: PInputPassword[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `attr:${K}`]?: PInputPasswordAttributes[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `prop:${K}`]?: PInputPassword[K] };
@@ -6591,7 +6338,6 @@ declare module "@stencil/core" {
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
             "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
-            "p-input-email": LocalJSX.IntrinsicElements["p-input-email"] & JSXBase.HTMLAttributes<HTMLPInputEmailElement>;
             "p-input-month": LocalJSX.IntrinsicElements["p-input-month"] & JSXBase.HTMLAttributes<HTMLPInputMonthElement>;
             "p-input-number": LocalJSX.IntrinsicElements["p-input-number"] & JSXBase.HTMLAttributes<HTMLPInputNumberElement>;
             "p-input-password": LocalJSX.IntrinsicElements["p-input-password"] & JSXBase.HTMLAttributes<HTMLPInputPasswordElement>;
