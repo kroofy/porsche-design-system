@@ -17,7 +17,6 @@ import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
-import { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
 import { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
@@ -43,7 +42,6 @@ export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
-export { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
 export { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
@@ -631,79 +629,6 @@ export namespace Components {
         "label"?: string;
     }
     /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PPinCode {
-        /**
-          * Reduces the pin code field height and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the pin code.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with all pin code fields and blocks events while the component is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the pin code with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label and description while keeping them accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the pin code fields to identify their purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the number of individual input fields rendered, determining how many characters the pin code consists of.
-          * @default 4
-         */
-        "length"?: PinCodeLength;
-        /**
-          * Disables the pin code fields and shows a loading spinner to indicate an ongoing background operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the pin code when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data to identify the pin code value on the server.
-         */
-        "name"?: string;
-        /**
-          * Marks the pin code as required so the form cannot be submitted until all fields are filled.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the pin code, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: PinCodeState;
-        /**
-          * Controls whether the individual input fields mask their content as password dots (`password`) or show digits (`number`).
-          * @default 'number'
-         */
-        "type"?: PinCodeType;
-        /**
-          * Sets the current concatenated value. Numbers are accepted for programmatic assignment, but user input updates the value as a string.
-          * @default ''
-         */
-        "value"?: string | number | null;
-    }
-    /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
     interface PPopover {
@@ -1203,10 +1128,6 @@ export interface PMultiSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPMultiSelectElement;
 }
-export interface PPinCodeCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPPinCodeElement;
-}
 export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPPopoverElement;
@@ -1460,27 +1381,6 @@ declare global {
     var HTMLPOptgroupElement: {
         prototype: HTMLPOptgroupElement;
         new (): HTMLPOptgroupElement;
-    };
-    interface HTMLPPinCodeElementEventMap {
-        "blur": void;
-        "change": PinCodeChangeEventDetail;
-    }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface HTMLPPinCodeElement extends Components.PPinCode, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPPinCodeElementEventMap>(type: K, listener: (this: HTMLPPinCodeElement, ev: PPinCodeCustomEvent<HTMLPPinCodeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPPinCodeElementEventMap>(type: K, listener: (this: HTMLPPinCodeElement, ev: PPinCodeCustomEvent<HTMLPPinCodeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPPinCodeElement: {
-        prototype: HTMLPPinCodeElement;
-        new (): HTMLPPinCodeElement;
     };
     interface HTMLPPopoverElementEventMap {
         "dismiss": PopoverDismissEventDetail;
@@ -1763,7 +1663,6 @@ declare global {
         "p-multi-select": HTMLPMultiSelectElement;
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
-        "p-pin-code": HTMLPPinCodeElement;
         "p-popover": HTMLPPopoverElement;
         "p-radio-group": HTMLPRadioGroupElement;
         "p-radio-group-option": HTMLPRadioGroupOptionElement;
@@ -2424,87 +2323,6 @@ declare namespace LocalJSX {
           * Sets the visible group heading displayed above the grouped options.
          */
         "label"?: string;
-    }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PPinCode {
-        /**
-          * Reduces the pin code field height and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the pin code.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with all pin code fields and blocks events while the component is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the pin code with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label and description while keeping them accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the pin code fields to identify their purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the number of individual input fields rendered, determining how many characters the pin code consists of.
-          * @default 4
-         */
-        "length"?: PinCodeLength;
-        /**
-          * Disables the pin code fields and shows a loading spinner to indicate an ongoing background operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the pin code when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data to identify the pin code value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the pin code component loses focus after the user finishes entering characters.
-         */
-        "onBlur"?: (event: PPinCodeCustomEvent<void>) => void;
-        /**
-          * Emitted when the pin code value changes as the user types, carrying `{ value: string; isComplete: boolean }` in the event detail.
-         */
-        "onChange"?: (event: PPinCodeCustomEvent<PinCodeChangeEventDetail>) => void;
-        /**
-          * Marks the pin code as required so the form cannot be submitted until all fields are filled.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the pin code, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: PinCodeState;
-        /**
-          * Controls whether the individual input fields mask their content as password dots (`password`) or show digits (`number`).
-          * @default 'number'
-         */
-        "type"?: PinCodeType;
-        /**
-          * Sets the current concatenated value. Numbers are accepted for programmatic assignment, but user input updates the value as a string.
-          * @default ''
-         */
-        "value"?: string | number | null;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -3174,22 +2992,6 @@ declare namespace LocalJSX {
         "label": string;
         "disabled": boolean;
     }
-    interface PPinCodeAttributes {
-        "label": string;
-        "description": string;
-        "name": string;
-        "length": PinCodeLength;
-        "hideLabel": string;
-        "state": PinCodeState;
-        "disabled": boolean;
-        "loading": boolean;
-        "required": boolean;
-        "message": string;
-        "type": PinCodeType;
-        "value": string;
-        "compact": boolean;
-        "form": string;
-    }
     interface PPopoverAttributes {
         "open": boolean;
         "direction": PopoverDirection;
@@ -3326,7 +3128,6 @@ declare namespace LocalJSX {
         "p-multi-select": Omit<PMultiSelect, keyof PMultiSelectAttributes> & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes]?: PMultiSelect[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `attr:${K}`]?: PMultiSelectAttributes[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `prop:${K}`]?: PMultiSelect[K] };
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
-        "p-pin-code": Omit<PPinCode, keyof PPinCodeAttributes> & { [K in keyof PPinCode & keyof PPinCodeAttributes]?: PPinCode[K] } & { [K in keyof PPinCode & keyof PPinCodeAttributes as `attr:${K}`]?: PPinCodeAttributes[K] } & { [K in keyof PPinCode & keyof PPinCodeAttributes as `prop:${K}`]?: PPinCode[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
         "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
@@ -3402,10 +3203,6 @@ declare module "@stencil/core" {
             "p-multi-select": LocalJSX.IntrinsicElements["p-multi-select"] & JSXBase.HTMLAttributes<HTMLPMultiSelectElement>;
             "p-multi-select-option": LocalJSX.IntrinsicElements["p-multi-select-option"] & JSXBase.HTMLAttributes<HTMLPMultiSelectOptionElement>;
             "p-optgroup": LocalJSX.IntrinsicElements["p-optgroup"] & JSXBase.HTMLAttributes<HTMLPOptgroupElement>;
-            /**
-             * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-             */
-            "p-pin-code": LocalJSX.IntrinsicElements["p-pin-code"] & JSXBase.HTMLAttributes<HTMLPPinCodeElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
