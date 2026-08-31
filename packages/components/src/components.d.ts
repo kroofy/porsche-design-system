@@ -598,17 +598,6 @@ export namespace Components {
          */
         "open"?: boolean;
     }
-    interface PSelectOption {
-        /**
-          * Prevents the option from being selected and visually dims it to indicate it is unavailable.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the value submitted with the form data when this option is selected in the parent select control.
-         */
-        "value"?: string | number | null;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -1065,12 +1054,6 @@ declare global {
         prototype: HTMLPPopoverElement;
         new (): HTMLPPopoverElement;
     };
-    interface HTMLPSelectOptionElement extends Components.PSelectOption, HTMLStencilElement {
-    }
-    var HTMLPSelectOptionElement: {
-        prototype: HTMLPSelectOptionElement;
-        new (): HTMLPSelectOptionElement;
-    };
     interface HTMLPSheetElementEventMap {
         "dismiss": SheetDismissEventDetail;
         "motionVisibleEnd": SheetMotionVisibleEndEventDetail;
@@ -1253,7 +1236,6 @@ declare global {
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
         "p-popover": HTMLPPopoverElement;
-        "p-select-option": HTMLPSelectOptionElement;
         "p-sheet": HTMLPSheetElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
         "p-stepper-horizontal-item": HTMLPStepperHorizontalItemElement;
@@ -1888,17 +1870,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PSelectOption {
-        /**
-          * Prevents the option from being selected and visually dims it to indicate it is unavailable.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the value submitted with the form data when this option is selected in the parent select control.
-         */
-        "value"?: string | number | null;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -2249,10 +2220,6 @@ declare namespace LocalJSX {
         "compact": boolean;
         "aria": SelectedAriaAttributes<PopoverAriaAttribute>;
     }
-    interface PSelectOptionAttributes {
-        "value": string;
-        "disabled": boolean;
-    }
     interface PSheetAttributes {
         "open": boolean;
         "dismissButton": boolean;
@@ -2319,7 +2286,6 @@ declare namespace LocalJSX {
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
-        "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
         "p-stepper-horizontal-item": Omit<PStepperHorizontalItem, keyof PStepperHorizontalItemAttributes> & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes]?: PStepperHorizontalItem[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `attr:${K}`]?: PStepperHorizontalItemAttributes[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `prop:${K}`]?: PStepperHorizontalItem[K] };
@@ -2388,7 +2354,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
-            "p-select-option": LocalJSX.IntrinsicElements["p-select-option"] & JSXBase.HTMLAttributes<HTMLPSelectOptionElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
