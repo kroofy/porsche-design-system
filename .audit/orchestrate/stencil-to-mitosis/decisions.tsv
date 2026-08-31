@@ -112,3 +112,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T03:40:00Z	migrate	accepted p-modal, spawned p-flyout	after PNG is byte-identical to Stencil modal card, 48122 bytes	/opt/cursor/artifacts/mitosis_lit_modal_after.png	live-ui-verified, probe tags 68, packages/components still 0/75
 2026-08-31T03:50:00Z	migrate	accepted p-flyout, spawned p-sheet	after PNG is byte-identical to Stencil flyout card, 66802 bytes	/opt/cursor/artifacts/mitosis_lit_flyout_after.png	live-ui-verified, probe tags 69, packages/components still 0/75
 2026-08-31T03:50:20Z	drain	tick: leftover timer for sheet; worker running, no Sheet.lite.tsx yet, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
+2026-08-31T03:55:00Z	migrate	accepted p-sheet, spawned p-drilldown	after PNG is byte-identical to Stencil sheet card, 27148 bytes	/opt/cursor/artifacts/mitosis_lit_sheet_after.png	live-ui-verified, probe tags 70, packages/components still 0/75

@@ -71,4 +71,5 @@ migrate-toast	migrate	done	cursor/mitosis-migration-41e6	3	13bf53daa9	briefs/mig
 migrate-toast-item	migrate	done	cursor/mitosis-migration-41e6	3	41b8142c1c	briefs/migrate-toast-item.md
 migrate-modal	migrate	done	cursor/mitosis-migration-41e6	3	ba6334587f	briefs/migrate-modal.md
 migrate-flyout	migrate	done	cursor/mitosis-migration-41e6	3	b49bbc9516	briefs/migrate-flyout.md
-migrate-sheet	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-sheet.md
+migrate-sheet	migrate	done	cursor/mitosis-migration-41e6	3	e98b7e33d4	briefs/migrate-sheet.md
+migrate-drilldown	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-drilldown.md
