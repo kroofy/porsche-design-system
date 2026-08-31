@@ -134,4 +134,5 @@ land-stepper-horizontal-item	land	done	cursor/mitosis-migration-41e6	3	2e13d0c1c
 land-button-tile	land	done	cursor/mitosis-migration-41e6	3	0e0a8e971e	briefs/land-button-tile.md
 land-link-tile	land	done	cursor/mitosis-migration-41e6	3	8bf2165e06	briefs/land-link-tile.md
 land-link-tile-product	land	done	cursor/mitosis-migration-41e6	3	bbce24639c	briefs/land-link-tile-product.md
-land-popover	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-popover.md
+land-popover	land	done	cursor/mitosis-migration-41e6	3	7d8b653e99	briefs/land-popover.md
+land-table	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-table.md
