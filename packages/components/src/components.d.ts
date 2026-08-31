@@ -328,8 +328,6 @@ export namespace Components {
          */
         "multiline"?: boolean;
     }
-    interface PTableHead {
-    }
     interface PTableHeadCell {
         /**
           * Hides the visible column label while keeping it accessible to screen readers. Only applies when `sort` is not set.
@@ -555,12 +553,6 @@ declare global {
         prototype: HTMLPTableCellElement;
         new (): HTMLPTableCellElement;
     };
-    interface HTMLPTableHeadElement extends Components.PTableHead, HTMLStencilElement {
-    }
-    var HTMLPTableHeadElement: {
-        prototype: HTMLPTableHeadElement;
-        new (): HTMLPTableHeadElement;
-    };
     interface HTMLPTableHeadCellElement extends Components.PTableHeadCell, HTMLStencilElement {
     }
     var HTMLPTableHeadCellElement: {
@@ -613,7 +605,6 @@ declare global {
         "p-sheet": HTMLPSheetElement;
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
-        "p-table-head": HTMLPTableHeadElement;
         "p-table-head-cell": HTMLPTableHeadCellElement;
         "p-table-head-row": HTMLPTableHeadRowElement;
         "p-table-row": HTMLPTableRowElement;
@@ -978,8 +969,6 @@ declare namespace LocalJSX {
          */
         "multiline"?: boolean;
     }
-    interface PTableHead {
-    }
     interface PTableHeadCell {
         /**
           * Hides the visible column label while keeping it accessible to screen readers. Only applies when `sort` is not set.
@@ -1111,7 +1100,6 @@ declare namespace LocalJSX {
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
-        "p-table-head": PTableHead;
         "p-table-head-cell": Omit<PTableHeadCell, keyof PTableHeadCellAttributes> & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes]?: PTableHeadCell[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `attr:${K}`]?: PTableHeadCellAttributes[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `prop:${K}`]?: PTableHeadCell[K] };
         "p-table-head-row": PTableHeadRow;
         "p-table-row": PTableRow;
@@ -1159,7 +1147,6 @@ declare module "@stencil/core" {
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
-            "p-table-head": LocalJSX.IntrinsicElements["p-table-head"] & JSXBase.HTMLAttributes<HTMLPTableHeadElement>;
             "p-table-head-cell": LocalJSX.IntrinsicElements["p-table-head-cell"] & JSXBase.HTMLAttributes<HTMLPTableHeadCellElement>;
             "p-table-head-row": LocalJSX.IntrinsicElements["p-table-head-row"] & JSXBase.HTMLAttributes<HTMLPTableHeadRowElement>;
             "p-table-row": LocalJSX.IntrinsicElements["p-table-row"] & JSXBase.HTMLAttributes<HTMLPTableRowElement>;
