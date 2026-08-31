@@ -143,3 +143,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T06:05:00Z	land	accepted land-link-pure, spawned land-link	after PNG is byte-identical to stored Stencil link-pure baseline, 97024 bytes	/opt/cursor/artifacts/mitosis_land_link_pure_after.png	live-ui-verified, 13 real p- tags from Mitosis
 2026-08-31T06:10:00Z	land	accepted land-link, spawned land-button-pure	after PNG is byte-identical to stored Stencil link baseline, 34250 bytes	/opt/cursor/artifacts/mitosis_land_link_after.png	live-ui-verified, 14 real p- tags from Mitosis
 2026-08-31T06:10:30Z	drain	tick: leftover stale land-link prompt; land-link already done; land-button-pure in flight, no after PNG	one writer	do not re-accept or spawn	in flight
+2026-08-31T06:19:00Z	land	accepted land-button-pure, spawned land-button	after PNG is byte-identical to stored Stencil button-pure baseline, 97644 bytes	/opt/cursor/artifacts/mitosis_land_button_pure_after.png	live-ui-verified, 15 real p- tags from Mitosis
