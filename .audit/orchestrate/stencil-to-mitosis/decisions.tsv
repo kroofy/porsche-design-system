@@ -106,3 +106,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T03:17:00Z	migrate	accepted p-table-row, spawned p-table-cell	after PNG is byte-identical to Stencil table card, 57465 bytes	/opt/cursor/artifacts/mitosis_lit_table_row_after.png	live-ui-verified, probe tags 64, packages/components still 0/75
 2026-08-31T03:20:20Z	drain	tick: table-cell worker running, TableCell.lite.tsx present, no after PNG, no report	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-31T03:22:00Z	migrate	accepted p-table-cell, spawned p-toast	after PNG is byte-identical to Stencil table card, 57465 bytes	/opt/cursor/artifacts/mitosis_lit_table_cell_after.png	live-ui-verified, probe tags 65, packages/components still 0/75
+2026-08-31T03:27:00Z	migrate	accepted p-toast, spawned p-toast-item	after PNG is byte-identical to Stencil toast card, 30687 bytes	/opt/cursor/artifacts/mitosis_lit_toast_after.png	live-ui-verified, probe tags 66, packages/components still 0/75
