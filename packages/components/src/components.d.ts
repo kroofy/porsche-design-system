@@ -12,7 +12,6 @@ import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEve
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -24,7 +23,6 @@ export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEve
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -295,32 +293,6 @@ export namespace Components {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PPopover {
-        /**
-          * Sets ARIA attributes on the popover panel to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<PopoverAriaAttribute>;
-        /**
-          * Reduces padding and spacing for a more compact layout, useful in space-constrained interfaces.
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the text content displayed inside the popover panel when it is open, providing contextual help or information. Takes precedence over the default slot when both are provided.
-         */
-        "description"?: string;
-        /**
-          * Sets the preferred direction for the popover to open relative to its trigger button. Falls back to the direction with the most available viewport space.
-          * @default 'bottom'
-         */
-        "direction"?: PopoverDirection;
-        /**
-          * Controls whether the popover is visible. When set (controlled mode), visibility follows this prop and the consumer owns the open state via a slotted `button`. When omitted (uncontrolled mode), the component manages visibility itself.
-         */
-        "open"?: boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -434,10 +406,6 @@ export interface PFlyoutCustomEvent<T> extends CustomEvent<T> {
 export interface PModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPModalElement;
-}
-export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPPopoverElement;
 }
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -578,26 +546,6 @@ declare global {
         prototype: HTMLPModalElement;
         new (): HTMLPModalElement;
     };
-    interface HTMLPPopoverElementEventMap {
-        "dismiss": PopoverDismissEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface HTMLPPopoverElement extends Components.PPopover, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPPopoverElementEventMap>(type: K, listener: (this: HTMLPPopoverElement, ev: PPopoverCustomEvent<HTMLPPopoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPPopoverElementEventMap>(type: K, listener: (this: HTMLPPopoverElement, ev: PPopoverCustomEvent<HTMLPPopoverElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPPopoverElement: {
-        prototype: HTMLPPopoverElement;
-        new (): HTMLPPopoverElement;
-    };
     interface HTMLPSheetElementEventMap {
         "dismiss": SheetDismissEventDetail;
         "motionVisibleEnd": SheetMotionVisibleEndEventDetail;
@@ -704,7 +652,6 @@ declare global {
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-modal": HTMLPModalElement;
-        "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
         "p-table": HTMLPTableElement;
         "p-table-body": HTMLPTableBodyElement;
@@ -1027,36 +974,6 @@ declare namespace LocalJSX {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PPopover {
-        /**
-          * Sets ARIA attributes on the popover panel to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<PopoverAriaAttribute>;
-        /**
-          * Reduces padding and spacing for a more compact layout, useful in space-constrained interfaces.
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the text content displayed inside the popover panel when it is open, providing contextual help or information. Takes precedence over the default slot when both are provided.
-         */
-        "description"?: string;
-        /**
-          * Sets the preferred direction for the popover to open relative to its trigger button. Falls back to the direction with the most available viewport space.
-          * @default 'bottom'
-         */
-        "direction"?: PopoverDirection;
-        /**
-          * Emitted in controlled mode when the user requests to close the popover via the Escape key, an outside click, or when keyboard focus leaves the popover (Tab / Shift+Tab). The event detail identifies which of the three was used.
-         */
-        "onDismiss"?: (event: PPopoverCustomEvent<PopoverDismissEventDetail>) => void;
-        /**
-          * Controls whether the popover is visible. When set (controlled mode), visibility follows this prop and the consumer owns the open state via a slotted `button`. When omitted (uncontrolled mode), the component manages visibility itself.
-         */
-        "open"?: boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -1232,13 +1149,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<ModalAriaAttribute>;
     }
-    interface PPopoverAttributes {
-        "open": boolean;
-        "direction": PopoverDirection;
-        "description": string;
-        "compact": boolean;
-        "aria": SelectedAriaAttributes<PopoverAriaAttribute>;
-    }
     interface PSheetAttributes {
         "open": boolean;
         "dismissButton": boolean;
@@ -1272,7 +1182,6 @@ declare namespace LocalJSX {
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
-        "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-table": Omit<PTable, keyof PTableAttributes> & { [K in keyof PTable & keyof PTableAttributes]?: PTable[K] } & { [K in keyof PTable & keyof PTableAttributes as `attr:${K}`]?: PTableAttributes[K] } & { [K in keyof PTable & keyof PTableAttributes as `prop:${K}`]?: PTable[K] };
         "p-table-body": PTableBody;
@@ -1319,10 +1228,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-modal": LocalJSX.IntrinsicElements["p-modal"] & JSXBase.HTMLAttributes<HTMLPModalElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             */
-            "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
