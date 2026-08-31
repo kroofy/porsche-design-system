@@ -600,26 +600,6 @@ export namespace Components {
          */
         "open"?: boolean;
     }
-    interface PRadioGroupOption {
-        /**
-          * Prevents this option from being selected and excludes its value from form submissions while it is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the visible label text displayed next to the radio button that the user reads to identify the option.
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables this option and shows a spinner to indicate that this particular option is in a loading state.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the required option value. Must be a string or number and is selected when it strictly matches the parent `p-radio-group` value by type and value.
-         */
-        "value": string | number;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -1158,12 +1138,6 @@ declare global {
         prototype: HTMLPPopoverElement;
         new (): HTMLPPopoverElement;
     };
-    interface HTMLPRadioGroupOptionElement extends Components.PRadioGroupOption, HTMLStencilElement {
-    }
-    var HTMLPRadioGroupOptionElement: {
-        prototype: HTMLPRadioGroupOptionElement;
-        new (): HTMLPRadioGroupOptionElement;
-    };
     interface HTMLPSelectElementEventMap {
         "blur": void;
         "change": SelectChangeEventDetail;
@@ -1374,7 +1348,6 @@ declare global {
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
         "p-popover": HTMLPPopoverElement;
-        "p-radio-group-option": HTMLPRadioGroupOptionElement;
         "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
         "p-sheet": HTMLPSheetElement;
@@ -2011,26 +1984,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PRadioGroupOption {
-        /**
-          * Prevents this option from being selected and excludes its value from form submissions while it is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the visible label text displayed next to the radio button that the user reads to identify the option.
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables this option and shows a spinner to indicate that this particular option is in a loading state.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the required option value. Must be a string or number and is selected when it strictly matches the parent `p-radio-group` value by type and value.
-         */
-        "value"?: string | number;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -2471,12 +2424,6 @@ declare namespace LocalJSX {
         "compact": boolean;
         "aria": SelectedAriaAttributes<PopoverAriaAttribute>;
     }
-    interface PRadioGroupOptionAttributes {
-        "value": string;
-        "label": string;
-        "disabled": boolean;
-        "loading": boolean;
-    }
     interface PSelectAttributes {
         "label": string;
         "description": string;
@@ -2562,7 +2509,6 @@ declare namespace LocalJSX {
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
-        "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
@@ -2633,7 +2579,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
-            "p-radio-group-option": LocalJSX.IntrinsicElements["p-radio-group-option"] & JSXBase.HTMLAttributes<HTMLPRadioGroupOptionElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
              */
