@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-drilldown-link harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="href">
+      <lit-drilldown-link href="#">Some anchor</lit-drilldown-link>
+    </section>
+    <section id="slotted">
+      <lit-drilldown-link>
+        <a href="#">Slotted anchor</a>
+      </lit-drilldown-link>
+    </section>
+    <section id="active">
+      <lit-drilldown-link href="#" active="true">Active</lit-drilldown-link>
+    </section>
+    <script src="lit-drilldown-link.bundle.js"></script>
+  </body>
+</html>
