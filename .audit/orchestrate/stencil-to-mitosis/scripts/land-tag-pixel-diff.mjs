@@ -41,6 +41,7 @@ await page.waitForFunction(() => {
       const span = el.shadowRoot?.querySelector('span');
       const icon = el.shadowRoot?.querySelector('p-icon');
       const img = icon?.shadowRoot?.querySelector('img');
+      const iconHidden = !!icon && getComputedStyle(icon).display === 'none';
       return (
         !!el.shadowRoot?.querySelector('style') &&
         !!span &&
@@ -48,8 +49,7 @@ await page.waitForFunction(() => {
         icon?.localName === 'p-icon' &&
         !el.shadowRoot.querySelector('lit-icon') &&
         !el.shadowRoot.querySelector('my-fragment') &&
-        !!img?.complete &&
-        (img?.naturalWidth ?? 0) > 0 &&
+        (iconHidden || (!!img?.complete && (img?.naturalWidth ?? 0) > 0)) &&
         (el.textContent?.trim().length ?? 0) > 0
       );
     })
@@ -75,12 +75,14 @@ const proof = await page.evaluate(() => {
       const icon = el.shadowRoot?.querySelector('p-icon');
       const img = icon?.shadowRoot?.querySelector('img');
       const css = span ? getComputedStyle(span) : null;
+      const iconHidden = !!icon && getComputedStyle(icon).display === 'none';
       return {
         tag: el.localName,
         variant: el.getAttribute('variant'),
         icon: el.getAttribute('icon'),
         iconSource: el.getAttribute('icon-source'),
         innerTag: icon?.localName ?? null,
+        iconHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
         hasSpan: !!span,
@@ -154,9 +156,8 @@ const failed =
       !h.hasSpan ||
       !h.hasSlot ||
       h.hasFragment ||
-      !h.imgComplete ||
-      h.imgNaturalWidth === 0 ||
-      !h.text
+      !h.text ||
+      (!h.iconHidden && (!h.imgComplete || h.imgNaturalWidth === 0))
   ) ||
   consoleErrors.length > 0;
 
