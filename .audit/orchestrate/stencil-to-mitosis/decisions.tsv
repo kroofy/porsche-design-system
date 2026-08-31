@@ -119,3 +119,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T04:20:20Z	drain	tick: leftover timer for carousel; Carousel.lite.tsx present, no after PNG, no report	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-31T04:25:00Z	migrate	accepted p-carousel, spawned p-canvas	after PNG is byte-identical to Stencil carousel card, 7096 bytes	/opt/cursor/artifacts/mitosis_lit_carousel_after.png	live-ui-verified, probe tags 74, packages/components still 0/75
 2026-08-31T04:30:20Z	drain	tick: leftover timer for canvas; Canvas.lite.tsx present, no after PNG, no report	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
+2026-08-31T04:33:00Z	migrate	accepted p-canvas, spawned land-divider	after PNG is byte-identical to Stencil canvas chrome, 40157 bytes	/opt/cursor/artifacts/mitosis_lit_canvas_after.png	live-ui-verified, probe tags 75/75, packages/components still Stencil
