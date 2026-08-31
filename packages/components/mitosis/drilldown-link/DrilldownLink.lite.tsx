@@ -84,10 +84,5 @@ export default function LitDrilldownLink(props: {
     }
   `);
 
-  return (
-    <div class="root">
-      <style innerHTML={state.cssText} />
-      <slot />
-    </div>
-  );
+  return <slot />;
 }

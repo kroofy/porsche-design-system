@@ -599,6 +599,14 @@ export const config: Config = {
           src: './assets/p-drilldown-item.iife.js',
           dest: 'build/p-drilldown-item.iife.js',
         },
+        {
+          src: './assets/p-drilldown-link.iife.js',
+          dest: 'assets/p-drilldown-link.iife.js',
+        },
+        {
+          src: './assets/p-drilldown-link.iife.js',
+          dest: 'build/p-drilldown-link.iife.js',
+        },
       ],
     },
   ],
@@ -678,6 +686,7 @@ export const config: Config = {
     'p-sheet',
     'p-drilldown',
     'p-drilldown-item',
+    'p-drilldown-link',
   ],
   enableCache: true,
   rollupPlugins: {
