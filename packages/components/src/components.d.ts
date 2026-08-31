@@ -6,10 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+import { BreakpointCustomizable, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 import { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
-import { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
 import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
@@ -54,10 +53,9 @@ import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventD
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+export { BreakpointCustomizable, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
-export { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
 export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
@@ -199,63 +197,6 @@ export namespace Components {
           * @default 'info'
          */
         "state"?: BannerState;
-    }
-    interface PButton {
-        /**
-          * Sets ARIA attributes on the button to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<ButtonAriaAttribute>;
-        /**
-          * Reduces the button's height and padding for denser layouts. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Disables the button, preventing all interaction and blocking events.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the button with a form element by its ID, so it can submit or reset that form even when placed outside of it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the icon displayed inside the button. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: ButtonIcon;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Disables the button and replaces its content with a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the name submitted with the form data when this button triggers form submission.
-         */
-        "name"?: string;
-        /**
-          * Sets the button's HTML type — `submit` sends the form, `reset` clears it, `button` performs no default action.
-          * @default 'submit'
-         */
-        "type"?: ButtonType;
-        /**
-          * Sets the value submitted with the form data when this button triggers form submission, paired with `name`.
-         */
-        "value"?: string;
-        /**
-          * Sets the visual style variant of the button (`primary`, `secondary` or `destructive`). Use `destructive` for actions with irreversible consequences, e.g. deleting data.
-          * @default 'primary'
-         */
-        "variant"?: ButtonVariant;
     }
     interface PButtonTile {
         /**
@@ -2834,12 +2775,6 @@ declare global {
         prototype: HTMLPBannerElement;
         new (): HTMLPBannerElement;
     };
-    interface HTMLPButtonElement extends Components.PButton, HTMLStencilElement {
-    }
-    var HTMLPButtonElement: {
-        prototype: HTMLPButtonElement;
-        new (): HTMLPButtonElement;
-    };
     interface HTMLPButtonTileElement extends Components.PButtonTile, HTMLStencilElement {
     }
     var HTMLPButtonTileElement: {
@@ -3652,7 +3587,6 @@ declare global {
         "p-accordion": HTMLPAccordionElement;
         "p-ai-tag": HTMLPAiTagElement;
         "p-banner": HTMLPBannerElement;
-        "p-button": HTMLPButtonElement;
         "p-button-tile": HTMLPButtonTileElement;
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
@@ -3817,63 +3751,6 @@ declare namespace LocalJSX {
           * @default 'info'
          */
         "state"?: BannerState;
-    }
-    interface PButton {
-        /**
-          * Sets ARIA attributes on the button to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<ButtonAriaAttribute>;
-        /**
-          * Reduces the button's height and padding for denser layouts. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Disables the button, preventing all interaction and blocking events.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the button with a form element by its ID, so it can submit or reset that form even when placed outside of it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the icon displayed inside the button. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: ButtonIcon;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Disables the button and replaces its content with a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the name submitted with the form data when this button triggers form submission.
-         */
-        "name"?: string;
-        /**
-          * Sets the button's HTML type — `submit` sends the form, `reset` clears it, `button` performs no default action.
-          * @default 'submit'
-         */
-        "type"?: ButtonType;
-        /**
-          * Sets the value submitted with the form data when this button triggers form submission, paired with `name`.
-         */
-        "value"?: string;
-        /**
-          * Sets the visual style variant of the button (`primary`, `secondary` or `destructive`). Use `destructive` for actions with irreversible consequences, e.g. deleting data.
-          * @default 'primary'
-         */
-        "variant"?: ButtonVariant;
     }
     interface PButtonTile {
         /**
@@ -6584,20 +6461,6 @@ declare namespace LocalJSX {
         "state": BannerState;
         "dismissButton": boolean;
     }
-    interface PButtonAttributes {
-        "type": ButtonType;
-        "name": string;
-        "value": string;
-        "disabled": boolean;
-        "loading": boolean;
-        "variant": ButtonVariant;
-        "icon": ButtonIcon;
-        "iconSource": string;
-        "hideLabel": string;
-        "compact": string;
-        "aria": SelectedAriaAttributes<ButtonAriaAttribute>;
-        "form": string;
-    }
     interface PButtonTileAttributes {
         "size": BreakpointCustomizable<ButtonTileSize>;
         "weight": BreakpointCustomizable<ButtonTileWeight>;
@@ -7171,7 +7034,6 @@ declare namespace LocalJSX {
         "p-accordion": Omit<PAccordion, keyof PAccordionAttributes> & { [K in keyof PAccordion & keyof PAccordionAttributes]?: PAccordion[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `attr:${K}`]?: PAccordionAttributes[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `prop:${K}`]?: PAccordion[K] };
         "p-ai-tag": Omit<PAiTag, keyof PAiTagAttributes> & { [K in keyof PAiTag & keyof PAiTagAttributes]?: PAiTag[K] } & { [K in keyof PAiTag & keyof PAiTagAttributes as `attr:${K}`]?: PAiTagAttributes[K] } & { [K in keyof PAiTag & keyof PAiTagAttributes as `prop:${K}`]?: PAiTag[K] };
         "p-banner": Omit<PBanner, keyof PBannerAttributes> & { [K in keyof PBanner & keyof PBannerAttributes]?: PBanner[K] } & { [K in keyof PBanner & keyof PBannerAttributes as `attr:${K}`]?: PBannerAttributes[K] } & { [K in keyof PBanner & keyof PBannerAttributes as `prop:${K}`]?: PBanner[K] };
-        "p-button": Omit<PButton, keyof PButtonAttributes> & { [K in keyof PButton & keyof PButtonAttributes]?: PButton[K] } & { [K in keyof PButton & keyof PButtonAttributes as `attr:${K}`]?: PButtonAttributes[K] } & { [K in keyof PButton & keyof PButtonAttributes as `prop:${K}`]?: PButton[K] };
         "p-button-tile": Omit<PButtonTile, keyof PButtonTileAttributes> & { [K in keyof PButtonTile & keyof PButtonTileAttributes]?: PButtonTile[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `attr:${K}`]?: PButtonTileAttributes[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `prop:${K}`]?: PButtonTile[K] };
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
@@ -7243,7 +7105,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-banner": LocalJSX.IntrinsicElements["p-banner"] & JSXBase.HTMLAttributes<HTMLPBannerElement>;
-            "p-button": LocalJSX.IntrinsicElements["p-button"] & JSXBase.HTMLAttributes<HTMLPButtonElement>;
             "p-button-tile": LocalJSX.IntrinsicElements["p-button-tile"] & JSXBase.HTMLAttributes<HTMLPButtonTileElement>;
             /**
              * @experimental 
