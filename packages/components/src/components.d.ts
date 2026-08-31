@@ -18,7 +18,6 @@ import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDe
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-import { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
 import { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
@@ -42,7 +41,6 @@ export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDe
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-export { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedControlState } from "./components/segmented-control/segmented-control/segmented-control-utils";
 export { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
@@ -690,73 +688,6 @@ export namespace Components {
          */
         "value": string | number;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PSegmentedControl {
-        /**
-          * Sets the number of equal-width columns for the item layout. Use `auto` to distribute items based on their content width. Supports responsive breakpoint values.
-          * @default 'auto'
-         */
-        "columns"?: BreakpointCustomizable<SegmentedControlColumns>;
-        /**
-          * Reduces the item height and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional context about the segmented control.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with all items in the segmented control and excludes the value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the segmented control with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the segmented control to describe the group of options.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the segmented control when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data to identify the selected value on the server.
-         */
-        "name"?: string;
-        /**
-          * Prevents items from wrapping to new rows and renders them in a single horizontally scrollable row instead.
-          * @default false
-         */
-        "noWrap"?: boolean;
-        /**
-          * Marks the segmented control as required so the form cannot be submitted until one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the segmented control, controlling its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: SegmentedControlState;
-        /**
-          * Sets the currently selected item's value and pre-selects the matching option when the component renders. Matches an item strictly by type and value, meaning string or number only match an item whose value has the same type and equal value. Use undefined or null for no preselection.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed item. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PSegmentedControlItem {
         /**
           * Sets ARIA attributes on the item's button element to improve accessibility for screen readers.
@@ -1084,10 +1015,6 @@ export interface PRadioGroupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPRadioGroupElement;
 }
-export interface PSegmentedControlCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPSegmentedControlElement;
-}
 export interface PSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPSelectElement;
@@ -1354,27 +1281,6 @@ declare global {
         prototype: HTMLPRadioGroupOptionElement;
         new (): HTMLPRadioGroupOptionElement;
     };
-    interface HTMLPSegmentedControlElementEventMap {
-        "blur": void;
-        "change": SegmentedControlChangeEventDetail;
-    }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface HTMLPSegmentedControlElement extends Components.PSegmentedControl, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPSegmentedControlElementEventMap>(type: K, listener: (this: HTMLPSegmentedControlElement, ev: PSegmentedControlCustomEvent<HTMLPSegmentedControlElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPSegmentedControlElementEventMap>(type: K, listener: (this: HTMLPSegmentedControlElement, ev: PSegmentedControlCustomEvent<HTMLPSegmentedControlElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPSegmentedControlElement: {
-        prototype: HTMLPSegmentedControlElement;
-        new (): HTMLPSegmentedControlElement;
-    };
     interface HTMLPSegmentedControlItemElement extends Components.PSegmentedControlItem, HTMLStencilElement {
     }
     var HTMLPSegmentedControlItemElement: {
@@ -1593,7 +1499,6 @@ declare global {
         "p-popover": HTMLPPopoverElement;
         "p-radio-group": HTMLPRadioGroupElement;
         "p-radio-group-option": HTMLPRadioGroupOptionElement;
-        "p-segmented-control": HTMLPSegmentedControlElement;
         "p-segmented-control-item": HTMLPSegmentedControlItemElement;
         "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
@@ -2323,81 +2228,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | number;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PSegmentedControl {
-        /**
-          * Sets the number of equal-width columns for the item layout. Use `auto` to distribute items based on their content width. Supports responsive breakpoint values.
-          * @default 'auto'
-         */
-        "columns"?: BreakpointCustomizable<SegmentedControlColumns>;
-        /**
-          * Reduces the item height and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional context about the segmented control.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with all items in the segmented control and excludes the value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the segmented control with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the segmented control to describe the group of options.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the segmented control when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data to identify the selected value on the server.
-         */
-        "name"?: string;
-        /**
-          * Prevents items from wrapping to new rows and renders them in a single horizontally scrollable row instead.
-          * @default false
-         */
-        "noWrap"?: boolean;
-        /**
-          * Emitted when the segmented control loses focus, useful for triggering validation on blur.
-         */
-        "onBlur"?: (event: PSegmentedControlCustomEvent<void>) => void;
-        /**
-          * Emitted when the user selects a different item, carrying the new value in the event detail.
-         */
-        "onChange"?: (event: PSegmentedControlCustomEvent<SegmentedControlChangeEventDetail>) => void;
-        /**
-          * Marks the segmented control as required so the form cannot be submitted until one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the segmented control, controlling its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: SegmentedControlState;
-        /**
-          * Sets the currently selected item's value and pre-selects the matching option when the component renders. Matches an item strictly by type and value, meaning string or number only match an item whose value has the same type and equal value. Use undefined or null for no preselection.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed item. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PSegmentedControlItem {
         /**
           * Sets ARIA attributes on the item's button element to improve accessibility for screen readers.
@@ -2886,21 +2716,6 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "loading": boolean;
     }
-    interface PSegmentedControlAttributes {
-        "label": string;
-        "description": string;
-        "value": string;
-        "name": string;
-        "compact": boolean;
-        "state": SegmentedControlState;
-        "required": boolean;
-        "message": string;
-        "hideLabel": string;
-        "columns": string;
-        "form": string;
-        "disabled": boolean;
-        "noWrap": boolean;
-    }
     interface PSegmentedControlItemAttributes {
         "value": string;
         "disabled": boolean;
@@ -2996,7 +2811,6 @@ declare namespace LocalJSX {
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
         "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
-        "p-segmented-control": Omit<PSegmentedControl, keyof PSegmentedControlAttributes> & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes]?: PSegmentedControl[K] } & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes as `attr:${K}`]?: PSegmentedControlAttributes[K] } & { [K in keyof PSegmentedControl & keyof PSegmentedControlAttributes as `prop:${K}`]?: PSegmentedControl[K] };
         "p-segmented-control-item": Omit<PSegmentedControlItem, keyof PSegmentedControlItemAttributes> & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes]?: PSegmentedControlItem[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `attr:${K}`]?: PSegmentedControlItemAttributes[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `prop:${K}`]?: PSegmentedControlItem[K] };
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
@@ -3070,10 +2884,6 @@ declare module "@stencil/core" {
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
             "p-radio-group": LocalJSX.IntrinsicElements["p-radio-group"] & JSXBase.HTMLAttributes<HTMLPRadioGroupElement>;
             "p-radio-group-option": LocalJSX.IntrinsicElements["p-radio-group-option"] & JSXBase.HTMLAttributes<HTMLPRadioGroupOptionElement>;
-            /**
-             * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-             */
-            "p-segmented-control": LocalJSX.IntrinsicElements["p-segmented-control"] & JSXBase.HTMLAttributes<HTMLPSegmentedControlElement>;
             "p-segmented-control-item": LocalJSX.IntrinsicElements["p-segmented-control-item"] & JSXBase.HTMLAttributes<HTMLPSegmentedControlItemElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
