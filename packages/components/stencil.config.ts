@@ -127,6 +127,14 @@ export const config: Config = {
           src: './assets/p-link-pure.iife.js',
           dest: 'build/p-link-pure.iife.js',
         },
+        {
+          src: './assets/p-link.iife.js',
+          dest: 'assets/p-link.iife.js',
+        },
+        {
+          src: './assets/p-link.iife.js',
+          dest: 'build/p-link.iife.js',
+        },
       ],
     },
   ],
@@ -147,6 +155,7 @@ export const config: Config = {
     'p-tag',
     'p-tag-dismissible',
     'p-link-pure',
+    'p-link',
   ],
   enableCache: true,
   rollupPlugins: {
