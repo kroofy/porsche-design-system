@@ -125,4 +125,5 @@ land-select	land	done	cursor/mitosis-migration-41e6	3	94a71c8b2a	briefs/land-sel
 land-select-option	land	done	cursor/mitosis-migration-41e6	3	3674bc5112	briefs/land-select-option.md
 land-optgroup	land	done	cursor/mitosis-migration-41e6	3	6229da722a	briefs/land-optgroup.md
 land-multi-select	land	done	cursor/mitosis-migration-41e6	3	1fa8ad03fb	briefs/land-multi-select.md
-land-multi-select-option	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-multi-select-option.md
+land-multi-select-option	land	done	cursor/mitosis-migration-41e6	3	6d5c63a79a	briefs/land-multi-select-option.md
+land-tabs-bar	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-tabs-bar.md
