@@ -64,6 +64,7 @@
     "build:popover": "mitosis build && node harness/strip-popover-whitespace.mjs && if rg -q my-fragment output/lit/src/Popover.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Popover.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-popover.bundle.js",
     "build:table": "mitosis build && node harness/strip-table-whitespace.mjs && if rg -q my-fragment output/lit/src/Table.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Table.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table.bundle.js",
     "build:table-head": "mitosis build && node harness/strip-table-head-whitespace.mjs && if rg -q my-fragment output/lit/src/TableHead.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableHead.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-head.bundle.js",
+    "build:table-head-row": "mitosis build && node harness/strip-table-head-row-whitespace.mjs && if rg -q my-fragment output/lit/src/TableHeadRow.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableHeadRow.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-head-row.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -124,6 +125,7 @@
     "verify:popover": "node harness/verify-popover.mjs",
     "verify:table": "node harness/verify-table.mjs",
     "verify:table-head": "node harness/verify-table-head.mjs",
+    "verify:table-head-row": "node harness/verify-table-head-row.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -183,7 +185,8 @@
     "pixel-diff:link-tile-product": "node harness/pixel-diff-link-tile-product.mjs",
     "pixel-diff:popover": "node harness/pixel-diff-popover.mjs",
     "pixel-diff:table": "node harness/pixel-diff-table.mjs",
-    "pixel-diff:table-head": "node harness/pixel-diff-table-head.mjs"
+    "pixel-diff:table-head": "node harness/pixel-diff-table-head.mjs",
+    "pixel-diff:table-head-row": "node harness/pixel-diff-table-head-row.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",

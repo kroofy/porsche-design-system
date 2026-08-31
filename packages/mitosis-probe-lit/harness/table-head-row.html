@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table-head-row harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      .table {
+        display: table;
+      }
+      .head {
+        display: table-header-group;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="default">
+      <div class="table">
+        <div class="head">
+          <lit-table-head-row>
+            <span>Model</span>
+          </lit-table-head-row>
+        </div>
+      </div>
+    </section>
+    <section id="hidden">
+      <div class="table">
+        <div class="head">
+          <lit-table-head-row hidden>
+            <span>Hidden</span>
+          </lit-table-head-row>
+        </div>
+      </div>
+    </section>
+    <script src="lit-table-head-row.bundle.js"></script>
+  </body>
+</html>
