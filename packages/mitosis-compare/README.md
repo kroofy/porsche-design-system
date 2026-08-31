@@ -9,6 +9,6 @@ npm install --workspaces=false --install-strategy=nested
 npm run dev
 ```
 
-Open `http://localhost:5174/`. Overlay/dialog tags stay off the page (banner, modal, flyout, sheet, toast, popover, drilldown, canvas, carousel, select).
+Open `http://localhost:5174/`. Each row shows the stored Stencil playground baseline card beside the four framework emits. Overlay/dialog tags stay off the page (banner, modal, flyout, sheet, toast, popover, drilldown, canvas, carousel, select).
 
-Angular cells render the generated class plus template. Vite cannot JIT Angular 22 standalone components in this host.
+Angular cells render the generated class plus template. Vite cannot JIT Angular 22 standalone components in this host. Baselines are the full playground variant matrix, so they will not pixel-match a single emit instance.

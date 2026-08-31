@@ -9,6 +9,9 @@ import preprocess from 'svelte-preprocess';
 import { mitosisCompareAdapters } from './src/vite-plugins';
 
 const assetsRoot = resolve(fileURLToPath(new URL('../components/src/assets', import.meta.url)));
+const baselineRoot = resolve(
+  fileURLToPath(new URL('../../.audit/orchestrate/stencil-to-mitosis/baseline', import.meta.url))
+);
 const MIME: Record<string, string> = {
   '.js': 'text/javascript; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -20,16 +23,16 @@ const MIME: Record<string, string> = {
   '.ico': 'image/x-icon',
 };
 
-function pdsAssets(): Plugin {
+function staticDir(prefix: string, root: string): Plugin {
   return {
-    name: 'pds-assets',
+    name: `static-${prefix.replace(/\W+/g, '-')}`,
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const url = req.url ?? '';
-        if (!url.startsWith('/pds-assets/')) return next();
-        const rel = decodeURIComponent(url.slice('/pds-assets/'.length).split('?')[0]);
-        const file = normalize(join(assetsRoot, rel));
-        if (!file.startsWith(assetsRoot) || !existsSync(file) || !statSync(file).isFile()) {
+        if (!url.startsWith(prefix)) return next();
+        const rel = decodeURIComponent(url.slice(prefix.length).split('?')[0]);
+        const file = normalize(join(root, rel));
+        if (!file.startsWith(root) || !existsSync(file) || !statSync(file).isFile()) {
           res.statusCode = 404;
           res.end('not found');
           return;
@@ -43,7 +46,8 @@ function pdsAssets(): Plugin {
 
 export default defineConfig({
   plugins: [
-    pdsAssets(),
+    staticDir('/pds-assets/', assetsRoot),
+    staticDir('/stencil-baselines/', baselineRoot),
     mitosisCompareAdapters(),
     react({
       include: /\.(jsx|tsx)$/,

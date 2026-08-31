@@ -1,5 +1,5 @@
 import './styles.css';
-import { DEMOS, OVERLAY_TAGS } from './catalog';
+import { DEMOS, OVERLAY_TAGS, baselineSrc } from './catalog';
 import { mountReact } from './react/mount';
 import { mountVue } from './vue/mount';
 import { mountSvelte } from './svelte/mount';
@@ -17,10 +17,11 @@ function renderShell() {
       <p class="eyebrow">Mitosis emit</p>
       <h1>Framework output comparison</h1>
       <p class="lede">
-        Each row mounts the generated <code>react</code>, <code>vue</code>, <code>angular</code>, and
-        <code>svelte</code> files from <code>packages/components/mitosis/*/output/frameworks</code>
-        in one document so the four emits can be compared in place.
-        Overlay / dialog tags are omitted: ${skipped}.
+        Each row shows the stored Stencil playground <strong>baseline</strong> card next to the
+        generated <code>react</code>, <code>vue</code>, <code>angular</code>, and
+        <code>svelte</code> files from <code>packages/components/mitosis/*/output/frameworks</code>.
+        Baselines are the full playground variant matrix (dsf 2), not a single instance — so they
+        will not pixel-match the emit cells. Overlay / dialog tags are omitted: ${skipped}.
         Angular cells render the generated class plus template (Vite cannot JIT Angular 22 here).
       </p>
     </header>
@@ -30,7 +31,7 @@ function renderShell() {
   const grid = app.querySelector('.compare-grid');
   if (!grid) throw new Error('.compare-grid missing');
   const cells = [
-    ...['Tag', 'React', 'Vue', 'Angular', 'Svelte'].map((label) => {
+    ...['Tag', 'Baseline', 'React', 'Vue', 'Angular', 'Svelte'].map((label) => {
       const head = document.createElement('div');
       head.className = 'head';
       head.setAttribute('role', 'columnheader');
@@ -43,6 +44,17 @@ function renderShell() {
       tag.id = demo.tag;
       tag.setAttribute('role', 'rowheader');
       tag.innerHTML = `<a href="#${demo.tag}">${demo.title}</a>`;
+      const baseline = document.createElement('div');
+      baseline.className = 'cell baseline-cell';
+      baseline.setAttribute('role', 'cell');
+      const img = document.createElement('img');
+      img.src = baselineSrc(demo.tag);
+      img.alt = `${demo.tag} Stencil playground baseline`;
+      img.loading = 'eager';
+      img.onerror = () => {
+        baseline.textContent = `no baseline ${demo.tag}`;
+      };
+      baseline.append(img);
       const frameworkCells = FRAMEWORKS.map((fw) => {
         const cell = document.createElement('div');
         cell.className = 'cell';
@@ -50,7 +62,7 @@ function renderShell() {
         cell.setAttribute('role', 'cell');
         return cell;
       });
-      return [tag, ...frameworkCells];
+      return [tag, baseline, ...frameworkCells];
     }),
   ];
   grid.append(...cells);

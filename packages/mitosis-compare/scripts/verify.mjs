@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage({ viewport: { width: 1600, height: 1200 } });
+const page = await browser.newPage({ viewport: { width: 1800, height: 1400 } });
 const errors = [];
 page.on('pageerror', (error) => errors.push(error.message));
 page.on('console', (msg) => {
@@ -12,10 +12,25 @@ await page.goto('http://127.0.0.1:5174/', { waitUntil: 'networkidle' });
 await page.waitForFunction(() => document.documentElement.dataset.ready === 'true', null, {
   timeout: 60000,
 });
+await page.waitForFunction(
+  () =>
+    [...document.querySelectorAll('.baseline-cell img')].filter((img) => img.complete && img.naturalWidth > 0)
+      .length >= 10,
+  null,
+  { timeout: 20000 }
+);
 
 const report = await page.evaluate(() => {
   const grid = document.querySelector('.compare-grid');
   const styles = getComputedStyle(grid);
+  const baseline = [...document.querySelectorAll('.baseline-cell img')].reduce(
+    (acc, img) => {
+      acc.total += 1;
+      if (img.complete && img.naturalWidth > 0) acc.ok += 1;
+      return acc;
+    },
+    { total: 0, ok: 0 }
+  );
   const childInfo = {
     childElementCount: grid.childElementCount,
     childNodes: [...grid.childNodes].slice(0, 8).map((node) => ({
@@ -48,6 +63,7 @@ const report = await page.evaluate(() => {
   return {
     columns: styles.gridTemplateColumns,
     gridWidth: Math.round(grid.getBoundingClientRect().width),
+    baseline,
     childInfo,
     headers,
     cells,
@@ -64,17 +80,32 @@ for (const cell of report.cells) {
 }
 
 const failedCells = report.cells.filter((cell) => cell.failed || cell.empty);
-console.log(JSON.stringify({ columns: report.columns, gridWidth: report.gridWidth, childInfo: report.childInfo, headers: report.headers, byFw, failedCells, errorCount: errors.length, errors: errors.slice(0, 20) }, null, 2));
+console.log(JSON.stringify({ columns: report.columns, gridWidth: report.gridWidth, baseline: report.baseline, headers: report.headers, byFw, failedCells, errorCount: errors.length, errors: errors.slice(0, 20) }, null, 2));
 
-const shots = ['crest', 'heading', 'button', 'input-text', 'tag', 'pagination', 'inline-notification'];
+const shots = ['crest', 'heading', 'button', 'input-text', 'tag', 'model-signature', 'switch', 'divider'];
 for (const tag of shots) {
   const el = page.locator(`.tag-cell#${tag}`);
   if (!(await el.count())) continue;
   await el.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(150);
+  await page.waitForFunction(
+    (id) => {
+      const tagCell = document.getElementById(id);
+      const img = tagCell?.nextElementSibling?.querySelector('img');
+      return !!img && img.complete && img.naturalHeight > 20;
+    },
+    tag,
+    { timeout: 15000 }
+  );
+  await page.waitForTimeout(200);
   const box = await page.evaluate((id) => {
-    const cells = [document.getElementById(id), ...document.querySelectorAll(`[data-cell$=":${id}"]`)];
-    const rects = cells.filter(Boolean).map((node) => node.getBoundingClientRect());
+    const tagCell = document.getElementById(id);
+    const cells = [];
+    let node = tagCell;
+    for (let i = 0; i < 6 && node; i += 1) {
+      cells.push(node);
+      node = node.nextElementSibling;
+    }
+    const rects = cells.map((el) => el.getBoundingClientRect());
     const left = Math.min(...rects.map((rect) => rect.left));
     const top = Math.min(...rects.map((rect) => rect.top));
     const right = Math.max(...rects.map((rect) => rect.right));
@@ -82,8 +113,8 @@ for (const tag of shots) {
     return {
       x: Math.max(0, left),
       y: Math.max(0, top),
-      width: Math.min(1600, right - left),
-      height: Math.min(500, bottom - top),
+      width: Math.min(1800, right - left),
+      height: Math.min(700, bottom - top),
     };
   }, tag);
   if (box.width > 10 && box.height > 10) {

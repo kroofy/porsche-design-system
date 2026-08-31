@@ -181,3 +181,7 @@ export const pascal = (tag: string) =>
     .split('-')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('');
+
+export const baselineFile = (tag: string) => `stencil_${tag.replaceAll('-', '_')}_before.png`;
+
+export const baselineSrc = (tag: string) => `/stencil-baselines/${baselineFile(tag)}`;
