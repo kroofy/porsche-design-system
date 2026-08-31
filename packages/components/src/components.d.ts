@@ -7,7 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
@@ -36,7 +35,6 @@ import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
@@ -109,46 +107,6 @@ export namespace Components {
           * @experimental Makes the summary section sticky at the top while scrolling. Only works with `background="canvas"` or `background="surface"`. Not compatible with `summary-before` or `summary-after` slots.
          */
         "sticky"?: boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface PBanner {
-        /**
-          * Sets the supporting description text shown below the heading.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Shows a dismiss button so the user can manually close the banner.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Sets the heading text displayed at the top of the banner.
-          * @default ''
-         */
-        "heading"?: string;
-        /**
-          * Sets the HTML heading tag (e.g. h2, h3) to maintain correct document structure for the heading.
-          * @default 'h5'
-         */
-        "headingTag"?: BannerHeadingTag;
-        /**
-          * Controls whether the banner is visible. Set to `true` to show it and `false` to hide it.
-          * @default false
-         */
-        "open": boolean;
-        /**
-          * Sets the position of the banner on screen — `top` or `bottom`. Supports responsive breakpoint values.
-          * @default { base: 'bottom', s: 'top' }
-         */
-        "position"?: BreakpointCustomizable<BannerPosition>;
-        /**
-          * Sets the visual state of the banner — controls the icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: BannerState;
     }
     interface PButtonTile {
         /**
@@ -1280,10 +1238,6 @@ export interface PAccordionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPAccordionElement;
 }
-export interface PBannerCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPBannerElement;
-}
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPCanvasElement;
@@ -1380,26 +1334,6 @@ declare global {
     var HTMLPAccordionElement: {
         prototype: HTMLPAccordionElement;
         new (): HTMLPAccordionElement;
-    };
-    interface HTMLPBannerElementEventMap {
-        "dismiss": void;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface HTMLPBannerElement extends Components.PBanner, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPBannerElementEventMap>(type: K, listener: (this: HTMLPBannerElement, ev: PBannerCustomEvent<HTMLPBannerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPBannerElementEventMap>(type: K, listener: (this: HTMLPBannerElement, ev: PBannerCustomEvent<HTMLPBannerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPBannerElement: {
-        prototype: HTMLPBannerElement;
-        new (): HTMLPBannerElement;
     };
     interface HTMLPButtonTileElement extends Components.PButtonTile, HTMLStencilElement {
     }
@@ -1909,7 +1843,6 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "p-accordion": HTMLPAccordionElement;
-        "p-banner": HTMLPBannerElement;
         "p-button-tile": HTMLPButtonTileElement;
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
@@ -2000,50 +1933,6 @@ declare namespace LocalJSX {
           * @experimental Makes the summary section sticky at the top while scrolling. Only works with `background="canvas"` or `background="surface"`. Not compatible with `summary-before` or `summary-after` slots.
          */
         "sticky"?: boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface PBanner {
-        /**
-          * Sets the supporting description text shown below the heading.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Shows a dismiss button so the user can manually close the banner.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Sets the heading text displayed at the top of the banner.
-          * @default ''
-         */
-        "heading"?: string;
-        /**
-          * Sets the HTML heading tag (e.g. h2, h3) to maintain correct document structure for the heading.
-          * @default 'h5'
-         */
-        "headingTag"?: BannerHeadingTag;
-        /**
-          * Emitted when the user closes the banner via the dismiss button or Escape key.
-         */
-        "onDismiss"?: (event: PBannerCustomEvent<void>) => void;
-        /**
-          * Controls whether the banner is visible. Set to `true` to show it and `false` to hide it.
-          * @default false
-         */
-        "open"?: boolean;
-        /**
-          * Sets the position of the banner on screen — `top` or `bottom`. Supports responsive breakpoint values.
-          * @default { base: 'bottom', s: 'top' }
-         */
-        "position"?: BreakpointCustomizable<BannerPosition>;
-        /**
-          * Sets the visual state of the banner — controls the icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: BannerState;
     }
     interface PButtonTile {
         /**
@@ -3317,15 +3206,6 @@ declare namespace LocalJSX {
         "headingTag": AccordionHeadingTag;
         "sticky": boolean;
     }
-    interface PBannerAttributes {
-        "open": boolean;
-        "heading": string;
-        "headingTag": BannerHeadingTag;
-        "description": string;
-        "position": BreakpointCustomizable<BannerPosition>;
-        "state": BannerState;
-        "dismissButton": boolean;
-    }
     interface PButtonTileAttributes {
         "size": BreakpointCustomizable<ButtonTileSize>;
         "weight": BreakpointCustomizable<ButtonTileWeight>;
@@ -3606,7 +3486,6 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "p-accordion": Omit<PAccordion, keyof PAccordionAttributes> & { [K in keyof PAccordion & keyof PAccordionAttributes]?: PAccordion[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `attr:${K}`]?: PAccordionAttributes[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `prop:${K}`]?: PAccordion[K] };
-        "p-banner": Omit<PBanner, keyof PBannerAttributes> & { [K in keyof PBanner & keyof PBannerAttributes]?: PBanner[K] } & { [K in keyof PBanner & keyof PBannerAttributes as `attr:${K}`]?: PBannerAttributes[K] } & { [K in keyof PBanner & keyof PBannerAttributes as `prop:${K}`]?: PBanner[K] };
         "p-button-tile": Omit<PButtonTile, keyof PButtonTileAttributes> & { [K in keyof PButtonTile & keyof PButtonTileAttributes]?: PButtonTile[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `attr:${K}`]?: PButtonTileAttributes[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `prop:${K}`]?: PButtonTile[K] };
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
@@ -3655,10 +3534,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "update"}
              */
             "p-accordion": LocalJSX.IntrinsicElements["p-accordion"] & JSXBase.HTMLAttributes<HTMLPAccordionElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             */
-            "p-banner": LocalJSX.IntrinsicElements["p-banner"] & JSXBase.HTMLAttributes<HTMLPBannerElement>;
             "p-button-tile": LocalJSX.IntrinsicElements["p-button-tile"] & JSXBase.HTMLAttributes<HTMLPButtonTileElement>;
             /**
              * @experimental 
