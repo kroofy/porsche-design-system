@@ -2,6 +2,8 @@
  * Stencil no longer owns p-button-pure. The playground tag is the Mitosis Lit
  * custom element from mitosis/button-pure/ButtonPure.lite.tsx.
  * This file stays so generateConstructorMap can still import class ButtonPure.
+ * Global HTMLPButtonPureElement stays because carousel and implicitSubmit still
+ * type those hosts after Stencil drops the @Component declaration.
  */
 export class ButtonPure {
   host!: HTMLElement;
@@ -23,3 +25,15 @@ export class ButtonPure {
   form?: string;
   render(): void {}
 }
+
+declare global {
+  interface HTMLPButtonPureElement extends HTMLElement {
+    type?: string;
+    disabled?: boolean;
+    aria?: unknown;
+  }
+  interface HTMLElementTagNameMap {
+    'p-button-pure': HTMLPButtonPureElement;
+  }
+}
+
