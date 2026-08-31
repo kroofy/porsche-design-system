@@ -20,7 +20,6 @@ import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEve
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-import { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
@@ -77,7 +76,6 @@ export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEve
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-export { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
@@ -768,42 +766,6 @@ export namespace Components {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PHeading {
-        /**
-          * Sets the horizontal text alignment (`start`, `center`, `end`, or `inherit`).
-          * @default 'start'
-         */
-        "align"?: HeadingAlign;
-        /**
-          * Sets the text color using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: HeadingColor;
-        /**
-          * Truncates the text with an ellipsis when it overflows the container on a single line. Cannot be combined with multi-line content.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Controls hyphenation behavior — `auto` lets the browser decide, `manual` only breaks at `&shy;`, `none` disables it entirely.
-          * @default 'none'
-         */
-        "hyphens"?: HeadingHyphens;
-        /**
-          * Sets the visual size of the heading. Use `inherit` to derive size from the parent. Supports responsive breakpoint values.
-          * @default '2xl'
-         */
-        "size"?: BreakpointCustomizable<HeadingSize>;
-        /**
-          * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
-         */
-        "tag"?: HeadingTag;
-        /**
-          * Sets the font weight — `normal`, `semibold`, or `bold`.
-          * @default 'normal'
-         */
-        "weight"?: HeadingWeight;
     }
     interface PInlineNotification {
         /**
@@ -3352,12 +3314,6 @@ declare global {
         prototype: HTMLPFlyoutElement;
         new (): HTMLPFlyoutElement;
     };
-    interface HTMLPHeadingElement extends Components.PHeading, HTMLStencilElement {
-    }
-    var HTMLPHeadingElement: {
-        prototype: HTMLPHeadingElement;
-        new (): HTMLPHeadingElement;
-    };
     interface HTMLPInlineNotificationElementEventMap {
         "dismiss": void;
         "action": void;
@@ -4084,7 +4040,6 @@ declare global {
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-fieldset": HTMLPFieldsetElement;
         "p-flyout": HTMLPFlyoutElement;
-        "p-heading": HTMLPHeadingElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
         "p-input-date": HTMLPInputDateElement;
         "p-input-email": HTMLPInputEmailElement;
@@ -4837,42 +4792,6 @@ declare namespace LocalJSX {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PHeading {
-        /**
-          * Sets the horizontal text alignment (`start`, `center`, `end`, or `inherit`).
-          * @default 'start'
-         */
-        "align"?: HeadingAlign;
-        /**
-          * Sets the text color using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: HeadingColor;
-        /**
-          * Truncates the text with an ellipsis when it overflows the container on a single line. Cannot be combined with multi-line content.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Controls hyphenation behavior — `auto` lets the browser decide, `manual` only breaks at `&shy;`, `none` disables it entirely.
-          * @default 'none'
-         */
-        "hyphens"?: HeadingHyphens;
-        /**
-          * Sets the visual size of the heading. Use `inherit` to derive size from the parent. Supports responsive breakpoint values.
-          * @default '2xl'
-         */
-        "size"?: BreakpointCustomizable<HeadingSize>;
-        /**
-          * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
-         */
-        "tag"?: HeadingTag;
-        /**
-          * Sets the font weight — `normal`, `semibold`, or `bold`.
-          * @default 'normal'
-         */
-        "weight"?: HeadingWeight;
     }
     interface PInlineNotification {
         /**
@@ -7488,15 +7407,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
     }
-    interface PHeadingAttributes {
-        "tag": HeadingTag;
-        "size": BreakpointCustomizable<HeadingSize>;
-        "weight": HeadingWeight;
-        "align": HeadingAlign;
-        "color": HeadingColor;
-        "hyphens": HeadingHyphens;
-        "ellipsis": boolean;
-    }
     interface PInlineNotificationAttributes {
         "heading": string;
         "headingTag": InlineNotificationHeadingTag;
@@ -8044,7 +7954,6 @@ declare namespace LocalJSX {
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
-        "p-heading": Omit<PHeading, keyof PHeadingAttributes> & { [K in keyof PHeading & keyof PHeadingAttributes]?: PHeading[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `attr:${K}`]?: PHeadingAttributes[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `prop:${K}`]?: PHeading[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-email": Omit<PInputEmail, keyof PInputEmailAttributes> & { [K in keyof PInputEmail & keyof PInputEmailAttributes]?: PInputEmail[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `attr:${K}`]?: PInputEmailAttributes[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `prop:${K}`]?: PInputEmail[K] };
@@ -8148,7 +8057,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
-            "p-heading": LocalJSX.IntrinsicElements["p-heading"] & JSXBase.HTMLAttributes<HTMLPHeadingElement>;
             "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-email": LocalJSX.IntrinsicElements["p-input-email"] & JSXBase.HTMLAttributes<HTMLPInputEmailElement>;
