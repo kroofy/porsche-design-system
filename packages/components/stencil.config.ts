@@ -495,6 +495,14 @@ export const config: Config = {
           src: './assets/p-table.iife.js',
           dest: 'build/p-table.iife.js',
         },
+        {
+          src: './assets/p-table-head.iife.js',
+          dest: 'assets/p-table-head.iife.js',
+        },
+        {
+          src: './assets/p-table-head.iife.js',
+          dest: 'build/p-table-head.iife.js',
+        },
       ],
     },
   ],
@@ -561,6 +569,7 @@ export const config: Config = {
     'p-link-tile-product',
     'p-popover',
     'p-table',
+    'p-table-head',
   ],
   enableCache: true,
   rollupPlugins: {
