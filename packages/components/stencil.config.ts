@@ -23,10 +23,21 @@ export const config: Config = {
           src: './debug.html',
           dest: 'debug.html',
         },
+        {
+          src: './assets/p-divider.iife.js',
+          dest: 'assets/p-divider.iife.js',
+        },
+        {
+          src: './assets/p-divider.iife.js',
+          dest: 'build/p-divider.iife.js',
+        },
       ],
     },
   ],
   bundles,
+  // Dev builds ignore this (Stencil only excludes in --prod). p-divider is
+  // also no longer a @Component, so --dev does not emit the Stencil host.
+  excludeComponents: ['p-divider'],
   enableCache: true,
   rollupPlugins: {
     after: [
