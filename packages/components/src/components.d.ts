@@ -11,7 +11,6 @@ import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
@@ -25,7 +24,6 @@ export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
@@ -256,67 +254,6 @@ export namespace Components {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PLinkTile {
-        /**
-          * Controls the vertical placement of the description and link — `top` or `bottom`.
-          * @default 'bottom'
-         */
-        "align"?: LinkTileAlign;
-        /**
-          * Sets ARIA attributes on the tile's anchor element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<LinkTileAriaAttribute>;
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '4/3'
-         */
-        "aspectRatio"?: BreakpointCustomizable<LinkTileAspectRatio>;
-        /**
-          * Renders only the icon link without the full label. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the description text displayed in the tile's content area.
-         */
-        "description": string;
-        /**
-          * Sets the native `download` attribute to trigger a file download.
-         */
-        "download"?: string;
-        /**
-          * Shows a gradient overlay over the media slot to improve text legibility on bright images or videos.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the URL the tile's anchor element navigates to when clicked.
-         */
-        "href": string;
-        /**
-          * Sets the accessible label text of the link rendered inside the tile.
-         */
-        "label": string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`).
-         */
-        "rel"?: string;
-        /**
-          * Sets the font size of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'medium'
-         */
-        "size"?: BreakpointCustomizable<LinkTileSize>;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: LinkTileTarget;
-        /**
-          * Sets the font weight of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'semi-bold'
-         */
-        "weight"?: BreakpointCustomizable<LinkTileWeight>;
     }
     /**
      * @controlled {"props": ["liked"], "event": "like"}
@@ -675,12 +612,6 @@ declare global {
         prototype: HTMLPFlyoutElement;
         new (): HTMLPFlyoutElement;
     };
-    interface HTMLPLinkTileElement extends Components.PLinkTile, HTMLStencilElement {
-    }
-    var HTMLPLinkTileElement: {
-        prototype: HTMLPLinkTileElement;
-        new (): HTMLPLinkTileElement;
-    };
     interface HTMLPLinkTileProductElementEventMap {
         "like": LinkTileProductLikeEventDetail;
     }
@@ -849,7 +780,6 @@ declare global {
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-flyout": HTMLPFlyoutElement;
-        "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
         "p-popover": HTMLPPopoverElement;
@@ -1120,67 +1050,6 @@ declare namespace LocalJSX {
           * @default 'end'
          */
         "position"?: FlyoutPosition;
-    }
-    interface PLinkTile {
-        /**
-          * Controls the vertical placement of the description and link — `top` or `bottom`.
-          * @default 'bottom'
-         */
-        "align"?: LinkTileAlign;
-        /**
-          * Sets ARIA attributes on the tile's anchor element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<LinkTileAriaAttribute>;
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '4/3'
-         */
-        "aspectRatio"?: BreakpointCustomizable<LinkTileAspectRatio>;
-        /**
-          * Renders only the icon link without the full label. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the description text displayed in the tile's content area.
-         */
-        "description"?: string;
-        /**
-          * Sets the native `download` attribute to trigger a file download.
-         */
-        "download"?: string;
-        /**
-          * Shows a gradient overlay over the media slot to improve text legibility on bright images or videos.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the URL the tile's anchor element navigates to when clicked.
-         */
-        "href"?: string;
-        /**
-          * Sets the accessible label text of the link rendered inside the tile.
-         */
-        "label"?: string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`).
-         */
-        "rel"?: string;
-        /**
-          * Sets the font size of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'medium'
-         */
-        "size"?: BreakpointCustomizable<LinkTileSize>;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: LinkTileTarget;
-        /**
-          * Sets the font weight of the description text in the tile content area. Supports responsive breakpoint values.
-          * @default 'semi-bold'
-         */
-        "weight"?: BreakpointCustomizable<LinkTileWeight>;
     }
     /**
      * @controlled {"props": ["liked"], "event": "like"}
@@ -1486,21 +1355,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
     }
-    interface PLinkTileAttributes {
-        "size": BreakpointCustomizable<LinkTileSize>;
-        "weight": BreakpointCustomizable<LinkTileWeight>;
-        "aspectRatio": BreakpointCustomizable<LinkTileAspectRatio>;
-        "label": string;
-        "description": string;
-        "align": LinkTileAlign;
-        "gradient": boolean;
-        "compact": string;
-        "href": string;
-        "target": LinkTileTarget;
-        "download": string;
-        "rel": string;
-        "aria": SelectedAriaAttributes<LinkTileAriaAttribute>;
-    }
     interface PLinkTileProductAttributes {
         "heading": string;
         "price": string;
@@ -1561,7 +1415,6 @@ declare namespace LocalJSX {
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
-        "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
@@ -1607,7 +1460,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
-            "p-link-tile": LocalJSX.IntrinsicElements["p-link-tile"] & JSXBase.HTMLAttributes<HTMLPLinkTileElement>;
             /**
              * @controlled {"props": ["liked"], "event": "like"}
              * @experimental 
