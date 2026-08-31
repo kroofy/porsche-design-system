@@ -151,6 +151,14 @@ export const config: Config = {
           src: './assets/p-button.iife.js',
           dest: 'build/p-button.iife.js',
         },
+        {
+          src: './assets/p-switch.iife.js',
+          dest: 'assets/p-switch.iife.js',
+        },
+        {
+          src: './assets/p-switch.iife.js',
+          dest: 'build/p-switch.iife.js',
+        },
       ],
     },
   ],
@@ -174,6 +182,7 @@ export const config: Config = {
     'p-link',
     'p-button-pure',
     'p-button',
+    'p-switch',
   ],
   enableCache: true,
   rollupPlugins: {
