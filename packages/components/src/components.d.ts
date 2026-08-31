@@ -36,7 +36,6 @@ import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./compon
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 import { TextListType } from "./components/text-list/text-list/text-list-utils";
-import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
@@ -70,7 +69,6 @@ export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./compon
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 export { TextListType } from "./components/text-list/text-list/text-list-utils";
-export { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
@@ -1363,107 +1361,6 @@ export namespace Components {
     }
     interface PTextListItem {
     }
-    interface PTextarea {
-        /**
-          * Provides the browser with a hint to enable text autofill suggestions for the textarea (e.g. `autocomplete='on'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the textarea's initial height and padding for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Shows a live character counter below the textarea indicating how many characters the user has typed relative to `maxLength`.
-          * @default false
-         */
-        "counter"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the textarea.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with the textarea and excludes its value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the textarea with a form element by its ID when the textarea is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the textarea to identify its purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the maximum number of characters the user is allowed to enter into the textarea.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the textarea when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the textarea's value to pass constraint validation.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name of the textarea submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets placeholder text displayed inside the textarea when it is empty to hint at the expected content format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the textarea read-only so users cannot modify the value, while still including it in form submissions.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the textarea as required so the form cannot be submitted while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Controls whether and in which direction the user can resize the textarea (`horizontal`, `vertical`, `both`, or `none`).
-          * @default 'vertical'
-         */
-        "resize"?: TextareaResize;
-        /**
-          * Sets the initial visible height of the textarea in lines of text. Has no effect when the `--p-textarea-field-sizing` CSS variable is set to `content`.
-          * @default 7
-         */
-        "rows"?: number;
-        /**
-          * Controls whether the browser's built-in spell-checking and grammar checking is enabled for the textarea content.
-         */
-        "spellCheck"?: boolean;
-        /**
-          * Sets the validation state of the textarea, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: TextareaState;
-        /**
-          * Sets the current multi-line text value of the textarea and reflects any changes made by the user.
-          * @default ''
-         */
-        "value"?: string | null;
-        /**
-          * Controls how the submitted text wraps in the form data: `soft` wraps only visually, `hard` inserts line breaks at the textarea width.
-          * @default 'soft'
-         */
-        "wrap"?: TextareaWrap;
-    }
     interface PToast {
         "addMessage": (message: ToastMessage) => Promise<void>;
     }
@@ -1563,10 +1460,6 @@ export interface PTabsCustomEvent<T> extends CustomEvent<T> {
 export interface PTabsBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPTabsBarElement;
-}
-export interface PTextareaCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPTextareaElement;
 }
 export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -2138,25 +2031,6 @@ declare global {
         prototype: HTMLPTextListItemElement;
         new (): HTMLPTextListItemElement;
     };
-    interface HTMLPTextareaElementEventMap {
-        "change": TextareaChangeEventDetail;
-        "blur": TextareaBlurEventDetail;
-        "input": TextareaInputEventDetail;
-    }
-    interface HTMLPTextareaElement extends Components.PTextarea, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPTextareaElementEventMap>(type: K, listener: (this: HTMLPTextareaElement, ev: PTextareaCustomEvent<HTMLPTextareaElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPTextareaElementEventMap>(type: K, listener: (this: HTMLPTextareaElement, ev: PTextareaCustomEvent<HTMLPTextareaElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPTextareaElement: {
-        prototype: HTMLPTextareaElement;
-        new (): HTMLPTextareaElement;
-    };
     interface HTMLPToastElement extends Components.PToast, HTMLStencilElement {
     }
     var HTMLPToastElement: {
@@ -2224,7 +2098,6 @@ declare global {
         "p-tabs-item": HTMLPTabsItemElement;
         "p-text-list": HTMLPTextListElement;
         "p-text-list-item": HTMLPTextListItemElement;
-        "p-textarea": HTMLPTextareaElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
     }
@@ -3667,119 +3540,6 @@ declare namespace LocalJSX {
     }
     interface PTextListItem {
     }
-    interface PTextarea {
-        /**
-          * Provides the browser with a hint to enable text autofill suggestions for the textarea (e.g. `autocomplete='on'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the textarea's initial height and padding for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Shows a live character counter below the textarea indicating how many characters the user has typed relative to `maxLength`.
-          * @default false
-         */
-        "counter"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the textarea.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with the textarea and excludes its value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the textarea with a form element by its ID when the textarea is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the textarea to identify its purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the maximum number of characters the user is allowed to enter into the textarea.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the textarea when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the textarea's value to pass constraint validation.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name of the textarea submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the textarea element loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PTextareaCustomEvent<TextareaBlurEventDetail>) => void;
-        /**
-          * Emitted when the textarea loses focus after its value was changed, equivalent to the native `change` event.
-         */
-        "onChange"?: (event: PTextareaCustomEvent<TextareaChangeEventDetail>) => void;
-        /**
-          * Emitted on every keystroke or value change as a direct result of user interaction, equivalent to the native `input` event.
-         */
-        "onInput"?: (event: PTextareaCustomEvent<TextareaInputEventDetail>) => void;
-        /**
-          * Sets placeholder text displayed inside the textarea when it is empty to hint at the expected content format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the textarea read-only so users cannot modify the value, while still including it in form submissions.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the textarea as required so the form cannot be submitted while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Controls whether and in which direction the user can resize the textarea (`horizontal`, `vertical`, `both`, or `none`).
-          * @default 'vertical'
-         */
-        "resize"?: TextareaResize;
-        /**
-          * Sets the initial visible height of the textarea in lines of text. Has no effect when the `--p-textarea-field-sizing` CSS variable is set to `content`.
-          * @default 7
-         */
-        "rows"?: number;
-        /**
-          * Controls whether the browser's built-in spell-checking and grammar checking is enabled for the textarea content.
-         */
-        "spellCheck"?: boolean;
-        /**
-          * Sets the validation state of the textarea, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: TextareaState;
-        /**
-          * Sets the current multi-line text value of the textarea and reflects any changes made by the user.
-          * @default ''
-         */
-        "value"?: string | null;
-        /**
-          * Controls how the submitted text wraps in the form data: `soft` wraps only visually, `hard` inserts line breaks at the textarea width.
-          * @default 'soft'
-         */
-        "wrap"?: TextareaWrap;
-    }
     interface PToast {
     }
     interface PToastItem {
@@ -4116,29 +3876,6 @@ declare namespace LocalJSX {
     interface PTextListAttributes {
         "type": TextListType;
     }
-    interface PTextareaAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "state": TextareaState;
-        "message": string;
-        "hideLabel": string;
-        "counter": boolean;
-        "placeholder": string;
-        "required": boolean;
-        "disabled": boolean;
-        "maxLength": number;
-        "minLength": number;
-        "form": string;
-        "rows": number;
-        "autoComplete": string;
-        "spellCheck": boolean;
-        "wrap": TextareaWrap;
-        "resize": TextareaResize;
-        "readOnly": boolean;
-    }
     interface PToastItemAttributes {
         "text": string;
         "state": ToastState;
@@ -4188,7 +3925,6 @@ declare namespace LocalJSX {
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
         "p-text-list": Omit<PTextList, keyof PTextListAttributes> & { [K in keyof PTextList & keyof PTextListAttributes]?: PTextList[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `attr:${K}`]?: PTextListAttributes[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `prop:${K}`]?: PTextList[K] };
         "p-text-list-item": PTextListItem;
-        "p-textarea": Omit<PTextarea, keyof PTextareaAttributes> & { [K in keyof PTextarea & keyof PTextareaAttributes]?: PTextarea[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `attr:${K}`]?: PTextareaAttributes[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `prop:${K}`]?: PTextarea[K] };
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
     }
@@ -4300,7 +4036,6 @@ declare module "@stencil/core" {
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
             "p-text-list": LocalJSX.IntrinsicElements["p-text-list"] & JSXBase.HTMLAttributes<HTMLPTextListElement>;
             "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
-            "p-textarea": LocalJSX.IntrinsicElements["p-textarea"] & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
         }
