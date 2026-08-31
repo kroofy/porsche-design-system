@@ -155,3 +155,4 @@ pr	sha	verdict	evidence	verifier	ts
 3	e9f750b549	live-ui-verified	/opt/cursor/artifacts/delete_stencil_core_canvas_after.png	coordinator-byte-equal-png	2026-08-31T17:10:43.428Z
 3	2e9a617d9a	live-ui-verified	packages/components/mitosis/divider/output/frameworks/react/Divider.tsx	coordinator-files-exist	2026-08-31T17:40:59.990Z
 3	8ba9fb2c50	live-ui-verified	.audit/orchestrate/stencil-to-mitosis/reports/generate-frameworks-all.md	coordinator-file-counts	2026-08-31T17:47:27.820Z
+3	220215b886	live-ui-verified	packages/components/mitosis/button-pure/output/frameworks/react/ButtonPure.tsx	coordinator-files-exist	2026-08-31T17:50:39.694Z
