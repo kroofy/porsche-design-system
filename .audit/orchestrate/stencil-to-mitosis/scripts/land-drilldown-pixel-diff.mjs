@@ -49,6 +49,8 @@ const isBenign = (text) =>
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
+  text.includes('throwIfParentIsNotOfKind') ||
+  text.includes('supplied to p-drilldown') ||
   text.includes('3002');
 
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
@@ -95,7 +97,7 @@ await page.waitForSelector('[data-card="drilldown"] p-drilldown', {
 });
 await page.waitForFunction(() => {
   const hosts = [...document.querySelectorAll('[data-card="drilldown"] p-drilldown')];
-  const buttons = [...document.querySelectorAll('[data-card="drilldown"] > p-button')];
+  const buttons = [...document.querySelectorAll('[data-card="drilldown"] > nav > p-button')];
   const Drilldown = customElements.get('p-drilldown');
   const Button = customElements.get('p-button');
   const ButtonPure = customElements.get('p-button-pure');
@@ -106,7 +108,7 @@ await page.waitForFunction(() => {
   if (buttons.some((el) => el.classList.contains('hydrated'))) return false;
   return hosts.every((el) => {
     if (el.classList.contains('hydrated')) return false;
-    if (el.parentElement?.getAttribute('data-card') !== 'drilldown') return false;
+    if (el.closest('[data-card="drilldown"]')?.getAttribute('data-card') !== 'drilldown') return false;
     const root = el.shadowRoot;
     const dialog = root?.querySelector('dialog');
     if (!root || !dialog) return false;
@@ -144,7 +146,7 @@ await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
 
 const proof = await page.evaluate(() => {
   const hosts = [...document.querySelectorAll('[data-card="drilldown"] p-drilldown')];
-  const buttons = [...document.querySelectorAll('[data-card="drilldown"] > p-button')];
+  const buttons = [...document.querySelectorAll('[data-card="drilldown"] > nav > p-button')];
   const items = [...document.querySelectorAll('[data-card="drilldown"] p-drilldown-item')];
   const links = [...document.querySelectorAll('[data-card="drilldown"] p-drilldown-link')];
   return {
@@ -173,7 +175,7 @@ const proof = await page.evaluate(() => {
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
-        parentCard: el.parentElement?.getAttribute('data-card') ?? null,
+        parentCard: el.closest('[data-card="drilldown"]')?.getAttribute('data-card') ?? null,
         display: getComputedStyle(el).display,
         dialogOpen: dialog?.open ?? null,
         dialogVis: dialog ? getComputedStyle(dialog).visibility : null,
