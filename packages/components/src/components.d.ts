@@ -21,7 +21,6 @@ import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./com
 import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
-import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
@@ -40,7 +39,6 @@ export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./com
 export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
-export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
@@ -643,38 +641,6 @@ export namespace Components {
          */
         "weight"?: TabsWeight;
     }
-    /**
-     * @controlled {"props": ["activeTabIndex"], "event": "update"}
-     */
-    interface PTabsBar {
-        /**
-          * Sets the zero-based index of the currently active tab. Pass `undefined` to render all tabs in an unselected state.
-         */
-        "activeTabIndex"?: number | undefined;
-        /**
-          * Sets ARIA attributes on the tablist, such as `aria-label` and `aria-description`.
-         */
-        "aria"?: SelectedAriaAttributes<TabsBarAriaAttribute>;
-        /**
-          * Sets the background color of the tabs bar. Use `frosted` only when placed on top of images, videos, or gradients.
-          * @default 'none'
-         */
-        "background"?: TabsBarBackground;
-        /**
-          * Reduces the tab height and padding for use in dense layouts where vertical space is limited.
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the font size of the tab labels using the PDS typographic scale. Supports responsive breakpoint values.
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<TabsBarSize>;
-        /**
-          * @deprecated Will be removed in the next major release. Has no effect anymore.
-          * @default 'regular'
-         */
-        "weight"?: TabsBarWeight;
-    }
     interface PTabsItem {
         /**
           * Sets the label text displayed in the tab navigation button that the user clicks to activate this tab's content.
@@ -740,10 +706,6 @@ export interface PTableCustomEvent<T> extends CustomEvent<T> {
 export interface PTabsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPTabsElement;
-}
-export interface PTabsBarCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPTabsBarElement;
 }
 export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1047,26 +1009,6 @@ declare global {
         prototype: HTMLPTabsElement;
         new (): HTMLPTabsElement;
     };
-    interface HTMLPTabsBarElementEventMap {
-        "update": TabsBarUpdateEventDetail;
-    }
-    /**
-     * @controlled {"props": ["activeTabIndex"], "event": "update"}
-     */
-    interface HTMLPTabsBarElement extends Components.PTabsBar, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPTabsBarElementEventMap>(type: K, listener: (this: HTMLPTabsBarElement, ev: PTabsBarCustomEvent<HTMLPTabsBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPTabsBarElementEventMap>(type: K, listener: (this: HTMLPTabsBarElement, ev: PTabsBarCustomEvent<HTMLPTabsBarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPTabsBarElement: {
-        prototype: HTMLPTabsBarElement;
-        new (): HTMLPTabsBarElement;
-    };
     interface HTMLPTabsItemElement extends Components.PTabsItem, HTMLStencilElement {
     }
     var HTMLPTabsItemElement: {
@@ -1119,7 +1061,6 @@ declare global {
         "p-table-head-row": HTMLPTableHeadRowElement;
         "p-table-row": HTMLPTableRowElement;
         "p-tabs": HTMLPTabsElement;
-        "p-tabs-bar": HTMLPTabsBarElement;
         "p-tabs-item": HTMLPTabsItemElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
@@ -1801,42 +1742,6 @@ declare namespace LocalJSX {
          */
         "weight"?: TabsWeight;
     }
-    /**
-     * @controlled {"props": ["activeTabIndex"], "event": "update"}
-     */
-    interface PTabsBar {
-        /**
-          * Sets the zero-based index of the currently active tab. Pass `undefined` to render all tabs in an unselected state.
-         */
-        "activeTabIndex"?: number | undefined;
-        /**
-          * Sets ARIA attributes on the tablist, such as `aria-label` and `aria-description`.
-         */
-        "aria"?: SelectedAriaAttributes<TabsBarAriaAttribute>;
-        /**
-          * Sets the background color of the tabs bar. Use `frosted` only when placed on top of images, videos, or gradients.
-          * @default 'none'
-         */
-        "background"?: TabsBarBackground;
-        /**
-          * Reduces the tab height and padding for use in dense layouts where vertical space is limited.
-         */
-        "compact"?: boolean;
-        /**
-          * Emitted when the user clicks a different tab, carrying the new `activeTabIndex` in the event detail.
-         */
-        "onUpdate"?: (event: PTabsBarCustomEvent<TabsBarUpdateEventDetail>) => void;
-        /**
-          * Sets the font size of the tab labels using the PDS typographic scale. Supports responsive breakpoint values.
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<TabsBarSize>;
-        /**
-          * @deprecated Will be removed in the next major release. Has no effect anymore.
-          * @default 'regular'
-         */
-        "weight"?: TabsBarWeight;
-    }
     interface PTabsItem {
         /**
           * Sets the label text displayed in the tab navigation button that the user clicks to activate this tab's content.
@@ -2009,14 +1914,6 @@ declare namespace LocalJSX {
         "weight": TabsWeight;
         "aria": SelectedAriaAttributes<TabsAriaAttribute>;
     }
-    interface PTabsBarAttributes {
-        "activeTabIndex": number | undefined;
-        "background": TabsBarBackground;
-        "size": BreakpointCustomizable<TabsBarSize>;
-        "compact": boolean;
-        "weight": TabsBarWeight;
-        "aria": SelectedAriaAttributes<TabsBarAriaAttribute>;
-    }
     interface PTabsItemAttributes {
         "label": string;
     }
@@ -2048,7 +1945,6 @@ declare namespace LocalJSX {
         "p-table-head-row": PTableHeadRow;
         "p-table-row": PTableRow;
         "p-tabs": Omit<PTabs, keyof PTabsAttributes> & { [K in keyof PTabs & keyof PTabsAttributes]?: PTabs[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `attr:${K}`]?: PTabsAttributes[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `prop:${K}`]?: PTabs[K] };
-        "p-tabs-bar": Omit<PTabsBar, keyof PTabsBarAttributes> & { [K in keyof PTabsBar & keyof PTabsBarAttributes]?: PTabsBar[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `attr:${K}`]?: PTabsBarAttributes[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `prop:${K}`]?: PTabsBar[K] };
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
@@ -2116,10 +2012,6 @@ declare module "@stencil/core" {
              * @controlled { "props": ["activeTabIndex"], "event": "update", "isInternallyMutated": true }
              */
             "p-tabs": LocalJSX.IntrinsicElements["p-tabs"] & JSXBase.HTMLAttributes<HTMLPTabsElement>;
-            /**
-             * @controlled {"props": ["activeTabIndex"], "event": "update"}
-             */
-            "p-tabs-bar": LocalJSX.IntrinsicElements["p-tabs-bar"] & JSXBase.HTMLAttributes<HTMLPTabsBarElement>;
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
