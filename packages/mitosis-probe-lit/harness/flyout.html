@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-flyout harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="closed">
+      <lit-flyout aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Some Header</p>
+        <p>Some content</p>
+        <p slot="footer">Some Footer</p>
+        <p slot="sub-footer">Some Sub Footer</p>
+      </lit-flyout>
+    </section>
+    <section id="surface">
+      <lit-flyout background="surface" aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Header</p>
+        <p>Body</p>
+      </lit-flyout>
+    </section>
+    <section id="start">
+      <lit-flyout position="start" aria="{'aria-label': 'Some heading'}">
+        <p>Start</p>
+      </lit-flyout>
+    </section>
+    <section id="fullscreen">
+      <lit-flyout fullscreen="true">
+        <p>Full</p>
+      </lit-flyout>
+    </section>
+    <section id="responsive">
+      <lit-flyout fullscreen="{ base: true, m: false }">
+        <p>Responsive</p>
+      </lit-flyout>
+    </section>
+    <script src="lit-flyout.bundle.js"></script>
+  </body>
+</html>
