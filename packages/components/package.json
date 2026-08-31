@@ -21,6 +21,7 @@
     "build:lit-divider": "node scripts/build-lit-divider.mjs",
     "generate:frameworks-divider": "node scripts/generate-frameworks-divider.mjs",
     "generate:frameworks-all": "node scripts/generate-frameworks-all.mjs",
+    "generate:frameworks-react-fix": "node scripts/generate-frameworks-react-fix.mjs",
     "build:lit-crest": "node scripts/build-lit-crest.mjs",
     "build:lit-wordmark": "node scripts/build-lit-wordmark.mjs",
     "build:lit-flag": "node scripts/build-lit-flag.mjs",
