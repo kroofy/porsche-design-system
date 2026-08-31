@@ -51,6 +51,7 @@
     "build:select": "mitosis build && node harness/strip-select-whitespace.mjs && if rg -q my-fragment output/lit/src/Select.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Select.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-select.bundle.js",
     "build:select-option": "mitosis build && node harness/strip-select-option-whitespace.mjs && if rg -q my-fragment output/lit/src/SelectOption.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/SelectOption.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-select-option.bundle.js",
     "build:optgroup": "mitosis build && node harness/strip-optgroup-whitespace.mjs && if rg -q my-fragment output/lit/src/Optgroup.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Optgroup.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-optgroup.bundle.js",
+    "build:multi-select": "mitosis build && node harness/strip-multi-select-whitespace.mjs && if rg -q my-fragment output/lit/src/MultiSelect.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/MultiSelect.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-multi-select.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -98,6 +99,7 @@
     "verify:select": "node harness/verify-select.mjs",
     "verify:select-option": "node harness/verify-select-option.mjs",
     "verify:optgroup": "node harness/verify-optgroup.mjs",
+    "verify:multi-select": "node harness/verify-multi-select.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -144,7 +146,8 @@
     "pixel-diff:radio-group-option": "node harness/pixel-diff-radio-group-option.mjs",
     "pixel-diff:select": "node harness/pixel-diff-select.mjs",
     "pixel-diff:select-option": "node harness/pixel-diff-select-option.mjs",
-    "pixel-diff:optgroup": "node harness/pixel-diff-optgroup.mjs"
+    "pixel-diff:optgroup": "node harness/pixel-diff-optgroup.mjs",
+    "pixel-diff:multi-select": "node harness/pixel-diff-multi-select.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",

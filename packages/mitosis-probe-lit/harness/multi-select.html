@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-multi-select harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="error-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-error)"
+    ></div>
+    <section id="default">
+      <lit-multi-select label="Some label" name="some-name">
+        <span data-item="a">Option A</span>
+        <span data-item="b">Option B</span>
+      </lit-multi-select>
+    </section>
+    <section id="disabled">
+      <lit-multi-select label="Some label" name="some-name" disabled="true">
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <section id="success">
+      <lit-multi-select label="Some label" name="some-name" state="success" message="Some message.">
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <section id="error">
+      <lit-multi-select label="Some label" name="some-name" state="error" message="Some message.">
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <section id="compact">
+      <lit-multi-select label="Some label" name="some-name" compact="true">
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <section id="hide-label">
+      <lit-multi-select label="Some label" name="some-name" hide-label='{"base":false,"m":true}'>
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <section id="hidden">
+      <lit-multi-select hidden label="Some label" name="some-name">
+        <span data-item="a">Option A</span>
+      </lit-multi-select>
+    </section>
+    <script src="lit-multi-select.bundle.js"></script>
+  </body>
+</html>
