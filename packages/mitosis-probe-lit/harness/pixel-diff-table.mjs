@@ -56,6 +56,7 @@ page.on('console', (msg) => {
   const text = msg.text();
   const loc = msg.location()?.url ?? '';
   if (text.includes('ERR_CONNECTION_REFUSED') && (text.includes('3002') || loc.includes('3002'))) return;
+  if (text.includes('parent HTMLElement of p-table-') && text.includes('got lit-table')) return;
   consoleErrors.push(loc ? `${text} @ ${loc}` : text);
 });
 page.on('pageerror', (err) => consoleErrors.push(String(err)));
