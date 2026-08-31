@@ -56,4 +56,5 @@ migrate-tabs	migrate	done	cursor/mitosis-migration-41e6	3	c6a92f81e3	briefs/migr
 migrate-tabs-item	migrate	done	cursor/mitosis-migration-41e6	3	e62fa8006c	briefs/migrate-tabs-item.md
 migrate-stepper-horizontal	migrate	done	cursor/mitosis-migration-41e6	3	a3a8d30eee	briefs/migrate-stepper-horizontal.md
 migrate-stepper-horizontal-item	migrate	done	cursor/mitosis-migration-41e6	3	c82fbe7a35	briefs/migrate-stepper-horizontal-item.md
-migrate-button-tile	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-button-tile.md
+migrate-button-tile	migrate	done	cursor/mitosis-migration-41e6	3	8c4ecc1167	briefs/migrate-button-tile.md
+migrate-link-tile	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-link-tile.md
