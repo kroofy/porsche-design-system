@@ -15,7 +15,6 @@ import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, Button
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 import { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
-import { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -70,7 +69,6 @@ export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, Button
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
-export { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -581,35 +579,6 @@ export namespace Components {
           * @default 'on'
          */
         "value"?: string;
-    }
-    /**
-     * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
-     */
-    interface PDisplay {
-        /**
-          * Sets the horizontal text alignment (`start`, `center`, `end`, or `inherit`).
-          * @default 'start'
-         */
-        "align"?: DisplayAlign;
-        /**
-          * Sets the text color using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: DisplayColor;
-        /**
-          * Truncates the text with an ellipsis when it overflows the container on a single line.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Sets the visual text size. Supports responsive breakpoint values.
-          * @default 'large'
-         */
-        "size"?: BreakpointCustomizable<DisplaySize>;
-        /**
-          * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
-         */
-        "tag"?: DisplayTag;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -3197,15 +3166,6 @@ declare global {
         prototype: HTMLPCheckboxElement;
         new (): HTMLPCheckboxElement;
     };
-    /**
-     * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
-     */
-    interface HTMLPDisplayElement extends Components.PDisplay, HTMLStencilElement {
-    }
-    var HTMLPDisplayElement: {
-        prototype: HTMLPDisplayElement;
-        new (): HTMLPDisplayElement;
-    };
     interface HTMLPDrilldownElementEventMap {
         "dismiss": DrilldownDismissEventDetail;
         "update": DrilldownUpdateEventDetail;
@@ -3989,7 +3949,6 @@ declare global {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
         "p-checkbox": HTMLPCheckboxElement;
-        "p-display": HTMLPDisplayElement;
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
@@ -4543,35 +4502,6 @@ declare namespace LocalJSX {
           * @default 'on'
          */
         "value"?: string;
-    }
-    /**
-     * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
-     */
-    interface PDisplay {
-        /**
-          * Sets the horizontal text alignment (`start`, `center`, `end`, or `inherit`).
-          * @default 'start'
-         */
-        "align"?: DisplayAlign;
-        /**
-          * Sets the text color using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: DisplayColor;
-        /**
-          * Truncates the text with an ellipsis when it overflows the container on a single line.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Sets the visual text size. Supports responsive breakpoint values.
-          * @default 'large'
-         */
-        "size"?: BreakpointCustomizable<DisplaySize>;
-        /**
-          * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
-         */
-        "tag"?: DisplayTag;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -7280,13 +7210,6 @@ declare namespace LocalJSX {
         "loading": boolean;
         "compact": boolean;
     }
-    interface PDisplayAttributes {
-        "tag": DisplayTag;
-        "size": BreakpointCustomizable<DisplaySize>;
-        "align": DisplayAlign;
-        "color": DisplayColor;
-        "ellipsis": boolean;
-    }
     interface PDrilldownAttributes {
         "open": boolean;
         "activeIdentifier": string | undefined;
@@ -7856,7 +7779,6 @@ declare namespace LocalJSX {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
         "p-checkbox": Omit<PCheckbox, keyof PCheckboxAttributes> & { [K in keyof PCheckbox & keyof PCheckboxAttributes]?: PCheckbox[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `attr:${K}`]?: PCheckboxAttributes[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `prop:${K}`]?: PCheckbox[K] };
-        "p-display": Omit<PDisplay, keyof PDisplayAttributes> & { [K in keyof PDisplay & keyof PDisplayAttributes]?: PDisplay[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `attr:${K}`]?: PDisplayAttributes[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `prop:${K}`]?: PDisplay[K] };
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
@@ -7941,10 +7863,6 @@ declare module "@stencil/core" {
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
             "p-checkbox": LocalJSX.IntrinsicElements["p-checkbox"] & JSXBase.HTMLAttributes<HTMLPCheckboxElement>;
-            /**
-             * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
-             */
-            "p-display": LocalJSX.IntrinsicElements["p-display"] & JSXBase.HTMLAttributes<HTMLPDisplayElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              * @controlled {"props": ["activeIdentifier"], "event": "update"}
