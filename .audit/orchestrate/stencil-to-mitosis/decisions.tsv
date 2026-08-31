@@ -64,3 +64,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T00:19:09Z	migrate	accepted p-ai-tag, spawned p-inline-notification	after PNG is byte-identical to Stencil ai-tag card, 10583 bytes	/opt/cursor/artifacts/mitosis_lit_ai_tag_after.png	live-ui-verified, probe tags 34, packages/components still 0/75
 2026-08-31T00:20:22Z	drain	tick: inline-notification worker running, no lite.tsx yet, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-31T00:25:55Z	migrate	accepted p-inline-notification, spawned p-banner	after PNG is byte-identical to Stencil inline-notification card, 127470 bytes	/opt/cursor/artifacts/mitosis_lit_inline_notification_after.png	live-ui-verified, probe tags 35, packages/components still 0/75
+2026-08-31T00:30:16Z	drain	tick: banner worker running, Banner.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
