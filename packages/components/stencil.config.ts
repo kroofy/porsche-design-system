@@ -215,6 +215,14 @@ export const config: Config = {
           src: './assets/p-input-tel.iife.js',
           dest: 'build/p-input-tel.iife.js',
         },
+        {
+          src: './assets/p-input-number.iife.js',
+          dest: 'assets/p-input-number.iife.js',
+        },
+        {
+          src: './assets/p-input-number.iife.js',
+          dest: 'build/p-input-number.iife.js',
+        },
       ],
     },
   ],
@@ -246,6 +254,7 @@ export const config: Config = {
     'p-input-search',
     'p-input-url',
     'p-input-tel',
+    'p-input-number',
   ],
   enableCache: true,
   rollupPlugins: {

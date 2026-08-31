@@ -42,6 +42,7 @@
     "build:lit-input-search": "node scripts/build-lit-input-search.mjs",
     "build:lit-input-url": "node scripts/build-lit-input-url.mjs",
     "build:lit-input-tel": "node scripts/build-lit-input-tel.mjs",
+    "build:lit-input-number": "node scripts/build-lit-input-number.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
