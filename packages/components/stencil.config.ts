@@ -247,6 +247,14 @@ export const config: Config = {
           src: './assets/p-input-time.iife.js',
           dest: 'build/p-input-time.iife.js',
         },
+        {
+          src: './assets/p-input-week.iife.js',
+          dest: 'assets/p-input-week.iife.js',
+        },
+        {
+          src: './assets/p-input-week.iife.js',
+          dest: 'build/p-input-week.iife.js',
+        },
       ],
     },
   ],
@@ -282,6 +290,7 @@ export const config: Config = {
     'p-input-date',
     'p-input-month',
     'p-input-time',
+    'p-input-week',
   ],
   enableCache: true,
   rollupPlugins: {
