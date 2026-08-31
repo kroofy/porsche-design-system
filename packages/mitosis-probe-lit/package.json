@@ -71,6 +71,7 @@
     "build:table-cell": "mitosis build && node harness/strip-table-cell-whitespace.mjs && if rg -q my-fragment output/lit/src/TableCell.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableCell.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-cell.bundle.js",
     "build:toast": "mitosis build && node harness/strip-toast-whitespace.mjs && if rg -q my-fragment output/lit/src/Toast.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Toast.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-toast.bundle.js",
     "build:toast-item": "mitosis build && node harness/strip-toast-item-whitespace.mjs && if rg -q my-fragment output/lit/src/ToastItem.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/ToastItem.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-toast-item.bundle.js",
+    "build:modal": "mitosis build && node harness/strip-modal-whitespace.mjs && if rg -q my-fragment output/lit/src/Modal.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Modal.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-modal.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -138,6 +139,7 @@
     "verify:table-cell": "node harness/verify-table-cell.mjs",
     "verify:toast": "node harness/verify-toast.mjs",
     "verify:toast-item": "node harness/verify-toast-item.mjs",
+    "verify:modal": "node harness/verify-modal.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -204,7 +206,8 @@
     "pixel-diff:table-row": "node harness/pixel-diff-table-row.mjs",
     "pixel-diff:table-cell": "node harness/pixel-diff-table-cell.mjs",
     "pixel-diff:toast": "node harness/pixel-diff-toast.mjs",
-    "pixel-diff:toast-item": "node harness/pixel-diff-toast-item.mjs"
+    "pixel-diff:toast-item": "node harness/pixel-diff-toast-item.mjs",
+    "pixel-diff:modal": "node harness/pixel-diff-modal.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
