@@ -149,3 +149,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T06:30:20Z	drain	tick: leftover timer for switch; worker running, source 5136d6e54c, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
 2026-08-31T06:33:00Z	land	accepted land-switch, spawned land-checkbox	after PNG is byte-identical to stored Stencil switch baseline, 35256 bytes	/opt/cursor/artifacts/mitosis_land_switch_after.png	live-ui-verified, 17 real p- tags from Mitosis
 2026-08-31T06:38:00Z	land	accepted land-checkbox, spawned land-input-text	after PNG is byte-identical to stored Stencil checkbox baseline, 80326 bytes	/opt/cursor/artifacts/mitosis_land_checkbox_after.png	live-ui-verified, 18 real p- tags from Mitosis
+2026-08-31T06:40:20Z	drain	tick: leftover timer for input-text; worker running, source 08b9c93ede, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
