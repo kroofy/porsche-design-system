@@ -20,7 +20,6 @@ import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 import { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-import { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 import { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
@@ -62,7 +61,6 @@ export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 export { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-export { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 export { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
@@ -806,102 +804,6 @@ export namespace Components {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputSearch {
-        /**
-          * Sets additional ARIA attributes on the search input, useful for combobox patterns (e.g. `role="combobox"`, `aria-expanded`).
-         */
-        "aria"?: SelectedAriaAttributes<InputSearchAriaAttribute>;
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions.
-         */
-        "autoComplete"?: string;
-        /**
-          * Shows a clear button (×) inside the field that resets the value to empty when clicked.
-          * @default false
-         */
-        "clear"?: boolean;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows a magnifying glass icon inside the field as a visual affordance for search input.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputSearchState;
-        /**
-          * Sets the current search query value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputTel {
         /**
@@ -2234,10 +2136,6 @@ export interface PInputNumberCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputNumberElement;
 }
-export interface PInputSearchCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputSearchElement;
-}
 export interface PInputTelCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputTelElement;
@@ -2555,25 +2453,6 @@ declare global {
     var HTMLPInputNumberElement: {
         prototype: HTMLPInputNumberElement;
         new (): HTMLPInputNumberElement;
-    };
-    interface HTMLPInputSearchElementEventMap {
-        "change": InputSearchChangeEventDetail;
-        "blur": InputSearchBlurEventDetail;
-        "input": InputSearchInputEventDetail;
-    }
-    interface HTMLPInputSearchElement extends Components.PInputSearch, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputSearchElementEventMap>(type: K, listener: (this: HTMLPInputSearchElement, ev: PInputSearchCustomEvent<HTMLPInputSearchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputSearchElementEventMap>(type: K, listener: (this: HTMLPInputSearchElement, ev: PInputSearchCustomEvent<HTMLPInputSearchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputSearchElement: {
-        prototype: HTMLPInputSearchElement;
-        new (): HTMLPInputSearchElement;
     };
     interface HTMLPInputTelElementEventMap {
         "change": InputTelChangeEventDetail;
@@ -3094,7 +2973,6 @@ declare global {
         "p-input-date": HTMLPInputDateElement;
         "p-input-month": HTMLPInputMonthElement;
         "p-input-number": HTMLPInputNumberElement;
-        "p-input-search": HTMLPInputSearchElement;
         "p-input-tel": HTMLPInputTelElement;
         "p-input-time": HTMLPInputTimeElement;
         "p-input-url": HTMLPInputUrlElement;
@@ -3936,114 +3814,6 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputSearch {
-        /**
-          * Sets additional ARIA attributes on the search input, useful for combobox patterns (e.g. `role="combobox"`, `aria-expanded`).
-         */
-        "aria"?: SelectedAriaAttributes<InputSearchAriaAttribute>;
-        /**
-          * Provides the browser with a data type hint to enable relevant autofill suggestions.
-         */
-        "autoComplete"?: string;
-        /**
-          * Shows a clear button (×) inside the field that resets the value to empty when clicked.
-          * @default false
-         */
-        "clear"?: boolean;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows a magnifying glass icon inside the field as a visual affordance for search input.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputSearchCustomEvent<InputSearchBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputSearchCustomEvent<InputSearchChangeEventDetail>) => void;
-        /**
-          * Emitted when the value has been changed as a direct result of a user action.
-         */
-        "onInput"?: (event: PInputSearchCustomEvent<InputSearchInputEventDetail>) => void;
-        /**
-          * Sets placeholder text shown inside the field when it is empty.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputSearchState;
-        /**
-          * Sets the current search query value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputTel {
         /**
@@ -5668,28 +5438,6 @@ declare namespace LocalJSX {
         "hideLabel": string;
         "controls": boolean;
     }
-    interface PInputSearchAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "clear": boolean;
-        "indicator": boolean;
-        "readOnly": boolean;
-        "form": string;
-        "maxLength": number;
-        "minLength": number;
-        "placeholder": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputSearchState;
-        "message": string;
-        "hideLabel": string;
-        "aria": SelectedAriaAttributes<InputSearchAriaAttribute>;
-    }
     interface PInputTelAttributes {
         "label": string;
         "description": string;
@@ -6021,7 +5769,6 @@ declare namespace LocalJSX {
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-month": Omit<PInputMonth, keyof PInputMonthAttributes> & { [K in keyof PInputMonth & keyof PInputMonthAttributes]?: PInputMonth[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `attr:${K}`]?: PInputMonthAttributes[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `prop:${K}`]?: PInputMonth[K] };
         "p-input-number": Omit<PInputNumber, keyof PInputNumberAttributes> & { [K in keyof PInputNumber & keyof PInputNumberAttributes]?: PInputNumber[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `attr:${K}`]?: PInputNumberAttributes[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `prop:${K}`]?: PInputNumber[K] };
-        "p-input-search": Omit<PInputSearch, keyof PInputSearchAttributes> & { [K in keyof PInputSearch & keyof PInputSearchAttributes]?: PInputSearch[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `attr:${K}`]?: PInputSearchAttributes[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `prop:${K}`]?: PInputSearch[K] };
         "p-input-tel": Omit<PInputTel, keyof PInputTelAttributes> & { [K in keyof PInputTel & keyof PInputTelAttributes]?: PInputTel[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `attr:${K}`]?: PInputTelAttributes[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `prop:${K}`]?: PInputTel[K] };
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-url": Omit<PInputUrl, keyof PInputUrlAttributes> & { [K in keyof PInputUrl & keyof PInputUrlAttributes]?: PInputUrl[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `attr:${K}`]?: PInputUrlAttributes[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `prop:${K}`]?: PInputUrl[K] };
@@ -6107,7 +5854,6 @@ declare module "@stencil/core" {
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-month": LocalJSX.IntrinsicElements["p-input-month"] & JSXBase.HTMLAttributes<HTMLPInputMonthElement>;
             "p-input-number": LocalJSX.IntrinsicElements["p-input-number"] & JSXBase.HTMLAttributes<HTMLPInputNumberElement>;
-            "p-input-search": LocalJSX.IntrinsicElements["p-input-search"] & JSXBase.HTMLAttributes<HTMLPInputSearchElement>;
             "p-input-tel": LocalJSX.IntrinsicElements["p-input-tel"] & JSXBase.HTMLAttributes<HTMLPInputTelElement>;
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-url": LocalJSX.IntrinsicElements["p-input-url"] & JSXBase.HTMLAttributes<HTMLPInputUrlElement>;
