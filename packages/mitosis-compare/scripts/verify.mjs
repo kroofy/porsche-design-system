@@ -47,7 +47,8 @@ const report = await page.evaluate(() => {
   }));
   const cells = [...document.querySelectorAll('[data-cell]')].map((el) => {
     const [fw, tag] = el.getAttribute('data-cell').split(':');
-    const text = (el.innerText || '').replace(/\s+/g, ' ').trim();
+    const host = el.querySelector('.mitosis-host');
+    const text = ((host?.shadowRoot ?? el).textContent || '').replace(/\s+/g, ' ').trim();
     const failed = /failed|missing|Cannot access|NG0/.test(text);
     return {
       fw,
@@ -57,7 +58,8 @@ const report = await page.evaluate(() => {
       childCount: el.children.length,
       html: el.innerHTML.slice(0, 80),
       text: text.slice(0, 140),
-      hasHost: !!el.querySelector('.mitosis-host'),
+      hasHost: !!host,
+      hasShadow: !!host?.shadowRoot,
     };
   });
   return {
@@ -67,6 +69,30 @@ const report = await page.evaluate(() => {
     childInfo,
     headers,
     cells,
+  };
+});
+
+const leak = await page.evaluate(() => {
+  const img = document.querySelector('.baseline-cell img');
+  const imgCs = img ? getComputedStyle(img) : null;
+  const head = document.querySelector('.compare-grid > .head');
+  const before = head ? getComputedStyle(head, '::before') : null;
+  const crestHost = document.querySelector('[data-cell="react:crest"] .mitosis-host');
+  const crestImg = crestHost?.shadowRoot?.querySelector('img');
+  const headingHost = document.querySelector('[data-cell="react:heading"] .mitosis-host');
+  const headingH2 = headingHost?.shadowRoot?.querySelector('h2');
+  return {
+    baselineDisplay: imgCs?.display,
+    baselineVisibility: imgCs?.visibility,
+    baselineMaxHeight: imgCs?.maxHeight,
+    baselineWidth: img ? Math.round(img.getBoundingClientRect().width) : 0,
+    baselineHeight: img ? Math.round(img.getBoundingClientRect().height) : 0,
+    headBefore: before?.content,
+    shadowCount: [...document.querySelectorAll('.mitosis-host')].filter((el) => el.shadowRoot).length,
+    crestImgNatural: crestImg?.naturalWidth ?? 0,
+    crestImgHeight: crestImg ? Math.round(crestImg.getBoundingClientRect().height) : 0,
+    headingText: (headingH2?.textContent || '').trim(),
+    headingFontSize: headingH2 ? getComputedStyle(headingH2).fontSize : null,
   };
 });
 
@@ -80,7 +106,7 @@ for (const cell of report.cells) {
 }
 
 const failedCells = report.cells.filter((cell) => cell.failed || cell.empty);
-console.log(JSON.stringify({ columns: report.columns, gridWidth: report.gridWidth, baseline: report.baseline, headers: report.headers, byFw, failedCells, errorCount: errors.length, errors: errors.slice(0, 20) }, null, 2));
+console.log(JSON.stringify({ columns: report.columns, gridWidth: report.gridWidth, baseline: report.baseline, leak, headers: report.headers, byFw, failedCells, errorCount: errors.length, errors: errors.slice(0, 20) }, null, 2));
 
 const shots = ['crest', 'heading', 'button', 'input-text', 'tag', 'model-signature', 'switch', 'divider'];
 for (const tag of shots) {

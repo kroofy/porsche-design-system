@@ -1,5 +1,6 @@
 import Host from './Host.svelte';
 import { DEMOS, pascal } from '../catalog';
+import { openCompareRoot } from '../host';
 
 const modules = import.meta.glob('../../../../packages/components/mitosis/*/output/frameworks/svelte/*.svelte');
 
@@ -55,12 +56,13 @@ export async function mountSvelte() {
     const img = child && 'img' in child ? child.img : null;
 
     try {
+      const mount = openCompareRoot(el, demo.tag);
       new Host({
-        target: el,
+        target: mount,
         props: { Cmp, props: demo.props ?? {}, text, img, tag: demo.tag },
       });
 
-      const slotTarget = (el.querySelector('.mitosis-host') as HTMLElement) ?? el;
+      const slotTarget = mount;
       if (child && 'buttons' in child) {
         for (const label of child.buttons) {
           const button = document.createElement('button');

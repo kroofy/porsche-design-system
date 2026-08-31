@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { DEMOS, pascal, type Demo, type DemoChild } from '../catalog';
-import { hostClass } from '../host';
+import { openCompareRoot } from '../host';
 
 class ErrorBoundary extends React.Component<
   { label: string; children: React.ReactNode },
@@ -144,12 +144,11 @@ export async function mountReact() {
       el.textContent = `missing ${pascal(demo.tag)}.tsx`;
       continue;
     }
-    createRoot(el).render(
-      <div className={hostClass(demo.tag)}>
-        <ErrorBoundary label={demo.tag}>
-          <Comp {...(demo.props ?? {})}>{childNodes(demo, comps)}</Comp>
-        </ErrorBoundary>
-      </div>
+    const mount = openCompareRoot(el, demo.tag);
+    createRoot(mount).render(
+      <ErrorBoundary label={demo.tag}>
+        <Comp {...(demo.props ?? {})}>{childNodes(demo, comps)}</Comp>
+      </ErrorBoundary>
     );
   }
 }

@@ -20,9 +20,11 @@ function renderShell() {
         Each row shows the stored Stencil playground <strong>baseline</strong> card next to the
         generated <code>react</code>, <code>vue</code>, <code>angular</code>, and
         <code>svelte</code> files from <code>packages/components/mitosis/*/output/frameworks</code>.
-        Baselines are the full playground variant matrix (dsf 2), not a single instance — so they
-        will not pixel-match the emit cells. Overlay / dialog tags are omitted: ${skipped}.
-        Angular cells render the generated class plus template (Vite cannot JIT Angular 22 here).
+        Each emit cell is a shadow root so runtime <code>cssText</code> cannot restyle the grid
+        or the baseline images. Baselines are the full playground variant matrix (dsf 2), not a
+        single instance — so they will not pixel-match the emit cells. Overlay / dialog tags are
+        omitted: ${skipped}. Angular cells render the generated class plus template (Vite cannot
+        JIT Angular 22 here).
       </p>
     </header>
     <div class="compare-grid" role="table" aria-label="Framework comparison"></div>

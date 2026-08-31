@@ -18,6 +18,13 @@ const hostToClass = (css: string, tag: string, global = false) => {
     .replace(/:host(?![\w-(])/g, wrap(cls));
 };
 
+/** Static SFC/jsx `:host` rules land in document.head, so they must target the shadow host class. Runtime cssText stays as `:host` and is injected inside the cell shadow root. */
+const rewriteStaticStyleHosts = (code: string, tag: string, global = false) =>
+  code.replace(/<style([^>]*)>([\s\S]*?)<\/style>/g, (_match, attrs, css) => {
+    if (/dangerouslySetInnerHTML|v-html/.test(attrs)) return _match;
+    return `<style${attrs}>${hostToClass(css, tag, global)}</style>`;
+  });
+
 const rewriteSvelteCustomElements = (code: string) => {
   const re = /<svelte:component\s+this=\{p((?:\s-\s[A-Za-z0-9]+)+)\}|<\/svelte:component/g;
   const parts: string[] = [];
@@ -151,30 +158,27 @@ export function mitosisCompareAdapters(): Plugin {
         next = next.replace(/<slot\s+name="([^"]+)"\s*><\/slot>/g, (_, name) => `{props[${JSON.stringify(name)}] ?? null}`);
         next = next.replace(/<slot\s*\/>/g, '{props.children}');
         next = next.replace(/<slot><\/slot>/g, '{props.children}');
-        next = next.replace(/<style jsx>/g, '<style jsx global>');
-        next = hostToClass(next, tag);
+        next = next.replace(/<style\s+jsx>/g, '<style jsx global>');
+        next = rewriteStaticStyleHosts(next, tag);
         next = rewriteReactFunctionShadowing(next);
         return next;
       }
 
       if (normalized.includes('/output/frameworks/vue/') && normalized.endsWith('.vue')) {
-        return hostToClass(code.replace(/<style scoped>/g, '<style>'), tag);
+        return rewriteStaticStyleHosts(code.replace(/<style scoped>/g, '<style>'), tag);
       }
 
       if (normalized.includes('/output/frameworks/svelte/') && normalized.endsWith('.svelte')) {
-        let next = code.replace(
-          /<style([^>]*)>([\s\S]*?)<\/style>/g,
-          (_match, attrs, css) => `<style${attrs}>${hostToClass(css, tag, true)}</style>`
-        );
+        let next = rewriteStaticStyleHosts(code, tag, true);
         next = rewriteSvelteCustomElements(next);
-        next = rewriteSveltePropShadowing(hostToClass(next, tag));
+        next = rewriteSveltePropShadowing(next);
         return next;
       }
 
       if (normalized.includes('/output/frameworks/angular/') && normalized.endsWith('.ts')) {
-        const template = hostToClass(rewriteSlots(extractTemplate(code)), tag);
-        const styles = hostToClass(extractStyles(code), tag);
-        let next = hostToClass(code, tag);
+        const template = rewriteSlots(extractTemplate(code));
+        const styles = extractStyles(code);
+        let next = code;
         next = next.replace(/^import .*(@angular\/|CommonModule).*\n/gm, '');
         next = next.replace(/@NgModule\([\s\S]*?\)\s*export class \w+Module \{\}\s*/g, '');
         next = next.replace(/@Component\(\{[\s\S]*?\}\)\s*/g, '');

@@ -1,5 +1,5 @@
 import { DEMOS, pascal } from '../catalog';
-import { hostClass } from '../host';
+import { openCompareRoot } from '../host';
 import { renderAngularEmit } from './render-lite';
 
 const modules = import.meta.glob('../../../../packages/components/mitosis/*/output/frameworks/angular/*.ts');
@@ -96,10 +96,8 @@ export async function mountAngular() {
       continue;
     }
     try {
-      const host = document.createElement('div');
-      host.className = hostClass(demo.tag);
-      host.append(renderAngularEmit(Comp, demo.props ?? {}, childNodes(demo, comps)));
-      el.replaceChildren(host);
+      const mount = openCompareRoot(el, demo.tag);
+      mount.append(renderAngularEmit(Comp, demo.props ?? {}, childNodes(demo, comps)));
     } catch (error) {
       el.textContent = `angular render failed: ${(error as Error).message}`;
     }

@@ -11,4 +11,6 @@ npm run dev
 
 Open `http://localhost:5174/`. Each row shows the stored Stencil playground baseline card beside the four framework emits. Overlay/dialog tags stay off the page (banner, modal, flyout, sheet, toast, popover, drilldown, canvas, carousel, select).
 
+Each emit cell mounts into a shadow root. Generated `cssText()` injects a `<style>` tag with unscoped `button` / `img` / `h2` / `.root` rules that were written for shadow DOM; without isolation those rules restyle the page (including baseline screenshots). Static `:host` blocks still compile to `.mh-<tag>` on the shadow host.
+
 Angular cells render the generated class plus template. Vite cannot JIT Angular 22 standalone components in this host. Baselines are the full playground variant matrix, so they will not pixel-match a single emit instance.

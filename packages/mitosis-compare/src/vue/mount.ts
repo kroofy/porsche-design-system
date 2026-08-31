@@ -1,6 +1,6 @@
 import { createApp, defineComponent, h, type Component } from 'vue';
 import { DEMOS, pascal } from '../catalog';
-import { hostClass } from '../host';
+import { openCompareRoot } from '../host';
 
 const modules = import.meta.glob('../../../../packages/components/mitosis/*/output/frameworks/vue/*.vue');
 
@@ -101,10 +101,10 @@ export async function mountVue() {
             );
           }
         }
-        return () => h('div', { class: hostClass(demo.tag) }, [h(Comp, demo.props ?? {}, { default: () => children })]);
+        return () => h(Comp, demo.props ?? {}, { default: () => children });
       },
     });
 
-    createApp(Root).mount(el);
+    createApp(Root).mount(openCompareRoot(el, demo.tag));
   }
 }
