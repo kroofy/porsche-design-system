@@ -1,164 +1,21 @@
-import { Component, Element, Event, type EventEmitter, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes, SelectedAriaAttributes } from '../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  createTopLayerController,
-  getSlotTextContent,
-  hasNamedSlot,
-  hasPropValueChanged,
-  isDialogBackdropTarget,
-  onCancelDialog,
-  onClickDialog,
-  parseAndGetAriaAttributes,
-  setScrollLock,
-  showDialog,
-  type TopLayerController,
-  validateProps,
-  warnIfAriaAndHeadingPropsAreUndefined,
-} from '../../utils';
-import { onTransitionEnd } from '../../utils/dialog/dialog';
-import { DialogBase } from '../common/dialog-base/dialog-base';
-import { getComponentCss } from './sheet-styles';
-import {
-  SHEET_ARIA_ATTRIBUTES,
-  SHEET_BACKGROUNDS,
-  type SheetAriaAttribute,
-  type SheetBackground,
-  type SheetDismissEventDetail,
-  type SheetMotionHiddenEndEventDetail,
-  type SheetMotionVisibleEndEventDetail,
-} from './sheet-utils';
-
-const propTypes: PropTypes<typeof Sheet> = {
-  open: AllowedTypes.boolean,
-  dismissButton: AllowedTypes.boolean,
-  disableBackdropClick: AllowedTypes.boolean,
-  background: AllowedTypes.oneOf<SheetBackground>(SHEET_BACKGROUNDS),
-  aria: AllowedTypes.aria<SheetAriaAttribute>(SHEET_ARIA_ATTRIBUTES),
-};
-
 /**
- * @slot {"name": "header", "description": "Renders a header section above the content area." }
- * @slot {"name": "", "description": "Default slot for the main content." }
- *
- * @controlled {"props": ["open"], "event": "dismiss"}
+ * Stencil no longer owns p-sheet. The playground tag is the Mitosis Lit
+ * custom element from mitosis/sheet/Sheet.lite.tsx.
+ * This file stays so generateConstructorMap can still import class Sheet.
  */
-@Component({
-  tag: 'p-sheet',
-  shadow: true,
-})
+import type { HTMLStencilElement } from '@stencil/core/internal';
+
 export class Sheet {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  open: boolean = false;
+  render(): void {}
+}
 
-  /** Controls whether the sheet panel slides in from the bottom and is visible to the user. */
-  @Prop() public open: boolean = false;
-
-  /** Shows a dismiss button in the sheet header so users can manually close it. */
-  @Prop() public dismissButton?: boolean = true;
-
-  /**When enabled, clicking the backdrop will not close the sheet. */
-  @Prop() public disableBackdropClick?: boolean = false;
-
-  /** Sets the background color of the sheet panel (`canvas` or `surface`). */
-  @Prop() public background?: SheetBackground = 'canvas';
-
-  /** Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient. */
-  @Prop() public aria?: SelectedAriaAttributes<SheetAriaAttribute>;
-
-  /** Emitted when the user closes the sheet via the dismiss button, backdrop click, or Escape key. The event detail identifies which of the three was used. */
-  @Event({ bubbles: false }) public dismiss?: EventEmitter<SheetDismissEventDetail>;
-
-  /** Emitted after the sheet's open transition has fully completed and the panel is visible. */
-  @Event({ bubbles: false }) public motionVisibleEnd?: EventEmitter<SheetMotionVisibleEndEventDetail>;
-
-  /** Emitted after the sheet's close transition has fully completed and the panel is hidden. */
-  @Event({ bubbles: false }) public motionHiddenEnd?: EventEmitter<SheetMotionHiddenEndEventDetail>;
-
-  private dialog: HTMLDialogElement;
-  private scroller: HTMLDivElement;
-  private hasHeader: boolean;
-  // Tracks whether the current pointer gesture started inside the panel (not on the backdrop). Lets `onClickDialog`
-  // skip dismissal when a selection is dragged out of the panel and released on the backdrop.
-  private isPointerDownInside = false;
-  private topLayer: TopLayerController = createTopLayerController({
-    getElement: () => this.dialog,
-    isShown: () => !!this.dialog?.open,
-    show: () => showDialog(this.dialog, this.scroller),
-    hide: () => this.dialog?.close(),
-  });
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
+declare global {
+  interface HTMLPSheetElement extends HTMLStencilElement {
+    open: boolean;
   }
-
-  public componentWillRender(): void {
-    setScrollLock(this.open);
+  interface HTMLElementTagNameMap {
+    'p-sheet': HTMLPSheetElement;
   }
-
-  public componentDidRender(): void {
-    if (this.open) {
-      this.topLayer.requestShow();
-    } else {
-      this.topLayer.requestHide();
-    }
-  }
-
-  public disconnectedCallback(): void {
-    setScrollLock(false);
-    this.topLayer.cancel();
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-
-    this.hasHeader = hasNamedSlot(this.host, 'header');
-
-    if (this.open) {
-      warnIfAriaAndHeadingPropsAreUndefined(this.host, this.hasHeader, this.aria);
-    }
-
-    attachComponentCss(this.host, getComponentCss, this.open, this.background, this.dismissButton);
-
-    return (
-      <DialogBase
-        // `inert` (not `aria-hidden`) removes the panel from the a11y tree AND prevents focus while closed / during the
-        // fade-out. Using `aria-hidden` here triggers a browser warning when a focusable descendant still holds focus
-        // during the closing transition ("Blocked aria-hidden on an element because its descendant retained focus").
-        // `inert` avoids that and mirrors the pattern used by `p-modal` / `p-popover` / `p-drilldown`.
-        inert={!this.open}
-        dialogRef={(el) => (this.dialog = el)}
-        scrollerRef={(el) => (this.scroller = el)}
-        dismissable={this.dismissButton ?? undefined}
-        onCancel={this.onDialogCancel}
-        onMouseDown={(e) => (this.isPointerDownInside = !isDialogBackdropTarget(e))}
-        onClick={this.onDialogBackdropClick}
-        onTransitionEnd={(e) => onTransitionEnd(e, this.open, this.motionVisibleEnd, this.motionHiddenEnd)}
-        onDismiss={this.dismissButton ? this.onDismissButtonClick : undefined}
-        containerClass="sheet"
-        header={this.hasHeader ? <slot name="header" /> : undefined}
-        ariaAttributes={parseAndGetAriaAttributes({
-          'aria-modal': true,
-          ...(this.hasHeader && {
-            'aria-label': hasNamedSlot(this.host, 'header') && getSlotTextContent(this.host, 'header'),
-          }),
-          ...parseAndGetAriaAttributes(this.aria),
-        })}
-      >
-        <slot />
-      </DialogBase>
-    );
-  }
-
-  private onDialogCancel = (e: Event): void =>
-    onCancelDialog(e, () => this.dismissDialog('escape'), !this.dismissButton);
-
-  private onDialogBackdropClick = (e: MouseEvent): void =>
-    onClickDialog(e, () => this.dismissDialog('backdrop'), this.disableBackdropClick, this.isPointerDownInside);
-
-  private onDismissButtonClick = (): void => this.dismissDialog('dismiss-button');
-
-  private dismissDialog = (reason: SheetDismissEventDetail['reason']): void => {
-    this.dismiss.emit({ reason });
-  };
 }
