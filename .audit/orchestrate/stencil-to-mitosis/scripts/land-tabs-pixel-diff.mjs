@@ -141,6 +141,10 @@ await page.waitForFunction(() => {
   });
 }, { timeout: 20_000 });
 
+await page.evaluate(() => document.fonts.ready);
+await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+
 const proof = await page.evaluate(() => {
   const Tabs = customElements.get('p-tabs');
   const hosts = [...document.querySelectorAll('[data-card="tabs"] > p-tabs')];
