@@ -15,7 +15,7 @@ export default function LitBanner(props: {
     get cssText(): string {
       const visual = props.state || 'info';
       const heading = props.heading || '';
-      const hasHeadingSlot = false;
+      const hasHeadingSlot = state.hasHeadingSlot;
       const hasHeading = !!(heading || hasHeadingSlot);
       let dismiss: any = props.dismissButton;
       if (dismiss === false || dismiss === 'false') {
@@ -183,6 +183,9 @@ export default function LitBanner(props: {
       return true;
     },
     get hasHeadingSlot(): any {
+      return false;
+    },
+    get hasDescriptionSlot(): any {
       return false;
     },
     get headingAria(): string {

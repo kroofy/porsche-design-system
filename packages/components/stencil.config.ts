@@ -303,6 +303,14 @@ export const config: Config = {
           src: './assets/p-inline-notification.iife.js',
           dest: 'build/p-inline-notification.iife.js',
         },
+        {
+          src: './assets/p-banner.iife.js',
+          dest: 'assets/p-banner.iife.js',
+        },
+        {
+          src: './assets/p-banner.iife.js',
+          dest: 'build/p-banner.iife.js',
+        },
       ],
     },
   ],
@@ -345,6 +353,7 @@ export const config: Config = {
     'p-text-list-item',
     'p-ai-tag',
     'p-inline-notification',
+    'p-banner',
   ],
   enableCache: true,
   rollupPlugins: {
