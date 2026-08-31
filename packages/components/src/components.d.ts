@@ -6,11 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
-import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
-import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
-export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
-export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export namespace Components {
     /**
      * @experimental 
@@ -32,94 +28,10 @@ export namespace Components {
          */
         "sidebarStartOpen"?: boolean;
     }
-    /**
-     * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
-     */
-    interface PCarousel {
-        /**
-          * Sets the zero-based index of the currently visible slide. Update this to navigate programmatically.
-          * @default 0
-         */
-        "activeSlideIndex"?: number;
-        /**
-          * Controls the alignment of custom slotted controls within the header area.
-          * @default 'auto'
-         */
-        "alignControls"?: CarouselAlignControls;
-        /**
-          * Controls the horizontal alignment of the heading and description.
-          * @default 'start'
-         */
-        "alignHeader"?: CarouselAlignHeader;
-        /**
-          * Sets ARIA attributes on the carousel region element for improved accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<CarouselAriaAttribute>;
-        /**
-          * Sets the description text displayed below the heading for additional context.
-         */
-        "description"?: string;
-        /**
-          * When enabled, each slide is individually focusable and the carousel navigates one slide at a time instead of one page.
-          * @default false
-         */
-        "focusOnCenterSlide"?: boolean;
-        /**
-          * Shows a gradient fade at the start and end edges to visually indicate more slides beyond the viewport.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the heading text displayed above the carousel. Also used as the accessible label when no `aria` prop is set.
-         */
-        "heading"?: string;
-        /**
-          * Sets the font size of the carousel heading.
-          * @default 'x-large'
-         */
-        "headingSize"?: CarouselHeadingSize;
-        /**
-          * Overrides the default label strings used for the previous, next, and page indicators — useful for localization.
-         */
-        "intl"?: CarouselInternationalization;
-        /**
-          * Shows pagination dot indicators below the carousel. Supports responsive breakpoint values.
-          * @default false
-         */
-        "pagination"?: BreakpointCustomizable<boolean>;
-        /**
-          * Enables infinite looping — navigating past the last slide wraps back to the first, and vice versa.
-          * @default false
-         */
-        "rewind"?: boolean;
-        /**
-          * Sets the `href` of an in-page skip link that lets keyboard users jump past the carousel slides.
-         */
-        "skipLinkTarget"?: string;
-        /**
-          * Sets how many slides are visible at once. Use `auto` to control each slide's width via CSS. Supports responsive breakpoint values.
-          * @default 1
-         */
-        "slidesPerPage"?: BreakpointCustomizable<CarouselSlidesPerPage>;
-        /**
-          * Removes whitespace before the first and after the last slide when `focusOnCenterSlide` is enabled.
-          * @default false
-         */
-        "trimSpace"?: boolean;
-        /**
-          * Sets the maximum width and outer spacing of the carousel, aligned to PDS grid widths.
-          * @default 'basic'
-         */
-        "width"?: CarouselWidth;
-    }
 }
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPCanvasElement;
-}
-export interface PCarouselCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPCarouselElement;
 }
 declare global {
     interface HTMLPCanvasElementEventMap {
@@ -143,29 +55,8 @@ declare global {
         prototype: HTMLPCanvasElement;
         new (): HTMLPCanvasElement;
     };
-    interface HTMLPCarouselElementEventMap {
-        "update": CarouselUpdateEventDetail;
-    }
-    /**
-     * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
-     */
-    interface HTMLPCarouselElement extends Components.PCarousel, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPCarouselElementEventMap>(type: K, listener: (this: HTMLPCarouselElement, ev: PCarouselCustomEvent<HTMLPCarouselElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPCarouselElementEventMap>(type: K, listener: (this: HTMLPCarouselElement, ev: PCarouselCustomEvent<HTMLPCarouselElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPCarouselElement: {
-        prototype: HTMLPCarouselElement;
-        new (): HTMLPCarouselElement;
-    };
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
-        "p-carousel": HTMLPCarouselElement;
     }
 }
 declare namespace LocalJSX {
@@ -197,118 +88,15 @@ declare namespace LocalJSX {
          */
         "sidebarStartOpen"?: boolean;
     }
-    /**
-     * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
-     */
-    interface PCarousel {
-        /**
-          * Sets the zero-based index of the currently visible slide. Update this to navigate programmatically.
-          * @default 0
-         */
-        "activeSlideIndex"?: number;
-        /**
-          * Controls the alignment of custom slotted controls within the header area.
-          * @default 'auto'
-         */
-        "alignControls"?: CarouselAlignControls;
-        /**
-          * Controls the horizontal alignment of the heading and description.
-          * @default 'start'
-         */
-        "alignHeader"?: CarouselAlignHeader;
-        /**
-          * Sets ARIA attributes on the carousel region element for improved accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<CarouselAriaAttribute>;
-        /**
-          * Sets the description text displayed below the heading for additional context.
-         */
-        "description"?: string;
-        /**
-          * When enabled, each slide is individually focusable and the carousel navigates one slide at a time instead of one page.
-          * @default false
-         */
-        "focusOnCenterSlide"?: boolean;
-        /**
-          * Shows a gradient fade at the start and end edges to visually indicate more slides beyond the viewport.
-          * @default false
-         */
-        "gradient"?: boolean;
-        /**
-          * Sets the heading text displayed above the carousel. Also used as the accessible label when no `aria` prop is set.
-         */
-        "heading"?: string;
-        /**
-          * Sets the font size of the carousel heading.
-          * @default 'x-large'
-         */
-        "headingSize"?: CarouselHeadingSize;
-        /**
-          * Overrides the default label strings used for the previous, next, and page indicators — useful for localization.
-         */
-        "intl"?: CarouselInternationalization;
-        /**
-          * Emitted when the carousel navigates to a new slide, with the active and previous slide indexes in the event detail.
-         */
-        "onUpdate"?: (event: PCarouselCustomEvent<CarouselUpdateEventDetail>) => void;
-        /**
-          * Shows pagination dot indicators below the carousel. Supports responsive breakpoint values.
-          * @default false
-         */
-        "pagination"?: BreakpointCustomizable<boolean>;
-        /**
-          * Enables infinite looping — navigating past the last slide wraps back to the first, and vice versa.
-          * @default false
-         */
-        "rewind"?: boolean;
-        /**
-          * Sets the `href` of an in-page skip link that lets keyboard users jump past the carousel slides.
-         */
-        "skipLinkTarget"?: string;
-        /**
-          * Sets how many slides are visible at once. Use `auto` to control each slide's width via CSS. Supports responsive breakpoint values.
-          * @default 1
-         */
-        "slidesPerPage"?: BreakpointCustomizable<CarouselSlidesPerPage>;
-        /**
-          * Removes whitespace before the first and after the last slide when `focusOnCenterSlide` is enabled.
-          * @default false
-         */
-        "trimSpace"?: boolean;
-        /**
-          * Sets the maximum width and outer spacing of the carousel, aligned to PDS grid widths.
-          * @default 'basic'
-         */
-        "width"?: CarouselWidth;
-    }
 
     interface PCanvasAttributes {
         "sidebarStartOpen": boolean;
         "sidebarEndOpen": boolean;
         "background": CanvasBackground;
     }
-    interface PCarouselAttributes {
-        "heading": string;
-        "headingSize": CarouselHeadingSize;
-        "description": string;
-        "alignHeader": CarouselAlignHeader;
-        "alignControls": CarouselAlignControls;
-        "rewind": boolean;
-        "width": CarouselWidth;
-        "slidesPerPage": string;
-        "pagination": string;
-        "aria": SelectedAriaAttributes<CarouselAriaAttribute>;
-        "intl": CarouselInternationalization;
-        "activeSlideIndex": number;
-        "skipLinkTarget": string;
-        "focusOnCenterSlide": boolean;
-        "gradient": boolean;
-        "trimSpace": boolean;
-    }
 
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
-        "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -319,10 +107,6 @@ declare module "@stencil/core" {
              * @experimental 
              */
             "p-canvas": LocalJSX.IntrinsicElements["p-canvas"] & JSXBase.HTMLAttributes<HTMLPCanvasElement>;
-            /**
-             * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
-             */
-            "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
         }
     }
 }
