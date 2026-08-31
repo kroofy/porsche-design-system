@@ -17,7 +17,6 @@ import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 import { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
 import { CrestAriaAttribute, CrestTarget } from "./components/crest/crest-utils";
 import { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
-import { DividerColor, DividerDirection } from "./components/divider/divider-utils";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -80,7 +79,6 @@ export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 export { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
 export { CrestAriaAttribute, CrestTarget } from "./components/crest/crest-utils";
 export { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
-export { DividerColor, DividerDirection } from "./components/divider/divider-utils";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -641,18 +639,6 @@ export namespace Components {
           * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
          */
         "tag"?: DisplayTag;
-    }
-    interface PDivider {
-        /**
-          * Sets the color of the divider line using PDS contrast tokens.
-          * @default 'contrast-lower'
-         */
-        "color"?: DividerColor;
-        /**
-          * Sets the orientation of the divider to `horizontal` or `vertical`. Supports responsive breakpoint values.
-          * @default 'horizontal'
-         */
-        "direction"?: BreakpointCustomizable<DividerDirection>;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -3421,12 +3407,6 @@ declare global {
         prototype: HTMLPDisplayElement;
         new (): HTMLPDisplayElement;
     };
-    interface HTMLPDividerElement extends Components.PDivider, HTMLStencilElement {
-    }
-    var HTMLPDividerElement: {
-        prototype: HTMLPDividerElement;
-        new (): HTMLPDividerElement;
-    };
     interface HTMLPDrilldownElementEventMap {
         "dismiss": DrilldownDismissEventDetail;
         "update": DrilldownUpdateEventDetail;
@@ -4248,7 +4228,6 @@ declare global {
         "p-checkbox": HTMLPCheckboxElement;
         "p-crest": HTMLPCrestElement;
         "p-display": HTMLPDisplayElement;
-        "p-divider": HTMLPDividerElement;
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
@@ -4852,18 +4831,6 @@ declare namespace LocalJSX {
           * Sets the HTML heading tag (h1–h6) for correct document outline placement. When omitted, the tag is inferred from `size`.
          */
         "tag"?: DisplayTag;
-    }
-    interface PDivider {
-        /**
-          * Sets the color of the divider line using PDS contrast tokens.
-          * @default 'contrast-lower'
-         */
-        "color"?: DividerColor;
-        /**
-          * Sets the orientation of the divider to `horizontal` or `vertical`. Supports responsive breakpoint values.
-          * @default 'horizontal'
-         */
-        "direction"?: BreakpointCustomizable<DividerDirection>;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -7750,10 +7717,6 @@ declare namespace LocalJSX {
         "color": DisplayColor;
         "ellipsis": boolean;
     }
-    interface PDividerAttributes {
-        "color": DividerColor;
-        "direction": BreakpointCustomizable<DividerDirection>;
-    }
     interface PDrilldownAttributes {
         "open": boolean;
         "activeIdentifier": string | undefined;
@@ -8369,7 +8332,6 @@ declare namespace LocalJSX {
         "p-checkbox": Omit<PCheckbox, keyof PCheckboxAttributes> & { [K in keyof PCheckbox & keyof PCheckboxAttributes]?: PCheckbox[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `attr:${K}`]?: PCheckboxAttributes[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `prop:${K}`]?: PCheckbox[K] };
         "p-crest": Omit<PCrest, keyof PCrestAttributes> & { [K in keyof PCrest & keyof PCrestAttributes]?: PCrest[K] } & { [K in keyof PCrest & keyof PCrestAttributes as `attr:${K}`]?: PCrestAttributes[K] } & { [K in keyof PCrest & keyof PCrestAttributes as `prop:${K}`]?: PCrest[K] };
         "p-display": Omit<PDisplay, keyof PDisplayAttributes> & { [K in keyof PDisplay & keyof PDisplayAttributes]?: PDisplay[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `attr:${K}`]?: PDisplayAttributes[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `prop:${K}`]?: PDisplay[K] };
-        "p-divider": Omit<PDivider, keyof PDividerAttributes> & { [K in keyof PDivider & keyof PDividerAttributes]?: PDivider[K] } & { [K in keyof PDivider & keyof PDividerAttributes as `attr:${K}`]?: PDividerAttributes[K] } & { [K in keyof PDivider & keyof PDividerAttributes as `prop:${K}`]?: PDivider[K] };
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
@@ -8465,7 +8427,6 @@ declare module "@stencil/core" {
              * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
              */
             "p-display": LocalJSX.IntrinsicElements["p-display"] & JSXBase.HTMLAttributes<HTMLPDisplayElement>;
-            "p-divider": LocalJSX.IntrinsicElements["p-divider"] & JSXBase.HTMLAttributes<HTMLPDividerElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              * @controlled {"props": ["activeIdentifier"], "event": "update"}

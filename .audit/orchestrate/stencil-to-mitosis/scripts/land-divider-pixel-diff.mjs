@@ -4,10 +4,13 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const require = createRequire('/workspace/package.json');
-const { chromium } = require('playwright-core');
-const pixelmatch = require('pixelmatch');
-const { PNG } = require('pngjs');
+const requireRoot = createRequire('/workspace/package.json');
+const requireProbe = createRequire('/workspace/packages/mitosis-probe-lit/package.json');
+const { chromium } = requireRoot('playwright-core');
+const pixelmatchMod = requireProbe('pixelmatch');
+const pixelmatch = pixelmatchMod.default ?? pixelmatchMod;
+const pngjs = requireProbe('pngjs');
+const { PNG } = pngjs.PNG ? pngjs : pngjs.default ?? pngjs;
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..');
 const PLAYGROUND_URL = process.env.PLAYGROUND_URL ?? 'http://localhost:3333/?components=divider';
