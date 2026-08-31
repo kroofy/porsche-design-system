@@ -712,6 +712,7 @@
           event.stopPropagation();
         });
       }
+      this.addEventListener("slotchange", () => this.requestUpdate());
     }
     render() {
       const open = !!this.isOpenFlag;
