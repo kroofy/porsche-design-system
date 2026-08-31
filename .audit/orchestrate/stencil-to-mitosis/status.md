@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T01:21:11.365Z
+Generated: 2026-08-31T01:30:37.747Z
 
 ## Units
 
-States: done=47, in-progress=1
+States: done=48, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -55,11 +55,12 @@ States: done=47, in-progress=1
 | migrate-segmented-control-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 813b1176bb | briefs/migrate-segmented-control-item.md |
 | migrate-radio-group | migrate | done | cursor/mitosis-migration-41e6 | 3 | 1a878a21be | briefs/migrate-radio-group.md |
 | migrate-radio-group-option | migrate | done | cursor/mitosis-migration-41e6 | 3 | e29c428d91 | briefs/migrate-radio-group-option.md |
-| migrate-select | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-select.md |
+| migrate-select | migrate | done | cursor/mitosis-migration-41e6 | 3 | 335b1f9ea3 | briefs/migrate-select.md |
+| migrate-select-option | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-select-option.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=45, verifier-failed=1
+Verdicts: live-ui-verified=46, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -109,6 +110,7 @@ Verdicts: live-ui-verified=45, verifier-failed=1
 | 3 | 813b1176bb | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_segmented_control_item_after.png | coordinator-byte-equal-png | 2026-08-31T01:08:59.996Z |
 | 3 | 1a878a21be | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_radio_group_after.png | coordinator-byte-equal-png | 2026-08-31T01:15:17.499Z |
 | 3 | e29c428d91 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_radio_group_option_after.png | coordinator-byte-equal-png | 2026-08-31T01:21:11.267Z |
+| 3 | 335b1f9ea3 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_select_after.png | coordinator-byte-equal-png | 2026-08-31T01:30:37.649Z |
 
 ## Frontier
 
@@ -121,4 +123,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":47,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":45,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":48,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":46,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
