@@ -59,7 +59,7 @@ await page.waitForFunction(
   () => customElements.get('p-banner') && customElements.get('p-button') && customElements.get('p-heading'),
   { timeout: 20_000 },
 );
-await page.waitForSelector('[data-card="banner"] p-banner.hydrated', { timeout: 20_000 });
+await page.waitForSelector('[data-card="banner"] p-banner.hydrated', { state: 'attached', timeout: 20_000 });
 await page.evaluate(() => document.fonts.ready);
 await pauseCardAnimation(page);
 await page.waitForFunction(hostReady, { timeout: 30_000 });
