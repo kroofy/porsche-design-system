@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T14:53:54.676Z
+Generated: 2026-08-31T15:04:24.171Z
 
 ## Units
 
-States: done=142, in-progress=1
+States: done=143, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -150,11 +150,12 @@ States: done=142, in-progress=1
 | land-table-head-cell | land | done | cursor/mitosis-migration-41e6 | 3 | 614ad81224 | briefs/land-table-head-cell.md |
 | land-table-body | land | done | cursor/mitosis-migration-41e6 | 3 | 755e65ba30 | briefs/land-table-body.md |
 | land-table-row | land | done | cursor/mitosis-migration-41e6 | 3 | beb5becf5c | briefs/land-table-row.md |
-| land-table-cell | land | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/land-table-cell.md |
+| land-table-cell | land | done | cursor/mitosis-migration-41e6 | 3 | eb81ff4856 | briefs/land-table-cell.md |
+| land-toast | land | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/land-toast.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=140, verifier-failed=1
+Verdicts: live-ui-verified=141, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -299,6 +300,7 @@ Verdicts: live-ui-verified=140, verifier-failed=1
 | 3 | 614ad81224 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_head_cell_after.png | coordinator-byte-equal-png | 2026-08-31T14:38:37.650Z |
 | 3 | 755e65ba30 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_body_after.png | coordinator-byte-equal-png | 2026-08-31T14:47:03.684Z |
 | 3 | beb5becf5c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_row_after.png | coordinator-byte-equal-png | 2026-08-31T14:53:50.957Z |
+| 3 | eb81ff4856 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_cell_after.png | coordinator-byte-equal-png | 2026-08-31T15:04:20.146Z |
 
 ## Frontier
 
@@ -311,4 +313,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":142,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":140,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":143,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":141,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
