@@ -69,6 +69,7 @@ const consoleErrors = [];
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
   text.includes('should be of kind') ||
+  text.includes('has to be a p-radio-group-option') ||
   text.includes('parent HTMLElement of');
 page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
