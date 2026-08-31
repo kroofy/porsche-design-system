@@ -317,8 +317,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PTableBody {
-    }
     interface PTableCell {
         /**
           * Allows slotted text to wrap onto multiple lines instead of being forced onto a single line.
@@ -521,12 +519,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPTableBodyElement extends Components.PTableBody, HTMLStencilElement {
-    }
-    var HTMLPTableBodyElement: {
-        prototype: HTMLPTableBodyElement;
-        new (): HTMLPTableBodyElement;
-    };
     interface HTMLPTableCellElement extends Components.PTableCell, HTMLStencilElement {
     }
     var HTMLPTableCellElement: {
@@ -571,7 +563,6 @@ declare global {
         "p-flyout": HTMLPFlyoutElement;
         "p-modal": HTMLPModalElement;
         "p-sheet": HTMLPSheetElement;
-        "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
         "p-table-row": HTMLPTableRowElement;
         "p-toast": HTMLPToastElement;
@@ -926,8 +917,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PTableBody {
-    }
     interface PTableCell {
         /**
           * Allows slotted text to wrap onto multiple lines instead of being forced onto a single line.
@@ -1042,7 +1031,6 @@ declare namespace LocalJSX {
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
         "p-table-row": PTableRow;
         "p-toast": PToast;
@@ -1087,7 +1075,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
             "p-table-row": LocalJSX.IntrinsicElements["p-table-row"] & JSXBase.HTMLAttributes<HTMLPTableRowElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
