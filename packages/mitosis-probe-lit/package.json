@@ -56,6 +56,7 @@
     "build:tabs-bar": "mitosis build && node harness/strip-tabs-bar-whitespace.mjs && if rg -q my-fragment output/lit/src/TabsBar.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TabsBar.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-tabs-bar.bundle.js",
     "build:tabs": "mitosis build && node harness/strip-tabs-whitespace.mjs && if rg -q my-fragment output/lit/src/Tabs.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Tabs.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-tabs.bundle.js",
     "build:tabs-item": "mitosis build && node harness/strip-tabs-item-whitespace.mjs && if rg -q my-fragment output/lit/src/TabsItem.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TabsItem.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-tabs-item.bundle.js",
+    "build:stepper-horizontal": "mitosis build && node harness/strip-stepper-horizontal-whitespace.mjs && if rg -q my-fragment output/lit/src/StepperHorizontal.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/StepperHorizontal.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-stepper-horizontal.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -108,6 +109,7 @@
     "verify:tabs-bar": "node harness/verify-tabs-bar.mjs",
     "verify:tabs": "node harness/verify-tabs.mjs",
     "verify:tabs-item": "node harness/verify-tabs-item.mjs",
+    "verify:stepper-horizontal": "node harness/verify-stepper-horizontal.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -159,7 +161,8 @@
     "pixel-diff:multi-select-option": "node harness/pixel-diff-multi-select-option.mjs",
     "pixel-diff:tabs-bar": "node harness/pixel-diff-tabs-bar.mjs",
     "pixel-diff:tabs": "node harness/pixel-diff-tabs.mjs",
-    "pixel-diff:tabs-item": "node harness/pixel-diff-tabs-item.mjs"
+    "pixel-diff:tabs-item": "node harness/pixel-diff-tabs-item.mjs",
+    "pixel-diff:stepper-horizontal": "node harness/pixel-diff-stepper-horizontal.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
