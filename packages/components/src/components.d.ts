@@ -20,7 +20,6 @@ import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 import { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-import { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
 import { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 import { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
@@ -63,7 +62,6 @@ export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 export { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-export { InputPasswordBlurEventDetail, InputPasswordChangeEventDetail, InputPasswordInputEventDetail, InputPasswordState } from "./components/input-password/input-password-utils";
 export { InputSearchAriaAttribute, InputSearchBlurEventDetail, InputSearchChangeEventDetail, InputSearchInputEventDetail, InputSearchState } from "./components/input-search/input-search-utils";
 export { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
@@ -808,93 +806,6 @@ export namespace Components {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputPassword {
-        /**
-          * Provides the browser with a password autofill hint (e.g. `autocomplete='current-password'` or `autocomplete='new-password'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputPasswordState;
-        /**
-          * Shows a toggle button that switches the password between masked and plain text visibility.
-          * @default false
-         */
-        "toggle"?: boolean;
-        /**
-          * Sets the current password value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputSearch {
         /**
@@ -2323,10 +2234,6 @@ export interface PInputNumberCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputNumberElement;
 }
-export interface PInputPasswordCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputPasswordElement;
-}
 export interface PInputSearchCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputSearchElement;
@@ -2648,25 +2555,6 @@ declare global {
     var HTMLPInputNumberElement: {
         prototype: HTMLPInputNumberElement;
         new (): HTMLPInputNumberElement;
-    };
-    interface HTMLPInputPasswordElementEventMap {
-        "change": InputPasswordChangeEventDetail;
-        "blur": InputPasswordBlurEventDetail;
-        "input": InputPasswordInputEventDetail;
-    }
-    interface HTMLPInputPasswordElement extends Components.PInputPassword, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputPasswordElementEventMap>(type: K, listener: (this: HTMLPInputPasswordElement, ev: PInputPasswordCustomEvent<HTMLPInputPasswordElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputPasswordElementEventMap>(type: K, listener: (this: HTMLPInputPasswordElement, ev: PInputPasswordCustomEvent<HTMLPInputPasswordElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputPasswordElement: {
-        prototype: HTMLPInputPasswordElement;
-        new (): HTMLPInputPasswordElement;
     };
     interface HTMLPInputSearchElementEventMap {
         "change": InputSearchChangeEventDetail;
@@ -3206,7 +3094,6 @@ declare global {
         "p-input-date": HTMLPInputDateElement;
         "p-input-month": HTMLPInputMonthElement;
         "p-input-number": HTMLPInputNumberElement;
-        "p-input-password": HTMLPInputPasswordElement;
         "p-input-search": HTMLPInputSearchElement;
         "p-input-tel": HTMLPInputTelElement;
         "p-input-time": HTMLPInputTimeElement;
@@ -4049,105 +3936,6 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputPassword {
-        /**
-          * Provides the browser with a password autofill hint (e.g. `autocomplete='current-password'` or `autocomplete='new-password'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the password input has lost focus.
-         */
-        "onBlur"?: (event: PInputPasswordCustomEvent<InputPasswordBlurEventDetail>) => void;
-        /**
-          * Emitted when the password input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputPasswordCustomEvent<InputPasswordChangeEventDetail>) => void;
-        /**
-          * Emitted when the value has been changed as a direct result of a user action.
-         */
-        "onInput"?: (event: PInputPasswordCustomEvent<InputPasswordInputEventDetail>) => void;
-        /**
-          * Sets placeholder text shown inside the field when it is empty.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputPasswordState;
-        /**
-          * Shows a toggle button that switches the password between masked and plain text visibility.
-          * @default false
-         */
-        "toggle"?: boolean;
-        /**
-          * Sets the current password value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputSearch {
         /**
@@ -5880,26 +5668,6 @@ declare namespace LocalJSX {
         "hideLabel": string;
         "controls": boolean;
     }
-    interface PInputPasswordAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "maxLength": number;
-        "minLength": number;
-        "placeholder": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputPasswordState;
-        "message": string;
-        "hideLabel": string;
-        "toggle": boolean;
-    }
     interface PInputSearchAttributes {
         "label": string;
         "description": string;
@@ -6253,7 +6021,6 @@ declare namespace LocalJSX {
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-month": Omit<PInputMonth, keyof PInputMonthAttributes> & { [K in keyof PInputMonth & keyof PInputMonthAttributes]?: PInputMonth[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `attr:${K}`]?: PInputMonthAttributes[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `prop:${K}`]?: PInputMonth[K] };
         "p-input-number": Omit<PInputNumber, keyof PInputNumberAttributes> & { [K in keyof PInputNumber & keyof PInputNumberAttributes]?: PInputNumber[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `attr:${K}`]?: PInputNumberAttributes[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `prop:${K}`]?: PInputNumber[K] };
-        "p-input-password": Omit<PInputPassword, keyof PInputPasswordAttributes> & { [K in keyof PInputPassword & keyof PInputPasswordAttributes]?: PInputPassword[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `attr:${K}`]?: PInputPasswordAttributes[K] } & { [K in keyof PInputPassword & keyof PInputPasswordAttributes as `prop:${K}`]?: PInputPassword[K] };
         "p-input-search": Omit<PInputSearch, keyof PInputSearchAttributes> & { [K in keyof PInputSearch & keyof PInputSearchAttributes]?: PInputSearch[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `attr:${K}`]?: PInputSearchAttributes[K] } & { [K in keyof PInputSearch & keyof PInputSearchAttributes as `prop:${K}`]?: PInputSearch[K] };
         "p-input-tel": Omit<PInputTel, keyof PInputTelAttributes> & { [K in keyof PInputTel & keyof PInputTelAttributes]?: PInputTel[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `attr:${K}`]?: PInputTelAttributes[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `prop:${K}`]?: PInputTel[K] };
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
@@ -6340,7 +6107,6 @@ declare module "@stencil/core" {
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-month": LocalJSX.IntrinsicElements["p-input-month"] & JSXBase.HTMLAttributes<HTMLPInputMonthElement>;
             "p-input-number": LocalJSX.IntrinsicElements["p-input-number"] & JSXBase.HTMLAttributes<HTMLPInputNumberElement>;
-            "p-input-password": LocalJSX.IntrinsicElements["p-input-password"] & JSXBase.HTMLAttributes<HTMLPInputPasswordElement>;
             "p-input-search": LocalJSX.IntrinsicElements["p-input-search"] & JSXBase.HTMLAttributes<HTMLPInputSearchElement>;
             "p-input-tel": LocalJSX.IntrinsicElements["p-input-tel"] & JSXBase.HTMLAttributes<HTMLPInputTelElement>;
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
