@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table-body harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      .table {
+        display: table;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="default">
+      <div class="table">
+        <lit-table-body>
+          <span>718 Cayman</span>
+        </lit-table-body>
+      </div>
+    </section>
+    <section id="hidden">
+      <div class="table">
+        <lit-table-body hidden>
+          <span>Hidden</span>
+        </lit-table-body>
+      </div>
+    </section>
+    <script src="lit-table-body.bundle.js"></script>
+  </body>
+</html>

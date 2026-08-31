@@ -66,6 +66,7 @@
     "build:table-head": "mitosis build && node harness/strip-table-head-whitespace.mjs && if rg -q my-fragment output/lit/src/TableHead.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableHead.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-head.bundle.js",
     "build:table-head-row": "mitosis build && node harness/strip-table-head-row-whitespace.mjs && if rg -q my-fragment output/lit/src/TableHeadRow.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableHeadRow.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-head-row.bundle.js",
     "build:table-head-cell": "mitosis build && node harness/strip-table-head-cell-whitespace.mjs && if rg -q my-fragment output/lit/src/TableHeadCell.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableHeadCell.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-head-cell.bundle.js",
+    "build:table-body": "mitosis build && node harness/strip-table-body-whitespace.mjs && if rg -q my-fragment output/lit/src/TableBody.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/TableBody.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-table-body.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -128,6 +129,7 @@
     "verify:table-head": "node harness/verify-table-head.mjs",
     "verify:table-head-row": "node harness/verify-table-head-row.mjs",
     "verify:table-head-cell": "node harness/verify-table-head-cell.mjs",
+    "verify:table-body": "node harness/verify-table-body.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -189,7 +191,8 @@
     "pixel-diff:table": "node harness/pixel-diff-table.mjs",
     "pixel-diff:table-head": "node harness/pixel-diff-table-head.mjs",
     "pixel-diff:table-head-row": "node harness/pixel-diff-table-head-row.mjs",
-    "pixel-diff:table-head-cell": "node harness/pixel-diff-table-head-cell.mjs"
+    "pixel-diff:table-head-cell": "node harness/pixel-diff-table-head-cell.mjs",
+    "pixel-diff:table-body": "node harness/pixel-diff-table-body.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
