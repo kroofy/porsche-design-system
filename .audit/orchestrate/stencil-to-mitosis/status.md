@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T11:36:58.108Z
+Generated: 2026-08-31T11:45:26.569Z
 
 ## Units
 
-States: done=120, in-progress=1
+States: done=121, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -128,11 +128,12 @@ States: done=120, in-progress=1
 | land-accordion | land | done | cursor/mitosis-migration-41e6 | 3 | 8e5cf261cc | briefs/land-accordion.md |
 | land-segmented-control | land | done | cursor/mitosis-migration-41e6 | 3 | 23c19ec88e | briefs/land-segmented-control.md |
 | land-segmented-control-item | land | done | cursor/mitosis-migration-41e6 | 3 | 64d0a6171c | briefs/land-segmented-control-item.md |
-| land-radio-group | land | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/land-radio-group.md |
+| land-radio-group | land | done | cursor/mitosis-migration-41e6 | 3 | b114bf0ccf | briefs/land-radio-group.md |
+| land-radio-group-option | land | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/land-radio-group-option.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=118, verifier-failed=1
+Verdicts: live-ui-verified=119, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -255,6 +256,7 @@ Verdicts: live-ui-verified=118, verifier-failed=1
 | 3 | 8e5cf261cc | live-ui-verified | /opt/cursor/artifacts/mitosis_land_accordion_after.png | coordinator-byte-equal-png | 2026-08-31T10:04:44.595Z |
 | 3 | 23c19ec88e | live-ui-verified | /opt/cursor/artifacts/mitosis_land_segmented_control_after.png | coordinator-byte-equal-png | 2026-08-31T11:26:56.483Z |
 | 3 | 64d0a6171c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_segmented_control_item_after.png | coordinator-byte-equal-png | 2026-08-31T11:36:52.078Z |
+| 3 | b114bf0ccf | live-ui-verified | /opt/cursor/artifacts/mitosis_land_radio_group_after.png | coordinator-byte-equal-png | 2026-08-31T11:45:19.695Z |
 
 ## Frontier
 
@@ -267,4 +269,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":120,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":118,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":121,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":119,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
