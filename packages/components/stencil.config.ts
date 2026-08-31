@@ -287,6 +287,14 @@ export const config: Config = {
           src: './assets/p-text-list-item.iife.js',
           dest: 'build/p-text-list-item.iife.js',
         },
+        {
+          src: './assets/p-ai-tag.iife.js',
+          dest: 'assets/p-ai-tag.iife.js',
+        },
+        {
+          src: './assets/p-ai-tag.iife.js',
+          dest: 'build/p-ai-tag.iife.js',
+        },
       ],
     },
   ],
@@ -327,6 +335,7 @@ export const config: Config = {
     'p-fieldset',
     'p-text-list',
     'p-text-list-item',
+    'p-ai-tag',
   ],
   enableCache: true,
   rollupPlugins: {

@@ -1,6 +1,8 @@
 import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
 
-useMetadata({ tagName: 'p-ai-tag' });
+useMetadata({
+  tagName: 'p-ai-tag',
+});
 
 export default function LitAiTag(props: { locale?: string; variant?: string }) {
   const state = useStore({
@@ -60,7 +62,11 @@ export default function LitAiTag(props: { locale?: string; variant?: string }) {
   return (
     <div>
       <style innerHTML={state.cssText} />
-      <abbr title={state.longLabel}>{state.shortLabel}</abbr>
+      {state.isAbbreviation ? (
+        <abbr title={state.longLabel}>{state.shortLabel}</abbr>
+      ) : (
+        state.copyLabel
+      )}
     </div>
   );
 }

@@ -51,6 +51,7 @@
     "build:lit-fieldset": "node scripts/build-lit-fieldset.mjs",
     "build:lit-text-list": "node scripts/build-lit-text-list.mjs",
     "build:lit-text-list-item": "node scripts/build-lit-text-list-item.mjs",
+    "build:lit-ai-tag": "node scripts/build-lit-ai-tag.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
