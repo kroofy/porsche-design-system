@@ -124,4 +124,5 @@ land-radio-group-option	land	done	cursor/mitosis-migration-41e6	3	731cd9b8e9	bri
 land-select	land	done	cursor/mitosis-migration-41e6	3	94a71c8b2a	briefs/land-select.md
 land-select-option	land	done	cursor/mitosis-migration-41e6	3	3674bc5112	briefs/land-select-option.md
 land-optgroup	land	done	cursor/mitosis-migration-41e6	3	6229da722a	briefs/land-optgroup.md
-land-multi-select	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-multi-select.md
+land-multi-select	land	done	cursor/mitosis-migration-41e6	3	1fa8ad03fb	briefs/land-multi-select.md
+land-multi-select-option	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-multi-select-option.md
