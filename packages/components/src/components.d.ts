@@ -344,8 +344,6 @@ export namespace Components {
          */
         "sort"?: TableHeadCellSort;
     }
-    interface PTableHeadRow {
-    }
     interface PTableRow {
     }
     interface PToast {
@@ -559,12 +557,6 @@ declare global {
         prototype: HTMLPTableHeadCellElement;
         new (): HTMLPTableHeadCellElement;
     };
-    interface HTMLPTableHeadRowElement extends Components.PTableHeadRow, HTMLStencilElement {
-    }
-    var HTMLPTableHeadRowElement: {
-        prototype: HTMLPTableHeadRowElement;
-        new (): HTMLPTableHeadRowElement;
-    };
     interface HTMLPTableRowElement extends Components.PTableRow, HTMLStencilElement {
     }
     var HTMLPTableRowElement: {
@@ -606,7 +598,6 @@ declare global {
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
         "p-table-head-cell": HTMLPTableHeadCellElement;
-        "p-table-head-row": HTMLPTableHeadRowElement;
         "p-table-row": HTMLPTableRowElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
@@ -985,8 +976,6 @@ declare namespace LocalJSX {
          */
         "sort"?: TableHeadCellSort;
     }
-    interface PTableHeadRow {
-    }
     interface PTableRow {
     }
     interface PToast {
@@ -1101,7 +1090,6 @@ declare namespace LocalJSX {
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
         "p-table-head-cell": Omit<PTableHeadCell, keyof PTableHeadCellAttributes> & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes]?: PTableHeadCell[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `attr:${K}`]?: PTableHeadCellAttributes[K] } & { [K in keyof PTableHeadCell & keyof PTableHeadCellAttributes as `prop:${K}`]?: PTableHeadCell[K] };
-        "p-table-head-row": PTableHeadRow;
         "p-table-row": PTableRow;
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
@@ -1148,7 +1136,6 @@ declare module "@stencil/core" {
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
             "p-table-head-cell": LocalJSX.IntrinsicElements["p-table-head-cell"] & JSXBase.HTMLAttributes<HTMLPTableHeadCellElement>;
-            "p-table-head-row": LocalJSX.IntrinsicElements["p-table-head-row"] & JSXBase.HTMLAttributes<HTMLPTableHeadRowElement>;
             "p-table-row": LocalJSX.IntrinsicElements["p-table-row"] & JSXBase.HTMLAttributes<HTMLPTableRowElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;

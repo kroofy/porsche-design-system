@@ -1,233 +1,285 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile, copyFile } from 'node:fs/promises';
-import { chromium } from 'playwright';
-import pixelmatch from 'pixelmatch';
-import { PNG } from 'pngjs';
+import { createRequire } from 'node:module';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const BASELINE = new URL(
-  '../baseline/stencil_table_head_row_before.png',
-  import.meta.url
-);
-const AFTER = '/opt/cursor/artifacts/mitosis_land_table_head_row_after.png';
+const requireRoot = createRequire('/workspace/package.json');
+const requireProbe = createRequire('/workspace/packages/mitosis-probe-lit/package.json');
+const { chromium } = requireRoot('playwright-core');
+const pixelmatchMod = requireProbe('pixelmatch');
+const pixelmatch = pixelmatchMod.default ?? pixelmatchMod;
+const pngjs = requireProbe('pngjs');
+const { PNG } = pngjs.PNG ? pngjs : pngjs.default ?? pngjs;
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..');
+const PLAYGROUND_URL = process.env.PLAYGROUND_URL ?? 'http://localhost:3333/?components=table';
+const BASELINE_PNG =
+  process.env.BASELINE_PNG ??
+  resolve(REPO_ROOT, '.audit/orchestrate/stencil-to-mitosis/baseline/stencil_table_head_row_before.png');
+const AFTER_PNG = process.env.AFTER_PNG ?? '/opt/cursor/artifacts/mitosis_land_table_head_row_after.png';
 const AFTER_PASS = '/opt/cursor/artifacts/mitosis_land_table_head_row_after_pass.png';
-const DIFF = '/opt/cursor/artifacts/land_table_head_row_pixel_diff.png';
+const DIFF_PNG = process.env.DIFF_PNG ?? '/opt/cursor/artifacts/land_table_head_row_pixel_diff.png';
 const LOG = '/opt/cursor/artifacts/land_table_head_row_verify.log';
-const URL = 'http://localhost:3333/?components=table';
-const EXPECTED_BYTES = 57465;
-const EXPECTED_SHA = '15473ff5d4cd1628d1a45e2704990b7e617d6753c9a6173446754df3361519e3';
+const VIEWPORT = { width: 1440, height: 900 };
+const DEVICE_SCALE_FACTOR = 2;
+const EXPECTED_BASELINE_BYTES = 57465;
+const EXPECTED_BASELINE_SHA = '15473ff5d4cd1628d1a45e2704990b7e617d6753c9a6173446754df3361519e3';
 
+const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
 const lines = [];
 const log = (msg) => {
-  lines.push(msg);
-  console.log(msg);
+  lines.push(typeof msg === 'string' ? msg : JSON.stringify(msg));
+  console.warn(typeof msg === 'string' ? msg : JSON.stringify(msg));
 };
 
-const fail = async (msg) => {
-  log(`FAIL: ${msg}`);
-  await writeFile(LOG, `${lines.join('\n')}\n`);
-  process.exit(1);
-};
-
-const baselineBuf = await readFile(BASELINE);
-log(`baseline bytes=${baselineBuf.length} expected=${EXPECTED_BYTES}`);
-if (baselineBuf.length !== EXPECTED_BYTES) {
-  await fail(`baseline size mismatch: ${baselineBuf.length} !== ${EXPECTED_BYTES}`);
+const baselineBuf = await readFile(BASELINE_PNG);
+if (baselineBuf.byteLength !== EXPECTED_BASELINE_BYTES) {
+  throw new Error(`baseline bytes ${baselineBuf.byteLength} !== ${EXPECTED_BASELINE_BYTES}`);
 }
-const baselineSha = createHash('sha256').update(baselineBuf).digest('hex');
-log(`baseline sha256=${baselineSha}`);
-if (baselineSha !== EXPECTED_SHA) {
-  await fail(`baseline sha mismatch: ${baselineSha} !== ${EXPECTED_SHA}`);
+const baselineSha = sha256(baselineBuf);
+if (baselineSha !== EXPECTED_BASELINE_SHA) {
+  throw new Error(`baseline sha ${baselineSha} !== ${EXPECTED_BASELINE_SHA}`);
 }
+log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
-const browser = await chromium.launch();
-const page = await browser.newPage({
-  viewport: { width: 1440, height: 900 },
-  deviceScaleFactor: 2,
-});
+const isBenign = (text) =>
+  text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('should be of kind') ||
+  text.includes('parent HTMLElement of') ||
+  text.includes('3002');
 
-const consoleMessages = [];
+const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
+const consoleErrors = [];
 page.on('console', (msg) => {
-  consoleMessages.push(`${msg.type()}: ${msg.text()}`);
+  if (msg.type() !== 'error') return;
+  const text = msg.text();
+  const url = msg.location()?.url ?? '';
+  if (isBenign(text) || url.includes('3002')) return;
+  consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
-  consoleMessages.push(`pageerror: ${err.message}`);
+  const text = String(err);
+  if (isBenign(text)) return;
+  consoleErrors.push(text);
 });
 
-await page.goto(URL, { waitUntil: 'load', timeout: 120_000 });
-await page.waitForSelector('[data-card="table"]', { timeout: 60_000 });
+const iifeAsset = await page.request.get('http://localhost:3333/assets/p-table-head-row.iife.js');
+log(`iife HEAD /assets/p-table-head-row.iife.js status=${iifeAsset.status()}`);
+if (iifeAsset.status() !== 200) {
+  throw new Error(`table-head-row IIFE HTTP ${iifeAsset.status()}`);
+}
+const loader = await page.request.get('http://localhost:3333/build/porsche-design-system.esm.js');
+const loaderText = loader.status() === 200 ? await loader.text() : '';
+const stillLazy = /"p-table-head-row"/.test(loaderText);
+log(`loader exact "p-table-head-row"=${stillLazy}`);
+
+await page.goto(PLAYGROUND_URL, { waitUntil: 'load', timeout: 30_000 });
 await page.waitForFunction(
   () =>
-    document.querySelectorAll('p-table-head-row').length === 2 &&
-    [...document.querySelectorAll('p-table-head-row')].every((el) => el.shadowRoot),
-  { timeout: 60_000 }
+    customElements.get('p-table') &&
+    customElements.get('p-table-head') &&
+    customElements.get('p-table-head-row') &&
+    customElements.get('p-table-head-cell'),
+  { timeout: 20_000 },
 );
-
-const iifeStatus = await page.evaluate(async () => {
-  const res = await fetch('/assets/p-table-head-row.iife.js', { method: 'HEAD' });
-  return res.status;
+await page.evaluate(() => document.fonts.ready);
+await page.addStyleTag({
+  content:
+    ':root, :host, * { --p-animation-duration: 0s !important; --p-transition-duration: 0s !important; --p-duration-md: 0s !important; --p-duration-sm: 0s !important; }',
 });
-log(`iife HEAD /assets/p-table-head-row.iife.js status=${iifeStatus}`);
-if (iifeStatus !== 200) {
-  await browser.close();
-  await fail(`IIFE not served: ${iifeStatus}`);
-}
+await page.waitForSelector('[data-card="table"] p-table-head-row', {
+  state: 'attached',
+  timeout: 20_000,
+});
+await page.waitForFunction(() => {
+  const parents = [...document.querySelectorAll('[data-card="table"] p-table-head')];
+  const rows = [...document.querySelectorAll('[data-card="table"] p-table-head-row')];
+  const Table = customElements.get('p-table');
+  const Head = customElements.get('p-table-head');
+  const Row = customElements.get('p-table-head-row');
+  if (parents.length !== 2 || rows.length !== 2) return false;
+  if (Table?.name !== 'LitTable') return false;
+  if (Head?.name !== 'LitTableHead') return false;
+  if (Row?.name !== 'LitTableHeadRow') return false;
+  if (parents.some((el) => el.classList.contains('hydrated'))) return false;
+  return rows.every((el) => {
+    if (el.classList.contains('hydrated')) return false;
+    if (el.parentElement?.tagName !== 'P-TABLE-HEAD') return false;
+    if (el.parentElement?.constructor?.name !== 'LitTableHead') return false;
+    const root = el.shadowRoot;
+    const style = root?.querySelector('style');
+    const slot = root?.querySelector('slot');
+    if (!root || !style || !slot) return false;
+    if (root.querySelector('my-fragment') || root.querySelector('lit-table-head-row') || root.querySelector('.root')) {
+      return false;
+    }
+    if (el.getAttribute('role') !== 'row') return false;
+    const css = style.textContent || '';
+    if (!css.includes('table-row')) return false;
+    const cells = [...el.querySelectorAll(':scope > p-table-head-cell')];
+    return cells.length > 0 && cells.every((cell) => cell.classList.contains('hydrated'));
+  });
+}, { timeout: 30_000 });
 
-const snapshot = await page.evaluate(async () => {
-  const loader = await fetch('/build/porsche-design-system.esm.js').then((r) => r.text());
-  const exactTag = /"p-table-head-row"/.test(loader);
-  const rows = [...document.querySelectorAll('p-table-head-row')];
-  const heads = [...document.querySelectorAll('p-table-head')];
-  const table = document.querySelector('p-table');
+await page.evaluate(async () => {
+  const rows = [...document.querySelectorAll('[data-card="table"] p-table-head-row')];
+  await Promise.all(rows.map((el) => el.updateComplete));
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+});
+
+await page.evaluate(() => document.fonts.ready);
+await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 100)));
+
+const proof = await page.evaluate(() => {
+  const Row = customElements.get('p-table-head-row');
+  const parents = [...document.querySelectorAll('[data-card="table"] p-table-head')];
+  const rows = [...document.querySelectorAll('[data-card="table"] p-table-head-row')];
   return {
-    exactTag,
-    tableCtor: table?.constructor?.name ?? null,
-    tableHydrated: table?.classList.contains('hydrated') ?? null,
-    headCount: heads.length,
-    headCtors: heads.map((el) => el.constructor.name),
-    headHydrated: heads.map((el) => el.classList.contains('hydrated')),
-    count: rows.length,
-    ctors: rows.map((el) => el.constructor.name),
-    hydrated: rows.map((el) => el.classList.contains('hydrated')),
-    roles: rows.map((el) => el.getAttribute('role')),
-    cssTexts: rows.map((el) => el.shadowRoot?.adoptedStyleSheets?.[0]?.cssRules?.[0]?.cssText ?? ''),
-    htmls: rows.map((el) => el.shadowRoot?.innerHTML ?? ''),
-    cells: rows.map((el) =>
-      [...el.querySelectorAll('p-table-head-cell')].map((cell) => ({
-        ctor: cell.constructor.name,
-        hydrated: cell.classList.contains('hydrated'),
-      }))
-    ),
+    title: document.title,
+    href: location.href,
+    ctorName: Row?.name ?? null,
+    isLit: !!Row && 'elementProperties' in Row,
+    definedTag: 'p-table-head-row',
+    litTagDefined: !!customElements.get('lit-table-head-row'),
+    tableCtor: customElements.get('p-table')?.name ?? null,
+    headCtor: customElements.get('p-table-head')?.name ?? null,
+    cellCtor: customElements.get('p-table-head-cell')?.name ?? null,
+    parentCount: parents.length,
+    hostCount: rows.length,
+    hosts: rows.map((el) => {
+      const style = el.shadowRoot?.querySelector('style');
+      const css = style?.textContent ?? '';
+      const cells = [...el.querySelectorAll(':scope > p-table-head-cell')];
+      return {
+        tag: el.localName,
+        ctor: el.constructor?.name,
+        parentTag: el.parentElement?.tagName ?? null,
+        parentCtor: el.parentElement?.constructor?.name ?? null,
+        role: el.getAttribute('role'),
+        hasShadow: !!el.shadowRoot,
+        hasStyle: !!style,
+        cssText: css,
+        hasTableRow: css.includes('table-row'),
+        hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
+        hasSlot: !!el.shadowRoot?.querySelector('slot'),
+        cellCount: cells.length,
+        cellsHydrated: cells.every((cell) => cell.classList.contains('hydrated')),
+        parentHydrated: el.parentElement?.classList.contains('hydrated') ?? true,
+        hydrated: el.classList.contains('hydrated'),
+        hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
+      };
+    }),
   };
 });
+log(proof);
 
-log(`loader exact "p-table-head-row"=${snapshot.exactTag}`);
-log(`p-table ctor=${snapshot.tableCtor} hydrated=${snapshot.tableHydrated}`);
-log(`p-table-head count=${snapshot.headCount} ctors=${snapshot.headCtors.join(',')} hydrated=${snapshot.headHydrated.join(',')}`);
-log(`p-table-head-row count=${snapshot.count} ctors=${snapshot.ctors.join(',')} hydrated=${snapshot.hydrated.join(',')}`);
-log(`roles=${JSON.stringify(snapshot.roles)}`);
-log(`cssTexts=${JSON.stringify(snapshot.cssTexts)}`);
-log(`htmls=${JSON.stringify(snapshot.htmls)}`);
-log(`cells=${JSON.stringify(snapshot.cells)}`);
-
-if (snapshot.exactTag) {
-  await browser.close();
-  await fail('bootstrapLazy still registers exact "p-table-head-row"');
-}
-if (snapshot.tableCtor !== 'LitTable' || snapshot.tableHydrated) {
-  await browser.close();
-  await fail('p-table is not the already-landed Lit host');
-}
-if (snapshot.headCount !== 2 || snapshot.headCtors.some((name) => name !== 'LitTableHead') || snapshot.headHydrated.some(Boolean)) {
-  await browser.close();
-  await fail('p-table-head is not the already-landed Lit host');
-}
-if (snapshot.count !== 2) {
-  await browser.close();
-  await fail(`expected 2 p-table-head-row hosts, got ${snapshot.count}`);
-}
-if (snapshot.ctors.some((name) => name !== 'LitTableHeadRow')) {
-  await browser.close();
-  await fail(`unexpected constructors: ${snapshot.ctors.join(',')}`);
-}
-if (snapshot.hydrated.some(Boolean)) {
-  await browser.close();
-  await fail('p-table-head-row still has Stencil hydrated class');
-}
-if (snapshot.roles.some((role) => role !== 'row')) {
-  await browser.close();
-  await fail(`expected role=row on both hosts, got ${JSON.stringify(snapshot.roles)}`);
-}
-if (snapshot.cssTexts.some((css) => !css.includes('table-row'))) {
-  await browser.close();
-  await fail('cssText missing table-row');
-}
-if (snapshot.htmls.some((html) => html.includes('class="root"') || html.includes('my-fragment'))) {
-  await browser.close();
-  await fail('shadow HTML still wraps slot in .root or my-fragment');
-}
-if (snapshot.htmls.some((html) => !html.includes('<slot></slot>'))) {
-  await browser.close();
-  await fail('shadow HTML missing default slot');
-}
-if (snapshot.cells.some((list) => list.length === 0 || list.some((cell) => cell.ctor === 'LitTableHeadRow' || !cell.hydrated))) {
-  await browser.close();
-  await fail('nested p-table-head-cell is not the leftover Stencil host');
-}
-
-await page.addStyleTag({
-  content: ':root { --p-animation-duration: 0s; --p-transition-duration: 0s; }',
-});
-await page.waitForTimeout(250);
-
-const card = page.locator('[data-card="table"]');
-const box = await card.boundingBox();
+const box = await page.locator('[data-card="table"]').boundingBox();
 if (!box) {
-  await browser.close();
-  await fail('table card has no bounding box');
+  await writeFile(LOG, `${lines.join('\n')}\n`);
+  console.error('land-table-head-row-pixel-diff: card has no bounding box');
+  process.exit(1);
 }
-log(`card box x=${box.x} y=${box.y} w=${box.width} h=${box.height}`);
-
 const clip = {
   x: Math.max(0, box.x),
   y: Math.max(0, box.y),
-  width: Math.min(box.width, 1440 - Math.max(0, box.x)),
-  height: Math.min(box.height, 900 - Math.max(0, box.y)),
+  width: box.width,
+  height: Math.min(box.height, VIEWPORT.height - Math.max(0, box.y)),
 };
+log(`card box x=${box.x} y=${box.y} w=${box.width} h=${box.height}`);
 log(`clip x=${clip.x} y=${clip.y} w=${clip.width} h=${clip.height}`);
-
-const shot = await page.screenshot({
-  type: 'png',
-  clip,
-  animations: 'disabled',
-});
-
-await mkdir('/opt/cursor/artifacts', { recursive: true });
-await writeFile(AFTER, shot);
-
-const afterPng = PNG.sync.read(shot);
-const baselinePng = PNG.sync.read(baselineBuf);
-log(`after ${afterPng.width}x${afterPng.height} baseline ${baselinePng.width}x${baselinePng.height}`);
-if (afterPng.width !== baselinePng.width || afterPng.height !== baselinePng.height) {
-  await browser.close();
-  await fail(
-    `dimension mismatch after ${afterPng.width}x${afterPng.height} vs baseline ${baselinePng.width}x${baselinePng.height}`
-  );
+await mkdir(dirname(AFTER_PNG), { recursive: true });
+let png;
+try {
+  png = await page.screenshot({ type: 'png', clip });
+} catch {
+  const needed = Math.ceil(clip.y + clip.height + 8);
+  await page.setViewportSize({ width: VIEWPORT.width, height: Math.max(VIEWPORT.height, needed) });
+  png = await page.screenshot({ type: 'png', clip });
 }
-
-const diffPng = new PNG({ width: afterPng.width, height: afterPng.height });
-const mismatched = pixelmatch(
-  baselinePng.data,
-  afterPng.data,
-  diffPng.data,
-  afterPng.width,
-  afterPng.height,
-  { threshold: 0, includeAA: true }
-);
-await writeFile(DIFF, PNG.sync.write(diffPng));
-const total = afterPng.width * afterPng.height;
-log(`strictMismatch=${mismatched} total=${total}`);
-
-const afterSha = createHash('sha256').update(shot).digest('hex');
-log(`after bytes=${shot.length} sha256=${afterSha}`);
-log(`byteEqual=${Buffer.compare(shot, baselineBuf) === 0}`);
-
-const interesting = consoleMessages.filter(
-  (msg) =>
-    !msg.includes('ERR_CONNECTION_REFUSED') &&
-    !msg.includes('should be of kind') &&
-    !msg.includes('parent HTMLElement of') &&
-    !msg.includes('3002')
-);
-log(`console interesting=${JSON.stringify(interesting)}`);
-
+await writeFile(AFTER_PNG, png);
 await browser.close();
 
-if (mismatched !== 0) {
-  await fail(`pixel-diff ${mismatched}`);
+const a = PNG.sync.read(await readFile(BASELINE_PNG));
+const b = PNG.sync.read(await readFile(AFTER_PNG));
+const result = { aSize: `${a.width}x${a.height}`, bSize: `${b.width}x${b.height}`, clip };
+if (a.width !== b.width || a.height !== b.height) {
+  result.error = 'dimension mismatch, no per-pixel diff possible';
+} else {
+  const diff = new PNG({ width: a.width, height: a.height });
+  result.strictMismatch = pixelmatch(a.data, b.data, diff.data, a.width, a.height, {
+    threshold: 0,
+    includeAA: true,
+  });
+  result.perceptualMismatch = pixelmatch(a.data, b.data, null, a.width, a.height, { threshold: 0.1 });
+  result.totalPixels = a.width * a.height;
+  result.diffPng = DIFF_PNG;
+  await writeFile(DIFF_PNG, PNG.sync.write(diff));
 }
 
-await copyFile(AFTER, AFTER_PASS);
-log(`copied after → ${AFTER_PASS}`);
+const failed =
+  !!result.error ||
+  result.strictMismatch !== 0 ||
+  proof.title !== 'Playground' ||
+  !proof.isLit ||
+  proof.ctorName !== 'LitTableHeadRow' ||
+  proof.tableCtor !== 'LitTable' ||
+  proof.headCtor !== 'LitTableHead' ||
+  proof.litTagDefined ||
+  proof.parentCount !== 2 ||
+  proof.hostCount !== 2 ||
+  stillLazy ||
+  proof.hosts.some((item) => {
+    return (
+      item.tag !== 'p-table-head-row' ||
+      item.ctor !== 'LitTableHeadRow' ||
+      item.parentTag !== 'P-TABLE-HEAD' ||
+      item.parentCtor !== 'LitTableHead' ||
+      item.role !== 'row' ||
+      !item.hasShadow ||
+      !item.hasStyle ||
+      !item.hasTableRow ||
+      item.hasRootWrap ||
+      !item.hasSlot ||
+      item.cellCount < 1 ||
+      !item.cellsHydrated ||
+      item.parentHydrated ||
+      item.hydrated ||
+      item.hasFragment
+    );
+  }) ||
+  consoleErrors.length > 0;
+
+log(`strictMismatch=${result.strictMismatch} total=${result.totalPixels}`);
+log(`after bytes=${png.byteLength} sha256=${sha256(png)}`);
+log(`byteEqual=${Buffer.compare(png, baselineBuf) === 0}`);
+log(`consoleErrors=${JSON.stringify(consoleErrors)}`);
+log(`failed=${failed}`);
+
+const summary = {
+  playground: PLAYGROUND_URL,
+  baseline: BASELINE_PNG,
+  baselineBytes: baselineBuf.byteLength,
+  baselineSha,
+  after: AFTER_PNG,
+  afterBytes: png.byteLength,
+  afterSha: sha256(png),
+  stillLazy,
+  proof,
+  litVsBaseline: result,
+  consoleErrors,
+  failed,
+};
+log(JSON.stringify(summary, null, 2));
 await writeFile(LOG, `${lines.join('\n')}\n`);
-console.log(`wrote ${LOG}`);
+
+if (!failed) {
+  await copyFile(AFTER_PNG, AFTER_PASS);
+  log(`copied after → ${AFTER_PASS}`);
+  await writeFile(LOG, `${lines.join('\n')}\n`);
+}
+
+process.exit(failed ? 1 : 0);
