@@ -103,6 +103,14 @@ export const config: Config = {
           src: './assets/p-spinner.iife.js',
           dest: 'build/p-spinner.iife.js',
         },
+        {
+          src: './assets/p-tag.iife.js',
+          dest: 'assets/p-tag.iife.js',
+        },
+        {
+          src: './assets/p-tag.iife.js',
+          dest: 'build/p-tag.iife.js',
+        },
       ],
     },
   ],
@@ -120,6 +128,7 @@ export const config: Config = {
     'p-text',
     'p-display',
     'p-spinner',
+    'p-tag',
   ],
   enableCache: true,
   rollupPlugins: {
