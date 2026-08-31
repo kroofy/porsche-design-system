@@ -65,7 +65,6 @@ import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
-import { WordmarkAriaAttribute, WordmarkSize, WordmarkTarget } from "./components/wordmark/wordmark-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
 export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, FlagName, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
@@ -126,7 +125,6 @@ export { TextListType } from "./components/text-list/text-list/text-list-utils";
 export { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
-export { WordmarkAriaAttribute, WordmarkSize, WordmarkTarget } from "./components/wordmark/wordmark-utils";
 export namespace Components {
     /**
      * @controlled {"props": ["open"], "event": "update"}
@@ -3086,26 +3084,6 @@ export namespace Components {
          */
         "text"?: string;
     }
-    interface PWordmark {
-        /**
-          * Sets ARIA attributes on the anchor element to improve accessibility when the wordmark is used as a link.
-         */
-        "aria"?: SelectedAriaAttributes<WordmarkAriaAttribute>;
-        /**
-          * When set, wraps the wordmark in an anchor element that navigates to the given URL on click.
-         */
-        "href"?: string;
-        /**
-          * Sets the display size of the Porsche wordmark SVG using predefined PDS size tokens.
-          * @default 'small'
-         */
-        "size"?: WordmarkSize;
-        /**
-          * Specifies where to open the linked URL when `href` is set (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: WordmarkTarget;
-    }
 }
 export interface PAccordionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -4187,12 +4165,6 @@ declare global {
         prototype: HTMLPToastItemElement;
         new (): HTMLPToastItemElement;
     };
-    interface HTMLPWordmarkElement extends Components.PWordmark, HTMLStencilElement {
-    }
-    var HTMLPWordmarkElement: {
-        prototype: HTMLPWordmarkElement;
-        new (): HTMLPWordmarkElement;
-    };
     interface HTMLElementTagNameMap {
         "p-accordion": HTMLPAccordionElement;
         "p-ai-tag": HTMLPAiTagElement;
@@ -4266,7 +4238,6 @@ declare global {
         "p-textarea": HTMLPTextareaElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
-        "p-wordmark": HTMLPWordmarkElement;
     }
 }
 declare namespace LocalJSX {
@@ -7535,26 +7506,6 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
-    interface PWordmark {
-        /**
-          * Sets ARIA attributes on the anchor element to improve accessibility when the wordmark is used as a link.
-         */
-        "aria"?: SelectedAriaAttributes<WordmarkAriaAttribute>;
-        /**
-          * When set, wraps the wordmark in an anchor element that navigates to the given URL on click.
-         */
-        "href"?: string;
-        /**
-          * Sets the display size of the Porsche wordmark SVG using predefined PDS size tokens.
-          * @default 'small'
-         */
-        "size"?: WordmarkSize;
-        /**
-          * Specifies where to open the linked URL when `href` is set (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: WordmarkTarget;
-    }
 
     interface PAccordionAttributes {
         "open": boolean;
@@ -8269,12 +8220,6 @@ declare namespace LocalJSX {
         "text": string;
         "state": ToastState;
     }
-    interface PWordmarkAttributes {
-        "size": WordmarkSize;
-        "href": string;
-        "target": WordmarkTarget;
-        "aria": SelectedAriaAttributes<WordmarkAriaAttribute>;
-    }
 
     interface IntrinsicElements {
         "p-accordion": Omit<PAccordion, keyof PAccordionAttributes> & { [K in keyof PAccordion & keyof PAccordionAttributes]?: PAccordion[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `attr:${K}`]?: PAccordionAttributes[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `prop:${K}`]?: PAccordion[K] };
@@ -8349,7 +8294,6 @@ declare namespace LocalJSX {
         "p-textarea": Omit<PTextarea, keyof PTextareaAttributes> & { [K in keyof PTextarea & keyof PTextareaAttributes]?: PTextarea[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `attr:${K}`]?: PTextareaAttributes[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `prop:${K}`]?: PTextarea[K] };
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
-        "p-wordmark": Omit<PWordmark, keyof PWordmarkAttributes> & { [K in keyof PWordmark & keyof PWordmarkAttributes]?: PWordmark[K] } & { [K in keyof PWordmark & keyof PWordmarkAttributes as `attr:${K}`]?: PWordmarkAttributes[K] } & { [K in keyof PWordmark & keyof PWordmarkAttributes as `prop:${K}`]?: PWordmark[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -8494,7 +8438,6 @@ declare module "@stencil/core" {
             "p-textarea": LocalJSX.IntrinsicElements["p-textarea"] & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
-            "p-wordmark": LocalJSX.IntrinsicElements["p-wordmark"] & JSXBase.HTMLAttributes<HTMLPWordmarkElement>;
         }
     }
 }
