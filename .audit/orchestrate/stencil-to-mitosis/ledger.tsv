@@ -114,3 +114,4 @@ pr	sha	verdict	evidence	verifier	ts
 3	3a66d6b78f	live-ui-verified	/opt/cursor/artifacts/mitosis_land_banner_after.png	coordinator-byte-equal-png	2026-08-31T09:14:54.932Z
 3	7cd63a2805	live-ui-verified	/opt/cursor/artifacts/mitosis_land_pagination_after.png	coordinator-byte-equal-png	2026-08-31T09:26:45.283Z
 3	5e81177baa	live-ui-verified	/opt/cursor/artifacts/mitosis_land_scroller_after.png	coordinator-byte-equal-png	2026-08-31T09:37:13.791Z
+3	6fe129bf40	live-ui-verified	/opt/cursor/artifacts/mitosis_land_pin_code_after.png	coordinator-byte-equal-png	2026-08-31T09:50:17.756Z

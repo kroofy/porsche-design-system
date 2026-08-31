@@ -115,4 +115,5 @@ land-inline-notification	land	done	cursor/mitosis-migration-41e6	3	8591b22065	br
 land-banner	land	done	cursor/mitosis-migration-41e6	3	3a66d6b78f	briefs/land-banner.md
 land-pagination	land	done	cursor/mitosis-migration-41e6	3	7cd63a2805	briefs/land-pagination.md
 land-scroller	land	done	cursor/mitosis-migration-41e6	3	5e81177baa	briefs/land-scroller.md
-land-pin-code	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-pin-code.md
+land-pin-code	land	done	cursor/mitosis-migration-41e6	3	6fe129bf40	briefs/land-pin-code.md
+land-accordion	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-accordion.md
