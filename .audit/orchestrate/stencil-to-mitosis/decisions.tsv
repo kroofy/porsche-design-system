@@ -57,3 +57,4 @@ ts	phase	decision	why	evidence	result
 2026-08-30T23:50:30Z	drain	tick: textarea worker running, Textarea.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-30T23:55:11Z	migrate	accepted p-textarea, spawned p-fieldset	after PNG is byte-identical to Stencil textarea card, 55279 bytes	/opt/cursor/artifacts/mitosis_lit_textarea_after.png	live-ui-verified, probe tags 30, packages/components still 0/75
 2026-08-30T23:59:52Z	migrate	accepted p-fieldset, spawned p-text-list	after PNG is byte-identical to Stencil fieldset card, 57315 bytes	/opt/cursor/artifacts/mitosis_lit_fieldset_after.png	live-ui-verified, probe tags 31, packages/components still 0/75
+2026-08-31T00:05:46Z	migrate	accepted p-text-list, spawned p-text-list-item	after PNG is byte-identical to Stencil text-list card, 31087 bytes	/opt/cursor/artifacts/mitosis_lit_text_list_after.png	live-ui-verified, probe tags 32, packages/components still 0/75
