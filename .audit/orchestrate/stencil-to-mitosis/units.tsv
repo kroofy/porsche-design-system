@@ -60,4 +60,5 @@ migrate-button-tile	migrate	done	cursor/mitosis-migration-41e6	3	8c4ecc1167	brie
 migrate-link-tile	migrate	done	cursor/mitosis-migration-41e6	3	7b9a7080e4	briefs/migrate-link-tile.md
 migrate-link-tile-product	migrate	done	cursor/mitosis-migration-41e6	3	47486fdbb5	briefs/migrate-link-tile-product.md
 migrate-popover	migrate	done	cursor/mitosis-migration-41e6	3	489b44deb7	briefs/migrate-popover.md
-migrate-table	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-table.md
+migrate-table	migrate	done	cursor/mitosis-migration-41e6	3	f91446e884	briefs/migrate-table.md
+migrate-table-head	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-table-head.md
