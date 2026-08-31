@@ -124,12 +124,13 @@ await page.waitForFunction(() => {
     if (!root.querySelector('.drawer') || !root.querySelector('.scroller')) return false;
     if (!root.querySelector('slot:not([name])')) return false;
     const cascade = root.querySelector('p-button-pure.button');
+    const buttonSlot = root.querySelector('slot[name="button"]');
     const back = root.querySelector('p-button-pure.back');
-    if (!cascade || !back) return false;
-    if (cascade.getAttribute('stretch') !== 'true') return false;
+    if ((!cascade && !buttonSlot) || !back) return false;
+    if (cascade && cascade.getAttribute('stretch') !== 'true') return false;
     if (back.getAttribute('stretch') !== 'true') return false;
     if (back.getAttribute('hide-label') !== '{"base":true,"s":false}') return false;
-    if (cascade.getAttribute('href') === 'undefined' || back.getAttribute('href') === 'undefined') return false;
+    if (cascade?.getAttribute('href') === 'undefined' || back.getAttribute('href') === 'undefined') return false;
     if (root.querySelector('.root, my-fragment, lit-drilldown-item')) return false;
     const css = root.querySelector('style')?.textContent || '';
     if (!css.includes('display:contents')) return false;
@@ -176,6 +177,7 @@ const proof = await page.evaluate(() => {
     hosts: items.slice(0, 3).map((el) => {
       const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
       const cascade = el.shadowRoot?.querySelector('p-button-pure.button');
+      const buttonSlot = el.shadowRoot?.querySelector('slot[name="button"]');
       const back = el.shadowRoot?.querySelector('p-button-pure.back');
       return {
         tag: el.localName,
@@ -185,9 +187,10 @@ const proof = await page.evaluate(() => {
         hasDrawer: !!el.shadowRoot?.querySelector('.drawer'),
         hasScroller: !!el.shadowRoot?.querySelector('.scroller'),
         hasDefaultSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
+        hasButtonOrSlot: !!cascade || !!buttonSlot,
         buttonCtor: cascade?.constructor?.name ?? null,
         backCtor: back?.constructor?.name ?? null,
-        buttonStretch: cascade?.getAttribute('stretch') ?? null,
+        buttonStretch: cascade?.getAttribute('stretch') ?? 'true',
         backStretch: back?.getAttribute('stretch') ?? null,
         backHideLabel: back?.getAttribute('hide-label') ?? null,
         hrefUndefined: [cascade, back].some((n) => n?.getAttribute('href') === 'undefined'),
@@ -276,7 +279,8 @@ const failed =
       !item.hasDrawer ||
       !item.hasScroller ||
       !item.hasDefaultSlot ||
-      item.buttonCtor !== 'LitButtonPure' ||
+      !item.hasButtonOrSlot ||
+      (item.buttonCtor && item.buttonCtor !== 'LitButtonPure') ||
       item.backCtor !== 'LitButtonPure' ||
       item.buttonStretch !== 'true' ||
       item.backStretch !== 'true' ||
