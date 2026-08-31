@@ -3520,7 +3520,8 @@
     const controlledPopovers = document.querySelectorAll('.controlled-popover');
     if (controlledPopovers.length > 0) {
       for (const controlledPopover of controlledPopovers) {
-        controlledPopover.open = false; // boolean definition initializes them component as controlled component
+        const attr = controlledPopover.getAttribute('open');
+        controlledPopover.open = attr === '' || attr === 'true';
         controlledPopover.querySelector('[slot="button"]').addEventListener('click', () => {
           controlledPopover.open = !controlledPopover.open;
         });
