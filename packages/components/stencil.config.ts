@@ -311,6 +311,14 @@ export const config: Config = {
           src: './assets/p-banner.iife.js',
           dest: 'build/p-banner.iife.js',
         },
+        {
+          src: './assets/p-pagination.iife.js',
+          dest: 'assets/p-pagination.iife.js',
+        },
+        {
+          src: './assets/p-pagination.iife.js',
+          dest: 'build/p-pagination.iife.js',
+        },
       ],
     },
   ],
@@ -354,6 +362,7 @@ export const config: Config = {
     'p-ai-tag',
     'p-inline-notification',
     'p-banner',
+    'p-pagination',
   ],
   enableCache: true,
   rollupPlugins: {
