@@ -47,6 +47,7 @@
     "build:segmented-control": "mitosis build && node harness/strip-segmented-control-whitespace.mjs && if rg -q my-fragment output/lit/src/SegmentedControl.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/SegmentedControl.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-segmented-control.bundle.js",
     "build:segmented-control-item": "mitosis build && node harness/strip-segmented-control-item-whitespace.mjs && if rg -q my-fragment output/lit/src/SegmentedControlItem.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/SegmentedControlItem.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-segmented-control-item.bundle.js",
     "build:radio-group": "mitosis build && node harness/strip-radio-group-whitespace.mjs && if rg -q my-fragment output/lit/src/RadioGroup.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/RadioGroup.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-radio-group.bundle.js",
+    "build:radio-group-option": "mitosis build && node harness/strip-radio-group-option-whitespace.mjs && if rg -q my-fragment output/lit/src/RadioGroupOption.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/RadioGroupOption.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-radio-group-option.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -90,6 +91,7 @@
     "verify:segmented-control": "node harness/verify-segmented-control.mjs",
     "verify:segmented-control-item": "node harness/verify-segmented-control-item.mjs",
     "verify:radio-group": "node harness/verify-radio-group.mjs",
+    "verify:radio-group-option": "node harness/verify-radio-group-option.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -132,7 +134,8 @@
     "pixel-diff:accordion": "node harness/pixel-diff-accordion.mjs",
     "pixel-diff:segmented-control": "node harness/pixel-diff-segmented-control.mjs",
     "pixel-diff:segmented-control-item": "node harness/pixel-diff-segmented-control-item.mjs",
-    "pixel-diff:radio-group": "node harness/pixel-diff-radio-group.mjs"
+    "pixel-diff:radio-group": "node harness/pixel-diff-radio-group.mjs",
+    "pixel-diff:radio-group-option": "node harness/pixel-diff-radio-group-option.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
