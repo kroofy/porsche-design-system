@@ -10,13 +10,11 @@ import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export namespace Components {
     /**
      * @experimental 
@@ -197,35 +195,6 @@ export namespace Components {
          */
         "target"?: DrilldownLinkTarget;
     }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface PSheet {
-        /**
-          * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
-         */
-        "aria"?: SelectedAriaAttributes<SheetAriaAttribute>;
-        /**
-          * Sets the background color of the sheet panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: SheetBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the sheet.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Shows a dismiss button in the sheet header so users can manually close it.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Controls whether the sheet panel slides in from the bottom and is visible to the user.
-          * @default false
-         */
-        "open": boolean;
-    }
 }
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -238,10 +207,6 @@ export interface PCarouselCustomEvent<T> extends CustomEvent<T> {
 export interface PDrilldownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPDrilldownElement;
-}
-export interface PSheetCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPSheetElement;
 }
 declare global {
     interface HTMLPCanvasElementEventMap {
@@ -326,35 +291,12 @@ declare global {
         prototype: HTMLPDrilldownLinkElement;
         new (): HTMLPDrilldownLinkElement;
     };
-    interface HTMLPSheetElementEventMap {
-        "dismiss": SheetDismissEventDetail;
-        "motionVisibleEnd": SheetMotionVisibleEndEventDetail;
-        "motionHiddenEnd": SheetMotionHiddenEndEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface HTMLPSheetElement extends Components.PSheet, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPSheetElementEventMap>(type: K, listener: (this: HTMLPSheetElement, ev: PSheetCustomEvent<HTMLPSheetElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPSheetElementEventMap>(type: K, listener: (this: HTMLPSheetElement, ev: PSheetCustomEvent<HTMLPSheetElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPSheetElement: {
-        prototype: HTMLPSheetElement;
-        new (): HTMLPSheetElement;
-    };
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
-        "p-sheet": HTMLPSheetElement;
     }
 }
 declare namespace LocalJSX {
@@ -557,47 +499,6 @@ declare namespace LocalJSX {
          */
         "target"?: DrilldownLinkTarget;
     }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface PSheet {
-        /**
-          * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
-         */
-        "aria"?: SelectedAriaAttributes<SheetAriaAttribute>;
-        /**
-          * Sets the background color of the sheet panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: SheetBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the sheet.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Shows a dismiss button in the sheet header so users can manually close it.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Emitted when the user closes the sheet via the dismiss button, backdrop click, or Escape key. The event detail identifies which of the three was used.
-         */
-        "onDismiss"?: (event: PSheetCustomEvent<SheetDismissEventDetail>) => void;
-        /**
-          * Emitted after the sheet's close transition has fully completed and the panel is hidden.
-         */
-        "onMotionHiddenEnd"?: (event: PSheetCustomEvent<SheetMotionHiddenEndEventDetail>) => void;
-        /**
-          * Emitted after the sheet's open transition has fully completed and the panel is visible.
-         */
-        "onMotionVisibleEnd"?: (event: PSheetCustomEvent<SheetMotionVisibleEndEventDetail>) => void;
-        /**
-          * Controls whether the sheet panel slides in from the bottom and is visible to the user.
-          * @default false
-         */
-        "open"?: boolean;
-    }
 
     interface PCanvasAttributes {
         "sidebarStartOpen": boolean;
@@ -642,13 +543,6 @@ declare namespace LocalJSX {
         "rel": string;
         "aria": SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
     }
-    interface PSheetAttributes {
-        "open": boolean;
-        "dismissButton": boolean;
-        "disableBackdropClick": boolean;
-        "background": SheetBackground;
-        "aria": SelectedAriaAttributes<SheetAriaAttribute>;
-    }
 
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
@@ -656,7 +550,6 @@ declare namespace LocalJSX {
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
-        "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -685,10 +578,6 @@ declare module "@stencil/core" {
              * @experimental 
              */
             "p-drilldown-link": LocalJSX.IntrinsicElements["p-drilldown-link"] & JSXBase.HTMLAttributes<HTMLPDrilldownLinkElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             */
-            "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
         }
     }
 }
