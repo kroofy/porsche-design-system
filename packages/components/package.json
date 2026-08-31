@@ -75,6 +75,7 @@
     "build:lit-button-tile": "node scripts/build-lit-button-tile.mjs",
     "build:lit-link-tile": "node scripts/build-lit-link-tile.mjs",
     "build:lit-link-tile-product": "node scripts/build-lit-link-tile-product.mjs",
+    "build:lit-popover": "node scripts/build-lit-popover.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",

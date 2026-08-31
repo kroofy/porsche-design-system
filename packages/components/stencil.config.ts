@@ -479,6 +479,14 @@ export const config: Config = {
           src: './assets/p-link-tile-product.iife.js',
           dest: 'build/p-link-tile-product.iife.js',
         },
+        {
+          src: './assets/p-popover.iife.js',
+          dest: 'assets/p-popover.iife.js',
+        },
+        {
+          src: './assets/p-popover.iife.js',
+          dest: 'build/p-popover.iife.js',
+        },
       ],
     },
   ],
@@ -543,6 +551,7 @@ export const config: Config = {
     'p-button-tile',
     'p-link-tile',
     'p-link-tile-product',
+    'p-popover',
   ],
   enableCache: true,
   rollupPlugins: {
