@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-accordion harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+    <script src="lit-accordion.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="surface-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-surface)"
+    ></div>
+    <section id="default">
+      <lit-accordion>
+        <span slot="summary">Some summary</span>
+        <p>Closed body</p>
+      </lit-accordion>
+    </section>
+    <section id="open">
+      <lit-accordion open="true" background="surface">
+        <span slot="heading">Some heading</span>
+        <p>Open body</p>
+      </lit-accordion>
+    </section>
+    <section id="start">
+      <lit-accordion align-marker="start" background="surface">
+        <span slot="summary">Start marker</span>
+        <p>Body</p>
+      </lit-accordion>
+    </section>
+    <section id="slots">
+      <lit-accordion background="surface">
+        <span slot="summary">With slots</span>
+        <span slot="summary-before">B</span>
+        <span slot="summary-after">A</span>
+        <p>Body</p>
+      </lit-accordion>
+    </section>
+    <section id="hidden">
+      <lit-accordion hidden>
+        <span slot="summary">Hidden</span>
+      </lit-accordion>
+    </section>
+  </body>
+</html>

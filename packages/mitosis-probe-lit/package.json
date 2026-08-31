@@ -43,6 +43,7 @@
     "build:pagination": "mitosis build && node harness/strip-flag-fragment.mjs && node harness/strip-model-signature-fragment.mjs && node harness/strip-icon-fragment.mjs && node harness/strip-heading-whitespace.mjs && node harness/strip-text-whitespace.mjs && node harness/strip-display-whitespace.mjs && node harness/strip-spinner-whitespace.mjs && node harness/strip-tag-whitespace.mjs && node harness/strip-tag-dismissible-whitespace.mjs && node harness/strip-link-pure-whitespace.mjs && node harness/strip-link-whitespace.mjs && node harness/strip-button-pure-whitespace.mjs && node harness/strip-button-whitespace.mjs && node harness/strip-switch-whitespace.mjs && node harness/strip-checkbox-whitespace.mjs && node harness/strip-input-text-whitespace.mjs && node harness/strip-input-email-whitespace.mjs && node harness/strip-input-password-whitespace.mjs && node harness/strip-input-search-whitespace.mjs && node harness/strip-input-url-whitespace.mjs && node harness/strip-input-tel-whitespace.mjs && node harness/strip-input-number-whitespace.mjs && node harness/strip-input-date-whitespace.mjs && node harness/strip-input-month-whitespace.mjs && node harness/strip-input-time-whitespace.mjs && node harness/strip-input-week-whitespace.mjs && node harness/strip-textarea-whitespace.mjs && node harness/strip-fieldset-whitespace.mjs && node harness/strip-text-list-whitespace.mjs && node harness/strip-text-list-item-whitespace.mjs && node harness/strip-ai-tag-whitespace.mjs && node harness/strip-inline-notification-whitespace.mjs && node harness/strip-banner-whitespace.mjs && node harness/strip-pagination-whitespace.mjs && if rg -q my-fragment output/lit/src/Pagination.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Pagination.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-pagination.bundle.js",
     "build:scroller": "mitosis build && node harness/strip-scroller-whitespace.mjs && if rg -q my-fragment output/lit/src/Scroller.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Scroller.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-scroller.bundle.js",
     "build:pin-code": "mitosis build && node harness/strip-pin-code-whitespace.mjs && if rg -q my-fragment output/lit/src/PinCode.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/PinCode.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-pin-code.bundle.js",
+    "build:accordion": "mitosis build && node harness/strip-accordion-whitespace.mjs && if rg -q my-fragment output/lit/src/Accordion.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Accordion.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-accordion.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -82,6 +83,7 @@
     "verify:pagination": "node harness/verify-pagination.mjs",
     "verify:scroller": "node harness/verify-scroller.mjs",
     "verify:pin-code": "node harness/verify-pin-code.mjs",
+    "verify:accordion": "node harness/verify-accordion.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -120,7 +122,8 @@
     "pixel-diff:banner": "node harness/pixel-diff-banner.mjs",
     "pixel-diff:pagination": "node harness/pixel-diff-pagination.mjs",
     "pixel-diff:scroller": "node harness/pixel-diff-scroller.mjs",
-    "pixel-diff:pin-code": "node harness/pixel-diff-pin-code.mjs"
+    "pixel-diff:pin-code": "node harness/pixel-diff-pin-code.mjs",
+    "pixel-diff:accordion": "node harness/pixel-diff-accordion.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
