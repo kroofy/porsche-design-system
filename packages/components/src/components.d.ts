@@ -52,7 +52,6 @@ import { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/s
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-import { TagIcon, TagVariant } from "./components/tag/tag-utils";
 import { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
 import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
@@ -105,7 +104,6 @@ export { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/s
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-export { TagIcon, TagVariant } from "./components/tag/tag-utils";
 export { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
 export { TextListType } from "./components/text-list/text-list/text-list-utils";
 export { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
@@ -2718,27 +2716,6 @@ export namespace Components {
          */
         "label": string;
     }
-    interface PTag {
-        /**
-          * Reduces the tag's padding and height for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the icon displayed inside the tag alongside the label. Use `none` to render the tag without an icon.
-          * @default 'none'
-         */
-        "icon"?: TagIcon;
-        /**
-          * Sets a URL to a custom SVG icon, overriding the built-in icon set when a brand-specific icon is needed.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the visual style of the tag, which controls its background and text colors (e.g. `primary`, `secondary`, `notification-info`).
-          * @default 'secondary'
-         */
-        "variant"?: TagVariant;
-    }
     interface PTagDismissible {
         /**
           * Sets ARIA attributes on the dismiss button element, for example use `aria-label` to provide a descriptive close action for screen readers.
@@ -3849,12 +3826,6 @@ declare global {
         prototype: HTMLPTabsItemElement;
         new (): HTMLPTabsItemElement;
     };
-    interface HTMLPTagElement extends Components.PTag, HTMLStencilElement {
-    }
-    var HTMLPTagElement: {
-        prototype: HTMLPTagElement;
-        new (): HTMLPTagElement;
-    };
     interface HTMLPTagDismissibleElement extends Components.PTagDismissible, HTMLStencilElement {
     }
     var HTMLPTagDismissibleElement: {
@@ -3974,7 +3945,6 @@ declare global {
         "p-tabs": HTMLPTabsElement;
         "p-tabs-bar": HTMLPTabsBarElement;
         "p-tabs-item": HTMLPTabsItemElement;
-        "p-tag": HTMLPTagElement;
         "p-tag-dismissible": HTMLPTagDismissibleElement;
         "p-text-list": HTMLPTextListElement;
         "p-text-list-item": HTMLPTextListItemElement;
@@ -6882,27 +6852,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
-    interface PTag {
-        /**
-          * Reduces the tag's padding and height for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the icon displayed inside the tag alongside the label. Use `none` to render the tag without an icon.
-          * @default 'none'
-         */
-        "icon"?: TagIcon;
-        /**
-          * Sets a URL to a custom SVG icon, overriding the built-in icon set when a brand-specific icon is needed.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the visual style of the tag, which controls its background and text colors (e.g. `primary`, `secondary`, `notification-info`).
-          * @default 'secondary'
-         */
-        "variant"?: TagVariant;
-    }
     interface PTagDismissible {
         /**
           * Sets ARIA attributes on the dismiss button element, for example use `aria-label` to provide a descriptive close action for screen readers.
@@ -7681,12 +7630,6 @@ declare namespace LocalJSX {
     interface PTabsItemAttributes {
         "label": string;
     }
-    interface PTagAttributes {
-        "variant": TagVariant;
-        "icon": TagIcon;
-        "iconSource": string;
-        "compact": boolean;
-    }
     interface PTagDismissibleAttributes {
         "label": string;
         "aria": SelectedAriaAttributes<TagDismissibleAriaAttribute>;
@@ -7782,7 +7725,6 @@ declare namespace LocalJSX {
         "p-tabs": Omit<PTabs, keyof PTabsAttributes> & { [K in keyof PTabs & keyof PTabsAttributes]?: PTabs[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `attr:${K}`]?: PTabsAttributes[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `prop:${K}`]?: PTabs[K] };
         "p-tabs-bar": Omit<PTabsBar, keyof PTabsBarAttributes> & { [K in keyof PTabsBar & keyof PTabsBarAttributes]?: PTabsBar[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `attr:${K}`]?: PTabsBarAttributes[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `prop:${K}`]?: PTabsBar[K] };
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
-        "p-tag": Omit<PTag, keyof PTagAttributes> & { [K in keyof PTag & keyof PTagAttributes]?: PTag[K] } & { [K in keyof PTag & keyof PTagAttributes as `attr:${K}`]?: PTagAttributes[K] } & { [K in keyof PTag & keyof PTagAttributes as `prop:${K}`]?: PTag[K] };
         "p-tag-dismissible": Omit<PTagDismissible, keyof PTagDismissibleAttributes> & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes]?: PTagDismissible[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `attr:${K}`]?: PTagDismissibleAttributes[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `prop:${K}`]?: PTagDismissible[K] };
         "p-text-list": Omit<PTextList, keyof PTextListAttributes> & { [K in keyof PTextList & keyof PTextListAttributes]?: PTextList[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `attr:${K}`]?: PTextListAttributes[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `prop:${K}`]?: PTextList[K] };
         "p-text-list-item": PTextListItem;
@@ -7916,7 +7858,6 @@ declare module "@stencil/core" {
              */
             "p-tabs-bar": LocalJSX.IntrinsicElements["p-tabs-bar"] & JSXBase.HTMLAttributes<HTMLPTabsBarElement>;
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
-            "p-tag": LocalJSX.IntrinsicElements["p-tag"] & JSXBase.HTMLAttributes<HTMLPTagElement>;
             "p-tag-dismissible": LocalJSX.IntrinsicElements["p-tag-dismissible"] & JSXBase.HTMLAttributes<HTMLPTagDismissibleElement>;
             "p-text-list": LocalJSX.IntrinsicElements["p-text-list"] & JSXBase.HTMLAttributes<HTMLPTextListElement>;
             "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
