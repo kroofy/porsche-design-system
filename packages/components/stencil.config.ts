@@ -335,6 +335,14 @@ export const config: Config = {
           src: './assets/p-pin-code.iife.js',
           dest: 'build/p-pin-code.iife.js',
         },
+        {
+          src: './assets/p-accordion.iife.js',
+          dest: 'assets/p-accordion.iife.js',
+        },
+        {
+          src: './assets/p-accordion.iife.js',
+          dest: 'build/p-accordion.iife.js',
+        },
       ],
     },
   ],
@@ -381,6 +389,7 @@ export const config: Config = {
     'p-pagination',
     'p-scroller',
     'p-pin-code',
+    'p-accordion',
   ],
   enableCache: true,
   rollupPlugins: {

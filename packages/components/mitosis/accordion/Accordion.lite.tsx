@@ -43,9 +43,9 @@ export default function LitAccordion(props: {
       const background = props.background || 'none';
       const indent = parse(props.indent, false);
       const size = parse(props.size, 'small');
-      const hasBefore = false;
-      const hasAfter = false;
-      const hasSummary = true;
+      const hasBefore = state.hasSummaryBefore;
+      const hasAfter = state.hasSummaryAfter;
+      const hasSummary = state.hasSummarySlot;
       const compactFactor = isCompact ? 0.64285714 : 1;
       const paddingBlock = 'calc(28px * (' + compactFactor + ' - 0.64285714) + 6px)';
       const paddingInline = 'calc(11.2px * (' + compactFactor + ' - 0.64285714) + 12px)';
@@ -238,6 +238,15 @@ export default function LitAccordion(props: {
     },
     get isOpenFlag(): any {
       return props.open === true || props.open === 'true' || props.open === '';
+    },
+    get hasSummaryBefore(): any {
+      return false;
+    },
+    get hasSummaryAfter(): any {
+      return false;
+    },
+    get hasSummarySlot(): any {
+      return false;
     },
   });
 
