@@ -10,14 +10,12 @@ import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, Caro
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export namespace Components {
     /**
@@ -202,50 +200,6 @@ export namespace Components {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PFlyout {
-        /**
-          * Sets ARIA attributes on the flyout dialog element for improved screen reader accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<FlyoutAriaAttribute>;
-        /**
-          * Sets the backdrop style. Use `blur` when background content is irrelevant; use `shading` when users still need visual context.
-          * @default 'blur'
-         */
-        "backdrop"?: FlyoutBackdrop;
-        /**
-          * Sets the background color of the flyout panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: FlyoutBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the flyout.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Controls footer behavior. `fixed` keeps it anchored at the bottom; `sticky` pins it only when content overflows.
-          * @default 'sticky'
-         */
-        "footerBehavior"?: FlyoutFooterBehavior;
-        /**
-          * If true the flyout stretches to the full viewport width with squared corners. Useful for smaller viewports where the flyout would otherwise fill the screen but still show rounded corners.
-          * @default false
-         */
-        "fullscreen"?: BreakpointCustomizable<boolean>;
-        /**
-          * Controls whether the flyout panel is visible.
-          * @default false
-         */
-        "open": boolean;
-        /**
-          * Sets the side the flyout slides in from — `start` for left or `end` for right in LTR layouts.
-          * @default 'end'
-         */
-        "position"?: FlyoutPosition;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -284,10 +238,6 @@ export interface PCarouselCustomEvent<T> extends CustomEvent<T> {
 export interface PDrilldownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPDrilldownElement;
-}
-export interface PFlyoutCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPFlyoutElement;
 }
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -376,28 +326,6 @@ declare global {
         prototype: HTMLPDrilldownLinkElement;
         new (): HTMLPDrilldownLinkElement;
     };
-    interface HTMLPFlyoutElementEventMap {
-        "dismiss": FlyoutDismissEventDetail;
-        "motionVisibleEnd": FlyoutMotionVisibleEndEventDetail;
-        "motionHiddenEnd": FlyoutMotionHiddenEndEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface HTMLPFlyoutElement extends Components.PFlyout, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPFlyoutElementEventMap>(type: K, listener: (this: HTMLPFlyoutElement, ev: PFlyoutCustomEvent<HTMLPFlyoutElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPFlyoutElementEventMap>(type: K, listener: (this: HTMLPFlyoutElement, ev: PFlyoutCustomEvent<HTMLPFlyoutElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPFlyoutElement: {
-        prototype: HTMLPFlyoutElement;
-        new (): HTMLPFlyoutElement;
-    };
     interface HTMLPSheetElementEventMap {
         "dismiss": SheetDismissEventDetail;
         "motionVisibleEnd": SheetMotionVisibleEndEventDetail;
@@ -426,7 +354,6 @@ declare global {
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
-        "p-flyout": HTMLPFlyoutElement;
         "p-sheet": HTMLPSheetElement;
     }
 }
@@ -633,62 +560,6 @@ declare namespace LocalJSX {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PFlyout {
-        /**
-          * Sets ARIA attributes on the flyout dialog element for improved screen reader accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<FlyoutAriaAttribute>;
-        /**
-          * Sets the backdrop style. Use `blur` when background content is irrelevant; use `shading` when users still need visual context.
-          * @default 'blur'
-         */
-        "backdrop"?: FlyoutBackdrop;
-        /**
-          * Sets the background color of the flyout panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: FlyoutBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the flyout.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Controls footer behavior. `fixed` keeps it anchored at the bottom; `sticky` pins it only when content overflows.
-          * @default 'sticky'
-         */
-        "footerBehavior"?: FlyoutFooterBehavior;
-        /**
-          * If true the flyout stretches to the full viewport width with squared corners. Useful for smaller viewports where the flyout would otherwise fill the screen but still show rounded corners.
-          * @default false
-         */
-        "fullscreen"?: BreakpointCustomizable<boolean>;
-        /**
-          * Emitted when the user closes the flyout via the dismiss button, backdrop click, or Escape key. The event detail identifies which of the three was used.
-         */
-        "onDismiss"?: (event: PFlyoutCustomEvent<FlyoutDismissEventDetail>) => void;
-        /**
-          * Emitted after the flyout's close transition completes and the panel is fully hidden.
-         */
-        "onMotionHiddenEnd"?: (event: PFlyoutCustomEvent<FlyoutMotionHiddenEndEventDetail>) => void;
-        /**
-          * Emitted after the flyout's open transition completes and the panel is fully visible.
-         */
-        "onMotionVisibleEnd"?: (event: PFlyoutCustomEvent<FlyoutMotionVisibleEndEventDetail>) => void;
-        /**
-          * Controls whether the flyout panel is visible.
-          * @default false
-         */
-        "open"?: boolean;
-        /**
-          * Sets the side the flyout slides in from — `start` for left or `end` for right in LTR layouts.
-          * @default 'end'
-         */
-        "position"?: FlyoutPosition;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -771,16 +642,6 @@ declare namespace LocalJSX {
         "rel": string;
         "aria": SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
     }
-    interface PFlyoutAttributes {
-        "open": boolean;
-        "position": FlyoutPosition;
-        "disableBackdropClick": boolean;
-        "background": FlyoutBackground;
-        "backdrop": FlyoutBackdrop;
-        "footerBehavior": FlyoutFooterBehavior;
-        "fullscreen": string;
-        "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
-    }
     interface PSheetAttributes {
         "open": boolean;
         "dismissButton": boolean;
@@ -795,7 +656,6 @@ declare namespace LocalJSX {
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
-        "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
     }
 }
@@ -825,10 +685,6 @@ declare module "@stencil/core" {
              * @experimental 
              */
             "p-drilldown-link": LocalJSX.IntrinsicElements["p-drilldown-link"] & JSXBase.HTMLAttributes<HTMLPDrilldownLinkElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             */
-            "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
