@@ -35,4 +35,5 @@ migrate-textarea	migrate	done	cursor/mitosis-migration-41e6	3	ff19cc9e95	briefs/
 migrate-fieldset	migrate	done	cursor/mitosis-migration-41e6	3	4ce75102fa	briefs/migrate-fieldset.md
 migrate-text-list	migrate	done	cursor/mitosis-migration-41e6	3	e19a407efb	briefs/migrate-text-list.md
 migrate-text-list-item	migrate	done	cursor/mitosis-migration-41e6	3	2a90289a53	briefs/migrate-text-list-item.md
-migrate-ai-tag	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-ai-tag.md
+migrate-ai-tag	migrate	done	cursor/mitosis-migration-41e6	3	946729dbd4	briefs/migrate-ai-tag.md
+migrate-inline-notification	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-inline-notification.md
