@@ -17,7 +17,6 @@ import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
@@ -33,7 +32,6 @@ export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
@@ -534,17 +532,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PStepperHorizontalItem {
-        /**
-          * Disables the stepper-horizontal-item. No events will be triggered while disabled state is active.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * The current progression state of the step. Use `current` for the active step, `complete` for finished steps, `warning` for steps with issues. Leave unset for future steps.
-         */
-        "state"?: StepperHorizontalItemState;
-    }
     interface PTable {
         /**
           * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
@@ -855,12 +842,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPStepperHorizontalItemElement extends Components.PStepperHorizontalItem, HTMLStencilElement {
-    }
-    var HTMLPStepperHorizontalItemElement: {
-        prototype: HTMLPStepperHorizontalItemElement;
-        new (): HTMLPStepperHorizontalItemElement;
-    };
     interface HTMLPTableElementEventMap {
         "update": TableUpdateEventDetail;
     }
@@ -950,7 +931,6 @@ declare global {
         "p-modal": HTMLPModalElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
-        "p-stepper-horizontal-item": HTMLPStepperHorizontalItemElement;
         "p-table": HTMLPTableElement;
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
@@ -1523,17 +1503,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PStepperHorizontalItem {
-        /**
-          * Disables the stepper-horizontal-item. No events will be triggered while disabled state is active.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * The current progression state of the step. Use `current` for the active step, `complete` for finished steps, `warning` for steps with issues. Leave unset for future steps.
-         */
-        "state"?: StepperHorizontalItemState;
-    }
     interface PTable {
         /**
           * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
@@ -1728,10 +1697,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PStepperHorizontalItemAttributes {
-        "state": StepperHorizontalItemState;
-        "disabled": boolean;
-    }
     interface PTableAttributes {
         "caption": string;
         "compact": boolean;
@@ -1763,7 +1728,6 @@ declare namespace LocalJSX {
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-stepper-horizontal-item": Omit<PStepperHorizontalItem, keyof PStepperHorizontalItemAttributes> & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes]?: PStepperHorizontalItem[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `attr:${K}`]?: PStepperHorizontalItemAttributes[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `prop:${K}`]?: PStepperHorizontalItem[K] };
         "p-table": Omit<PTable, keyof PTableAttributes> & { [K in keyof PTable & keyof PTableAttributes]?: PTable[K] } & { [K in keyof PTable & keyof PTableAttributes as `attr:${K}`]?: PTableAttributes[K] } & { [K in keyof PTable & keyof PTableAttributes as `prop:${K}`]?: PTable[K] };
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
@@ -1824,7 +1788,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-stepper-horizontal-item": LocalJSX.IntrinsicElements["p-stepper-horizontal-item"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalItemElement>;
             "p-table": LocalJSX.IntrinsicElements["p-table"] & JSXBase.HTMLAttributes<HTMLPTableElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
