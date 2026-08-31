@@ -8,11 +8,9 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export namespace Components {
     /**
      * @experimental 
@@ -114,37 +112,6 @@ export namespace Components {
          */
         "width"?: CarouselWidth;
     }
-    /**
-     * @experimental 
-     */
-    interface PDrilldownLink {
-        /**
-          * Visually marks the link as the currently active navigation item, e.g. the current page.
-          * @default false
-         */
-        "active"?: boolean;
-        /**
-          * Sets ARIA attributes on the link for improved accessibility. Only applies when `href` is set.
-         */
-        "aria"?: SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
-        /**
-          * Sets the native `download` attribute to trigger a file download. Only applies when `href` is set.
-         */
-        "download"?: string;
-        /**
-          * When set, the component renders as an anchor navigating to this URL. Otherwise, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Sets the `rel` attribute on the link element (e.g. `noopener`). Only applies when `href` is set.
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: DrilldownLinkTarget;
-    }
 }
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -196,19 +163,9 @@ declare global {
         prototype: HTMLPCarouselElement;
         new (): HTMLPCarouselElement;
     };
-    /**
-     * @experimental 
-     */
-    interface HTMLPDrilldownLinkElement extends Components.PDrilldownLink, HTMLStencilElement {
-    }
-    var HTMLPDrilldownLinkElement: {
-        prototype: HTMLPDrilldownLinkElement;
-        new (): HTMLPDrilldownLinkElement;
-    };
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
-        "p-drilldown-link": HTMLPDrilldownLinkElement;
     }
 }
 declare namespace LocalJSX {
@@ -324,37 +281,6 @@ declare namespace LocalJSX {
          */
         "width"?: CarouselWidth;
     }
-    /**
-     * @experimental 
-     */
-    interface PDrilldownLink {
-        /**
-          * Visually marks the link as the currently active navigation item, e.g. the current page.
-          * @default false
-         */
-        "active"?: boolean;
-        /**
-          * Sets ARIA attributes on the link for improved accessibility. Only applies when `href` is set.
-         */
-        "aria"?: SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
-        /**
-          * Sets the native `download` attribute to trigger a file download. Only applies when `href` is set.
-         */
-        "download"?: string;
-        /**
-          * When set, the component renders as an anchor navigating to this URL. Otherwise, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Sets the `rel` attribute on the link element (e.g. `noopener`). Only applies when `href` is set.
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: DrilldownLinkTarget;
-    }
 
     interface PCanvasAttributes {
         "sidebarStartOpen": boolean;
@@ -379,19 +305,10 @@ declare namespace LocalJSX {
         "gradient": boolean;
         "trimSpace": boolean;
     }
-    interface PDrilldownLinkAttributes {
-        "href": string;
-        "active": boolean;
-        "target": DrilldownLinkTarget;
-        "download": string;
-        "rel": string;
-        "aria": SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
-    }
 
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
-        "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -406,10 +323,6 @@ declare module "@stencil/core" {
              * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
-            /**
-             * @experimental 
-             */
-            "p-drilldown-link": LocalJSX.IntrinsicElements["p-drilldown-link"] & JSXBase.HTMLAttributes<HTMLPDrilldownLinkElement>;
         }
     }
 }
