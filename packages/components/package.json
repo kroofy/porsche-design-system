@@ -19,6 +19,7 @@
     "prestart:buildStylesheets": "npm run build --workspace=@porsche-design-system/stylesheets",
     "start": "concurrently -k -s 'first' -n 'cdn,tailwindcss,stencil' 'serve-cdn' 'tailwindcss -i ./src/tailwind.css -o ./src/assets/tailwind.css --watch' 'PDS_IS_STAGING=1 stencil build --watch --serve --dev'",
     "build:lit-divider": "node scripts/build-lit-divider.mjs",
+    "build:lit-crest": "node scripts/build-lit-crest.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
