@@ -183,6 +183,14 @@ export const config: Config = {
           src: './assets/p-input-email.iife.js',
           dest: 'build/p-input-email.iife.js',
         },
+        {
+          src: './assets/p-input-password.iife.js',
+          dest: 'assets/p-input-password.iife.js',
+        },
+        {
+          src: './assets/p-input-password.iife.js',
+          dest: 'build/p-input-password.iife.js',
+        },
       ],
     },
   ],
@@ -210,6 +218,7 @@ export const config: Config = {
     'p-checkbox',
     'p-input-text',
     'p-input-email',
+    'p-input-password',
   ],
   enableCache: true,
   rollupPlugins: {

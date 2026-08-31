@@ -38,6 +38,7 @@
     "build:lit-checkbox": "node scripts/build-lit-checkbox.mjs",
     "build:lit-input-text": "node scripts/build-lit-input-text.mjs",
     "build:lit-input-email": "node scripts/build-lit-input-email.mjs",
+    "build:lit-input-password": "node scripts/build-lit-input-password.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
