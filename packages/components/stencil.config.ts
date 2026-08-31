@@ -583,6 +583,14 @@ export const config: Config = {
           src: './assets/p-sheet.iife.js',
           dest: 'build/p-sheet.iife.js',
         },
+        {
+          src: './assets/p-drilldown.iife.js',
+          dest: 'assets/p-drilldown.iife.js',
+        },
+        {
+          src: './assets/p-drilldown.iife.js',
+          dest: 'build/p-drilldown.iife.js',
+        },
       ],
     },
   ],
@@ -660,6 +668,7 @@ export const config: Config = {
     'p-modal',
     'p-flyout',
     'p-sheet',
+    'p-drilldown',
   ],
   enableCache: true,
   rollupPlugins: {
