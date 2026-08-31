@@ -15,7 +15,6 @@ import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEve
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -35,7 +34,6 @@ export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEve
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -487,69 +485,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PMultiSelect {
-        /**
-          * Reduces the control height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the multi-select, preventing all interaction. Selected values are not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Controls whether the dropdown opens upward (`up`) or downward (`down`), or decides automatically (`auto`).
-          * @default 'auto'
-         */
-        "dropdownDirection"?: MultiSelectDropdownDirection;
-        /**
-          * Associates the multi-select with a form element by its ID when not directly nested inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the multi-select control.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the control when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name submitted with the form data to identify the selected values on the server.
-         */
-        "name": string;
-        /**
-          * Marks the multi-select as required — form submission is blocked unless at least one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: MultiSelectState;
-        /**
-          * The selected values. Matches options strictly by type and value, meaning a string value only matches options whose value is the same string, a number value only matches options whose value is the same number. Pass null or [] to clear the selection.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number[] value is restored as string[] via formStateRestoreCallback and will no longer strictly match number-typed options. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), number[] types are preserved end-to-end.
-          * @default []
-         */
-        "value"?: string[] | number[] | null;
-    }
     interface PMultiSelectOption {
         /**
           * Disables the option, preventing it from being selected.
@@ -797,10 +732,6 @@ export interface PModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPModalElement;
 }
-export interface PMultiSelectCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPMultiSelectElement;
-}
 export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPPopoverElement;
@@ -988,28 +919,6 @@ declare global {
     var HTMLPModalElement: {
         prototype: HTMLPModalElement;
         new (): HTMLPModalElement;
-    };
-    interface HTMLPMultiSelectElementEventMap {
-        "blur": void;
-        "change": MultiSelectChangeEventDetail;
-        "toggle": MultiSelectToggleEventDetail;
-    }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface HTMLPMultiSelectElement extends Components.PMultiSelect, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPMultiSelectElementEventMap>(type: K, listener: (this: HTMLPMultiSelectElement, ev: PMultiSelectCustomEvent<HTMLPMultiSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPMultiSelectElementEventMap>(type: K, listener: (this: HTMLPMultiSelectElement, ev: PMultiSelectCustomEvent<HTMLPMultiSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPMultiSelectElement: {
-        prototype: HTMLPMultiSelectElement;
-        new (): HTMLPMultiSelectElement;
     };
     interface HTMLPMultiSelectOptionElement extends Components.PMultiSelectOption, HTMLStencilElement {
     }
@@ -1215,7 +1124,6 @@ declare global {
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
-        "p-multi-select": HTMLPMultiSelectElement;
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
@@ -1725,81 +1633,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PMultiSelect {
-        /**
-          * Reduces the control height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the multi-select, preventing all interaction. Selected values are not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Controls whether the dropdown opens upward (`up`) or downward (`down`), or decides automatically (`auto`).
-          * @default 'auto'
-         */
-        "dropdownDirection"?: MultiSelectDropdownDirection;
-        /**
-          * Associates the multi-select with a form element by its ID when not directly nested inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the multi-select control.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the control when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name submitted with the form data to identify the selected values on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the multi-select loses focus.
-         */
-        "onBlur"?: (event: PMultiSelectCustomEvent<void>) => void;
-        /**
-          * Emitted when the user selects or deselects an option, with the updated array of values in the event detail.
-         */
-        "onChange"?: (event: PMultiSelectCustomEvent<MultiSelectChangeEventDetail>) => void;
-        /**
-          * Emitted when the dropdown opens or closes, with the new open state in the event detail.
-         */
-        "onToggle"?: (event: PMultiSelectCustomEvent<MultiSelectToggleEventDetail>) => void;
-        /**
-          * Marks the multi-select as required — form submission is blocked unless at least one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: MultiSelectState;
-        /**
-          * The selected values. Matches options strictly by type and value, meaning a string value only matches options whose value is the same string, a number value only matches options whose value is the same number. Pass null or [] to clear the selection.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number[] value is restored as string[] via formStateRestoreCallback and will no longer strictly match number-typed options. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), number[] types are preserved end-to-end.
-          * @default []
-         */
-        "value"?: string[] | number[] | null;
-    }
     interface PMultiSelectOption {
         /**
           * Disables the option, preventing it from being selected.
@@ -2163,19 +1996,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<ModalAriaAttribute>;
     }
-    interface PMultiSelectAttributes {
-        "label": string;
-        "description": string;
-        "name": string;
-        "state": MultiSelectState;
-        "message": string;
-        "hideLabel": string;
-        "disabled": boolean;
-        "required": boolean;
-        "dropdownDirection": MultiSelectDropdownDirection;
-        "compact": boolean;
-        "form": string;
-    }
     interface PMultiSelectOptionAttributes {
         "value": string;
         "disabled": boolean;
@@ -2249,7 +2069,6 @@ declare namespace LocalJSX {
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
-        "p-multi-select": Omit<PMultiSelect, keyof PMultiSelectAttributes> & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes]?: PMultiSelect[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `attr:${K}`]?: PMultiSelectAttributes[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `prop:${K}`]?: PMultiSelect[K] };
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
@@ -2310,10 +2129,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-modal": LocalJSX.IntrinsicElements["p-modal"] & JSXBase.HTMLAttributes<HTMLPModalElement>;
-            /**
-             * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-             */
-            "p-multi-select": LocalJSX.IntrinsicElements["p-multi-select"] & JSXBase.HTMLAttributes<HTMLPMultiSelectElement>;
             "p-multi-select-option": LocalJSX.IntrinsicElements["p-multi-select-option"] & JSXBase.HTMLAttributes<HTMLPMultiSelectOptionElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
