@@ -13,7 +13,7 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
+import { TableHeadCellSort } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
@@ -24,7 +24,7 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
+export { TableHeadCellSort } from "./components/table/table/table-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
@@ -319,27 +319,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PTable {
-        /**
-          * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
-         */
-        "caption"?: string;
-        /**
-          * Reduces the cell padding and spacing for a more condensed table layout in data-dense UIs.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Controls the CSS `table-layout` algorithm: `auto` sizes columns to fit their content, `fixed` distributes width equally.
-          * @default 'auto'
-         */
-        "layout"?: TableLayout;
-        /**
-          * @experimental Makes the scroll position indicator sticky at the viewport edge while scrolling, indicating overflow in the table.
-          * @default false
-         */
-        "sticky"?: boolean;
-    }
     interface PTableBody {
     }
     interface PTableCell {
@@ -410,10 +389,6 @@ export interface PModalCustomEvent<T> extends CustomEvent<T> {
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPSheetElement;
-}
-export interface PTableCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPTableElement;
 }
 export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -568,23 +543,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPTableElementEventMap {
-        "update": TableUpdateEventDetail;
-    }
-    interface HTMLPTableElement extends Components.PTable, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPTableElementEventMap>(type: K, listener: (this: HTMLPTableElement, ev: PTableCustomEvent<HTMLPTableElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPTableElementEventMap>(type: K, listener: (this: HTMLPTableElement, ev: PTableCustomEvent<HTMLPTableElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPTableElement: {
-        prototype: HTMLPTableElement;
-        new (): HTMLPTableElement;
-    };
     interface HTMLPTableBodyElement extends Components.PTableBody, HTMLStencilElement {
     }
     var HTMLPTableBodyElement: {
@@ -653,7 +611,6 @@ declare global {
         "p-flyout": HTMLPFlyoutElement;
         "p-modal": HTMLPModalElement;
         "p-sheet": HTMLPSheetElement;
-        "p-table": HTMLPTableElement;
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
         "p-table-head": HTMLPTableHeadElement;
@@ -1012,31 +969,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PTable {
-        /**
-          * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
-         */
-        "caption"?: string;
-        /**
-          * Reduces the cell padding and spacing for a more condensed table layout in data-dense UIs.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Controls the CSS `table-layout` algorithm: `auto` sizes columns to fit their content, `fixed` distributes width equally.
-          * @default 'auto'
-         */
-        "layout"?: TableLayout;
-        /**
-          * Emitted when the user clicks a sortable column header, carrying the new sort configuration in the event detail.
-         */
-        "onUpdate"?: (event: PTableCustomEvent<TableUpdateEventDetail>) => void;
-        /**
-          * @experimental Makes the scroll position indicator sticky at the viewport edge while scrolling, indicating overflow in the table.
-          * @default false
-         */
-        "sticky"?: boolean;
-    }
     interface PTableBody {
     }
     interface PTableCell {
@@ -1156,12 +1088,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PTableAttributes {
-        "caption": string;
-        "compact": boolean;
-        "layout": TableLayout;
-        "sticky": boolean;
-    }
     interface PTableCellAttributes {
         "multiline": boolean;
     }
@@ -1183,7 +1109,6 @@ declare namespace LocalJSX {
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-table": Omit<PTable, keyof PTableAttributes> & { [K in keyof PTable & keyof PTableAttributes]?: PTable[K] } & { [K in keyof PTable & keyof PTableAttributes as `attr:${K}`]?: PTableAttributes[K] } & { [K in keyof PTable & keyof PTableAttributes as `prop:${K}`]?: PTable[K] };
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
         "p-table-head": PTableHead;
@@ -1232,7 +1157,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-table": LocalJSX.IntrinsicElements["p-table"] & JSXBase.HTMLAttributes<HTMLPTableElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
             "p-table-head": LocalJSX.IntrinsicElements["p-table-head"] & JSXBase.HTMLAttributes<HTMLPTableHeadElement>;
