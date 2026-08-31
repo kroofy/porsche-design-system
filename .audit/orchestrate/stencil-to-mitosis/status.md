@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T17:35:55.622Z
+Generated: 2026-08-31T17:41:03.840Z
 
 ## Units
 
-States: done=155, in-progress=1
+States: done=156, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -163,11 +163,12 @@ States: done=155, in-progress=1
 | land-canvas | land | done | cursor/mitosis-migration-41e6 | 3 | 0e06d018bf | briefs/land-canvas.md |
 | delete-stencil | land | done | cursor/mitosis-migration-41e6 | 3 | 53a8b053e1 | briefs/delete-stencil.md |
 | delete-stencil-core | land | done | cursor/mitosis-migration-41e6 | 3 | e9f750b549 | briefs/delete-stencil-core.md |
-| generate-frameworks-divider | generate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/generate-frameworks-divider.md |
+| generate-frameworks-divider | generate | done | cursor/mitosis-migration-41e6 | 3 | 2e9a617d9a | briefs/generate-frameworks-divider.md |
+| generate-frameworks-all | generate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/generate-frameworks-all.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=153, verifier-failed=1
+Verdicts: live-ui-verified=154, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -325,6 +326,7 @@ Verdicts: live-ui-verified=153, verifier-failed=1
 | 3 | 0e06d018bf | live-ui-verified | /opt/cursor/artifacts/mitosis_land_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T16:52:46.788Z |
 | 3 | 53a8b053e1 | live-ui-verified | /opt/cursor/artifacts/delete_stencil_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T17:00:57.962Z |
 | 3 | e9f750b549 | live-ui-verified | /opt/cursor/artifacts/delete_stencil_core_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T17:10:43.428Z |
+| 3 | 2e9a617d9a | live-ui-verified | packages/components/mitosis/divider/output/frameworks/react/Divider.tsx | coordinator-files-exist | 2026-08-31T17:40:59.990Z |
 
 ## Frontier
 
@@ -337,4 +339,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":155,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":153,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":156,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":154,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
