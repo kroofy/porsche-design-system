@@ -431,6 +431,14 @@ export const config: Config = {
           src: './assets/p-tabs.iife.js',
           dest: 'build/p-tabs.iife.js',
         },
+        {
+          src: './assets/p-tabs-item.iife.js',
+          dest: 'assets/p-tabs-item.iife.js',
+        },
+        {
+          src: './assets/p-tabs-item.iife.js',
+          dest: 'build/p-tabs-item.iife.js',
+        },
       ],
     },
   ],
@@ -489,6 +497,7 @@ export const config: Config = {
     'p-multi-select-option',
     'p-tabs-bar',
     'p-tabs',
+    'p-tabs-item',
   ],
   enableCache: true,
   rollupPlugins: {
