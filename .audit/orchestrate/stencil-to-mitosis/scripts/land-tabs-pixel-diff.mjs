@@ -118,10 +118,9 @@ await page.waitForFunction(() => {
 await page.evaluate(async () => {
   const hosts = [...document.querySelectorAll('[data-card="tabs"] > p-tabs')];
   await Promise.all(hosts.map((el) => el.updateComplete));
-  for (const el of hosts) {
-    const bar = el.shadowRoot?.querySelector('p-tabs-bar');
-    bar?.scrollActiveIntoView?.();
-  }
+  await Promise.all(
+    hosts.map((el) => el.shadowRoot?.querySelector('p-tabs-bar')?.updateComplete).filter(Boolean),
+  );
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 });
 
