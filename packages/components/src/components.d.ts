@@ -561,17 +561,6 @@ export namespace Components {
          */
         "value": string | number;
     }
-    interface POptgroup {
-        /**
-          * Disables all options in the group, preventing any of them from being selected.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the visible group heading displayed above the grouped options.
-         */
-        "label"?: string;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -1028,12 +1017,6 @@ declare global {
         prototype: HTMLPMultiSelectOptionElement;
         new (): HTMLPMultiSelectOptionElement;
     };
-    interface HTMLPOptgroupElement extends Components.POptgroup, HTMLStencilElement {
-    }
-    var HTMLPOptgroupElement: {
-        prototype: HTMLPOptgroupElement;
-        new (): HTMLPOptgroupElement;
-    };
     interface HTMLPPopoverElementEventMap {
         "dismiss": PopoverDismissEventDetail;
     }
@@ -1234,7 +1217,6 @@ declare global {
         "p-modal": HTMLPModalElement;
         "p-multi-select": HTMLPMultiSelectElement;
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
-        "p-optgroup": HTMLPOptgroupElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
@@ -1829,17 +1811,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | number;
     }
-    interface POptgroup {
-        /**
-          * Disables all options in the group, preventing any of them from being selected.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the visible group heading displayed above the grouped options.
-         */
-        "label"?: string;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -2209,10 +2180,6 @@ declare namespace LocalJSX {
         "value": string;
         "disabled": boolean;
     }
-    interface POptgroupAttributes {
-        "label": string;
-        "disabled": boolean;
-    }
     interface PPopoverAttributes {
         "open": boolean;
         "direction": PopoverDirection;
@@ -2284,7 +2251,6 @@ declare namespace LocalJSX {
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-multi-select": Omit<PMultiSelect, keyof PMultiSelectAttributes> & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes]?: PMultiSelect[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `attr:${K}`]?: PMultiSelectAttributes[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `prop:${K}`]?: PMultiSelect[K] };
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
-        "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
@@ -2349,7 +2315,6 @@ declare module "@stencil/core" {
              */
             "p-multi-select": LocalJSX.IntrinsicElements["p-multi-select"] & JSXBase.HTMLAttributes<HTMLPMultiSelectElement>;
             "p-multi-select-option": LocalJSX.IntrinsicElements["p-multi-select-option"] & JSXBase.HTMLAttributes<HTMLPMultiSelectOptionElement>;
-            "p-optgroup": LocalJSX.IntrinsicElements["p-optgroup"] & JSXBase.HTMLAttributes<HTMLPOptgroupElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
