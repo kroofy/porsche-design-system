@@ -68,4 +68,5 @@ migrate-table-body	migrate	done	cursor/mitosis-migration-41e6	3	6d7bd9f688	brief
 migrate-table-row	migrate	done	cursor/mitosis-migration-41e6	3	1e7bda6d56	briefs/migrate-table-row.md
 migrate-table-cell	migrate	done	cursor/mitosis-migration-41e6	3	eb4fbf15fc	briefs/migrate-table-cell.md
 migrate-toast	migrate	done	cursor/mitosis-migration-41e6	3	13bf53daa9	briefs/migrate-toast.md
-migrate-toast-item	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-toast-item.md
+migrate-toast-item	migrate	done	cursor/mitosis-migration-41e6	3	41b8142c1c	briefs/migrate-toast-item.md
+migrate-modal	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-modal.md
