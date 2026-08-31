@@ -17,7 +17,6 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
-import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
@@ -55,7 +54,6 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
-export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
@@ -542,88 +540,6 @@ export namespace Components {
           * @default 'info'
          */
         "state"?: InlineNotificationState;
-    }
-    interface PInputDate {
-        /**
-          * Provides the browser with a date autofill hint (e.g. `autocomplete='bday'` for a birthday field).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing date selection. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the latest selectable date in YYYY-MM-DD format. Dates after this are disabled in the picker.
-         */
-        "max"?: string;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the earliest selectable date in YYYY-MM-DD format. Dates before this are disabled in the picker.
-         */
-        "min"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Makes the field read-only — the date is displayed but cannot be changed. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while no date is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputDateState;
-        /**
-          * Sets the stepping interval in days. The selected date must align with the `min` date by a multiple of this value.
-          * @default 1
-         */
-        "step"?: number;
-        /**
-          * Sets the current date value in YYYY-MM-DD format (e.g. `2025-07-02`).
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputMonth {
         /**
@@ -1844,10 +1760,6 @@ export interface PInlineNotificationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInlineNotificationElement;
 }
-export interface PInputDateCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputDateElement;
-}
 export interface PInputMonthCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputMonthElement;
@@ -2104,25 +2016,6 @@ declare global {
     var HTMLPInlineNotificationElement: {
         prototype: HTMLPInlineNotificationElement;
         new (): HTMLPInlineNotificationElement;
-    };
-    interface HTMLPInputDateElementEventMap {
-        "change": InputDateChangeEventDetail;
-        "blur": InputDateBlurEventDetail;
-        "input": InputDateInputEventDetail;
-    }
-    interface HTMLPInputDateElement extends Components.PInputDate, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputDateElementEventMap>(type: K, listener: (this: HTMLPInputDateElement, ev: PInputDateCustomEvent<HTMLPInputDateElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputDateElementEventMap>(type: K, listener: (this: HTMLPInputDateElement, ev: PInputDateCustomEvent<HTMLPInputDateElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputDateElement: {
-        prototype: HTMLPInputDateElement;
-        new (): HTMLPInputDateElement;
     };
     interface HTMLPInputMonthElementEventMap {
         "change": InputMonthChangeEventDetail;
@@ -2621,7 +2514,6 @@ declare global {
         "p-fieldset": HTMLPFieldsetElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
-        "p-input-date": HTMLPInputDateElement;
         "p-input-month": HTMLPInputMonthElement;
         "p-input-time": HTMLPInputTimeElement;
         "p-input-week": HTMLPInputWeekElement;
@@ -3170,100 +3062,6 @@ declare namespace LocalJSX {
           * @default 'info'
          */
         "state"?: InlineNotificationState;
-    }
-    interface PInputDate {
-        /**
-          * Provides the browser with a date autofill hint (e.g. `autocomplete='bday'` for a birthday field).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing date selection. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the latest selectable date in YYYY-MM-DD format. Dates after this are disabled in the picker.
-         */
-        "max"?: string;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the earliest selectable date in YYYY-MM-DD format. Dates before this are disabled in the picker.
-         */
-        "min"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputDateCustomEvent<InputDateBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputDateCustomEvent<InputDateChangeEventDetail>) => void;
-        /**
-          * Emitted on every value change as the user interacts with the date picker.
-         */
-        "onInput"?: (event: PInputDateCustomEvent<InputDateInputEventDetail>) => void;
-        /**
-          * Makes the field read-only — the date is displayed but cannot be changed. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while no date is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputDateState;
-        /**
-          * Sets the stepping interval in days. The selected date must align with the `min` date by a multiple of this value.
-          * @default 1
-         */
-        "step"?: number;
-        /**
-          * Sets the current date value in YYYY-MM-DD format (e.g. `2025-07-02`).
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputMonth {
         /**
@@ -4717,25 +4515,6 @@ declare namespace LocalJSX {
         "actionLoading": boolean;
         "actionIcon": InlineNotificationActionIcon;
     }
-    interface PInputDateAttributes {
-        "label": string;
-        "step": number;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "max": string;
-        "min": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputDateState;
-        "message": string;
-        "hideLabel": string;
-    }
     interface PInputMonthAttributes {
         "label": string;
         "step": number;
@@ -5041,7 +4820,6 @@ declare namespace LocalJSX {
         "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
-        "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-month": Omit<PInputMonth, keyof PInputMonthAttributes> & { [K in keyof PInputMonth & keyof PInputMonthAttributes]?: PInputMonth[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `attr:${K}`]?: PInputMonthAttributes[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `prop:${K}`]?: PInputMonth[K] };
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-week": Omit<PInputWeek, keyof PInputWeekAttributes> & { [K in keyof PInputWeek & keyof PInputWeekAttributes]?: PInputWeek[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `attr:${K}`]?: PInputWeekAttributes[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `prop:${K}`]?: PInputWeek[K] };
@@ -5123,7 +4901,6 @@ declare module "@stencil/core" {
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
             "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
-            "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-month": LocalJSX.IntrinsicElements["p-input-month"] & JSXBase.HTMLAttributes<HTMLPInputMonthElement>;
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-week": LocalJSX.IntrinsicElements["p-input-week"] & JSXBase.HTMLAttributes<HTMLPInputWeekElement>;
