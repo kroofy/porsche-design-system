@@ -38,4 +38,5 @@ migrate-text-list-item	migrate	done	cursor/mitosis-migration-41e6	3	2a90289a53	b
 migrate-ai-tag	migrate	done	cursor/mitosis-migration-41e6	3	946729dbd4	briefs/migrate-ai-tag.md
 migrate-inline-notification	migrate	done	cursor/mitosis-migration-41e6	3	7a9c018f8c	briefs/migrate-inline-notification.md
 migrate-banner	migrate	done	cursor/mitosis-migration-41e6	3	0d5748bd59	briefs/migrate-banner.md
-migrate-pagination	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-pagination.md
+migrate-pagination	migrate	done	cursor/mitosis-migration-41e6	3	b534672020	briefs/migrate-pagination.md
+migrate-scroller	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-scroller.md
