@@ -27,13 +27,20 @@ if (!generated) {
 }
 
 const before = await readFile(generated, 'utf8');
-const after = before.replace(/<my-fragment[\s\S]*?>/g, '').replace(/<\/my-fragment>/g, '');
+const after = before
+  .replace(/<my-fragment[\s\S]*?>/g, '')
+  .replace(/<\/my-fragment>/g, '')
+  .replace(/@property\(\)\s+iconSource/g, '@property({ attribute: "icon-source" }) iconSource');
 if (after.includes('my-fragment')) {
   console.error('build-lit-tag: my-fragment leaked after strip');
   process.exit(1);
 }
 if (!after.includes('@customElement("p-tag")')) {
   console.error('build-lit-tag: expected @customElement("p-tag")');
+  process.exit(1);
+}
+if (!after.includes('@property({ attribute: "icon-source" }) iconSource')) {
+  console.error('build-lit-tag: expected icon-source attribute alias');
   process.exit(1);
 }
 if (after.includes('lit-tag') || after.includes('lit-icon')) {

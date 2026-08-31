@@ -707,7 +707,7 @@
     n4()
   ], LitTag.prototype, "icon", 2);
   __decorateClass([
-    n4()
+    n4({ attribute: "icon-source" })
   ], LitTag.prototype, "iconSource", 2);
   LitTag = __decorateClass([
     t3("p-tag")

@@ -24,7 +24,7 @@ export default class LitTag extends LitElement {
   @property() variant: any;
   @property() compact: any;
   @property() icon: any;
-  @property() iconSource: any;
+  @property({ attribute: "icon-source" }) iconSource: any;
 
   get cssText() {
     const textMap: any = {

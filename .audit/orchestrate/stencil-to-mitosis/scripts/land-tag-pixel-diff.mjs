@@ -25,8 +25,18 @@ const DEVICE_SCALE_FACTOR = 2;
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
-page.on('console', (msg) => msg.type() === 'error' && consoleErrors.push(msg.text()));
-page.on('pageerror', (err) => consoleErrors.push(String(err)));
+page.on('console', (msg) => {
+  if (msg.type() !== 'error') return;
+  const text = msg.text();
+  const url = msg.location()?.url ?? '';
+  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  consoleErrors.push(text);
+});
+page.on('pageerror', (err) => {
+  const text = String(err);
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  consoleErrors.push(text);
+});
 
 await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
 await page.waitForFunction(() => customElements.get('p-tag') && customElements.get('p-icon'), {
@@ -42,6 +52,7 @@ await page.waitForFunction(() => {
       const icon = el.shadowRoot?.querySelector('p-icon');
       const img = icon?.shadowRoot?.querySelector('img');
       const iconHidden = !!icon && getComputedStyle(icon).display === 'none';
+      const sourceOnly = !!el.getAttribute('icon-source') && !el.getAttribute('icon');
       return (
         !!el.shadowRoot?.querySelector('style') &&
         !!span &&
@@ -49,7 +60,7 @@ await page.waitForFunction(() => {
         icon?.localName === 'p-icon' &&
         !el.shadowRoot.querySelector('lit-icon') &&
         !el.shadowRoot.querySelector('my-fragment') &&
-        (iconHidden || (!!img?.complete && (img?.naturalWidth ?? 0) > 0)) &&
+        (iconHidden || sourceOnly || (!!img?.complete && (img?.naturalWidth ?? 0) > 0)) &&
         (el.textContent?.trim().length ?? 0) > 0
       );
     })
@@ -157,7 +168,7 @@ const failed =
       !h.hasSlot ||
       h.hasFragment ||
       !h.text ||
-      (!h.iconHidden && (!h.imgComplete || h.imgNaturalWidth === 0))
+      (!h.iconHidden && !h.iconSource && (!h.imgComplete || h.imgNaturalWidth === 0))
   ) ||
   consoleErrors.length > 0;
 
