@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-import { BreakpointCustomizable, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
@@ -14,7 +14,6 @@ import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./compone
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
@@ -39,7 +38,7 @@ import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-export { BreakpointCustomizable, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
@@ -47,7 +46,6 @@ export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./compone
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
-export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
@@ -416,37 +414,6 @@ export namespace Components {
           * @default '_self'
          */
         "target"?: DrilldownLinkTarget;
-    }
-    interface PFieldset {
-        /**
-          * Overrides the ARIA role on the fieldset — use `radiogroup` when grouping radio buttons.
-         */
-        "aria"?: SelectedAriaRole<'radiogroup'>;
-        /**
-          * Sets the visible legend text displayed above the grouped form controls.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the font size of the fieldset label (`small`, `medium`, or `large`).
-          * @default 'medium'
-         */
-        "labelSize"?: FieldsetLabelSize;
-        /**
-          * Sets the validation feedback message displayed below the fieldset when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Marks all controls within the fieldset as required and adds a required indicator to the label.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the fieldset, controlling the color and style of the feedback message.
-          * @default 'none'
-         */
-        "state"?: FieldsetState;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -1600,12 +1567,6 @@ declare global {
         prototype: HTMLPDrilldownLinkElement;
         new (): HTMLPDrilldownLinkElement;
     };
-    interface HTMLPFieldsetElement extends Components.PFieldset, HTMLStencilElement {
-    }
-    var HTMLPFieldsetElement: {
-        prototype: HTMLPFieldsetElement;
-        new (): HTMLPFieldsetElement;
-    };
     interface HTMLPFlyoutElementEventMap {
         "dismiss": FlyoutDismissEventDetail;
         "motionVisibleEnd": FlyoutMotionVisibleEndEventDetail;
@@ -2064,7 +2025,6 @@ declare global {
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
-        "p-fieldset": HTMLPFieldsetElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
         "p-link-tile": HTMLPLinkTileElement;
@@ -2475,37 +2435,6 @@ declare namespace LocalJSX {
           * @default '_self'
          */
         "target"?: DrilldownLinkTarget;
-    }
-    interface PFieldset {
-        /**
-          * Overrides the ARIA role on the fieldset — use `radiogroup` when grouping radio buttons.
-         */
-        "aria"?: SelectedAriaRole<'radiogroup'>;
-        /**
-          * Sets the visible legend text displayed above the grouped form controls.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the font size of the fieldset label (`small`, `medium`, or `large`).
-          * @default 'medium'
-         */
-        "labelSize"?: FieldsetLabelSize;
-        /**
-          * Sets the validation feedback message displayed below the fieldset when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Marks all controls within the fieldset as required and adds a required indicator to the label.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the fieldset, controlling the color and style of the feedback message.
-          * @default 'none'
-         */
-        "state"?: FieldsetState;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -3642,13 +3571,6 @@ declare namespace LocalJSX {
         "rel": string;
         "aria": SelectedAriaAttributes<DrilldownLinkAriaAttribute>;
     }
-    interface PFieldsetAttributes {
-        "label": string;
-        "labelSize": FieldsetLabelSize;
-        "required": boolean;
-        "state": FieldsetState;
-        "message": string;
-    }
     interface PFlyoutAttributes {
         "open": boolean;
         "position": FlyoutPosition;
@@ -3891,7 +3813,6 @@ declare namespace LocalJSX {
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
-        "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
@@ -3965,7 +3886,6 @@ declare module "@stencil/core" {
              * @experimental 
              */
             "p-drilldown-link": LocalJSX.IntrinsicElements["p-drilldown-link"] & JSXBase.HTMLAttributes<HTMLPDrilldownLinkElement>;
-            "p-fieldset": LocalJSX.IntrinsicElements["p-fieldset"] & JSXBase.HTMLAttributes<HTMLPFieldsetElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
