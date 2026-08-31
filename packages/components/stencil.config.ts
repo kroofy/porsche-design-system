@@ -383,6 +383,14 @@ export const config: Config = {
           src: './assets/p-select.iife.js',
           dest: 'build/p-select.iife.js',
         },
+        {
+          src: './assets/p-select-option.iife.js',
+          dest: 'assets/p-select-option.iife.js',
+        },
+        {
+          src: './assets/p-select-option.iife.js',
+          dest: 'build/p-select-option.iife.js',
+        },
       ],
     },
   ],
@@ -435,6 +443,7 @@ export const config: Config = {
     'p-radio-group',
     'p-radio-group-option',
     'p-select',
+    'p-select-option',
   ],
   enableCache: true,
   rollupPlugins: {

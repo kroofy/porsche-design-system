@@ -1,85 +1,29 @@
-import { Component, Element, Host, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes, ValidatorFunction } from '../../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  getClosestHTMLElement,
-  getOptionAriaAttributes,
-  getPrefixedTagNames,
-  throwIfParentIsNotOfKind,
-  validateProps,
-} from '../../../utils';
-import { getComponentCss } from './select-option-styles';
-import { type SelectOptionInternalHTMLProps, validateSelectOption } from './select-option-utils';
-
-const propTypes: PropTypes<typeof SelectOption> = {
-  value: AllowedTypes.oneOf<ValidatorFunction>([AllowedTypes.string, AllowedTypes.number, AllowedTypes.null]),
-  disabled: AllowedTypes.boolean,
-};
-
 /**
- * @slot {"name": "", "description": "Default slot for the option content." }
+ * Stencil no longer owns p-select-option. The playground tag is the Mitosis Lit
+ * custom element from mitosis/select-option/SelectOption.lite.tsx.
+ * This file stays so generateConstructorMap can still import class SelectOption.
  */
-@Component({
-  tag: 'p-select-option',
-  shadow: true,
-})
 export class SelectOption {
-  @Element() public host!: HTMLElement & SelectOptionInternalHTMLProps;
+  host!: HTMLElement;
+  value?: string | number | null;
+  disabled?: boolean = false;
+  selected?: boolean;
+  highlighted?: boolean;
+  disabledParent?: boolean;
+  hidden?: boolean;
+  render(): void {}
+}
 
-  /** Sets the value submitted with the form data when this option is selected in the parent select control. */
-  @Prop() public value?: string | number | null;
-
-  /** Prevents the option from being selected and visually dims it to indicate it is unavailable. */
-  @Prop() public disabled?: boolean = false;
-
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, ['p-select', 'p-optgroup']);
+declare global {
+  interface HTMLPSelectOptionElement extends HTMLElement {
+    value?: string | number | null;
+    disabled?: boolean;
+    selected?: boolean;
+    highlighted?: boolean;
+    disabledParent?: boolean;
+    hidden?: boolean;
   }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    const { selected: isSelected, highlighted, hidden } = this.host;
-    const isDisabled = this.disabled || this.host.disabledParent;
-    attachComponentCss(this.host, getComponentCss, isDisabled);
-    const PrefixedTagNames = getPrefixedTagNames(this.host);
-
-    return (
-      // TODO: get rid of ARIA sprouting and use `elementInternals` API when AXE-CORE supports it: https://github.com/dequelabs/axe-core/issues/4259
-      <Host
-        onClick={!isDisabled && this.onClick}
-        role="option"
-        {...getOptionAriaAttributes(isSelected, isDisabled, hidden, this.value !== undefined && this.value !== null)}
-      >
-        <div
-          class={{
-            option: true,
-            'option--selected': isSelected,
-            'option--highlighted': highlighted,
-            'option--disabled': isDisabled,
-          }}
-        >
-          <slot onSlotchange={this.onSlotChange} />
-          {isSelected && <PrefixedTagNames.pIcon class="icon" aria-hidden="true" name="check" color="primary" />}
-        </div>
-      </Host>
-    );
+  interface HTMLElementTagNameMap {
+    'p-select-option': HTMLPSelectOptionElement;
   }
-
-  private onClick = (): void => {
-    this.host.dispatchEvent(
-      new CustomEvent('internalOptionUpdate', {
-        bubbles: true,
-      })
-    );
-  };
-
-  private onSlotChange = (e: Event & { target: HTMLSlotElement }): void => {
-    const hasSelectedSlot = Array.from(
-      getClosestHTMLElement(this.host, getPrefixedTagNames(this.host).pSelect).children
-    ).find((el) => el.slot === 'selected');
-    if (!hasSelectedSlot) {
-      validateSelectOption(e.target, this.host);
-    }
-  };
 }
