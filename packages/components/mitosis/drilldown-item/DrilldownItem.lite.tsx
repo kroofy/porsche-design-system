@@ -87,7 +87,6 @@ export default function LitDrilldownItem(props: {
         mobile += '.drawer{display:none}';
         desktop += '.drawer{display:none}';
       } else if (!isPrimary && !isSecondary && isCascade) {
-        // cascade-only already set display:contents
       } else if (!isSecondary && !(isPrimary || isCascade)) {
         mobile += '.drawer{display:none}';
         desktop += '.drawer{display:none}';
@@ -138,35 +137,15 @@ export default function LitDrilldownItem(props: {
   `);
 
   return (
-    <div class="root">
-      <style innerHTML={state.cssText} />
-      <p-button-pure
-        class="button"
-        type="button"
-        size="medium"
-        align-label="start"
-        stretch="true"
-        icon="arrow-head-right"
-      >
-        {props.label}
-      </p-button-pure>
-      <p-button-pure
-        class="back"
-        type="button"
-        size="small"
-        align-label="end"
-        stretch="true"
-        icon="arrow-left"
-        hide-label='{"base":true,"s":false}'
-      >
-        {props.label}
-      </p-button-pure>
-      <h2>{props.label}</h2>
-      <div class="drawer">
-        <div class="scroller">
-          <slot />
-        </div>
-      </div>
-    </div>
+    <p-button-pure
+      class="button"
+      type="button"
+      size="medium"
+      align-label="start"
+      stretch="true"
+      icon="arrow-head-right"
+    >
+      {props.label}
+    </p-button-pure>
   );
 }
