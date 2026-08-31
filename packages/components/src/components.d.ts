@@ -1317,8 +1317,6 @@ export namespace Components {
          */
         "label": string;
     }
-    interface PTextListItem {
-    }
     interface PToast {
         "addMessage": (message: ToastMessage) => Promise<void>;
     }
@@ -1971,12 +1969,6 @@ declare global {
         prototype: HTMLPTabsItemElement;
         new (): HTMLPTabsItemElement;
     };
-    interface HTMLPTextListItemElement extends Components.PTextListItem, HTMLStencilElement {
-    }
-    var HTMLPTextListItemElement: {
-        prototype: HTMLPTextListItemElement;
-        new (): HTMLPTextListItemElement;
-    };
     interface HTMLPToastElement extends Components.PToast, HTMLStencilElement {
     }
     var HTMLPToastElement: {
@@ -2041,7 +2033,6 @@ declare global {
         "p-tabs": HTMLPTabsElement;
         "p-tabs-bar": HTMLPTabsBarElement;
         "p-tabs-item": HTMLPTabsItemElement;
-        "p-text-list-item": HTMLPTextListItemElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
     }
@@ -3444,8 +3435,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
-    interface PTextListItem {
-    }
     interface PToast {
     }
     interface PToastItem {
@@ -3818,7 +3807,6 @@ declare namespace LocalJSX {
         "p-tabs": Omit<PTabs, keyof PTabsAttributes> & { [K in keyof PTabs & keyof PTabsAttributes]?: PTabs[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `attr:${K}`]?: PTabsAttributes[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `prop:${K}`]?: PTabs[K] };
         "p-tabs-bar": Omit<PTabsBar, keyof PTabsBarAttributes> & { [K in keyof PTabsBar & keyof PTabsBarAttributes]?: PTabsBar[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `attr:${K}`]?: PTabsBarAttributes[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `prop:${K}`]?: PTabsBar[K] };
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
-        "p-text-list-item": PTextListItem;
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
     }
@@ -3927,7 +3915,6 @@ declare module "@stencil/core" {
              */
             "p-tabs-bar": LocalJSX.IntrinsicElements["p-tabs-bar"] & JSXBase.HTMLAttributes<HTMLPTabsBarElement>;
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
-            "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
         }
