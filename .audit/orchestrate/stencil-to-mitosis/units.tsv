@@ -59,4 +59,5 @@ migrate-stepper-horizontal-item	migrate	done	cursor/mitosis-migration-41e6	3	c82
 migrate-button-tile	migrate	done	cursor/mitosis-migration-41e6	3	8c4ecc1167	briefs/migrate-button-tile.md
 migrate-link-tile	migrate	done	cursor/mitosis-migration-41e6	3	7b9a7080e4	briefs/migrate-link-tile.md
 migrate-link-tile-product	migrate	done	cursor/mitosis-migration-41e6	3	47486fdbb5	briefs/migrate-link-tile-product.md
-migrate-popover	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-popover.md
+migrate-popover	migrate	done	cursor/mitosis-migration-41e6	3	489b44deb7	briefs/migrate-popover.md
+migrate-table	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-table.md
