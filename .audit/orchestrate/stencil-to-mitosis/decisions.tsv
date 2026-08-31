@@ -151,3 +151,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T06:38:00Z	land	accepted land-checkbox, spawned land-input-text	after PNG is byte-identical to stored Stencil checkbox baseline, 80326 bytes	/opt/cursor/artifacts/mitosis_land_checkbox_after.png	live-ui-verified, 18 real p- tags from Mitosis
 2026-08-31T06:40:20Z	drain	tick: leftover timer for input-text; worker running, source 08b9c93ede, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
 2026-08-31T06:44:00Z	land	accepted land-input-text, spawned land-input-email	after PNG is byte-identical to stored Stencil input-text baseline, 62660 bytes	/opt/cursor/artifacts/mitosis_land_input_text_after.png	live-ui-verified, 19 real p- tags from Mitosis
+2026-08-31T06:50:00Z	land	accepted land-input-email, spawned land-input-password	after PNG is byte-identical to stored Stencil input-email baseline, 61833 bytes	/opt/cursor/artifacts/mitosis_land_input_email_after.png	live-ui-verified, 20 real p- tags from Mitosis
