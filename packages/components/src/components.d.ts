@@ -15,7 +15,6 @@ import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, Button
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 import { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
-import { CrestAriaAttribute, CrestTarget } from "./components/crest/crest-utils";
 import { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
@@ -77,7 +76,6 @@ export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, Button
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
-export { CrestAriaAttribute, CrestTarget } from "./components/crest/crest-utils";
 export { DisplayAlign, DisplayColor, DisplaySize, DisplayTag } from "./components/display/display-utils";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
@@ -595,21 +593,6 @@ export namespace Components {
           * @default 'on'
          */
         "value"?: string;
-    }
-    interface PCrest {
-        /**
-          * Sets ARIA attributes on the anchor element to improve accessibility when the crest is used as a link.
-         */
-        "aria"?: SelectedAriaAttributes<CrestAriaAttribute>;
-        /**
-          * When set, renders the crest as an anchor element navigating to this URL when clicked.
-         */
-        "href"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: CrestTarget;
     }
     /**
      * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
@@ -3392,12 +3375,6 @@ declare global {
         prototype: HTMLPCheckboxElement;
         new (): HTMLPCheckboxElement;
     };
-    interface HTMLPCrestElement extends Components.PCrest, HTMLStencilElement {
-    }
-    var HTMLPCrestElement: {
-        prototype: HTMLPCrestElement;
-        new (): HTMLPCrestElement;
-    };
     /**
      * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
      */
@@ -4226,7 +4203,6 @@ declare global {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
         "p-checkbox": HTMLPCheckboxElement;
-        "p-crest": HTMLPCrestElement;
         "p-display": HTMLPDisplayElement;
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
@@ -4787,21 +4763,6 @@ declare namespace LocalJSX {
           * @default 'on'
          */
         "value"?: string;
-    }
-    interface PCrest {
-        /**
-          * Sets ARIA attributes on the anchor element to improve accessibility when the crest is used as a link.
-         */
-        "aria"?: SelectedAriaAttributes<CrestAriaAttribute>;
-        /**
-          * When set, renders the crest as an anchor element navigating to this URL when clicked.
-         */
-        "href"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: CrestTarget;
     }
     /**
      * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
@@ -7705,11 +7666,6 @@ declare namespace LocalJSX {
         "loading": boolean;
         "compact": boolean;
     }
-    interface PCrestAttributes {
-        "href": string;
-        "target": CrestTarget;
-        "aria": SelectedAriaAttributes<CrestAriaAttribute>;
-    }
     interface PDisplayAttributes {
         "tag": DisplayTag;
         "size": BreakpointCustomizable<DisplaySize>;
@@ -8330,7 +8286,6 @@ declare namespace LocalJSX {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
         "p-checkbox": Omit<PCheckbox, keyof PCheckboxAttributes> & { [K in keyof PCheckbox & keyof PCheckboxAttributes]?: PCheckbox[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `attr:${K}`]?: PCheckboxAttributes[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `prop:${K}`]?: PCheckbox[K] };
-        "p-crest": Omit<PCrest, keyof PCrestAttributes> & { [K in keyof PCrest & keyof PCrestAttributes]?: PCrest[K] } & { [K in keyof PCrest & keyof PCrestAttributes as `attr:${K}`]?: PCrestAttributes[K] } & { [K in keyof PCrest & keyof PCrestAttributes as `prop:${K}`]?: PCrest[K] };
         "p-display": Omit<PDisplay, keyof PDisplayAttributes> & { [K in keyof PDisplay & keyof PDisplayAttributes]?: PDisplay[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `attr:${K}`]?: PDisplayAttributes[K] } & { [K in keyof PDisplay & keyof PDisplayAttributes as `prop:${K}`]?: PDisplay[K] };
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
@@ -8422,7 +8377,6 @@ declare module "@stencil/core" {
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
             "p-checkbox": LocalJSX.IntrinsicElements["p-checkbox"] & JSXBase.HTMLAttributes<HTMLPCheckboxElement>;
-            "p-crest": LocalJSX.IntrinsicElements["p-crest"] & JSXBase.HTMLAttributes<HTMLPCrestElement>;
             /**
              * @deprecated since v4.0.0, will be removed with next major release. Please use `p-heading` instead.
              */
