@@ -11,7 +11,6 @@ import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
@@ -24,7 +23,6 @@ export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
@@ -256,56 +254,6 @@ export namespace Components {
         "position"?: FlyoutPosition;
     }
     /**
-     * @controlled {"props": ["liked"], "event": "like"}
-     * @experimental 
-     */
-    interface PLinkTileProduct {
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '3/4'
-         */
-        "aspectRatio"?: BreakpointCustomizable<LinkTileProductAspectRatio>;
-        /**
-          * Sets an optional short description providing additional product details below the price.
-         */
-        "description"?: string;
-        /**
-          * Sets the product name displayed prominently at the top of the tile.
-         */
-        "heading": string;
-        /**
-          * Sets the URL the tile navigates to when clicked. Alternatively, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Shows a like/bookmark button so users can save the product.
-          * @default true
-         */
-        "likeButton"?: boolean;
-        /**
-          * Reflects whether the product is currently liked — controls the filled state of the like button.
-          * @default false
-         */
-        "liked"?: boolean;
-        /**
-          * Sets the current retail price of the product, displayed with or without a discount.
-         */
-        "price": string;
-        /**
-          * Sets the original recommended retail price shown with a strikethrough to indicate a discount. Requires `price` to be set.
-         */
-        "priceOriginal"?: string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`).
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: LinkTileProductTarget;
-    }
-    /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
     interface PModal {
@@ -483,10 +431,6 @@ export interface PFlyoutCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPFlyoutElement;
 }
-export interface PLinkTileProductCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPLinkTileProductElement;
-}
 export interface PModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPModalElement;
@@ -611,27 +555,6 @@ declare global {
     var HTMLPFlyoutElement: {
         prototype: HTMLPFlyoutElement;
         new (): HTMLPFlyoutElement;
-    };
-    interface HTMLPLinkTileProductElementEventMap {
-        "like": LinkTileProductLikeEventDetail;
-    }
-    /**
-     * @controlled {"props": ["liked"], "event": "like"}
-     * @experimental 
-     */
-    interface HTMLPLinkTileProductElement extends Components.PLinkTileProduct, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPLinkTileProductElementEventMap>(type: K, listener: (this: HTMLPLinkTileProductElement, ev: PLinkTileProductCustomEvent<HTMLPLinkTileProductElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPLinkTileProductElementEventMap>(type: K, listener: (this: HTMLPLinkTileProductElement, ev: PLinkTileProductCustomEvent<HTMLPLinkTileProductElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPLinkTileProductElement: {
-        prototype: HTMLPLinkTileProductElement;
-        new (): HTMLPLinkTileProductElement;
     };
     interface HTMLPModalElementEventMap {
         "dismiss": ModalDismissEventDetail;
@@ -780,7 +703,6 @@ declare global {
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-flyout": HTMLPFlyoutElement;
-        "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
@@ -1052,60 +974,6 @@ declare namespace LocalJSX {
         "position"?: FlyoutPosition;
     }
     /**
-     * @controlled {"props": ["liked"], "event": "like"}
-     * @experimental 
-     */
-    interface PLinkTileProduct {
-        /**
-          * Sets the width-to-height ratio of the tile media area. Supports responsive breakpoint values.
-          * @default '3/4'
-         */
-        "aspectRatio"?: BreakpointCustomizable<LinkTileProductAspectRatio>;
-        /**
-          * Sets an optional short description providing additional product details below the price.
-         */
-        "description"?: string;
-        /**
-          * Sets the product name displayed prominently at the top of the tile.
-         */
-        "heading"?: string;
-        /**
-          * Sets the URL the tile navigates to when clicked. Alternatively, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Shows a like/bookmark button so users can save the product.
-          * @default true
-         */
-        "likeButton"?: boolean;
-        /**
-          * Reflects whether the product is currently liked — controls the filled state of the like button.
-          * @default false
-         */
-        "liked"?: boolean;
-        /**
-          * Emitted when the user clicks the like button, with the new liked state in the event detail.
-         */
-        "onLike"?: (event: PLinkTileProductCustomEvent<LinkTileProductLikeEventDetail>) => void;
-        /**
-          * Sets the current retail price of the product, displayed with or without a discount.
-         */
-        "price"?: string;
-        /**
-          * Sets the original recommended retail price shown with a strikethrough to indicate a discount. Requires `price` to be set.
-         */
-        "priceOriginal"?: string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`).
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`).
-          * @default '_self'
-         */
-        "target"?: LinkTileProductTarget;
-    }
-    /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
     interface PModal {
@@ -1355,18 +1223,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
     }
-    interface PLinkTileProductAttributes {
-        "heading": string;
-        "price": string;
-        "priceOriginal": string;
-        "description": string;
-        "likeButton": boolean;
-        "liked": boolean;
-        "href": string;
-        "aspectRatio": BreakpointCustomizable<LinkTileProductAspectRatio>;
-        "target": LinkTileProductTarget;
-        "rel": string;
-    }
     interface PModalAttributes {
         "open": boolean;
         "dismissButton": boolean;
@@ -1415,7 +1271,6 @@ declare namespace LocalJSX {
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
-        "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
@@ -1460,11 +1315,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
-            /**
-             * @controlled {"props": ["liked"], "event": "like"}
-             * @experimental 
-             */
-            "p-link-tile-product": LocalJSX.IntrinsicElements["p-link-tile-product"] & JSXBase.HTMLAttributes<HTMLPLinkTileProductElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
