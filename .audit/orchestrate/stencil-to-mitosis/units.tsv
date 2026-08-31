@@ -47,4 +47,5 @@ migrate-segmented-control-item	migrate	done	cursor/mitosis-migration-41e6	3	813b
 migrate-radio-group	migrate	done	cursor/mitosis-migration-41e6	3	1a878a21be	briefs/migrate-radio-group.md
 migrate-radio-group-option	migrate	done	cursor/mitosis-migration-41e6	3	e29c428d91	briefs/migrate-radio-group-option.md
 migrate-select	migrate	done	cursor/mitosis-migration-41e6	3	335b1f9ea3	briefs/migrate-select.md
-migrate-select-option	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-select-option.md
+migrate-select-option	migrate	done	cursor/mitosis-migration-41e6	3	9d59840ac7	briefs/migrate-select-option.md
+migrate-optgroup	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-optgroup.md
