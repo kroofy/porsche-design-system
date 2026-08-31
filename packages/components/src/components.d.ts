@@ -117,34 +117,6 @@ export namespace Components {
     /**
      * @experimental 
      */
-    interface PDrilldownItem {
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "cascade"?: boolean;
-        /**
-          * Sets the unique identifier matched against the drilldown's `activeIdentifier` to determine if this item is shown.
-         */
-        "identifier": string;
-        /**
-          * Sets the text used for the back button, sticky header, and cascade button that navigates into this navigation level.
-         */
-        "label"?: string;
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "primary"?: boolean;
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "secondary"?: boolean;
-    }
-    /**
-     * @experimental 
-     */
     interface PDrilldownLink {
         /**
           * Visually marks the link as the currently active navigation item, e.g. the current page.
@@ -227,15 +199,6 @@ declare global {
     /**
      * @experimental 
      */
-    interface HTMLPDrilldownItemElement extends Components.PDrilldownItem, HTMLStencilElement {
-    }
-    var HTMLPDrilldownItemElement: {
-        prototype: HTMLPDrilldownItemElement;
-        new (): HTMLPDrilldownItemElement;
-    };
-    /**
-     * @experimental 
-     */
     interface HTMLPDrilldownLinkElement extends Components.PDrilldownLink, HTMLStencilElement {
     }
     var HTMLPDrilldownLinkElement: {
@@ -245,7 +208,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
-        "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
     }
 }
@@ -365,34 +327,6 @@ declare namespace LocalJSX {
     /**
      * @experimental 
      */
-    interface PDrilldownItem {
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "cascade"?: boolean;
-        /**
-          * Sets the unique identifier matched against the drilldown's `activeIdentifier` to determine if this item is shown.
-         */
-        "identifier"?: string;
-        /**
-          * Sets the text used for the back button, sticky header, and cascade button that navigates into this navigation level.
-         */
-        "label"?: string;
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "primary"?: boolean;
-        /**
-          * Private property set by the component itself.
-          * @default false
-         */
-        "secondary"?: boolean;
-    }
-    /**
-     * @experimental 
-     */
     interface PDrilldownLink {
         /**
           * Visually marks the link as the currently active navigation item, e.g. the current page.
@@ -445,13 +379,6 @@ declare namespace LocalJSX {
         "gradient": boolean;
         "trimSpace": boolean;
     }
-    interface PDrilldownItemAttributes {
-        "label": string;
-        "identifier": string;
-        "primary": boolean;
-        "secondary": boolean;
-        "cascade": boolean;
-    }
     interface PDrilldownLinkAttributes {
         "href": string;
         "active": boolean;
@@ -464,7 +391,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
-        "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
     }
 }
@@ -480,10 +406,6 @@ declare module "@stencil/core" {
              * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
-            /**
-             * @experimental 
-             */
-            "p-drilldown-item": LocalJSX.IntrinsicElements["p-drilldown-item"] & JSXBase.HTMLAttributes<HTMLPDrilldownItemElement>;
             /**
              * @experimental 
              */

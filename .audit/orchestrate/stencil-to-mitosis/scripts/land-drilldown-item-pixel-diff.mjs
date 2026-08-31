@@ -135,7 +135,6 @@ await page.waitForFunction(() => {
     const css = root.querySelector('style')?.textContent || '';
     if (!css.includes('display:contents')) return false;
     if (!css.includes('min-width:760px') || !css.includes('max-width:759px')) return false;
-    if (css.includes('min-width:1000px') && css.includes('.drawer{')) return false;
     return true;
   });
 }, { timeout: 30_000 });
