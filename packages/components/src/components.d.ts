@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 import { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 import { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -21,7 +21,6 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
-import { IconAriaAttribute, IconColor, IconSize } from "./components/icon/icon-utils";
 import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
@@ -64,7 +63,7 @@ import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventD
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, IconName, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 export { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -79,7 +78,6 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { HeadingAlign, HeadingColor, HeadingHyphens, HeadingSize, HeadingTag, HeadingWeight } from "./components/heading/heading-utils";
-export { IconAriaAttribute, IconColor, IconSize } from "./components/icon/icon-utils";
 export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotificationState } from "./components/inline-notification/inline-notification-utils";
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputEmailBlurEventDetail, InputEmailChangeEventDetail, InputEmailInputEventDetail, InputEmailState } from "./components/input-email/input-email-utils";
@@ -806,31 +804,6 @@ export namespace Components {
           * @default 'normal'
          */
         "weight"?: HeadingWeight;
-    }
-    interface PIcon {
-        /**
-          * Sets ARIA attributes on the icon — use `aria-label` to make the icon meaningful to screen readers when it conveys information.
-         */
-        "aria"?: SelectedAriaAttributes<IconAriaAttribute>;
-        /**
-          * Sets the fill color of the icon using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: IconColor;
-        /**
-          * Selects an icon from the built-in PDS icon library by name (e.g. `arrow-right`, `close`).
-          * @default 'arrow-right'
-         */
-        "name"?: IconName;
-        /**
-          * Sets the icon size using the PDS typographic scale. Use `inherit` to derive size from the parent element. Supports responsive breakpoint values.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<IconSize>;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon library.
-         */
-        "source"?: string;
     }
     interface PInlineNotification {
         /**
@@ -3385,12 +3358,6 @@ declare global {
         prototype: HTMLPHeadingElement;
         new (): HTMLPHeadingElement;
     };
-    interface HTMLPIconElement extends Components.PIcon, HTMLStencilElement {
-    }
-    var HTMLPIconElement: {
-        prototype: HTMLPIconElement;
-        new (): HTMLPIconElement;
-    };
     interface HTMLPInlineNotificationElementEventMap {
         "dismiss": void;
         "action": void;
@@ -4118,7 +4085,6 @@ declare global {
         "p-fieldset": HTMLPFieldsetElement;
         "p-flyout": HTMLPFlyoutElement;
         "p-heading": HTMLPHeadingElement;
-        "p-icon": HTMLPIconElement;
         "p-inline-notification": HTMLPInlineNotificationElement;
         "p-input-date": HTMLPInputDateElement;
         "p-input-email": HTMLPInputEmailElement;
@@ -4907,31 +4873,6 @@ declare namespace LocalJSX {
           * @default 'normal'
          */
         "weight"?: HeadingWeight;
-    }
-    interface PIcon {
-        /**
-          * Sets ARIA attributes on the icon — use `aria-label` to make the icon meaningful to screen readers when it conveys information.
-         */
-        "aria"?: SelectedAriaAttributes<IconAriaAttribute>;
-        /**
-          * Sets the fill color of the icon using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: IconColor;
-        /**
-          * Selects an icon from the built-in PDS icon library by name (e.g. `arrow-right`, `close`).
-          * @default 'arrow-right'
-         */
-        "name"?: IconName;
-        /**
-          * Sets the icon size using the PDS typographic scale. Use `inherit` to derive size from the parent element. Supports responsive breakpoint values.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<IconSize>;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon library.
-         */
-        "source"?: string;
     }
     interface PInlineNotification {
         /**
@@ -7556,13 +7497,6 @@ declare namespace LocalJSX {
         "hyphens": HeadingHyphens;
         "ellipsis": boolean;
     }
-    interface PIconAttributes {
-        "name": IconName;
-        "source": string;
-        "color": IconColor;
-        "size": BreakpointCustomizable<IconSize>;
-        "aria": SelectedAriaAttributes<IconAriaAttribute>;
-    }
     interface PInlineNotificationAttributes {
         "heading": string;
         "headingTag": InlineNotificationHeadingTag;
@@ -8111,7 +8045,6 @@ declare namespace LocalJSX {
         "p-fieldset": Omit<PFieldset, keyof PFieldsetAttributes> & { [K in keyof PFieldset & keyof PFieldsetAttributes]?: PFieldset[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `attr:${K}`]?: PFieldsetAttributes[K] } & { [K in keyof PFieldset & keyof PFieldsetAttributes as `prop:${K}`]?: PFieldset[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-heading": Omit<PHeading, keyof PHeadingAttributes> & { [K in keyof PHeading & keyof PHeadingAttributes]?: PHeading[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `attr:${K}`]?: PHeadingAttributes[K] } & { [K in keyof PHeading & keyof PHeadingAttributes as `prop:${K}`]?: PHeading[K] };
-        "p-icon": Omit<PIcon, keyof PIconAttributes> & { [K in keyof PIcon & keyof PIconAttributes]?: PIcon[K] } & { [K in keyof PIcon & keyof PIconAttributes as `attr:${K}`]?: PIconAttributes[K] } & { [K in keyof PIcon & keyof PIconAttributes as `prop:${K}`]?: PIcon[K] };
         "p-inline-notification": Omit<PInlineNotification, keyof PInlineNotificationAttributes> & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes]?: PInlineNotification[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `attr:${K}`]?: PInlineNotificationAttributes[K] } & { [K in keyof PInlineNotification & keyof PInlineNotificationAttributes as `prop:${K}`]?: PInlineNotification[K] };
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-email": Omit<PInputEmail, keyof PInputEmailAttributes> & { [K in keyof PInputEmail & keyof PInputEmailAttributes]?: PInputEmail[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `attr:${K}`]?: PInputEmailAttributes[K] } & { [K in keyof PInputEmail & keyof PInputEmailAttributes as `prop:${K}`]?: PInputEmail[K] };
@@ -8216,7 +8149,6 @@ declare module "@stencil/core" {
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
             "p-heading": LocalJSX.IntrinsicElements["p-heading"] & JSXBase.HTMLAttributes<HTMLPHeadingElement>;
-            "p-icon": LocalJSX.IntrinsicElements["p-icon"] & JSXBase.HTMLAttributes<HTMLPIconElement>;
             "p-inline-notification": LocalJSX.IntrinsicElements["p-inline-notification"] & JSXBase.HTMLAttributes<HTMLPInlineNotificationElement>;
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-email": LocalJSX.IntrinsicElements["p-input-email"] & JSXBase.HTMLAttributes<HTMLPInputEmailElement>;
