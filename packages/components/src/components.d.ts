@@ -44,7 +44,6 @@ import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectTo
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
-import { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/switch-utils";
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
@@ -91,7 +90,6 @@ export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectTo
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
-export { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/switch-utils";
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
@@ -2295,46 +2293,6 @@ export namespace Components {
          */
         "state"?: StepperHorizontalItemState;
     }
-    /**
-     * @controlled {"props": ["checked"], "event": "update"}
-     */
-    interface PSwitch {
-        /**
-          * Sets the position of the slotted label relative to the switch toggle, either before (`start`) or after (`end`) it. Supports responsive breakpoint values.
-          * @default 'end'
-         */
-        "alignLabel"?: BreakpointCustomizable<SwitchAlignLabel>;
-        /**
-          * Reflects the switch's current on/off state and allows setting the initial checked value when the component first renders.
-          * @default false
-         */
-        "checked"?: boolean;
-        /**
-          * Reduces the switch size and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Prevents user interaction with the switch and blocks all click and keyboard events while it is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Disables the switch and shows a loading spinner to indicate an ongoing asynchronous toggle operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Expands the space between the switch toggle and its label to fill the full available width of the container. Supports responsive breakpoint values.
-          * @default false
-         */
-        "stretch"?: BreakpointCustomizable<boolean>;
-    }
     interface PTable {
         /**
           * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
@@ -2703,10 +2661,6 @@ export interface PSheetCustomEvent<T> extends CustomEvent<T> {
 export interface PStepperHorizontalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPStepperHorizontalElement;
-}
-export interface PSwitchCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPSwitchElement;
 }
 export interface PTableCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3410,26 +3364,6 @@ declare global {
         prototype: HTMLPStepperHorizontalItemElement;
         new (): HTMLPStepperHorizontalItemElement;
     };
-    interface HTMLPSwitchElementEventMap {
-        "update": SwitchUpdateEventDetail;
-    }
-    /**
-     * @controlled {"props": ["checked"], "event": "update"}
-     */
-    interface HTMLPSwitchElement extends Components.PSwitch, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPSwitchElementEventMap>(type: K, listener: (this: HTMLPSwitchElement, ev: PSwitchCustomEvent<HTMLPSwitchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPSwitchElementEventMap>(type: K, listener: (this: HTMLPSwitchElement, ev: PSwitchCustomEvent<HTMLPSwitchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPSwitchElement: {
-        prototype: HTMLPSwitchElement;
-        new (): HTMLPSwitchElement;
-    };
     interface HTMLPTableElementEventMap {
         "update": TableUpdateEventDetail;
     }
@@ -3627,7 +3561,6 @@ declare global {
         "p-sheet": HTMLPSheetElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
         "p-stepper-horizontal-item": HTMLPStepperHorizontalItemElement;
-        "p-switch": HTMLPSwitchElement;
         "p-table": HTMLPTableElement;
         "p-table-body": HTMLPTableBodyElement;
         "p-table-cell": HTMLPTableCellElement;
@@ -6117,50 +6050,6 @@ declare namespace LocalJSX {
          */
         "state"?: StepperHorizontalItemState;
     }
-    /**
-     * @controlled {"props": ["checked"], "event": "update"}
-     */
-    interface PSwitch {
-        /**
-          * Sets the position of the slotted label relative to the switch toggle, either before (`start`) or after (`end`) it. Supports responsive breakpoint values.
-          * @default 'end'
-         */
-        "alignLabel"?: BreakpointCustomizable<SwitchAlignLabel>;
-        /**
-          * Reflects the switch's current on/off state and allows setting the initial checked value when the component first renders.
-          * @default false
-         */
-        "checked"?: boolean;
-        /**
-          * Reduces the switch size and spacing for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Prevents user interaction with the switch and blocks all click and keyboard events while it is disabled.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Disables the switch and shows a loading spinner to indicate an ongoing asynchronous toggle operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Emitted when the user toggles the switch, carrying the new `checked` state in the event detail.
-         */
-        "onUpdate"?: (event: PSwitchCustomEvent<SwitchUpdateEventDetail>) => void;
-        /**
-          * Expands the space between the switch toggle and its label to fill the full available width of the container. Supports responsive breakpoint values.
-          * @default false
-         */
-        "stretch"?: BreakpointCustomizable<boolean>;
-    }
     interface PTable {
         /**
           * Sets a screen-reader-only accessible caption that describes the table's content; it is not visible in the browser. Use an element with `slot="caption"` for a visible caption instead.
@@ -6958,15 +6847,6 @@ declare namespace LocalJSX {
         "state": StepperHorizontalItemState;
         "disabled": boolean;
     }
-    interface PSwitchAttributes {
-        "alignLabel": BreakpointCustomizable<SwitchAlignLabel>;
-        "hideLabel": string;
-        "stretch": string;
-        "checked": boolean;
-        "disabled": boolean;
-        "loading": boolean;
-        "compact": boolean;
-    }
     interface PTableAttributes {
         "caption": string;
         "compact": boolean;
@@ -7074,7 +6954,6 @@ declare namespace LocalJSX {
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
         "p-stepper-horizontal-item": Omit<PStepperHorizontalItem, keyof PStepperHorizontalItemAttributes> & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes]?: PStepperHorizontalItem[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `attr:${K}`]?: PStepperHorizontalItemAttributes[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `prop:${K}`]?: PStepperHorizontalItem[K] };
-        "p-switch": Omit<PSwitch, keyof PSwitchAttributes> & { [K in keyof PSwitch & keyof PSwitchAttributes]?: PSwitch[K] } & { [K in keyof PSwitch & keyof PSwitchAttributes as `attr:${K}`]?: PSwitchAttributes[K] } & { [K in keyof PSwitch & keyof PSwitchAttributes as `prop:${K}`]?: PSwitch[K] };
         "p-table": Omit<PTable, keyof PTableAttributes> & { [K in keyof PTable & keyof PTableAttributes]?: PTable[K] } & { [K in keyof PTable & keyof PTableAttributes as `attr:${K}`]?: PTableAttributes[K] } & { [K in keyof PTable & keyof PTableAttributes as `prop:${K}`]?: PTable[K] };
         "p-table-body": PTableBody;
         "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
@@ -7193,10 +7072,6 @@ declare module "@stencil/core" {
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
             "p-stepper-horizontal": LocalJSX.IntrinsicElements["p-stepper-horizontal"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalElement>;
             "p-stepper-horizontal-item": LocalJSX.IntrinsicElements["p-stepper-horizontal-item"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalItemElement>;
-            /**
-             * @controlled {"props": ["checked"], "event": "update"}
-             */
-            "p-switch": LocalJSX.IntrinsicElements["p-switch"] & JSXBase.HTMLAttributes<HTMLPSwitchElement>;
             "p-table": LocalJSX.IntrinsicElements["p-table"] & JSXBase.HTMLAttributes<HTMLPTableElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
             "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
