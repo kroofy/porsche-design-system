@@ -519,6 +519,14 @@ export const config: Config = {
           src: './assets/p-table-head-cell.iife.js',
           dest: 'build/p-table-head-cell.iife.js',
         },
+        {
+          src: './assets/p-table-body.iife.js',
+          dest: 'assets/p-table-body.iife.js',
+        },
+        {
+          src: './assets/p-table-body.iife.js',
+          dest: 'build/p-table-body.iife.js',
+        },
       ],
     },
   ],
@@ -588,6 +596,7 @@ export const config: Config = {
     'p-table-head',
     'p-table-head-row',
     'p-table-head-cell',
+    'p-table-body',
   ],
   enableCache: true,
   rollupPlugins: {
