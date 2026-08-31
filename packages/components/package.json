@@ -83,6 +83,7 @@
     "build:lit-table-body": "node scripts/build-lit-table-body.mjs",
     "build:lit-table-row": "node scripts/build-lit-table-row.mjs",
     "build:lit-table-cell": "node scripts/build-lit-table-cell.mjs",
+    "build:lit-toast": "node scripts/build-lit-toast.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",

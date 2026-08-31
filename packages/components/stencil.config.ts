@@ -543,6 +543,14 @@ export const config: Config = {
           src: './assets/p-table-cell.iife.js',
           dest: 'build/p-table-cell.iife.js',
         },
+        {
+          src: './assets/p-toast.iife.js',
+          dest: 'assets/p-toast.iife.js',
+        },
+        {
+          src: './assets/p-toast.iife.js',
+          dest: 'build/p-toast.iife.js',
+        },
       ],
     },
   ],
@@ -615,6 +623,7 @@ export const config: Config = {
     'p-table-body',
     'p-table-row',
     'p-table-cell',
+    'p-toast',
   ],
   enableCache: true,
   rollupPlugins: {
