@@ -1,5 +1,5 @@
 1. Done predicate: every TAG_NAME in packages/shared/src/lib/tagNames.ts has a Mitosis .lite.tsx source; Stencil is gone from packages/components; selected targets generate from Mitosis; each public component has before/after pixel-diff 0.
-2. Selected Mitosis targets for the pilot: customElement, react, vue, angular. Do not keep Stencil as a compile target if the goal is to delete Stencil.
+2. Selected Mitosis targets: lit (playground host, useShadowDom true). Framework outputs now requested: react, vue, angular, svelte. customElement/webcomponent is dead. Do not keep Stencil as a compile target.
 3. Workers never rebase, never force-push, never run gt. One writer per branch. Coordinator never authors component code.
 4. Baseline screenshots of the live Stencil playground before any component rewrite. Do not edit the baseline harness to pass a diff.
 5. Pilot p-divider first. No fan-out until Mitosis compiles it and a screenshot compare exists. If Mitosis cannot express shadow DOM, JSS attachComponentCss, or breakpoint props, return a dead-end report instead of faking it.
