@@ -48,4 +48,5 @@ migrate-radio-group	migrate	done	cursor/mitosis-migration-41e6	3	1a878a21be	brie
 migrate-radio-group-option	migrate	done	cursor/mitosis-migration-41e6	3	e29c428d91	briefs/migrate-radio-group-option.md
 migrate-select	migrate	done	cursor/mitosis-migration-41e6	3	335b1f9ea3	briefs/migrate-select.md
 migrate-select-option	migrate	done	cursor/mitosis-migration-41e6	3	9d59840ac7	briefs/migrate-select-option.md
-migrate-optgroup	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-optgroup.md
+migrate-optgroup	migrate	done	cursor/mitosis-migration-41e6	3	392ec16105	briefs/migrate-optgroup.md
+migrate-multi-select	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-multi-select.md
