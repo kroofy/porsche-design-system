@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-pagination harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-pagination.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="current-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-strong)"
+    ></div>
+    <section id="default">
+      <lit-pagination total-items-count="500" items-per-page="25" active-page="1"></lit-pagination>
+    </section>
+    <section id="no-last">
+      <lit-pagination
+        total-items-count="500"
+        items-per-page="25"
+        active-page="1"
+        show-last-page="false"
+      ></lit-pagination>
+    </section>
+    <section id="hidden">
+      <lit-pagination hidden total-items-count="10" items-per-page="5" active-page="1"></lit-pagination>
+    </section>
+  </body>
+</html>
