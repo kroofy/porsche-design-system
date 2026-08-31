@@ -17,7 +17,6 @@ import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -34,7 +33,6 @@ export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -536,13 +534,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PStepperHorizontal {
-        /**
-          * The font size of the step labels.
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<StepperHorizontalSize>;
-    }
     interface PStepperHorizontalItem {
         /**
           * Disables the stepper-horizontal-item. No events will be triggered while disabled state is active.
@@ -653,10 +644,6 @@ export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPSheetElement;
-}
-export interface PStepperHorizontalCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPStepperHorizontalElement;
 }
 export interface PTableCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -868,23 +855,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPStepperHorizontalElementEventMap {
-        "update": StepperHorizontalUpdateEventDetail;
-    }
-    interface HTMLPStepperHorizontalElement extends Components.PStepperHorizontal, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPStepperHorizontalElementEventMap>(type: K, listener: (this: HTMLPStepperHorizontalElement, ev: PStepperHorizontalCustomEvent<HTMLPStepperHorizontalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPStepperHorizontalElementEventMap>(type: K, listener: (this: HTMLPStepperHorizontalElement, ev: PStepperHorizontalCustomEvent<HTMLPStepperHorizontalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPStepperHorizontalElement: {
-        prototype: HTMLPStepperHorizontalElement;
-        new (): HTMLPStepperHorizontalElement;
-    };
     interface HTMLPStepperHorizontalItemElement extends Components.PStepperHorizontalItem, HTMLStencilElement {
     }
     var HTMLPStepperHorizontalItemElement: {
@@ -980,7 +950,6 @@ declare global {
         "p-modal": HTMLPModalElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
-        "p-stepper-horizontal": HTMLPStepperHorizontalElement;
         "p-stepper-horizontal-item": HTMLPStepperHorizontalItemElement;
         "p-table": HTMLPTableElement;
         "p-table-body": HTMLPTableBodyElement;
@@ -1554,17 +1523,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PStepperHorizontal {
-        /**
-          * Emitted when active step is changed.
-         */
-        "onUpdate"?: (event: PStepperHorizontalCustomEvent<StepperHorizontalUpdateEventDetail>) => void;
-        /**
-          * The font size of the step labels.
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<StepperHorizontalSize>;
-    }
     interface PStepperHorizontalItem {
         /**
           * Disables the stepper-horizontal-item. No events will be triggered while disabled state is active.
@@ -1770,9 +1728,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PStepperHorizontalAttributes {
-        "size": BreakpointCustomizable<StepperHorizontalSize>;
-    }
     interface PStepperHorizontalItemAttributes {
         "state": StepperHorizontalItemState;
         "disabled": boolean;
@@ -1808,7 +1763,6 @@ declare namespace LocalJSX {
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
         "p-stepper-horizontal-item": Omit<PStepperHorizontalItem, keyof PStepperHorizontalItemAttributes> & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes]?: PStepperHorizontalItem[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `attr:${K}`]?: PStepperHorizontalItemAttributes[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `prop:${K}`]?: PStepperHorizontalItem[K] };
         "p-table": Omit<PTable, keyof PTableAttributes> & { [K in keyof PTable & keyof PTableAttributes]?: PTable[K] } & { [K in keyof PTable & keyof PTableAttributes as `attr:${K}`]?: PTableAttributes[K] } & { [K in keyof PTable & keyof PTableAttributes as `prop:${K}`]?: PTable[K] };
         "p-table-body": PTableBody;
@@ -1870,7 +1824,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-stepper-horizontal": LocalJSX.IntrinsicElements["p-stepper-horizontal"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalElement>;
             "p-stepper-horizontal-item": LocalJSX.IntrinsicElements["p-stepper-horizontal-item"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalItemElement>;
             "p-table": LocalJSX.IntrinsicElements["p-table"] & JSXBase.HTMLAttributes<HTMLPTableElement>;
             "p-table-body": LocalJSX.IntrinsicElements["p-table-body"] & JSXBase.HTMLAttributes<HTMLPTableBodyElement>;
