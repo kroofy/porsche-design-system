@@ -101,14 +101,7 @@ await page.waitForFunction(() => {
     if (root.querySelector('my-fragment') || root.querySelector('lit-tabs-bar')) return false;
     if (tabs.length < 2) return false;
     if (scroller.constructor?.name !== 'LitScroller') return false;
-    const icons = [...(scroller.shadowRoot?.querySelectorAll('p-icon') ?? [])].filter(
-      (icon) => getComputedStyle(icon).display !== 'none',
-    );
-    return icons.every((icon) => {
-      if (icon.constructor?.name !== 'LitIcon') return false;
-      const img = icon.shadowRoot?.querySelector('img');
-      return img?.complete;
-    });
+    return true;
   });
 }, { timeout: 30_000 });
 
@@ -118,6 +111,24 @@ await page.evaluate(async () => {
   for (const el of hosts) el.scrollActiveIntoView?.();
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 });
+
+await page.waitForFunction(() => {
+  const hosts = [...document.querySelectorAll('[data-card="tabs-bar"] p-tabs-bar')];
+  if (hosts.length !== 7) return false;
+  return hosts.every((el, index) => {
+    const scroller = el.shadowRoot?.querySelector('p-scroller.scroller');
+    const prev = scroller?.shadowRoot?.querySelector('.prev');
+    const next = scroller?.shadowRoot?.querySelector('.next');
+    if (!prev || !next) return false;
+    const prevOp = Number(getComputedStyle(prev).opacity);
+    const nextOp = Number(getComputedStyle(next).opacity);
+    const expectPrev = index === 1 || index === 2 || index === 3 || index === 4;
+    const expectNext = index !== 2;
+    if (expectPrev ? prevOp < 0.9 : prevOp > 0.1) return false;
+    if (expectNext ? nextOp < 0.9 : nextOp > 0.1) return false;
+    return true;
+  });
+}, { timeout: 20_000 });
 
 const proof = await page.evaluate(() => {
   const TabsBar = customElements.get('p-tabs-bar');

@@ -812,6 +812,10 @@
       if (!scroller || !tab || !scrollArea) return;
       const tabRect = tab.getBoundingClientRect();
       const areaRect = scrollArea.getBoundingClientRect();
+      if (tabRect.width === 0 || areaRect.width === 0) {
+        requestAnimationFrame(() => this.scrollActiveIntoView());
+        return;
+      }
       const delta = tabRect.left + tabRect.width / 2 - (areaRect.left + areaRect.width / 2);
       scrollArea.scrollTo({ left: scrollArea.scrollLeft + delta, behavior: "instant" });
     }
@@ -822,12 +826,12 @@
       super.connectedCallback();
       this._childObserver = new MutationObserver(() => {
         this.requestUpdate();
-        queueMicrotask(() => this.scrollActiveIntoView());
+        this.updateComplete.then(() => requestAnimationFrame(() => this.scrollActiveIntoView()));
       });
       this._childObserver.observe(this, { childList: true, characterData: true, subtree: true });
       queueMicrotask(() => {
         this.requestUpdate();
-        this.scrollActiveIntoView();
+        this.updateComplete.then(() => requestAnimationFrame(() => this.scrollActiveIntoView()));
       });
       this.addEventListener("click", this.onTabClick);
       this.addEventListener("keydown", this.onTabKeydown);
@@ -859,7 +863,6 @@
     }
     updated() {
       this.syncTabAria();
-      this.scrollActiveIntoView();
     }
     render() {
       const compact = !!this.isCompact;
