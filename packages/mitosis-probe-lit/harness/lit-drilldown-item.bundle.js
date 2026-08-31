@@ -721,7 +721,7 @@
       if (scroller && typeof scroller.scrollTo === "function") {
         scroller.scrollTo(0, 0);
       }
-      const slotted = this.querySelector("[slot=button]");
+      const slotted = this.querySelector(":scope > [slot=button]");
       if (slotted !== this._slottedButton) {
         this._slottedButton?.removeEventListener("click", this._onCascadeClick);
         this._slottedButton = slotted;
@@ -738,8 +738,8 @@
       const isPrimary = this.isPrimaryFlag;
       const isSecondary = this.isSecondaryFlag;
       const isCascade = this.isCascadeFlag;
-      const hasButton = !!this.querySelector("[slot=button]");
-      const hasHeader = !!this.querySelector("[slot=header]");
+      const hasButton = !!this.querySelector(":scope > [slot=button]");
+      const hasHeader = !!this.querySelector(":scope > [slot=header]");
       const cascade = hasButton ? b2`<slot name="button"></slot>` : b2`<p-button-pure class="button" type="button" size="medium" align-label="start" stretch="true" icon="arrow-head-right" ?inert=${isPrimary || isCascade} active=${isSecondary ? "true" : A} aria-expanded=${isSecondary ? "true" : "false"} @click=${this._onCascadeClick}>${label}</p-button-pure>`;
       const header = hasHeader ? b2`<slot name="header"></slot>` : b2`<h2>${label}</h2>`;
       return b2`<style .innerHTML="${this.cssText}"></style>${cascade}<p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" icon="arrow-left" hide-label='{"base":true,"s":false}' @click=${this._onBackClick}>${label}</p-button-pure>${header}<div class="drawer"><div class="scroller"><slot></slot></div></div>`;

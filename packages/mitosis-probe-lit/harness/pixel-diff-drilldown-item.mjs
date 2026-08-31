@@ -143,10 +143,10 @@ swap.slotsCopied = await page.evaluate(() =>
 );
 swap.namedSlots = await page.evaluate(() => {
   const withButton = [...document.querySelectorAll('[data-card="drilldown"] lit-drilldown-item')].filter((el) =>
-    el.querySelector('[slot="button"]'),
+    el.querySelector(':scope > [slot="button"]'),
   );
   const withHeader = [...document.querySelectorAll('[data-card="drilldown"] lit-drilldown-item')].filter((el) =>
-    el.querySelector('[slot="header"]'),
+    el.querySelector(':scope > [slot="header"]'),
   );
   return {
     buttonHosts: withButton.length,

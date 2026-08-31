@@ -101,7 +101,7 @@ if (!after.includes('connectedCallback()')) {
     if (scroller && typeof scroller.scrollTo === "function") {
       scroller.scrollTo(0, 0);
     }
-    const slotted = this.querySelector("[slot=button]");
+    const slotted = this.querySelector(":scope > [slot=button]");
     if (slotted !== this._slottedButton) {
       this._slottedButton?.removeEventListener("click", this._onCascadeClick);
       this._slottedButton = slotted;
@@ -125,8 +125,8 @@ after = after.replace(
     const isPrimary = this.isPrimaryFlag;
     const isSecondary = this.isSecondaryFlag;
     const isCascade = this.isCascadeFlag;
-    const hasButton = !!this.querySelector("[slot=button]");
-    const hasHeader = !!this.querySelector("[slot=header]");
+    const hasButton = !!this.querySelector(":scope > [slot=button]");
+    const hasHeader = !!this.querySelector(":scope > [slot=header]");
     const cascade = hasButton
       ? html\`<slot name="button"></slot>\`
       : html\`<p-button-pure class="button" type="button" size="medium" align-label="start" stretch="true" icon="arrow-head-right" ?inert=\${isPrimary || isCascade} active=\${isSecondary ? "true" : nothing} aria-expanded=\${isSecondary ? "true" : "false"} @click=\${this._onCascadeClick}>\${label}</p-button-pure>\`;
