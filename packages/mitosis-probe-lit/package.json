@@ -44,6 +44,7 @@
     "build:scroller": "mitosis build && node harness/strip-scroller-whitespace.mjs && if rg -q my-fragment output/lit/src/Scroller.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Scroller.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-scroller.bundle.js",
     "build:pin-code": "mitosis build && node harness/strip-pin-code-whitespace.mjs && if rg -q my-fragment output/lit/src/PinCode.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/PinCode.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-pin-code.bundle.js",
     "build:accordion": "mitosis build && node harness/strip-accordion-whitespace.mjs && if rg -q my-fragment output/lit/src/Accordion.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Accordion.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-accordion.bundle.js",
+    "build:segmented-control": "mitosis build && node harness/strip-segmented-control-whitespace.mjs && if rg -q my-fragment output/lit/src/SegmentedControl.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/SegmentedControl.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-segmented-control.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -84,6 +85,7 @@
     "verify:scroller": "node harness/verify-scroller.mjs",
     "verify:pin-code": "node harness/verify-pin-code.mjs",
     "verify:accordion": "node harness/verify-accordion.mjs",
+    "verify:segmented-control": "node harness/verify-segmented-control.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -123,7 +125,8 @@
     "pixel-diff:pagination": "node harness/pixel-diff-pagination.mjs",
     "pixel-diff:scroller": "node harness/pixel-diff-scroller.mjs",
     "pixel-diff:pin-code": "node harness/pixel-diff-pin-code.mjs",
-    "pixel-diff:accordion": "node harness/pixel-diff-accordion.mjs"
+    "pixel-diff:accordion": "node harness/pixel-diff-accordion.mjs",
+    "pixel-diff:segmented-control": "node harness/pixel-diff-segmented-control.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
