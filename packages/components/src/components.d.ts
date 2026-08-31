@@ -39,7 +39,6 @@ import { LinkPureAlignLabel, LinkPureAriaAttribute, LinkPureColor, LinkPureIcon,
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-import { ModelSignatureColor, ModelSignatureFetchPriority, ModelSignatureModel, ModelSignatureSize } from "./components/model-signature/model-signature-utils";
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PaginationInternationalization, PaginationUpdateEventDetail } from "./components/pagination/pagination-utils";
 import { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
@@ -98,7 +97,6 @@ export { LinkPureAlignLabel, LinkPureAriaAttribute, LinkPureColor, LinkPureIcon,
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
-export { ModelSignatureColor, ModelSignatureFetchPriority, ModelSignatureModel, ModelSignatureSize } from "./components/model-signature/model-signature-utils";
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PaginationInternationalization, PaginationUpdateEventDetail } from "./components/pagination/pagination-utils";
 export { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
@@ -2111,38 +2109,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PModelSignature {
-        /**
-          * Sets the fill color of the signature using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: ModelSignatureColor;
-        /**
-          * Sets the browser's fetch priority hint for the signature asset (`auto`, `high`, `low`).
-          * @default 'auto'
-         */
-        "fetchPriority"?: ModelSignatureFetchPriority;
-        /**
-          * Defers loading the signature until it enters the viewport to improve initial page performance.
-          * @default false
-         */
-        "lazy"?: boolean;
-        /**
-          * Selects the Porsche model whose typographic signature SVG is displayed.
-          * @default '911'
-         */
-        "model"?: ModelSignatureModel;
-        /**
-          * When enabled, adds invisible padding so all model signatures visually align to a consistent baseline.
-          * @default true
-         */
-        "safeZone"?: boolean;
-        /**
-          * Sets the display size of the signature using predefined PDS sizes. Use `inherit` with a CSS `width` or `height` on the host for custom sizing.
-          * @default 'small'
-         */
-        "size"?: ModelSignatureSize;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -3713,12 +3679,6 @@ declare global {
         prototype: HTMLPModalElement;
         new (): HTMLPModalElement;
     };
-    interface HTMLPModelSignatureElement extends Components.PModelSignature, HTMLStencilElement {
-    }
-    var HTMLPModelSignatureElement: {
-        prototype: HTMLPModelSignatureElement;
-        new (): HTMLPModelSignatureElement;
-    };
     interface HTMLPMultiSelectElementEventMap {
         "blur": void;
         "change": MultiSelectChangeEventDetail;
@@ -4176,7 +4136,6 @@ declare global {
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
-        "p-model-signature": HTMLPModelSignatureElement;
         "p-multi-select": HTMLPMultiSelectElement;
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
@@ -6407,38 +6366,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PModelSignature {
-        /**
-          * Sets the fill color of the signature using PDS color tokens.
-          * @default 'primary'
-         */
-        "color"?: ModelSignatureColor;
-        /**
-          * Sets the browser's fetch priority hint for the signature asset (`auto`, `high`, `low`).
-          * @default 'auto'
-         */
-        "fetchPriority"?: ModelSignatureFetchPriority;
-        /**
-          * Defers loading the signature until it enters the viewport to improve initial page performance.
-          * @default false
-         */
-        "lazy"?: boolean;
-        /**
-          * Selects the Porsche model whose typographic signature SVG is displayed.
-          * @default '911'
-         */
-        "model"?: ModelSignatureModel;
-        /**
-          * When enabled, adds invisible padding so all model signatures visually align to a consistent baseline.
-          * @default true
-         */
-        "safeZone"?: boolean;
-        /**
-          * Sets the display size of the signature using predefined PDS sizes. Use `inherit` with a CSS `width` or `height` on the host for custom sizing.
-          * @default 'small'
-         */
-        "size"?: ModelSignatureSize;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -7934,14 +7861,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<ModalAriaAttribute>;
     }
-    interface PModelSignatureAttributes {
-        "model": ModelSignatureModel;
-        "safeZone": boolean;
-        "fetchPriority": ModelSignatureFetchPriority;
-        "lazy": boolean;
-        "size": ModelSignatureSize;
-        "color": ModelSignatureColor;
-    }
     interface PMultiSelectAttributes {
         "label": string;
         "description": string;
@@ -8210,7 +8129,6 @@ declare namespace LocalJSX {
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
-        "p-model-signature": Omit<PModelSignature, keyof PModelSignatureAttributes> & { [K in keyof PModelSignature & keyof PModelSignatureAttributes]?: PModelSignature[K] } & { [K in keyof PModelSignature & keyof PModelSignatureAttributes as `attr:${K}`]?: PModelSignatureAttributes[K] } & { [K in keyof PModelSignature & keyof PModelSignatureAttributes as `prop:${K}`]?: PModelSignature[K] };
         "p-multi-select": Omit<PMultiSelect, keyof PMultiSelectAttributes> & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes]?: PMultiSelect[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `attr:${K}`]?: PMultiSelectAttributes[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `prop:${K}`]?: PMultiSelect[K] };
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
@@ -8323,7 +8241,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-modal": LocalJSX.IntrinsicElements["p-modal"] & JSXBase.HTMLAttributes<HTMLPModalElement>;
-            "p-model-signature": LocalJSX.IntrinsicElements["p-model-signature"] & JSXBase.HTMLAttributes<HTMLPModelSignatureElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
              */
