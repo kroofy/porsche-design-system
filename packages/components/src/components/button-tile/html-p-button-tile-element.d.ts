@@ -1,7 +1,7 @@
 /**
- * Stencil no longer owns p-button-tile. The playground tag is the Mitosis Lit
- * custom element from mitosis/button-tile/ButtonTile.lite.tsx.
- * This file stays so generateConstructorMap can still import class ButtonTile.
+ * Stencil --dev regenerates src/components.d.ts and drops HTMLPButtonTileElement
+ * after @Component is stripped. Keep the host type here so other files can still
+ * name p-button-tile hosts.
  */
 import type { HTMLStencilElement } from '@stencil/core/internal';
 import type { BreakpointCustomizable, ButtonAriaAttribute, SelectedAriaAttributes } from '../../types';
@@ -14,24 +14,7 @@ import type {
   ButtonTileWeight,
 } from './button-tile-utils';
 
-export class ButtonTile {
-  host!: HTMLElement;
-  size?: BreakpointCustomizable<ButtonTileSize> = 'medium';
-  weight?: BreakpointCustomizable<ButtonTileWeight> = 'semi-bold';
-  aspectRatio?: BreakpointCustomizable<ButtonTileAspectRatio> = '4/3';
-  label: string;
-  description: string;
-  align?: ButtonTileAlign = 'bottom';
-  gradient?: boolean = false;
-  compact?: BreakpointCustomizable<boolean> = false;
-  type?: ButtonTileType = 'submit';
-  disabled?: boolean = false;
-  loading?: boolean = false;
-  icon?: ButtonTileIcon = 'none';
-  iconSource?: string;
-  aria?: SelectedAriaAttributes<ButtonAriaAttribute>;
-  render(): void {}
-}
+export {};
 
 declare global {
   interface HTMLPButtonTileElement extends HTMLStencilElement {
