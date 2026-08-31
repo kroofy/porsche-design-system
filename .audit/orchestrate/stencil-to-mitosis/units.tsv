@@ -74,4 +74,5 @@ migrate-flyout	migrate	done	cursor/mitosis-migration-41e6	3	b49bbc9516	briefs/mi
 migrate-sheet	migrate	done	cursor/mitosis-migration-41e6	3	e98b7e33d4	briefs/migrate-sheet.md
 migrate-drilldown	migrate	done	cursor/mitosis-migration-41e6	3	919e9d5271	briefs/migrate-drilldown.md
 migrate-drilldown-item	migrate	done	cursor/mitosis-migration-41e6	3	84322dac41	briefs/migrate-drilldown-item.md
-migrate-drilldown-link	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-drilldown-link.md
+migrate-drilldown-link	migrate	done	cursor/mitosis-migration-41e6	3	432ed0bf80	briefs/migrate-drilldown-link.md
+migrate-carousel	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-carousel.md
