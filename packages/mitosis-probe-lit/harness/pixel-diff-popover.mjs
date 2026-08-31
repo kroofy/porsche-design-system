@@ -75,6 +75,15 @@ await page.evaluate(() => document.fonts.ready);
 await pauseCardAnimation(page);
 await page.waitForFunction(hostReady, { timeout: 30_000 });
 
+const stencilOpenPos = await page.evaluate(() =>
+  [...document.querySelectorAll('[data-card="popover"] p-popover')]
+    .filter((el) => el.getAttribute('open') === 'true' || el.open === true)
+    .map((el) => {
+      const pop = el.shadowRoot?.querySelector('[popover]');
+      return { left: pop?.style.left, top: pop?.style.top };
+    }),
+);
+
 const clipOf = async () => {
   const box = await page.locator('[data-card="popover"]').boundingBox();
   return {
@@ -106,6 +115,22 @@ const swap = await page.evaluate(() => {
 });
 await pauseCardAnimation(page);
 await page.waitForFunction(hostReady, { timeout: 30_000 });
+await page.waitForFunction(
+  (expected) => {
+    const actual = [...document.querySelectorAll('[data-card="popover"] lit-popover')]
+      .filter((el) => el.getAttribute('open') === 'true' || el.open === true)
+      .map((el) => {
+        const pop = el.shadowRoot?.querySelector('[popover]');
+        return { left: pop?.style.left, top: pop?.style.top };
+      });
+    return (
+      actual.length === expected.length &&
+      actual.every((row, i) => row.left === expected[i].left && row.top === expected[i].top)
+    );
+  },
+  stencilOpenPos,
+  { timeout: 15_000 },
+);
 await page.evaluate(async () => {
   await Promise.all(
     [...document.querySelectorAll('[data-card="popover"] lit-popover')].map((el) => el.updateComplete),
@@ -133,6 +158,15 @@ swap.slottedCopied = await page.evaluate(
     !!document.querySelector('[data-card="popover"] lit-popover > p-button-pure[slot="button"]') &&
     !!document.querySelector('[data-card="popover"] lit-popover > p-button[slot="button"]') &&
     !!document.querySelector('[data-card="popover"] lit-popover > p-text'),
+);
+swap.stencilOpenPos = stencilOpenPos;
+swap.litOpenPos = await page.evaluate(() =>
+  [...document.querySelectorAll('[data-card="popover"] lit-popover')]
+    .filter((el) => el.getAttribute('open') === 'true' || el.open === true)
+    .map((el) => {
+      const pop = el.shadowRoot?.querySelector('[popover]');
+      return { left: pop?.style.left, top: pop?.style.top };
+    }),
 );
 swap.openAttached = await page.evaluate(() => {
   const opens = [...document.querySelectorAll('[data-card="popover"] lit-popover[open]')];

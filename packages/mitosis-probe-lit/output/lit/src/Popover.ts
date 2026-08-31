@@ -227,17 +227,27 @@ export default class LitPopover extends LitElement {
     }
   }
 
-  updated() {
+  async updated() {
     const pop = this.renderRoot?.querySelector("[popover]");
     const open = this.effectiveOpen();
     if (pop) {
       if (open) {
-        if (!pop.matches(":popover-open")) pop.showPopover();
+        const nested = [...this.querySelectorAll("lit-popover, p-popover")];
+        await Promise.all(nested.map((el) => el.updateComplete).filter(Boolean));
+        if (pop.matches(":popover-open")) {
+          if (nested.length) {
+            pop.hidePopover();
+            pop.showPopover();
+          }
+        } else {
+          pop.showPopover();
+        }
       } else if (pop.matches(":popover-open")) {
         pop.hidePopover();
       }
     }
     this.syncAutoUpdate(open);
+    if (open) await this.positionPopover();
     this._isInitialRender = false;
   }
 
