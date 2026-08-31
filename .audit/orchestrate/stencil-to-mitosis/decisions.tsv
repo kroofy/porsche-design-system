@@ -60,3 +60,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T00:05:46Z	migrate	accepted p-text-list, spawned p-text-list-item	after PNG is byte-identical to Stencil text-list card, 31087 bytes	/opt/cursor/artifacts/mitosis_lit_text_list_after.png	live-ui-verified, probe tags 32, packages/components still 0/75
 2026-08-31T00:09:22Z	drain	tick: text-list-item worker exited after source commit 8ecc8ff920, no after PNG	resume same worker for pixel-diff	bc-4ed58d07 resumed	in flight
 2026-08-31T00:10:26Z	drain	tick: text-list-item verify still running, source 8ecc8ff920, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
+2026-08-31T00:12:30Z	migrate	accepted p-text-list-item, spawned p-ai-tag	after PNG is byte-identical to Stencil text-list card, 31087 bytes	/opt/cursor/artifacts/mitosis_lit_text_list_item_after.png	live-ui-verified, probe tags 33, packages/components still 0/75
