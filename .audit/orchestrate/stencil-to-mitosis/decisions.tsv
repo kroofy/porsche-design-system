@@ -129,3 +129,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T05:03:00Z	land	accepted land-flag, spawned land-model-signature	after PNG is byte-identical to stored Stencil flag baseline, 29543 bytes	/opt/cursor/artifacts/mitosis_land_flag_after.png	live-ui-verified, 4 real p- tags from Mitosis
 2026-08-31T05:09:00Z	land	accepted land-model-signature, spawned land-icon	after PNG is byte-identical to stored Stencil model-signature baseline, 66749 bytes	/opt/cursor/artifacts/mitosis_land_model_signature_after.png	live-ui-verified, 5 real p- tags from Mitosis
 2026-08-31T05:10:20Z	drain	tick: leftover timer for icon; worker running, no Icon.lite.tsx yet, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
+2026-08-31T05:16:00Z	land	accepted land-icon, spawned land-heading	after PNG is byte-identical to stored Stencil icon baseline, 35578 bytes	/opt/cursor/artifacts/mitosis_land_icon_after.png	live-ui-verified, 6 real p- tags from Mitosis
