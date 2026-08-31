@@ -44,4 +44,5 @@ migrate-pin-code	migrate	done	cursor/mitosis-migration-41e6	3	ae7b0de7ce	briefs/
 migrate-accordion	migrate	done	cursor/mitosis-migration-41e6	3	c1caf142cf	briefs/migrate-accordion.md
 migrate-segmented-control	migrate	done	cursor/mitosis-migration-41e6	3	68912a1f30	briefs/migrate-segmented-control.md
 migrate-segmented-control-item	migrate	done	cursor/mitosis-migration-41e6	3	813b1176bb	briefs/migrate-segmented-control-item.md
-migrate-radio-group	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-radio-group.md
+migrate-radio-group	migrate	done	cursor/mitosis-migration-41e6	3	1a878a21be	briefs/migrate-radio-group.md
+migrate-radio-group-option	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-radio-group-option.md
