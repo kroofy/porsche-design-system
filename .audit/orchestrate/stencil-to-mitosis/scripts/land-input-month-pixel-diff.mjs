@@ -38,7 +38,7 @@ page.on('pageerror', (err) => {
   consoleErrors.push(text);
 });
 
-await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
+await page.goto(PLAYGROUND_URL, { waitUntil: 'load', timeout: 30_000 });
 await page.waitForFunction(
   () =>
     customElements.get('p-input-month') &&
@@ -76,7 +76,7 @@ await page.waitForFunction(() => {
       return (
         !!el.shadowRoot?.querySelector('style') &&
         root?.localName === 'div' &&
-        input?.type === 'date' &&
+        input?.type === 'month' &&
         (input?.value?.length ?? 0) > 0 &&
         spinner?.localName === 'p-spinner' &&
         button?.localName === 'p-button-pure' &&
