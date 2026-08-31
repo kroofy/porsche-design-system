@@ -703,12 +703,13 @@
       const priceOriginal = this.priceOriginal ?? this.getAttribute("price-original") ?? this.getAttribute("priceoriginal") ?? "";
       const description = this.description ?? this.getAttribute("description") ?? "";
       const href = this.resolvedHref();
+      const hasHref = href !== A;
       const target = this.target ?? this.getAttribute("target") ?? "_self";
       const rel = this.rel ?? this.getAttribute("rel");
       const relAttr = rel && rel !== "undefined" ? rel : A;
       const liked = this.isLiked();
       const likeButton = this.showLikeButton();
-      const anchor = href ? b2`<a class="anchor" href=${href} target=${target} rel=${relAttr} aria-labelledby="heading price" aria-describedby="header description"></a>` : b2`<slot name="anchor"></slot>`;
+      const anchor = hasHref ? b2`<a class="anchor" href=${href} target=${target} rel=${relAttr} aria-labelledby="heading price" aria-describedby="header description"></a>` : b2`<slot name="anchor"></slot>`;
       const like = likeButton ? b2`<p-button-pure class="button" type="button" icon=${liked ? "heart-filled" : "heart"} hide-label="true">${liked ? "Remove from wishlist" : "Add to wishlist"}</p-button-pure>` : A;
       const priceEl = price ? priceOriginal && priceOriginal !== "undefined" ? b2`<p id="price" class="price"><span class="sr-only">sale price</span>${price}<span class="sr-only">original price</span><s>${priceOriginal}</s></p>` : b2`<p id="price" class="price">${price}</p>` : A;
       return b2`<div class="root"><style .innerHTML="${this.cssText}"></style>${anchor}<div id="header" class="header"><slot name="header"></slot>${like}</div><div class="image"><slot></slot></div><div class="wrapper">${heading ? b2`<h3 id="heading" class="heading">${heading}</h3>` : A}${priceEl}${description && description !== "undefined" ? b2`<p id="description" class="description">${description}</p>` : A}</div></div>`;

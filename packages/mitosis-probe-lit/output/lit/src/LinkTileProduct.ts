@@ -189,12 +189,13 @@ export default class LitLinkTileProduct extends LitElement {
     const priceOriginal = this.priceOriginal ?? this.getAttribute("price-original") ?? this.getAttribute("priceoriginal") ?? "";
     const description = this.description ?? this.getAttribute("description") ?? "";
     const href = this.resolvedHref();
+    const hasHref = href !== nothing;
     const target = this.target ?? this.getAttribute("target") ?? "_self";
     const rel = this.rel ?? this.getAttribute("rel");
     const relAttr = rel && rel !== "undefined" ? rel : nothing;
     const liked = this.isLiked();
     const likeButton = this.showLikeButton();
-    const anchor = href
+    const anchor = hasHref
       ? html`<a class="anchor" href=${href} target=${target} rel=${relAttr} aria-labelledby="heading price" aria-describedby="header description"></a>`
       : html`<slot name="anchor"></slot>`;
     const like = likeButton
