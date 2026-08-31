@@ -13,7 +13,6 @@ import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { ToastState } from "./components/toast/toast/toast-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
@@ -22,7 +21,6 @@ export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/dr
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
     /**
      * @experimental 
@@ -315,18 +313,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PToastItem {
-        /**
-          * Sets the visual and semantic state of the toast item, controlling its icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: ToastState;
-        /**
-          * Sets the notification message text displayed inside the toast item to inform the user about the outcome of an action.
-          * @default ''
-         */
-        "text"?: string;
-    }
 }
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -351,10 +337,6 @@ export interface PModalCustomEvent<T> extends CustomEvent<T> {
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPSheetElement;
-}
-export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPToastItemElement;
 }
 declare global {
     interface HTMLPCanvasElementEventMap {
@@ -505,23 +487,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPToastItemElementEventMap {
-        "dismiss": void;
-    }
-    interface HTMLPToastItemElement extends Components.PToastItem, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPToastItemElementEventMap>(type: K, listener: (this: HTMLPToastItemElement, ev: PToastItemCustomEvent<HTMLPToastItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPToastItemElementEventMap>(type: K, listener: (this: HTMLPToastItemElement, ev: PToastItemCustomEvent<HTMLPToastItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPToastItemElement: {
-        prototype: HTMLPToastItemElement;
-        new (): HTMLPToastItemElement;
-    };
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
@@ -531,7 +496,6 @@ declare global {
         "p-flyout": HTMLPFlyoutElement;
         "p-modal": HTMLPModalElement;
         "p-sheet": HTMLPSheetElement;
-        "p-toast-item": HTMLPToastItemElement;
     }
 }
 declare namespace LocalJSX {
@@ -882,22 +846,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PToastItem {
-        /**
-          * Emitted when the user clicks the close button on the toast item, signalling that it should be dismissed.
-         */
-        "onDismiss"?: (event: PToastItemCustomEvent<void>) => void;
-        /**
-          * Sets the visual and semantic state of the toast item, controlling its icon and color scheme (`info`, `warning`, `error`, `success`).
-          * @default 'info'
-         */
-        "state"?: ToastState;
-        /**
-          * Sets the notification message text displayed inside the toast item to inform the user about the outcome of an action.
-          * @default ''
-         */
-        "text"?: string;
-    }
 
     interface PCanvasAttributes {
         "sidebarStartOpen": boolean;
@@ -968,10 +916,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PToastItemAttributes {
-        "text": string;
-        "state": ToastState;
-    }
 
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
@@ -982,7 +926,6 @@ declare namespace LocalJSX {
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -1023,7 +966,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
         }
     }
 }
