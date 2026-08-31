@@ -119,6 +119,14 @@ export const config: Config = {
           src: './assets/p-tag-dismissible.iife.js',
           dest: 'build/p-tag-dismissible.iife.js',
         },
+        {
+          src: './assets/p-link-pure.iife.js',
+          dest: 'assets/p-link-pure.iife.js',
+        },
+        {
+          src: './assets/p-link-pure.iife.js',
+          dest: 'build/p-link-pure.iife.js',
+        },
       ],
     },
   ],
@@ -138,6 +146,7 @@ export const config: Config = {
     'p-spinner',
     'p-tag',
     'p-tag-dismissible',
+    'p-link-pure',
   ],
   enableCache: true,
   rollupPlugins: {
