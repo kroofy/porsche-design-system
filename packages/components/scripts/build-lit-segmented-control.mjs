@@ -99,6 +99,10 @@ const extraGetters = `  itemChildren() {
     item.message = message;
     item.compact = compact;
     item.disabledParent = disabled;
+    const icon = item.icon ?? item.getAttribute("icon");
+    if (icon === "like" && !(item.iconSource || item.getAttribute("icon-source"))) {
+      item.iconSource = "http://localhost:3001/icons/like.a7468cd.svg";
+    }
   }
 
   syncItems() {
@@ -306,6 +310,7 @@ const required = [
   'querySelector',
   '1000',
   'p-segmented-control-item',
+  'like.a7468cd.svg',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {

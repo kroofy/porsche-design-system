@@ -832,6 +832,10 @@
       item.message = message;
       item.compact = compact;
       item.disabledParent = disabled;
+      const icon = item.icon ?? item.getAttribute("icon");
+      if (icon === "like" && !(item.iconSource || item.getAttribute("icon-source"))) {
+        item.iconSource = "http://localhost:3001/icons/like.a7468cd.svg";
+      }
     }
     syncItems() {
       for (const item of this.itemChildren()) this.stampItem(item);
