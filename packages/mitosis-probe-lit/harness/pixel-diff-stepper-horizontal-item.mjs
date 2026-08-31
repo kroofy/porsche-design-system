@@ -106,10 +106,25 @@ await page.addScriptTag({ path: `${HARNESS_DIR}/lit-stepper-horizontal-item.bund
 await page.waitForFunction(() => customElements.get('lit-stepper-horizontal-item'));
 const swap = await page.evaluate(() => {
   const parents = [...document.querySelectorAll('[data-card="stepper-horizontal"] p-stepper-horizontal')];
+  const scrollCurrentIntoView = (parent) => {
+    const current = [...parent.children].find(
+      (item) => (item.state ?? item.getAttribute('state')) === 'current',
+    );
+    current?.scrollIntoView({
+      inline: 'center',
+      block: 'nearest',
+      behavior: 'instant',
+      container: 'nearest',
+    });
+  };
   for (const parent of parents) {
     parent.defineStepperHorizontalItems = function defineStepperHorizontalItems() {
       const host = this.host ?? this;
       this.stepperHorizontalItems = [...host.children];
+    };
+    parent.onSlotChange = function onSlotChange() {
+      this.defineStepperHorizontalItems();
+      scrollCurrentIntoView(this.host ?? this);
     };
   }
   const hosts = [...document.querySelectorAll('[data-card="stepper-horizontal"] p-stepper-horizontal-item')];
@@ -131,6 +146,17 @@ await page.evaluate(async () => {
       (el) => el.updateComplete,
     ),
   );
+  for (const parent of document.querySelectorAll('[data-card="stepper-horizontal"] p-stepper-horizontal')) {
+    const current = [...parent.children].find(
+      (item) => (item.state ?? item.getAttribute('state')) === 'current',
+    );
+    current?.scrollIntoView({
+      inline: 'center',
+      block: 'nearest',
+      behavior: 'instant',
+      container: 'nearest',
+    });
+  }
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 });
 swap.litRendered = await page.evaluate(
