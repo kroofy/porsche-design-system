@@ -351,6 +351,14 @@ export const config: Config = {
           src: './assets/p-segmented-control.iife.js',
           dest: 'build/p-segmented-control.iife.js',
         },
+        {
+          src: './assets/p-segmented-control-item.iife.js',
+          dest: 'assets/p-segmented-control-item.iife.js',
+        },
+        {
+          src: './assets/p-segmented-control-item.iife.js',
+          dest: 'build/p-segmented-control-item.iife.js',
+        },
       ],
     },
   ],
@@ -399,6 +407,7 @@ export const config: Config = {
     'p-pin-code',
     'p-accordion',
     'p-segmented-control',
+    'p-segmented-control-item',
   ],
   enableCache: true,
   rollupPlugins: {

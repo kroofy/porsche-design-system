@@ -59,6 +59,7 @@
     "build:lit-pin-code": "node scripts/build-lit-pin-code.mjs",
     "build:lit-accordion": "node scripts/build-lit-accordion.mjs",
     "build:lit-segmented-control": "node scripts/build-lit-segmented-control.mjs",
+    "build:lit-segmented-control-item": "node scripts/build-lit-segmented-control-item.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
     "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
