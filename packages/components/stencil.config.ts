@@ -295,6 +295,14 @@ export const config: Config = {
           src: './assets/p-ai-tag.iife.js',
           dest: 'build/p-ai-tag.iife.js',
         },
+        {
+          src: './assets/p-inline-notification.iife.js',
+          dest: 'assets/p-inline-notification.iife.js',
+        },
+        {
+          src: './assets/p-inline-notification.iife.js',
+          dest: 'build/p-inline-notification.iife.js',
+        },
       ],
     },
   ],
@@ -336,6 +344,7 @@ export const config: Config = {
     'p-text-list',
     'p-text-list-item',
     'p-ai-tag',
+    'p-inline-notification',
   ],
   enableCache: true,
   rollupPlugins: {

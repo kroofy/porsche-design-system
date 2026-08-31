@@ -1,6 +1,8 @@
 import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
 
-useMetadata({ tagName: 'p-inline-notification' });
+useMetadata({
+  tagName: 'p-inline-notification',
+});
 
 export default function LitInlineNotification(props: {
   heading?: string;
@@ -16,7 +18,7 @@ export default function LitInlineNotification(props: {
     get cssText(): string {
       const visual = props.state || 'info';
       const heading = props.heading || '';
-      const hasHeadingSlot = false;
+      const hasHeadingSlot = state.hasHeadingSlot;
       const hasHeading = !!(heading || hasHeadingSlot);
       const actionLabel = props.actionLabel || '';
       const hasAction = !!actionLabel;
@@ -112,6 +114,9 @@ export default function LitInlineNotification(props: {
       }
       return out;
     },
+    get hasHeadingSlot(): any {
+      return false;
+    },
     get headingText(): string {
       return props.heading || '';
     },
@@ -136,8 +141,8 @@ export default function LitInlineNotification(props: {
       if (dismiss === false || dismiss === 'false') return false;
       return true;
     },
-    get hasHeadingSlot(): any {
-      return false;
+    get hasAction(): any {
+      return !!(props.actionLabel || '');
     },
     get headingAria(): string {
       return props.heading || '';
