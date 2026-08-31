@@ -791,7 +791,7 @@
       tempDiv.style.border = "1px solid";
       tempDiv.style.boxSizing = "border-box";
       tempDiv.style.font = "normal normal 400 1rem/calc(6px + 2.125ex) Porsche Next, sans-serif";
-      const root = this.shadowRoot || this;
+      const root = document.body || this.shadowRoot || this;
       root.append(tempDiv);
       const widths = items.map((item) => {
         tempDiv.innerHTML = item.innerHTML;
@@ -814,7 +814,11 @@
         return Number.parseFloat(getComputedStyle(tempDiv).width);
       });
       tempDiv.remove();
-      return { minWidth: dimension, maxWidth: Math.max(...widths) };
+      const finite = widths.filter((w2) => Number.isFinite(w2));
+      if (!finite.length) return this._measured || { minWidth: dimension, maxWidth: 80 };
+      const next = { minWidth: dimension, maxWidth: Math.max(...finite) };
+      this._measured = next;
+      return next;
     }
     stampItem(item) {
       const value = this.value ?? this.getAttribute("value");

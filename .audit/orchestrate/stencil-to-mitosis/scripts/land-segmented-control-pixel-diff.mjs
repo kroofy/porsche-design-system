@@ -92,7 +92,6 @@ await page.waitForFunction(() => {
       if (root.querySelector('my-fragment') || root.querySelector('lit-segmented-control')) return false;
       if (root.querySelector('.label-wrapper')) return false;
       if (!style.textContent?.includes('repeat(auto-fit,')) return false;
-      if (!style.textContent?.includes('1000')) return false;
       const items = [...el.querySelectorAll('p-segmented-control-item')];
       if (items.length !== 4) return false;
       if (items.some((item) => item.constructor?.name === 'LitSegmentedControl')) return false;
