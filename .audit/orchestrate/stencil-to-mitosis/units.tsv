@@ -80,4 +80,5 @@ migrate-canvas	migrate	done	cursor/mitosis-migration-41e6	3	1cfcd3b96d	briefs/mi
 land-divider	land	done	cursor/mitosis-migration-41e6	3	eda1dbe65c	briefs/land-divider.md
 land-crest	land	done	cursor/mitosis-migration-41e6	3	61444dbf29	briefs/land-crest.md
 land-wordmark	land	done	cursor/mitosis-migration-41e6	3	07b5f09d0d	briefs/land-wordmark.md
-land-flag	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-flag.md
+land-flag	land	done	cursor/mitosis-migration-41e6	3	a1be5a7f85	briefs/land-flag.md
+land-model-signature	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-model-signature.md
