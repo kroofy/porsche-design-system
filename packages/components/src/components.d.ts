@@ -485,17 +485,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PMultiSelectOption {
-        /**
-          * Disables the option, preventing it from being selected.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the required option value submitted with the form data when selected. Must be a string or number.
-         */
-        "value": string | number;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -920,12 +909,6 @@ declare global {
         prototype: HTMLPModalElement;
         new (): HTMLPModalElement;
     };
-    interface HTMLPMultiSelectOptionElement extends Components.PMultiSelectOption, HTMLStencilElement {
-    }
-    var HTMLPMultiSelectOptionElement: {
-        prototype: HTMLPMultiSelectOptionElement;
-        new (): HTMLPMultiSelectOptionElement;
-    };
     interface HTMLPPopoverElementEventMap {
         "dismiss": PopoverDismissEventDetail;
     }
@@ -1124,7 +1107,6 @@ declare global {
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
-        "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-popover": HTMLPPopoverElement;
         "p-sheet": HTMLPSheetElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
@@ -1633,17 +1615,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PMultiSelectOption {
-        /**
-          * Disables the option, preventing it from being selected.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets the required option value submitted with the form data when selected. Must be a string or number.
-         */
-        "value"?: string | number;
-    }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
@@ -1996,10 +1967,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<ModalAriaAttribute>;
     }
-    interface PMultiSelectOptionAttributes {
-        "value": string;
-        "disabled": boolean;
-    }
     interface PPopoverAttributes {
         "open": boolean;
         "direction": PopoverDirection;
@@ -2069,7 +2036,6 @@ declare namespace LocalJSX {
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
-        "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
@@ -2129,7 +2095,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-modal": LocalJSX.IntrinsicElements["p-modal"] & JSXBase.HTMLAttributes<HTMLPModalElement>;
-            "p-multi-select-option": LocalJSX.IntrinsicElements["p-multi-select-option"] & JSXBase.HTMLAttributes<HTMLPMultiSelectOptionElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
