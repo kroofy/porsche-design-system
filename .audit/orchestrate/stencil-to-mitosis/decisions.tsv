@@ -133,3 +133,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T05:20:20Z	drain	tick: leftover timer for heading; worker running, source 7d8a28e367, no after PNG, no report	one writer	bc-4ed58d07 RUNNING	in flight
 2026-08-31T05:23:00Z	land	accepted land-heading, spawned land-text	after PNG is byte-identical to stored Stencil heading baseline, 55470 bytes	/opt/cursor/artifacts/mitosis_land_heading_after.png	live-ui-verified, 7 real p- tags from Mitosis
 2026-08-31T05:30:00Z	land	accepted land-text, spawned land-display	after PNG is byte-identical to stored Stencil text baseline, 55035 bytes	/opt/cursor/artifacts/mitosis_land_text_after.png	live-ui-verified, 8 real p- tags from Mitosis
+2026-08-31T05:34:00Z	land	accepted land-display, spawned land-spinner	after PNG is byte-identical to stored Stencil display baseline, 30525 bytes	/opt/cursor/artifacts/mitosis_land_display_after.png	live-ui-verified, 9 real p- tags from Mitosis
