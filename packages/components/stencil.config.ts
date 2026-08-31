@@ -503,6 +503,14 @@ export const config: Config = {
           src: './assets/p-table-head.iife.js',
           dest: 'build/p-table-head.iife.js',
         },
+        {
+          src: './assets/p-table-head-row.iife.js',
+          dest: 'assets/p-table-head-row.iife.js',
+        },
+        {
+          src: './assets/p-table-head-row.iife.js',
+          dest: 'build/p-table-head-row.iife.js',
+        },
       ],
     },
   ],
@@ -570,6 +578,7 @@ export const config: Config = {
     'p-popover',
     'p-table',
     'p-table-head',
+    'p-table-head-row',
   ],
   enableCache: true,
   rollupPlugins: {
