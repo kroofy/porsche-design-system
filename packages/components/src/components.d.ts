@@ -20,7 +20,6 @@ import { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 import { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 import { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 import { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-import { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
@@ -60,7 +59,6 @@ export { InlineNotificationActionIcon, InlineNotificationHeadingTag, InlineNotif
 export { InputDateBlurEventDetail, InputDateChangeEventDetail, InputDateInputEventDetail, InputDateState } from "./components/input-date/input-date-utils";
 export { InputMonthBlurEventDetail, InputMonthChangeEventDetail, InputMonthInputEventDetail, InputMonthState } from "./components/input-month/input-month-utils";
 export { InputNumberBlurEventDetail, InputNumberChangeEventDetail, InputNumberInputEventDetail, InputNumberState } from "./components/input-number/input-number-utils";
-export { InputTelBlurEventDetail, InputTelChangeEventDetail, InputTelInputEventDetail, InputTelState } from "./components/input-tel/input-tel-utils";
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
@@ -802,97 +800,6 @@ export namespace Components {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputTel {
-        /**
-          * Provides the browser with a phone number autofill hint (e.g. `autocomplete='tel'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows a phone icon at the start of the field as a visual indicator for telephone input.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name": string;
-        /**
-          * Sets a regular expression the entered value must match to be valid. Overrides the browser's default telephone validation.
-         */
-        "pattern"?: string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, such as an example phone number format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTelState;
-        /**
-          * Sets the current telephone number value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputTime {
         /**
@@ -2043,10 +1950,6 @@ export interface PInputNumberCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputNumberElement;
 }
-export interface PInputTelCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPInputTelElement;
-}
 export interface PInputTimeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPInputTimeElement;
@@ -2356,25 +2259,6 @@ declare global {
     var HTMLPInputNumberElement: {
         prototype: HTMLPInputNumberElement;
         new (): HTMLPInputNumberElement;
-    };
-    interface HTMLPInputTelElementEventMap {
-        "change": InputTelChangeEventDetail;
-        "blur": InputTelBlurEventDetail;
-        "input": InputTelInputEventDetail;
-    }
-    interface HTMLPInputTelElement extends Components.PInputTel, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPInputTelElementEventMap>(type: K, listener: (this: HTMLPInputTelElement, ev: PInputTelCustomEvent<HTMLPInputTelElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPInputTelElementEventMap>(type: K, listener: (this: HTMLPInputTelElement, ev: PInputTelCustomEvent<HTMLPInputTelElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPInputTelElement: {
-        prototype: HTMLPInputTelElement;
-        new (): HTMLPInputTelElement;
     };
     interface HTMLPInputTimeElementEventMap {
         "change": InputTimeChangeEventDetail;
@@ -2857,7 +2741,6 @@ declare global {
         "p-input-date": HTMLPInputDateElement;
         "p-input-month": HTMLPInputMonthElement;
         "p-input-number": HTMLPInputNumberElement;
-        "p-input-tel": HTMLPInputTelElement;
         "p-input-time": HTMLPInputTimeElement;
         "p-input-week": HTMLPInputWeekElement;
         "p-link-tile": HTMLPLinkTileElement;
@@ -3697,109 +3580,6 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string | number | null;
-    }
-    interface PInputTel {
-        /**
-          * Provides the browser with a phone number autofill hint (e.g. `autocomplete='tel'`).
-         */
-        "autoComplete"?: string;
-        /**
-          * Reduces the input height and padding for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to provide additional context.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Disables the field, preventing all input. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the field with a form element by its ID when the field is not nested directly inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Shows a phone icon at the start of the field as a visual indicator for telephone input.
-          * @default false
-         */
-        "indicator"?: boolean;
-        /**
-          * Sets the visible label text displayed above the input field.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the field and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the maximum number of characters the user can enter.
-         */
-        "maxLength"?: number;
-        /**
-          * Sets the validation feedback message displayed below the field when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the minimum number of characters required for the field to be considered valid.
-         */
-        "minLength"?: number;
-        /**
-          * Sets the name submitted with the form data to identify this field's value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the input loses focus, regardless of whether the value changed.
-         */
-        "onBlur"?: (event: PInputTelCustomEvent<InputTelBlurEventDetail>) => void;
-        /**
-          * Emitted when the input loses focus after its value was changed.
-         */
-        "onChange"?: (event: PInputTelCustomEvent<InputTelChangeEventDetail>) => void;
-        /**
-          * Emitted on every value change as the user types.
-         */
-        "onInput"?: (event: PInputTelCustomEvent<InputTelInputEventDetail>) => void;
-        /**
-          * Sets a regular expression the entered value must match to be valid. Overrides the browser's default telephone validation.
-         */
-        "pattern"?: string;
-        /**
-          * Sets placeholder text shown inside the field when it is empty, such as an example phone number format.
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
-          * Makes the field read-only — the value is displayed but cannot be edited. The value is still submitted with the form.
-          * @default false
-         */
-        "readOnly"?: boolean;
-        /**
-          * Marks the field as required — form submission is blocked while this field is empty.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: InputTelState;
-        /**
-          * Sets the current telephone number value of the field.
-          * @default ''
-         */
-        "value"?: string | null;
     }
     interface PInputTime {
         /**
@@ -5218,27 +4998,6 @@ declare namespace LocalJSX {
         "hideLabel": string;
         "controls": boolean;
     }
-    interface PInputTelAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "name": string;
-        "value": string | null;
-        "autoComplete": string;
-        "readOnly": boolean;
-        "form": string;
-        "maxLength": number;
-        "minLength": number;
-        "placeholder": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": InputTelState;
-        "indicator": boolean;
-        "message": string;
-        "hideLabel": string;
-        "pattern": string;
-    }
     interface PInputTimeAttributes {
         "label": string;
         "step": number;
@@ -5528,7 +5287,6 @@ declare namespace LocalJSX {
         "p-input-date": Omit<PInputDate, keyof PInputDateAttributes> & { [K in keyof PInputDate & keyof PInputDateAttributes]?: PInputDate[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `attr:${K}`]?: PInputDateAttributes[K] } & { [K in keyof PInputDate & keyof PInputDateAttributes as `prop:${K}`]?: PInputDate[K] };
         "p-input-month": Omit<PInputMonth, keyof PInputMonthAttributes> & { [K in keyof PInputMonth & keyof PInputMonthAttributes]?: PInputMonth[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `attr:${K}`]?: PInputMonthAttributes[K] } & { [K in keyof PInputMonth & keyof PInputMonthAttributes as `prop:${K}`]?: PInputMonth[K] };
         "p-input-number": Omit<PInputNumber, keyof PInputNumberAttributes> & { [K in keyof PInputNumber & keyof PInputNumberAttributes]?: PInputNumber[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `attr:${K}`]?: PInputNumberAttributes[K] } & { [K in keyof PInputNumber & keyof PInputNumberAttributes as `prop:${K}`]?: PInputNumber[K] };
-        "p-input-tel": Omit<PInputTel, keyof PInputTelAttributes> & { [K in keyof PInputTel & keyof PInputTelAttributes]?: PInputTel[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `attr:${K}`]?: PInputTelAttributes[K] } & { [K in keyof PInputTel & keyof PInputTelAttributes as `prop:${K}`]?: PInputTel[K] };
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-week": Omit<PInputWeek, keyof PInputWeekAttributes> & { [K in keyof PInputWeek & keyof PInputWeekAttributes]?: PInputWeek[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `attr:${K}`]?: PInputWeekAttributes[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `prop:${K}`]?: PInputWeek[K] };
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
@@ -5612,7 +5370,6 @@ declare module "@stencil/core" {
             "p-input-date": LocalJSX.IntrinsicElements["p-input-date"] & JSXBase.HTMLAttributes<HTMLPInputDateElement>;
             "p-input-month": LocalJSX.IntrinsicElements["p-input-month"] & JSXBase.HTMLAttributes<HTMLPInputMonthElement>;
             "p-input-number": LocalJSX.IntrinsicElements["p-input-number"] & JSXBase.HTMLAttributes<HTMLPInputNumberElement>;
-            "p-input-tel": LocalJSX.IntrinsicElements["p-input-tel"] & JSXBase.HTMLAttributes<HTMLPInputTelElement>;
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-week": LocalJSX.IntrinsicElements["p-input-week"] & JSXBase.HTMLAttributes<HTMLPInputWeekElement>;
             "p-link-tile": LocalJSX.IntrinsicElements["p-link-tile"] & JSXBase.HTMLAttributes<HTMLPLinkTileElement>;
