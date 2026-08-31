@@ -17,7 +17,6 @@ import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
-import { PaginationInternationalization, PaginationUpdateEventDetail } from "./components/pagination/pagination-utils";
 import { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
@@ -45,7 +44,6 @@ export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
-export { PaginationInternationalization, PaginationUpdateEventDetail } from "./components/pagination/pagination-utils";
 export { PinCodeChangeEventDetail, PinCodeLength, PinCodeState, PinCodeType } from "./components/pin-code/pin-code-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
@@ -633,36 +631,6 @@ export namespace Components {
           * Sets the visible group heading displayed above the grouped options.
          */
         "label"?: string;
-    }
-    /**
-     * @controlled { "props": ["activePage"], "event": "update", "isInternallyMutated": true }
-     */
-    interface PPagination {
-        /**
-          * Sets the one-based index of the currently active page; update this prop to navigate programmatically.
-          * @default 1
-         */
-        "activePage"?: number;
-        /**
-          * Overrides the default ARIA label strings used for the previous, next, and page number buttons to support localisation.
-          * @default {     root: 'Pagination',     prev: 'Previous page',     next: 'Next page',     page: 'Page',   }
-         */
-        "intl"?: PaginationInternationalization;
-        /**
-          * Sets the number of items displayed per page, used together with `totalItemsCount` to compute the page count.
-          * @default 1
-         */
-        "itemsPerPage": number;
-        /**
-          * Shows or hides the button that jumps directly to the last page of the pagination.
-          * @default true
-         */
-        "showLastPage"?: boolean;
-        /**
-          * Sets the total number of items in the dataset, used to calculate the number of pages.
-          * @default 1
-         */
-        "totalItemsCount": number;
     }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
@@ -1266,10 +1234,6 @@ export interface PMultiSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPMultiSelectElement;
 }
-export interface PPaginationCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPPaginationElement;
-}
 export interface PPinCodeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPPinCodeElement;
@@ -1527,26 +1491,6 @@ declare global {
     var HTMLPOptgroupElement: {
         prototype: HTMLPOptgroupElement;
         new (): HTMLPOptgroupElement;
-    };
-    interface HTMLPPaginationElementEventMap {
-        "update": PaginationUpdateEventDetail;
-    }
-    /**
-     * @controlled { "props": ["activePage"], "event": "update", "isInternallyMutated": true }
-     */
-    interface HTMLPPaginationElement extends Components.PPagination, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPPaginationElementEventMap>(type: K, listener: (this: HTMLPPaginationElement, ev: PPaginationCustomEvent<HTMLPPaginationElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPPaginationElementEventMap>(type: K, listener: (this: HTMLPPaginationElement, ev: PPaginationCustomEvent<HTMLPPaginationElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPPaginationElement: {
-        prototype: HTMLPPaginationElement;
-        new (): HTMLPPaginationElement;
     };
     interface HTMLPPinCodeElementEventMap {
         "blur": void;
@@ -1856,7 +1800,6 @@ declare global {
         "p-multi-select": HTMLPMultiSelectElement;
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
-        "p-pagination": HTMLPPaginationElement;
         "p-pin-code": HTMLPPinCodeElement;
         "p-popover": HTMLPPopoverElement;
         "p-radio-group": HTMLPRadioGroupElement;
@@ -2519,40 +2462,6 @@ declare namespace LocalJSX {
           * Sets the visible group heading displayed above the grouped options.
          */
         "label"?: string;
-    }
-    /**
-     * @controlled { "props": ["activePage"], "event": "update", "isInternallyMutated": true }
-     */
-    interface PPagination {
-        /**
-          * Sets the one-based index of the currently active page; update this prop to navigate programmatically.
-          * @default 1
-         */
-        "activePage"?: number;
-        /**
-          * Overrides the default ARIA label strings used for the previous, next, and page number buttons to support localisation.
-          * @default {     root: 'Pagination',     prev: 'Previous page',     next: 'Next page',     page: 'Page',   }
-         */
-        "intl"?: PaginationInternationalization;
-        /**
-          * Sets the number of items displayed per page, used together with `totalItemsCount` to compute the page count.
-          * @default 1
-         */
-        "itemsPerPage"?: number;
-        /**
-          * Emitted when the user navigates to a different page, carrying the new `activePage` index in the event detail.
-         */
-        "onUpdate"?: (event: PPaginationCustomEvent<PaginationUpdateEventDetail>) => void;
-        /**
-          * Shows or hides the button that jumps directly to the last page of the pagination.
-          * @default true
-         */
-        "showLastPage"?: boolean;
-        /**
-          * Sets the total number of items in the dataset, used to calculate the number of pages.
-          * @default 1
-         */
-        "totalItemsCount"?: number;
     }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
@@ -3332,13 +3241,6 @@ declare namespace LocalJSX {
         "label": string;
         "disabled": boolean;
     }
-    interface PPaginationAttributes {
-        "totalItemsCount": number;
-        "itemsPerPage": number;
-        "activePage": number;
-        "showLastPage": boolean;
-        "intl": PaginationInternationalization;
-    }
     interface PPinCodeAttributes {
         "label": string;
         "description": string;
@@ -3499,7 +3401,6 @@ declare namespace LocalJSX {
         "p-multi-select": Omit<PMultiSelect, keyof PMultiSelectAttributes> & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes]?: PMultiSelect[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `attr:${K}`]?: PMultiSelectAttributes[K] } & { [K in keyof PMultiSelect & keyof PMultiSelectAttributes as `prop:${K}`]?: PMultiSelect[K] };
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
-        "p-pagination": Omit<PPagination, keyof PPaginationAttributes> & { [K in keyof PPagination & keyof PPaginationAttributes]?: PPagination[K] } & { [K in keyof PPagination & keyof PPaginationAttributes as `attr:${K}`]?: PPaginationAttributes[K] } & { [K in keyof PPagination & keyof PPaginationAttributes as `prop:${K}`]?: PPagination[K] };
         "p-pin-code": Omit<PPinCode, keyof PPinCodeAttributes> & { [K in keyof PPinCode & keyof PPinCodeAttributes]?: PPinCode[K] } & { [K in keyof PPinCode & keyof PPinCodeAttributes as `attr:${K}`]?: PPinCodeAttributes[K] } & { [K in keyof PPinCode & keyof PPinCodeAttributes as `prop:${K}`]?: PPinCode[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
@@ -3577,10 +3478,6 @@ declare module "@stencil/core" {
             "p-multi-select": LocalJSX.IntrinsicElements["p-multi-select"] & JSXBase.HTMLAttributes<HTMLPMultiSelectElement>;
             "p-multi-select-option": LocalJSX.IntrinsicElements["p-multi-select-option"] & JSXBase.HTMLAttributes<HTMLPMultiSelectOptionElement>;
             "p-optgroup": LocalJSX.IntrinsicElements["p-optgroup"] & JSXBase.HTMLAttributes<HTMLPOptgroupElement>;
-            /**
-             * @controlled { "props": ["activePage"], "event": "update", "isInternallyMutated": true }
-             */
-            "p-pagination": LocalJSX.IntrinsicElements["p-pagination"] & JSXBase.HTMLAttributes<HTMLPPaginationElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
              */
