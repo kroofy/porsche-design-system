@@ -1,7 +1,7 @@
 /**
- * Stencil no longer owns p-link-tile. The playground tag is the Mitosis Lit
- * custom element from mitosis/link-tile/LinkTile.lite.tsx.
- * This file stays so generateConstructorMap can still import class LinkTile.
+ * Stencil --dev regenerates src/components.d.ts and drops HTMLPLinkTileElement
+ * after @Component is stripped. Keep the host type here so other files can still
+ * name p-link-tile hosts.
  */
 import type { HTMLStencilElement } from '@stencil/core/internal';
 import type { BreakpointCustomizable, SelectedAriaAttributes } from '../../types';
@@ -14,23 +14,7 @@ import type {
   LinkTileWeight,
 } from './link-tile-utils';
 
-export class LinkTile {
-  host!: HTMLElement;
-  size?: BreakpointCustomizable<LinkTileSize> = 'medium';
-  weight?: BreakpointCustomizable<LinkTileWeight> = 'semi-bold';
-  aspectRatio?: BreakpointCustomizable<LinkTileAspectRatio> = '4/3';
-  label: string;
-  description: string;
-  align?: LinkTileAlign = 'bottom';
-  gradient?: boolean = false;
-  compact?: BreakpointCustomizable<boolean> = false;
-  href: string;
-  target?: LinkTileTarget = '_self';
-  download?: string;
-  rel?: string;
-  aria?: SelectedAriaAttributes<LinkTileAriaAttribute>;
-  render(): void {}
-}
+export {};
 
 declare global {
   interface HTMLPLinkTileElement extends HTMLStencilElement {

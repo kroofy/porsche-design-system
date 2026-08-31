@@ -463,6 +463,14 @@ export const config: Config = {
           src: './assets/p-button-tile.iife.js',
           dest: 'build/p-button-tile.iife.js',
         },
+        {
+          src: './assets/p-link-tile.iife.js',
+          dest: 'assets/p-link-tile.iife.js',
+        },
+        {
+          src: './assets/p-link-tile.iife.js',
+          dest: 'build/p-link-tile.iife.js',
+        },
       ],
     },
   ],
@@ -525,6 +533,7 @@ export const config: Config = {
     'p-stepper-horizontal',
     'p-stepper-horizontal-item',
     'p-button-tile',
+    'p-link-tile',
   ],
   enableCache: true,
   rollupPlugins: {
