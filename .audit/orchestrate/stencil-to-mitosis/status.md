@@ -1,10 +1,10 @@
 # Orchestrate status
 
-Generated: 2026-08-31T00:19:09.158Z
+Generated: 2026-08-31T00:25:55.089Z
 
 ## Units
 
-States: done=37, in-progress=1
+States: done=38, in-progress=1
 
 | ID | Track | State | Branch | PR | SHA | Brief |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -45,11 +45,12 @@ States: done=37, in-progress=1
 | migrate-text-list | migrate | done | cursor/mitosis-migration-41e6 | 3 | e19a407efb | briefs/migrate-text-list.md |
 | migrate-text-list-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2a90289a53 | briefs/migrate-text-list-item.md |
 | migrate-ai-tag | migrate | done | cursor/mitosis-migration-41e6 | 3 | 946729dbd4 | briefs/migrate-ai-tag.md |
-| migrate-inline-notification | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-inline-notification.md |
+| migrate-inline-notification | migrate | done | cursor/mitosis-migration-41e6 | 3 | 7a9c018f8c | briefs/migrate-inline-notification.md |
+| migrate-banner | migrate | in-progress | cursor/mitosis-migration-41e6 | 3 |  | briefs/migrate-banner.md |
 
 ## Verification ledger
 
-Verdicts: live-ui-verified=35, verifier-failed=1
+Verdicts: live-ui-verified=36, verifier-failed=1
 
 | PR | SHA | Verdict | Evidence | Verifier | Timestamp |
 | --- | --- | --- | --- | --- | --- |
@@ -89,6 +90,7 @@ Verdicts: live-ui-verified=35, verifier-failed=1
 | 3 | e19a407efb | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_text_list_after.png | coordinator-byte-equal-png | 2026-08-31T00:05:46.193Z |
 | 3 | 2a90289a53 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_text_list_item_after.png | coordinator-byte-equal-png | 2026-08-31T00:12:30.078Z |
 | 3 | 946729dbd4 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_ai_tag_after.png | coordinator-byte-equal-png | 2026-08-31T00:19:09.054Z |
+| 3 | 7a9c018f8c | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_inline_notification_after.png | coordinator-byte-equal-png | 2026-08-31T00:25:54.991Z |
 
 ## Frontier
 
@@ -101,4 +103,4 @@ Lowest unmerged: none
 
 (none)
 
-<!-- orch-summary {"unitStates":{"done":37,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":35,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
+<!-- orch-summary {"unitStates":{"done":38,"in-progress":1},"ledgerVerdicts":{"live-ui-verified":36,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->
