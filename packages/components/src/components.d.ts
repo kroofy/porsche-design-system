@@ -18,7 +18,6 @@ import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDe
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-import { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -41,7 +40,6 @@ export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDe
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
 export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
-export { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -688,33 +686,6 @@ export namespace Components {
          */
         "value": string | number;
     }
-    interface PSegmentedControlItem {
-        /**
-          * Sets ARIA attributes on the item's button element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<SegmentedControlItemAriaAttribute>;
-        /**
-          * Prevents this item from being selected and visually dims it; the parent's value will not change to this item's value.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets an icon rendered inside the item button using an icon name from the PDS icon library.
-         */
-        "icon"?: SegmentedControlItemIcon;
-        /**
-          * Sets a URL to a custom SVG icon for the item button, overriding the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets a visible text label rendered inside the item button, used when no slotted content is provided.
-         */
-        "label"?: string;
-        /**
-          * Sets the value emitted by the parent `p-segmented-control` when this item is selected. This property is **required**.
-         */
-        "value": string | number;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -1281,12 +1252,6 @@ declare global {
         prototype: HTMLPRadioGroupOptionElement;
         new (): HTMLPRadioGroupOptionElement;
     };
-    interface HTMLPSegmentedControlItemElement extends Components.PSegmentedControlItem, HTMLStencilElement {
-    }
-    var HTMLPSegmentedControlItemElement: {
-        prototype: HTMLPSegmentedControlItemElement;
-        new (): HTMLPSegmentedControlItemElement;
-    };
     interface HTMLPSelectElementEventMap {
         "blur": void;
         "change": SelectChangeEventDetail;
@@ -1499,7 +1464,6 @@ declare global {
         "p-popover": HTMLPPopoverElement;
         "p-radio-group": HTMLPRadioGroupElement;
         "p-radio-group-option": HTMLPRadioGroupOptionElement;
-        "p-segmented-control-item": HTMLPSegmentedControlItemElement;
         "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
         "p-sheet": HTMLPSheetElement;
@@ -2228,33 +2192,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | number;
     }
-    interface PSegmentedControlItem {
-        /**
-          * Sets ARIA attributes on the item's button element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<SegmentedControlItemAriaAttribute>;
-        /**
-          * Prevents this item from being selected and visually dims it; the parent's value will not change to this item's value.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Sets an icon rendered inside the item button using an icon name from the PDS icon library.
-         */
-        "icon"?: SegmentedControlItemIcon;
-        /**
-          * Sets a URL to a custom SVG icon for the item button, overriding the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets a visible text label rendered inside the item button, used when no slotted content is provided.
-         */
-        "label"?: string;
-        /**
-          * Sets the value emitted by the parent `p-segmented-control` when this item is selected. This property is **required**.
-         */
-        "value"?: string | number;
-    }
     /**
      * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
      */
@@ -2716,14 +2653,6 @@ declare namespace LocalJSX {
         "disabled": boolean;
         "loading": boolean;
     }
-    interface PSegmentedControlItemAttributes {
-        "value": string;
-        "disabled": boolean;
-        "label": string;
-        "icon": SegmentedControlItemIcon;
-        "iconSource": string;
-        "aria": SelectedAriaAttributes<SegmentedControlItemAriaAttribute>;
-    }
     interface PSelectAttributes {
         "label": string;
         "description": string;
@@ -2811,7 +2740,6 @@ declare namespace LocalJSX {
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
         "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
         "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
-        "p-segmented-control-item": Omit<PSegmentedControlItem, keyof PSegmentedControlItemAttributes> & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes]?: PSegmentedControlItem[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `attr:${K}`]?: PSegmentedControlItemAttributes[K] } & { [K in keyof PSegmentedControlItem & keyof PSegmentedControlItemAttributes as `prop:${K}`]?: PSegmentedControlItem[K] };
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
@@ -2884,7 +2812,6 @@ declare module "@stencil/core" {
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
             "p-radio-group": LocalJSX.IntrinsicElements["p-radio-group"] & JSXBase.HTMLAttributes<HTMLPRadioGroupElement>;
             "p-radio-group-option": LocalJSX.IntrinsicElements["p-radio-group-option"] & JSXBase.HTMLAttributes<HTMLPRadioGroupOptionElement>;
-            "p-segmented-control-item": LocalJSX.IntrinsicElements["p-segmented-control-item"] & JSXBase.HTMLAttributes<HTMLPSegmentedControlItemElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
              */

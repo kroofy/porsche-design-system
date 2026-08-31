@@ -205,7 +205,7 @@ const failed =
   proof.hosts.some((h) => h.tag !== 'p-segmented-control' || h.className !== 'w-full' || h.ctor !== 'LitSegmentedControl') ||
   proof.items.some((item) => {
     return (
-      item.tag !== 'P-SEGMENTED-CONTROL-ITEM' ||
+      item.tag !== 'p-segmented-control-item' ||
       item.ctor !== 'LitSegmentedControlItem' ||
       !item.hasShadow ||
       !item.hasStyle ||
