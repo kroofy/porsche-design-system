@@ -124,3 +124,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T04:44:00Z	land	accepted land-divider, spawned land-crest	after PNG is byte-identical to stored Stencil divider baseline, 2641 bytes	/opt/cursor/artifacts/mitosis_land_divider_after.png	live-ui-verified, first real p- tag from Mitosis, packages/components still mostly Stencil
 2026-08-31T04:50:00Z	land	accepted land-crest, spawned land-wordmark	after PNG is byte-identical to stored Stencil crest baseline, 13322 bytes	/opt/cursor/artifacts/mitosis_land_crest_after.png	live-ui-verified, 2 real p- tags from Mitosis
 2026-08-31T04:50:20Z	drain	tick: leftover timer for wordmark; worker running, no Wordmark.lite.tsx yet, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
+2026-08-31T04:53:00Z	land	accepted land-wordmark, spawned land-flag	after PNG is byte-identical to stored Stencil wordmark baseline, 4162 bytes	/opt/cursor/artifacts/mitosis_land_wordmark_after.png	live-ui-verified, 3 real p- tags from Mitosis

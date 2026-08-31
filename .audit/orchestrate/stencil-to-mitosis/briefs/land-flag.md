@@ -1,0 +1,9 @@
+GOAL         Land p-flag from the Mitosis Lit probe into packages/components as the real p-flag tag. Pixel-diff 0 vs the stored Stencil flag playground baseline.
+SCOPE        May write: packages/components (flag source, stencil exclude, mitosis build wiring for flag only), packages/mitosis-probe-lit/src/Flag.lite.tsx if tagName must become p-flag, .audit/orchestrate/stencil-to-mitosis/reports/land-flag.md, /opt/cursor/artifacts/mitosis_land_flag_after.png. May not write: other TAG_NAME sources, packages/mitosis-probe/**, wholesale Stencil deletion, framework wrappers.
+CONTEXT      land-wordmark just passed: playground p-wordmark is Mitosis Lit, baseline byte-equal. Repeat that wiring for p-flag only. Playground: http://localhost:3333/?components=flag. Card [data-card="flag"]. Stored baseline: .audit/orchestrate/stencil-to-mitosis/baseline/stencil_flag_before.png or /opt/cursor/artifacts/stencil_flag_before.png. Own mitosis.config.js so prior lands are not regenerated. Strip @Component from flag.tsx and restart --dev so bootstrapLazy drops p-flag. Recipe cssText/shadow/no-fragments/alias still apply. Do not edit the baseline PNG. You are the only writer.
+ACCEPTANCE   Stencil no longer compiles flag as p-flag. Mitosis Lit emits @customElement("p-flag") with useShadowDom. rg my-fragment on generated Flag.ts is empty. Live playground card pixel-diff 0 vs stored baseline. Report written.
+VERIFY       Recipe pixel-diff. Viewport 1440x900 dsf 2. threshold 0 includeAA true.
+TIMEBOX      60 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no second tag land, no deleting the Stencil toolchain, no customElement/webcomponent targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.
