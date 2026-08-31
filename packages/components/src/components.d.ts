@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+import { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 import { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 import { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 import { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -31,7 +31,6 @@ import { InputTextBlurEventDetail, InputTextChangeEventDetail, InputTextInputEve
 import { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 import { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
 import { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
-import { LinkIcon, LinkVariant } from "./components/link/link-utils";
 import { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
@@ -56,7 +55,7 @@ import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventD
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
 export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
-export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, LinkAriaAttribute, LinkTarget, SelectedAriaAttributes, SelectedAriaRole } from "./types";
+export { BreakpointCustomizable, ButtonAriaAttribute, ButtonType, SelectedAriaAttributes, SelectedAriaRole } from "./types";
 export { AiTagLocale, AiTagVariant } from "./components/ai-tag/ai-tag-utils";
 export { BannerHeadingTag, BannerPosition, BannerState } from "./components/banner/banner-utils";
 export { ButtonIcon, ButtonVariant } from "./components/button/button-utils";
@@ -81,7 +80,6 @@ export { InputTextBlurEventDetail, InputTextChangeEventDetail, InputTextInputEve
 export { InputTimeBlurEventDetail, InputTimeChangeEventDetail, InputTimeInputEventDetail, InputTimeState } from "./components/input-time/input-time-utils";
 export { InputUrlBlurEventDetail, InputUrlChangeEventDetail, InputUrlInputEventDetail, InputUrlState } from "./components/input-url/input-url-utils";
 export { InputWeekBlurEventDetail, InputWeekChangeEventDetail, InputWeekInputEventDetail, InputWeekState } from "./components/input-week/input-week-utils";
-export { LinkIcon, LinkVariant } from "./components/link/link-utils";
 export { LinkTileAlign, LinkTileAriaAttribute, LinkTileAspectRatio, LinkTileSize, LinkTileTarget, LinkTileWeight } from "./components/link-tile/link-tile-utils";
 export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTileProductTarget } from "./components/link-tile-product/link-tile-product-utils";
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
@@ -1739,53 +1737,6 @@ export namespace Components {
          */
         "value"?: string | null;
     }
-    interface PLink {
-        /**
-          * Sets ARIA attributes on the link element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<LinkAriaAttribute>;
-        /**
-          * Reduces the link's padding and height for denser layouts. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the native `download` attribute to trigger a file download. Only applies when `href` is set.
-         */
-        "download"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * When set, the component renders as an anchor navigating to this URL. Otherwise, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Sets the icon displayed next to the link label. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: LinkIcon;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`). Only applies when `href` is set.
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: LinkTarget;
-        /**
-          * Sets the visual style variant of the link (`primary` or `secondary`).
-          * @default 'primary'
-         */
-        "variant"?: LinkVariant;
-    }
     interface PLinkTile {
         /**
           * Controls the vertical placement of the description and link — `top` or `bottom`.
@@ -3335,12 +3286,6 @@ declare global {
         prototype: HTMLPInputWeekElement;
         new (): HTMLPInputWeekElement;
     };
-    interface HTMLPLinkElement extends Components.PLink, HTMLStencilElement {
-    }
-    var HTMLPLinkElement: {
-        prototype: HTMLPLinkElement;
-        new (): HTMLPLinkElement;
-    };
     interface HTMLPLinkTileElement extends Components.PLinkTile, HTMLStencilElement {
     }
     var HTMLPLinkTileElement: {
@@ -3815,7 +3760,6 @@ declare global {
         "p-input-time": HTMLPInputTimeElement;
         "p-input-url": HTMLPInputUrlElement;
         "p-input-week": HTMLPInputWeekElement;
-        "p-link": HTMLPLinkElement;
         "p-link-tile": HTMLPLinkTileElement;
         "p-link-tile-product": HTMLPLinkTileProductElement;
         "p-modal": HTMLPModalElement;
@@ -5675,53 +5619,6 @@ declare namespace LocalJSX {
          */
         "value"?: string | null;
     }
-    interface PLink {
-        /**
-          * Sets ARIA attributes on the link element to improve accessibility for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<LinkAriaAttribute>;
-        /**
-          * Reduces the link's padding and height for denser layouts. Supports responsive breakpoint values.
-          * @default false
-         */
-        "compact"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the native `download` attribute to trigger a file download. Only applies when `href` is set.
-         */
-        "download"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * When set, the component renders as an anchor navigating to this URL. Otherwise, provide a slotted anchor element.
-         */
-        "href"?: string;
-        /**
-          * Sets the icon displayed next to the link label. Use `none` to show no icon.
-          * @default 'none'
-         */
-        "icon"?: LinkIcon;
-        /**
-          * Sets a path to a custom SVG icon, used instead of the built-in icon set.
-         */
-        "iconSource"?: string;
-        /**
-          * Sets the `rel` attribute on the link (e.g. `noopener`). Only applies when `href` is set.
-         */
-        "rel"?: string;
-        /**
-          * Specifies where to open the linked URL (e.g. `_self`, `_blank`). Only applies when `href` is set.
-          * @default '_self'
-         */
-        "target"?: LinkTarget;
-        /**
-          * Sets the visual style variant of the link (`primary` or `secondary`).
-          * @default 'primary'
-         */
-        "variant"?: LinkVariant;
-    }
     interface PLinkTile {
         /**
           * Controls the vertical placement of the description and link — `top` or `bottom`.
@@ -7207,18 +7104,6 @@ declare namespace LocalJSX {
         "message": string;
         "hideLabel": string;
     }
-    interface PLinkAttributes {
-        "variant": LinkVariant;
-        "icon": LinkIcon;
-        "iconSource": string;
-        "href": string;
-        "target": LinkTarget;
-        "download": string;
-        "rel": string;
-        "hideLabel": string;
-        "compact": string;
-        "aria": SelectedAriaAttributes<LinkAriaAttribute>;
-    }
     interface PLinkTileAttributes {
         "size": BreakpointCustomizable<LinkTileSize>;
         "weight": BreakpointCustomizable<LinkTileWeight>;
@@ -7490,7 +7375,6 @@ declare namespace LocalJSX {
         "p-input-time": Omit<PInputTime, keyof PInputTimeAttributes> & { [K in keyof PInputTime & keyof PInputTimeAttributes]?: PInputTime[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `attr:${K}`]?: PInputTimeAttributes[K] } & { [K in keyof PInputTime & keyof PInputTimeAttributes as `prop:${K}`]?: PInputTime[K] };
         "p-input-url": Omit<PInputUrl, keyof PInputUrlAttributes> & { [K in keyof PInputUrl & keyof PInputUrlAttributes]?: PInputUrl[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `attr:${K}`]?: PInputUrlAttributes[K] } & { [K in keyof PInputUrl & keyof PInputUrlAttributes as `prop:${K}`]?: PInputUrl[K] };
         "p-input-week": Omit<PInputWeek, keyof PInputWeekAttributes> & { [K in keyof PInputWeek & keyof PInputWeekAttributes]?: PInputWeek[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `attr:${K}`]?: PInputWeekAttributes[K] } & { [K in keyof PInputWeek & keyof PInputWeekAttributes as `prop:${K}`]?: PInputWeek[K] };
-        "p-link": Omit<PLink, keyof PLinkAttributes> & { [K in keyof PLink & keyof PLinkAttributes]?: PLink[K] } & { [K in keyof PLink & keyof PLinkAttributes as `attr:${K}`]?: PLinkAttributes[K] } & { [K in keyof PLink & keyof PLinkAttributes as `prop:${K}`]?: PLink[K] };
         "p-link-tile": Omit<PLinkTile, keyof PLinkTileAttributes> & { [K in keyof PLinkTile & keyof PLinkTileAttributes]?: PLinkTile[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `attr:${K}`]?: PLinkTileAttributes[K] } & { [K in keyof PLinkTile & keyof PLinkTileAttributes as `prop:${K}`]?: PLinkTile[K] };
         "p-link-tile-product": Omit<PLinkTileProduct, keyof PLinkTileProductAttributes> & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes]?: PLinkTileProduct[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `attr:${K}`]?: PLinkTileProductAttributes[K] } & { [K in keyof PLinkTileProduct & keyof PLinkTileProductAttributes as `prop:${K}`]?: PLinkTileProduct[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
@@ -7584,7 +7468,6 @@ declare module "@stencil/core" {
             "p-input-time": LocalJSX.IntrinsicElements["p-input-time"] & JSXBase.HTMLAttributes<HTMLPInputTimeElement>;
             "p-input-url": LocalJSX.IntrinsicElements["p-input-url"] & JSXBase.HTMLAttributes<HTMLPInputUrlElement>;
             "p-input-week": LocalJSX.IntrinsicElements["p-input-week"] & JSXBase.HTMLAttributes<HTMLPInputWeekElement>;
-            "p-link": LocalJSX.IntrinsicElements["p-link"] & JSXBase.HTMLAttributes<HTMLPLinkElement>;
             "p-link-tile": LocalJSX.IntrinsicElements["p-link-tile"] & JSXBase.HTMLAttributes<HTMLPLinkTileElement>;
             /**
              * @controlled {"props": ["liked"], "event": "like"}
