@@ -40,4 +40,5 @@ migrate-inline-notification	migrate	done	cursor/mitosis-migration-41e6	3	7a9c018
 migrate-banner	migrate	done	cursor/mitosis-migration-41e6	3	0d5748bd59	briefs/migrate-banner.md
 migrate-pagination	migrate	done	cursor/mitosis-migration-41e6	3	b534672020	briefs/migrate-pagination.md
 migrate-scroller	migrate	done	cursor/mitosis-migration-41e6	3	49829db8e5	briefs/migrate-scroller.md
-migrate-pin-code	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-pin-code.md
+migrate-pin-code	migrate	done	cursor/mitosis-migration-41e6	3	ae7b0de7ce	briefs/migrate-pin-code.md
+migrate-accordion	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-accordion.md
