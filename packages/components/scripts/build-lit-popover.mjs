@@ -40,7 +40,10 @@ const extraMethods = `  _isInitialRender = true;
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("click", this._onHostClick);
     this.addEventListener("slotchange", () => this.requestUpdate());
-    queueMicrotask(() => this.requestUpdate());
+    queueMicrotask(() => {
+      this.stampSlottedIcons();
+      this.requestUpdate();
+    });
   }
 
   disconnectedCallback() {
@@ -80,6 +83,16 @@ const extraMethods = `  _isInitialRender = true;
 
   hasSlottedButton() {
     return !!this.querySelector('[slot="button"]');
+  }
+
+  stampSlottedIcons() {
+    const files = { information: "information.da41162.svg" };
+    for (const el of this.querySelectorAll('[slot="button"]')) {
+      const icon = el.icon ?? el.getAttribute("icon");
+      if (files[icon] && !(el.iconSource || el.getAttribute("icon-source"))) {
+        el.iconSource = "http://localhost:3001/icons/" + files[icon];
+      }
+    }
   }
 
   triggerElement() {
@@ -158,6 +171,7 @@ const extraMethods = `  _isInitialRender = true;
   }
 
   async updated() {
+    this.stampSlottedIcons();
     const pop = this.renderRoot?.querySelector("[popover]");
     const open = this.effectiveOpen();
     if (pop) {
@@ -249,6 +263,8 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
+  'information.da41162.svg',
+  'stampSlottedIcons',
   'computePosition',
   'autoUpdate',
   'cssText',
