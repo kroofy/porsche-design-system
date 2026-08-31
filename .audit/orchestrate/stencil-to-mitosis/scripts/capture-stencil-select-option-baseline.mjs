@@ -122,7 +122,7 @@ async function main() {
         customElements.get('p-icon'),
       { timeout: 20_000 },
     );
-    await page.waitForSelector('[data-card="select"] p-select-option.hydrated', { timeout: 20_000 });
+    await page.waitForSelector('[data-card="select"] p-select-option.hydrated', { timeout: 20_000, state: 'attached' });
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({
       content: ':root { --p-animation-duration: 0s !important; --p-transition-duration: 0s !important; }',

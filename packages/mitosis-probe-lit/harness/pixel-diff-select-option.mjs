@@ -95,7 +95,7 @@ await page.waitForFunction(
     customElements.get('p-icon'),
   { timeout: 20_000 },
 );
-await page.waitForSelector('[data-card="select"] p-select-option.hydrated', { timeout: 20_000 });
+await page.waitForSelector('[data-card="select"] p-select-option.hydrated', { timeout: 20_000, state: 'attached' });
 await page.evaluate(() => document.fonts.ready);
 await pauseCardAnimation(page);
 await page.waitForFunction(hostReady, { timeout: 30_000 });
