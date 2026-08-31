@@ -5,7 +5,6 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
@@ -30,7 +29,6 @@ import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, Tab
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
 import { ToastState } from "./components/toast/toast/toast-utils";
-export { AccordionAlignMarker, AccordionBackground, AccordionHeadingTag, AccordionSize, AccordionUpdateEventDetail } from "./components/accordion/accordion-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
@@ -56,52 +54,6 @@ export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEven
 export { ToastMessage } from "./components/toast/toast/toast-manager";
 export { ToastState } from "./components/toast/toast/toast-utils";
 export namespace Components {
-    /**
-     * @controlled {"props": ["open"], "event": "update"}
-     */
-    interface PAccordion {
-        /**
-          * Positions the expand/collapse marker icon at the start or end of the summary section.
-          * @default 'end'
-         */
-        "alignMarker"?: AccordionAlignMarker;
-        /**
-          * Sets the background color of the accordion panel. Use `frosted` only when placed on images, videos, or gradients.
-          * @default 'none'
-         */
-        "background"?: AccordionBackground;
-        /**
-          * Reduces padding and spacing for a more compact layout, useful in space-constrained interfaces.
-         */
-        "compact"?: boolean;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Sets the heading text within the summary section.
-         */
-        "heading"?: string;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Sets the heading tag for proper semantic structure within the page.
-          * @default 'h2'
-         */
-        "headingTag"?: AccordionHeadingTag;
-        /**
-          * Indents the slotted content to be vertically aligned with the text of the summary section.
-          * @default false
-         */
-        "indent"?: BreakpointCustomizable<boolean>;
-        /**
-          * Controls whether the accordion is open or closed.
-         */
-        "open"?: boolean;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Controls the heading size in the summary section (only applies when using the `heading` prop or `heading` slot).
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<AccordionSize>;
-        /**
-          * @experimental Makes the summary section sticky at the top while scrolling. Only works with `background="canvas"` or `background="surface"`. Not compatible with `summary-before` or `summary-after` slots.
-         */
-        "sticky"?: boolean;
-    }
     interface PButtonTile {
         /**
           * Controls the vertical placement of the description and button — `top` or `bottom`.
@@ -1096,10 +1048,6 @@ export namespace Components {
         "text"?: string;
     }
 }
-export interface PAccordionCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPAccordionElement;
-}
 export interface PCanvasCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPCanvasElement;
@@ -1169,26 +1117,6 @@ export interface PToastItemCustomEvent<T> extends CustomEvent<T> {
     target: HTMLPToastItemElement;
 }
 declare global {
-    interface HTMLPAccordionElementEventMap {
-        "update": AccordionUpdateEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "update"}
-     */
-    interface HTMLPAccordionElement extends Components.PAccordion, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPAccordionElementEventMap>(type: K, listener: (this: HTMLPAccordionElement, ev: PAccordionCustomEvent<HTMLPAccordionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPAccordionElementEventMap>(type: K, listener: (this: HTMLPAccordionElement, ev: PAccordionCustomEvent<HTMLPAccordionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPAccordionElement: {
-        prototype: HTMLPAccordionElement;
-        new (): HTMLPAccordionElement;
-    };
     interface HTMLPButtonTileElement extends Components.PButtonTile, HTMLStencilElement {
     }
     var HTMLPButtonTileElement: {
@@ -1649,7 +1577,6 @@ declare global {
         new (): HTMLPToastItemElement;
     };
     interface HTMLElementTagNameMap {
-        "p-accordion": HTMLPAccordionElement;
         "p-button-tile": HTMLPButtonTileElement;
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
@@ -1688,56 +1615,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    /**
-     * @controlled {"props": ["open"], "event": "update"}
-     */
-    interface PAccordion {
-        /**
-          * Positions the expand/collapse marker icon at the start or end of the summary section.
-          * @default 'end'
-         */
-        "alignMarker"?: AccordionAlignMarker;
-        /**
-          * Sets the background color of the accordion panel. Use `frosted` only when placed on images, videos, or gradients.
-          * @default 'none'
-         */
-        "background"?: AccordionBackground;
-        /**
-          * Reduces padding and spacing for a more compact layout, useful in space-constrained interfaces.
-         */
-        "compact"?: boolean;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Sets the heading text within the summary section.
-         */
-        "heading"?: string;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Sets the heading tag for proper semantic structure within the page.
-          * @default 'h2'
-         */
-        "headingTag"?: AccordionHeadingTag;
-        /**
-          * Indents the slotted content to be vertically aligned with the text of the summary section.
-          * @default false
-         */
-        "indent"?: BreakpointCustomizable<boolean>;
-        /**
-          * Emitted when the user toggles the accordion open or closed, with the new open state in the event detail.
-         */
-        "onUpdate"?: (event: PAccordionCustomEvent<AccordionUpdateEventDetail>) => void;
-        /**
-          * Controls whether the accordion is open or closed.
-         */
-        "open"?: boolean;
-        /**
-          * @deprecated Will be removed in the next major release. Use the `summary` slot instead. Controls the heading size in the summary section (only applies when using the `heading` prop or `heading` slot).
-          * @default 'small'
-         */
-        "size"?: BreakpointCustomizable<AccordionSize>;
-        /**
-          * @experimental Makes the summary section sticky at the top while scrolling. Only works with `background="canvas"` or `background="surface"`. Not compatible with `summary-before` or `summary-after` slots.
-         */
-        "sticky"?: boolean;
-    }
     interface PButtonTile {
         /**
           * Controls the vertical placement of the description and button — `top` or `bottom`.
@@ -2855,17 +2732,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
 
-    interface PAccordionAttributes {
-        "open": boolean;
-        "alignMarker": AccordionAlignMarker;
-        "background": AccordionBackground;
-        "compact": boolean;
-        "indent": string;
-        "size": BreakpointCustomizable<AccordionSize>;
-        "heading": string;
-        "headingTag": AccordionHeadingTag;
-        "sticky": boolean;
-    }
     interface PButtonTileAttributes {
         "size": BreakpointCustomizable<ButtonTileSize>;
         "weight": BreakpointCustomizable<ButtonTileWeight>;
@@ -3114,7 +2980,6 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
-        "p-accordion": Omit<PAccordion, keyof PAccordionAttributes> & { [K in keyof PAccordion & keyof PAccordionAttributes]?: PAccordion[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `attr:${K}`]?: PAccordionAttributes[K] } & { [K in keyof PAccordion & keyof PAccordionAttributes as `prop:${K}`]?: PAccordion[K] };
         "p-button-tile": Omit<PButtonTile, keyof PButtonTileAttributes> & { [K in keyof PButtonTile & keyof PButtonTileAttributes]?: PButtonTile[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `attr:${K}`]?: PButtonTileAttributes[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `prop:${K}`]?: PButtonTile[K] };
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
@@ -3156,10 +3021,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            /**
-             * @controlled {"props": ["open"], "event": "update"}
-             */
-            "p-accordion": LocalJSX.IntrinsicElements["p-accordion"] & JSXBase.HTMLAttributes<HTMLPAccordionElement>;
             "p-button-tile": LocalJSX.IntrinsicElements["p-button-tile"] & JSXBase.HTMLAttributes<HTMLPButtonTileElement>;
             /**
              * @experimental 
