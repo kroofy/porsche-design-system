@@ -263,6 +263,14 @@ export const config: Config = {
           src: './assets/p-textarea.iife.js',
           dest: 'build/p-textarea.iife.js',
         },
+        {
+          src: './assets/p-fieldset.iife.js',
+          dest: 'assets/p-fieldset.iife.js',
+        },
+        {
+          src: './assets/p-fieldset.iife.js',
+          dest: 'build/p-fieldset.iife.js',
+        },
       ],
     },
   ],
@@ -300,6 +308,7 @@ export const config: Config = {
     'p-input-time',
     'p-input-week',
     'p-textarea',
+    'p-fieldset',
   ],
   enableCache: true,
   rollupPlugins: {
