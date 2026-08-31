@@ -139,3 +139,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T05:49:00Z	land	accepted land-tag, spawned land-tag-dismissible	after PNG is byte-identical to stored Stencil tag baseline, 53760 bytes	/opt/cursor/artifacts/mitosis_land_tag_after.png	live-ui-verified, 11 real p- tags from Mitosis
 2026-08-31T05:50:20Z	drain	tick: leftover timer for tag-dismissible; worker running, no TagDismissible.lite.tsx yet, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
 2026-08-31T05:59:00Z	land	accepted land-tag-dismissible, spawned land-link-pure	after PNG is byte-identical to stored Stencil tag-dismissible baseline, 13152 bytes	/opt/cursor/artifacts/mitosis_land_tag_dismissible_after.png	live-ui-verified, 12 real p- tags from Mitosis
+2026-08-31T06:00:20Z	drain	tick: leftover timer for link-pure; worker running, no LinkPure.lite.tsx yet, no after PNG	one writer	bc-4ed58d07 RUNNING	in flight
