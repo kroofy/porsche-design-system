@@ -75,6 +75,7 @@
     "build:flyout": "mitosis build && node harness/strip-flyout-whitespace.mjs && if rg -q my-fragment output/lit/src/Flyout.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Flyout.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-flyout.bundle.js",
     "build:sheet": "mitosis build && node harness/strip-sheet-whitespace.mjs && if rg -q my-fragment output/lit/src/Sheet.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Sheet.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-sheet.bundle.js",
     "build:drilldown": "mitosis build && node harness/strip-drilldown-whitespace.mjs && if rg -q my-fragment output/lit/src/Drilldown.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/Drilldown.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-drilldown.bundle.js",
+    "build:drilldown-item": "mitosis build && node harness/strip-drilldown-item-whitespace.mjs && if rg -q my-fragment output/lit/src/DrilldownItem.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/DrilldownItem.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-drilldown-item.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -146,6 +147,7 @@
     "verify:flyout": "node harness/verify-flyout.mjs",
     "verify:sheet": "node harness/verify-sheet.mjs",
     "verify:drilldown": "node harness/verify-drilldown.mjs",
+    "verify:drilldown-item": "node harness/verify-drilldown-item.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -216,7 +218,8 @@
     "pixel-diff:modal": "node harness/pixel-diff-modal.mjs",
     "pixel-diff:flyout": "node harness/pixel-diff-flyout.mjs",
     "pixel-diff:sheet": "node harness/pixel-diff-sheet.mjs",
-    "pixel-diff:drilldown": "node harness/pixel-diff-drilldown.mjs"
+    "pixel-diff:drilldown": "node harness/pixel-diff-drilldown.mjs",
+    "pixel-diff:drilldown-item": "node harness/pixel-diff-drilldown-item.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
