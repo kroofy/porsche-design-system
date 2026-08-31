@@ -56,7 +56,6 @@ import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, Tab
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 import { TagIcon, TagVariant } from "./components/tag/tag-utils";
 import { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
-import { TextAlign, TextColor, TextHyphens, TextSize, TextTag, TextWeight } from "./components/text/text-utils";
 import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -112,7 +111,6 @@ export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, Tab
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
 export { TagIcon, TagVariant } from "./components/tag/tag-utils";
 export { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
-export { TextAlign, TextColor, TextHyphens, TextSize, TextTag, TextWeight } from "./components/text/text-utils";
 export { TextListType } from "./components/text-list/text-list/text-list-utils";
 export { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -2805,43 +2803,6 @@ export namespace Components {
          */
         "label"?: string;
     }
-    interface PText {
-        /**
-          * Text alignment of the text. Use 'start' for left-aligned text (in LTR), 'center' for centered, 'end' for right-aligned (in LTR), or 'inherit' to adopt the parent's alignment.
-          * @default 'start'
-         */
-        "align"?: TextAlign;
-        /**
-          * Text color of the text. Use 'primary' for default, 'contrast-higher' / 'contrast-high' / 'contrast-medium' for alternative emphasis levels, 'success' / 'warning' / 'error' / 'info' for status messages, or 'inherit' to adopt the parent's color.
-          * @default 'primary'
-         */
-        "color"?: TextColor;
-        /**
-          * Adds an ellipsis to a single line of text if it overflows the container width. When enabled, the text is truncated to a single line with `text-overflow: ellipsis`. Cannot be combined with multi-line content.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Controls the hyphenation behavior of the text. Use 'auto' to let the browser automatically hyphenate words at appropriate points, 'manual' to only hyphenate at manually inserted hyphenation points (e.g. `&shy;`), 'none' to disable hyphenation entirely, or 'inherit' to adopt the parent's hyphenation setting.
-          * @default 'inherit'
-         */
-        "hyphens"?: TextHyphens;
-        /**
-          * Size of the text. Also defines the size for specific breakpoints, like {base: "sm", l: "md"}. You always need to provide a base value when doing this. Use 'inherit' to adopt the parent's font size.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<TextSize>;
-        /**
-          * Sets the HTML tag of the rendered element to ensure correct semantic meaning (e.g. 'p' for paragraphs, 'blockquote' for quotes, 'time' for dates).
-          * @default 'p'
-         */
-        "tag"?: TextTag;
-        /**
-          * The font weight of the text. Use 'normal' for regular body text, 'semibold' for slightly emphasized text, or 'bold' for strong emphasis.
-          * @default 'normal'
-         */
-        "weight"?: TextWeight;
-    }
     interface PTextList {
         /**
           * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
@@ -3964,12 +3925,6 @@ declare global {
         prototype: HTMLPTagDismissibleElement;
         new (): HTMLPTagDismissibleElement;
     };
-    interface HTMLPTextElement extends Components.PText, HTMLStencilElement {
-    }
-    var HTMLPTextElement: {
-        prototype: HTMLPTextElement;
-        new (): HTMLPTextElement;
-    };
     interface HTMLPTextListElement extends Components.PTextList, HTMLStencilElement {
     }
     var HTMLPTextListElement: {
@@ -4087,7 +4042,6 @@ declare global {
         "p-tabs-item": HTMLPTabsItemElement;
         "p-tag": HTMLPTagElement;
         "p-tag-dismissible": HTMLPTagDismissibleElement;
-        "p-text": HTMLPTextElement;
         "p-text-list": HTMLPTextListElement;
         "p-text-list-item": HTMLPTextListItemElement;
         "p-textarea": HTMLPTextareaElement;
@@ -7075,43 +7029,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
-    interface PText {
-        /**
-          * Text alignment of the text. Use 'start' for left-aligned text (in LTR), 'center' for centered, 'end' for right-aligned (in LTR), or 'inherit' to adopt the parent's alignment.
-          * @default 'start'
-         */
-        "align"?: TextAlign;
-        /**
-          * Text color of the text. Use 'primary' for default, 'contrast-higher' / 'contrast-high' / 'contrast-medium' for alternative emphasis levels, 'success' / 'warning' / 'error' / 'info' for status messages, or 'inherit' to adopt the parent's color.
-          * @default 'primary'
-         */
-        "color"?: TextColor;
-        /**
-          * Adds an ellipsis to a single line of text if it overflows the container width. When enabled, the text is truncated to a single line with `text-overflow: ellipsis`. Cannot be combined with multi-line content.
-          * @default false
-         */
-        "ellipsis"?: boolean;
-        /**
-          * Controls the hyphenation behavior of the text. Use 'auto' to let the browser automatically hyphenate words at appropriate points, 'manual' to only hyphenate at manually inserted hyphenation points (e.g. `&shy;`), 'none' to disable hyphenation entirely, or 'inherit' to adopt the parent's hyphenation setting.
-          * @default 'inherit'
-         */
-        "hyphens"?: TextHyphens;
-        /**
-          * Size of the text. Also defines the size for specific breakpoints, like {base: "sm", l: "md"}. You always need to provide a base value when doing this. Use 'inherit' to adopt the parent's font size.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<TextSize>;
-        /**
-          * Sets the HTML tag of the rendered element to ensure correct semantic meaning (e.g. 'p' for paragraphs, 'blockquote' for quotes, 'time' for dates).
-          * @default 'p'
-         */
-        "tag"?: TextTag;
-        /**
-          * The font weight of the text. Use 'normal' for regular body text, 'semibold' for slightly emphasized text, or 'bold' for strong emphasis.
-          * @default 'normal'
-         */
-        "weight"?: TextWeight;
-    }
     interface PTextList {
         /**
           * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
@@ -7898,15 +7815,6 @@ declare namespace LocalJSX {
         "aria": SelectedAriaAttributes<TagDismissibleAriaAttribute>;
         "compact": boolean;
     }
-    interface PTextAttributes {
-        "tag": TextTag;
-        "size": BreakpointCustomizable<TextSize>;
-        "weight": TextWeight;
-        "align": TextAlign;
-        "color": TextColor;
-        "hyphens": TextHyphens;
-        "ellipsis": boolean;
-    }
     interface PTextListAttributes {
         "type": TextListType;
     }
@@ -8001,7 +7909,6 @@ declare namespace LocalJSX {
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
         "p-tag": Omit<PTag, keyof PTagAttributes> & { [K in keyof PTag & keyof PTagAttributes]?: PTag[K] } & { [K in keyof PTag & keyof PTagAttributes as `attr:${K}`]?: PTagAttributes[K] } & { [K in keyof PTag & keyof PTagAttributes as `prop:${K}`]?: PTag[K] };
         "p-tag-dismissible": Omit<PTagDismissible, keyof PTagDismissibleAttributes> & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes]?: PTagDismissible[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `attr:${K}`]?: PTagDismissibleAttributes[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `prop:${K}`]?: PTagDismissible[K] };
-        "p-text": Omit<PText, keyof PTextAttributes> & { [K in keyof PText & keyof PTextAttributes]?: PText[K] } & { [K in keyof PText & keyof PTextAttributes as `attr:${K}`]?: PTextAttributes[K] } & { [K in keyof PText & keyof PTextAttributes as `prop:${K}`]?: PText[K] };
         "p-text-list": Omit<PTextList, keyof PTextListAttributes> & { [K in keyof PTextList & keyof PTextListAttributes]?: PTextList[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `attr:${K}`]?: PTextListAttributes[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `prop:${K}`]?: PTextList[K] };
         "p-text-list-item": PTextListItem;
         "p-textarea": Omit<PTextarea, keyof PTextareaAttributes> & { [K in keyof PTextarea & keyof PTextareaAttributes]?: PTextarea[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `attr:${K}`]?: PTextareaAttributes[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `prop:${K}`]?: PTextarea[K] };
@@ -8141,7 +8048,6 @@ declare module "@stencil/core" {
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
             "p-tag": LocalJSX.IntrinsicElements["p-tag"] & JSXBase.HTMLAttributes<HTMLPTagElement>;
             "p-tag-dismissible": LocalJSX.IntrinsicElements["p-tag-dismissible"] & JSXBase.HTMLAttributes<HTMLPTagDismissibleElement>;
-            "p-text": LocalJSX.IntrinsicElements["p-text"] & JSXBase.HTMLAttributes<HTMLPTextElement>;
             "p-text-list": LocalJSX.IntrinsicElements["p-text-list"] & JSXBase.HTMLAttributes<HTMLPTextListElement>;
             "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
             "p-textarea": LocalJSX.IntrinsicElements["p-textarea"] & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
