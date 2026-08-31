@@ -317,13 +317,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PTableCell {
-        /**
-          * Allows slotted text to wrap onto multiple lines instead of being forced onto a single line.
-          * @default false
-         */
-        "multiline"?: boolean;
-    }
     interface PToast {
         "addMessage": (message: ToastMessage) => Promise<void>;
     }
@@ -517,12 +510,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPTableCellElement extends Components.PTableCell, HTMLStencilElement {
-    }
-    var HTMLPTableCellElement: {
-        prototype: HTMLPTableCellElement;
-        new (): HTMLPTableCellElement;
-    };
     interface HTMLPToastElement extends Components.PToast, HTMLStencilElement {
     }
     var HTMLPToastElement: {
@@ -555,7 +542,6 @@ declare global {
         "p-flyout": HTMLPFlyoutElement;
         "p-modal": HTMLPModalElement;
         "p-sheet": HTMLPSheetElement;
-        "p-table-cell": HTMLPTableCellElement;
         "p-toast": HTMLPToastElement;
         "p-toast-item": HTMLPToastItemElement;
     }
@@ -908,13 +894,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PTableCell {
-        /**
-          * Allows slotted text to wrap onto multiple lines instead of being forced onto a single line.
-          * @default false
-         */
-        "multiline"?: boolean;
-    }
     interface PToast {
     }
     interface PToastItem {
@@ -1003,9 +982,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PTableCellAttributes {
-        "multiline": boolean;
-    }
     interface PToastItemAttributes {
         "text": string;
         "state": ToastState;
@@ -1020,7 +996,6 @@ declare namespace LocalJSX {
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
         "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-table-cell": Omit<PTableCell, keyof PTableCellAttributes> & { [K in keyof PTableCell & keyof PTableCellAttributes]?: PTableCell[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `attr:${K}`]?: PTableCellAttributes[K] } & { [K in keyof PTableCell & keyof PTableCellAttributes as `prop:${K}`]?: PTableCell[K] };
         "p-toast": PToast;
         "p-toast-item": Omit<PToastItem, keyof PToastItemAttributes> & { [K in keyof PToastItem & keyof PToastItemAttributes]?: PToastItem[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `attr:${K}`]?: PToastItemAttributes[K] } & { [K in keyof PToastItem & keyof PToastItemAttributes as `prop:${K}`]?: PToastItem[K] };
     }
@@ -1063,7 +1038,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-table-cell": LocalJSX.IntrinsicElements["p-table-cell"] & JSXBase.HTMLAttributes<HTMLPTableCellElement>;
             "p-toast": LocalJSX.IntrinsicElements["p-toast"] & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-toast-item": LocalJSX.IntrinsicElements["p-toast-item"] & JSXBase.HTMLAttributes<HTMLPToastItemElement>;
         }
