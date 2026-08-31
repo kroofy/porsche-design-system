@@ -95,6 +95,14 @@ export const config: Config = {
           src: './assets/p-display.iife.js',
           dest: 'build/p-display.iife.js',
         },
+        {
+          src: './assets/p-spinner.iife.js',
+          dest: 'assets/p-spinner.iife.js',
+        },
+        {
+          src: './assets/p-spinner.iife.js',
+          dest: 'build/p-spinner.iife.js',
+        },
       ],
     },
   ],
@@ -111,6 +119,7 @@ export const config: Config = {
     'p-heading',
     'p-text',
     'p-display',
+    'p-spinner',
   ],
   enableCache: true,
   rollupPlugins: {
