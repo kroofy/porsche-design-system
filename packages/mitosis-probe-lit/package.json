@@ -60,6 +60,7 @@
     "build:stepper-horizontal-item": "mitosis build && node harness/strip-stepper-horizontal-item-whitespace.mjs && if rg -q my-fragment output/lit/src/StepperHorizontalItem.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/StepperHorizontalItem.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-stepper-horizontal-item.bundle.js",
     "build:button-tile": "mitosis build && node harness/strip-button-tile-whitespace.mjs && if rg -q my-fragment output/lit/src/ButtonTile.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/ButtonTile.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-button-tile.bundle.js",
     "build:link-tile": "mitosis build && node harness/strip-link-tile-whitespace.mjs && if rg -q my-fragment output/lit/src/LinkTile.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/LinkTile.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-link-tile.bundle.js",
+    "build:link-tile-product": "mitosis build && node harness/strip-link-tile-product-whitespace.mjs && if rg -q my-fragment output/lit/src/LinkTileProduct.ts; then echo 'my-fragment leaked'; exit 1; fi && ../../node_modules/.bin/esbuild output/lit/src/LinkTileProduct.ts --bundle --format=iife --tsconfig=tsconfig.json --alias:lit/decorators=lit/decorators.js --outfile=harness/lit-link-tile-product.bundle.js",
     "verify": "node harness/verify.mjs",
     "verify:crest": "node harness/verify-crest.mjs",
     "verify:wordmark": "node harness/verify-wordmark.mjs",
@@ -116,6 +117,7 @@
     "verify:stepper-horizontal-item": "node harness/verify-stepper-horizontal-item.mjs",
     "verify:button-tile": "node harness/verify-button-tile.mjs",
     "verify:link-tile": "node harness/verify-link-tile.mjs",
+    "verify:link-tile-product": "node harness/verify-link-tile-product.mjs",
     "pixel-diff": "node harness/pixel-diff.mjs",
     "pixel-diff:crest": "node harness/pixel-diff-crest.mjs",
     "pixel-diff:wordmark": "node harness/pixel-diff-wordmark.mjs",
@@ -171,7 +173,8 @@
     "pixel-diff:stepper-horizontal": "node harness/pixel-diff-stepper-horizontal.mjs",
     "pixel-diff:stepper-horizontal-item": "node harness/pixel-diff-stepper-horizontal-item.mjs",
     "pixel-diff:button-tile": "node harness/pixel-diff-button-tile.mjs",
-    "pixel-diff:link-tile": "node harness/pixel-diff-link-tile.mjs"
+    "pixel-diff:link-tile": "node harness/pixel-diff-link-tile.mjs",
+    "pixel-diff:link-tile-product": "node harness/pixel-diff-link-tile-product.mjs"
   },
   "devDependencies": {
     "@builder.io/mitosis": "^0.14.0",
