@@ -138,4 +138,5 @@ land-popover	land	done	cursor/mitosis-migration-41e6	3	7d8b653e99	briefs/land-po
 land-table	land	done	cursor/mitosis-migration-41e6	3	2c3ec35fd1	briefs/land-table.md
 land-table-head	land	done	cursor/mitosis-migration-41e6	3	33d229e812	briefs/land-table-head.md
 land-table-head-row	land	done	cursor/mitosis-migration-41e6	3	69be8aac93	briefs/land-table-head-row.md
-land-table-head-cell	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-table-head-cell.md
+land-table-head-cell	land	done	cursor/mitosis-migration-41e6	3	614ad81224	briefs/land-table-head-cell.md
+land-table-body	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-table-body.md
