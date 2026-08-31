@@ -51,4 +51,5 @@ migrate-select-option	migrate	done	cursor/mitosis-migration-41e6	3	9d59840ac7	br
 migrate-optgroup	migrate	done	cursor/mitosis-migration-41e6	3	392ec16105	briefs/migrate-optgroup.md
 migrate-multi-select	migrate	done	cursor/mitosis-migration-41e6	3	663eaf8d2a	briefs/migrate-multi-select.md
 migrate-multi-select-option	migrate	done	cursor/mitosis-migration-41e6	3	78d9002118	briefs/migrate-multi-select-option.md
-migrate-tabs-bar	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-tabs-bar.md
+migrate-tabs-bar	migrate	done	cursor/mitosis-migration-41e6	3	167998c4b8	briefs/migrate-tabs-bar.md
+migrate-tabs	migrate	in-progress	cursor/mitosis-migration-41e6	3		briefs/migrate-tabs.md
