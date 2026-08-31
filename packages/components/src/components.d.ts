@@ -17,7 +17,6 @@ import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
-import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
@@ -38,7 +37,6 @@ export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
-export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
@@ -600,73 +598,6 @@ export namespace Components {
          */
         "open"?: boolean;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PSelect {
-        /**
-          * Reduces the control height and padding for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the select.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with the select and excludes its value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Controls whether the dropdown list opens upward (`up`) or downward (`down`), or determines the direction automatically (`auto`).
-          * @default 'auto'
-         */
-        "dropdownDirection"?: SelectDropdownDirection;
-        /**
-          * Shows a text input inside the dropdown that filters the visible options as the user types. Ignored when the `filter` slot is used.
-          * @default false
-         */
-        "filter"?: boolean;
-        /**
-          * Associates the select with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the select control to identify its purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the select when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data, identifying the selected value on the server.
-         */
-        "name": string;
-        /**
-          * Marks the select as required so the form cannot be submitted unless a non-empty option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the select, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: SelectState;
-        /**
-          * The selected value. Matches an option strictly by type and value, meaning null matches only an option with value null, undefined matches only an option with value undefined (no preselection by default), and string or number only match an option whose value has the same type and equal value.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed option. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PSelectOption {
         /**
           * Prevents the option from being selected and visually dims it to indicate it is unavailable.
@@ -895,10 +826,6 @@ export interface PMultiSelectCustomEvent<T> extends CustomEvent<T> {
 export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPPopoverElement;
-}
-export interface PSelectCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPSelectElement;
 }
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1138,28 +1065,6 @@ declare global {
         prototype: HTMLPPopoverElement;
         new (): HTMLPPopoverElement;
     };
-    interface HTMLPSelectElementEventMap {
-        "blur": void;
-        "change": SelectChangeEventDetail;
-        "toggle": SelectToggleEventDetail;
-    }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface HTMLPSelectElement extends Components.PSelect, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPSelectElementEventMap>(type: K, listener: (this: HTMLPSelectElement, ev: PSelectCustomEvent<HTMLPSelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPSelectElementEventMap>(type: K, listener: (this: HTMLPSelectElement, ev: PSelectCustomEvent<HTMLPSelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPSelectElement: {
-        prototype: HTMLPSelectElement;
-        new (): HTMLPSelectElement;
-    };
     interface HTMLPSelectOptionElement extends Components.PSelectOption, HTMLStencilElement {
     }
     var HTMLPSelectOptionElement: {
@@ -1348,7 +1253,6 @@ declare global {
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
         "p-popover": HTMLPPopoverElement;
-        "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
         "p-sheet": HTMLPSheetElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
@@ -1984,85 +1888,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    /**
-     * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-     */
-    interface PSelect {
-        /**
-          * Reduces the control height and padding for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the select.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Prevents user interaction with the select and excludes its value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Controls whether the dropdown list opens upward (`up`) or downward (`down`), or determines the direction automatically (`auto`).
-          * @default 'auto'
-         */
-        "dropdownDirection"?: SelectDropdownDirection;
-        /**
-          * Shows a text input inside the dropdown that filters the visible options as the user types. Ignored when the `filter` slot is used.
-          * @default false
-         */
-        "filter"?: boolean;
-        /**
-          * Associates the select with a form element by its ID when it is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the select control to identify its purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * Sets the validation feedback message displayed below the select when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name of the control submitted with the form data, identifying the selected value on the server.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the select component loses focus, useful for triggering validation on blur.
-         */
-        "onBlur"?: (event: PSelectCustomEvent<void>) => void;
-        /**
-          * Emitted when the user selects a different option, carrying the new value in the event detail.
-         */
-        "onChange"?: (event: PSelectCustomEvent<SelectChangeEventDetail>) => void;
-        /**
-          * Emitted when the dropdown list opens or closes, carrying the new `isOpen` state in the event detail.
-         */
-        "onToggle"?: (event: PSelectCustomEvent<SelectToggleEventDetail>) => void;
-        /**
-          * Marks the select as required so the form cannot be submitted unless a non-empty option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the select, which controls its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: SelectState;
-        /**
-          * The selected value. Matches an option strictly by type and value, meaning null matches only an option with value null, undefined matches only an option with value undefined (no preselection by default), and string or number only match an option whose value has the same type and equal value.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed option. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PSelectOption {
         /**
           * Prevents the option from being selected and visually dims it to indicate it is unavailable.
@@ -2424,21 +2249,6 @@ declare namespace LocalJSX {
         "compact": boolean;
         "aria": SelectedAriaAttributes<PopoverAriaAttribute>;
     }
-    interface PSelectAttributes {
-        "label": string;
-        "description": string;
-        "name": string;
-        "value": string;
-        "state": SelectState;
-        "message": string;
-        "hideLabel": string;
-        "disabled": boolean;
-        "required": boolean;
-        "dropdownDirection": SelectDropdownDirection;
-        "filter": boolean;
-        "compact": boolean;
-        "form": string;
-    }
     interface PSelectOptionAttributes {
         "value": string;
         "disabled": boolean;
@@ -2509,7 +2319,6 @@ declare namespace LocalJSX {
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
-        "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
@@ -2579,10 +2388,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
-            /**
-             * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
-             */
-            "p-select": LocalJSX.IntrinsicElements["p-select"] & JSXBase.HTMLAttributes<HTMLPSelectElement>;
             "p-select-option": LocalJSX.IntrinsicElements["p-select-option"] & JSXBase.HTMLAttributes<HTMLPSelectOptionElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
