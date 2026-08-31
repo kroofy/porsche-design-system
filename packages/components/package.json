@@ -19,6 +19,7 @@
     "prestart:buildStylesheets": "npm run build --workspace=@porsche-design-system/stylesheets",
     "start": "concurrently -k -s 'first' -n 'cdn,tailwindcss,playground' 'serve-cdn' 'tailwindcss -i ./src/tailwind.css -o ./src/assets/tailwind.css --watch' 'node scripts/serve-playground.mjs'",
     "build:lit-divider": "node scripts/build-lit-divider.mjs",
+    "generate:frameworks-divider": "node scripts/generate-frameworks-divider.mjs",
     "build:lit-crest": "node scripts/build-lit-crest.mjs",
     "build:lit-wordmark": "node scripts/build-lit-wordmark.mjs",
     "build:lit-flag": "node scripts/build-lit-flag.mjs",
