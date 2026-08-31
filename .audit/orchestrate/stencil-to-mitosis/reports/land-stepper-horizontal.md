@@ -20,7 +20,7 @@ Do not start `stepper-horizontal-item`. Do not re-touch `p-tabs`, `p-tabs-item`,
 - Constructor: `LitStepperHorizontal`
 - Shadow: `div.wrap` (`display:contents`) + `style` cssText + `p-scroller.scroller` with `.aria={ role: "list" }` + default `<slot>`. No `my-fragment`. Does not fake `delegatesFocus`. Recenter uses `scrollIntoView({ behavior: "instant", block: "nearest", inline: "center", container: "nearest" })` after layout, not on every `updated`.
 - Stencil loader: exact `"p-stepper-horizontal"` absent from `bootstrapLazy` after a full `--dev` restart. No `p-stepper-horizontal.entry.js`. `p-stepper-horizontal-item` stays in the loader.
-- IIFE: `/assets/p-stepper-horizontal.iife.js` HTTP 200, 32431 bytes
+- IIFE: `/assets/p-stepper-horizontal.iife.js` HTTP 200, 32480 bytes
 - Animation freeze: `--p-animation-duration: 0s`, `--p-transition-duration: 0s`, `--p-duration-md: 0s`, `--p-duration-sm: 0s`
 - `size` `m` is 1000 in the cssText compiler. This card has no breakpoint objects, so the emitted sheet has no literal `1000`.
 
