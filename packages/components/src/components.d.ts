@@ -17,7 +17,6 @@ import { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 import { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
-import { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
 import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -39,7 +38,6 @@ export { LinkTileProductAspectRatio, LinkTileProductLikeEventDetail, LinkTilePro
 export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { MultiSelectChangeEventDetail, MultiSelectDropdownDirection, MultiSelectState, MultiSelectToggleEventDetail } from "./components/multi-select/multi-select/multi-select-utils";
 export { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from "./components/popover/popover-utils";
-export { RadioGroupChangeEventDetail, RadioGroupDirection, RadioGroupState } from "./components/radio-group/radio-group/radio-group-utils";
 export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
@@ -602,70 +600,6 @@ export namespace Components {
          */
         "open"?: boolean;
     }
-    interface PRadioGroup {
-        /**
-          * Reduces the spacing between radio options for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the radio group.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Sets the layout direction of the radio options. Use `column` to stack them vertically or `row` to arrange them horizontally. Supports responsive breakpoint values.
-          * @default 'column'
-         */
-        "direction"?: BreakpointCustomizable<RadioGroupDirection>;
-        /**
-          * Disables all radio options in the group, preventing selection and excluding the value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the radio group with a form element by its ID when the group is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the radio group to identify the group's purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables all radio options and shows a spinner to indicate a background loading operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the radio group when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the shared name attribute for all radio buttons in the group, grouping them for mutually exclusive selection.
-         */
-        "name": string;
-        /**
-          * Marks the radio group as required so the form cannot be submitted until one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the radio group, controlling its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: RadioGroupState;
-        /**
-          * Sets the currently selected value that pre-selects the matching radio option and reflects user changes. Matches an option strictly by type and value, meaning string or number only match an option whose value has the same type and equal value. Use undefined or null for no preselection; these values never match an option because every option requires a string or number value.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed option. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PRadioGroupOption {
         /**
           * Prevents this option from being selected and excludes its value from form submissions while it is disabled.
@@ -982,10 +916,6 @@ export interface PPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPPopoverElement;
 }
-export interface PRadioGroupCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPRadioGroupElement;
-}
 export interface PSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPSelectElement;
@@ -1228,24 +1158,6 @@ declare global {
         prototype: HTMLPPopoverElement;
         new (): HTMLPPopoverElement;
     };
-    interface HTMLPRadioGroupElementEventMap {
-        "blur": void;
-        "change": RadioGroupChangeEventDetail;
-    }
-    interface HTMLPRadioGroupElement extends Components.PRadioGroup, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPRadioGroupElementEventMap>(type: K, listener: (this: HTMLPRadioGroupElement, ev: PRadioGroupCustomEvent<HTMLPRadioGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPRadioGroupElementEventMap>(type: K, listener: (this: HTMLPRadioGroupElement, ev: PRadioGroupCustomEvent<HTMLPRadioGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPRadioGroupElement: {
-        prototype: HTMLPRadioGroupElement;
-        new (): HTMLPRadioGroupElement;
-    };
     interface HTMLPRadioGroupOptionElement extends Components.PRadioGroupOption, HTMLStencilElement {
     }
     var HTMLPRadioGroupOptionElement: {
@@ -1462,7 +1374,6 @@ declare global {
         "p-multi-select-option": HTMLPMultiSelectOptionElement;
         "p-optgroup": HTMLPOptgroupElement;
         "p-popover": HTMLPPopoverElement;
-        "p-radio-group": HTMLPRadioGroupElement;
         "p-radio-group-option": HTMLPRadioGroupOptionElement;
         "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
@@ -2100,78 +2011,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PRadioGroup {
-        /**
-          * Reduces the spacing between radio options for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets a supplementary description displayed below the label to give users additional guidance about the radio group.
-          * @default ''
-         */
-        "description"?: string;
-        /**
-          * Sets the layout direction of the radio options. Use `column` to stack them vertically or `row` to arrange them horizontally. Supports responsive breakpoint values.
-          * @default 'column'
-         */
-        "direction"?: BreakpointCustomizable<RadioGroupDirection>;
-        /**
-          * Disables all radio options in the group, preventing selection and excluding the value from form submissions.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the radio group with a form element by its ID when the group is not a direct descendant of that form.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Sets the visible label text displayed above the radio group to identify the group's purpose.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables all radio options and shows a spinner to indicate a background loading operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the radio group when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the shared name attribute for all radio buttons in the group, grouping them for mutually exclusive selection.
-         */
-        "name"?: string;
-        /**
-          * Emitted when the radio group loses focus after the user interacts with it, useful for triggering validation on blur.
-         */
-        "onBlur"?: (event: PRadioGroupCustomEvent<void>) => void;
-        /**
-          * Emitted when the user selects a different option, carrying the new value and the native event in the event detail.
-         */
-        "onChange"?: (event: PRadioGroupCustomEvent<RadioGroupChangeEventDetail>) => void;
-        /**
-          * Marks the radio group as required so the form cannot be submitted until one option is selected.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state of the radio group, controlling its visual appearance and feedback message style (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: RadioGroupState;
-        /**
-          * Sets the currently selected value that pre-selects the matching radio option and reflects user changes. Matches an option strictly by type and value, meaning string or number only match an option whose value has the same type and equal value. Use undefined or null for no preselection; these values never match an option because every option requires a string or number value.  Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled) form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a number-typed option. This limitation only applies to native form state restoration; in controlled forms (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-         */
-        "value"?: string | number | null;
-    }
     interface PRadioGroupOption {
         /**
           * Prevents this option from being selected and excludes its value from form submissions while it is disabled.
@@ -2632,21 +2471,6 @@ declare namespace LocalJSX {
         "compact": boolean;
         "aria": SelectedAriaAttributes<PopoverAriaAttribute>;
     }
-    interface PRadioGroupAttributes {
-        "label": string;
-        "description": string;
-        "compact": boolean;
-        "direction": BreakpointCustomizable<RadioGroupDirection>;
-        "name": string;
-        "value": string;
-        "form": string;
-        "disabled": boolean;
-        "required": boolean;
-        "loading": boolean;
-        "state": RadioGroupState;
-        "message": string;
-        "hideLabel": string;
-    }
     interface PRadioGroupOptionAttributes {
         "value": string;
         "label": string;
@@ -2738,7 +2562,6 @@ declare namespace LocalJSX {
         "p-multi-select-option": Omit<PMultiSelectOption, keyof PMultiSelectOptionAttributes> & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes]?: PMultiSelectOption[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `attr:${K}`]?: PMultiSelectOptionAttributes[K] } & { [K in keyof PMultiSelectOption & keyof PMultiSelectOptionAttributes as `prop:${K}`]?: PMultiSelectOption[K] };
         "p-optgroup": Omit<POptgroup, keyof POptgroupAttributes> & { [K in keyof POptgroup & keyof POptgroupAttributes]?: POptgroup[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `attr:${K}`]?: POptgroupAttributes[K] } & { [K in keyof POptgroup & keyof POptgroupAttributes as `prop:${K}`]?: POptgroup[K] };
         "p-popover": Omit<PPopover, keyof PPopoverAttributes> & { [K in keyof PPopover & keyof PPopoverAttributes]?: PPopover[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `attr:${K}`]?: PPopoverAttributes[K] } & { [K in keyof PPopover & keyof PPopoverAttributes as `prop:${K}`]?: PPopover[K] };
-        "p-radio-group": Omit<PRadioGroup, keyof PRadioGroupAttributes> & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes]?: PRadioGroup[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `attr:${K}`]?: PRadioGroupAttributes[K] } & { [K in keyof PRadioGroup & keyof PRadioGroupAttributes as `prop:${K}`]?: PRadioGroup[K] };
         "p-radio-group-option": Omit<PRadioGroupOption, keyof PRadioGroupOptionAttributes> & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes]?: PRadioGroupOption[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `attr:${K}`]?: PRadioGroupOptionAttributes[K] } & { [K in keyof PRadioGroupOption & keyof PRadioGroupOptionAttributes as `prop:${K}`]?: PRadioGroupOption[K] };
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
@@ -2810,7 +2633,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-popover": LocalJSX.IntrinsicElements["p-popover"] & JSXBase.HTMLAttributes<HTMLPPopoverElement>;
-            "p-radio-group": LocalJSX.IntrinsicElements["p-radio-group"] & JSXBase.HTMLAttributes<HTMLPRadioGroupElement>;
             "p-radio-group-option": LocalJSX.IntrinsicElements["p-radio-group-option"] & JSXBase.HTMLAttributes<HTMLPRadioGroupOptionElement>;
             /**
              * @controlled { "props": ["value"], "event": "change", "isInternallyMutated": true }
