@@ -176,6 +176,18 @@ export default class LitInlineNotification extends LitElement {
     return visual === "warning" || visual === "error" ? "assertive" : "polite";
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this._childObserver = new MutationObserver(() => this.requestUpdate());
+    this._childObserver.observe(this, { childList: true, subtree: false });
+    queueMicrotask(() => this.requestUpdate());
+  }
+
+  disconnectedCallback() {
+    this._childObserver?.disconnect();
+    super.disconnectedCallback();
+  }
+
   render() {
     const heading = this.headingText;
     const tag = this.headingTagValue;
@@ -187,7 +199,7 @@ export default class LitInlineNotification extends LitElement {
       else if (tag === "h4") headingEl = html`<h4>${heading}</h4>`;
       else if (tag === "h6") headingEl = html`<h6>${heading}</h6>`;
       else headingEl = html`<h5>${heading}</h5>`;
-    } else if (this.hasHeadingSlot) {
+    } else {
       headingEl = html`<slot name="heading"></slot>`;
     }
     const desc = this.descriptionText

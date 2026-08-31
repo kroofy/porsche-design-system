@@ -15,6 +15,11 @@ await page.waitForFunction(() => {
   const el = document.querySelector('#default lit-inline-notification');
   return !!el?.shadowRoot?.querySelector('.notification');
 });
+await page.waitForFunction(() => {
+  const el = document.querySelector('#slotted lit-inline-notification');
+  const slot = el?.shadowRoot?.querySelector('slot[name="heading"]');
+  return !!slot && slot.assignedNodes().length > 0;
+});
 
 const live = await page.evaluate(() => {
   const el = document.querySelector('#default lit-inline-notification');
@@ -59,7 +64,9 @@ const descriptionOnly = await page.evaluate(() => {
   const el = document.querySelector('#description-only lit-inline-notification');
   const root = el.shadowRoot?.querySelector('.notification');
   return {
-    heading: !!root?.querySelector('h1,h2,h3,h4,h5,h6,slot[name="heading"]'),
+    headingEl: !!root?.querySelector('h1,h2,h3,h4,h5,h6'),
+    headingSlotAssigned:
+      (root?.querySelector('slot[name="heading"]')?.assignedNodes().filter((n) => n.textContent?.trim()).length ?? 0) > 0,
     desc: root?.querySelector('p')?.textContent ?? '',
     hasDismiss: !!root?.querySelector('button.dismiss'),
   };
@@ -161,7 +168,7 @@ if (!(live.beforeWidth === '24px' || live.beforeWidth === '1.5rem')) {
 }
 if (live.hostDisplay !== 'block') failures.push(`host display ${live.hostDisplay}`);
 if (!(live.hostSize.h > 8)) failures.push(`host size ${live.hostSize.w}x${live.hostSize.h}`);
-if (descriptionOnly.heading) failures.push('description-only rendered a heading');
+if (descriptionOnly.headingEl || descriptionOnly.headingSlotAssigned) failures.push('description-only rendered a heading');
 if (descriptionOnly.desc !== 'Some content') failures.push(`description-only ${descriptionOnly.desc}`);
 if (!descriptionOnly.hasDismiss) failures.push('description-only missing dismiss');
 if (noDismiss.hasDismiss) failures.push('dismiss-button=false still rendered dismiss');

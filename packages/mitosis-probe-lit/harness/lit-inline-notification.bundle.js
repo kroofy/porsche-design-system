@@ -703,6 +703,16 @@
       const visual = this.state ?? this.getAttribute("state") ?? "info";
       return visual === "warning" || visual === "error" ? "assertive" : "polite";
     }
+    connectedCallback() {
+      super.connectedCallback();
+      this._childObserver = new MutationObserver(() => this.requestUpdate());
+      this._childObserver.observe(this, { childList: true, subtree: false });
+      queueMicrotask(() => this.requestUpdate());
+    }
+    disconnectedCallback() {
+      this._childObserver?.disconnect();
+      super.disconnectedCallback();
+    }
     render() {
       const heading = this.headingText;
       const tag = this.headingTagValue;
@@ -714,7 +724,7 @@
         else if (tag === "h4") headingEl = b2`<h4>${heading}</h4>`;
         else if (tag === "h6") headingEl = b2`<h6>${heading}</h6>`;
         else headingEl = b2`<h5>${heading}</h5>`;
-      } else if (this.hasHeadingSlot) {
+      } else {
         headingEl = b2`<slot name="heading"></slot>`;
       }
       const desc = this.descriptionText ? b2`<p>${this.descriptionText}</p>` : b2`<slot></slot>`;
