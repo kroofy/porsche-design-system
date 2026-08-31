@@ -77,4 +77,5 @@ migrate-drilldown-item	migrate	done	cursor/mitosis-migration-41e6	3	84322dac41	b
 migrate-drilldown-link	migrate	done	cursor/mitosis-migration-41e6	3	432ed0bf80	briefs/migrate-drilldown-link.md
 migrate-carousel	migrate	done	cursor/mitosis-migration-41e6	3	e69e169b9e	briefs/migrate-carousel.md
 migrate-canvas	migrate	done	cursor/mitosis-migration-41e6	3	1cfcd3b96d	briefs/migrate-canvas.md
-land-divider	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-divider.md
+land-divider	land	done	cursor/mitosis-migration-41e6	3	eda1dbe65c	briefs/land-divider.md
+land-crest	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-crest.md
