@@ -67,3 +67,4 @@ ts	phase	decision	why	evidence	result
 2026-08-31T00:30:16Z	drain	tick: banner worker running, Banner.lite.tsx uncommitted, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
 2026-08-31T00:33:51Z	migrate	accepted p-banner, spawned p-pagination	after PNG is byte-identical to Stencil banner card, 57293 bytes	/opt/cursor/artifacts/mitosis_lit_banner_after.png	live-ui-verified, probe tags 36, packages/components still 0/75
 2026-08-31T00:39:20Z	migrate	accepted p-pagination, spawned p-scroller	after PNG is byte-identical to Stencil pagination card, 13801 bytes	/opt/cursor/artifacts/mitosis_lit_pagination_after.png	live-ui-verified, probe tags 37, packages/components still 0/75
+2026-08-31T00:40:22Z	drain	tick: scroller worker running, no lite.tsx yet, no after PNG	one writer per packages/mitosis-probe-lit	bc-4ed58d07 RUNNING	in flight
