@@ -367,6 +367,14 @@ export const config: Config = {
           src: './assets/p-radio-group.iife.js',
           dest: 'build/p-radio-group.iife.js',
         },
+        {
+          src: './assets/p-radio-group-option.iife.js',
+          dest: 'assets/p-radio-group-option.iife.js',
+        },
+        {
+          src: './assets/p-radio-group-option.iife.js',
+          dest: 'build/p-radio-group-option.iife.js',
+        },
       ],
     },
   ],
@@ -417,6 +425,7 @@ export const config: Config = {
     'p-segmented-control',
     'p-segmented-control-item',
     'p-radio-group',
+    'p-radio-group-option',
   ],
   enableCache: true,
   rollupPlugins: {
