@@ -559,6 +559,14 @@ export const config: Config = {
           src: './assets/p-toast-item.iife.js',
           dest: 'build/p-toast-item.iife.js',
         },
+        {
+          src: './assets/p-modal.iife.js',
+          dest: 'assets/p-modal.iife.js',
+        },
+        {
+          src: './assets/p-modal.iife.js',
+          dest: 'build/p-modal.iife.js',
+        },
       ],
     },
   ],
@@ -633,6 +641,7 @@ export const config: Config = {
     'p-table-cell',
     'p-toast',
     'p-toast-item',
+    'p-modal',
   ],
   enableCache: true,
   rollupPlugins: {
