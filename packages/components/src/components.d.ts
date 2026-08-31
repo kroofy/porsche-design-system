@@ -8,12 +8,10 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
 export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
-export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export namespace Components {
     /**
@@ -117,26 +115,6 @@ export namespace Components {
         "width"?: CarouselWidth;
     }
     /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     * @controlled {"props": ["activeIdentifier"], "event": "update"}
-     * @experimental 
-     */
-    interface PDrilldown {
-        /**
-          * Sets which `p-drilldown-item` (by `identifier`) is currently expanded to show its sub-navigation level.
-         */
-        "activeIdentifier"?: string | undefined;
-        /**
-          * Sets ARIA attributes on the drilldown dialog element for improved screen reader accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<DrilldownAriaAttribute>;
-        /**
-          * Controls whether the drilldown navigation panel is visible.
-          * @default false
-         */
-        "open"?: boolean;
-    }
-    /**
      * @experimental 
      */
     interface PDrilldownItem {
@@ -204,10 +182,6 @@ export interface PCarouselCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPCarouselElement;
 }
-export interface PDrilldownCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPDrilldownElement;
-}
 declare global {
     interface HTMLPCanvasElementEventMap {
         "sidebarStartUpdate": CanvasSidebarStartUpdateEventDetail;
@@ -250,29 +224,6 @@ declare global {
         prototype: HTMLPCarouselElement;
         new (): HTMLPCarouselElement;
     };
-    interface HTMLPDrilldownElementEventMap {
-        "dismiss": DrilldownDismissEventDetail;
-        "update": DrilldownUpdateEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     * @controlled {"props": ["activeIdentifier"], "event": "update"}
-     * @experimental 
-     */
-    interface HTMLPDrilldownElement extends Components.PDrilldown, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPDrilldownElementEventMap>(type: K, listener: (this: HTMLPDrilldownElement, ev: PDrilldownCustomEvent<HTMLPDrilldownElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPDrilldownElementEventMap>(type: K, listener: (this: HTMLPDrilldownElement, ev: PDrilldownCustomEvent<HTMLPDrilldownElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPDrilldownElement: {
-        prototype: HTMLPDrilldownElement;
-        new (): HTMLPDrilldownElement;
-    };
     /**
      * @experimental 
      */
@@ -294,7 +245,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
-        "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
     }
@@ -413,34 +363,6 @@ declare namespace LocalJSX {
         "width"?: CarouselWidth;
     }
     /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     * @controlled {"props": ["activeIdentifier"], "event": "update"}
-     * @experimental 
-     */
-    interface PDrilldown {
-        /**
-          * Sets which `p-drilldown-item` (by `identifier`) is currently expanded to show its sub-navigation level.
-         */
-        "activeIdentifier"?: string | undefined;
-        /**
-          * Sets ARIA attributes on the drilldown dialog element for improved screen reader accessibility.
-         */
-        "aria"?: SelectedAriaAttributes<DrilldownAriaAttribute>;
-        /**
-          * Emitted when the user closes the drilldown via the dismiss button, backdrop click, or Escape key. The event detail identifies which of the three was used.
-         */
-        "onDismiss"?: (event: PDrilldownCustomEvent<DrilldownDismissEventDetail>) => void;
-        /**
-          * Emitted when the active navigation level changes, with the new `activeIdentifier` in the event detail.
-         */
-        "onUpdate"?: (event: PDrilldownCustomEvent<DrilldownUpdateEventDetail>) => void;
-        /**
-          * Controls whether the drilldown navigation panel is visible.
-          * @default false
-         */
-        "open"?: boolean;
-    }
-    /**
      * @experimental 
      */
     interface PDrilldownItem {
@@ -523,11 +445,6 @@ declare namespace LocalJSX {
         "gradient": boolean;
         "trimSpace": boolean;
     }
-    interface PDrilldownAttributes {
-        "open": boolean;
-        "activeIdentifier": string | undefined;
-        "aria": SelectedAriaAttributes<DrilldownAriaAttribute>;
-    }
     interface PDrilldownItemAttributes {
         "label": string;
         "identifier": string;
@@ -547,7 +464,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
-        "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
     }
@@ -564,12 +480,6 @@ declare module "@stencil/core" {
              * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             * @controlled {"props": ["activeIdentifier"], "event": "update"}
-             * @experimental 
-             */
-            "p-drilldown": LocalJSX.IntrinsicElements["p-drilldown"] & JSXBase.HTMLAttributes<HTMLPDrilldownElement>;
             /**
              * @experimental 
              */
