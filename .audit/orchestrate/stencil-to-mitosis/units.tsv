@@ -98,4 +98,5 @@ land-checkbox	land	done	cursor/mitosis-migration-41e6	3	47befa23d6	briefs/land-c
 land-input-text	land	done	cursor/mitosis-migration-41e6	3	08b9c93ede	briefs/land-input-text.md
 land-input-email	land	done	cursor/mitosis-migration-41e6	3	7494f0924f	briefs/land-input-email.md
 land-input-password	land	done	cursor/mitosis-migration-41e6	3	d2d118fd3b	briefs/land-input-password.md
-land-input-search	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-input-search.md
+land-input-search	land	done	cursor/mitosis-migration-41e6	3	b3c7415d2d	briefs/land-input-search.md
+land-input-url	land	in-progress	cursor/mitosis-migration-41e6	3		briefs/land-input-url.md
