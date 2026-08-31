@@ -1,335 +1,45 @@
-import {
-  AttachInternals,
-  Component,
-  Element,
-  Event,
-  type EventEmitter,
-  h,
-  type JSX,
-  Listen,
-  Prop,
-  Watch,
-} from '@stencil/core';
-import { GROUP_DIRECTIONS } from '../../../styles/group-direction-styles';
-import type { BreakpointCustomizable, PropTypes, ValidatorFunction } from '../../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  FORM_STATES,
-  getPrefixedTagNames,
-  hasDescription,
-  hasLabel,
-  hasMessage,
-  hasPropValueChanged,
-  setAriaIDREF,
-  throwIfElementIsNotOfKind,
-  validateProps,
-} from '../../../utils';
-import { Label } from '../../common/label/label';
-import { descriptionId, labelId } from '../../common/label/label-utils';
-import { LoadingMessage, loadingId } from '../../common/loading-message/loading-message';
-import { messageId, StateMessage } from '../../common/state-message/state-message';
-import { getFieldsetAriaAttributes } from '../../fieldset/fieldset-utils';
-import { getComponentCss } from './radio-group-styles';
-import {
-  findNextEnabledIndex,
-  getActiveOptionIndex,
-  getCheckedOptionIndex,
-  getFirstEnabledOptionIndex,
-  type RadioGroupChangeEventDetail,
-  type RadioGroupDirection,
-  type RadioGroupOption,
-  type RadioGroupState,
-  setSelectedRadioGroupOption,
-  syncRadioGroupChildrenProps,
-  updateRadioGroupOptions,
-} from './radio-group-utils';
-
-const propTypes: PropTypes<typeof RadioGroup> = {
-  label: AllowedTypes.string,
-  description: AllowedTypes.string,
-  name: AllowedTypes.string,
-  value: AllowedTypes.oneOf<ValidatorFunction>([AllowedTypes.string, AllowedTypes.number, AllowedTypes.null]),
-  required: AllowedTypes.boolean,
-  loading: AllowedTypes.boolean,
-  direction: AllowedTypes.breakpoint<RadioGroupDirection>(GROUP_DIRECTIONS),
-  disabled: AllowedTypes.boolean,
-  form: AllowedTypes.string,
-  state: AllowedTypes.oneOf<RadioGroupState>(FORM_STATES),
-  message: AllowedTypes.string,
-  hideLabel: AllowedTypes.breakpoint('boolean'),
-  compact: AllowedTypes.boolean,
-};
-
 /**
- * @slot {"name": "label", "description": "Shows a label. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
- * @slot {"name": "label-after", "description": "Places additional content after the label text (for content that should not be part of the label, e.g. external links or `p-popover`)."}
- * @slot {"name": "description", "description": "Shows a description. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
- * @slot {"name": "", "description": "Default slot for the p-radio-group-option tags."}
- * @slot {"name": "message", "description": "Shows a state message. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
+ * Stencil no longer owns p-radio-group. The playground tag is the Mitosis Lit
+ * custom element from mitosis/radio-group/RadioGroup.lite.tsx.
+ * This file stays so generateConstructorMap can still import class RadioGroup.
+ * Global HTMLPRadioGroupElement stays if other files still type those hosts after
+ * Stencil drops the @Component declaration.
  */
-@Component({
-  tag: 'p-radio-group',
-  shadow: { delegatesFocus: true },
-  formAssociated: true,
-})
 export class RadioGroup {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  label?: string = '';
+  description?: string = '';
+  name?: string;
+  value?: string | number | null;
+  required?: boolean = false;
+  loading?: boolean = false;
+  direction?: unknown = 'column';
+  disabled?: boolean = false;
+  form?: string;
+  state?: string = 'none';
+  message?: string = '';
+  hideLabel?: unknown = false;
+  compact?: boolean = false;
+  render(): void {}
+}
 
-  /** Sets the visible label text displayed above the radio group to identify the group's purpose. */
-  @Prop() public label?: string = '';
-
-  /** Sets a supplementary description displayed below the label to give users additional guidance about the radio group. */
-  @Prop() public description?: string = '';
-
-  /** Reduces the spacing between radio options for use in dense layouts where vertical space is limited. */
-  @Prop() public compact?: boolean = false;
-
-  /** Sets the layout direction of the radio options. Use `column` to stack them vertically or `row` to arrange them horizontally. Supports responsive breakpoint values. */
-  @Prop() public direction?: BreakpointCustomizable<RadioGroupDirection> = 'column';
-
-  /** Sets the shared name attribute for all radio buttons in the group, grouping them for mutually exclusive selection. */
-  @Prop({ reflect: true }) public name: string;
-  // The "name" property is reflected as an attribute to ensure compatibility with native form submission.
-  // In the React wrapper, all props are synced as properties on the element ref, so reflecting "name" as an attribute ensures it is properly handled in the form submission process.
-
-  /**
-   * Sets the currently selected value that pre-selects the matching radio option and reflects user changes.
-   * Matches an option strictly by type and value, meaning string or number only match
-   * an option whose value has the same type and equal value. Use undefined or null for no preselection;
-   * these values never match an option because every option requires a string or number value.
-   *
-   * Please note that FormData always serializes values as strings, so when participating in a native (uncontrolled)
-   * form a number value is restored as string via formStateRestoreCallback and will no longer strictly match a
-   * number-typed option. This limitation only applies to native form state restoration; in controlled forms
-   * (where the consumer manages value directly via the change event), the number type is preserved end-to-end.
-   */
-  @Prop({ mutable: true }) public value?: string | number | null;
-
-  /** Associates the radio group with a form element by its ID when the group is not a direct descendant of that form. */
-  @Prop({ reflect: true }) public form?: string; // The ElementInternals API automatically detects the form attribute
-
-  /** Disables all radio options in the group, preventing selection and excluding the value from form submissions. */
-  @Prop({ mutable: true }) public disabled?: boolean = false;
-
-  /** Marks the radio group as required so the form cannot be submitted until one option is selected. */
-  @Prop() public required?: boolean = false;
-
-  /** @experimental Disables all radio options and shows a spinner to indicate a background loading operation. */
-  @Prop() public loading?: boolean = false;
-
-  /** Sets the validation state of the radio group, controlling its visual appearance and feedback message style (`none`, `success`, `error`). */
-  @Prop() public state?: RadioGroupState = 'none';
-
-  /** Sets the validation feedback message displayed below the radio group when `state` is `success` or `error`. */
-  @Prop() public message?: string = '';
-
-  /** Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values. */
-  @Prop() public hideLabel?: BreakpointCustomizable<boolean> = false;
-
-  /** Emitted when the radio group loses focus after the user interacts with it, useful for triggering validation on blur. */
-  @Event({ bubbles: false }) public blur: EventEmitter<void>;
-
-  /** Emitted when the user selects a different option, carrying the new value and the native event in the event detail. */
-  @Event({ bubbles: true }) public change: EventEmitter<RadioGroupChangeEventDetail>;
-
-  @AttachInternals() private internals: ElementInternals;
-
-  private initialLoading: boolean = false;
-  private defaultValue: string | number | null | undefined;
-
-  private radioGroupOptions: RadioGroupOption[] = [];
-  private preventOptionUpdate = false; // Used to prevent value watcher from updating options when options are already updated
-
-  @Listen('internalRadioGroupOptionChange')
-  public updateOptionHandler(e: Event & { target: RadioGroupOption; detail: RadioGroupChangeEventDetail }): void {
-    e.stopPropagation();
-    const selectedOption = e.target;
-    const originalEvent = e.detail;
-
-    this.preventOptionUpdate = true; // Avoid unnecessary updating of options in the value watcher
-    setSelectedRadioGroupOption(this.radioGroupOptions, selectedOption);
-    this.value = selectedOption.value;
-    this.change.emit(originalEvent);
+declare global {
+  interface HTMLPRadioGroupElement extends HTMLElement {
+    label?: string;
+    description?: string;
+    name?: string;
+    value?: string | number | null;
+    required?: boolean;
+    loading?: boolean;
+    direction?: unknown;
+    disabled?: boolean;
+    form?: string;
+    state?: string;
+    message?: string;
+    hideLabel?: unknown;
+    compact?: boolean;
   }
-
-  @Listen('internalRadioGroupOptionBlur')
-  public emitBlurEvent(e: CustomEvent): void {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this.blur.emit();
-  }
-
-  @Watch('value')
-  public onValueChange(): void {
-    this.setFormValue();
-
-    if (this.radioGroupOptions.length > 0) {
-      if (!this.preventOptionUpdate) {
-        updateRadioGroupOptions(this.radioGroupOptions, this.value);
-      }
-      this.preventOptionUpdate = false;
-      this.updateTabStops();
-    }
-  }
-
-  public setFormValue(): void {
-    // `null`/`undefined` → `undefined`, removing the radio group from form submission
-    this.internals?.setFormValue(this.value === null || this.value === undefined ? undefined : String(this.value));
-  }
-
-  public connectedCallback(): void {
-    this.initialLoading = this.loading;
-  }
-
-  public componentWillLoad(): void {
-    this.defaultValue = this.value;
-    this.initialLoading = this.loading;
-    this.updateOptions();
-    updateRadioGroupOptions(this.radioGroupOptions, this.value);
-  }
-
-  public componentWillUpdate(): void {
-    if (this.loading) {
-      this.initialLoading = true;
-    }
-  }
-
-  public formResetCallback(): void {
-    this.value = this.defaultValue; // triggers value watcher
-  }
-
-  public formDisabledCallback(disabled: boolean): void {
-    // Called when a parent fieldset is disabled or enabled
-    this.disabled = disabled;
-  }
-
-  public formStateRestoreCallback(state: string): void {
-    this.value = state;
-  }
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
-  }
-
-  public componentDidLoad(): void {
-    this.setFormValue();
-    this.updateTabStops();
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-
-    attachComponentCss(
-      this.host,
-      getComponentCss,
-      this.disabled,
-      this.loading,
-      this.hideLabel,
-      this.state,
-      this.compact,
-      this.direction
-    );
-    syncRadioGroupChildrenProps(this.radioGroupOptions, this.disabled, this.loading, this.state, this.name);
-
-    const PrefixedTagNames = getPrefixedTagNames(this.host);
-    const inputDescriptionId = hasDescription(this.host, this.description) ? descriptionId : undefined;
-    const inputMessageId = hasMessage(this.host, this.message, this.state) ? messageId : undefined;
-
-    return (
-      <fieldset
-        class="root"
-        disabled={this.disabled}
-        {...getFieldsetAriaAttributes(this.required, this.state === 'error', { role: 'radiogroup' })}
-        aria-describedby={setAriaIDREF(this.loading && loadingId, inputMessageId, inputDescriptionId)}
-        aria-labelledby={hasLabel(this.host, this.label) ? labelId : null}
-        onKeyDown={this.onKeyDown}
-      >
-        <Label
-          host={this.host}
-          tag="div"
-          label={this.label}
-          description={this.description}
-          isRequired={this.required}
-          isLoading={this.loading}
-          isDisabled={this.disabled}
-        />
-        <div class="wrapper">
-          <slot onSlotchange={this.onSlotChange} />
-          {this.loading && <PrefixedTagNames.pSpinner class="spinner" aria-hidden="true" />}
-        </div>
-        <StateMessage state={this.state} message={this.message} host={this.host} />
-        <LoadingMessage loading={this.loading} initialLoading={this.initialLoading} />
-      </fieldset>
-    );
-  }
-
-  private focusOption(index: number): void {
-    const option = this.radioGroupOptions[index];
-    if (option && !option.disabled) {
-      /*
-      Fix for when multiple keys (e.g., ArrowUp + ArrowDown) are pressed simultaneously,
-      the focus could land on the wrong (non-selected) option. Deferring the click
-      with requestAnimationFrame ensures previous blur/focus events are processed first.
-      */
-      requestAnimationFrame(() => option.click());
-    }
-  }
-
-  private onKeyDown = (event: KeyboardEvent): void => {
-    const { key } = event;
-    if (!this.radioGroupOptions.length) return;
-
-    const currentIndex = getActiveOptionIndex(this.radioGroupOptions);
-    let nextIndex = currentIndex;
-
-    switch (key) {
-      case 'ArrowRight':
-      case 'ArrowDown':
-        event.preventDefault();
-        nextIndex = findNextEnabledIndex(this.radioGroupOptions, currentIndex, +1);
-        break;
-      case 'ArrowLeft':
-      case 'ArrowUp':
-        event.preventDefault();
-        nextIndex = findNextEnabledIndex(this.radioGroupOptions, currentIndex, -1);
-        break;
-      default:
-        return; // not a navigation key
-    }
-
-    this.focusOption(nextIndex);
-    this.updateTabStops();
-  };
-
-  private updateOptions = (): void => {
-    this.radioGroupOptions = [];
-
-    for (const child of Array.from(this.host.children).filter(
-      (el) => el.slot !== 'label' && el.slot !== 'label-after' && el.slot !== 'description' && el.slot !== 'message'
-    )) {
-      throwIfElementIsNotOfKind(this.host, child as HTMLElement, ['p-radio-group-option']);
-      this.radioGroupOptions.push(child as RadioGroupOption);
-    }
-  };
-
-  private onSlotChange = (): void => {
-    this.updateOptions();
-    updateRadioGroupOptions(this.radioGroupOptions, this.value);
-    this.updateTabStops();
-  };
-
-  private updateTabStops(): void {
-    if (!this.radioGroupOptions.length) return;
-    const selectedIndex = getCheckedOptionIndex(this.radioGroupOptions);
-    const firstEnabledIndex = getFirstEnabledOptionIndex(this.radioGroupOptions);
-    const focusIndex = selectedIndex !== -1 ? selectedIndex : firstEnabledIndex !== -1 ? firstEnabledIndex : -1;
-
-    this.radioGroupOptions.forEach((opt, i) => {
-      const input = opt.shadowRoot?.querySelector('input[type="radio"]') as HTMLInputElement | null;
-      if (input) {
-        input.setAttribute('tabindex', i === focusIndex ? '0' : '-1');
-      }
-    });
+  interface HTMLElementTagNameMap {
+    'p-radio-group': HTMLPRadioGroupElement;
   }
 }

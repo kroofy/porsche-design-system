@@ -359,6 +359,14 @@ export const config: Config = {
           src: './assets/p-segmented-control-item.iife.js',
           dest: 'build/p-segmented-control-item.iife.js',
         },
+        {
+          src: './assets/p-radio-group.iife.js',
+          dest: 'assets/p-radio-group.iife.js',
+        },
+        {
+          src: './assets/p-radio-group.iife.js',
+          dest: 'build/p-radio-group.iife.js',
+        },
       ],
     },
   ],
@@ -408,6 +416,7 @@ export const config: Config = {
     'p-accordion',
     'p-segmented-control',
     'p-segmented-control-item',
+    'p-radio-group',
   ],
   enableCache: true,
   rollupPlugins: {
