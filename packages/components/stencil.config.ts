@@ -343,6 +343,14 @@ export const config: Config = {
           src: './assets/p-accordion.iife.js',
           dest: 'build/p-accordion.iife.js',
         },
+        {
+          src: './assets/p-segmented-control.iife.js',
+          dest: 'assets/p-segmented-control.iife.js',
+        },
+        {
+          src: './assets/p-segmented-control.iife.js',
+          dest: 'build/p-segmented-control.iife.js',
+        },
       ],
     },
   ],
@@ -390,6 +398,7 @@ export const config: Config = {
     'p-scroller',
     'p-pin-code',
     'p-accordion',
+    'p-segmented-control',
   ],
   enableCache: true,
   rollupPlugins: {
