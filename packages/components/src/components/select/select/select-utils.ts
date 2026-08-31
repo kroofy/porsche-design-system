@@ -1,4 +1,4 @@
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import { consoleWarn, getTagNameWithoutPrefix, type SelectComponentsDropdownDirection } from '../../../utils';
 import type { FormState } from '../../../utils/form/form-state';
 import type { SelectOptionInternalHTMLProps } from '../select-option/select-option-utils';

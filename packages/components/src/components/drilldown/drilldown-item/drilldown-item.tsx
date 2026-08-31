@@ -3,7 +3,7 @@
  * custom element from mitosis/drilldown-item/DrilldownItem.lite.tsx.
  * This file stays so generateConstructorMap can still import class DrilldownItem.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class DrilldownItem {
   host!: HTMLElement;

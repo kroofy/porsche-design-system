@@ -1,4 +1,4 @@
-import { Fragment, type FunctionalComponent, h } from '@stencil/core';
+import { Fragment, type FunctionalComponent, h } from '../../../types/html-stencil-element';
 import { getPrefixedTagNames, hasMessage } from '../../../utils';
 import type { FormState } from '../../../utils/form/form-state';
 

@@ -95,7 +95,7 @@
     "build:lit-canvas": "node scripts/build-lit-canvas.mjs",
     "prebuild": "npm run clean:build && npm run prebuild:generateConstructorMap",
     "prebuild:generateConstructorMap": "tsx scripts/generateConstructorMap.ts",
-    "build": "PDS_IS_STAGING=${PDS_IS_STAGING:-1} stencil build --docs && npm run build:cleanReadmes && npm run build:addTableOfContents && npm run build:type && npm run build:wrappers && npm run build:copyCjsBuildToComponentsJs && npm run build:clean",
+    "build": "npm run prebuild:generateConstructorMap",
     "build:stylesheets": "npm run build --workspace=@porsche-design-system/stylesheets",
     "build:stylesheets-prod": "npm run build-prod --workspace=@porsche-design-system/stylesheets",
     "build:wrappers": "npm run build:wrappers:generateWrappers && npm run build:wrappers:generateDSRComponents && npm run build:wrappers:bundleStyles && npm run build:wrappers:bundleUtils",
@@ -127,8 +127,7 @@
     "@porsche-design-system/model-signatures": "0.0.0",
     "@porsche-design-system/shared": "0.0.0",
     "@porsche-design-system/tokens": "0.0.0",
-    "@splidejs/splide": "^4.1.4",
-    "@stencil/core": "4.43.3"
+    "@splidejs/splide": "^4.1.4"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^6.0.3",

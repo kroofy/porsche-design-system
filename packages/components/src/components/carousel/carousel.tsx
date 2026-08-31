@@ -3,7 +3,7 @@
  * custom element from mitosis/carousel/Carousel.lite.tsx.
  * This file stays so generateConstructorMap can still import class Carousel.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 
 export class Carousel {
   host!: HTMLElement;

@@ -3,7 +3,7 @@
  * custom element from mitosis/popover/Popover.lite.tsx.
  * This file stays so generateConstructorMap can still import class Popover.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 import type { SelectedAriaAttributes } from '../../types';
 import type { PopoverAriaAttribute, PopoverDirection, PopoverDismissEventDetail } from './popover-utils';
 

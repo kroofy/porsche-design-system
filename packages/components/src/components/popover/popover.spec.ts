@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../types/html-stencil-element';
 import { autoUpdate } from '@floating-ui/dom';
 import * as childrenObserverUtils from '../../utils/children-observer';
 import { Popover } from './popover';

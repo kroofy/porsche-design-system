@@ -3,7 +3,7 @@
  * custom element from mitosis/link-tile/LinkTile.lite.tsx.
  * This file stays so generateConstructorMap can still import class LinkTile.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 import type { BreakpointCustomizable, SelectedAriaAttributes } from '../../types';
 import type {
   LinkTileAlign,

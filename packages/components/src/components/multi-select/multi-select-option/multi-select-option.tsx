@@ -3,7 +3,7 @@
  * custom element from mitosis/multi-select-option/MultiSelectOption.lite.tsx.
  * This file stays so generateConstructorMap can still import class MultiSelectOption.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class MultiSelectOption {
   host!: HTMLElement;

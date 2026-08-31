@@ -1,4 +1,4 @@
-import { type FunctionalComponent, h } from '@stencil/core';
+import { type FunctionalComponent, h } from '../../../types/html-stencil-element';
 
 export const NoResultsOption: FunctionalComponent = () => {
   return (

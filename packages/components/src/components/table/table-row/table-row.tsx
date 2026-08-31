@@ -3,7 +3,7 @@
  * custom element from mitosis/table-row/TableRow.lite.tsx.
  * This file stays so generateConstructorMap can still import class TableRow.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class TableRow {
   host!: HTMLElement;

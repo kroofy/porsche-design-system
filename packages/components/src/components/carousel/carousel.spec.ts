@@ -1,6 +1,6 @@
 import * as splideModule from '@splidejs/splide';
 import { Splide } from '@splidejs/splide';
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../types/html-stencil-element';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import * as breakpointCustomizableUtils from '../../utils/breakpoint-customizable';
 import * as breakpointObserverUtils from '../../utils/breakpoint-observer';

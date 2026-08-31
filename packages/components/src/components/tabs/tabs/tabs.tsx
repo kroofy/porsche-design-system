@@ -3,7 +3,7 @@
  * custom element from mitosis/tabs/Tabs.lite.tsx.
  * This file stays so generateConstructorMap can still import class Tabs.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class Tabs {
   host!: HTMLElement;

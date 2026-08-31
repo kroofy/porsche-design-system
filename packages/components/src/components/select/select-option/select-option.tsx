@@ -3,7 +3,7 @@
  * custom element from mitosis/select-option/SelectOption.lite.tsx.
  * This file stays so generateConstructorMap can still import class SelectOption.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class SelectOption {
   host!: HTMLElement;

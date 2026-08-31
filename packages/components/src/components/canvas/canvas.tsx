@@ -3,7 +3,7 @@
  * custom element from mitosis/canvas/Canvas.lite.tsx.
  * This file stays so generateConstructorMap can still import class Canvas.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 
 export class Canvas {
   host!: HTMLElement;

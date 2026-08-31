@@ -3,7 +3,7 @@
  * custom element from mitosis/flyout/Flyout.lite.tsx.
  * This file stays so generateConstructorMap can still import class Flyout.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 
 export class Flyout {
   host!: HTMLElement;

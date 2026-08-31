@@ -1,4 +1,4 @@
-import type { EventEmitter } from '@stencil/core';
+import type { EventEmitter } from '../../types/html-stencil-element';
 import { vi } from 'vitest';
 import { onCancelDialog, onClickDialog, isDialogBackdropTarget, onTransitionEnd, showDialog } from './dialog';
 

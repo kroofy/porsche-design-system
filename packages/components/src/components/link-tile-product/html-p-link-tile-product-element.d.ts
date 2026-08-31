@@ -3,7 +3,7 @@
  * after @Component is stripped. Keep the host type here so other files can still
  * name p-link-tile-product hosts.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 import type { BreakpointCustomizable } from '../../types';
 import type { LinkTileProductAspectRatio, LinkTileProductTarget } from './link-tile-product-utils';
 

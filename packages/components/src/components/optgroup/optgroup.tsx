@@ -3,7 +3,7 @@
  * custom element from mitosis/optgroup/Optgroup.lite.tsx.
  * This file stays so generateConstructorMap can still import class Optgroup.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 
 export class Optgroup {
   host!: HTMLElement;

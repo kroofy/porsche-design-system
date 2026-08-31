@@ -3,7 +3,7 @@
  * after @Component is stripped. Keep the host type here so other files can still
  * name p-table-head-row hosts.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export {};
 

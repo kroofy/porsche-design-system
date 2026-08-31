@@ -3,7 +3,7 @@
  * custom element from mitosis/stepper-horizontal/StepperHorizontal.lite.tsx.
  * This file stays so generateConstructorMap can still import class StepperHorizontal.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class StepperHorizontal {
   host!: HTMLElement;

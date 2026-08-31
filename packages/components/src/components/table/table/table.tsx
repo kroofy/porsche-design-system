@@ -3,7 +3,7 @@
  * custom element from mitosis/table/Table.lite.tsx.
  * This file stays so generateConstructorMap can still import class Table.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 import type { TableLayout, TableUpdateEventDetail } from './table-utils';
 
 export class Table {

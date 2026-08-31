@@ -3,7 +3,7 @@
  * custom element from mitosis/modal/Modal.lite.tsx.
  * This file stays so generateConstructorMap can still import class Modal.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../types/html-stencil-element';
 
 export class Modal {
   host!: HTMLElement;

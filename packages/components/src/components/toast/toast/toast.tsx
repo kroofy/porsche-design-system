@@ -3,7 +3,7 @@
  * custom element from mitosis/toast/Toast.lite.tsx.
  * This file stays so generateConstructorMap can still import class Toast.
  */
-import type { HTMLStencilElement } from '@stencil/core/internal';
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class Toast {
   host!: HTMLElement;

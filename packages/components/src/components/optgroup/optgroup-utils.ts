@@ -1,4 +1,4 @@
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../types/html-stencil-element';
 import type { MultiSelectOption } from '../multi-select/multi-select/multi-select-utils';
 import type { SelectOption } from '../select/select/select-utils';
 
