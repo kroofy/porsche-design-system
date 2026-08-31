@@ -46,7 +46,6 @@ import { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedCo
 import { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 import { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-import { SpinnerAriaAttribute, SpinnerColor, SpinnerSize } from "./components/spinner/spinner-utils";
 import { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 import { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 import { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/switch-utils";
@@ -100,7 +99,6 @@ export { SegmentedControlChangeEventDetail, SegmentedControlColumns, SegmentedCo
 export { SegmentedControlItemAriaAttribute, SegmentedControlItemIcon } from "./components/segmented-control/segmented-control-item/segmented-control-item-utils";
 export { SelectChangeEventDetail, SelectDropdownDirection, SelectState, SelectToggleEventDetail } from "./components/select/select/select-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
-export { SpinnerAriaAttribute, SpinnerColor, SpinnerSize } from "./components/spinner/spinner-utils";
 export { StepperHorizontalSize, StepperHorizontalUpdateEventDetail } from "./components/stepper-horizontal/stepper-horizontal/stepper-horizontal-utils";
 export { StepperHorizontalItemState } from "./components/stepper-horizontal/stepper-horizontal-item/stepper-horizontal-item-utils";
 export { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/switch-utils";
@@ -2539,22 +2537,6 @@ export namespace Components {
          */
         "open": boolean;
     }
-    interface PSpinner {
-        /**
-          * Sets ARIA attributes on the spinner's live region element; use `aria-label` to provide a descriptive loading message for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<SpinnerAriaAttribute>;
-        /**
-          * Sets the color of the spinning indicator using PDS semantic color tokens (e.g. `primary`, `contrast-high`, `inherit`).
-          * @default 'primary'
-         */
-        "color"?: SpinnerColor;
-        /**
-          * Sets the size of the spinner using the PDS typographic scale. Use `inherit` to derive the size from the parent element's font-size. Supports responsive breakpoint values.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<SpinnerSize>;
-    }
     interface PStepperHorizontal {
         /**
           * The font size of the step labels.
@@ -3725,12 +3707,6 @@ declare global {
         prototype: HTMLPSheetElement;
         new (): HTMLPSheetElement;
     };
-    interface HTMLPSpinnerElement extends Components.PSpinner, HTMLStencilElement {
-    }
-    var HTMLPSpinnerElement: {
-        prototype: HTMLPSpinnerElement;
-        new (): HTMLPSpinnerElement;
-    };
     interface HTMLPStepperHorizontalElementEventMap {
         "update": StepperHorizontalUpdateEventDetail;
     }
@@ -3985,7 +3961,6 @@ declare global {
         "p-select": HTMLPSelectElement;
         "p-select-option": HTMLPSelectOptionElement;
         "p-sheet": HTMLPSheetElement;
-        "p-spinner": HTMLPSpinnerElement;
         "p-stepper-horizontal": HTMLPStepperHorizontalElement;
         "p-stepper-horizontal-item": HTMLPStepperHorizontalItemElement;
         "p-switch": HTMLPSwitchElement;
@@ -6706,22 +6681,6 @@ declare namespace LocalJSX {
          */
         "open"?: boolean;
     }
-    interface PSpinner {
-        /**
-          * Sets ARIA attributes on the spinner's live region element; use `aria-label` to provide a descriptive loading message for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<SpinnerAriaAttribute>;
-        /**
-          * Sets the color of the spinning indicator using PDS semantic color tokens (e.g. `primary`, `contrast-high`, `inherit`).
-          * @default 'primary'
-         */
-        "color"?: SpinnerColor;
-        /**
-          * Sets the size of the spinner using the PDS typographic scale. Use `inherit` to derive the size from the parent element's font-size. Supports responsive breakpoint values.
-          * @default 'sm'
-         */
-        "size"?: BreakpointCustomizable<SpinnerSize>;
-    }
     interface PStepperHorizontal {
         /**
           * Emitted when active step is changed.
@@ -7674,11 +7633,6 @@ declare namespace LocalJSX {
         "background": SheetBackground;
         "aria": SelectedAriaAttributes<SheetAriaAttribute>;
     }
-    interface PSpinnerAttributes {
-        "color": SpinnerColor;
-        "size": BreakpointCustomizable<SpinnerSize>;
-        "aria": SelectedAriaAttributes<SpinnerAriaAttribute>;
-    }
     interface PStepperHorizontalAttributes {
         "size": BreakpointCustomizable<StepperHorizontalSize>;
     }
@@ -7815,7 +7769,6 @@ declare namespace LocalJSX {
         "p-select": Omit<PSelect, keyof PSelectAttributes> & { [K in keyof PSelect & keyof PSelectAttributes]?: PSelect[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `attr:${K}`]?: PSelectAttributes[K] } & { [K in keyof PSelect & keyof PSelectAttributes as `prop:${K}`]?: PSelect[K] };
         "p-select-option": Omit<PSelectOption, keyof PSelectOptionAttributes> & { [K in keyof PSelectOption & keyof PSelectOptionAttributes]?: PSelectOption[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `attr:${K}`]?: PSelectOptionAttributes[K] } & { [K in keyof PSelectOption & keyof PSelectOptionAttributes as `prop:${K}`]?: PSelectOption[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
-        "p-spinner": Omit<PSpinner, keyof PSpinnerAttributes> & { [K in keyof PSpinner & keyof PSpinnerAttributes]?: PSpinner[K] } & { [K in keyof PSpinner & keyof PSpinnerAttributes as `attr:${K}`]?: PSpinnerAttributes[K] } & { [K in keyof PSpinner & keyof PSpinnerAttributes as `prop:${K}`]?: PSpinner[K] };
         "p-stepper-horizontal": Omit<PStepperHorizontal, keyof PStepperHorizontalAttributes> & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes]?: PStepperHorizontal[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `attr:${K}`]?: PStepperHorizontalAttributes[K] } & { [K in keyof PStepperHorizontal & keyof PStepperHorizontalAttributes as `prop:${K}`]?: PStepperHorizontal[K] };
         "p-stepper-horizontal-item": Omit<PStepperHorizontalItem, keyof PStepperHorizontalItemAttributes> & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes]?: PStepperHorizontalItem[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `attr:${K}`]?: PStepperHorizontalItemAttributes[K] } & { [K in keyof PStepperHorizontalItem & keyof PStepperHorizontalItemAttributes as `prop:${K}`]?: PStepperHorizontalItem[K] };
         "p-switch": Omit<PSwitch, keyof PSwitchAttributes> & { [K in keyof PSwitch & keyof PSwitchAttributes]?: PSwitch[K] } & { [K in keyof PSwitch & keyof PSwitchAttributes as `attr:${K}`]?: PSwitchAttributes[K] } & { [K in keyof PSwitch & keyof PSwitchAttributes as `prop:${K}`]?: PSwitch[K] };
@@ -7941,7 +7894,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-sheet": LocalJSX.IntrinsicElements["p-sheet"] & JSXBase.HTMLAttributes<HTMLPSheetElement>;
-            "p-spinner": LocalJSX.IntrinsicElements["p-spinner"] & JSXBase.HTMLAttributes<HTMLPSpinnerElement>;
             "p-stepper-horizontal": LocalJSX.IntrinsicElements["p-stepper-horizontal"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalElement>;
             "p-stepper-horizontal-item": LocalJSX.IntrinsicElements["p-stepper-horizontal-item"] & JSXBase.HTMLAttributes<HTMLPStepperHorizontalItemElement>;
             /**
