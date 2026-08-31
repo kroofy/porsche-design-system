@@ -28,7 +28,17 @@ if (!generated) {
 
 const renderTemplate = `return html\`<div class="notification" role=\${this.roleName} aria-live=\${this.ariaLive} aria-label=\${this.headingAria || nothing}><style .innerHTML="\${this.cssText}"></style>\${this.headingNode}\${this.descriptionNode}\${this.actionNode}\${this.dismissNode}</div>\`;`;
 
-const extraGetters = `  get headingNode() {
+const extraGetters = `  connectedCallback() {
+    super.connectedCallback();
+    this._childObserver = new MutationObserver(() => this.requestUpdate());
+    this._childObserver.observe(this, { childList: true });
+    queueMicrotask(() => this.requestUpdate());
+  }
+  disconnectedCallback() {
+    this._childObserver?.disconnect();
+    super.disconnectedCallback();
+  }
+  get headingNode() {
     const heading = this.headingText;
     if (heading) {
       const tag = this.headingTagValue;
@@ -176,6 +186,7 @@ if (
   !after.includes('action-label') ||
   !after.includes('action-icon') ||
   !after.includes('querySelector') ||
+  !after.includes('MutationObserver') ||
   !after.includes('min-width:760px')
 ) {
   console.error('build-lit-inline-notification: expected notification layout, slots, kebab attrs, and slot detection');

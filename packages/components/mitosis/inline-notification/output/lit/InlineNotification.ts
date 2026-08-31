@@ -180,6 +180,16 @@ export default class LitInlineNotification extends LitElement {
     return visual === "warning" || visual === "error" ? "assertive" : "polite";
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this._childObserver = new MutationObserver(() => this.requestUpdate());
+    this._childObserver.observe(this, { childList: true });
+    queueMicrotask(() => this.requestUpdate());
+  }
+  disconnectedCallback() {
+    this._childObserver?.disconnect();
+    super.disconnectedCallback();
+  }
   get headingNode() {
     const heading = this.headingText;
     if (heading) {
