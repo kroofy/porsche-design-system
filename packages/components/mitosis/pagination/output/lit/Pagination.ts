@@ -169,7 +169,7 @@ export default class LitPagination extends LitElement {
   get pageNodes() {
     return this.pageItems.map((item: any, index: number) => {
       if (item.type === 2) {
-        return html`<li class="prev"><span role="button" tabindex=${item.isActive ? 0 : nothing} aria-label="Previous page" aria-disabled=${item.isActive ? nothing : "true"}><p-icon name="arrow-left" color="primary" aria-hidden="true"></p-icon></span></li>`;
+        return html`<li class="prev"><span role="button" tabindex=${item.isActive ? 0 : nothing} aria-label="Previous page" aria-disabled=${item.isActive ? nothing : "true"}><p-icon name="arrow-left" source="http://localhost:3001/icons/arrow-left.e03c25b.svg" color="primary" aria-hidden="true"></p-icon></span></li>`;
       }
       if (item.type === 3) {
         return html`<li class="next"><span role="button" tabindex=${item.isActive ? 0 : nothing} aria-label="Next page" aria-disabled=${item.isActive ? nothing : "true"}><p-icon name="arrow-right" color="primary" aria-hidden="true"></p-icon></span></li>`;
