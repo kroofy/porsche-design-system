@@ -159,6 +159,14 @@ export const config: Config = {
           src: './assets/p-switch.iife.js',
           dest: 'build/p-switch.iife.js',
         },
+        {
+          src: './assets/p-checkbox.iife.js',
+          dest: 'assets/p-checkbox.iife.js',
+        },
+        {
+          src: './assets/p-checkbox.iife.js',
+          dest: 'build/p-checkbox.iife.js',
+        },
       ],
     },
   ],
@@ -183,6 +191,7 @@ export const config: Config = {
     'p-button-pure',
     'p-button',
     'p-switch',
+    'p-checkbox',
   ],
   enableCache: true,
   rollupPlugins: {
