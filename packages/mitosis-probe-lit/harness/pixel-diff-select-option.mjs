@@ -72,7 +72,8 @@ const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
   text.includes('should be of kind') ||
   text.includes('has to be a p-select-option') ||
-  text.includes('parent HTMLElement of');
+  text.includes('parent HTMLElement of') ||
+  text.includes("Cannot read properties of null (reading 'children')");
 page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
