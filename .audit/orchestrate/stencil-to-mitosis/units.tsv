@@ -155,4 +155,5 @@ land-canvas	land	done	cursor/mitosis-migration-41e6	3	0e06d018bf	briefs/land-can
 delete-stencil	land	done	cursor/mitosis-migration-41e6	3	53a8b053e1	briefs/delete-stencil.md
 delete-stencil-core	land	done	cursor/mitosis-migration-41e6	3	e9f750b549	briefs/delete-stencil-core.md
 generate-frameworks-divider	generate	done	cursor/mitosis-migration-41e6	3	2e9a617d9a	briefs/generate-frameworks-divider.md
-generate-frameworks-all	generate	in-progress	cursor/mitosis-migration-41e6	3		briefs/generate-frameworks-all.md
+generate-frameworks-all	generate	done	cursor/mitosis-migration-41e6	3	8ba9fb2c50	briefs/generate-frameworks-all.md
+generate-frameworks-react-fix	generate	in-progress	cursor/mitosis-migration-41e6	3		briefs/generate-frameworks-react-fix.md
