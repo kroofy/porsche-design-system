@@ -191,6 +191,14 @@ export const config: Config = {
           src: './assets/p-input-password.iife.js',
           dest: 'build/p-input-password.iife.js',
         },
+        {
+          src: './assets/p-input-search.iife.js',
+          dest: 'assets/p-input-search.iife.js',
+        },
+        {
+          src: './assets/p-input-search.iife.js',
+          dest: 'build/p-input-search.iife.js',
+        },
       ],
     },
   ],
@@ -219,6 +227,7 @@ export const config: Config = {
     'p-input-text',
     'p-input-email',
     'p-input-password',
+    'p-input-search',
   ],
   enableCache: true,
   rollupPlugins: {
