@@ -11,7 +11,6 @@ import { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-import { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 import { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
@@ -19,7 +18,6 @@ export { BreakpointCustomizable, SelectedAriaAttributes } from "./types";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FlyoutAriaAttribute, FlyoutBackdrop, FlyoutBackground, FlyoutDismissEventDetail, FlyoutFooterBehavior, FlyoutMotionHiddenEndEventDetail, FlyoutMotionVisibleEndEventDetail, FlyoutPosition } from "./components/flyout/flyout-utils";
-export { ModalAriaAttribute, ModalBackdrop, ModalBackground, ModalDismissEventDetail, ModalMotionHiddenEndEventDetail, ModalMotionVisibleEndEventDetail } from "./components/modal/modal-utils";
 export { SheetAriaAttribute, SheetBackground, SheetDismissEventDetail, SheetMotionHiddenEndEventDetail, SheetMotionVisibleEndEventDetail } from "./components/sheet/sheet-utils";
 export namespace Components {
     /**
@@ -248,45 +246,6 @@ export namespace Components {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PModal {
-        /**
-          * Sets ARIA attributes on the dialog element for improved accessibility when no visible heading is present.
-         */
-        "aria"?: SelectedAriaAttributes<ModalAriaAttribute>;
-        /**
-          * Sets the backdrop style. Use `blur` when the modal is opened by user interaction; use `shading` when opened automatically (e.g. Cookie Consent).
-          * @default 'blur'
-         */
-        "backdrop"?: ModalBackdrop;
-        /**
-          * Sets the background color of the modal panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: ModalBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the modal.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Shows a dismiss button in the modal header so the user can manually close it.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Expands the modal to the full viewport size, intended for mobile use cases. Supports responsive breakpoint values.
-          * @default false
-         */
-        "fullscreen"?: BreakpointCustomizable<boolean>;
-        /**
-          * Controls whether the modal dialog is visible.
-          * @default false
-         */
-        "open": boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -329,10 +288,6 @@ export interface PDrilldownCustomEvent<T> extends CustomEvent<T> {
 export interface PFlyoutCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPFlyoutElement;
-}
-export interface PModalCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPModalElement;
 }
 export interface PSheetCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -443,28 +398,6 @@ declare global {
         prototype: HTMLPFlyoutElement;
         new (): HTMLPFlyoutElement;
     };
-    interface HTMLPModalElementEventMap {
-        "dismiss": ModalDismissEventDetail;
-        "motionVisibleEnd": ModalMotionVisibleEndEventDetail;
-        "motionHiddenEnd": ModalMotionHiddenEndEventDetail;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
-    interface HTMLPModalElement extends Components.PModal, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPModalElementEventMap>(type: K, listener: (this: HTMLPModalElement, ev: PModalCustomEvent<HTMLPModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPModalElementEventMap>(type: K, listener: (this: HTMLPModalElement, ev: PModalCustomEvent<HTMLPModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPModalElement: {
-        prototype: HTMLPModalElement;
-        new (): HTMLPModalElement;
-    };
     interface HTMLPSheetElementEventMap {
         "dismiss": SheetDismissEventDetail;
         "motionVisibleEnd": SheetMotionVisibleEndEventDetail;
@@ -494,7 +427,6 @@ declare global {
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
         "p-flyout": HTMLPFlyoutElement;
-        "p-modal": HTMLPModalElement;
         "p-sheet": HTMLPSheetElement;
     }
 }
@@ -757,57 +689,6 @@ declare namespace LocalJSX {
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
      */
-    interface PModal {
-        /**
-          * Sets ARIA attributes on the dialog element for improved accessibility when no visible heading is present.
-         */
-        "aria"?: SelectedAriaAttributes<ModalAriaAttribute>;
-        /**
-          * Sets the backdrop style. Use `blur` when the modal is opened by user interaction; use `shading` when opened automatically (e.g. Cookie Consent).
-          * @default 'blur'
-         */
-        "backdrop"?: ModalBackdrop;
-        /**
-          * Sets the background color of the modal panel (`canvas` or `surface`).
-          * @default 'canvas'
-         */
-        "background"?: ModalBackground;
-        /**
-          * When enabled, clicking the backdrop will not close the modal.
-          * @default false
-         */
-        "disableBackdropClick"?: boolean;
-        /**
-          * Shows a dismiss button in the modal header so the user can manually close it.
-          * @default true
-         */
-        "dismissButton"?: boolean;
-        /**
-          * Expands the modal to the full viewport size, intended for mobile use cases. Supports responsive breakpoint values.
-          * @default false
-         */
-        "fullscreen"?: BreakpointCustomizable<boolean>;
-        /**
-          * Emitted when the user closes the modal via the dismiss button, backdrop click, or Escape key. The event detail identifies which of the three was used.
-         */
-        "onDismiss"?: (event: PModalCustomEvent<ModalDismissEventDetail>) => void;
-        /**
-          * Emitted after the modal's close transition completes and the dialog is fully hidden.
-         */
-        "onMotionHiddenEnd"?: (event: PModalCustomEvent<ModalMotionHiddenEndEventDetail>) => void;
-        /**
-          * Emitted after the modal's open transition completes and the dialog is fully visible.
-         */
-        "onMotionVisibleEnd"?: (event: PModalCustomEvent<ModalMotionVisibleEndEventDetail>) => void;
-        /**
-          * Controls whether the modal dialog is visible.
-          * @default false
-         */
-        "open"?: boolean;
-    }
-    /**
-     * @controlled {"props": ["open"], "event": "dismiss"}
-     */
     interface PSheet {
         /**
           * Sets ARIA attributes on the sheet dialog element for improved accessibility when the default `aria-label` is insufficient.
@@ -900,15 +781,6 @@ declare namespace LocalJSX {
         "fullscreen": string;
         "aria": SelectedAriaAttributes<FlyoutAriaAttribute>;
     }
-    interface PModalAttributes {
-        "open": boolean;
-        "dismissButton": boolean;
-        "disableBackdropClick": boolean;
-        "backdrop": ModalBackdrop;
-        "background": ModalBackground;
-        "fullscreen": string;
-        "aria": SelectedAriaAttributes<ModalAriaAttribute>;
-    }
     interface PSheetAttributes {
         "open": boolean;
         "dismissButton": boolean;
@@ -924,7 +796,6 @@ declare namespace LocalJSX {
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
         "p-flyout": Omit<PFlyout, keyof PFlyoutAttributes> & { [K in keyof PFlyout & keyof PFlyoutAttributes]?: PFlyout[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `attr:${K}`]?: PFlyoutAttributes[K] } & { [K in keyof PFlyout & keyof PFlyoutAttributes as `prop:${K}`]?: PFlyout[K] };
-        "p-modal": Omit<PModal, keyof PModalAttributes> & { [K in keyof PModal & keyof PModalAttributes]?: PModal[K] } & { [K in keyof PModal & keyof PModalAttributes as `attr:${K}`]?: PModalAttributes[K] } & { [K in keyof PModal & keyof PModalAttributes as `prop:${K}`]?: PModal[K] };
         "p-sheet": Omit<PSheet, keyof PSheetAttributes> & { [K in keyof PSheet & keyof PSheetAttributes]?: PSheet[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `attr:${K}`]?: PSheetAttributes[K] } & { [K in keyof PSheet & keyof PSheetAttributes as `prop:${K}`]?: PSheet[K] };
     }
 }
@@ -958,10 +829,6 @@ declare module "@stencil/core" {
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
             "p-flyout": LocalJSX.IntrinsicElements["p-flyout"] & JSXBase.HTMLAttributes<HTMLPFlyoutElement>;
-            /**
-             * @controlled {"props": ["open"], "event": "dismiss"}
-             */
-            "p-modal": LocalJSX.IntrinsicElements["p-modal"] & JSXBase.HTMLAttributes<HTMLPModalElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              */
