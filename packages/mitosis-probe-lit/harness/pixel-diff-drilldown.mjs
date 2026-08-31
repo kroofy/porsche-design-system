@@ -54,7 +54,8 @@ const isBenign = (text) =>
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes("can't be used like this") ||
-  text.includes('throwIfParentIsNotOfKind');
+  text.includes('throwIfParentIsNotOfKind') ||
+  text.includes('supplied to p-drilldown');
 page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();

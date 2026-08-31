@@ -102,7 +102,7 @@ after = after.replace(
   /  render\(\) \{[\s\S]*?\n  \}\n\}/,
   `  render() {
     const label = this.ariaLabelText || nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style><dialog ?inert=\${!this.isOpenFlag} aria-label=\${label}><div class="drawer"><p-button-pure class="back" type="button" size="small" align-label="end" stretch hide-label icon="arrow-left">Back</p-button-pure><p-button class="dismiss-mobile" type="button" icon="close" compact variant="secondary" hide-label>Dismiss drilldown</p-button><p-button class="dismiss-desktop" type="button" icon="close" variant="secondary" hide-label>Dismiss drilldown</p-button><div class="scroller"><slot></slot></div></div></dialog>\`;
+    return html\`<style .innerHTML="\${this.cssText}"></style><dialog ?inert=\${!this.isOpenFlag} aria-label=\${label}><div class="drawer"><p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" hide-label="true" icon="arrow-left">Back</p-button-pure><p-button class="dismiss-mobile" type="button" icon="close" compact="true" variant="secondary" hide-label="true">Dismiss drilldown</p-button><p-button class="dismiss-desktop" type="button" icon="close" variant="secondary" hide-label="true">Dismiss drilldown</p-button><div class="scroller"><slot></slot></div></div></dialog>\`;
   }
 }`,
 );
