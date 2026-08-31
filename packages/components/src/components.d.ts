@@ -52,7 +52,6 @@ import { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/s
 import { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 import { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 import { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-import { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
 import { TextListType } from "./components/text-list/text-list/text-list-utils";
 import { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 import { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -104,7 +103,6 @@ export { SwitchAlignLabel, SwitchUpdateEventDetail } from "./components/switch/s
 export { TableHeadCellSort, TableLayout, TableUpdateEventDetail } from "./components/table/table/table-utils";
 export { TabsAriaAttribute, TabsBackground, TabsSize, TabsUpdateEventDetail, TabsWeight } from "./components/tabs/tabs/tabs-utils";
 export { TabsBarAriaAttribute, TabsBarBackground, TabsBarSize, TabsBarUpdateEventDetail, TabsBarWeight } from "./components/tabs-bar/tabs-bar-utils";
-export { TagDismissibleAriaAttribute } from "./components/tag-dismissible/tag-dismissible-utils";
 export { TextListType } from "./components/text-list/text-list/text-list-utils";
 export { TextareaBlurEventDetail, TextareaChangeEventDetail, TextareaInputEventDetail, TextareaResize, TextareaState, TextareaWrap } from "./components/textarea/textarea-utils";
 export { ToastMessage } from "./components/toast/toast/toast-manager";
@@ -2716,21 +2714,6 @@ export namespace Components {
          */
         "label": string;
     }
-    interface PTagDismissible {
-        /**
-          * Sets ARIA attributes on the dismiss button element, for example use `aria-label` to provide a descriptive close action for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<TagDismissibleAriaAttribute>;
-        /**
-          * Reduces the tag's padding and height for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the visible label text displayed inside the tag alongside the dismiss button.
-         */
-        "label"?: string;
-    }
     interface PTextList {
         /**
           * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
@@ -3826,12 +3809,6 @@ declare global {
         prototype: HTMLPTabsItemElement;
         new (): HTMLPTabsItemElement;
     };
-    interface HTMLPTagDismissibleElement extends Components.PTagDismissible, HTMLStencilElement {
-    }
-    var HTMLPTagDismissibleElement: {
-        prototype: HTMLPTagDismissibleElement;
-        new (): HTMLPTagDismissibleElement;
-    };
     interface HTMLPTextListElement extends Components.PTextList, HTMLStencilElement {
     }
     var HTMLPTextListElement: {
@@ -3945,7 +3922,6 @@ declare global {
         "p-tabs": HTMLPTabsElement;
         "p-tabs-bar": HTMLPTabsBarElement;
         "p-tabs-item": HTMLPTabsItemElement;
-        "p-tag-dismissible": HTMLPTagDismissibleElement;
         "p-text-list": HTMLPTextListElement;
         "p-text-list-item": HTMLPTextListItemElement;
         "p-textarea": HTMLPTextareaElement;
@@ -6852,21 +6828,6 @@ declare namespace LocalJSX {
          */
         "label"?: string;
     }
-    interface PTagDismissible {
-        /**
-          * Sets ARIA attributes on the dismiss button element, for example use `aria-label` to provide a descriptive close action for screen readers.
-         */
-        "aria"?: SelectedAriaAttributes<TagDismissibleAriaAttribute>;
-        /**
-          * Reduces the tag's padding and height for use in dense layouts where vertical space is limited.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Sets the visible label text displayed inside the tag alongside the dismiss button.
-         */
-        "label"?: string;
-    }
     interface PTextList {
         /**
           * Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`).
@@ -7630,11 +7591,6 @@ declare namespace LocalJSX {
     interface PTabsItemAttributes {
         "label": string;
     }
-    interface PTagDismissibleAttributes {
-        "label": string;
-        "aria": SelectedAriaAttributes<TagDismissibleAriaAttribute>;
-        "compact": boolean;
-    }
     interface PTextListAttributes {
         "type": TextListType;
     }
@@ -7725,7 +7681,6 @@ declare namespace LocalJSX {
         "p-tabs": Omit<PTabs, keyof PTabsAttributes> & { [K in keyof PTabs & keyof PTabsAttributes]?: PTabs[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `attr:${K}`]?: PTabsAttributes[K] } & { [K in keyof PTabs & keyof PTabsAttributes as `prop:${K}`]?: PTabs[K] };
         "p-tabs-bar": Omit<PTabsBar, keyof PTabsBarAttributes> & { [K in keyof PTabsBar & keyof PTabsBarAttributes]?: PTabsBar[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `attr:${K}`]?: PTabsBarAttributes[K] } & { [K in keyof PTabsBar & keyof PTabsBarAttributes as `prop:${K}`]?: PTabsBar[K] };
         "p-tabs-item": Omit<PTabsItem, keyof PTabsItemAttributes> & { [K in keyof PTabsItem & keyof PTabsItemAttributes]?: PTabsItem[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `attr:${K}`]?: PTabsItemAttributes[K] } & { [K in keyof PTabsItem & keyof PTabsItemAttributes as `prop:${K}`]?: PTabsItem[K] };
-        "p-tag-dismissible": Omit<PTagDismissible, keyof PTagDismissibleAttributes> & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes]?: PTagDismissible[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `attr:${K}`]?: PTagDismissibleAttributes[K] } & { [K in keyof PTagDismissible & keyof PTagDismissibleAttributes as `prop:${K}`]?: PTagDismissible[K] };
         "p-text-list": Omit<PTextList, keyof PTextListAttributes> & { [K in keyof PTextList & keyof PTextListAttributes]?: PTextList[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `attr:${K}`]?: PTextListAttributes[K] } & { [K in keyof PTextList & keyof PTextListAttributes as `prop:${K}`]?: PTextList[K] };
         "p-text-list-item": PTextListItem;
         "p-textarea": Omit<PTextarea, keyof PTextareaAttributes> & { [K in keyof PTextarea & keyof PTextareaAttributes]?: PTextarea[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `attr:${K}`]?: PTextareaAttributes[K] } & { [K in keyof PTextarea & keyof PTextareaAttributes as `prop:${K}`]?: PTextarea[K] };
@@ -7858,7 +7813,6 @@ declare module "@stencil/core" {
              */
             "p-tabs-bar": LocalJSX.IntrinsicElements["p-tabs-bar"] & JSXBase.HTMLAttributes<HTMLPTabsBarElement>;
             "p-tabs-item": LocalJSX.IntrinsicElements["p-tabs-item"] & JSXBase.HTMLAttributes<HTMLPTabsItemElement>;
-            "p-tag-dismissible": LocalJSX.IntrinsicElements["p-tag-dismissible"] & JSXBase.HTMLAttributes<HTMLPTagDismissibleElement>;
             "p-text-list": LocalJSX.IntrinsicElements["p-text-list"] & JSXBase.HTMLAttributes<HTMLPTextListElement>;
             "p-text-list-item": LocalJSX.IntrinsicElements["p-text-list-item"] & JSXBase.HTMLAttributes<HTMLPTextListItemElement>;
             "p-textarea": LocalJSX.IntrinsicElements["p-textarea"] & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
