@@ -439,6 +439,14 @@ export const config: Config = {
           src: './assets/p-tabs-item.iife.js',
           dest: 'build/p-tabs-item.iife.js',
         },
+        {
+          src: './assets/p-stepper-horizontal.iife.js',
+          dest: 'assets/p-stepper-horizontal.iife.js',
+        },
+        {
+          src: './assets/p-stepper-horizontal.iife.js',
+          dest: 'build/p-stepper-horizontal.iife.js',
+        },
       ],
     },
   ],
@@ -498,6 +506,7 @@ export const config: Config = {
     'p-tabs-bar',
     'p-tabs',
     'p-tabs-item',
+    'p-stepper-horizontal',
   ],
   enableCache: true,
   rollupPlugins: {
