@@ -607,6 +607,14 @@ export const config: Config = {
           src: './assets/p-drilldown-link.iife.js',
           dest: 'build/p-drilldown-link.iife.js',
         },
+        {
+          src: './assets/p-carousel.iife.js',
+          dest: 'assets/p-carousel.iife.js',
+        },
+        {
+          src: './assets/p-carousel.iife.js',
+          dest: 'build/p-carousel.iife.js',
+        },
       ],
     },
   ],
@@ -687,6 +695,7 @@ export const config: Config = {
     'p-drilldown',
     'p-drilldown-item',
     'p-drilldown-link',
+    'p-carousel',
   ],
   enableCache: true,
   rollupPlugins: {

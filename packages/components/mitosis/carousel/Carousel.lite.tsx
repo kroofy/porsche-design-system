@@ -27,7 +27,9 @@ export default function LitCarousel(props: {
         if (raw === undefined || raw === null || raw === '') return fallback;
         if (typeof raw === 'string' && raw.charAt(0) === '{') {
           try {
-            return JSON.parse(raw.replace(/'/g, '"'));
+            return JSON.parse(
+              raw.replace(/'/g, '"').replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)\s*:/g, '$1"$2":')
+            );
           } catch (e) {
             return fallback;
           }
@@ -173,19 +175,9 @@ export default function LitCarousel(props: {
   `);
 
   return (
-    <div class="root">
+    <div class="header">
       <style innerHTML={state.cssText} />
-      <div class="header">
-        <div class="nav"></div>
-      </div>
-      <div id="splide" class="splide">
-        <div class="splide__track">
-          <div class="splide__list">
-            <slot />
-          </div>
-        </div>
-      </div>
-      <div class="slide-status" aria-live="polite" aria-atomic="true"></div>
+      <div class="nav"></div>
     </div>
   );
 }
