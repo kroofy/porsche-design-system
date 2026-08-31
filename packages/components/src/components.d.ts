@@ -12,7 +12,6 @@ import { BannerHeadingTag, BannerPosition, BannerState } from "./components/bann
 import { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 import { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 import { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
-import { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
 import { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 import { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 import { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -58,7 +57,6 @@ export { BannerHeadingTag, BannerPosition, BannerState } from "./components/bann
 export { ButtonTileAlign, ButtonTileAriaAttribute, ButtonTileAspectRatio, ButtonTileIcon, ButtonTileSize, ButtonTileType, ButtonTileWeight } from "./components/button-tile/button-tile-utils";
 export { CanvasBackground, CanvasSidebarStartUpdateEventDetail } from "./components/canvas/canvas-utils";
 export { CarouselAlignControls, CarouselAlignHeader, CarouselAriaAttribute, CarouselHeadingSize, CarouselInternationalization, CarouselSlidesPerPage, CarouselUpdateEventDetail, CarouselWidth } from "./components/carousel/carousel-utils";
-export { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from "./components/checkbox/checkbox-utils";
 export { DrilldownAriaAttribute, DrilldownDismissEventDetail, DrilldownUpdateEventDetail } from "./components/drilldown/drilldown/drilldown-utils";
 export { DrilldownLinkAriaAttribute, DrilldownLinkTarget } from "./components/drilldown/drilldown-link/drilldown-link-utils";
 export { FieldsetLabelSize, FieldsetState } from "./components/fieldset/fieldset-utils";
@@ -363,72 +361,6 @@ export namespace Components {
           * @default 'basic'
          */
         "width"?: CarouselWidth;
-    }
-    interface PCheckbox {
-        /**
-          * Reflects the checkbox's current checked state and allows setting the initial checked value on load.
-          * @default false
-         */
-        "checked"?: boolean;
-        /**
-          * Reduces the checkbox size and spacing for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Disables the checkbox, preventing all interaction. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the checkbox with a form element by its ID when not directly nested inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Puts the checkbox into an indeterminate state, indicating that a group of child items is only partially selected.
-          * @default false
-         */
-        "indeterminate"?: boolean;
-        /**
-          * Sets the visible label text displayed next to the checkbox.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the checkbox and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the checkbox when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this checkbox's value on the server.
-          * @default ''
-         */
-        "name"?: string;
-        /**
-          * Marks the checkbox as required — form submission is blocked unless the checkbox is checked.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: CheckboxState;
-        /**
-          * Sets the value submitted with the form data when the checkbox is checked. Unchecked checkboxes are excluded from form submissions.
-          * @default 'on'
-         */
-        "value"?: string;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -2558,10 +2490,6 @@ export interface PCarouselCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPCarouselElement;
 }
-export interface PCheckboxCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPCheckboxElement;
-}
 export interface PDrilldownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPDrilldownElement;
@@ -2775,24 +2703,6 @@ declare global {
     var HTMLPCarouselElement: {
         prototype: HTMLPCarouselElement;
         new (): HTMLPCarouselElement;
-    };
-    interface HTMLPCheckboxElementEventMap {
-        "change": CheckboxChangeEventDetail;
-        "blur": CheckboxBlurEventDetail;
-    }
-    interface HTMLPCheckboxElement extends Components.PCheckbox, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPCheckboxElementEventMap>(type: K, listener: (this: HTMLPCheckboxElement, ev: PCheckboxCustomEvent<HTMLPCheckboxElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPCheckboxElementEventMap>(type: K, listener: (this: HTMLPCheckboxElement, ev: PCheckboxCustomEvent<HTMLPCheckboxElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPCheckboxElement: {
-        prototype: HTMLPCheckboxElement;
-        new (): HTMLPCheckboxElement;
     };
     interface HTMLPDrilldownElementEventMap {
         "dismiss": DrilldownDismissEventDetail;
@@ -3524,7 +3434,6 @@ declare global {
         "p-button-tile": HTMLPButtonTileElement;
         "p-canvas": HTMLPCanvasElement;
         "p-carousel": HTMLPCarouselElement;
-        "p-checkbox": HTMLPCheckboxElement;
         "p-drilldown": HTMLPDrilldownElement;
         "p-drilldown-item": HTMLPDrilldownItemElement;
         "p-drilldown-link": HTMLPDrilldownLinkElement;
@@ -3864,80 +3773,6 @@ declare namespace LocalJSX {
           * @default 'basic'
          */
         "width"?: CarouselWidth;
-    }
-    interface PCheckbox {
-        /**
-          * Reflects the checkbox's current checked state and allows setting the initial checked value on load.
-          * @default false
-         */
-        "checked"?: boolean;
-        /**
-          * Reduces the checkbox size and spacing for a more compact layout.
-          * @default false
-         */
-        "compact"?: boolean;
-        /**
-          * Disables the checkbox, preventing all interaction. The value is not submitted with the form.
-          * @default false
-         */
-        "disabled"?: boolean;
-        /**
-          * Associates the checkbox with a form element by its ID when not directly nested inside it.
-         */
-        "form"?: string;
-        /**
-          * Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values.
-          * @default false
-         */
-        "hideLabel"?: BreakpointCustomizable<boolean>;
-        /**
-          * Puts the checkbox into an indeterminate state, indicating that a group of child items is only partially selected.
-          * @default false
-         */
-        "indeterminate"?: boolean;
-        /**
-          * Sets the visible label text displayed next to the checkbox.
-          * @default ''
-         */
-        "label"?: string;
-        /**
-          * @experimental Disables the checkbox and displays a loading spinner to indicate an ongoing operation.
-          * @default false
-         */
-        "loading"?: boolean;
-        /**
-          * Sets the validation feedback message displayed below the checkbox when `state` is `success` or `error`.
-          * @default ''
-         */
-        "message"?: string;
-        /**
-          * Sets the name submitted with the form data to identify this checkbox's value on the server.
-          * @default ''
-         */
-        "name"?: string;
-        /**
-          * Emitted when the checkbox loses focus.
-         */
-        "onBlur"?: (event: PCheckboxCustomEvent<CheckboxBlurEventDetail>) => void;
-        /**
-          * Emitted when the user changes the checked state of the checkbox.
-         */
-        "onChange"?: (event: PCheckboxCustomEvent<CheckboxChangeEventDetail>) => void;
-        /**
-          * Marks the checkbox as required — form submission is blocked unless the checkbox is checked.
-          * @default false
-         */
-        "required"?: boolean;
-        /**
-          * Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`).
-          * @default 'none'
-         */
-        "state"?: CheckboxState;
-        /**
-          * Sets the value submitted with the form data when the checkbox is checked. Unchecked checkboxes are excluded from form submissions.
-          * @default 'on'
-         */
-        "value"?: string;
     }
     /**
      * @controlled {"props": ["open"], "event": "dismiss"}
@@ -6389,21 +6224,6 @@ declare namespace LocalJSX {
         "gradient": boolean;
         "trimSpace": boolean;
     }
-    interface PCheckboxAttributes {
-        "name": string;
-        "required": boolean;
-        "disabled": boolean;
-        "indeterminate": boolean;
-        "checked": boolean;
-        "form": string;
-        "value": string;
-        "label": string;
-        "state": CheckboxState;
-        "message": string;
-        "hideLabel": string;
-        "loading": boolean;
-        "compact": boolean;
-    }
     interface PDrilldownAttributes {
         "open": boolean;
         "activeIdentifier": string | undefined;
@@ -6917,7 +6737,6 @@ declare namespace LocalJSX {
         "p-button-tile": Omit<PButtonTile, keyof PButtonTileAttributes> & { [K in keyof PButtonTile & keyof PButtonTileAttributes]?: PButtonTile[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `attr:${K}`]?: PButtonTileAttributes[K] } & { [K in keyof PButtonTile & keyof PButtonTileAttributes as `prop:${K}`]?: PButtonTile[K] };
         "p-canvas": Omit<PCanvas, keyof PCanvasAttributes> & { [K in keyof PCanvas & keyof PCanvasAttributes]?: PCanvas[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `attr:${K}`]?: PCanvasAttributes[K] } & { [K in keyof PCanvas & keyof PCanvasAttributes as `prop:${K}`]?: PCanvas[K] };
         "p-carousel": Omit<PCarousel, keyof PCarouselAttributes> & { [K in keyof PCarousel & keyof PCarouselAttributes]?: PCarousel[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `attr:${K}`]?: PCarouselAttributes[K] } & { [K in keyof PCarousel & keyof PCarouselAttributes as `prop:${K}`]?: PCarousel[K] };
-        "p-checkbox": Omit<PCheckbox, keyof PCheckboxAttributes> & { [K in keyof PCheckbox & keyof PCheckboxAttributes]?: PCheckbox[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `attr:${K}`]?: PCheckboxAttributes[K] } & { [K in keyof PCheckbox & keyof PCheckboxAttributes as `prop:${K}`]?: PCheckbox[K] };
         "p-drilldown": Omit<PDrilldown, keyof PDrilldownAttributes> & { [K in keyof PDrilldown & keyof PDrilldownAttributes]?: PDrilldown[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `attr:${K}`]?: PDrilldownAttributes[K] } & { [K in keyof PDrilldown & keyof PDrilldownAttributes as `prop:${K}`]?: PDrilldown[K] };
         "p-drilldown-item": Omit<PDrilldownItem, keyof PDrilldownItemAttributes> & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes]?: PDrilldownItem[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `attr:${K}`]?: PDrilldownItemAttributes[K] } & { [K in keyof PDrilldownItem & keyof PDrilldownItemAttributes as `prop:${K}`]?: PDrilldownItem[K] };
         "p-drilldown-link": Omit<PDrilldownLink, keyof PDrilldownLinkAttributes> & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes]?: PDrilldownLink[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `attr:${K}`]?: PDrilldownLinkAttributes[K] } & { [K in keyof PDrilldownLink & keyof PDrilldownLinkAttributes as `prop:${K}`]?: PDrilldownLink[K] };
@@ -6993,7 +6812,6 @@ declare module "@stencil/core" {
              * @controlled { "props": ["activeSlideIndex"], "event": "update", "isInternallyMutated": true }
              */
             "p-carousel": LocalJSX.IntrinsicElements["p-carousel"] & JSXBase.HTMLAttributes<HTMLPCarouselElement>;
-            "p-checkbox": LocalJSX.IntrinsicElements["p-checkbox"] & JSXBase.HTMLAttributes<HTMLPCheckboxElement>;
             /**
              * @controlled {"props": ["open"], "event": "dismiss"}
              * @controlled {"props": ["activeIdentifier"], "event": "update"}
