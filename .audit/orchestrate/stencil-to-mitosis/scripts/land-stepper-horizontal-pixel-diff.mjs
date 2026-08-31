@@ -116,11 +116,21 @@ await page.waitForFunction(() => {
     if (slotted.length < 2) return false;
     if (!slotted.every((item) => item.classList.contains('hydrated'))) return false;
     const icons = slotted.flatMap((item) => [...(item.shadowRoot?.querySelectorAll('p-icon') ?? [])]);
-    return icons.every((icon) => {
+    if (!icons.every((icon) => {
       const img = icon.shadowRoot?.querySelector('img');
       return icon.constructor?.name === 'LitIcon' && img?.complete;
+    })) return false;
+    return icons.every((icon) => {
+      const name = icon.name || icon.getAttribute('name');
+      if (name !== 'success' && name !== 'warning') return true;
+      const src = icon.source || icon.shadowRoot?.querySelector('img')?.getAttribute('src') || '';
+      return name === 'success' ? src.includes('success.') : src.includes('warning.');
     });
-  });
+  }) && (() => {
+    const prevIcon = document.querySelector('#prev-button')?.shadowRoot?.querySelector('p-icon');
+    const src = prevIcon?.source || prevIcon?.shadowRoot?.querySelector('img')?.getAttribute('src') || '';
+    return src.includes('arrow-head-left.');
+  })();
 }, { timeout: 30_000 });
 
 await page.evaluate(async () => {

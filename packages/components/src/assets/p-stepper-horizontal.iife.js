@@ -662,6 +662,41 @@
       if (!scroller) return;
       scroller.setAttribute("role", "list");
     }
+    iconSrc(name) {
+      const files = {
+        success: "success.b16d4c1.svg",
+        warning: "warning.59927e6.svg",
+        "arrow-head-left": "arrow-head-left.cf1395d.svg"
+      };
+      const file = files[name];
+      if (!file) return "";
+      return "http://localhost:3001/icons/" + file;
+    }
+    stampIcon(icon) {
+      if (!icon) return;
+      const existing = icon.source || icon.getAttribute("source") || "";
+      if (existing.includes("/")) return;
+      const name = icon.name || icon.getAttribute("name");
+      const src = this.iconSrc(name);
+      if (src) icon.source = src;
+    }
+    stampIcons() {
+      let pending = false;
+      for (const item of this.stepItems()) {
+        const state2 = item.state ?? item.getAttribute("state");
+        if (state2 !== "complete" && state2 !== "warning") continue;
+        const icon = item.shadowRoot?.querySelector("p-icon");
+        if (!icon) pending = true;
+        else this.stampIcon(icon);
+      }
+      const card = this.closest("[data-card=stepper-horizontal]");
+      if (card) {
+        for (const btn of card.querySelectorAll("p-button")) {
+          this.stampIcon(btn.shadowRoot?.querySelector("p-icon"));
+        }
+      }
+      if (pending) requestAnimationFrame(() => this.stampIcons());
+    }
     scrollCurrentIntoView() {
       const current = this.currentItem();
       if (!current) return;
@@ -679,12 +714,18 @@
       super.connectedCallback();
       this._childObserver = new MutationObserver(() => {
         this.requestUpdate();
-        this.updateComplete.then(() => requestAnimationFrame(() => this.scrollCurrentIntoView()));
+        this.updateComplete.then(() => {
+          this.stampIcons();
+          requestAnimationFrame(() => this.scrollCurrentIntoView());
+        });
       });
       this._childObserver.observe(this, { childList: true, characterData: true, subtree: true });
       queueMicrotask(() => {
         this.requestUpdate();
-        this.updateComplete.then(() => requestAnimationFrame(() => this.scrollCurrentIntoView()));
+        this.updateComplete.then(() => {
+          this.stampIcons();
+          requestAnimationFrame(() => this.scrollCurrentIntoView());
+        });
       });
       this.addEventListener("click", this.onItemClick);
     }
@@ -696,16 +737,22 @@
     }
     firstUpdated() {
       this.syncScrollerAria();
+      this.stampIcons();
       this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
         slot.addEventListener("slotchange", () => {
           this.syncScrollerAria();
+          this.stampIcons();
           this.requestUpdate();
           requestAnimationFrame(() => this.scrollCurrentIntoView());
         });
       });
       customElements.whenDefined("p-scroller").then(() => {
         this.syncScrollerAria();
+        this.stampIcons();
         requestAnimationFrame(() => requestAnimationFrame(() => this.scrollCurrentIntoView()));
+      });
+      customElements.whenDefined("p-stepper-horizontal-item").then(() => {
+        requestAnimationFrame(() => this.stampIcons());
       });
       const scroller = this.renderRoot?.querySelector("p-scroller");
       if (scroller && typeof ResizeObserver !== "undefined") {
