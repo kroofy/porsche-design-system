@@ -18,12 +18,12 @@ for (const tag of tags) {
   await page.locator(`.tag-cell#${tag}`).scrollIntoViewIfNeeded();
   await page.waitForTimeout(250);
   const shots = [];
-  for (const fw of ['react', 'vue', 'angular', 'svelte']) {
+  for (const fw of ['lit', 'react', 'vue', 'angular', 'svelte']) {
     shots.push(await page.locator(`[data-cell="${fw}:${tag}"]`).screenshot({ type: 'png' }));
   }
   const baselinePath = `/workspace/.audit/orchestrate/stencil-to-mitosis/baseline/stencil_${tag.replaceAll('-', '_')}_before.png`;
   const buffers = [await readFile(baselinePath), ...shots];
-  const labels = ['Baseline', 'React', 'Vue', 'Angular', 'Svelte'];
+  const labels = ['Baseline', 'Lit', 'React', 'Vue', 'Angular', 'Svelte'];
   const targetH = 420;
   const labelH = 40;
   const resized = [];

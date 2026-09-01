@@ -1,11 +1,12 @@
 import './styles.css';
 import { DEMOS, OVERLAY_TAGS, baselineSrc } from './catalog';
+import { mountLit } from './lit/mount';
 import { mountReact } from './react/mount';
 import { mountVue } from './vue/mount';
 import { mountSvelte } from './svelte/mount';
 import { mountAngular } from './angular/mount';
 
-const FRAMEWORKS = ['react', 'vue', 'angular', 'svelte'] as const;
+const FRAMEWORKS = ['lit', 'react', 'vue', 'angular', 'svelte'] as const;
 
 function renderShell() {
   const app = document.getElementById('app');
@@ -17,14 +18,14 @@ function renderShell() {
       <p class="eyebrow">Mitosis emit</p>
       <h1>Framework output comparison</h1>
       <p class="lede">
-        Each row shows the stored Stencil playground <strong>baseline</strong> card next to the
-        generated <code>react</code>, <code>vue</code>, <code>angular</code>, and
-        <code>svelte</code> files from <code>packages/components/mitosis/*/output/frameworks</code>.
-        Each emit cell is a shadow root so runtime <code>cssText</code> cannot restyle the grid
-        or the baseline images. Baselines are the full playground variant matrix (dsf 2), not a
-        single instance — so they will not pixel-match the emit cells. Overlay / dialog tags are
-        omitted: ${skipped}. Angular cells render the generated class plus template (Vite cannot
-        JIT Angular 22 here).
+        Each row shows the stored Stencil playground <strong>baseline</strong> card, then the
+        landed Mitosis <strong>Lit</strong> <code>p-*</code> custom element, then the generated
+        <code>react</code>, <code>vue</code>, <code>angular</code>, and <code>svelte</code> files.
+        Lit uses the same demo props and children as the framework columns, so it is the fair
+        visual base. Stencil baselines are the full playground variant matrix (dsf 2), not a
+        single instance. Framework emit cells use a shadow root so runtime <code>cssText</code>
+        cannot restyle the grid. Overlay / dialog tags are omitted: ${skipped}. Angular cells
+        render the generated class plus template (Vite cannot JIT Angular 22 here).
       </p>
     </header>
     <div class="compare-grid" role="table" aria-label="Framework comparison"></div>
@@ -33,7 +34,7 @@ function renderShell() {
   const grid = app.querySelector('.compare-grid');
   if (!grid) throw new Error('.compare-grid missing');
   const cells = [
-    ...['Tag', 'Baseline', 'React', 'Vue', 'Angular', 'Svelte'].map((label) => {
+    ...['Tag', 'Baseline', 'Lit', 'React', 'Vue', 'Angular', 'Svelte'].map((label) => {
       const head = document.createElement('div');
       head.className = 'head';
       head.setAttribute('role', 'columnheader');
@@ -72,10 +73,10 @@ function renderShell() {
 
 renderShell();
 
-Promise.allSettled([mountReact(), mountVue(), mountAngular(), mountSvelte()]).then((results) => {
+Promise.allSettled([mountLit(), mountReact(), mountVue(), mountAngular(), mountSvelte()]).then((results) => {
   results.forEach((result, i) => {
     if (result.status === 'rejected') {
-      console.error(['react', 'vue', 'angular', 'svelte'][i], result.reason);
+      console.error(['lit', 'react', 'vue', 'angular', 'svelte'][i], result.reason);
     }
   });
   document.documentElement.dataset.ready = 'true';

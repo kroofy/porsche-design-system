@@ -81,6 +81,8 @@ const leak = await page.evaluate(() => {
   const crestImg = crestHost?.shadowRoot?.querySelector('img');
   const headingHost = document.querySelector('[data-cell="react:heading"] .mitosis-host');
   const headingH2 = headingHost?.shadowRoot?.querySelector('h2');
+  const crestLit = document.querySelector('[data-cell="lit:crest"] p-crest');
+  const headingLit = document.querySelector('[data-cell="lit:heading"] p-heading');
   return {
     baselineDisplay: imgCs?.display,
     baselineVisibility: imgCs?.visibility,
@@ -93,6 +95,9 @@ const leak = await page.evaluate(() => {
     crestImgHeight: crestImg ? Math.round(crestImg.getBoundingClientRect().height) : 0,
     headingText: (headingH2?.textContent || '').trim(),
     headingFontSize: headingH2 ? getComputedStyle(headingH2).fontSize : null,
+    litCrestDefined: !!customElements.get('p-crest'),
+    litCrestHeight: crestLit ? Math.round(crestLit.getBoundingClientRect().height) : 0,
+    litHeadingText: (headingLit?.textContent || '').trim(),
   };
 });
 
@@ -127,7 +132,7 @@ for (const tag of shots) {
     const tagCell = document.getElementById(id);
     const cells = [];
     let node = tagCell;
-    for (let i = 0; i < 6 && node; i += 1) {
+    for (let i = 0; i < 7 && node; i += 1) {
       cells.push(node);
       node = node.nextElementSibling;
     }
