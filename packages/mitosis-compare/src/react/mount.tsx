@@ -21,24 +21,12 @@ class ErrorBoundary extends React.Component<
 
 const modules = import.meta.glob([
   '../../../../packages/components/mitosis/*/output/frameworks/react/*.tsx',
-  '!../../../../packages/components/mitosis/button-pure/output/frameworks/react/*',
-  '!../../../../packages/components/mitosis/tag-dismissible/output/frameworks/react/*',
 ]);
-const fixedModules = import.meta.glob('./fixed/*.tsx');
-
 const byTag = new Map<string, () => Promise<{ default: React.ComponentType<any> }>>();
 for (const [path, loader] of Object.entries(modules)) {
   const match = path.match(/mitosis\/([^/]+)\/output\/frameworks\/react\/([^/]+)\.tsx$/);
   if (!match) continue;
   byTag.set(match[1], loader as () => Promise<{ default: React.ComponentType<any> }>);
-}
-for (const [path, loader] of Object.entries(fixedModules)) {
-  const match = path.match(/fixed\/([^/]+)\.tsx$/);
-  if (!match) continue;
-  const tag = match[1]
-    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-    .toLowerCase();
-  byTag.set(tag, loader as () => Promise<{ default: React.ComponentType<any> }>);
 }
 
 function childNodes(demo: Demo, comps: Record<string, React.ComponentType<any>>): React.ReactNode {
@@ -112,8 +100,13 @@ function childNodes(demo: Demo, comps: Record<string, React.ComponentType<any>>)
 async function load(tag: string) {
   const loader = byTag.get(tag);
   if (!loader) return null;
-  const mod = await loader();
-  return mod.default;
+  try {
+    const mod = await loader();
+    return mod.default;
+  } catch (error) {
+    console.error(`react load ${tag}`, error);
+    return null;
+  }
 }
 
 export async function mountReact() {

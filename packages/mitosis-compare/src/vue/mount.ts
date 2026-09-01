@@ -14,7 +14,12 @@ for (const [path, loader] of Object.entries(modules)) {
 async function load(tag: string) {
   const loader = byTag.get(tag);
   if (!loader) return null;
-  return (await loader()).default;
+  try {
+    return (await loader()).default;
+  } catch (error) {
+    console.error(`vue load ${tag}`, error);
+    return null;
+  }
 }
 
 export async function mountVue() {

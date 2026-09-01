@@ -47,8 +47,8 @@ const report = await page.evaluate(() => {
   }));
   const cells = [...document.querySelectorAll('[data-cell]')].map((el) => {
     const [fw, tag] = el.getAttribute('data-cell').split(':');
-    const host = el.querySelector('.mitosis-host');
-    const text = ((host?.shadowRoot ?? el).textContent || '').replace(/\s+/g, ' ').trim();
+    const host = el.querySelector('[data-pds], .mitosis-host');
+    const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
     const failed = /failed|missing|Cannot access|NG0/.test(text);
     return {
       fw,
@@ -59,7 +59,8 @@ const report = await page.evaluate(() => {
       html: el.innerHTML.slice(0, 80),
       text: text.slice(0, 140),
       hasHost: !!host,
-      hasShadow: !!host?.shadowRoot,
+      hasPds: !!el.querySelector('[data-pds]'),
+      hasShadow: !!el.querySelector('.mitosis-host')?.shadowRoot,
     };
   });
   return {
@@ -77,10 +78,10 @@ const leak = await page.evaluate(() => {
   const imgCs = img ? getComputedStyle(img) : null;
   const head = document.querySelector('.compare-grid > .head');
   const before = head ? getComputedStyle(head, '::before') : null;
-  const crestHost = document.querySelector('[data-cell="react:crest"] .mitosis-host');
-  const crestImg = crestHost?.shadowRoot?.querySelector('img');
-  const headingHost = document.querySelector('[data-cell="react:heading"] .mitosis-host');
-  const headingH2 = headingHost?.shadowRoot?.querySelector('h2');
+  const crestHost = document.querySelector('[data-cell="react:crest"] [data-pds="crest"]');
+  const crestImg = crestHost?.querySelector('img');
+  const headingHost = document.querySelector('[data-cell="react:heading"] [data-pds="heading"]');
+  const headingH2 = headingHost?.querySelector('h2');
   const crestLit = document.querySelector('[data-cell="lit:crest"] p-crest');
   const headingLit = document.querySelector('[data-cell="lit:heading"] p-heading');
   return {
@@ -90,6 +91,7 @@ const leak = await page.evaluate(() => {
     baselineWidth: img ? Math.round(img.getBoundingClientRect().width) : 0,
     baselineHeight: img ? Math.round(img.getBoundingClientRect().height) : 0,
     headBefore: before?.content,
+    nativeHostCount: document.querySelectorAll('[data-pds]').length,
     shadowCount: [...document.querySelectorAll('.mitosis-host')].filter((el) => el.shadowRoot).length,
     crestImgNatural: crestImg?.naturalWidth ?? 0,
     crestImgHeight: crestImg ? Math.round(crestImg.getBoundingClientRect().height) : 0,

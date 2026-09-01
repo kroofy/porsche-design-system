@@ -18,7 +18,7 @@ const hostToClass = (css: string, tag: string, global = false) => {
     .replace(/:host(?![\w-(])/g, wrap(cls));
 };
 
-/** Static SFC/jsx `:host` rules land in document.head, so they must target the shadow host class. Runtime cssText stays as `:host` and is injected inside the cell shadow root. */
+/** Fallback for unadapted emit. Native files (`mitosis-native-host`) skip this plugin. */
 const rewriteStaticStyleHosts = (code: string, tag: string, global = false) =>
   code.replace(/<style([^>]*)>([\s\S]*?)<\/style>/g, (_match, attrs, css) => {
     if (/dangerouslySetInnerHTML|v-html/.test(attrs)) return _match;
@@ -148,11 +148,13 @@ export function mitosisCompareAdapters(): Plugin {
       const normalized = id.split('?')[0];
       const tag = tagFromId(normalized);
       if (!tag) return null;
+      const native = code.includes('mitosis-native-host');
 
       if (
         (normalized.includes('/output/frameworks/react/') || normalized.includes('/src/react/fixed/')) &&
         normalized.endsWith('.tsx')
       ) {
+        if (native) return null;
         let next = code;
         next = next.replace(/<slot\s+name="([^"]+)"\s*\/>/g, (_, name) => `{props[${JSON.stringify(name)}] ?? null}`);
         next = next.replace(/<slot\s+name="([^"]+)"\s*><\/slot>/g, (_, name) => `{props[${JSON.stringify(name)}] ?? null}`);
@@ -165,10 +167,12 @@ export function mitosisCompareAdapters(): Plugin {
       }
 
       if (normalized.includes('/output/frameworks/vue/') && normalized.endsWith('.vue')) {
+        if (native) return null;
         return rewriteStaticStyleHosts(code.replace(/<style scoped>/g, '<style>'), tag);
       }
 
       if (normalized.includes('/output/frameworks/svelte/') && normalized.endsWith('.svelte')) {
+        if (native) return null;
         let next = rewriteStaticStyleHosts(code, tag, true);
         next = rewriteSvelteCustomElements(next);
         next = rewriteSveltePropShadowing(next);
