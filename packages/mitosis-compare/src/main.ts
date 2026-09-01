@@ -22,10 +22,11 @@ function renderShell() {
         landed Mitosis <strong>Lit</strong> <code>p-*</code> custom element, then the generated
         <code>react</code>, <code>vue</code>, <code>angular</code>, and <code>svelte</code> files.
         Lit uses the same demo props and children as the framework columns, so it is the fair
-        visual base. Stencil baselines are the full playground variant matrix (dsf 2), not a
-        single instance. Framework emit cells use a shadow root so runtime <code>cssText</code>
-        cannot restyle the grid. Overlay / dialog tags are omitted: ${skipped}. Angular cells
-        render the generated class plus template (Vite cannot JIT Angular 22 here).
+        same-instance base for emit — not the 1:1 playground card. The Stencil
+        <strong>baseline</strong> card is still byte-equal to the Lit playground screenshot
+        (rechecked: crest/heading/button/wordmark pixel-diff 0). Overlay / dialog tags are
+        omitted: ${skipped}. Angular cells render the generated class plus template (Vite cannot
+        JIT Angular 22 here).
       </p>
     </header>
     <div class="compare-grid" role="table" aria-label="Framework comparison"></div>
