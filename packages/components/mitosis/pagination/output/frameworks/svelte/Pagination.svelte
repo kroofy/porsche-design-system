@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Pagination.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitPaginationProps {
     totalItemsCount?: any;
@@ -9,10 +10,13 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let totalItemsCount: LitPaginationProps["totalItemsCount"];
   export let itemsPerPage: LitPaginationProps["itemsPerPage"];
   export let activePage: LitPaginationProps["activePage"];
   export let showLastPage: LitPaginationProps["showLastPage"];
+  function __cmpProps() { return { totalItemsCount, itemsPerPage, activePage, showLastPage }; }
 
   $: cssText = () => {
     const totalItems = Number(
@@ -89,15 +93,17 @@
       '.ellipsis::after{content:"…"}';
     return out;
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-pagination");
 </script>
 
+<div class="p-pagination" data-pds="pagination">
 <nav>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <ul>
     <li class="prev">
       <span
-        ><svelte:component
-          this={p - icon}
+        ><PIcon
           name="arrow-left"
           color="primary"
           aria-hidden="true"
@@ -107,11 +113,5 @@
   </ul>
 </nav>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

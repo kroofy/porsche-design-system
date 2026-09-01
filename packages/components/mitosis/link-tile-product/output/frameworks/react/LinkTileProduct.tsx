@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from LinkTileProduct.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkTileProductProps {
+  className?: string;
   heading?: string;
   price?: string;
   priceOriginal?: string;
@@ -135,28 +138,21 @@ function LitLinkTileProduct(props: LitLinkTileProductProps) {
     return props.price || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-link-tile-product", props.className].filter(Boolean).join(" ")}
+      data-pds="link-tile-product"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n          position: relative;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-link-tile-product") }} />
         <div className="image">
-          <slot />
+          {props.children}
         </div>
         <div className="wrapper">
           <h3 className="heading">{headingText()}</h3>
           <p className="price">{priceText()}</p>
         </div>
       </div>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-          position: relative;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitLinkTileProduct;

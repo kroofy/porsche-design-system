@@ -1,19 +1,26 @@
+<!-- mitosis-native-host: native vue from Pagination.lite.tsx -->
 <template>
+  <div class="p-pagination" data-pds="pagination">
+
   <nav>
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <ul>
       <li class="prev">
         <span
-          ><p-icon name="arrow-left" color="primary" aria-hidden="true"></p-icon
+          ><PIcon name="arrow-left" color="primary" aria-hidden="true"></PIcon
         ></span>
       </li>
     </ul>
   </nav>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitPaginationProps {
   totalItemsCount?: any;
   itemsPerPage?: any;
@@ -23,11 +30,15 @@ export interface LitPaginationProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-pagination",
 
   props: ["totalItemsCount", "itemsPerPage", "activePage", "showLastPage"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-pagination");
+    },
     cssText() {
       const totalItems = Number(
         this.totalItemsCount == null || this.totalItemsCount === ""
@@ -111,11 +122,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

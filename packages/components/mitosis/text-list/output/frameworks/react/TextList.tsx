@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from TextList.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextListProps {
+  className?: string;
   type?: string;
 }
 
@@ -33,17 +36,15 @@ function LitTextList(props: LitTextListProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-text-list", props.className].filter(Boolean).join(" ")}
+      data-pds="text-list"
+    >
       <ul>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-text-list") }} />
+        {props.children}
       </ul>
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

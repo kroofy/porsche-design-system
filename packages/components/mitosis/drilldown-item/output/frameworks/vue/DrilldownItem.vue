@@ -1,18 +1,25 @@
+<!-- mitosis-native-host: native vue from DrilldownItem.lite.tsx -->
 <template>
-  <p-button-pure
+  <div class="p-drilldown-item" data-pds="drilldown-item">
+
+  <PButtonPure
     class="button"
     type="button"
     size="medium"
     align-label="start"
     stretch="true"
     icon="arrow-head-right"
-    >{{ label }}</p-button-pure
+    >{{ label }}</PButtonPure
   >
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/vue/ButtonPure.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownItemProps {
   identifier?: any;
   label?: any;
@@ -22,11 +29,15 @@ export interface LitDrilldownItemProps {
 }
 
 export default defineComponent({
+  components: { PButtonPure },
   name: "lit-drilldown-item",
 
   props: ["primary", "secondary", "cascade", "label"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-drilldown-item");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isPrimary = isTrue(this.primary);
@@ -157,11 +168,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TabsItem.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -11,24 +13,29 @@ export interface LitTabsItemProps {
 @Component({
   selector: "lit-tabs-item",
   template: `
+    <div class="p-tabs-item" data-pds="tabs-item">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-tabs-item {
         display: contents;
       }
-      :host([hidden]) {
+      .p-tabs-item[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTabsItem {
   @Input() label!: LitTabsItemProps["label"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-tabs-item");
+  }
 
   get cssText() {
     return (

@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Popover.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitPopoverProps {
+  className?: string;
   open?: any;
   direction?: string;
   description?: string;
@@ -89,9 +92,12 @@ function LitPopover(props: LitPopoverProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-popover", props.className].filter(Boolean).join(" ")}
+      data-pds="popover"
+    >
       <div className="wrap">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n          margin: 0;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-popover") }} />
         <button
           type="button"
           aria-label="More information"
@@ -100,19 +106,10 @@ function LitPopover(props: LitPopoverProps) {
         <div id="popover" popover="manual">
           <div className="arrow" />
           <p>{descriptionText()}</p>
-          <slot />
+          {props.children}
         </div>
       </div>
-      <style jsx>{`
-        :host {
-          display: contents;
-          margin: 0;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

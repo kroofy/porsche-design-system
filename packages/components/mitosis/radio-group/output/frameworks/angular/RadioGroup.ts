@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from RadioGroup.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -23,8 +25,9 @@ export interface LitRadioGroupProps {
 @Component({
   selector: "lit-radio-group",
   template: `
+    <div class="p-radio-group" data-pds="radio-group">
     <fieldset class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <div class="label" id="label">
           {{labelText}} <slot name="label"></slot>
@@ -42,17 +45,17 @@ export interface LitRadioGroupProps {
       >
       <span class="loading" id="loading">{{loadingText}}</span>
     </fieldset>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-radio-group {
         display: contents;
       }
-      :host([hidden]) {
+      .p-radio-group[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitRadioGroup {
   @Input() disabled!: LitRadioGroupProps["disabled"];
@@ -65,6 +68,10 @@ export default class LitRadioGroup {
   @Input() label!: LitRadioGroupProps["label"];
   @Input() description!: LitRadioGroupProps["description"];
   @Input() required!: LitRadioGroupProps["required"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-radio-group");
+  }
 
   get cssText() {
     const minWidth: any = {

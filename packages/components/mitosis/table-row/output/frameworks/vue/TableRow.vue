@@ -1,16 +1,25 @@
+<!-- mitosis-native-host: native vue from TableRow.lite.tsx -->
 <template>
+  <div class="p-table-row" data-pds="table-row">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component><slot></slot>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export default defineComponent({
   name: "lit-table-row",
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-table-row");
+    },
     cssText() {
       return (
         ":host{display:table-row;" +
@@ -24,11 +33,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: table-row;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from ButtonTile.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -24,8 +26,9 @@ export interface LitButtonTileProps {
 @Component({
   selector: "lit-button-tile",
   template: `
+    <div class="p-button-tile" data-pds="button-tile">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot name="header"></slot>
       <div class="media"><slot></slot></div>
       <div class="footer">
@@ -33,20 +36,20 @@ export interface LitButtonTileProps {
         <slot name="footer"></slot>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-button-tile {
         display: contents;
       }
-      :host {
+      .p-button-tile {
         display: flex;
       }
-      :host([hidden]) {
+      .p-button-tile[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitButtonTile {
   @Input() size!: LitButtonTileProps["size"];
@@ -59,6 +62,10 @@ export default class LitButtonTile {
   @Input() gradient!: LitButtonTileProps["gradient"];
   @Input() description!: LitButtonTileProps["description"];
   @Input() label!: LitButtonTileProps["label"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-button-tile");
+  }
 
   get cssText() {
     const minWidth: any = {

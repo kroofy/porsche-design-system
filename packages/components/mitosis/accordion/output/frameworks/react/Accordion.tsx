@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Accordion.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitAccordionProps {
+  className?: string;
   open?: any;
   alignMarker?: string;
   background?: string;
@@ -277,32 +280,26 @@ function LitAccordion(props: LitAccordionProps) {
     return false;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-accordion", props.className].filter(Boolean).join(" ")}
+      data-pds="accordion"
+    >
       <details>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-accordion") }} />
         <summary>
-          <slot name="summary" />
+          {props["summary"] ?? null}
           <h2>
             {headingText()}
-            <slot name="heading" />
+            {props["heading"] ?? null}
           </h2>
         </summary>
-        <slot name="summary-before" />
-        <slot name="summary-after" />
+        {props["summary-before"] ?? null}
+        {props["summary-after"] ?? null}
         <div>
-          <slot />
+          {props.children}
         </div>
       </details>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitAccordion;

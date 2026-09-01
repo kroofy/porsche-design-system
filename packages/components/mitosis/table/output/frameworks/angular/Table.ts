@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Table.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -14,29 +16,34 @@ export interface LitTableProps {
 @Component({
   selector: "lit-table",
   template: `
+    <div class="p-table" data-pds="table">
     <div class="table" role="table">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-table {
         display: contents;
       }
-      :host {
+      .p-table {
         display: block;
       }
-      :host([hidden]) {
+      .p-table[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTable {
   @Input() compact!: LitTableProps["compact"];
   @Input() layout!: LitTableProps["layout"];
   @Input() caption!: LitTableProps["caption"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-table");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

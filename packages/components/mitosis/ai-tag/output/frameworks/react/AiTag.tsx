@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from AiTag.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitAiTagProps {
+  className?: string;
   locale?: string;
   variant?: string;
 }
@@ -63,26 +66,19 @@ function LitAiTag(props: LitAiTagProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-ai-tag", props.className].filter(Boolean).join(" ")}
+      data-pds="ai-tag"
+    >
       <div>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-flex;\n          vertical-align: top;\n          white-space: nowrap;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-ai-tag") }} />
         {isAbbreviation() ? (
           <abbr title={longLabel()}>{shortLabel()}</abbr>
         ) : (
           <>{copyLabel()}</>
         )}
       </div>
-      <style jsx>{`
-        :host {
-          display: inline-flex;
-          vertical-align: top;
-          white-space: nowrap;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

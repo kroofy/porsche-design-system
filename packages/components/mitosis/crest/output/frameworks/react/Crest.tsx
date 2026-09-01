@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Crest.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCrestProps {
+  className?: string;
   href?: string;
   target?: string;
 }
@@ -18,9 +21,12 @@ function LitCrest(props: LitCrestProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-crest", props.className].filter(Boolean).join(" ")}
+      data-pds="crest"
+    >
       <a href={props.href} target={props.target || "_self"}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          position: relative;\n          display: inline-block;\n          vertical-align: top;\n          box-sizing: content-box !important;\n          max-width: 30px !important;\n          max-height: 40px !important;\n          width: inherit !important;\n          height: inherit !important;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-crest") }} />
         <picture>
           <source
             srcSet="http://localhost:3001/crest/porsche-crest.0d0cc89@1x.webp 1x,http://localhost:3001/crest/porsche-crest.2245c45@2x.webp 2x,http://localhost:3001/crest/porsche-crest.19b4292@3x.webp 3x"
@@ -38,22 +44,7 @@ function LitCrest(props: LitCrestProps) {
           />
         </picture>
       </a>
-      <style jsx>{`
-        :host {
-          position: relative;
-          display: inline-block;
-          vertical-align: top;
-          box-sizing: content-box !important;
-          max-width: 30px !important;
-          max-height: 40px !important;
-          width: inherit !important;
-          height: inherit !important;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

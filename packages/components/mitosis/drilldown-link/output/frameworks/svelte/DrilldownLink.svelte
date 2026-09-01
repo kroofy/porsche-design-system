@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from DrilldownLink.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitDrilldownLinkProps {
     href?: any;
@@ -10,8 +11,10 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let href: LitDrilldownLinkProps["href"];
   export let active: LitDrilldownLinkProps["active"];
+  function __cmpProps() { return { href, active }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -77,15 +80,13 @@
       "}}"
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: grid;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-drilldown-link");
 </script>
+
+<div class="p-drilldown-link" data-pds="drilldown-link">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
 
 <slot />
 
-<style>
-  :host {
-    display: grid;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

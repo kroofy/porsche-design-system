@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from SelectOption.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSelectOptionProps {
+  className?: string;
   value?: any;
   disabled?: any;
   selected?: any;
@@ -90,21 +94,16 @@ function LitSelectOption(props: LitSelectOptionProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-select-option", props.className].filter(Boolean).join(" ")}
+      data-pds="select-option"
+    >
       <div className="option">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
-        <p-icon name="check" color="primary" />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-select-option") }} />
+        {props.children}
+        <PIcon name="check" color="primary" />
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

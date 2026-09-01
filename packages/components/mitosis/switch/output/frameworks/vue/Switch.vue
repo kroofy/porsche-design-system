@@ -1,18 +1,25 @@
+<!-- mitosis-native-host: native vue from Switch.lite.tsx -->
 <template>
+  <div class="p-switch" data-pds="switch">
+
   <div class="wrap">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><button type="button" role="switch">
       <span class="toggle"
-        ><p-spinner class="spinner" aria-hidden="true"></p-spinner
+        ><PSpinner class="spinner" aria-hidden="true"></PSpinner
       ></span></button
     ><label><slot></slot></label
     ><span class="loading" id="loading" role="status">{{ loadingText }}</span>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSwitchProps {
   alignLabel?: any;
   hideLabel?: any;
@@ -24,6 +31,7 @@ export interface LitSwitchProps {
 }
 
 export default defineComponent({
+  components: { PSpinner },
   name: "lit-switch",
 
   props: [
@@ -37,6 +45,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-switch");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -219,8 +230,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

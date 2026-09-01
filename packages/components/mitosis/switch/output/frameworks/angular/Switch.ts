@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Switch.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -17,8 +19,9 @@ export interface LitSwitchProps {
 @Component({
   selector: "lit-switch",
   template: `
+    <div class="p-switch" data-pds="switch">
     <div class="wrap">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <button type="button" role="switch">
         <span class="toggle"
           ><p-spinner class="spinner" aria-hidden="true"></p-spinner
@@ -27,17 +30,17 @@ export interface LitSwitchProps {
       <label><slot></slot></label>
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-switch {
         display: contents;
       }
-      :host([hidden]) {
+      .p-switch[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSwitch {
   @Input() checked!: LitSwitchProps["checked"];
@@ -47,6 +50,10 @@ export default class LitSwitch {
   @Input() alignLabel!: LitSwitchProps["alignLabel"];
   @Input() hideLabel!: LitSwitchProps["hideLabel"];
   @Input() stretch!: LitSwitchProps["stretch"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-switch");
+  }
 
   get cssText() {
     const minWidth: any = {

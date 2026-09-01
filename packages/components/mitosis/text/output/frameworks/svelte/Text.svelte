@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Text.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTextProps {
     tag?: string;
@@ -11,12 +12,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let weight: LitTextProps["weight"];
   export let align: LitTextProps["align"];
   export let color: LitTextProps["color"];
   export let hyphens: LitTextProps["hyphens"];
   export let ellipsis: LitTextProps["ellipsis"];
   export let size: LitTextProps["size"];
+  function __cmpProps() { return { weight, align, color, hyphens, ellipsis, size }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -65,11 +68,11 @@
       xl: 1760,
       xxl: 1920,
     };
-    const weight = weightMap[weight || "normal"] || weightMap.normal;
-    const align = align || "start";
-    const color = colorMap[color || "primary"] || colorMap.primary;
-    const hyphens = hyphens || "inherit";
-    let ellipsis: any = ellipsis;
+    const weight = weightMap[__cmpProps().weight || "normal"] || weightMap.normal;
+    const align = __cmpProps().align || "start";
+    const color = colorMap[__cmpProps().color || "primary"] || colorMap.primary;
+    const hyphens = __cmpProps().hyphens || "inherit";
+    let ellipsis: any = __cmpProps().ellipsis;
     if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
       ellipsis = true;
     } else {
@@ -94,7 +97,7 @@
       hyphens +
       extra +
       "}";
-    let size = size || "sm";
+    let size = __cmpProps().size || "sm";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -123,15 +126,11 @@
     }
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-text");
 </script>
 
-<p>{@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /></p>
+<div class="p-text" data-pds="text">
+<p>{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /></p>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

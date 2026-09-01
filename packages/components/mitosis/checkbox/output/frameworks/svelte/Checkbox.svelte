@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Checkbox.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitCheckboxProps {
     label?: string;
@@ -16,6 +17,9 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitCheckboxProps["disabled"];
   export let loading: LitCheckboxProps["loading"];
   export let compact: LitCheckboxProps["compact"];
@@ -24,6 +28,7 @@
   export let label: LitCheckboxProps["label"];
   export let hideLabel: LitCheckboxProps["hideLabel"];
   export let checked: LitCheckboxProps["checked"];
+  function __cmpProps() { return { disabled, loading, compact, state, message, label, hideLabel, checked }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -57,16 +62,16 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
     const blocked = disabled || loading;
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
     const hasLbl = !!(label || "");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -215,14 +220,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -241,25 +246,27 @@
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: ariaInvalid = () => {
     return state === "error" ? "true" : "";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
+  $: __pdsComponents = { PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-checkbox");
 </script>
 
+<div class="p-checkbox" data-pds="checkbox">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="wrapper">
     <div class="input-wrapper">
-      <input type="checkbox" /><svelte:component
-        this={p - spinner}
+      <input type="checkbox"  disabled={!!isDisabled()} /><PSpinner
         class="spinner"
         aria-hidden="true"
       />
@@ -267,15 +274,11 @@
     <div class="label-wrapper"><label class="label">{labelText()}</label></div>
   </div>
   <span class="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   ><span class="loading" id="loading" role="status">{loadingText()}</span>
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

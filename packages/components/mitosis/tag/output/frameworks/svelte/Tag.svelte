@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Tag.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTagProps {
     variant?: string;
@@ -8,10 +9,13 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let variant: LitTagProps["variant"];
   export let compact: LitTagProps["compact"];
   export let icon: LitTagProps["icon"];
   export let iconSource: LitTagProps["iconSource"];
+  function __cmpProps() { return { variant, compact, icon, iconSource }; }
 
   $: cssText = () => {
     const textMap: any = {
@@ -57,17 +61,17 @@
       "warning-frosted": 1,
       "error-frosted": 1,
     };
-    const variant = variant || "secondary";
+    const variant = __cmpProps().variant || "secondary";
     const text = textMap[variant] || textMap.secondary;
     const bg = bgMap[variant] || bgMap.secondary;
     const hover = hoverMap[variant] || hoverMap.secondary;
-    let compact: any = compact;
+    let compact: any = __cmpProps().compact;
     if (compact === true || compact === "true" || compact === "") {
       compact = true;
     } else {
       compact = false;
     }
-    const icon = icon || "none";
+    const icon = __cmpProps().icon || "none";
     const source = iconSource || "";
     const hasIcon = (icon !== "none" && icon !== "") || source !== "";
     const pad = compact
@@ -102,18 +106,20 @@
     );
   };
   $: iconName = () => {
-    const icon = icon || "none";
+    const icon = __cmpProps().icon || "none";
     if (icon === "none" || icon === "") return "";
     return icon;
   };
   $: iconSrc = () => {
     return iconSource || "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-flex;\n    vertical-align: top;\n    white-space: nowrap;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-tag");
 </script>
 
+<div class="p-tag" data-pds="tag">
 <span
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PIcon
     class="icon"
     color="inherit"
     size="x-small"
@@ -123,13 +129,5 @@
   /><slot /></span
 >
 
-<style>
-  :host {
-    display: inline-flex;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

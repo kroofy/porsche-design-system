@@ -1,13 +1,19 @@
+<!-- mitosis-native-host: native vue from TextList.lite.tsx -->
 <template>
+  <div class="p-text-list" data-pds="text-list">
+
   <ul>
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><slot></slot>
   </ul>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextListProps {
   type?: string;
 }
@@ -18,6 +24,9 @@ export default defineComponent({
   props: ["type"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-text-list");
+    },
     cssText() {
       const type = this.type || "unordered";
       const ordered = type !== "unordered";
@@ -47,8 +56,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

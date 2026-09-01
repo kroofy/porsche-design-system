@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Drilldown.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitDrilldownProps {
     open?: any;
@@ -7,9 +8,13 @@
 </script>
 
 <script lang="ts">
+  import PButtonPure from "../../../../button-pure/output/frameworks/svelte/ButtonPure.svelte";
+  import PButton from "../../../../button/output/frameworks/svelte/Button.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let open: LitDrilldownProps["open"];
   export let activeIdentifier: LitDrilldownProps["activeIdentifier"];
   export let aria: LitDrilldownProps["aria"];
+  function __cmpProps() { return { open, activeIdentifier, aria }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -162,7 +167,7 @@
     );
   };
   $: isOpenFlag = () => {
-    const open = open;
+    const open = __cmpProps().open;
     return open === true || open === "true" || open === "";
   };
   $: ariaLabelText = () => {
@@ -179,13 +184,15 @@
     }
     return "";
   };
+  $: __pdsComponents = { PButton, PButtonPure };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-drilldown");
 </script>
 
+<div class="p-drilldown" data-pds="drilldown">
 <dialog inert={true}>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="drawer">
-    <svelte:component
-      this={p - button - pure}
+    <PButton-pure
       class="back"
       type="button"
       size="small"
@@ -195,8 +202,7 @@
       hide-label="true"
     >
       Back
-    </svelte:component><svelte:component
-      this={p - button}
+    </PButton-pure><PButton
       class="dismiss-mobile"
       type="button"
       icon="close"
@@ -205,8 +211,7 @@
       hide-label="true"
     >
       Dismiss drilldown
-    </svelte:component><svelte:component
-      this={p - button}
+    </PButton><PButton
       class="dismiss-desktop"
       type="button"
       icon="close"
@@ -214,16 +219,10 @@
       hide-label="true"
     >
       Dismiss drilldown
-    </svelte:component>
+    </PButton>
     <div class="scroller"><slot /></div>
   </div>
 </dialog>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from SegmentedControl.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSegmentedControlProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -218,33 +222,30 @@ function LitSegmentedControl(props: LitSegmentedControlProps) {
     return props.state === "success" ? "status" : "alert";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-segmented-control", props.className].filter(Boolean).join(" ")}
+      data-pds="segmented-control"
+    >
       <fieldset className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-segmented-control") }} />
         <div className="label-wrapper">
           <div className="label" id="label">
             {labelText()}
-            <slot name="label" />
+            {props["label"] ?? null}
           </div>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
-          <slot name="description" />
+          {props["description"] ?? null}
         </span>
-        <slot />
+        {props.children}
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
       </fieldset>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitSegmentedControl;

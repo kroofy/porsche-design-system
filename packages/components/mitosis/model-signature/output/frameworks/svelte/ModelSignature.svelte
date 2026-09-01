@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from ModelSignature.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitModelSignatureProps {
     model?: string;
@@ -10,12 +11,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let model: LitModelSignatureProps["model"];
   export let size: LitModelSignatureProps["size"];
   export let color: LitModelSignatureProps["color"];
   export let safeZone: LitModelSignatureProps["safeZone"];
   export let fetchPriority: LitModelSignatureProps["fetchPriority"];
   export let lazy: LitModelSignatureProps["lazy"];
+  function __cmpProps() { return { model, size, color, safeZone, fetchPriority, lazy }; }
 
   $: cssText = () => {
     const manifest: any = {
@@ -92,11 +95,11 @@
       "contrast-high": "var(--p-color-contrast-high)",
       inherit: "currentcolor",
     };
-    const model = model || "911";
+    const model = __cmpProps().model || "911";
     const entry = manifest[model] || manifest["911"];
-    const size = size || "small";
-    const color = color || "primary";
-    let safeZone: any = safeZone;
+    const size = __cmpProps().size || "small";
+    const color = __cmpProps().color || "primary";
+    let safeZone: any = __cmpProps().safeZone;
     if (safeZone === undefined || safeZone === null || safeZone === "") {
       safeZone = true;
     } else if (safeZone === false || safeZone === "false") {
@@ -141,7 +144,7 @@
       "turbo-s": "turbo-s.73f1e10.svg",
       turbo: "turbo.6a4084a.svg",
     };
-    const model = model || "911";
+    const model = __cmpProps().model || "911";
     return (
       "http://localhost:3001/model-signatures/" + (files[model] || files["911"])
     );
@@ -154,13 +157,17 @@
     return fp !== "auto" ? fp : undefined;
   };
   $: loadingAttr = () => {
-    const lazy = lazy;
+    const lazy = __cmpProps().lazy;
     if (lazy === true || lazy === "true" || lazy === "") return "lazy";
     return undefined;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-block;\n    vertical-align: top;\n    max-width: 100%;\n    max-height: 100%;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-model-signature");
 </script>
 
-{@html `<${"style"}  >${cssText()}<${"/style"}>`}
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+<div class="p-model-signature" data-pds="model-signature">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+
 <slot />
 <img
   src={src()}
@@ -169,14 +176,5 @@
   loading={loadingAttr()}
 />
 
-<style>
-  :host {
-    display: inline-block;
-    vertical-align: top;
-    max-width: 100%;
-    max-height: 100%;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,8 +1,11 @@
+<!-- mitosis-native-host: native vue from Drilldown.lite.tsx -->
 <template>
+  <div class="p-drilldown" data-pds="drilldown">
+
   <dialog :inert="true">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="drawer">
-      <p-button-pure
+      <PButton-pure
         class="back"
         type="button"
         size="small"
@@ -11,8 +14,8 @@
         icon="arrow-left"
         hide-label="true"
       >
-        Back </p-button-pure
-      ><p-button
+        Back </PButton-pure
+      ><PButton
         class="dismiss-mobile"
         type="button"
         icon="close"
@@ -20,8 +23,8 @@
         variant="secondary"
         hide-label="true"
       >
-        Dismiss drilldown </p-button
-      ><p-button
+        Dismiss drilldown </PButton
+      ><PButton
         class="dismiss-desktop"
         type="button"
         icon="close"
@@ -29,15 +32,20 @@
         hide-label="true"
       >
         Dismiss drilldown
-      </p-button>
+      </PButton>
       <div class="scroller"><slot></slot></div>
     </div>
   </dialog>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/vue/ButtonPure.vue";
+import PButton from "../../../../button/output/frameworks/vue/Button.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownProps {
   open?: any;
   activeIdentifier?: any;
@@ -45,11 +53,15 @@ export interface LitDrilldownProps {
 }
 
 export default defineComponent({
+  components: { PButton, PButtonPure },
   name: "lit-drilldown",
 
   props: ["open", "activeIdentifier", "aria"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-drilldown");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isOpen = isTrue(this.open);
@@ -222,11 +234,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

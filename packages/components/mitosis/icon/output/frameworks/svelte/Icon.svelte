@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Icon.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitIconProps {
     name?: string;
@@ -9,11 +10,13 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let name: LitIconProps["name"];
   export let source: LitIconProps["source"];
   export let color: LitIconProps["color"];
   export let size: LitIconProps["size"];
   export let aria: LitIconProps["aria"];
+  function __cmpProps() { return { name, source, color, size, aria }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -82,9 +85,9 @@
       car: "car.35229c9.svg",
       "arrow-right": "arrow-right.872716b.svg",
     };
-    const name = name || "arrow-right";
-    const source = source || "";
-    const color = color || "primary";
+    const name = __cmpProps().name || "arrow-right";
+    const source = __cmpProps().source || "";
+    const color = __cmpProps().color || "primary";
     const bg = colorMap[color] || colorMap.primary;
     let src = "";
     if (source && /(\/)/.test(source)) {
@@ -106,7 +109,7 @@
       ")}" +
       "@media(forced-colors:active){img{background:CanvasText}}" +
       (!source && flippable[name] ? "img:dir(rtl){transform:scaleX(-1)}" : "");
-    let size = size || "sm";
+    let size = __cmpProps().size || "sm";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -140,9 +143,9 @@
       car: "car.35229c9.svg",
       "arrow-right": "arrow-right.872716b.svg",
     };
-    const source = source || "";
+    const source = __cmpProps().source || "";
     if (source && /(\/)/.test(source)) return source;
-    const name = name || "arrow-right";
+    const name = __cmpProps().name || "arrow-right";
     return (
       "http://localhost:3001/icons/" + (files[name] || files["arrow-right"])
     );
@@ -162,17 +165,14 @@
     if (typeof raw === "object" && raw !== null) return raw["aria-label"] || "";
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-flex;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-icon");
 </script>
 
-{@html `<${"style"}  >${cssText()}<${"/style"}>`}
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+<div class="p-icon" data-pds="icon">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+
 <img width="24" height="24" loading="lazy" src={src()} alt={alt()} />
 
-<style>
-  :host {
-    display: inline-flex;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

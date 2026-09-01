@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from StepperHorizontal.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitStepperHorizontalProps {
     size?: any;
@@ -5,7 +6,10 @@
 </script>
 
 <script lang="ts">
+  import PScroller from "../../../../scroller/output/frameworks/svelte/Scroller.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let size: LitStepperHorizontalProps["size"];
+  function __cmpProps() { return { size }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -40,7 +44,7 @@
     };
     const fontFor = (s: any) =>
       s === "medium" ? "var(--p-typescale-md)" : "var(--p-typescale-sm)";
-    const size = parse(size, "small");
+    const size = parse(__cmpProps().size, "small");
     const sizeBase =
       typeof size === "object" && size !== null
         ? pick(size, "base", "small")
@@ -68,17 +72,16 @@
     }
     return out;
   };
+  $: __pdsComponents = { PScroller };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-stepper-horizontal");
 </script>
 
+<div class="p-stepper-horizontal" data-pds="stepper-horizontal">
 <div class="wrap">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - scroller}
-    class="scroller"><slot /></svelte:component
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PScroller
+    class="scroller"><slot /></PScroller
   >
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

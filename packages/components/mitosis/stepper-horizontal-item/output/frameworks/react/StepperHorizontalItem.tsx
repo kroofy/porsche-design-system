@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from StepperHorizontalItem.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitStepperHorizontalItemProps {
+  className?: string;
   state?: string;
   disabled?: any;
 }
@@ -97,18 +100,16 @@ function LitStepperHorizontalItem(props: LitStepperHorizontalItemProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-stepper-horizontal-item", props.className].filter(Boolean).join(" ")}
+      data-pds="stepper-horizontal-item"
+    >
       <button type="button">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-stepper-horizontal-item") }} />
         <span className="icon" />
-        <slot />
+        {props.children}
       </button>
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

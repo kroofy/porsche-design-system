@@ -1,10 +1,16 @@
+<!-- mitosis-native-host: native vue from Display.lite.tsx -->
 <template>
-  <h3><component v-html="cssText" :is="'style'"></component><slot></slot></h3>
+  <div class="p-display" data-pds="display">
+
+  <h3><component v-html="scopedCssText" :is="'style'"></component><slot></slot></h3>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDisplayProps {
   tag?: string;
   size?: any;
@@ -19,6 +25,9 @@ export default defineComponent({
   props: ["align", "color", "ellipsis", "size"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-display");
+    },
     cssText() {
       const sizeMap: any = {
         small: "var(--p-typescale-3xl)",
@@ -90,11 +99,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

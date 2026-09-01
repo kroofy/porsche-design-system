@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Textarea.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -29,15 +31,16 @@ export interface LitTextareaProps {
 @Component({
   selector: "lit-textarea",
   template: `
+    <div class="p-textarea" data-pds="textarea">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="textarea">{{labelText}}</label>
         <slot name="label-after"></slot>
       </div>
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
-        <textarea id="textarea"></textarea>
+        <textarea id="textarea" [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue"></textarea>
         <span class="sr-only" aria-live="polite">{{srOnlyText}}</span>
         <span class="counter" aria-hidden="true">{{counterText}}</span>
       </div>
@@ -45,17 +48,17 @@ export interface LitTextareaProps {
         ><p-icon aria-hidden="true"></p-icon> {{messageText}}</span
       >
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-textarea {
         display: contents;
       }
-      :host([hidden]) {
+      .p-textarea[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTextarea {
   @Input() disabled!: LitTextareaProps["disabled"];
@@ -72,6 +75,10 @@ export default class LitTextarea {
   @Input() maxLength!: LitTextareaProps["maxLength"];
   @Input() rows!: LitTextareaProps["rows"];
   @Input() placeholder!: LitTextareaProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-textarea");
+  }
 
   get cssText() {
     const minWidth: any = {

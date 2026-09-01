@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Table.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTableProps {
+  className?: string;
   caption?: string;
   compact?: any;
   layout?: string;
@@ -45,20 +48,15 @@ function LitTable(props: LitTableProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-table", props.className].filter(Boolean).join(" ")}
+      data-pds="table"
+    >
       <div className="table" role="table">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-table") }} />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

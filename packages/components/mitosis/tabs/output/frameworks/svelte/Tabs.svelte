@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Tabs.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTabsProps {
     size?: any;
@@ -10,10 +11,13 @@
 </script>
 
 <script lang="ts">
+  import PTabsBar from "../../../../tabs-bar/output/frameworks/svelte/TabsBar.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let size: LitTabsProps["size"];
   export let background: LitTabsProps["background"];
   export let compact: LitTabsProps["compact"];
   export let activeTabIndex: LitTabsProps["activeTabIndex"];
+  function __cmpProps() { return { size, background, compact, activeTabIndex }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -46,7 +50,7 @@
       }
       return obj;
     };
-    const size = parse(size, "small");
+    const size = parse(__cmpProps().size, "small");
     let out =
       ":host{display:block}" +
       ":host([hidden]){display:none !important}" +
@@ -84,11 +88,13 @@
     const n = Number(raw);
     return Number.isInteger(n) ? n : 0;
   };
+  $: __pdsComponents = { PTabsBar };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-tabs");
 </script>
 
+<div class="p-tabs" data-pds="tabs">
 <div class="wrap">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - tabs - bar}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PTabsBar
     class="root"
     size={sizeValue()}
     background={backgroundValue()}
@@ -97,8 +103,5 @@
   /><slot />
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from SegmentedControl.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSegmentedControlProps {
     label?: string;
@@ -17,6 +18,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitSegmentedControlProps["disabled"];
   export let compact: LitSegmentedControlProps["compact"];
   export let noWrap: LitSegmentedControlProps["noWrap"];
@@ -27,6 +30,7 @@
   export let label: LitSegmentedControlProps["label"];
   export let description: LitSegmentedControlProps["description"];
   export let required: LitSegmentedControlProps["required"];
+  function __cmpProps() { return { disabled, compact, noWrap, state, message, hideLabel, columns, label, description, required }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -60,19 +64,19 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const compact = isTrue(compact);
-    const noWrap = isTrue(noWrap);
+    const disabled = isTrue(__cmpProps().disabled);
+    const compact = isTrue(__cmpProps().compact);
+    const noWrap = isTrue(__cmpProps().noWrap);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
         : hideLabel;
-    const columns = parse(columns, "auto");
+    const columns = parse(__cmpProps().columns, "auto");
     const columnsBase =
       typeof columns === "object" && columns !== null
         ? pick(columns, "base", "auto")
@@ -187,14 +191,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -217,10 +221,13 @@
   $: messageRole = () => {
     return state === "success" ? "status" : "alert";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-segmented-control");
 </script>
 
+<div class="p-segmented-control" data-pds="segmented-control">
 <fieldset class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <div class="label" id="label">{labelText()}<slot name="label" /></div>
     <slot name="label-after" />
@@ -228,15 +235,11 @@
   <span class="label" id="description"
     >{descriptionText()}<slot name="description" /></span
   ><slot /><span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   >
 </fieldset>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,5 +1,7 @@
+/* mitosis-native-host: native react from Toast.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 function LitToast(props: any) {
   function cssText() {
     return (
@@ -20,20 +22,15 @@ function LitToast(props: any) {
   }
 
   return (
-    <>
+    <div
+      className={["p-toast", props.className].filter(Boolean).join(" ")}
+      data-pds="toast"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          position: fixed;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-toast") }} />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          position: fixed;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

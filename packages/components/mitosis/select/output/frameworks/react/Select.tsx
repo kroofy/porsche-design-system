@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Select.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSelectProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -227,41 +231,38 @@ function LitSelect(props: LitSelectProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-select", props.className].filter(Boolean).join(" ")}
+      data-pds="select"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-select") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="button">
             {labelText()}
-            <slot name="label" />
+            {props["label"] ?? null}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
-          <slot name="description" />
+          {props["description"] ?? null}
         </span>
         <button type="button" role="combobox" id="button">
           <span>{selectedText()}</span>
-          <p-icon name="arrow-head-down" color="primary" />
+          <PIcon name="arrow-head-down" color="primary" />
         </button>
         <div>
           <div className="options" id="listbox">
-            <slot />
+            {props.children}
           </div>
         </div>
         <span className="message" id="message">
-          <p-icon />
+          <PIcon />
           {messageText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitSelect;

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Sheet.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSheetProps {
     open?: any;
@@ -9,10 +10,12 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let open: LitSheetProps["open"];
   export let dismissButton: LitSheetProps["dismissButton"];
   export let background: LitSheetProps["background"];
   export let aria: LitSheetProps["aria"];
+  function __cmpProps() { return { open, dismissButton, background, aria }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -20,7 +23,7 @@
     let dismiss: any = dismissButton;
     if (dismiss === false || dismiss === "false") dismiss = false;
     else dismiss = true;
-    const background = background === "surface" ? "surface" : "canvas";
+    const background = __cmpProps().background === "surface" ? "surface" : "canvas";
     const dialogBg =
       background === "surface"
         ? "var(--p-color-surface)"
@@ -150,7 +153,7 @@
     return out;
   };
   $: isOpenFlag = () => {
-    const open = open;
+    const open = __cmpProps().open;
     return open === true || open === "true" || open === "";
   };
   $: showDismiss = () => {
@@ -172,10 +175,12 @@
     }
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-sheet");
 </script>
 
+<div class="p-sheet" data-pds="sheet">
 <dialog aria-modal="true" inert={true} tabIndex={-1}>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="scroller">
     <div class="sheet">
       <button class="dismiss" type="button"><span>Dismiss sheet</span></button
@@ -184,11 +189,5 @@
   </div>
 </dialog>
 
-<style>
-  :host {
-    display: contents;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

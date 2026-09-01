@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Popover.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -18,8 +20,9 @@ const ICON =
 @Component({
   selector: "lit-popover",
   template: `
+    <div class="p-popover" data-pds="popover">
     <div class="wrap">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <button
         type="button"
         aria-label="More information"
@@ -31,26 +34,30 @@ const ICON =
         <slot></slot>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-popover {
         display: contents;
       }
-      :host {
+      .p-popover {
         display: contents;
         margin: 0;
       }
-      :host([hidden]) {
+      .p-popover[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitPopover {
   @Input() open!: LitPopoverProps["open"];
   @Input() compact!: LitPopoverProps["compact"];
   @Input() description!: LitPopoverProps["description"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-popover");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

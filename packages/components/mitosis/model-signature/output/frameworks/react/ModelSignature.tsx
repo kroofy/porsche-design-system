@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from ModelSignature.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitModelSignatureProps {
+  className?: string;
   model?: string;
   safeZone?: any;
   fetchPriority?: string;
@@ -157,10 +160,13 @@ function LitModelSignature(props: LitModelSignatureProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-model-signature", props.className].filter(Boolean).join(" ")}
+      data-pds="model-signature"
+    >
       <>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-block;\n          vertical-align: top;\n          max-width: 100%;\n          max-height: 100%;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-model-signature") }} />
+        {props.children}
         <img
           src={src()}
           alt={alt()}
@@ -168,18 +174,7 @@ function LitModelSignature(props: LitModelSignatureProps) {
           loading={loadingAttr()}
         />
       </>
-      <style jsx>{`
-        :host {
-          display: inline-block;
-          vertical-align: top;
-          max-width: 100%;
-          max-height: 100%;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Textarea.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTextareaProps {
     label?: string;
@@ -23,6 +24,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitTextareaProps["disabled"];
   export let compact: LitTextareaProps["compact"];
   export let readOnly: LitTextareaProps["readOnly"];
@@ -37,6 +40,7 @@
   export let maxLength: LitTextareaProps["maxLength"];
   export let rows: LitTextareaProps["rows"];
   export let placeholder: LitTextareaProps["placeholder"];
+  function __cmpProps() { return { disabled, compact, readOnly, counter, resize, state, message, hideLabel, label, description, value, maxLength, rows, placeholder }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -70,16 +74,16 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const compact = isTrue(compact);
-    const readOnly = isTrue(readOnly);
+    const disabled = isTrue(__cmpProps().disabled);
+    const compact = isTrue(__cmpProps().compact);
+    const readOnly = isTrue(__cmpProps().readOnly);
     const hasCounter = isTrue(counter);
-    const resize = resize || "vertical";
+    const resize = __cmpProps().resize || "vertical";
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -213,14 +217,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -242,13 +246,13 @@
     return String(rows);
   };
   $: counterText = () => {
-    const value = value == null ? "" : String(value);
+    const value = __cmpProps().value == null ? "" : String(__cmpProps().value);
     const max = maxLength == null || maxLength === "" ? "" : String(maxLength);
     if (max) return value.length + "/" + max;
     return String(value.length);
   };
   $: srOnlyText = () => {
-    const value = value == null ? "" : String(value);
+    const value = __cmpProps().value == null ? "" : String(__cmpProps().value);
     const max = maxLength == null || maxLength === "" ? "" : String(maxLength);
     if (max)
       return (
@@ -272,10 +276,13 @@
   $: placeholderText = () => {
     return placeholder || "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-textarea");
 </script>
 
+<div class="p-textarea" data-pds="textarea">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <label class="label" id="label" for="textarea">{labelText()}</label><slot
       name="label-after"
@@ -283,20 +290,16 @@
   </div>
   <span class="label" id="description">{descriptionText()}</span>
   <div class="wrapper">
-    <textarea id="textarea" /><span class="sr-only" aria-live="polite"
+    <textarea id="textarea"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readonly={!!isReadOnly()} maxlength={maxLengthValue()} /><span class="sr-only" aria-live="polite"
       >{srOnlyText()}</span
     ><span class="counter" aria-hidden="true">{counterText()}</span>
   </div>
   <span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   >
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

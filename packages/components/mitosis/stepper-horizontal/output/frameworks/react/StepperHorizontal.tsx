@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from StepperHorizontal.lite.tsx */
 import * as React from "react";
 
+import PScroller from "../../../../scroller/output/frameworks/react/Scroller";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitStepperHorizontalProps {
+  className?: string;
   size?: any;
 }
 
@@ -67,20 +71,17 @@ function LitStepperHorizontal(props: LitStepperHorizontalProps) {
     return out;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-stepper-horizontal", props.className].filter(Boolean).join(" ")}
+      data-pds="stepper-horizontal"
+    >
       <div className="wrap">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-scroller className="scroller">
-          <slot />
-        </p-scroller>
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-stepper-horizontal") }} />
+        <PScroller className="scroller">
+          {props.children}
+        </PScroller>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitStepperHorizontal;

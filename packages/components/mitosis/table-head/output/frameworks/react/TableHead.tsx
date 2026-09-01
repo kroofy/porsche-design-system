@@ -1,5 +1,7 @@
+/* mitosis-native-host: native react from TableHead.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 function LitTableHead(props: any) {
   function cssText() {
     return (
@@ -12,20 +14,15 @@ function LitTableHead(props: any) {
   }
 
   return (
-    <>
+    <div
+      className={["p-table-head", props.className].filter(Boolean).join(" ")}
+      data-pds="table-head"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: table-header-group;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-table-head") }} />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          display: table-header-group;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

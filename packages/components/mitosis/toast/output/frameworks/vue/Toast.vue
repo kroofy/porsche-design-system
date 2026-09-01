@@ -1,16 +1,25 @@
+<!-- mitosis-native-host: native vue from Toast.lite.tsx -->
 <template>
+  <div class="p-toast" data-pds="toast">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component><slot></slot>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export default defineComponent({
   name: "lit-toast",
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-toast");
+    },
     cssText() {
       return (
         ":host{--_p-toast-a:var(--p-toast-position-bottom,56px) !important;" +
@@ -32,11 +41,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  position: fixed;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,10 +1,16 @@
+<!-- mitosis-native-host: native vue from DrilldownLink.lite.tsx -->
 <template>
+  <div class="p-drilldown-link" data-pds="drilldown-link">
+
   <slot></slot>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownLinkProps {
   href?: any;
   active?: any;
@@ -20,6 +26,9 @@ export default defineComponent({
   props: ["href", "active"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-drilldown-link");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const rawHref = this.href;
@@ -88,11 +97,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: grid;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

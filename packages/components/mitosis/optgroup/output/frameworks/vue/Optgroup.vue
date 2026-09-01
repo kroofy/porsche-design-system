@@ -1,14 +1,20 @@
+<!-- mitosis-native-host: native vue from Optgroup.lite.tsx -->
 <template>
+  <div class="p-optgroup" data-pds="optgroup">
+
   <div role="group">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span id="label" role="presentation">{{ labelText }}</span
     ><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitOptgroupProps {
   label?: string;
   disabled?: any;
@@ -21,6 +27,9 @@ export default defineComponent({
   props: ["disabled", "label"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-optgroup");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const disabled = isTrue(this.disabled);
@@ -52,11 +61,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

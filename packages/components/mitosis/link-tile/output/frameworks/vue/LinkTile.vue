@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from LinkTile.lite.tsx -->
 <template>
+  <div class="p-link-tile" data-pds="link-tile">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><slot name="header"></slot>
     <div class="media"><slot></slot></div>
     <div class="footer">
@@ -8,11 +11,14 @@
       <slot name="footer"></slot>
     </div>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkTileProps {
   size?: any;
   weight?: any;
@@ -44,6 +50,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-link-tile");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -272,11 +281,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: flex;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

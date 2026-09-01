@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Drilldown.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,8 +15,9 @@ export interface LitDrilldownProps {
 @Component({
   selector: "lit-drilldown",
   template: `
+    <div class="p-drilldown" data-pds="drilldown">
     <dialog [attr.inert]="true">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="drawer">
         <p-button-pure
           class="back"
@@ -49,25 +52,29 @@ export interface LitDrilldownProps {
         <div class="scroller"><slot></slot></div>
       </div>
     </dialog>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-drilldown {
         display: contents;
       }
-      :host {
+      .p-drilldown {
         display: block;
       }
-      :host([hidden]) {
+      .p-drilldown[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitDrilldown {
   @Input() open!: LitDrilldownProps["open"];
   @Input() activeIdentifier!: LitDrilldownProps["activeIdentifier"];
   @Input() aria!: LitDrilldownProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-drilldown");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

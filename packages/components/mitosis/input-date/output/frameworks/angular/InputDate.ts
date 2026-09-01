@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputDate.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -25,8 +27,9 @@ export interface LitInputDateProps {
 @Component({
   selector: "lit-input-date",
   template: `
+    <div class="p-input-date" data-pds="input-date">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-date">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -34,7 +37,7 @@ export interface LitInputDateProps {
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
         <slot name="start"></slot>
-        <input type="date" id="input-date" dir="auto" />
+        <input type="date" id="input-date" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" />
         <p-button-pure
           class="button"
           type="button"
@@ -51,17 +54,17 @@ export interface LitInputDateProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-date {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-date[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputDate {
   @Input() disabled!: LitInputDateProps["disabled"];
@@ -75,6 +78,10 @@ export default class LitInputDate {
   @Input() description!: LitInputDateProps["description"];
   @Input() value!: LitInputDateProps["value"];
   @Input() placeholder!: LitInputDateProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-date");
+  }
 
   get cssText() {
     const minWidth: any = {

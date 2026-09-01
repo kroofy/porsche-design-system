@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from RadioGroupOption.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitRadioGroupOptionProps {
     value?: any;
@@ -13,6 +14,8 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitRadioGroupOptionProps["disabled"];
   export let disabledParent: LitRadioGroupOptionProps["disabledParent"];
   export let selected: LitRadioGroupOptionProps["selected"];
@@ -22,12 +25,13 @@
   export let label: LitRadioGroupOptionProps["label"];
   export let name: LitRadioGroupOptionProps["name"];
   export let value: LitRadioGroupOptionProps["value"];
+  function __cmpProps() { return { disabled, disabledParent, selected, loading, loadingParent, state, label, name, value }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const disabled = isTrue(disabled) || isTrue(disabledParent);
-    const selected = isTrue(selected);
-    const optionLoading = isTrue(loading) && !selected;
+    const disabled = isTrue(__cmpProps().disabled) || isTrue(disabledParent);
+    const selected = isTrue(__cmpProps().selected);
+    const optionLoading = isTrue(__cmpProps().loading) && !selected;
     const loading = optionLoading || isTrue(loadingParent);
     const blocked = disabled || loading;
     const formState = state === "success" || state === "error" ? state : "none";
@@ -151,28 +155,28 @@
   };
   $: isOptionLoading = () => {
     const selected =
-      selected === true || selected === "true" || selected === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().selected === true || __cmpProps().selected === "true" || __cmpProps().selected === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading && !selected;
   };
   $: isLoading = () => {
     const selected =
-      selected === true || selected === "true" || selected === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().selected === true || __cmpProps().selected === "true" || __cmpProps().selected === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     const loadingParent =
-      loadingParent === true ||
-      loadingParent === "true" ||
-      loadingParent === "";
+      __cmpProps().loadingParent === true ||
+      __cmpProps().loadingParent === "true" ||
+      __cmpProps().loadingParent === "";
     return (loading && !selected) || loadingParent;
   };
   $: loadingText = () => {
     const selected =
-      selected === true || selected === "true" || selected === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().selected === true || __cmpProps().selected === "true" || __cmpProps().selected === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     const loadingParent =
-      loadingParent === true ||
-      loadingParent === "true" ||
-      loadingParent === "";
+      __cmpProps().loadingParent === true ||
+      __cmpProps().loadingParent === "true" ||
+      __cmpProps().loadingParent === "";
     if (loadingParent) return "";
     if (loading && !selected) return "Loading";
     return "";
@@ -186,13 +190,15 @@
   $: inputValue = () => {
     return value == null ? "" : String(value);
   };
+  $: __pdsComponents = { PSpinner };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-radio-group-option");
 </script>
 
+<div class="p-radio-group-option" data-pds="radio-group-option">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="wrapper">
-    <input type="radio" /><svelte:component
-      this={p - spinner}
+    <input type="radio"  value={inputValue()} disabled={!!isDisabled()} /><PSpinner
       class="spinner"
       aria-hidden="true"
     />
@@ -204,11 +210,5 @@
   <span class="loading" id="loading">{loadingText()}</span>
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

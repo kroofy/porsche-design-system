@@ -1,25 +1,32 @@
+<!-- mitosis-native-host: native vue from Textarea.lite.tsx -->
 <template>
+  <div class="p-textarea" data-pds="textarea">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <label class="label" id="label" for="textarea">{{ labelText }}</label
       ><slot name="label-after"></slot>
     </div>
     <span class="label" id="description">{{ descriptionText }}</span>
     <div class="wrapper">
-      <textarea id="textarea"></textarea
+      <textarea id="textarea" :value="inputValue" :placeholder="placeholderText" :disabled="isDisabled" :readonly="isReadOnly" :name="name" :maxlength="maxLengthValue"></textarea
       ><span class="sr-only" aria-live="polite">{{ srOnlyText }}</span
       ><span class="counter" aria-hidden="true">{{ counterText }}</span>
     </div>
     <span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     >
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextareaProps {
   label?: string;
   description?: string;
@@ -43,6 +50,7 @@ export interface LitTextareaProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-textarea",
 
   props: [
@@ -63,6 +71,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-textarea");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -322,8 +333,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

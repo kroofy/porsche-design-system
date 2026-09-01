@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Modal.lite.tsx -->
 <template>
+  <div class="p-modal" data-pds="modal">
+
   <dialog aria-modal="true" :inert="true" :tabIndex="-1">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="scroller">
       <div class="modal">
         <button class="dismiss" type="button"><span>Dismiss modal</span></button
@@ -8,11 +11,14 @@
       </div>
     </div>
   </dialog>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitModalProps {
   open?: any;
   dismissButton?: any;
@@ -36,6 +42,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-modal");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isOpen = isTrue(this.open);
@@ -255,11 +264,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from PinCode.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitPinCodeProps {
     label?: string;
@@ -19,6 +20,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitPinCodeProps["disabled"];
   export let loading: LitPinCodeProps["loading"];
   export let compact: LitPinCodeProps["compact"];
@@ -31,6 +34,7 @@
   export let required: LitPinCodeProps["required"];
   export let type: LitPinCodeProps["type"];
   export let value: LitPinCodeProps["value"];
+  function __cmpProps() { return { disabled, loading, compact, state, message, hideLabel, length, label, description, required, type, value }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -64,19 +68,19 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
         : hideLabel;
-    let length = Number(length);
+    let length = Number(__cmpProps().length);
     if (!Number.isFinite(length) || length < 1) length = 4;
     if (length > 6) length = 6;
     const palettes: any = {
@@ -200,14 +204,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -242,7 +246,7 @@
     return type === "password" ? "password" : "text";
   };
   $: pinLength = () => {
-    let length = Number(length);
+    let length = Number(__cmpProps().length);
     if (!Number.isFinite(length) || length < 1) length = 4;
     if (length > 6) length = 6;
     return length;
@@ -250,26 +254,25 @@
   $: parsedValue = () => {
     return value == null ? "" : String(value);
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-pin-code");
 </script>
 
+<div class="p-pin-code" data-pds="pin-code">
 <fieldset class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <label class="label" id="label" for="current-input">{labelText()}</label
     ><slot name="label-after" />
   </div>
   <span class="label" id="description">{descriptionText()}</span>
-  <div class="wrapper"><input /><input /><input /><input /></div>
+  <div class="wrapper"><input  disabled={!!isDisabled()} /><input  disabled={!!isDisabled()} /><input  disabled={!!isDisabled()} /><input  disabled={!!isDisabled()} /></div>
   <span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   ><span class="loading" id="loading">{loadingText()}</span>
 </fieldset>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

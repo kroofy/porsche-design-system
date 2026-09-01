@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Crest.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -12,8 +14,9 @@ export interface LitCrestProps {
 @Component({
   selector: "lit-crest",
   template: `
+    <div class="p-crest" data-pds="crest">
     <a [attr.href]="href" [attr.target]="target || '_self'"
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <picture
         ><source
           srcset="
@@ -35,13 +38,14 @@ export interface LitCrestProps {
           height="40"
           alt="Porsche" /></picture
     ></a>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-crest {
         display: contents;
       }
-      :host {
+      .p-crest {
         position: relative;
         display: inline-block;
         vertical-align: top;
@@ -51,15 +55,18 @@ export interface LitCrestProps {
         width: inherit !important;
         height: inherit !important;
       }
-      :host([hidden]) {
+      .p-crest[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitCrest {
   @Input() href!: LitCrestProps["href"];
   @Input() target!: LitCrestProps["target"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-crest");
+  }
 
   get cssText() {
     return (

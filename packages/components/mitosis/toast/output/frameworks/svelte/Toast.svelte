@@ -1,4 +1,6 @@
+<!-- mitosis-native-host: native svelte from Toast.lite.tsx -->
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   $: cssText = () => {
     return (
       ":host{--_p-toast-a:var(--p-toast-position-bottom,56px) !important;" +
@@ -16,17 +18,13 @@
       ".close{animation:.4s out cubic-bezier(.4,0,.5,1) forwards !important}"
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    position: fixed;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-toast");
 </script>
 
+<div class="p-toast" data-pds="toast">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot />
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot />
 </div>
 
-<style>
-  :host {
-    position: fixed;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

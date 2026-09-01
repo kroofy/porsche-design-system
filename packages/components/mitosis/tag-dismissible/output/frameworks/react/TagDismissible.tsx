@@ -1,10 +1,14 @@
+/* mitosis-native-host: native react from TagDismissible.lite.tsx */
 import * as React from 'react';
 
 
 
 
 
-  export interface LitTagDismissibleProps {
+  import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
+export interface LitTagDismissibleProps {
+  className?: string;
 label?: string;
 compact?: any;
 aria?: any;
@@ -40,6 +44,13 @@ let raw: any = props.aria;
 if (!raw) return '';
 if (typeof raw === 'string') {
 try {
-  raw = JSON.parse(raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')); } catch (e) {   raw = null; } } if (typeof raw === 'object' && raw !== null) return raw['aria-label'] || ''; return ''; }   function labelText() { return props.label || ''; }   function closeIconSrc() { // Landed LitIcon only maps car / arrow-right. name="close" would paint // arrow-right. Feed the CDN close SVG so the nested p-icon matches the // stored Stencil baseline. return 'http://localhost:3001/icons/close.eec3c5d.svg'; }            return (   <>    <button  type="button"  aria-label={ariaLabel()}><style  dangerouslySetInnerHTML={{__html: cssText()}}  /><span className="sr-only">Remove:</span><span><span className="label">{labelText()}</span><slot  /></span><span className="icon"><p-icon  name="close"  aria-hidden="true"  source={closeIconSrc()}  /></span></button>   <style jsx>{`     :host {       display: inline-block;       vertical-align: top;     }     :host([hidden]) {       display: none !important;     }  `}</style>   </> ); }       export default LitTagDismissible;
+  raw = JSON.parse(raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')); } catch (e) {   raw = null; } } if (typeof raw === 'object' && raw !== null) return raw['aria-label'] || ''; return ''; }   function labelText() { return props.label || ''; }   function closeIconSrc() { /* Landed LitIcon only maps car / arrow-right. name="close" would paint // arrow-right. Feed the CDN close SVG so the nested p-icon matches the // stored Stencil baseline. */ return 'http://localhost:3001/icons/close.eec3c5d.svg'; }            return (
+    <div
+      className={["p-tag-dismissible", props.className].filter(Boolean).join(" ")}
+      data-pds="tag-dismissible"
+    >
+      <button  type="button"  aria-label={ariaLabel()}><style  dangerouslySetInnerHTML={{ __html: scopeCss("     :host {       display: inline-block;       vertical-align: top;     }     :host([hidden]) {       display: none !important;     }  " + cssText(), ".p-tag-dismissible") }}  /><span className="sr-only">Remove:</span><span><span className="label">{labelText()}</span>{props.children}</span><span className="icon"><PIcon  name="close"  aria-hidden="true"  source={closeIconSrc()}  /></span></button>
+    </div>
+  ); }       export default LitTagDismissible;
 
 

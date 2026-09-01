@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from TextList.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTextListProps {
     type?: string;
@@ -5,10 +6,12 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let type: LitTextListProps["type"];
+  function __cmpProps() { return { type }; }
 
   $: cssText = () => {
-    const type = type || "unordered";
+    const type = __cmpProps().type || "unordered";
     const ordered = type !== "unordered";
     const numbered = type === "numbered";
     let out =
@@ -29,15 +32,14 @@
     return out;
   };
   $: isOrdered = () => {
-    const type = type || "unordered";
+    const type = __cmpProps().type || "unordered";
     return type !== "unordered";
   };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-text-list");
 </script>
 
-<ul>{@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /></ul>
+<div class="p-text-list" data-pds="text-list">
+<ul>{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /></ul>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

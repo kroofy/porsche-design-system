@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Tabs.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,8 +18,9 @@ export interface LitTabsProps {
 @Component({
   selector: "lit-tabs",
   template: `
+    <div class="p-tabs" data-pds="tabs">
     <div class="wrap">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-tabs-bar
         class="root"
         [size]="sizeValue"
@@ -27,23 +30,27 @@ export interface LitTabsProps {
       ></p-tabs-bar>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-tabs {
         display: contents;
       }
-      :host([hidden]) {
+      .p-tabs[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTabs {
   @Input() size!: LitTabsProps["size"];
   @Input() background!: LitTabsProps["background"];
   @Input() compact!: LitTabsProps["compact"];
   @Input() activeTabIndex!: LitTabsProps["activeTabIndex"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-tabs");
+  }
 
   get cssText() {
     const minWidth: any = {

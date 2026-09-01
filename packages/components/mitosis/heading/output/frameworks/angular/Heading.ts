@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Heading.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -17,24 +19,25 @@ export interface LitHeadingProps {
 @Component({
   selector: "lit-heading",
   template: `
+    <div class="p-heading" data-pds="heading">
     <h2>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </h2>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-heading {
         display: contents;
       }
-      :host {
+      .p-heading {
         display: block;
       }
-      :host([hidden]) {
+      .p-heading[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitHeading {
   @Input() weight!: LitHeadingProps["weight"];
@@ -43,6 +46,10 @@ export default class LitHeading {
   @Input() hyphens!: LitHeadingProps["hyphens"];
   @Input() ellipsis!: LitHeadingProps["ellipsis"];
   @Input() size!: LitHeadingProps["size"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-heading");
+  }
 
   get cssText() {
     const sizeMap: any = {

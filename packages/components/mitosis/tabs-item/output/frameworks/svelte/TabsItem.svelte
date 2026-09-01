@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from TabsItem.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTabsItemProps {
     label?: string;
@@ -5,7 +6,9 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let label: LitTabsItemProps["label"];
+  function __cmpProps() { return { label }; }
 
   $: cssText = () => {
     return (
@@ -18,14 +21,13 @@
   $: labelValue = () => {
     return label || "";
   };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-tabs-item");
 </script>
 
+<div class="p-tabs-item" data-pds="tabs-item">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot />
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot />
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

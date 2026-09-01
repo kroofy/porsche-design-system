@@ -1,5 +1,7 @@
+/* mitosis-native-host: native react from Divider.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export type DividerColor =
   | "contrast-lower"
   | "contrast-low"
@@ -7,6 +9,7 @@ export type DividerColor =
   | "contrast-high";
 export type DividerDirection = "horizontal" | "vertical";
 export interface LitDividerProps {
+  className?: string;
   color?: DividerColor;
   direction?: any;
 }
@@ -62,20 +65,15 @@ function LitDivider(props: LitDividerProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-divider", props.className].filter(Boolean).join(" ")}
+      data-pds="divider"
+    >
       <>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-divider") }} />
         <hr />
       </>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

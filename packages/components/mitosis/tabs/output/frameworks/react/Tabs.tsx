@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Tabs.lite.tsx */
 import * as React from "react";
 
+import PTabsBar from "../../../../tabs-bar/output/frameworks/react/TabsBar";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTabsProps {
+  className?: string;
   size?: any;
   activeTabIndex?: any;
   background?: string;
@@ -82,25 +86,22 @@ function LitTabs(props: LitTabsProps) {
     return Number.isInteger(n) ? n : 0;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-tabs", props.className].filter(Boolean).join(" ")}
+      data-pds="tabs"
+    >
       <div className="wrap">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-tabs-bar
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-tabs") }} />
+        <PTabsBar
           className="root"
           size={sizeValue()}
           background={backgroundValue()}
           compact={isCompact()}
           activeTabIndex={activeIndex()}
         />
-        <slot />
+        {props.children}
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitTabs;

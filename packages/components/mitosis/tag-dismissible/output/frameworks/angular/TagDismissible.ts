@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TagDismissible.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,8 +15,9 @@ export interface LitTagDismissibleProps {
 @Component({
   selector: "lit-tag-dismissible",
   template: `
+    <div class="p-tag-dismissible" data-pds="tag-dismissible">
     <button type="button" [attr.aria-label]="ariaLabel">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span class="sr-only">Remove:</span>
       <span
         ><span class="label">{{labelText}}</span> <slot></slot
@@ -27,26 +30,30 @@ export interface LitTagDismissibleProps {
         ></p-icon
       ></span>
     </button>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-tag-dismissible {
         display: contents;
       }
-      :host {
+      .p-tag-dismissible {
         display: inline-block;
         vertical-align: top;
       }
-      :host([hidden]) {
+      .p-tag-dismissible[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTagDismissible {
   @Input() compact!: LitTagDismissibleProps["compact"];
   @Input() label!: LitTagDismissibleProps["label"];
   @Input() aria!: LitTagDismissibleProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-tag-dismissible");
+  }
 
   get cssText() {
     let compact: any = this.compact;

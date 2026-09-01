@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Textarea.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextareaProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -277,21 +281,23 @@ function LitTextarea(props: LitTextareaProps) {
     return props.placeholder || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-textarea", props.className].filter(Boolean).join(" ")}
+      data-pds="textarea"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-textarea") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="textarea">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <textarea id="textarea" />
+          <textarea id="textarea"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readOnly={!!isReadOnly()} maxLength={maxLengthValue() || undefined} />
           <span className="sr-only" aria-live="polite">
             {srOnlyText()}
           </span>
@@ -300,16 +306,11 @@ function LitTextarea(props: LitTextareaProps) {
           </span>
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitTextarea;

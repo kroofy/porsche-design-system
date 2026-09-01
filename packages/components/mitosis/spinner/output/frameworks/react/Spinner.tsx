@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Spinner.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSpinnerProps {
+  className?: string;
   color?: string;
   size?: any;
   aria?: any;
@@ -103,10 +106,12 @@ function LitSpinner(props: LitSpinnerProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-spinner", props.className].filter(Boolean).join(" ")}
+      data-pds="spinner"
+    >
       <div role="alert" aria-live="assertive" aria-label={ariaLabel()}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-flex;\n          vertical-align: top;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-spinner") }} />
         <span className="sr-only" />
         <svg
           viewBox="-16 -16 32 32"
@@ -119,16 +124,7 @@ function LitSpinner(props: LitSpinnerProps) {
           <circle r="11" />
         </svg>
       </div>{" "}
-      <style jsx>{`
-        :host {
-          display: inline-flex;
-          vertical-align: top;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitSpinner;

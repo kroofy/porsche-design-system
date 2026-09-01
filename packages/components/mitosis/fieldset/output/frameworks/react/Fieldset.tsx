@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Fieldset.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFieldsetProps {
+  className?: string;
   label?: string;
   labelSize?: string;
   required?: any;
@@ -83,22 +87,20 @@ function LitFieldset(props: LitFieldsetProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-fieldset", props.className].filter(Boolean).join(" ")}
+      data-pds="fieldset"
+    >
       <fieldset>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-fieldset") }} />
         <legend>{labelText()}</legend>
-        <slot />
+        {props.children}
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
       </fieldset>
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

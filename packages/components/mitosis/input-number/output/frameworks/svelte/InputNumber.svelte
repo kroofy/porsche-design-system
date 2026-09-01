@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from InputNumber.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitInputNumberProps {
     label?: string;
@@ -22,6 +23,10 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import PButtonPure from "../../../../button-pure/output/frameworks/svelte/ButtonPure.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitInputNumberProps["disabled"];
   export let loading: LitInputNumberProps["loading"];
   export let compact: LitInputNumberProps["compact"];
@@ -35,6 +40,7 @@
   export let value: LitInputNumberProps["value"];
   export let maxLength: LitInputNumberProps["maxLength"];
   export let placeholder: LitInputNumberProps["placeholder"];
+  function __cmpProps() { return { disabled, loading, compact, readOnly, controls, state, message, hideLabel, label, description, value, maxLength, placeholder }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -68,16 +74,16 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
-    const readOnly = isTrue(readOnly);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
+    const readOnly = isTrue(__cmpProps().readOnly);
     const hasControls = isTrue(controls);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -208,14 +214,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -240,8 +246,8 @@
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: ariaInvalid = () => {
@@ -253,16 +259,19 @@
       : "";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
   $: placeholderText = () => {
     return placeholder || "";
   };
+  $: __pdsComponents = { PButtonPure, PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-input-number");
 </script>
 
+<div class="p-input-number" data-pds="input-number">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <label class="label" id="label" for="input-number">{labelText()}</label
     ><slot name="label-after" />
@@ -273,37 +282,30 @@
       type="number"
       id="input-number"
       dir="auto"
-    /><svelte:component
-      this={p - button - pure}
+     value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readonly={!!isReadOnly()} maxlength={maxLengthValue()} /><PButtonPure
       class="button"
       type="button"
       icon="minus"
       hide-label="true"
     >
       Decrement value by 1
-    </svelte:component><svelte:component
-      this={p - button - pure}
+    </PButtonPure><PButtonPure
       class="button"
       type="button"
       icon="plus"
       hide-label="true"
     >
       Increment value by 1
-    </svelte:component><slot name="end" /><svelte:component
-      this={p - spinner}
+    </PButtonPure><slot name="end" /><PSpinner
       aria-hidden="true"
     />
   </div>
   <span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   ><span class="loading" id="loading" role="status">{loadingText()}</span>
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

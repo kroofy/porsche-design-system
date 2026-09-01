@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from LinkTileProduct.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitLinkTileProductProps {
     heading?: string;
@@ -14,6 +15,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let href: LitLinkTileProductProps["href"];
   export let likeButton: LitLinkTileProductProps["likeButton"];
   export let priceOriginal: LitLinkTileProductProps["priceOriginal"];
@@ -21,6 +23,7 @@
   export let aspectRatio: LitLinkTileProductProps["aspectRatio"];
   export let heading: LitLinkTileProductProps["heading"];
   export let price: LitLinkTileProductProps["price"];
+  function __cmpProps() { return { href, likeButton, priceOriginal, description, aspectRatio, heading, price }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -48,13 +51,13 @@
     };
     const isTrue = (v: any) => v === true || v === "true" || v === "";
     const isFalse = (v: any) => v === false || v === "false";
-    const href = href;
+    const href = __cmpProps().href;
     const hasHref = !(href == null || href === "" || href === "undefined");
     const hasSlottedAnchor = !hasHref;
     const hasLikeButton = !isFalse(likeButton);
     const hasPriceOriginal = !!(priceOriginal && priceOriginal !== "undefined");
     const hasDescription = !!(description && description !== "undefined");
-    const aspectRatio = parse(aspectRatio, "3/4");
+    const aspectRatio = parse(__cmpProps().aspectRatio, "3/4");
     const ratioBase =
       typeof aspectRatio === "object" && aspectRatio !== null
         ? aspectRatio.base || "3/4"
@@ -138,10 +141,12 @@
   $: priceText = () => {
     return price || "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n    position: relative;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-link-tile-product");
 </script>
 
+<div class="p-link-tile-product" data-pds="link-tile-product">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="image"><slot /></div>
   <div class="wrapper">
     <h3 class="heading">{headingText()}</h3>
@@ -149,12 +154,5 @@
   </div>
 </div>
 
-<style>
-  :host {
-    display: block;
-    position: relative;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

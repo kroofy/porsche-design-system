@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Display.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitDisplayProps {
     tag?: string;
@@ -9,10 +10,12 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let align: LitDisplayProps["align"];
   export let color: LitDisplayProps["color"];
   export let ellipsis: LitDisplayProps["ellipsis"];
   export let size: LitDisplayProps["size"];
+  function __cmpProps() { return { align, color, ellipsis, size }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -36,9 +39,9 @@
       xl: 1760,
       xxl: 1920,
     };
-    const align = align || "start";
-    const color = colorMap[color || "primary"] || colorMap.primary;
-    let ellipsis: any = ellipsis;
+    const align = __cmpProps().align || "start";
+    const color = colorMap[__cmpProps().color || "primary"] || colorMap.primary;
+    let ellipsis: any = __cmpProps().ellipsis;
     if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
       ellipsis = true;
     } else {
@@ -51,7 +54,7 @@
     const rootOpen =
       "::slotted(:is(h1,h2,h3,h4,h5,h6)){all:unset!important}h3{all:unset;display:block;font:var(--p-font-weight-normal) var(--p-typescale-5xl)/var(--p-leading-normal) var(--p-font-porsche-next);";
     const rootClose = ";color:" + color + ";text-align:" + align + extra + "}";
-    let size = size || "large";
+    let size = __cmpProps().size || "large";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -80,15 +83,11 @@
     }
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-display");
 </script>
 
-<h3>{@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /></h3>
+<div class="p-display" data-pds="display">
+<h3>{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /></h3>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

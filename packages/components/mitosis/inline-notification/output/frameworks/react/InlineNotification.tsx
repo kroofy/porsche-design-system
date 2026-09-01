@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from InlineNotification.lite.tsx */
 import * as React from "react";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/react/ButtonPure";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInlineNotificationProps {
+  className?: string;
   heading?: string;
   headingTag?: string;
   description?: string;
@@ -15,7 +19,7 @@ function LitInlineNotification(props: LitInlineNotificationProps) {
   function cssText() {
     const visual = props.state || "info";
     const heading = props.heading || "";
-    const hasHeadingSlot = hasHeadingSlot();
+    const hasHeadingSlot = hasHeadingSlot__fn();
     const hasHeading = !!(heading || hasHeadingSlot);
     const actionLabel = props.actionLabel || "";
     const hasAction = !!actionLabel;
@@ -116,7 +120,7 @@ function LitInlineNotification(props: LitInlineNotificationProps) {
     return out;
   }
 
-  function hasHeadingSlot() {
+  function hasHeadingSlot__fn() {
     return false;
   }
 
@@ -170,29 +174,24 @@ function LitInlineNotification(props: LitInlineNotificationProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-inline-notification", props.className].filter(Boolean).join(" ")}
+      data-pds="inline-notification"
+    >
       <div className="notification">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-inline-notification") }} />
         <h5>{headingText()}</h5>
         <p>{descriptionText()}</p>
-        <slot name="heading" />
-        <slot />
-        <p-button-pure className="action" icon={actionIconName()}>
+        {props["heading"] ?? null}
+        {props.children}
+        <PButtonPure className="action" icon={actionIconName()}>
           {actionLabelText()}
-        </p-button-pure>
+        </PButtonPure>
         <button className="dismiss" type="button">
           <span>Close notification</span>
         </button>
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

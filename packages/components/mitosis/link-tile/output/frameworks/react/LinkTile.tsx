@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from LinkTile.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkTileProps {
+  className?: string;
   size?: any;
   weight?: any;
   aspectRatio?: any;
@@ -238,28 +241,22 @@ function LitLinkTile(props: LitLinkTileProps) {
     return props.label || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-link-tile", props.className].filter(Boolean).join(" ")}
+      data-pds="link-tile"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot name="header" />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: flex;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-link-tile") }} />
+        {props["header"] ?? null}
         <div className="media">
-          <slot />
+          {props.children}
         </div>
         <div className="footer">
           <p>{descriptionText()}</p>
-          <slot name="footer" />
+          {props["footer"] ?? null}
         </div>
       </div>{" "}
-      <style jsx>{`
-        :host {
-          display: flex;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitLinkTile;

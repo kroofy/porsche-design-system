@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from DrilldownLink.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -14,24 +16,30 @@ export interface LitDrilldownLinkProps {
 
 @Component({
   selector: "lit-drilldown-link",
-  template: ` <slot></slot> `,
-  styles: [
-    `
-      :host {
+  template: `
+    <div class="p-drilldown-link" data-pds="drilldown-link">
+    <slot></slot> 
+    </div>
+  `,
+  styles: [`
+      .p-drilldown-link {
         display: contents;
       }
-      :host {
+      .p-drilldown-link {
         display: grid;
       }
-      :host([hidden]) {
+      .p-drilldown-link[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitDrilldownLink {
   @Input() href!: LitDrilldownLinkProps["href"];
   @Input() active!: LitDrilldownLinkProps["active"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-drilldown-link");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

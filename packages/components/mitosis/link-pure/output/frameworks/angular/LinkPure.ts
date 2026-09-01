@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from LinkPure.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -24,8 +26,9 @@ export interface LitLinkPureProps {
 @Component({
   selector: "lit-link-pure",
   template: `
+    <div class="p-link-pure" data-pds="link-pure">
     <span class="root"
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-icon
         class="icon"
         size="inherit"
@@ -36,20 +39,20 @@ export interface LitLinkPureProps {
       ></p-icon>
       <span class="label"><slot></slot></span
     ></span>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-link-pure {
         display: contents;
       }
-      :host {
+      .p-link-pure {
         transform: translate3d(0, 0, 0) !important;
       }
-      :host([hidden]) {
+      .p-link-pure[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitLinkPure {
   @Input() color!: LitLinkPureProps["color"];
@@ -62,6 +65,10 @@ export default class LitLinkPure {
   @Input() stretch!: LitLinkPureProps["stretch"];
   @Input() hideLabel!: LitLinkPureProps["hideLabel"];
   @Input() alignLabel!: LitLinkPureProps["alignLabel"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-link-pure");
+  }
 
   get cssText() {
     const sizeMap: any = {

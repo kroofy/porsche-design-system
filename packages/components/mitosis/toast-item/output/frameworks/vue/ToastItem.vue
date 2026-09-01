@@ -1,16 +1,22 @@
+<!-- mitosis-native-host: native vue from ToastItem.lite.tsx -->
 <template>
+  <div class="p-toast-item" data-pds="toast-item">
+
   <div class="notification">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <p>{{ textValue }}</p>
     <button class="dismiss" type="button">
       <span>Close notification message</span>
     </button>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitToastItemProps {
   text?: string;
   state?: string;
@@ -22,6 +28,9 @@ export default defineComponent({
   props: ["state", "text"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-toast-item");
+    },
     cssText() {
       const visual = this.state || "info";
       const bgMap: any = {
@@ -105,11 +114,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

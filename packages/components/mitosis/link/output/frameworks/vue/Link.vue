@@ -1,21 +1,28 @@
+<!-- mitosis-native-host: native vue from Link.lite.tsx -->
 <template>
+  <div class="p-link" data-pds="link">
+
   <span class="root"
-    ><component v-html="cssText" :is="'style'"></component
-    ><p-icon
+    ><component v-html="scopedCssText" :is="'style'"></component
+    ><PIcon
       class="icon"
       size="inherit"
       color="inherit"
       aria-hidden="true"
       :name="iconName"
       :source="iconSrc"
-    ></p-icon
+    ></PIcon
     ><span class="label"><slot></slot></span
   ></span>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkProps {
   variant?: string;
   icon?: string;
@@ -30,11 +37,15 @@ export interface LitLinkProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-link",
 
   props: ["variant", "href", "icon", "iconSource", "hideLabel", "compact"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-link");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -238,12 +249,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-block;
-  vertical-align: top;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

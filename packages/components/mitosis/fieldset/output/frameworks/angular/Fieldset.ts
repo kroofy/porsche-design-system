@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Fieldset.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,31 +18,36 @@ export interface LitFieldsetProps {
 @Component({
   selector: "lit-fieldset",
   template: `
+    <div class="p-fieldset" data-pds="fieldset">
     <fieldset>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <legend>{{labelText}}</legend>
       <slot></slot>
       <span class="message" id="message"
         ><p-icon aria-hidden="true"></p-icon> {{messageText}}</span
       >
     </fieldset>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-fieldset {
         display: contents;
       }
-      :host([hidden]) {
+      .p-fieldset[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitFieldset {
   @Input() state!: LitFieldsetProps["state"];
   @Input() message!: LitFieldsetProps["message"];
   @Input() label!: LitFieldsetProps["label"];
   @Input() labelSize!: LitFieldsetProps["labelSize"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-fieldset");
+  }
 
   get cssText() {
     const formState =

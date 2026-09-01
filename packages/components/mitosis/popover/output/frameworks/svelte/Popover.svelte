@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Popover.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitPopoverProps {
     open?: any;
@@ -9,17 +10,19 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   const ICON =
     'url(\'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.5 10v6h-1v-6zm0-2v1h-1V8zM12 4a8 8 0 0 1 0 16 8 8 0 0 1 0-16m0-1c-4.95 0-9 4.05-9 9s4.05 9 9 9 9-4.05 9-9-4.05-9-9-9"/></svg>\') center/contain no-repeat';
 
   export let open: LitPopoverProps["open"];
   export let compact: LitPopoverProps["compact"];
   export let description: LitPopoverProps["description"];
+  function __cmpProps() { return { open, compact, description }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
     const isOpen = isTrue(open);
-    const compact = isTrue(compact);
+    const compact = isTrue(__cmpProps().compact);
     const skipEntry = true;
     const pad = compact
       ? "var(--p-spacing-static-sm)"
@@ -90,10 +93,12 @@
   $: descriptionText = () => {
     return description || "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n    margin: 0;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-popover");
 </script>
 
+<div class="p-popover" data-pds="popover">
 <div class="wrap">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<button
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<button
     type="button"
     aria-label="More information"
     aria-details="popover"
@@ -105,12 +110,5 @@
   </div>
 </div>
 
-<style>
-  :host {
-    display: contents;
-    margin: 0;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

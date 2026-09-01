@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Banner.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -17,8 +19,9 @@ export interface LitBannerProps {
 @Component({
   selector: "lit-banner",
   template: `
+    <div class="p-banner" data-pds="banner">
     <div popover="manual">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="notification">
         <h5>{{headingText}}</h5>
         <p>{{descriptionText}}</p>
@@ -27,20 +30,20 @@ export interface LitBannerProps {
         <button class="dismiss" type="button"><span>Close banner</span></button>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-banner {
         display: contents;
       }
-      :host {
+      .p-banner {
         display: contents;
       }
-      :host([hidden]) {
+      .p-banner[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitBanner {
   @Input() state!: LitBannerProps["state"];
@@ -50,6 +53,10 @@ export default class LitBanner {
   @Input() position!: LitBannerProps["position"];
   @Input() headingTag!: LitBannerProps["headingTag"];
   @Input() description!: LitBannerProps["description"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-banner");
+  }
 
   get cssText() {
     const visual = this.state || "info";

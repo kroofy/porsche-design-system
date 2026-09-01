@@ -1,20 +1,27 @@
+<!-- mitosis-native-host: native vue from Tabs.lite.tsx -->
 <template>
+  <div class="p-tabs" data-pds="tabs">
+
   <div class="wrap">
-    <component v-html="cssText" :is="'style'"></component
-    ><p-tabs-bar
+    <component v-html="scopedCssText" :is="'style'"></component
+    ><PTabsBar
       class="root"
       :size="sizeValue"
       :background="backgroundValue"
       :compact="isCompact"
       :activeTabIndex="activeIndex"
-    ></p-tabs-bar
+    ></PTabsBar
     ><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PTabsBar from "../../../../tabs-bar/output/frameworks/vue/TabsBar.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTabsProps {
   size?: any;
   activeTabIndex?: any;
@@ -25,11 +32,15 @@ export interface LitTabsProps {
 }
 
 export default defineComponent({
+  components: { PTabsBar },
   name: "lit-tabs",
 
   props: ["size", "background", "compact", "activeTabIndex"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-tabs");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -105,8 +116,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Accordion.lite.tsx -->
 <template>
+  <div class="p-accordion" data-pds="accordion">
+
   <details>
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <summary>
       <slot name="summary"></slot>
       <h2>{{ headingText }}<slot name="heading"></slot></h2>
@@ -8,11 +11,14 @@
     <slot name="summary-before"></slot><slot name="summary-after"></slot>
     <div><slot></slot></div>
   </details>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitAccordionProps {
   open?: any;
   alignMarker?: string;
@@ -41,6 +47,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-accordion");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -309,11 +318,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

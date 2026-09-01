@@ -1,6 +1,12 @@
+/* mitosis-native-host: native react from InputNumber.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import PButtonPure from "../../../../button-pure/output/frameworks/react/ButtonPure";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInputNumberProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -269,23 +275,25 @@ function LitInputNumber(props: LitInputNumberProps) {
     return props.placeholder || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-input-number", props.className].filter(Boolean).join(" ")}
+      data-pds="input-number"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-input-number") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="input-number">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <slot name="start" />
-          <input type="number" id="input-number" dir="auto" />
-          <p-button-pure
+          {props["start"] ?? null}
+          <input type="number" id="input-number" dir="auto"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readOnly={!!isReadOnly()} maxLength={maxLengthValue() || undefined} />
+          <PButtonPure
             className="button"
             type="button"
             icon="minus"
@@ -293,8 +301,8 @@ function LitInputNumber(props: LitInputNumberProps) {
           >
             {" "}
             Decrement value by 1{" "}
-          </p-button-pure>
-          <p-button-pure
+          </PButtonPure>
+          <PButtonPure
             className="button"
             type="button"
             icon="plus"
@@ -302,24 +310,19 @@ function LitInputNumber(props: LitInputNumberProps) {
           >
             {" "}
             Increment value by 1{" "}
-          </p-button-pure>
-          <slot name="end" />
-          <p-spinner aria-hidden="true" />
+          </PButtonPure>
+          {props["end"] ?? null}
+          <PSpinner aria-hidden="true" />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitInputNumber;

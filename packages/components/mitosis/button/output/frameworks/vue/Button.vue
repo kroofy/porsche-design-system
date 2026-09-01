@@ -1,23 +1,31 @@
+<!-- mitosis-native-host: native vue from Button.lite.tsx -->
 <template>
+  <div class="p-button" data-pds="button">
+
   <button class="root" :type="buttonType">
-    <component v-html="cssText" :is="'style'"></component
-    ><p-icon
+    <component v-html="scopedCssText" :is="'style'"></component
+    ><PIcon
       class="icon"
       size="inherit"
       color="inherit"
       aria-hidden="true"
       :name="iconName"
       :source="iconSrc"
-    ></p-icon
-    ><p-spinner class="spinner" size="inherit" aria-hidden="true"></p-spinner
+    ></PIcon
+    ><PSpinner class="spinner" size="inherit" aria-hidden="true"></PSpinner
     ><span class="label"><slot></slot></span
     ><span class="loading" id="loading" role="status">{{ loadingText }}</span>
   </button>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitButtonProps {
   type?: string;
   variant?: string;
@@ -34,6 +42,7 @@ export interface LitButtonProps {
 }
 
 export default defineComponent({
+  components: { PIcon, PSpinner },
   name: "lit-button",
 
   props: [
@@ -48,6 +57,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-button");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -275,12 +287,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-block;
-  vertical-align: top;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

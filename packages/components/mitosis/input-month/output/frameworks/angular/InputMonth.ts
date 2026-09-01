@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputMonth.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -25,8 +27,9 @@ export interface LitInputMonthProps {
 @Component({
   selector: "lit-input-month",
   template: `
+    <div class="p-input-month" data-pds="input-month">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-month">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -34,7 +37,7 @@ export interface LitInputMonthProps {
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
         <slot name="start"></slot>
-        <input type="month" id="input-month" dir="auto" />
+        <input type="month" id="input-month" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" />
         <p-button-pure
           class="button"
           type="button"
@@ -51,17 +54,17 @@ export interface LitInputMonthProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-month {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-month[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputMonth {
   @Input() disabled!: LitInputMonthProps["disabled"];
@@ -75,6 +78,10 @@ export default class LitInputMonth {
   @Input() description!: LitInputMonthProps["description"];
   @Input() value!: LitInputMonthProps["value"];
   @Input() placeholder!: LitInputMonthProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-month");
+  }
 
   get cssText() {
     const minWidth: any = {

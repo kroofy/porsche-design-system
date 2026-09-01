@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from MultiSelectOption.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitMultiSelectOptionProps {
+  className?: string;
   value?: any;
   disabled?: any;
   selected?: any;
@@ -113,21 +116,16 @@ function LitMultiSelectOption(props: LitMultiSelectOptionProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-multi-select-option", props.className].filter(Boolean).join(" ")}
+      data-pds="multi-select-option"
+    >
       <div className="option">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-multi-select-option") }} />
         <span className="checkbox" />
-        <slot />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

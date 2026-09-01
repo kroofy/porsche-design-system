@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from PinCode.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -25,8 +27,9 @@ export interface LitPinCodeProps {
 @Component({
   selector: "lit-pin-code",
   template: `
+    <div class="p-pin-code" data-pds="pin-code">
     <fieldset class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label
           class="label"
@@ -38,27 +41,27 @@ export interface LitPinCodeProps {
       </div>
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
-        <input />
-        <input />
-        <input />
-        <input />
+        <input  [disabled]="isDisabled" />
+        <input  [disabled]="isDisabled" />
+        <input  [disabled]="isDisabled" />
+        <input  [disabled]="isDisabled" />
       </div>
       <span class="message" id="message"
         ><p-icon aria-hidden="true"></p-icon> {{messageText}}</span
       >
       <span class="loading" id="loading">{{loadingText}}</span>
     </fieldset>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-pin-code {
         display: contents;
       }
-      :host([hidden]) {
+      .p-pin-code[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitPinCode {
   @Input() disabled!: LitPinCodeProps["disabled"];
@@ -73,6 +76,10 @@ export default class LitPinCode {
   @Input() required!: LitPinCodeProps["required"];
   @Input() type!: LitPinCodeProps["type"];
   @Input() value!: LitPinCodeProps["value"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-pin-code");
+  }
 
   get cssText() {
     const minWidth: any = {

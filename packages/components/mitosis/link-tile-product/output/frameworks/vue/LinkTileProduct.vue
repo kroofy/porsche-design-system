@@ -1,17 +1,23 @@
+<!-- mitosis-native-host: native vue from LinkTileProduct.lite.tsx -->
 <template>
+  <div class="p-link-tile-product" data-pds="link-tile-product">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="image"><slot></slot></div>
     <div class="wrapper">
       <h3 class="heading">{{ headingText }}</h3>
       <p class="price">{{ priceText }}</p>
     </div>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkTileProductProps {
   heading?: string;
   price?: string;
@@ -39,6 +45,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-link-tile-product");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -163,12 +172,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-  position: relative;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,5 +1,7 @@
+/* mitosis-native-host: native react from TableRow.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 function LitTableRow(props: any) {
   function cssText() {
     return (
@@ -12,20 +14,15 @@ function LitTableRow(props: any) {
   }
 
   return (
-    <>
+    <div
+      className={["p-table-row", props.className].filter(Boolean).join(" ")}
+      data-pds="table-row"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: table-row;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-table-row") }} />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          display: table-row;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Icon.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -15,8 +17,9 @@ export interface LitIconProps {
 @Component({
   selector: "lit-icon",
   template: `
+    <div class="p-icon" data-pds="icon">
     <ng-container
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <img
         width="24"
         height="24"
@@ -24,21 +27,21 @@ export interface LitIconProps {
         [attr.src]="src"
         [attr.alt]="alt"
     /></ng-container>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-icon {
         display: contents;
       }
-      :host {
+      .p-icon {
         display: inline-flex;
         vertical-align: top;
       }
-      :host([hidden]) {
+      .p-icon[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitIcon {
   @Input() name!: LitIconProps["name"];
@@ -46,6 +49,10 @@ export default class LitIcon {
   @Input() color!: LitIconProps["color"];
   @Input() size!: LitIconProps["size"];
   @Input() aria!: LitIconProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-icon");
+  }
 
   get cssText() {
     const sizeMap: any = {

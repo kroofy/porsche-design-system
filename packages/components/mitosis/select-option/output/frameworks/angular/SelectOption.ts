@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from SelectOption.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,31 +18,36 @@ export interface LitSelectOptionProps {
 @Component({
   selector: "lit-select-option",
   template: `
+    <div class="p-select-option" data-pds="select-option">
     <div class="option">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
       <p-icon name="check" color="primary"></p-icon>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-select-option {
         display: contents;
       }
-      :host {
+      .p-select-option {
         display: block;
       }
-      :host([hidden]) {
+      .p-select-option[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSelectOption {
   @Input() disabled!: LitSelectOptionProps["disabled"];
   @Input() disabledParent!: LitSelectOptionProps["disabledParent"];
   @Input() selected!: LitSelectOptionProps["selected"];
   @Input() highlighted!: LitSelectOptionProps["highlighted"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-select-option");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

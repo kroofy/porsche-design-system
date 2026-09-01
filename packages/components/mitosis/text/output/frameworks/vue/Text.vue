@@ -1,10 +1,16 @@
+<!-- mitosis-native-host: native vue from Text.lite.tsx -->
 <template>
-  <p><component v-html="cssText" :is="'style'"></component><slot></slot></p>
+  <div class="p-text" data-pds="text">
+
+  <p><component v-html="scopedCssText" :is="'style'"></component><slot></slot></p>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextProps {
   tag?: string;
   size?: any;
@@ -21,6 +27,9 @@ export default defineComponent({
   props: ["weight", "align", "color", "hyphens", "ellipsis", "size"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-text");
+    },
     cssText() {
       const sizeMap: any = {
         "xx-small": "var(--p-typescale-2xs)",
@@ -130,11 +139,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

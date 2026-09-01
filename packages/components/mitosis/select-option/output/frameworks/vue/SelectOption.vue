@@ -1,13 +1,20 @@
+<!-- mitosis-native-host: native vue from SelectOption.lite.tsx -->
 <template>
+  <div class="p-select-option" data-pds="select-option">
+
   <div class="option">
-    <component v-html="cssText" :is="'style'"></component><slot></slot
-    ><p-icon name="check" color="primary"></p-icon>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot
+    ><PIcon name="check" color="primary"></PIcon>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSelectOptionProps {
   value?: any;
   disabled?: any;
@@ -18,11 +25,15 @@ export interface LitSelectOptionProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-select-option",
 
   props: ["disabled", "disabledParent", "selected", "highlighted"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-select-option");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const disabled = isTrue(this.disabled) || isTrue(this.disabledParent);
@@ -101,11 +112,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

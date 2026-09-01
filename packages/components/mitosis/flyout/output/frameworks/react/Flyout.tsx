@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Flyout.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFlyoutProps {
+  className?: string;
   open?: any;
   position?: string;
   disableBackdropClick?: any;
@@ -266,30 +269,25 @@ function LitFlyout(props: LitFlyoutProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-flyout", props.className].filter(Boolean).join(" ")}
+      data-pds="flyout"
+    >
       <dialog aria-modal="true" inert tabIndex={-1}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-flyout") }} />
         <div className="scroller">
           <div className="flyout">
             <button className="dismiss" type="button">
               <span>Dismiss flyout</span>
             </button>
-            <slot name="header" />
-            <slot />
-            <slot name="footer" />
-            <slot name="sub-footer" />
+            {props["header"] ?? null}
+            {props.children}
+            {props["footer"] ?? null}
+            {props["sub-footer"] ?? null}
           </div>
         </div>
       </dialog>
-      <style jsx>{`
-        :host {
-          display: contents;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Canvas.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,31 +15,36 @@ export interface LitCanvasProps {
 @Component({
   selector: "lit-canvas",
   template: `
+    <div class="p-canvas" data-pds="canvas">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <header class="header"></header>
       <aside class="sidebar sidebar--start"></aside>
       <main class="main"><slot></slot></main>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-canvas {
         display: contents;
       }
-      :host {
+      .p-canvas {
         display: block;
       }
-      :host([hidden]) {
+      .p-canvas[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitCanvas {
   @Input() sidebarStartOpen!: LitCanvasProps["sidebarStartOpen"];
   @Input() sidebarEndOpen!: LitCanvasProps["sidebarEndOpen"];
   @Input() background!: LitCanvasProps["background"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-canvas");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

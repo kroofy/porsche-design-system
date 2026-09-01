@@ -1,23 +1,34 @@
+<!-- mitosis-native-host: native vue from StepperHorizontal.lite.tsx -->
 <template>
+  <div class="p-stepper-horizontal" data-pds="stepper-horizontal">
+
   <div class="wrap">
-    <component v-html="cssText" :is="'style'"></component
-    ><p-scroller class="scroller"><slot></slot></p-scroller>
+    <component v-html="scopedCssText" :is="'style'"></component
+    ><PScroller class="scroller"><slot></slot></PScroller>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PScroller from "../../../../scroller/output/frameworks/vue/Scroller.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitStepperHorizontalProps {
   size?: any;
 }
 
 export default defineComponent({
+  components: { PScroller },
   name: "lit-stepper-horizontal",
 
   props: ["size"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-stepper-horizontal");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -83,8 +94,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

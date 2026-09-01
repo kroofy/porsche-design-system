@@ -1,21 +1,28 @@
+<!-- mitosis-native-host: native vue from Tag.lite.tsx -->
 <template>
+  <div class="p-tag" data-pds="tag">
+
   <span
-    ><component v-html="cssText" :is="'style'"></component
-    ><p-icon
+    ><component v-html="scopedCssText" :is="'style'"></component
+    ><PIcon
       class="icon"
       color="inherit"
       size="x-small"
       aria-hidden="true"
       :name="iconName"
       :source="iconSrc"
-    ></p-icon
+    ></PIcon
     ><slot></slot
   ></span>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTagProps {
   variant?: string;
   icon?: string;
@@ -24,11 +31,15 @@ export interface LitTagProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-tag",
 
   props: ["variant", "compact", "icon", "iconSource"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-tag");
+    },
     cssText() {
       const textMap: any = {
         primary: "var(--p-color-canvas)",
@@ -129,13 +140,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-flex;
-  vertical-align: top;
-  white-space: nowrap;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

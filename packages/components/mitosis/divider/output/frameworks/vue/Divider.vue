@@ -1,11 +1,17 @@
+<!-- mitosis-native-host: native vue from Divider.lite.tsx -->
 <template>
-  <component v-html="cssText" :is="'style'"></component>
+  <div class="p-divider" data-pds="divider">
+
+  <component v-html="scopedCssText" :is="'style'"></component>
   <hr />
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export type DividerColor =
   | "contrast-lower"
   | "contrast-low"
@@ -23,6 +29,9 @@ export default defineComponent({
   props: ["direction", "color"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-divider");
+    },
     cssText() {
       const colorMap: any = {
         "contrast-lower": "var(--p-color-contrast-lower)",
@@ -77,11 +86,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

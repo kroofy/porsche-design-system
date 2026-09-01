@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from PinCode.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitPinCodeProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -255,39 +259,36 @@ function LitPinCode(props: LitPinCodeProps) {
     return props.value == null ? "" : String(props.value);
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-pin-code", props.className].filter(Boolean).join(" ")}
+      data-pds="pin-code"
+    >
       <fieldset className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-pin-code") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="current-input">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <input />
-          <input />
-          <input />
-          <input />
+          <input  value={props.value} disabled={!!isDisabled()} />
+          <input  value={props.value} disabled={!!isDisabled()} />
+          <input  value={props.value} disabled={!!isDisabled()} />
+          <input  value={props.value} disabled={!!isDisabled()} />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading">
           {loadingText()}
         </span>
       </fieldset>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitPinCode;

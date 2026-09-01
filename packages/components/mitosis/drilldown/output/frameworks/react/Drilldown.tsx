@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from Drilldown.lite.tsx */
 import * as React from "react";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/react/ButtonPure";
+import PButton from "../../../../button/output/frameworks/react/Button";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownProps {
+  className?: string;
   open?: any;
   activeIdentifier?: any;
   aria?: any;
@@ -178,12 +183,14 @@ function LitDrilldown(props: LitDrilldownProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-drilldown", props.className].filter(Boolean).join(" ")}
+      data-pds="drilldown"
+    >
       <dialog inert>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-drilldown") }} />
         <div className="drawer">
-          <p-button-pure
+          <PButton-pure
             className="back"
             type="button"
             size="small"
@@ -194,8 +201,8 @@ function LitDrilldown(props: LitDrilldownProps) {
           >
             {" "}
             Back{" "}
-          </p-button-pure>
-          <p-button
+          </PButton-pure>
+          <PButton
             className="dismiss-mobile"
             type="button"
             icon="close"
@@ -205,8 +212,8 @@ function LitDrilldown(props: LitDrilldownProps) {
           >
             {" "}
             Dismiss drilldown{" "}
-          </p-button>
-          <p-button
+          </PButton>
+          <PButton
             className="dismiss-desktop"
             type="button"
             icon="close"
@@ -215,21 +222,13 @@ function LitDrilldown(props: LitDrilldownProps) {
           >
             {" "}
             Dismiss drilldown{" "}
-          </p-button>
+          </PButton>
           <div className="scroller">
-            <slot />
+            {props.children}
           </div>
         </div>
       </dialog>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitDrilldown;

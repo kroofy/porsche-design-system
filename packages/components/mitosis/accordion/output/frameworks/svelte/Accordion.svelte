@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Accordion.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitAccordionProps {
     open?: any;
@@ -13,6 +14,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let open: LitAccordionProps["open"];
   export let compact: LitAccordionProps["compact"];
   export let sticky: LitAccordionProps["sticky"];
@@ -22,6 +24,7 @@
   export let size: LitAccordionProps["size"];
   export let heading: LitAccordionProps["heading"];
   export let headingTag: LitAccordionProps["headingTag"];
+  function __cmpProps() { return { open, compact, sticky, alignMarker, background, indent, size, heading, headingTag }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -60,9 +63,9 @@
     const isSticky = isTrue(sticky);
     const align = alignMarker || "end";
     const isStart = align === "start";
-    const background = background || "none";
-    const indent = parse(indent, false);
-    const size = parse(size, "small");
+    const background = __cmpProps().background || "none";
+    const indent = parse(__cmpProps().indent, false);
+    const size = parse(__cmpProps().size, "small");
     const hasBefore = hasSummaryBefore();
     const hasAfter = hasSummaryAfter();
     const hasSummary = hasSummarySlot();
@@ -286,21 +289,17 @@
   $: hasSummarySlot = () => {
     return false;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-accordion");
 </script>
 
+<div class="p-accordion" data-pds="accordion">
 <details>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<summary
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<summary
     ><slot name="summary" />
     <h2>{headingText()}<slot name="heading" /></h2></summary
   ><slot name="summary-before" /><slot name="summary-after" />
   <div><slot /></div>
 </details>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Heading.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitHeadingProps {
     tag?: string;
@@ -11,12 +12,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let weight: LitHeadingProps["weight"];
   export let align: LitHeadingProps["align"];
   export let color: LitHeadingProps["color"];
   export let hyphens: LitHeadingProps["hyphens"];
   export let ellipsis: LitHeadingProps["ellipsis"];
   export let size: LitHeadingProps["size"];
+  function __cmpProps() { return { weight, align, color, hyphens, ellipsis, size }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -61,11 +64,11 @@
       xl: 1760,
       xxl: 1920,
     };
-    const weight = weightMap[weight || "normal"] || weightMap.normal;
-    const align = align || "start";
-    const color = colorMap[color || "primary"] || colorMap.primary;
-    const hyphens = hyphens || "none";
-    let ellipsis: any = ellipsis;
+    const weight = weightMap[__cmpProps().weight || "normal"] || weightMap.normal;
+    const align = __cmpProps().align || "start";
+    const color = colorMap[__cmpProps().color || "primary"] || colorMap.primary;
+    const hyphens = __cmpProps().hyphens || "none";
+    let ellipsis: any = __cmpProps().ellipsis;
     if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
       ellipsis = true;
     } else {
@@ -90,7 +93,7 @@
       hyphens +
       extra +
       "}";
-    let size = size || "2xl";
+    let size = __cmpProps().size || "2xl";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -119,15 +122,11 @@
     }
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-heading");
 </script>
 
-<h2>{@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /></h2>
+<div class="p-heading" data-pds="heading">
+<h2>{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /></h2>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,13 +1,19 @@
+<!-- mitosis-native-host: native vue from StepperHorizontalItem.lite.tsx -->
 <template>
+  <div class="p-stepper-horizontal-item" data-pds="stepper-horizontal-item">
+
   <button type="button">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span class="icon"></span><slot></slot>
   </button>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitStepperHorizontalItemProps {
   state?: string;
   disabled?: any;
@@ -19,6 +25,9 @@ export default defineComponent({
   props: ["state", "disabled"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-stepper-horizontal-item");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const step = this.state || "";
@@ -109,8 +118,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

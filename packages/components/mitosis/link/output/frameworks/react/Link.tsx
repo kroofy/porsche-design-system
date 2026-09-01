@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Link.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkProps {
+  className?: string;
   variant?: string;
   icon?: string;
   iconSource?: string;
@@ -214,11 +218,13 @@ function LitLink(props: LitLinkProps) {
     return props.iconSource || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-link", props.className].filter(Boolean).join(" ")}
+      data-pds="link"
+    >
       <span className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-icon
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-block;\n          vertical-align: top;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-link") }} />
+        <PIcon
           className="icon"
           size="inherit"
           color="inherit"
@@ -227,19 +233,10 @@ function LitLink(props: LitLinkProps) {
           source={iconSrc()}
         />
         <span className="label">
-          <slot />
+          {props.children}
         </span>
       </span>{" "}
-      <style jsx>{`
-        :host {
-          display: inline-block;
-          vertical-align: top;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitLink;

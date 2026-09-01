@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from StepperHorizontalItem.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -12,26 +14,31 @@ export interface LitStepperHorizontalItemProps {
 @Component({
   selector: "lit-stepper-horizontal-item",
   template: `
+    <div class="p-stepper-horizontal-item" data-pds="stepper-horizontal-item">
     <button type="button">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span class="icon"></span>
       <slot></slot>
     </button>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-stepper-horizontal-item {
         display: contents;
       }
-      :host([hidden]) {
+      .p-stepper-horizontal-item[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitStepperHorizontalItem {
   @Input() state!: LitStepperHorizontalItemProps["state"];
   @Input() disabled!: LitStepperHorizontalItemProps["disabled"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-stepper-horizontal-item");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

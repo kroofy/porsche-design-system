@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Scroller.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitScrollerProps {
     scrollbar?: any;
@@ -7,9 +8,11 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let scrollbar: LitScrollerProps["scrollbar"];
   export let compact: LitScrollerProps["compact"];
   export let sticky: LitScrollerProps["sticky"];
+  function __cmpProps() { return { scrollbar, compact, sticky }; }
 
   $: cssText = () => {
     let prevVis: any = false;
@@ -184,10 +187,12 @@
     }
     return out;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n    border-radius: var(--p-radius-lg);\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-scroller");
 </script>
 
+<div class="p-scroller" data-pds="scroller">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<span class="prev" /><span
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span class="prev" /><span
     class="next"
   />
   <div class="scroll" tabIndex={0}>
@@ -195,12 +200,5 @@
   </div>
 </div>
 
-<style>
-  :host {
-    display: block;
-    border-radius: var(--p-radius-lg);
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

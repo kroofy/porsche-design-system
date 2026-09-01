@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from TableHeadCell.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTableHeadCellProps {
+  className?: string;
   sort?: any;
   hideLabel?: any;
   multiline?: any;
@@ -71,20 +74,15 @@ function LitTableHeadCell(props: LitTableHeadCellProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-table-head-cell", props.className].filter(Boolean).join(" ")}
+      data-pds="table-head-cell"
+    >
       <span>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: table-cell;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-table-head-cell") }} />
+        {props.children}
       </span>
-      <style jsx>{`
-        :host {
-          display: table-cell;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

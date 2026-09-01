@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Modal.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitModalProps {
+  className?: string;
   open?: any;
   dismissButton?: any;
   disableBackdropClick?: any;
@@ -227,30 +230,24 @@ function LitModal(props: LitModalProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-modal", props.className].filter(Boolean).join(" ")}
+      data-pds="modal"
+    >
       <dialog aria-modal="true" inert tabIndex={-1}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-modal") }} />
         <div className="scroller">
           <div className="modal">
             <button className="dismiss" type="button">
               <span>Dismiss modal</span>
             </button>
-            <slot name="header" />
-            <slot />
-            <slot name="footer" />
+            {props["header"] ?? null}
+            {props.children}
+            {props["footer"] ?? null}
           </div>
         </div>
       </dialog>{" "}
-      <style jsx>{`
-        :host {
-          display: contents;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitModal;

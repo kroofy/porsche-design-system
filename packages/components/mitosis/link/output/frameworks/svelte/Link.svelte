@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Link.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitLinkProps {
     variant?: string;
@@ -14,12 +15,15 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let variant: LitLinkProps["variant"];
   export let href: LitLinkProps["href"];
   export let icon: LitLinkProps["icon"];
   export let iconSource: LitLinkProps["iconSource"];
   export let hideLabel: LitLinkProps["hideLabel"];
   export let compact: LitLinkProps["compact"];
+  function __cmpProps() { return { variant, href, icon, iconSource, hideLabel, compact }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -53,13 +57,13 @@
       }
       return obj;
     };
-    const variant = variant || "primary";
+    const variant = __cmpProps().variant || "primary";
     const hasSlottedAnchor = !href;
-    const icon = icon || "none";
+    const icon = __cmpProps().icon || "none";
     const source = iconSource || "";
     const hasVisibleIcon = (icon !== "none" && icon !== "") || source !== "";
-    const hideLabel = parse(hideLabel, false);
-    const compact = parse(compact, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
+    const compact = parse(__cmpProps().compact, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -213,18 +217,20 @@
   };
   $: iconName = () => {
     if (iconSource) return "";
-    const icon = icon || "none";
+    const icon = __cmpProps().icon || "none";
     if (icon === "none" || icon === "") return "";
     return icon;
   };
   $: iconSrc = () => {
     return iconSource || "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-block;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-link");
 </script>
 
+<div class="p-link" data-pds="link">
 <span class="root"
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PIcon
     class="icon"
     size="inherit"
     color="inherit"
@@ -234,12 +240,5 @@
   /><span class="label"><slot /></span></span
 >
 
-<style>
-  :host {
-    display: inline-block;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

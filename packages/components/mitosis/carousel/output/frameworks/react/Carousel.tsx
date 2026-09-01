@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Carousel.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCarouselProps {
+  className?: string;
   heading?: any;
   headingSize?: any;
   description?: any;
@@ -177,22 +180,15 @@ function LitCarousel(props: LitCarouselProps) {
     return out;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-carousel", props.className].filter(Boolean).join(" ")}
+      data-pds="carousel"
+    >
       <div className="header">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: flex;\n          flex-direction: column;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-carousel") }} />
         <div className="nav" />
       </div>{" "}
-      <style jsx>{`
-        :host {
-          display: flex;
-          flex-direction: column;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitCarousel;

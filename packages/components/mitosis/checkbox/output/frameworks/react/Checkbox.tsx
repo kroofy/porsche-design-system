@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from Checkbox.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCheckboxProps {
+  className?: string;
   label?: string;
   name?: string;
   value?: string;
@@ -258,33 +263,30 @@ function LitCheckbox(props: LitCheckboxProps) {
     return loading ? "Loading" : "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-checkbox", props.className].filter(Boolean).join(" ")}
+      data-pds="checkbox"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-checkbox") }} />
         <div className="wrapper">
           <div className="input-wrapper">
-            <input type="checkbox" />
-            <p-spinner className="spinner" aria-hidden="true" />
+            <input type="checkbox"  disabled={!!isDisabled()} />
+            <PSpinner className="spinner" aria-hidden="true" />
           </div>
           <div className="label-wrapper">
             <label className="label">{labelText()}</label>
           </div>
         </div>
         <span className="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitCheckbox;

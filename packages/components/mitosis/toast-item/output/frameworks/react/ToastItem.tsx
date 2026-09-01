@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from ToastItem.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitToastItemProps {
+  className?: string;
   text?: string;
   state?: string;
 }
@@ -88,23 +91,18 @@ function LitToastItem(props: LitToastItemProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-toast-item", props.className].filter(Boolean).join(" ")}
+      data-pds="toast-item"
+    >
       <div className="notification">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-toast-item") }} />
         <p>{textValue()}</p>
         <button className="dismiss" type="button">
           <span>Close notification message</span>
         </button>
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

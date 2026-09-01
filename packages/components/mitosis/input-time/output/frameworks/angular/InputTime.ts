@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputTime.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -25,8 +27,9 @@ export interface LitInputTimeProps {
 @Component({
   selector: "lit-input-time",
   template: `
+    <div class="p-input-time" data-pds="input-time">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-time">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -34,7 +37,7 @@ export interface LitInputTimeProps {
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
         <slot name="start"></slot>
-        <input type="time" id="input-time" dir="auto" />
+        <input type="time" id="input-time" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" />
         <p-button-pure
           class="button"
           type="button"
@@ -51,17 +54,17 @@ export interface LitInputTimeProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-time {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-time[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputTime {
   @Input() disabled!: LitInputTimeProps["disabled"];
@@ -75,6 +78,10 @@ export default class LitInputTime {
   @Input() description!: LitInputTimeProps["description"];
   @Input() value!: LitInputTimeProps["value"];
   @Input() placeholder!: LitInputTimeProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-time");
+  }
 
   get cssText() {
     const minWidth: any = {

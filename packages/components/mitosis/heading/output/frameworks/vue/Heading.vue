@@ -1,10 +1,16 @@
+<!-- mitosis-native-host: native vue from Heading.lite.tsx -->
 <template>
-  <h2><component v-html="cssText" :is="'style'"></component><slot></slot></h2>
+  <div class="p-heading" data-pds="heading">
+
+  <h2><component v-html="scopedCssText" :is="'style'"></component><slot></slot></h2>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitHeadingProps {
   tag?: string;
   size?: any;
@@ -21,6 +27,9 @@ export default defineComponent({
   props: ["weight", "align", "color", "hyphens", "ellipsis", "size"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-heading");
+    },
     cssText() {
       const sizeMap: any = {
         "xx-small": "var(--p-typescale-2xs)",
@@ -126,11 +135,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

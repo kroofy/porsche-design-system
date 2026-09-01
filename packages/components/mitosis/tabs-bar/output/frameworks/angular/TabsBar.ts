@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TabsBar.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,29 +18,34 @@ export interface LitTabsBarProps {
 @Component({
   selector: "lit-tabs-bar",
   template: `
+    <div class="p-tabs-bar" data-pds="tabs-bar">
     <div class="wrap">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-scroller class="scroller"
         ><slot></slot> <span class="bar"></span
       ></p-scroller>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-tabs-bar {
         display: contents;
       }
-      :host([hidden]) {
+      .p-tabs-bar[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTabsBar {
   @Input() compact!: LitTabsBarProps["compact"];
   @Input() background!: LitTabsBarProps["background"];
   @Input() size!: LitTabsBarProps["size"];
   @Input() activeTabIndex!: LitTabsBarProps["activeTabIndex"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-tabs-bar");
+  }
 
   get cssText() {
     const minWidth: any = {

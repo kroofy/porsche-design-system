@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from SegmentedControl.lite.tsx -->
 <template>
+  <div class="p-segmented-control" data-pds="segmented-control">
+
   <fieldset class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <div class="label" id="label">
         {{ labelText }}<slot name="label"></slot>
@@ -11,14 +14,18 @@
       >{{ descriptionText }}<slot name="description"></slot></span
     ><slot></slot
     ><span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     >
   </fieldset>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSegmentedControlProps {
   label?: string;
   description?: string;
@@ -36,6 +43,7 @@ export interface LitSegmentedControlProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-segmented-control",
 
   props: [
@@ -52,6 +60,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-segmented-control");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -256,8 +267,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

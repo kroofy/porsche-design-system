@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Popover.lite.tsx -->
 <template>
+  <div class="p-popover" data-pds="popover">
+
   <div class="wrap">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><button
       type="button"
       aria-label="More information"
@@ -12,11 +15,14 @@
       <slot></slot>
     </div>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 const ICON =
   'url(\'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.5 10v6h-1v-6zm0-2v1h-1V8zM12 4a8 8 0 0 1 0 16 8 8 0 0 1 0-16m0-1c-4.95 0-9 4.05-9 9s4.05 9 9 9 9-4.05 9-9-4.05-9-9-9"/></svg>\') center/contain no-repeat';
 
@@ -34,6 +40,9 @@ export default defineComponent({
   props: ["open", "compact", "description"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-popover");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isOpen = isTrue(this.open);
@@ -112,12 +121,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-  margin: 0;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

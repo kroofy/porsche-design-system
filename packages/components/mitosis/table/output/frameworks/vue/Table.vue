@@ -1,12 +1,18 @@
+<!-- mitosis-native-host: native vue from Table.lite.tsx -->
 <template>
+  <div class="p-table" data-pds="table">
+
   <div class="table" role="table">
-    <component v-html="cssText" :is="'style'"></component><slot></slot>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTableProps {
   caption?: string;
   compact?: any;
@@ -20,6 +26,9 @@ export default defineComponent({
   props: ["compact", "layout", "caption"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-table");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const compact = isTrue(this.compact);
@@ -58,11 +67,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

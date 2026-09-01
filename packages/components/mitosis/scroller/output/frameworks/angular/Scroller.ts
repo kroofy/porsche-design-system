@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Scroller.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,8 +15,9 @@ export interface LitScrollerProps {
 @Component({
   selector: "lit-scroller",
   template: `
+    <div class="p-scroller" data-pds="scroller">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span class="prev"></span>
       <span class="next"></span>
       <div class="scroll" [attr.tabIndex]="0">
@@ -23,26 +26,30 @@ export interface LitScrollerProps {
         <span class="sentinel"></span>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-scroller {
         display: contents;
       }
-      :host {
+      .p-scroller {
         display: block;
         border-radius: var(--p-radius-lg);
       }
-      :host([hidden]) {
+      .p-scroller[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitScroller {
   @Input() scrollbar!: LitScrollerProps["scrollbar"];
   @Input() compact!: LitScrollerProps["compact"];
   @Input() sticky!: LitScrollerProps["sticky"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-scroller");
+  }
 
   get cssText() {
     let prevVis: any = false;

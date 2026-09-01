@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from TabsBar.lite.tsx */
 import * as React from "react";
 
+import PScroller from "../../../../scroller/output/frameworks/react/Scroller";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTabsBarProps {
+  className?: string;
   background?: string;
   size?: any;
   compact?: any;
@@ -169,21 +173,18 @@ function LitTabsBar(props: LitTabsBarProps) {
     );
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-tabs-bar", props.className].filter(Boolean).join(" ")}
+      data-pds="tabs-bar"
+    >
       <div className="wrap">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-scroller className="scroller">
-          <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-tabs-bar") }} />
+        <PScroller className="scroller">
+          {props.children}
           <span className="bar" />
-        </p-scroller>
+        </PScroller>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitTabsBar;

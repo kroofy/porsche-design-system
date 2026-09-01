@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from LinkTile.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -23,8 +25,9 @@ export interface LitLinkTileProps {
 @Component({
   selector: "lit-link-tile",
   template: `
+    <div class="p-link-tile" data-pds="link-tile">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot name="header"></slot>
       <div class="media"><slot></slot></div>
       <div class="footer">
@@ -32,20 +35,20 @@ export interface LitLinkTileProps {
         <slot name="footer"></slot>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-link-tile {
         display: contents;
       }
-      :host {
+      .p-link-tile {
         display: flex;
       }
-      :host([hidden]) {
+      .p-link-tile[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitLinkTile {
   @Input() size!: LitLinkTileProps["size"];
@@ -56,6 +59,10 @@ export default class LitLinkTile {
   @Input() gradient!: LitLinkTileProps["gradient"];
   @Input() description!: LitLinkTileProps["description"];
   @Input() label!: LitLinkTileProps["label"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-link-tile");
+  }
 
   get cssText() {
     const minWidth: any = {

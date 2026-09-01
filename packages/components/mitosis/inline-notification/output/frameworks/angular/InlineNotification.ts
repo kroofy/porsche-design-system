@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InlineNotification.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -18,8 +20,9 @@ export interface LitInlineNotificationProps {
 @Component({
   selector: "lit-inline-notification",
   template: `
+    <div class="p-inline-notification" data-pds="inline-notification">
     <div class="notification">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <h5>{{headingText}}</h5>
       <p>{{descriptionText}}</p>
       <slot name="heading"></slot>
@@ -33,20 +36,20 @@ export interface LitInlineNotificationProps {
         <span>Close notification</span>
       </button>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-inline-notification {
         display: contents;
       }
-      :host {
+      .p-inline-notification {
         display: block;
       }
-      :host([hidden]) {
+      .p-inline-notification[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInlineNotification {
   @Input() state!: LitInlineNotificationProps["state"];
@@ -57,6 +60,10 @@ export default class LitInlineNotification {
   @Input() description!: LitInlineNotificationProps["description"];
   @Input() actionIcon!: LitInlineNotificationProps["actionIcon"];
   @Input() actionLoading!: LitInlineNotificationProps["actionLoading"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-inline-notification");
+  }
 
   get cssText() {
     const visual = this.state || "info";

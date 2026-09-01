@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Tag.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTagProps {
+  className?: string;
   variant?: string;
   icon?: string;
   iconSource?: string;
@@ -108,10 +112,13 @@ function LitTag(props: LitTagProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-tag", props.className].filter(Boolean).join(" ")}
+      data-pds="tag"
+    >
       <span>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-icon
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-flex;\n          vertical-align: top;\n          white-space: nowrap;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-tag") }} />
+        <PIcon
           className="icon"
           color="inherit"
           size="x-small"
@@ -119,19 +126,9 @@ function LitTag(props: LitTagProps) {
           name={iconName()}
           source={iconSrc()}
         />
-        <slot />
+        {props.children}
       </span>
-      <style jsx>{`
-        :host {
-          display: inline-flex;
-          vertical-align: top;
-          white-space: nowrap;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

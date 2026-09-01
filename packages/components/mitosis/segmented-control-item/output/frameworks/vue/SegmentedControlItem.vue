@@ -1,22 +1,29 @@
+<!-- mitosis-native-host: native vue from SegmentedControlItem.lite.tsx -->
 <template>
+  <div class="p-segmented-control-item" data-pds="segmented-control-item">
+
   <button type="button">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span>{{ labelText }}</span
-    ><p-icon
+    ><PIcon
       class="icon"
       color="inherit"
       size="inherit"
       aria-hidden="true"
       :name="iconName"
       :source="iconSrc"
-    ></p-icon
+    ></PIcon
     ><slot></slot>
   </button>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSegmentedControlItemProps {
   value?: any;
   disabled?: any;
@@ -31,6 +38,7 @@ export interface LitSegmentedControlItemProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-segmented-control-item",
 
   props: [
@@ -45,6 +53,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-segmented-control-item");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const compact = isTrue(this.compact);
@@ -183,11 +194,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

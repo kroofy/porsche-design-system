@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Wordmark.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitWordmarkProps {
     href?: string;
@@ -7,12 +8,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let size: LitWordmarkProps["size"];
   export let href: LitWordmarkProps["href"];
   export let target: LitWordmarkProps["target"];
+  function __cmpProps() { return { size, href, target }; }
 
   $: cssText = () => {
-    const size = size || "small";
+    const size = __cmpProps().size || "small";
     const hostSize =
       size !== "inherit"
         ? ":host{height:clamp(0.63rem, 0.42vw + 0.5rem, 1rem)!important}" +
@@ -27,10 +30,12 @@
       "@media(forced-colors:active){a:focus-visible::before{outline-color:Highlight}svg{fill:CanvasText}}"
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    position: relative;\n    display: inline-block;\n    vertical-align: top;\n    max-width: 100% !important;\n    max-height: 100% !important;\n    box-sizing: content-box !important;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-wordmark");
 </script>
 
+<div class="p-wordmark" data-pds="wordmark">
 <a {href} target={target || "_self"}
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svg
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 4500 300"
     ><title>Porsche</title><path
@@ -39,16 +44,5 @@
   ></a
 >
 
-<style>
-  :host {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    box-sizing: content-box !important;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

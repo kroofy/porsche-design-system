@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from DrilldownItem.lite.tsx */
 import * as React from "react";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/react/ButtonPure";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownItemProps {
+  className?: string;
   identifier?: any;
   label?: any;
   primary?: any;
@@ -138,8 +142,13 @@ function LitDrilldownItem(props: LitDrilldownItemProps) {
   }
 
   return (
-    <>
-      <p-button-pure
+    <div
+      className={["p-drilldown-item", props.className].filter(Boolean).join(" ")}
+      data-pds="drilldown-item"
+    >
+      <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      ", ".p-drilldown-item") }} />
+        <>
+      <PButtonPure
         className="button"
         type="button"
         size="medium"
@@ -148,16 +157,10 @@ function LitDrilldownItem(props: LitDrilldownItemProps) {
         icon="arrow-head-right"
       >
         {props.label}
-      </p-button-pure>
-      <style jsx>{`
-        :host {
-          display: contents;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
+      </PButtonPure>
+      
     </>
+    </div>
   );
 }
 

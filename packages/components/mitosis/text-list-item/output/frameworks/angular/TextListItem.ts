@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TextListItem.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component } from "@angular/core";
@@ -7,23 +9,28 @@ import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "lit-text-list-item",
   template: `
+    <div class="p-text-list-item" data-pds="text-list-item">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-text-list-item {
         display: contents;
       }
-      :host([hidden]) {
+      .p-text-list-item[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTextListItem {
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-text-list-item");
+  }
+
   get cssText() {
     return (
       ":host{display:grid;grid-template-columns:var(--_p-text-list-e) 1fr !important;column-gap:var(--p-spacing-static-md) !important;font:inherit !important;color:inherit !important}" +

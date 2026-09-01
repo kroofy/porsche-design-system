@@ -1,12 +1,18 @@
+<!-- mitosis-native-host: native vue from TabsItem.lite.tsx -->
 <template>
+  <div class="p-tabs-item" data-pds="tabs-item">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component><slot></slot>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTabsItemProps {
   label?: string;
 }
@@ -17,6 +23,9 @@ export default defineComponent({
   props: ["label"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-tabs-item");
+    },
     cssText() {
       return (
         ":host{display:block;color:var(--p-color-primary) !important;border-radius:2px !important}" +
@@ -32,8 +41,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

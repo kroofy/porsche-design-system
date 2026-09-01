@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Display.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -15,30 +17,35 @@ export interface LitDisplayProps {
 @Component({
   selector: "lit-display",
   template: `
+    <div class="p-display" data-pds="display">
     <h3>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </h3>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-display {
         display: contents;
       }
-      :host {
+      .p-display {
         display: block;
       }
-      :host([hidden]) {
+      .p-display[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitDisplay {
   @Input() align!: LitDisplayProps["align"];
   @Input() color!: LitDisplayProps["color"];
   @Input() ellipsis!: LitDisplayProps["ellipsis"];
   @Input() size!: LitDisplayProps["size"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-display");
+  }
 
   get cssText() {
     const sizeMap: any = {

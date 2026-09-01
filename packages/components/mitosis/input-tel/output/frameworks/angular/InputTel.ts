@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputTel.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -28,8 +30,9 @@ export interface LitInputTelProps {
 @Component({
   selector: "lit-input-tel",
   template: `
+    <div class="p-input-tel" data-pds="input-tel">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-tel">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -38,7 +41,7 @@ export interface LitInputTelProps {
       <div class="wrapper">
         <slot name="start"></slot>
         <p-icon name="phone" color="contrast-low" aria-hidden="true"></p-icon>
-        <input type="tel" id="input-tel" dir="auto" />
+        <input type="tel" id="input-tel" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue" />
         <slot name="end"></slot>
         <p-spinner aria-hidden="true"></p-spinner>
       </div>
@@ -47,17 +50,17 @@ export interface LitInputTelProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-tel {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-tel[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputTel {
   @Input() disabled!: LitInputTelProps["disabled"];
@@ -73,6 +76,10 @@ export default class LitInputTel {
   @Input() value!: LitInputTelProps["value"];
   @Input() maxLength!: LitInputTelProps["maxLength"];
   @Input() placeholder!: LitInputTelProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-tel");
+  }
 
   get cssText() {
     const minWidth: any = {

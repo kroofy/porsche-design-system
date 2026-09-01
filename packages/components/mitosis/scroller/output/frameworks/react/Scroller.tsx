@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Scroller.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitScrollerProps {
+  className?: string;
   scrollbar?: any;
   compact?: any;
   sticky?: any;
@@ -182,27 +185,21 @@ function LitScroller(props: LitScrollerProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-scroller", props.className].filter(Boolean).join(" ")}
+      data-pds="scroller"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n          border-radius: var(--p-radius-lg);\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-scroller") }} />
         <span className="prev" />
         <span className="next" />
         <div className="scroll" tabIndex={0}>
           <span className="sentinel" />
-          <slot />
+          {props.children}
           <span className="sentinel" />
         </div>
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-          border-radius: var(--p-radius-lg);
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

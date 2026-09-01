@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Text.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -17,24 +19,25 @@ export interface LitTextProps {
 @Component({
   selector: "lit-text",
   template: `
+    <div class="p-text" data-pds="text">
     <p>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </p>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-text {
         display: contents;
       }
-      :host {
+      .p-text {
         display: block;
       }
-      :host([hidden]) {
+      .p-text[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitText {
   @Input() weight!: LitTextProps["weight"];
@@ -43,6 +46,10 @@ export default class LitText {
   @Input() hyphens!: LitTextProps["hyphens"];
   @Input() ellipsis!: LitTextProps["ellipsis"];
   @Input() size!: LitTextProps["size"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-text");
+  }
 
   get cssText() {
     const sizeMap: any = {

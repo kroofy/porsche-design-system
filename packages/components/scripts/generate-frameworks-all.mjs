@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { adaptAll } from './adapt-frameworks.mjs';
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisRoot = resolve(componentsRoot, 'mitosis');
@@ -166,8 +167,13 @@ const summary = {
   combinedFailures,
   counts,
   failedPairs,
+  adapt: undefined,
   tags,
 };
+const adaptSummary = adaptAll();
+summary.adapt = adaptSummary.counts;
+writeFileSync(join(mitosisRoot, 'frameworks-adapt-result.json'), `${JSON.stringify(adaptSummary, null, 2)}\n`);
+
 const summaryPath = join(mitosisRoot, 'frameworks-all-result.json');
 writeFileSync(summaryPath, `${JSON.stringify(summary, null, 2)}\n`);
 console.warn(
@@ -177,6 +183,7 @@ console.warn(
       iifeCount: summary.iifeCount,
       iifeUnchanged: summary.iifeUnchanged,
       combinedFailures,
+      adapt: adaptSummary.counts,
       counts,
       failedPairs,
     },

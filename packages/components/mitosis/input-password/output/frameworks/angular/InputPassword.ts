@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputPassword.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -28,8 +30,9 @@ export interface LitInputPasswordProps {
 @Component({
   selector: "lit-input-password",
   template: `
+    <div class="p-input-password" data-pds="input-password">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label
           class="label"
@@ -42,7 +45,7 @@ export interface LitInputPasswordProps {
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
         <slot name="start"></slot>
-        <input type="password" id="input-password" dir="auto" />
+        <input type="password" id="input-password" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue" />
         <p-button-pure
           class="button"
           type="button"
@@ -59,17 +62,17 @@ export interface LitInputPasswordProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-password {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-password[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputPassword {
   @Input() disabled!: LitInputPasswordProps["disabled"];
@@ -85,6 +88,10 @@ export default class LitInputPassword {
   @Input() value!: LitInputPasswordProps["value"];
   @Input() maxLength!: LitInputPasswordProps["maxLength"];
   @Input() placeholder!: LitInputPasswordProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-password");
+  }
 
   get cssText() {
     const minWidth: any = {

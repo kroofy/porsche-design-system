@@ -1,11 +1,14 @@
+<!-- mitosis-native-host: native vue from RadioGroupOption.lite.tsx -->
 <template>
+  <div class="p-radio-group-option" data-pds="radio-group-option">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="wrapper">
-      <input type="radio" /><p-spinner
+      <input type="radio"  :value="inputValue" :disabled="isDisabled" :name="name" /><PSpinner
         class="spinner"
         aria-hidden="true"
-      ></p-spinner>
+      ></PSpinner>
     </div>
     <div class="label-wrapper">
       <label class="label" id="label"
@@ -14,11 +17,15 @@
     </div>
     <span class="loading" id="loading">{{ loadingText }}</span>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitRadioGroupOptionProps {
   value?: any;
   label?: string;
@@ -32,6 +39,7 @@ export interface LitRadioGroupOptionProps {
 }
 
 export default defineComponent({
+  components: { PSpinner },
   name: "lit-radio-group-option",
 
   props: [
@@ -47,6 +55,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-radio-group-option");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const disabled = isTrue(this.disabled) || isTrue(this.disabledParent);
@@ -232,11 +243,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

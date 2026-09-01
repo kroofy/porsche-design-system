@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from InputTime.lite.tsx -->
 <template>
+  <div class="p-input-time" data-pds="input-time">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <label class="label" id="label" for="input-time">{{ labelText }}</label
       ><slot name="label-after"></slot>
@@ -8,24 +11,30 @@
     <span class="label" id="description">{{ descriptionText }}</span>
     <div class="wrapper">
       <slot name="start"></slot
-      ><input type="time" id="input-time" dir="auto" /><p-button-pure
+      ><input type="time" id="input-time" dir="auto"  :value="inputValue" :placeholder="placeholderText" :disabled="isDisabled" :readonly="isReadOnly" :name="name" /><PButtonPure
         class="button"
         type="button"
         icon="clock"
         hide-label="true"
       >
-        Open time picker </p-button-pure
-      ><slot name="end"></slot><p-spinner aria-hidden="true"></p-spinner>
+        Open time picker </PButtonPure
+      ><slot name="end"></slot><PSpinner aria-hidden="true"></PSpinner>
     </div>
     <span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     ><span class="loading" id="loading" role="status">{{ loadingText }}</span>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import PButtonPure from "../../../../button-pure/output/frameworks/vue/ButtonPure.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInputTimeProps {
   label?: string;
   description?: string;
@@ -45,6 +54,7 @@ export interface LitInputTimeProps {
 }
 
 export default defineComponent({
+  components: { PButtonPure, PIcon, PSpinner },
   name: "lit-input-time",
 
   props: [
@@ -62,6 +72,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-input-time");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -300,8 +313,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

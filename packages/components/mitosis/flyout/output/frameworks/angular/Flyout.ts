@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Flyout.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -18,8 +20,9 @@ export interface LitFlyoutProps {
 @Component({
   selector: "lit-flyout",
   template: `
+    <div class="p-flyout" data-pds="flyout">
     <dialog aria-modal="true" [attr.inert]="true" [attr.tabIndex]="-1">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="scroller">
         <div class="flyout">
           <button class="dismiss" type="button">
@@ -32,20 +35,20 @@ export interface LitFlyoutProps {
         </div>
       </div>
     </dialog>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-flyout {
         display: contents;
       }
-      :host {
+      .p-flyout {
         display: contents;
       }
-      :host([hidden]) {
+      .p-flyout[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitFlyout {
   @Input() open!: LitFlyoutProps["open"];
@@ -55,6 +58,10 @@ export default class LitFlyout {
   @Input() footerBehavior!: LitFlyoutProps["footerBehavior"];
   @Input() fullscreen!: LitFlyoutProps["fullscreen"];
   @Input() aria!: LitFlyoutProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-flyout");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

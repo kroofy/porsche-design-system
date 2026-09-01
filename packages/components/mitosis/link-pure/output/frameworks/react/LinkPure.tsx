@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from LinkPure.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkPureProps {
+  className?: string;
   size?: any;
   color?: string;
   underline?: any;
@@ -239,11 +243,13 @@ function LitLinkPure(props: LitLinkPureProps) {
     return props.iconSource || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-link-pure", props.className].filter(Boolean).join(" ")}
+      data-pds="link-pure"
+    >
       <span className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-icon
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          transform: translate3d(0, 0, 0) !important;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-link-pure") }} />
+        <PIcon
           className="icon"
           size="inherit"
           color="inherit"
@@ -252,18 +258,10 @@ function LitLinkPure(props: LitLinkPureProps) {
           source={iconSrc()}
         />
         <span className="label">
-          <slot />
+          {props.children}
         </span>
       </span>{" "}
-      <style jsx>{`
-        :host {
-          transform: translate3d(0, 0, 0) !important;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitLinkPure;

@@ -1,17 +1,24 @@
+<!-- mitosis-native-host: native vue from Fieldset.lite.tsx -->
 <template>
+  <div class="p-fieldset" data-pds="fieldset">
+
   <fieldset>
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <legend>{{ labelText }}</legend>
     <slot></slot
     ><span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     >
   </fieldset>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFieldsetProps {
   label?: string;
   labelSize?: string;
@@ -22,11 +29,15 @@ export interface LitFieldsetProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-fieldset",
 
   props: ["state", "message", "label", "labelSize"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-fieldset");
+    },
     cssText() {
       const formState =
         this.state === "success" || this.state === "error"
@@ -98,8 +109,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,21 +1,28 @@
+<!-- mitosis-native-host: native vue from LinkPure.lite.tsx -->
 <template>
+  <div class="p-link-pure" data-pds="link-pure">
+
   <span class="root"
-    ><component v-html="cssText" :is="'style'"></component
-    ><p-icon
+    ><component v-html="scopedCssText" :is="'style'"></component
+    ><PIcon
       class="icon"
       size="inherit"
       color="inherit"
       aria-hidden="true"
       :name="iconName"
       :source="iconSrc"
-    ></p-icon
+    ></PIcon
     ><span class="label"><slot></slot></span
   ></span>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitLinkPureProps {
   size?: any;
   color?: string;
@@ -34,6 +41,7 @@ export interface LitLinkPureProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-link-pure",
 
   props: [
@@ -50,6 +58,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-link-pure");
+    },
     cssText() {
       const sizeMap: any = {
         "xx-small": "var(--p-typescale-2xs)",
@@ -275,11 +286,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  transform: translate3d(0, 0, 0) !important;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Link.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -20,8 +22,9 @@ export interface LitLinkProps {
 @Component({
   selector: "lit-link",
   template: `
+    <div class="p-link" data-pds="link">
     <span class="root"
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-icon
         class="icon"
         size="inherit"
@@ -32,21 +35,21 @@ export interface LitLinkProps {
       ></p-icon>
       <span class="label"><slot></slot></span
     ></span>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-link {
         display: contents;
       }
-      :host {
+      .p-link {
         display: inline-block;
         vertical-align: top;
       }
-      :host([hidden]) {
+      .p-link[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitLink {
   @Input() variant!: LitLinkProps["variant"];
@@ -55,6 +58,10 @@ export default class LitLink {
   @Input() iconSource!: LitLinkProps["iconSource"];
   @Input() hideLabel!: LitLinkProps["hideLabel"];
   @Input() compact!: LitLinkProps["compact"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-link");
+  }
 
   get cssText() {
     const minWidth: any = {

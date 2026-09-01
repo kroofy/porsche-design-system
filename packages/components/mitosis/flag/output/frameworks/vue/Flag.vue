@@ -1,11 +1,17 @@
+<!-- mitosis-native-host: native vue from Flag.lite.tsx -->
 <template>
-  <component v-html="cssText" :is="'style'"></component>
+  <div class="p-flag" data-pds="flag">
+
+  <component v-html="scopedCssText" :is="'style'"></component>
   <img width="24" height="24" loading="lazy" :src="src" :alt="alt" />
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFlagProps {
   name?: string;
   size?: any;
@@ -18,6 +24,9 @@ export default defineComponent({
   props: ["size", "name", "aria"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-flag");
+    },
     cssText() {
       const sizeMap: any = {
         "xx-small": "var(--p-typescale-2xs)",
@@ -109,12 +118,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-flex;
-  vertical-align: top;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

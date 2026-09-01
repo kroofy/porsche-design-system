@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Flag.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitFlagProps {
     name?: string;
@@ -7,9 +8,11 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let size: LitFlagProps["size"];
   export let name: LitFlagProps["name"];
   export let aria: LitFlagProps["aria"];
+  function __cmpProps() { return { size, name, aria }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -42,7 +45,7 @@
     };
     const imgBase =
       "img{display:block;margin:0;padding:1px;border:0;outline:0;overflow:hidden;box-sizing:border-box;pointer-events:none;width:var(--p-flag-size,var(--p-leading-normal));height:var(--p-flag-size,var(--p-leading-normal));font-family:var(--p-font-porsche-next);";
-    let size = size || "sm";
+    let size = __cmpProps().size || "sm";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -77,7 +80,7 @@
       pt: "pt.c903b10.svg",
       xx: "xx.acc7ae8.svg",
     };
-    const name = name || "de";
+    const name = __cmpProps().name || "de";
     return "http://localhost:3001/flags/" + (files[name] || files.xx);
   };
   $: alt = () => {
@@ -95,17 +98,14 @@
     if (typeof raw === "object" && raw !== null) return raw["aria-label"] || "";
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-flex;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-flag");
 </script>
 
-{@html `<${"style"}  >${cssText()}<${"/style"}>`}
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+<div class="p-flag" data-pds="flag">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+
 <img width="24" height="24" loading="lazy" src={src()} alt={alt()} />
 
-<style>
-  :host {
-    display: inline-flex;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

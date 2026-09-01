@@ -1,15 +1,21 @@
+<!-- mitosis-native-host: native vue from Canvas.lite.tsx -->
 <template>
+  <div class="p-canvas" data-pds="canvas">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <header class="header"></header>
     <aside class="sidebar sidebar--start"></aside>
     <main class="main"><slot></slot></main>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCanvasProps {
   sidebarStartOpen?: any;
   sidebarEndOpen?: any;
@@ -22,6 +28,9 @@ export default defineComponent({
   props: ["sidebarStartOpen", "sidebarEndOpen", "background"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-canvas");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const startOpen = isTrue(this.sidebarStartOpen);
@@ -254,11 +263,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

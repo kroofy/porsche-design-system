@@ -1,21 +1,28 @@
+<!-- mitosis-native-host: native vue from InlineNotification.lite.tsx -->
 <template>
+  <div class="p-inline-notification" data-pds="inline-notification">
+
   <div class="notification">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <h5>{{ headingText }}</h5>
     <p>{{ descriptionText }}</p>
     <slot name="heading"></slot><slot></slot
-    ><p-button-pure class="action" :icon="actionIconName">{{
+    ><PButtonPure class="action" :icon="actionIconName">{{
       actionLabelText
-    }}</p-button-pure
+    }}</PButtonPure
     ><button class="dismiss" type="button">
       <span>Close notification</span>
     </button>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PButtonPure from "../../../../button-pure/output/frameworks/vue/ButtonPure.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInlineNotificationProps {
   heading?: string;
   headingTag?: string;
@@ -28,6 +35,7 @@ export interface LitInlineNotificationProps {
 }
 
 export default defineComponent({
+  components: { PButtonPure },
   name: "lit-inline-notification",
 
   props: [
@@ -42,6 +50,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-inline-notification");
+    },
     cssText() {
       const visual = this.state || "info";
       const heading = this.heading || "";
@@ -192,11 +203,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

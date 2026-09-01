@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from ModelSignature.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,8 +18,9 @@ export interface LitModelSignatureProps {
 @Component({
   selector: "lit-model-signature",
   template: `
+    <div class="p-model-signature" data-pds="model-signature">
     <ng-container
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
       <img
         [attr.src]="src"
@@ -25,23 +28,23 @@ export interface LitModelSignatureProps {
         [attr.fetchpriority]="fetchPriorityAttr"
         [attr.loading]="loadingAttr"
     /></ng-container>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-model-signature {
         display: contents;
       }
-      :host {
+      .p-model-signature {
         display: inline-block;
         vertical-align: top;
         max-width: 100%;
         max-height: 100%;
       }
-      :host([hidden]) {
+      .p-model-signature[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitModelSignature {
   @Input() model!: LitModelSignatureProps["model"];
@@ -50,6 +53,10 @@ export default class LitModelSignature {
   @Input() safeZone!: LitModelSignatureProps["safeZone"];
   @Input() fetchPriority!: LitModelSignatureProps["fetchPriority"];
   @Input() lazy!: LitModelSignatureProps["lazy"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-model-signature");
+  }
 
   get cssText() {
     const manifest: any = {

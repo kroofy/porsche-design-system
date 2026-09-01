@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Icon.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitIconProps {
+  className?: string;
   name?: string;
   source?: string;
   color?: string;
@@ -157,22 +160,15 @@ function LitIcon(props: LitIconProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-icon", props.className].filter(Boolean).join(" ")}
+      data-pds="icon"
+    >
       <>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />{" "}
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-flex;\n          vertical-align: top;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-icon") }} />{" "}
         <img width="24" height="24" loading="lazy" src={src()} alt={alt()} />
       </>{" "}
-      <style jsx>{`
-        :host {
-          display: inline-flex;
-          vertical-align: top;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitIcon;

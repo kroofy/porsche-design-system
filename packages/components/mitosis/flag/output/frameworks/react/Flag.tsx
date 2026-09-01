@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Flag.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFlagProps {
+  className?: string;
   name?: string;
   size?: any;
   aria?: any;
@@ -92,22 +95,15 @@ function LitFlag(props: LitFlagProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-flag", props.className].filter(Boolean).join(" ")}
+      data-pds="flag"
+    >
       <>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />{" "}
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-flex;\n          vertical-align: top;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-flag") }} />{" "}
         <img width="24" height="24" loading="lazy" src={src()} alt={alt()} />
       </>{" "}
-      <style jsx>{`
-        :host {
-          display: inline-flex;
-          vertical-align: top;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitFlag;

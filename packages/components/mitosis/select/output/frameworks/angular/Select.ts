@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Select.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -23,8 +25,9 @@ export interface LitSelectProps {
 @Component({
   selector: "lit-select",
   template: `
+    <div class="p-select" data-pds="select">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="button"
           >{{labelText}} <slot name="label"></slot
@@ -45,17 +48,17 @@ export interface LitSelectProps {
         ><p-icon></p-icon> {{messageText}}</span
       >
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-select {
         display: contents;
       }
-      :host([hidden]) {
+      .p-select[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSelect {
   @Input() disabled!: LitSelectProps["disabled"];
@@ -66,6 +69,10 @@ export default class LitSelect {
   @Input() label!: LitSelectProps["label"];
   @Input() description!: LitSelectProps["description"];
   @Input() required!: LitSelectProps["required"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-select");
+  }
 
   get cssText() {
     const minWidth: any = {

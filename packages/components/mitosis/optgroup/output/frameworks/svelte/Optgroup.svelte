@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Optgroup.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitOptgroupProps {
     label?: string;
@@ -7,12 +8,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitOptgroupProps["disabled"];
   export let label: LitOptgroupProps["label"];
+  function __cmpProps() { return { disabled, label }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const disabled = isTrue(disabled);
+    const disabled = isTrue(__cmpProps().disabled);
     let out =
       ":host{display:block}" +
       ":host([hidden]){display:none !important}" +
@@ -33,20 +36,16 @@
   $: isDisabled = () => {
     return disabled === true || disabled === "true" || disabled === "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-optgroup");
 </script>
 
+<div class="p-optgroup" data-pds="optgroup">
 <div role="group">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<span
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span
     id="label"
     role="presentation">{labelText()}</span
   ><slot />
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

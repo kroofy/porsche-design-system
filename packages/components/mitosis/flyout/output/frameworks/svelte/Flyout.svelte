@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Flyout.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitFlyoutProps {
     open?: any;
@@ -12,6 +13,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let open: LitFlyoutProps["open"];
   export let background: LitFlyoutProps["background"];
   export let backdrop: LitFlyoutProps["backdrop"];
@@ -19,16 +21,17 @@
   export let footerBehavior: LitFlyoutProps["footerBehavior"];
   export let fullscreen: LitFlyoutProps["fullscreen"];
   export let aria: LitFlyoutProps["aria"];
+  function __cmpProps() { return { open, background, backdrop, position, footerBehavior, fullscreen, aria }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
     const isOpen = isTrue(open);
-    const background = background === "surface" ? "surface" : "canvas";
-    const backdrop = backdrop === "shading" ? "shading" : "blur";
-    const position = position === "start" ? "start" : "end";
+    const background = __cmpProps().background === "surface" ? "surface" : "canvas";
+    const backdrop = __cmpProps().backdrop === "shading" ? "shading" : "blur";
+    const position = __cmpProps().position === "start" ? "start" : "end";
     const isStart = position === "start";
     const isFooterFixed = footerBehavior === "fixed";
-    let fullscreen: any = fullscreen;
+    let fullscreen: any = __cmpProps().fullscreen;
     if (fullscreen == null || fullscreen === "") fullscreen = false;
     if (typeof fullscreen === "string" && fullscreen.trim().charAt(0) === "{") {
       try {
@@ -255,7 +258,7 @@
     return out;
   };
   $: isOpenFlag = () => {
-    const open = open;
+    const open = __cmpProps().open;
     return open === true || open === "true" || open === "";
   };
   $: ariaLabelText = () => {
@@ -272,10 +275,12 @@
     }
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-flyout");
 </script>
 
+<div class="p-flyout" data-pds="flyout">
 <dialog aria-modal="true" inert={true} tabIndex={-1}>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="scroller">
     <div class="flyout">
       <button class="dismiss" type="button"><span>Dismiss flyout</span></button
@@ -286,11 +291,5 @@
   </div>
 </dialog>
 
-<style>
-  :host {
-    display: contents;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

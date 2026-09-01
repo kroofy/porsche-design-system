@@ -1,4 +1,6 @@
+<!-- mitosis-native-host: native svelte from TableHead.lite.tsx -->
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   $: cssText = () => {
     return (
       ":host{display:table-header-group;" +
@@ -8,17 +10,13 @@
       "::slotted(*){--_p-table-d:0px !important;--_p-table-b:none !important}"
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: table-header-group;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-table-head");
 </script>
 
+<div class="p-table-head" data-pds="table-head">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot />
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot />
 </div>
 
-<style>
-  :host {
-    display: table-header-group;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

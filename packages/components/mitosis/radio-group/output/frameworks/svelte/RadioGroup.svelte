@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from RadioGroup.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitRadioGroupProps {
     label?: string;
@@ -17,6 +18,9 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitRadioGroupProps["disabled"];
   export let loading: LitRadioGroupProps["loading"];
   export let compact: LitRadioGroupProps["compact"];
@@ -27,6 +31,7 @@
   export let label: LitRadioGroupProps["label"];
   export let description: LitRadioGroupProps["description"];
   export let required: LitRadioGroupProps["required"];
+  function __cmpProps() { return { disabled, loading, compact, state, message, hideLabel, direction, label, description, required }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -60,19 +65,19 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
         : hideLabel;
-    const direction = parse(direction, "column");
+    const direction = parse(__cmpProps().direction, "column");
     const directionBase =
       typeof direction === "object" && direction !== null
         ? pick(direction, "base", "column")
@@ -187,14 +192,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -225,10 +230,13 @@
       return "Loading";
     return "";
   };
+  $: __pdsComponents = { PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-radio-group");
 </script>
 
+<div class="p-radio-group" data-pds="radio-group">
 <fieldset class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <div class="label" id="label">{labelText()}<slot name="label" /></div>
     <slot name="label-after" />
@@ -237,22 +245,17 @@
     >{descriptionText()}<slot name="description" /></span
   >
   <div class="wrapper">
-    <slot /><svelte:component
-      this={p - spinner}
+    <slot /><PSpinner
       class="spinner"
       aria-hidden="true"
     />
   </div>
   <span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   ><span class="loading" id="loading">{loadingText()}</span>
 </fieldset>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

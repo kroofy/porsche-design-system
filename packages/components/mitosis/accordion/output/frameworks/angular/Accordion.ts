@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Accordion.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -19,8 +21,9 @@ export interface LitAccordionProps {
 @Component({
   selector: "lit-accordion",
   template: `
+    <div class="p-accordion" data-pds="accordion">
     <details>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <summary>
         <slot name="summary"></slot>
         <h2>{{headingText}} <slot name="heading"></slot></h2>
@@ -29,20 +32,20 @@ export interface LitAccordionProps {
       <slot name="summary-after"></slot>
       <div><slot></slot></div>
     </details>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-accordion {
         display: contents;
       }
-      :host {
+      .p-accordion {
         display: block;
       }
-      :host([hidden]) {
+      .p-accordion[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitAccordion {
   @Input() open!: LitAccordionProps["open"];
@@ -54,6 +57,10 @@ export default class LitAccordion {
   @Input() size!: LitAccordionProps["size"];
   @Input() heading!: LitAccordionProps["heading"];
   @Input() headingTag!: LitAccordionProps["headingTag"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-accordion");
+  }
 
   get cssText() {
     const minWidth: any = {

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Spinner.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,8 +15,9 @@ export interface LitSpinnerProps {
 @Component({
   selector: "lit-spinner",
   template: `
+    <div class="p-spinner" data-pds="spinner">
     <div role="alert" aria-live="assertive" [attr.aria-label]="ariaLabel">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span class="sr-only"></span>
       <svg
         viewBox="-16 -16 32 32"
@@ -27,26 +30,30 @@ export interface LitSpinnerProps {
         <circle r="11"></circle>
       </svg>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-spinner {
         display: contents;
       }
-      :host {
+      .p-spinner {
         display: inline-flex;
         vertical-align: top;
       }
-      :host([hidden]) {
+      .p-spinner[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSpinner {
   @Input() color!: LitSpinnerProps["color"];
   @Input() size!: LitSpinnerProps["size"];
   @Input() aria!: LitSpinnerProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-spinner");
+  }
 
   get cssText() {
     const sizeMap: any = {

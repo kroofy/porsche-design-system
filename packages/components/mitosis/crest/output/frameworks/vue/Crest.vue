@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Crest.lite.tsx -->
 <template>
+  <div class="p-crest" data-pds="crest">
+
   <a :href="href" :target="target || '_self'"
-    ><component v-html="cssText" :is="'style'"></component
+    ><component v-html="scopedCssText" :is="'style'"></component
     ><picture
       ><source
         srcSet="http://localhost:3001/crest/porsche-crest.0d0cc89@1x.webp 1x,http://localhost:3001/crest/porsche-crest.2245c45@2x.webp 2x,http://localhost:3001/crest/porsche-crest.19b4292@3x.webp 3x"
@@ -14,11 +17,14 @@
         height="40"
         alt="Porsche" /></picture
   ></a>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCrestProps {
   href?: string;
   target?: string;
@@ -30,6 +36,9 @@ export default defineComponent({
   props: ["href", "target"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-crest");
+    },
     cssText() {
       return (
         "a{all:unset;cursor:pointer}" +
@@ -44,18 +53,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  box-sizing: content-box !important;
-  max-width: 30px !important;
-  max-height: 40px !important;
-  width: inherit !important;
-  height: inherit !important;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

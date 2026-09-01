@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputEmail.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -28,8 +30,9 @@ export interface LitInputEmailProps {
 @Component({
   selector: "lit-input-email",
   template: `
+    <div class="p-input-email" data-pds="input-email">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-email">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -38,7 +41,7 @@ export interface LitInputEmailProps {
       <div class="wrapper">
         <slot name="start"></slot>
         <p-icon name="email" color="contrast-low" aria-hidden="true"></p-icon>
-        <input type="email" id="input-email" dir="auto" />
+        <input type="email" id="input-email" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue" />
         <slot name="end"></slot>
         <p-spinner aria-hidden="true"></p-spinner>
       </div>
@@ -47,17 +50,17 @@ export interface LitInputEmailProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-email {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-email[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputEmail {
   @Input() disabled!: LitInputEmailProps["disabled"];
@@ -73,6 +76,10 @@ export default class LitInputEmail {
   @Input() value!: LitInputEmailProps["value"];
   @Input() maxLength!: LitInputEmailProps["maxLength"];
   @Input() placeholder!: LitInputEmailProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-email");
+  }
 
   get cssText() {
     const minWidth: any = {

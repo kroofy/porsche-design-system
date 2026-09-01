@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from MultiSelectOption.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitMultiSelectOptionProps {
     value?: any;
@@ -10,15 +11,17 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitMultiSelectOptionProps["disabled"];
   export let disabledParent: LitMultiSelectOptionProps["disabledParent"];
   export let selected: LitMultiSelectOptionProps["selected"];
   export let highlighted: LitMultiSelectOptionProps["highlighted"];
+  function __cmpProps() { return { disabled, disabledParent, selected, highlighted }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const disabled = isTrue(disabled) || isTrue(disabledParent);
-    const selected = isTrue(selected);
+    const disabled = isTrue(__cmpProps().disabled) || isTrue(disabledParent);
+    const selected = isTrue(__cmpProps().selected);
     const checkMask =
       'url(\'data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20.22,7.47l-1.47-1.42-9.26,9.02-4.24-4.15-1.47,1.42,5.71,5.6,10.73-10.47Z"/></svg>\') center/contain no-repeat';
     let out = ":host{display:block;";
@@ -84,35 +87,31 @@
   };
   $: optionClass = () => {
     const disabled =
-      disabled === true ||
-      disabled === "true" ||
-      disabled === "" ||
+      __cmpProps().disabled === true ||
+      __cmpProps().disabled === "true" ||
+      __cmpProps().disabled === "" ||
       disabledParent === true ||
       disabledParent === "true" ||
       disabledParent === "";
     const selected =
-      selected === true || selected === "true" || selected === "";
+      __cmpProps().selected === true || __cmpProps().selected === "true" || __cmpProps().selected === "";
     const highlighted =
-      highlighted === true || highlighted === "true" || highlighted === "";
+      __cmpProps().highlighted === true || __cmpProps().highlighted === "true" || __cmpProps().highlighted === "";
     let name = "option";
     if (selected) name += " option--selected";
     if (highlighted) name += " option--highlighted";
     if (disabled) name += " option--disabled";
     return name;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-multi-select-option");
 </script>
 
+<div class="p-multi-select-option" data-pds="multi-select-option">
 <div class="option">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<span
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span
     class="checkbox"
   /><slot />
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

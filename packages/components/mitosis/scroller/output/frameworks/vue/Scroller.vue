@@ -1,16 +1,22 @@
+<!-- mitosis-native-host: native vue from Scroller.lite.tsx -->
 <template>
+  <div class="p-scroller" data-pds="scroller">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span class="prev"></span><span class="next"></span>
     <div class="scroll" :tabIndex="0">
       <span class="sentinel"></span><slot></slot><span class="sentinel"></span>
     </div>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitScrollerProps {
   scrollbar?: any;
   compact?: any;
@@ -23,6 +29,9 @@ export default defineComponent({
   props: ["scrollbar", "compact", "sticky"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-scroller");
+    },
     cssText() {
       let prevVis: any = false;
       let nextVis: any = false;
@@ -201,12 +210,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-  border-radius: var(--p-radius-lg);
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

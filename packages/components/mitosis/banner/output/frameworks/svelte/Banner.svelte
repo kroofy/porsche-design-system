@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Banner.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitBannerProps {
     open?: any;
@@ -11,6 +12,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let state: LitBannerProps["state"];
   export let heading: LitBannerProps["heading"];
   export let dismissButton: LitBannerProps["dismissButton"];
@@ -18,11 +20,12 @@
   export let position: LitBannerProps["position"];
   export let headingTag: LitBannerProps["headingTag"];
   export let description: LitBannerProps["description"];
+  function __cmpProps() { return { state, heading, dismissButton, open, position, headingTag, description }; }
 
   $: cssText = () => {
     const visual = state || "info";
-    const heading = heading || "";
-    const hasHeadingSlot = hasHeadingSlot();
+    const heading = __cmpProps().heading || "";
+    const hasHeadingSlot = hasHeadingSlot__fn();
     const hasHeading = !!(heading || hasHeadingSlot);
     let dismiss: any = dismissButton;
     if (dismiss === false || dismiss === "false") {
@@ -36,7 +39,7 @@
     } else {
       isOpen = false;
     }
-    let position: any = position;
+    let position: any = __cmpProps().position;
     if (position == null || position === "") {
       position = {
         base: "bottom",
@@ -216,7 +219,7 @@
     if (dismiss === false || dismiss === "false") return false;
     return true;
   };
-  $: hasHeadingSlot = () => {
+  $: hasHeadingSlot__fn = () => {
     return false;
   };
   $: hasDescriptionSlot = () => {
@@ -234,13 +237,15 @@
     return visual === "warning" || visual === "error" ? "assertive" : "polite";
   };
   $: isOpenFlag = () => {
-    const open = open;
+    const open = __cmpProps().open;
     return open === true || open === "true" || open === "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-banner");
 </script>
 
+<div class="p-banner" data-pds="banner">
 <div popover="manual">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="notification">
     <h5>{headingText()}</h5>
     <p>{descriptionText()}</p>
@@ -251,11 +256,5 @@
   </div>
 </div>
 
-<style>
-  :host {
-    display: contents;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

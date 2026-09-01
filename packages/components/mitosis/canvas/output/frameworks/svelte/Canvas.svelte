@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Canvas.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitCanvasProps {
     sidebarStartOpen?: any;
@@ -7,15 +8,17 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let sidebarStartOpen: LitCanvasProps["sidebarStartOpen"];
   export let sidebarEndOpen: LitCanvasProps["sidebarEndOpen"];
   export let background: LitCanvasProps["background"];
+  function __cmpProps() { return { sidebarStartOpen, sidebarEndOpen, background }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
     const startOpen = isTrue(sidebarStartOpen);
     const endOpen = isTrue(sidebarEndOpen);
-    const background = background === "surface" ? "surface" : "canvas";
+    const background = __cmpProps().background === "surface" ? "surface" : "canvas";
     const isSurface = background === "surface";
     const primary = isSurface
       ? "var(--p-color-surface)"
@@ -238,20 +241,16 @@
       "}}"
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-canvas");
 </script>
 
+<div class="p-canvas" data-pds="canvas">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <header class="header" />
   <aside class="sidebar sidebar--start" />
   <main class="main"><slot /></main>
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

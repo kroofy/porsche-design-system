@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Text.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTextProps {
+  className?: string;
   tag?: string;
   size?: any;
   weight?: string;
@@ -117,21 +120,15 @@ function LitText(props: LitTextProps) {
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-text", props.className].filter(Boolean).join(" ")}
+      data-pds="text"
+    >
       <p>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-text") }} />
+        {props.children}
       </p>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitText;

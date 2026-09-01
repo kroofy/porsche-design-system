@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from SegmentedControlItem.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSegmentedControlItemProps {
     value?: any;
@@ -14,6 +15,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let compact: LitSegmentedControlItemProps["compact"];
   export let disabled: LitSegmentedControlItemProps["disabled"];
   export let disabledParent: LitSegmentedControlItemProps["disabledParent"];
@@ -22,14 +25,15 @@
   export let icon: LitSegmentedControlItemProps["icon"];
   export let iconSource: LitSegmentedControlItemProps["iconSource"];
   export let label: LitSegmentedControlItemProps["label"];
+  function __cmpProps() { return { compact, disabled, disabledParent, selected, state, icon, iconSource, label }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const compact = isTrue(compact);
-    const disabled = isTrue(disabled) || isTrue(disabledParent);
-    const selected = isTrue(selected);
+    const compact = isTrue(__cmpProps().compact);
+    const disabled = isTrue(__cmpProps().disabled) || isTrue(disabledParent);
+    const selected = isTrue(__cmpProps().selected);
     const formState = state === "success" || state === "error" ? state : "none";
-    const icon = icon || "";
+    const icon = __cmpProps().icon || "";
     const source = iconSource || "";
     const hasIcon = icon !== "" || source !== "";
     const hasSlotted = true;
@@ -150,12 +154,14 @@
   $: isSelected = () => {
     return selected === true || selected === "true" || selected === "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-segmented-control-item");
 </script>
 
+<div class="p-segmented-control-item" data-pds="segmented-control-item">
 <button type="button"
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<span>{labelText()}</span
-  ><svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span>{labelText()}</span
+  ><PIcon
     class="icon"
     color="inherit"
     size="inherit"
@@ -165,11 +171,5 @@
   /><slot /></button
 >
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

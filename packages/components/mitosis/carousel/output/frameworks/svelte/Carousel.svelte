@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Carousel.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitCarouselProps {
     heading?: any;
@@ -20,6 +21,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let heading: LitCarouselProps["heading"];
   export let description: LitCarouselProps["description"];
   export let headingSize: LitCarouselProps["headingSize"];
@@ -28,6 +30,7 @@
   export let alignControls: LitCarouselProps["alignControls"];
   export let gradient: LitCarouselProps["gradient"];
   export let pagination: LitCarouselProps["pagination"];
+  function __cmpProps() { return { heading, description, headingSize, width, alignHeader, alignControls, gradient, pagination }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -46,17 +49,17 @@
       }
       return raw;
     };
-    const heading = heading || "";
-    const description = description || "";
+    const heading = __cmpProps().heading || "";
+    const description = __cmpProps().description || "";
     const hasHeading = !!heading;
     const hasDescription = !!description;
     const hasControls = false;
-    const headingSize = headingSize || "x-large";
-    const width = width || "basic";
-    const alignHeader = alignHeader || "start";
-    const alignControls = alignControls || "auto";
-    const gradient = isTrue(gradient);
-    const pagination = parse(pagination, false);
+    const headingSize = __cmpProps().headingSize || "x-large";
+    const width = __cmpProps().width || "basic";
+    const alignHeader = __cmpProps().alignHeader || "start";
+    const alignControls = __cmpProps().alignControls || "auto";
+    const gradient = isTrue(__cmpProps().gradient);
+    const pagination = parse(__cmpProps().pagination, false);
     const hasPagination =
       pagination === true ||
       pagination === "true" ||
@@ -185,19 +188,14 @@
       "@media(forced-colors:active){.splide__slide:focus-visible{outline-color:Highlight}}";
     return out;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: flex;\n    flex-direction: column;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-carousel");
 </script>
 
+<div class="p-carousel" data-pds="carousel">
 <div class="header">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="nav" />
 </div>
 
-<style>
-  :host {
-    display: flex;
-    flex-direction: column;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

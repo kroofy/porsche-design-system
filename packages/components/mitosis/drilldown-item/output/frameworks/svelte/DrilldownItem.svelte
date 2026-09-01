@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from DrilldownItem.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitDrilldownItemProps {
     identifier?: any;
@@ -9,10 +10,13 @@
 </script>
 
 <script lang="ts">
+  import PButtonPure from "../../../../button-pure/output/frameworks/svelte/ButtonPure.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let primary: LitDrilldownItemProps["primary"];
   export let secondary: LitDrilldownItemProps["secondary"];
   export let cascade: LitDrilldownItemProps["cascade"];
   export let label: LitDrilldownItemProps["label"];
+  function __cmpProps() { return { primary, secondary, cascade, label }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -140,23 +144,21 @@
   $: labelValue = () => {
     return label || "";
   };
+  $: __pdsComponents = { PButtonPure };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-drilldown-item");
 </script>
 
-<svelte:component
-  this={p - button - pure}
+<div class="p-drilldown-item" data-pds="drilldown-item">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+
+<PButtonPure
   class="button"
   type="button"
   size="medium"
   align-label="start"
   stretch="true"
-  icon="arrow-head-right">{label}</svelte:component
+  icon="arrow-head-right">{label}</PButtonPure
 >
 
-<style>
-  :host {
-    display: contents;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

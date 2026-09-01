@@ -1,6 +1,12 @@
+/* mitosis-native-host: native react from InputMonth.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import PButtonPure from "../../../../button-pure/output/frameworks/react/ButtonPure";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInputMonthProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -256,23 +262,25 @@ function LitInputMonth(props: LitInputMonthProps) {
     return props.placeholder || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-input-month", props.className].filter(Boolean).join(" ")}
+      data-pds="input-month"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-input-month") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="input-month">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <slot name="start" />
-          <input type="month" id="input-month" dir="auto" />
-          <p-button-pure
+          {props["start"] ?? null}
+          <input type="month" id="input-month" dir="auto"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readOnly={!!isReadOnly()} />
+          <PButtonPure
             className="button"
             type="button"
             icon="calendar"
@@ -280,24 +288,19 @@ function LitInputMonth(props: LitInputMonthProps) {
           >
             {" "}
             Open date picker{" "}
-          </p-button-pure>
-          <slot name="end" />
-          <p-spinner aria-hidden="true" />
+          </PButtonPure>
+          {props["end"] ?? null}
+          <PSpinner aria-hidden="true" />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitInputMonth;

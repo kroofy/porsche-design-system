@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Modal.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitModalProps {
     open?: any;
@@ -11,12 +12,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let open: LitModalProps["open"];
   export let dismissButton: LitModalProps["dismissButton"];
   export let background: LitModalProps["background"];
   export let backdrop: LitModalProps["backdrop"];
   export let fullscreen: LitModalProps["fullscreen"];
   export let aria: LitModalProps["aria"];
+  function __cmpProps() { return { open, dismissButton, background, backdrop, fullscreen, aria }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
@@ -24,9 +27,9 @@
     let dismiss: any = dismissButton;
     if (dismiss === false || dismiss === "false") dismiss = false;
     else dismiss = true;
-    const background = background === "surface" ? "surface" : "canvas";
-    const backdrop = backdrop === "shading" ? "shading" : "blur";
-    let fullscreen: any = fullscreen;
+    const background = __cmpProps().background === "surface" ? "surface" : "canvas";
+    const backdrop = __cmpProps().backdrop === "shading" ? "shading" : "blur";
+    let fullscreen: any = __cmpProps().fullscreen;
     if (fullscreen == null || fullscreen === "") fullscreen = false;
     if (typeof fullscreen === "string" && fullscreen.charAt(0) === "{") {
       try {
@@ -211,7 +214,7 @@
     return out;
   };
   $: isOpenFlag = () => {
-    const open = open;
+    const open = __cmpProps().open;
     return open === true || open === "true" || open === "";
   };
   $: showDismiss = () => {
@@ -233,10 +236,12 @@
     }
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: contents;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-modal");
 </script>
 
+<div class="p-modal" data-pds="modal">
 <dialog aria-modal="true" inert={true} tabIndex={-1}>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="scroller">
     <div class="modal">
       <button class="dismiss" type="button"><span>Dismiss modal</span></button
@@ -245,11 +250,5 @@
   </div>
 </dialog>
 
-<style>
-  :host {
-    display: contents;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Tag.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -14,8 +16,9 @@ export interface LitTagProps {
 @Component({
   selector: "lit-tag",
   template: `
+    <div class="p-tag" data-pds="tag">
     <span
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-icon
         class="icon"
         color="inherit"
@@ -26,28 +29,32 @@ export interface LitTagProps {
       ></p-icon>
       <slot></slot
     ></span>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-tag {
         display: contents;
       }
-      :host {
+      .p-tag {
         display: inline-flex;
         vertical-align: top;
         white-space: nowrap;
       }
-      :host([hidden]) {
+      .p-tag[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTag {
   @Input() variant!: LitTagProps["variant"];
   @Input() compact!: LitTagProps["compact"];
   @Input() icon!: LitTagProps["icon"];
   @Input() iconSource!: LitTagProps["iconSource"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-tag");
+  }
 
   get cssText() {
     const textMap: any = {

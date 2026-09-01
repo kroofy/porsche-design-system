@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Spinner.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSpinnerProps {
     color?: string;
@@ -7,9 +8,11 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let color: LitSpinnerProps["color"];
   export let size: LitSpinnerProps["size"];
   export let aria: LitSpinnerProps["aria"];
+  function __cmpProps() { return { color, size, aria }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -44,7 +47,7 @@
       xl: 1760,
       xxl: 1920,
     };
-    const color = colorMap[color || "primary"] || colorMap.primary;
+    const color = colorMap[__cmpProps().color || "primary"] || colorMap.primary;
     const keyframes =
       "@keyframes rotate{0%{transform:rotateZ(0deg)}100%{transform:rotateZ(360deg)}}" +
       "@keyframes dash{0%{stroke-dashoffset:69;transform:rotateZ(0)}50%,75%{stroke-dashoffset:24;transform:rotateZ(80deg)}100%{stroke-dashoffset:69;transform:rotateZ(360deg)}}";
@@ -62,7 +65,7 @@
     const rootOpen =
       keyframes +
       "div{width:var(--p-spinner-size,var(--p-leading-normal));height:var(--p-spinner-size,var(--p-leading-normal));font-family:var(--p-font-porsche-next);";
-    let size = size || "sm";
+    let size = __cmpProps().size || "sm";
     if (typeof size === "string" && size.charAt(0) === "{") {
       try {
         size = JSON.parse(
@@ -106,10 +109,12 @@
     if (typeof raw === "object" && raw !== null) return raw["aria-label"] || "";
     return "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-flex;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-spinner");
 </script>
 
+<div class="p-spinner" data-pds="spinner">
 <div role="alert" aria-live="assertive" aria-label={ariaLabel()}>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<span class="sr-only" /><svg
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span class="sr-only" /><svg
     viewBox="-16 -16 32 32"
     width="100%"
     height="100%"
@@ -118,12 +123,5 @@
   >
 </div>
 
-<style>
-  :host {
-    display: inline-flex;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

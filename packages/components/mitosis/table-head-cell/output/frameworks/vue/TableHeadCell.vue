@@ -1,12 +1,18 @@
+<!-- mitosis-native-host: native vue from TableHeadCell.lite.tsx -->
 <template>
+  <div class="p-table-head-cell" data-pds="table-head-cell">
+
   <span
-    ><component v-html="cssText" :is="'style'"></component><slot></slot
+    ><component v-html="scopedCssText" :is="'style'"></component><slot></slot
   ></span>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTableHeadCellProps {
   sort?: any;
   hideLabel?: any;
@@ -19,6 +25,9 @@ export default defineComponent({
   props: ["sort", "hideLabel", "multiline"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-table-head-cell");
+    },
     sortable() {
       const sort: any = this.parseSort();
       if (!sort) return false;
@@ -86,11 +95,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: table-cell;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

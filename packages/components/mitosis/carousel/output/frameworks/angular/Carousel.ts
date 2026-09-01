@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Carousel.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -26,25 +28,26 @@ export interface LitCarouselProps {
 @Component({
   selector: "lit-carousel",
   template: `
+    <div class="p-carousel" data-pds="carousel">
     <div class="header">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="nav"></div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-carousel {
         display: contents;
       }
-      :host {
+      .p-carousel {
         display: flex;
         flex-direction: column;
       }
-      :host([hidden]) {
+      .p-carousel[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitCarousel {
   @Input() heading!: LitCarouselProps["heading"];
@@ -55,6 +58,10 @@ export default class LitCarousel {
   @Input() alignControls!: LitCarouselProps["alignControls"];
   @Input() gradient!: LitCarouselProps["gradient"];
   @Input() pagination!: LitCarouselProps["pagination"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-carousel");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

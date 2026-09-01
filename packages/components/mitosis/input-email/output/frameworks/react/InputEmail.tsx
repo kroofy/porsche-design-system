@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from InputEmail.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInputEmailProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -264,40 +269,37 @@ function LitInputEmail(props: LitInputEmailProps) {
     return props.placeholder || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-input-email", props.className].filter(Boolean).join(" ")}
+      data-pds="input-email"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-input-email") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="input-email">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <slot name="start" />
-          <p-icon name="email" color="contrast-low" aria-hidden="true" />
-          <input type="email" id="input-email" dir="auto" />
-          <slot name="end" />
-          <p-spinner aria-hidden="true" />
+          {props["start"] ?? null}
+          <PIcon name="email" color="contrast-low" aria-hidden="true" />
+          <input type="email" id="input-email" dir="auto"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readOnly={!!isReadOnly()} maxLength={maxLengthValue() || undefined} />
+          {props["end"] ?? null}
+          <PSpinner aria-hidden="true" />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitInputEmail;

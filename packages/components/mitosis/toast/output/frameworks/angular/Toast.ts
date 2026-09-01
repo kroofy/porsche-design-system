@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Toast.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component } from "@angular/core";
@@ -7,26 +9,31 @@ import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "lit-toast",
   template: `
+    <div class="p-toast" data-pds="toast">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-toast {
         display: contents;
       }
-      :host {
+      .p-toast {
         position: fixed;
       }
-      :host([hidden]) {
+      .p-toast[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitToast {
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-toast");
+  }
+
   get cssText() {
     return (
       ":host{--_p-toast-a:var(--p-toast-position-bottom,56px) !important;" +

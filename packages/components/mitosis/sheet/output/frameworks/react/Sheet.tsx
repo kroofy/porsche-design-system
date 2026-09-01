@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Sheet.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSheetProps {
+  className?: string;
   open?: any;
   dismissButton?: any;
   disableBackdropClick?: any;
@@ -171,29 +174,23 @@ function LitSheet(props: LitSheetProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-sheet", props.className].filter(Boolean).join(" ")}
+      data-pds="sheet"
+    >
       <dialog aria-modal="true" inert tabIndex={-1}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-sheet") }} />
         <div className="scroller">
           <div className="sheet">
             <button className="dismiss" type="button">
               <span>Dismiss sheet</span>
             </button>
-            <slot name="header" />
-            <slot />
+            {props["header"] ?? null}
+            {props.children}
           </div>
         </div>
       </dialog>{" "}
-      <style jsx>{`
-        :host {
-          display: contents;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitSheet;

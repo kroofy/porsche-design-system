@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from SelectOption.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSelectOptionProps {
     value?: any;
@@ -10,14 +11,17 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitSelectOptionProps["disabled"];
   export let disabledParent: LitSelectOptionProps["disabledParent"];
   export let selected: LitSelectOptionProps["selected"];
   export let highlighted: LitSelectOptionProps["highlighted"];
+  function __cmpProps() { return { disabled, disabledParent, selected, highlighted }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const disabled = isTrue(disabled) || isTrue(disabledParent);
+    const disabled = isTrue(__cmpProps().disabled) || isTrue(disabledParent);
     let out =
       ":host{display:block;scroll-margin-block-start:calc(max(2px, var(--_p-select-option-a,1) * 6px) + 36px) !important;scroll-margin-block-end:max(2px, var(--_p-select-option-a,1) * 6px) !important}";
     if (disabled)
@@ -61,37 +65,33 @@
   };
   $: optionClass = () => {
     const disabled =
-      disabled === true ||
-      disabled === "true" ||
-      disabled === "" ||
+      __cmpProps().disabled === true ||
+      __cmpProps().disabled === "true" ||
+      __cmpProps().disabled === "" ||
       disabledParent === true ||
       disabledParent === "true" ||
       disabledParent === "";
     const selected =
-      selected === true || selected === "true" || selected === "";
+      __cmpProps().selected === true || __cmpProps().selected === "true" || __cmpProps().selected === "";
     const highlighted =
-      highlighted === true || highlighted === "true" || highlighted === "";
+      __cmpProps().highlighted === true || __cmpProps().highlighted === "true" || __cmpProps().highlighted === "";
     let name = "option";
     if (selected) name += " option--selected";
     if (highlighted) name += " option--highlighted";
     if (disabled) name += " option--disabled";
     return name;
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-select-option");
 </script>
 
+<div class="p-select-option" data-pds="select-option">
 <div class="option">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /><svelte:component
-    this={p - icon}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /><PIcon
     name="check"
     color="primary"
   />
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

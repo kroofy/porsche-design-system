@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from InputSearch.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitInputSearchProps {
     label?: string;
@@ -23,6 +24,10 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import PButtonPure from "../../../../button-pure/output/frameworks/svelte/ButtonPure.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitInputSearchProps["disabled"];
   export let loading: LitInputSearchProps["loading"];
   export let compact: LitInputSearchProps["compact"];
@@ -37,6 +42,7 @@
   export let value: LitInputSearchProps["value"];
   export let maxLength: LitInputSearchProps["maxLength"];
   export let placeholder: LitInputSearchProps["placeholder"];
+  function __cmpProps() { return { disabled, loading, compact, readOnly, indicator, clear, state, message, hideLabel, label, description, value, maxLength, placeholder }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -70,17 +76,17 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
-    const readOnly = isTrue(readOnly);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
+    const readOnly = isTrue(__cmpProps().readOnly);
     const hasIndicator = isTrue(indicator);
     const hasClear = isTrue(clear);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -212,14 +218,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -243,13 +249,13 @@
     return readOnly === true || readOnly === "true" || readOnly === "";
   };
   $: isClearable = () => {
-    const value = value == null ? "" : String(value);
+    const value = __cmpProps().value == null ? "" : String(__cmpProps().value);
     return value !== "";
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: ariaInvalid = () => {
@@ -261,50 +267,46 @@
       : "";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
   $: placeholderText = () => {
     return placeholder || "";
   };
+  $: __pdsComponents = { PButtonPure, PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-input-search");
 </script>
 
+<div class="p-input-search" data-pds="input-search">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <label class="label" id="label" for="input-search">{labelText()}</label
     ><slot name="label-after" />
   </div>
   <span class="label" id="description">{descriptionText()}</span>
   <div class="wrapper">
-    <slot name="start" /><svelte:component
-      this={p - icon}
+    <slot name="start" /><PIcon
       name="search"
       color="contrast-medium"
       aria-hidden="true"
-    /><input type="search" id="input-search" dir="auto" /><svelte:component
-      this={p - button - pure}
+    /><input type="search" id="input-search" dir="auto"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readonly={!!isReadOnly()} maxlength={maxLengthValue()} /><PButtonPure
       class="button"
       type="button"
       icon="close"
       hide-label="true"
     >
       Clear field
-    </svelte:component><slot name="end" /><svelte:component
-      this={p - spinner}
+    </PButtonPure><slot name="end" /><PSpinner
       aria-hidden="true"
     />
   </div>
   <span class="message" id="message"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       aria-hidden="true"
     />{messageText()}</span
   ><span class="loading" id="loading" role="status">{loadingText()}</span>
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

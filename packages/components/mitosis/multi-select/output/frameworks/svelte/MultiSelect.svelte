@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from MultiSelect.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitMultiSelectProps {
     label?: string;
@@ -16,6 +17,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitMultiSelectProps["disabled"];
   export let compact: LitMultiSelectProps["compact"];
   export let state: LitMultiSelectProps["state"];
@@ -24,6 +27,7 @@
   export let label: LitMultiSelectProps["label"];
   export let description: LitMultiSelectProps["description"];
   export let required: LitMultiSelectProps["required"];
+  function __cmpProps() { return { disabled, compact, state, message, hideLabel, label, description, required }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -57,13 +61,13 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const compact = isTrue(compact);
+    const disabled = isTrue(__cmpProps().disabled);
+    const compact = isTrue(__cmpProps().compact);
     const formState = state === "success" || state === "error" ? state : "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     const hasMsg =
       !!message && (formState === "success" || formState === "error");
-    const hideLabel = parse(hideLabel, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -189,14 +193,14 @@
   };
   $: messageText = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return message;
   };
   $: iconName = () => {
     const formState = state || "none";
-    const message = message || "";
+    const message = __cmpProps().message || "";
     if (!message || (formState !== "success" && formState !== "error"))
       return "";
     return formState === "error" ? "exclamation" : "check";
@@ -222,10 +226,13 @@
   $: selectedText = () => {
     return "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-multi-select");
 </script>
 
+<div class="p-multi-select" data-pds="multi-select">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <div class="label-wrapper">
     <label class="label" id="label" for="button"
       >{labelText()}<slot name="label" /></label
@@ -234,20 +241,16 @@
   <span class="label" id="description"
     >{descriptionText()}<slot name="description" /></span
   ><button type="button" role="combobox" id="button"
-    ><span>{selectedText()}</span><svelte:component
-      this={p - icon}
+    ><span>{selectedText()}</span><PIcon
       name="arrow-head-down"
       color="primary"
     /></button
   >
   <div><div class="options" id="listbox"><slot /></div></div>
   <span class="message" id="message"
-    ><svelte:component this={p - icon} />{messageText()}</span
+    ><PIcon />{messageText()}</span
   >
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

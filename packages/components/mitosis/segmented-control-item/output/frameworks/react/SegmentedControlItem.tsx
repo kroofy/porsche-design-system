@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from SegmentedControlItem.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSegmentedControlItemProps {
+  className?: string;
   value?: any;
   disabled?: any;
   label?: string;
@@ -155,11 +159,14 @@ function LitSegmentedControlItem(props: LitSegmentedControlItemProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-segmented-control-item", props.className].filter(Boolean).join(" ")}
+      data-pds="segmented-control-item"
+    >
       <button type="button">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-segmented-control-item") }} />
         <span>{labelText()}</span>
-        <p-icon
+        <PIcon
           className="icon"
           color="inherit"
           size="inherit"
@@ -167,17 +174,9 @@ function LitSegmentedControlItem(props: LitSegmentedControlItemProps) {
           name={iconName()}
           source={iconSrc()}
         />
-        <slot />
+        {props.children}
       </button>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from ButtonPure.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitButtonPureProps {
     type?: string;
@@ -19,6 +20,9 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let disabled: LitButtonPureProps["disabled"];
   export let loading: LitButtonPureProps["loading"];
   export let color: LitButtonPureProps["color"];
@@ -31,6 +35,7 @@
   export let hideLabel: LitButtonPureProps["hideLabel"];
   export let alignLabel: LitButtonPureProps["alignLabel"];
   export let type: LitButtonPureProps["type"];
+  function __cmpProps() { return { disabled, loading, color, underline, active, icon, iconSource, size, stretch, hideLabel, alignLabel, type }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -91,21 +96,21 @@
       }
       return obj;
     };
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
     const blocked = disabled || loading;
     const color = disabled
       ? "var(--p-color-contrast-low)"
-      : colorMap[color || "primary"] || colorMap.primary;
-    const underline = isTrue(underline);
-    const active = isTrue(active);
-    const icon = icon || "arrow-right";
+      : colorMap[__cmpProps().color || "primary"] || colorMap.primary;
+    const underline = isTrue(__cmpProps().underline);
+    const active = isTrue(__cmpProps().active);
+    const icon = __cmpProps().icon || "arrow-right";
     const source = iconSource || "";
     const hasIcon = icon !== "none" || source !== "";
-    const size = parse(size, "sm");
-    const stretch = parse(stretch, false);
-    const hideLabel = parse(hideLabel, false);
-    const alignLabel = parse(alignLabel, "end");
+    const size = parse(__cmpProps().size, "sm");
+    const stretch = parse(__cmpProps().stretch, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
+    const alignLabel = parse(__cmpProps().alignLabel, "end");
     const hostFor = (v: any) =>
       isTrue(v)
         ? "display:block;width:100%"
@@ -241,7 +246,7 @@
     return out;
   };
   $: iconName = () => {
-    const icon = icon || "arrow-right";
+    const icon = __cmpProps().icon || "arrow-right";
     if (icon === "none") return "";
     return icon;
   };
@@ -253,7 +258,7 @@
       copy: "copy.0fcd086.svg",
       like: "like.a7468cd.svg",
     };
-    const icon = icon || "arrow-right";
+    const icon = __cmpProps().icon || "arrow-right";
     if (files[icon]) return "http://localhost:3001/icons/" + files[icon];
     return "";
   };
@@ -262,27 +267,28 @@
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
+  $: __pdsComponents = { PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host {\n    transform: translate3d(0, 0, 0) !important;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-button-pure");
 </script>
 
+<div class="p-button-pure" data-pds="button-pure">
 <button class="root" type={buttonType()}
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PIcon
     class="icon"
     size="inherit"
     color="inherit"
     aria-hidden="true"
     name={iconName()}
     source={iconSrc()}
-  /><svelte:component
-    this={p - spinner}
+  /><PSpinner
     class="icon"
     size="inherit"
     color="inherit"
@@ -294,11 +300,5 @@
   ></button
 >
 
-<style>
-  :host {
-    transform: translate3d(0, 0, 0) !important;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from LinkTileProduct.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -20,29 +22,30 @@ export interface LitLinkTileProductProps {
 @Component({
   selector: "lit-link-tile-product",
   template: `
+    <div class="p-link-tile-product" data-pds="link-tile-product">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="image"><slot></slot></div>
       <div class="wrapper">
         <h3 class="heading">{{headingText}}</h3>
         <p class="price">{{priceText}}</p>
       </div>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-link-tile-product {
         display: contents;
       }
-      :host {
+      .p-link-tile-product {
         display: block;
         position: relative;
       }
-      :host([hidden]) {
+      .p-link-tile-product[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitLinkTileProduct {
   @Input() href!: LitLinkTileProductProps["href"];
@@ -52,6 +55,10 @@ export default class LitLinkTileProduct {
   @Input() aspectRatio!: LitLinkTileProductProps["aspectRatio"];
   @Input() heading!: LitLinkTileProductProps["heading"];
   @Input() price!: LitLinkTileProductProps["price"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-link-tile-product");
+  }
 
   get cssText() {
     const minWidth: any = {

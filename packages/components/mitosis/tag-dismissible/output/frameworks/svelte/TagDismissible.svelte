@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from TagDismissible.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTagDismissibleProps {
     label?: string;
@@ -7,12 +8,15 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let compact: LitTagDismissibleProps["compact"];
   export let label: LitTagDismissibleProps["label"];
   export let aria: LitTagDismissibleProps["aria"];
+  function __cmpProps() { return { compact, label, aria }; }
 
   $: cssText = () => {
-    let compact: any = compact;
+    let compact: any = __cmpProps().compact;
     if (compact === true || compact === "true" || compact === "") {
       compact = true;
     } else {
@@ -81,15 +85,17 @@
     // stored Stencil baseline.
     return "http://localhost:3001/icons/close.eec3c5d.svg";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-block;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-tag-dismissible");
 </script>
 
+<div class="p-tag-dismissible" data-pds="tag-dismissible">
 <button type="button" aria-label={ariaLabel()}
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<span class="sr-only"
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span class="sr-only"
     >Remove:</span
   ><span><span class="label">{labelText()}</span><slot /></span><span
     class="icon"
-    ><svelte:component
-      this={p - icon}
+    ><PIcon
       name="close"
       aria-hidden="true"
       source={closeIconSrc()}
@@ -97,12 +103,5 @@
   ></button
 >
 
-<style>
-  :host {
-    display: inline-block;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from AiTag.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitAiTagProps {
     locale?: string;
@@ -6,8 +7,10 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let locale: LitAiTagProps["locale"];
   export let variant: LitAiTagProps["variant"];
+  function __cmpProps() { return { locale, variant }; }
 
   $: cssText = () => {
     const iconMask =
@@ -26,7 +29,7 @@
     );
   };
   $: translation = () => {
-    const locale = locale || "en-US";
+    const locale = __cmpProps().locale || "en-US";
     let language = String(locale).replace(/-/g, "_").split("_")[0];
     if (language === "nb") language = "no";
     const table: any = {
@@ -55,14 +58,16 @@
     return translation().long;
   };
   $: copyLabel = () => {
-    const variant = variant || "generated";
+    const variant = __cmpProps().variant || "generated";
     if (variant === "modified") return translation().modified;
     return translation().generated;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-flex;\n    vertical-align: top;\n    white-space: nowrap;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-ai-tag");
 </script>
 
+<div class="p-ai-tag" data-pds="ai-tag">
 <div>
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   {#if isAbbreviation()}
     <abbr title={longLabel()}>{shortLabel()}</abbr>
   {:else}
@@ -70,13 +75,5 @@
   {/if}
 </div>
 
-<style>
-  :host {
-    display: inline-flex;
-    vertical-align: top;
-    white-space: nowrap;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

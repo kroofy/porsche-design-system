@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from RadioGroup.lite.tsx -->
 <template>
+  <div class="p-radio-group" data-pds="radio-group">
+
   <fieldset class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <div class="label" id="label">
         {{ labelText }}<slot name="label"></slot>
@@ -11,17 +14,22 @@
       >{{ descriptionText }}<slot name="description"></slot
     ></span>
     <div class="wrapper">
-      <slot></slot><p-spinner class="spinner" aria-hidden="true"></p-spinner>
+      <slot></slot><PSpinner class="spinner" aria-hidden="true"></PSpinner>
     </div>
     <span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     ><span class="loading" id="loading">{{ loadingText }}</span>
   </fieldset>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitRadioGroupProps {
   label?: string;
   description?: string;
@@ -39,6 +47,7 @@ export interface LitRadioGroupProps {
 }
 
 export default defineComponent({
+  components: { PIcon, PSpinner },
   name: "lit-radio-group",
 
   props: [
@@ -55,6 +64,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-radio-group");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -274,8 +286,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

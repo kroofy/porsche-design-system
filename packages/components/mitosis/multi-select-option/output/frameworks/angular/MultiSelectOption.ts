@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from MultiSelectOption.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -16,31 +18,36 @@ export interface LitMultiSelectOptionProps {
 @Component({
   selector: "lit-multi-select-option",
   template: `
+    <div class="p-multi-select-option" data-pds="multi-select-option">
     <div class="option">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span class="checkbox"></span>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-multi-select-option {
         display: contents;
       }
-      :host {
+      .p-multi-select-option {
         display: block;
       }
-      :host([hidden]) {
+      .p-multi-select-option[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitMultiSelectOption {
   @Input() disabled!: LitMultiSelectOptionProps["disabled"];
   @Input() disabledParent!: LitMultiSelectOptionProps["disabledParent"];
   @Input() selected!: LitMultiSelectOptionProps["selected"];
   @Input() highlighted!: LitMultiSelectOptionProps["highlighted"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-multi-select-option");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

@@ -1,15 +1,22 @@
+<!-- mitosis-native-host: native vue from TabsBar.lite.tsx -->
 <template>
+  <div class="p-tabs-bar" data-pds="tabs-bar">
+
   <div class="wrap">
-    <component v-html="cssText" :is="'style'"></component
-    ><p-scroller class="scroller"
+    <component v-html="scopedCssText" :is="'style'"></component
+    ><PScroller class="scroller"
       ><slot></slot><span class="bar"></span
-    ></p-scroller>
+    ></PScroller>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PScroller from "../../../../scroller/output/frameworks/vue/Scroller.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTabsBarProps {
   background?: string;
   size?: any;
@@ -20,11 +27,15 @@ export interface LitTabsBarProps {
 }
 
 export default defineComponent({
+  components: { PScroller },
   name: "lit-tabs-bar",
 
   props: ["compact", "background", "size", "activeTabIndex"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-tabs-bar");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -187,8 +198,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

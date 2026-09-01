@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Canvas.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCanvasProps {
+  className?: string;
   sidebarStartOpen?: any;
   sidebarEndOpen?: any;
   background?: any;
@@ -236,24 +239,19 @@ function LitCanvas(props: LitCanvasProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-canvas", props.className].filter(Boolean).join(" ")}
+      data-pds="canvas"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-canvas") }} />
         <header className="header" />
         <aside className="sidebar sidebar--start" />
         <main className="main">
-          <slot />
+          {props.children}
         </main>
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

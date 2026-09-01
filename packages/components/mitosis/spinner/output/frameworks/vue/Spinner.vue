@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Spinner.lite.tsx -->
 <template>
+  <div class="p-spinner" data-pds="spinner">
+
   <div role="alert" aria-live="assertive" :aria-label="ariaLabel">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span class="sr-only"></span
     ><svg
       viewBox="-16 -16 32 32"
@@ -13,11 +16,14 @@
       <circle r="11"></circle>
     </svg>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSpinnerProps {
   color?: string;
   size?: any;
@@ -30,6 +36,9 @@ export default defineComponent({
   props: ["color", "size", "aria"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-spinner");
+    },
     cssText() {
       const sizeMap: any = {
         "xx-small": "var(--p-typescale-2xs)",
@@ -132,12 +141,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-flex;
-  vertical-align: top;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from ToastItem.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -12,31 +14,36 @@ export interface LitToastItemProps {
 @Component({
   selector: "lit-toast-item",
   template: `
+    <div class="p-toast-item" data-pds="toast-item">
     <div class="notification">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p>{{textValue}}</p>
       <button class="dismiss" type="button">
         <span>Close notification message</span>
       </button>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-toast-item {
         display: contents;
       }
-      :host {
+      .p-toast-item {
         display: block;
       }
-      :host([hidden]) {
+      .p-toast-item[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitToastItem {
   @Input() state!: LitToastItemProps["state"];
   @Input() text!: LitToastItemProps["text"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-toast-item");
+  }
 
   get cssText() {
     const visual = this.state || "info";

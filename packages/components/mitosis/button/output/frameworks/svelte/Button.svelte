@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Button.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitButtonProps {
     type?: string;
@@ -16,6 +17,9 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let variant: LitButtonProps["variant"];
   export let icon: LitButtonProps["icon"];
   export let iconSource: LitButtonProps["iconSource"];
@@ -24,6 +28,7 @@
   export let hideLabel: LitButtonProps["hideLabel"];
   export let compact: LitButtonProps["compact"];
   export let type: LitButtonProps["type"];
+  function __cmpProps() { return { variant, icon, iconSource, disabled, loading, hideLabel, compact, type }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -57,15 +62,15 @@
       }
       return obj;
     };
-    const variant = variant || "primary";
-    const icon = icon || "none";
+    const variant = __cmpProps().variant || "primary";
+    const icon = __cmpProps().icon || "none";
     const source = iconSource || "";
     const hasVisibleIcon = (icon !== "none" && icon !== "") || source !== "";
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
     const blocked = disabled || loading;
-    const hideLabel = parse(hideLabel, false);
-    const compact = parse(compact, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
+    const compact = parse(__cmpProps().compact, false);
     const hideBase =
       typeof hideLabel === "object" && hideLabel !== null
         ? pick(hideLabel, "base", false)
@@ -224,7 +229,7 @@
   };
   $: iconName = () => {
     if (iconSource) return "";
-    const icon = icon || "none";
+    const icon = __cmpProps().icon || "none";
     if (icon === "none" || icon === "") return "";
     return icon;
   };
@@ -236,27 +241,28 @@
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
+  $: __pdsComponents = { PIcon, PSpinner };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: inline-block;\n    vertical-align: top;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-button");
 </script>
 
+<div class="p-button" data-pds="button">
 <button class="root" type={buttonType()}
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PIcon
     class="icon"
     size="inherit"
     color="inherit"
     aria-hidden="true"
     name={iconName()}
     source={iconSrc()}
-  /><svelte:component
-    this={p - spinner}
+  /><PSpinner
     class="spinner"
     size="inherit"
     aria-hidden="true"
@@ -267,12 +273,5 @@
   ></button
 >
 
-<style>
-  :host {
-    display: inline-block;
-    vertical-align: top;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

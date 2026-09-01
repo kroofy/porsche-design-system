@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Button.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -22,8 +24,9 @@ export interface LitButtonProps {
 @Component({
   selector: "lit-button",
   template: `
+    <div class="p-button" data-pds="button">
     <button class="root" [attr.type]="buttonType">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-icon
         class="icon"
         size="inherit"
@@ -36,21 +39,21 @@ export interface LitButtonProps {
       <span class="label"><slot></slot></span>
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </button>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-button {
         display: contents;
       }
-      :host {
+      .p-button {
         display: inline-block;
         vertical-align: top;
       }
-      :host([hidden]) {
+      .p-button[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitButton {
   @Input() variant!: LitButtonProps["variant"];
@@ -61,6 +64,10 @@ export default class LitButton {
   @Input() hideLabel!: LitButtonProps["hideLabel"];
   @Input() compact!: LitButtonProps["compact"];
   @Input() type!: LitButtonProps["type"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-button");
+  }
 
   get cssText() {
     const minWidth: any = {

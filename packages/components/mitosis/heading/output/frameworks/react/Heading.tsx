@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Heading.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitHeadingProps {
+  className?: string;
   tag?: string;
   size?: any;
   weight?: string;
@@ -113,21 +116,15 @@ function LitHeading(props: LitHeadingProps) {
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-heading", props.className].filter(Boolean).join(" ")}
+      data-pds="heading"
+    >
       <h2>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-heading") }} />
+        {props.children}
       </h2>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitHeading;

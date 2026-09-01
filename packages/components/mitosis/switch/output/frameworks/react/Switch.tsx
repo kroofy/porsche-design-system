@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Switch.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSwitchProps {
+  className?: string;
   alignLabel?: any;
   hideLabel?: any;
   stretch?: any;
@@ -196,28 +200,25 @@ function LitSwitch(props: LitSwitchProps) {
     return loading ? "Loading" : "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-switch", props.className].filter(Boolean).join(" ")}
+      data-pds="switch"
+    >
       <div className="wrap">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-switch") }} />
         <button type="button" role="switch">
           <span className="toggle">
-            <p-spinner className="spinner" aria-hidden="true" />
+            <PSpinner className="spinner" aria-hidden="true" />
           </span>
         </button>
         <label>
-          <slot />
+          {props.children}
         </label>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitSwitch;

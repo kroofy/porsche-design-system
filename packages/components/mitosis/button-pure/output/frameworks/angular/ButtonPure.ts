@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from ButtonPure.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -25,8 +27,9 @@ export interface LitButtonPureProps {
 @Component({
   selector: "lit-button-pure",
   template: `
+    <div class="p-button-pure" data-pds="button-pure">
     <button class="root" [attr.type]="buttonType">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <p-icon
         class="icon"
         size="inherit"
@@ -44,20 +47,20 @@ export interface LitButtonPureProps {
       <span class="label"><slot></slot></span>
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </button>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-button-pure {
         display: contents;
       }
-      :host {
+      .p-button-pure {
         transform: translate3d(0, 0, 0) !important;
       }
-      :host([hidden]) {
+      .p-button-pure[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitButtonPure {
   @Input() disabled!: LitButtonPureProps["disabled"];
@@ -72,6 +75,10 @@ export default class LitButtonPure {
   @Input() hideLabel!: LitButtonPureProps["hideLabel"];
   @Input() alignLabel!: LitButtonPureProps["alignLabel"];
   @Input() type!: LitButtonPureProps["type"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-button-pure");
+  }
 
   get cssText() {
     const sizeMap: any = {

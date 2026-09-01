@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Pagination.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -15,8 +17,9 @@ export interface LitPaginationProps {
 @Component({
   selector: "lit-pagination",
   template: `
+    <div class="p-pagination" data-pds="pagination">
     <nav>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <ul>
         <li class="prev">
           <span
@@ -29,26 +32,30 @@ export interface LitPaginationProps {
         </li>
       </ul>
     </nav>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-pagination {
         display: contents;
       }
-      :host {
+      .p-pagination {
         display: block;
       }
-      :host([hidden]) {
+      .p-pagination[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitPagination {
   @Input() totalItemsCount!: LitPaginationProps["totalItemsCount"];
   @Input() itemsPerPage!: LitPaginationProps["itemsPerPage"];
   @Input() activePage!: LitPaginationProps["activePage"];
   @Input() showLastPage!: LitPaginationProps["showLastPage"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-pagination");
+  }
 
   get cssText() {
     const totalItems = Number(

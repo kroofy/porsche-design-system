@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from LinkPure.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitLinkPureProps {
     size?: any;
@@ -18,6 +19,8 @@
 </script>
 
 <script lang="ts">
+  import PIcon from "../../../../icon/output/frameworks/svelte/Icon.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let color: LitLinkPureProps["color"];
   export let underline: LitLinkPureProps["underline"];
   export let active: LitLinkPureProps["active"];
@@ -28,6 +31,7 @@
   export let stretch: LitLinkPureProps["stretch"];
   export let hideLabel: LitLinkPureProps["hideLabel"];
   export let alignLabel: LitLinkPureProps["alignLabel"];
+  function __cmpProps() { return { color, underline, active, href, icon, iconSource, size, stretch, hideLabel, alignLabel }; }
 
   $: cssText = () => {
     const sizeMap: any = {
@@ -88,17 +92,17 @@
       }
       return obj;
     };
-    const color = colorMap[color || "primary"] || colorMap.primary;
-    const underline = isTrue(underline);
-    const active = isTrue(active);
+    const color = colorMap[__cmpProps().color || "primary"] || colorMap.primary;
+    const underline = isTrue(__cmpProps().underline);
+    const active = isTrue(__cmpProps().active);
     const hasSlottedAnchor = !href;
-    const icon = icon || "arrow-right";
+    const icon = __cmpProps().icon || "arrow-right";
     const source = iconSource || "";
     const hasIcon = icon !== "none" || source !== "";
-    const size = parse(size, "sm");
-    const stretch = parse(stretch, false);
-    const hideLabel = parse(hideLabel, false);
-    const alignLabel = parse(alignLabel, "end");
+    const size = parse(__cmpProps().size, "sm");
+    const stretch = parse(__cmpProps().stretch, false);
+    const hideLabel = parse(__cmpProps().hideLabel, false);
+    const alignLabel = parse(__cmpProps().alignLabel, "end");
     const hostFor = (v: any) =>
       isTrue(v)
         ? "display:block;width:100%"
@@ -242,18 +246,20 @@
     return out;
   };
   $: iconName = () => {
-    const icon = icon || "arrow-right";
+    const icon = __cmpProps().icon || "arrow-right";
     if (icon === "none") return "";
     return icon;
   };
   $: iconSrc = () => {
     return iconSource || "";
   };
+  $: __pdsComponents = { PIcon };
+  $: scopedCssText = scopeCss("\n  :host {\n    transform: translate3d(0, 0, 0) !important;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-link-pure");
 </script>
 
+<div class="p-link-pure" data-pds="link-pure">
 <span class="root"
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - icon}
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PIcon
     class="icon"
     size="inherit"
     color="inherit"
@@ -263,11 +269,5 @@
   /><span class="label"><slot /></span></span
 >
 
-<style>
-  :host {
-    transform: translate3d(0, 0, 0) !important;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

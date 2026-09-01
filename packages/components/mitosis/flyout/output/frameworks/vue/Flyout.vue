@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Flyout.lite.tsx -->
 <template>
+  <div class="p-flyout" data-pds="flyout">
+
   <dialog aria-modal="true" :inert="true" :tabIndex="-1">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="scroller">
       <div class="flyout">
         <button class="dismiss" type="button">
@@ -10,11 +13,14 @@
       </div>
     </div>
   </dialog>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitFlyoutProps {
   open?: any;
   position?: string;
@@ -40,6 +46,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-flyout");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isOpen = isTrue(this.open);
@@ -301,11 +310,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

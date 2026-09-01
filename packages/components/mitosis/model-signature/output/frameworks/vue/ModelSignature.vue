@@ -1,5 +1,8 @@
+<!-- mitosis-native-host: native vue from ModelSignature.lite.tsx -->
 <template>
-  <component v-html="cssText" :is="'style'"></component>
+  <div class="p-model-signature" data-pds="model-signature">
+
+  <component v-html="scopedCssText" :is="'style'"></component>
   <slot></slot>
   <img
     :src="src"
@@ -7,11 +10,14 @@
     :fetchpriority="fetchPriorityAttr"
     :loading="loadingAttr"
   />
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitModelSignatureProps {
   model?: string;
   safeZone?: any;
@@ -27,6 +33,9 @@ export default defineComponent({
   props: ["model", "size", "color", "safeZone", "fetchPriority", "lazy"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-model-signature");
+    },
     cssText() {
       const manifest: any = {
         "718": {
@@ -173,14 +182,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-block;
-  vertical-align: top;
-  max-width: 100%;
-  max-height: 100%;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

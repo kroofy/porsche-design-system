@@ -1,19 +1,26 @@
+<!-- mitosis-native-host: native vue from TagDismissible.lite.tsx -->
 <template>
+  <div class="p-tag-dismissible" data-pds="tag-dismissible">
+
   <button type="button" :aria-label="ariaLabel">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span class="sr-only">Remove:</span
     ><span
       ><span class="label">{{ labelText }}</span
       ><slot></slot></span
     ><span class="icon"
-      ><p-icon name="close" aria-hidden="true" :source="closeIconSrc"></p-icon
+      ><PIcon name="close" aria-hidden="true" :source="closeIconSrc"></PIcon
     ></span>
   </button>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTagDismissibleProps {
   label?: string;
   compact?: any;
@@ -21,11 +28,15 @@ export interface LitTagDismissibleProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-tag-dismissible",
 
   props: ["compact", "label", "aria"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-tag-dismissible");
+    },
     cssText() {
       let compact: any = this.compact;
       if (compact === true || compact === "true" || compact === "") {
@@ -104,12 +115,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: inline-block;
-  vertical-align: top;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

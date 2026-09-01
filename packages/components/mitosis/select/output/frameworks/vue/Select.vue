@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Select.lite.tsx -->
 <template>
+  <div class="p-select" data-pds="select">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <label class="label" id="label" for="button"
         >{{ labelText }}<slot name="label"></slot></label
@@ -10,18 +13,22 @@
       >{{ descriptionText }}<slot name="description"></slot></span
     ><button type="button" role="combobox" id="button">
       <span>{{ selectedText }}</span
-      ><p-icon name="arrow-head-down" color="primary"></p-icon>
+      ><PIcon name="arrow-head-down" color="primary"></PIcon>
     </button>
     <div>
       <div class="options" id="listbox"><slot></slot></div>
     </div>
-    <span class="message" id="message"><p-icon></p-icon>{{ messageText }}</span>
+    <span class="message" id="message"><PIcon></PIcon>{{ messageText }}</span>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSelectProps {
   label?: string;
   description?: string;
@@ -39,6 +46,7 @@ export interface LitSelectProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-select",
 
   props: [
@@ -53,6 +61,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-select");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -266,8 +277,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

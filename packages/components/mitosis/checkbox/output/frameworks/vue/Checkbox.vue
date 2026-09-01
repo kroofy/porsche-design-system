@@ -1,26 +1,34 @@
+<!-- mitosis-native-host: native vue from Checkbox.lite.tsx -->
 <template>
+  <div class="p-checkbox" data-pds="checkbox">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="wrapper">
       <div class="input-wrapper">
-        <input type="checkbox" /><p-spinner
+        <input type="checkbox"  :disabled="isDisabled" :name="name" /><PSpinner
           class="spinner"
           aria-hidden="true"
-        ></p-spinner>
+        ></PSpinner>
       </div>
       <div class="label-wrapper">
         <label class="label">{{ labelText }}</label>
       </div>
     </div>
     <span class="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     ><span class="loading" id="loading" role="status">{{ loadingText }}</span>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PSpinner from "../../../../spinner/output/frameworks/vue/Spinner.vue";
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCheckboxProps {
   label?: string;
   name?: string;
@@ -37,6 +45,7 @@ export interface LitCheckboxProps {
 }
 
 export default defineComponent({
+  components: { PIcon, PSpinner },
   name: "lit-checkbox",
 
   props: [
@@ -51,6 +60,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-checkbox");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -293,8 +305,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

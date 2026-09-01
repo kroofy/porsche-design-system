@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from MultiSelect.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -22,8 +24,9 @@ export interface LitMultiSelectProps {
 @Component({
   selector: "lit-multi-select",
   template: `
+    <div class="p-multi-select" data-pds="multi-select">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="button"
           >{{labelText}} <slot name="label"></slot
@@ -44,17 +47,17 @@ export interface LitMultiSelectProps {
         ><p-icon></p-icon> {{messageText}}</span
       >
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-multi-select {
         display: contents;
       }
-      :host([hidden]) {
+      .p-multi-select[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitMultiSelect {
   @Input() disabled!: LitMultiSelectProps["disabled"];
@@ -65,6 +68,10 @@ export default class LitMultiSelect {
   @Input() label!: LitMultiSelectProps["label"];
   @Input() description!: LitMultiSelectProps["description"];
   @Input() required!: LitMultiSelectProps["required"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-multi-select");
+  }
 
   get cssText() {
     const minWidth: any = {

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Switch.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitSwitchProps {
     alignLabel?: any;
@@ -11,6 +12,8 @@
 </script>
 
 <script lang="ts">
+  import PSpinner from "../../../../spinner/output/frameworks/svelte/Spinner.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let checked: LitSwitchProps["checked"];
   export let disabled: LitSwitchProps["disabled"];
   export let loading: LitSwitchProps["loading"];
@@ -18,6 +21,7 @@
   export let alignLabel: LitSwitchProps["alignLabel"];
   export let hideLabel: LitSwitchProps["hideLabel"];
   export let stretch: LitSwitchProps["stretch"];
+  function __cmpProps() { return { checked, disabled, loading, compact, alignLabel, hideLabel, stretch }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -51,14 +55,14 @@
       }
       return obj;
     };
-    const checked = isTrue(checked);
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
-    const compact = isTrue(compact);
+    const checked = isTrue(__cmpProps().checked);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
+    const compact = isTrue(__cmpProps().compact);
     const blocked = disabled || loading;
-    const alignLabel = parse(alignLabel, "end");
-    const hideLabel = parse(hideLabel, false);
-    const stretch = parse(stretch, false);
+    const alignLabel = parse(__cmpProps().alignLabel, "end");
+    const hideLabel = parse(__cmpProps().hideLabel, false);
+    const stretch = parse(__cmpProps().stretch, false);
     const alignBase =
       typeof alignLabel === "object" && alignLabel !== null
         ? pick(alignLabel, "base", "end")
@@ -180,27 +184,29 @@
   };
   $: ariaDisabled = () => {
     const disabled =
-      disabled === true || disabled === "true" || disabled === "";
-    const loading = loading === true || loading === "true" || loading === "";
+      __cmpProps().disabled === true || __cmpProps().disabled === "true" || __cmpProps().disabled === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return disabled || loading ? "true" : "";
   };
   $: ariaChecked = () => {
-    const checked = checked === true || checked === "true" || checked === "";
+    const checked = __cmpProps().checked === true || __cmpProps().checked === "true" || __cmpProps().checked === "";
     return checked ? "true" : "false";
   };
   $: loadingText = () => {
-    const loading = loading === true || loading === "true" || loading === "";
+    const loading = __cmpProps().loading === true || __cmpProps().loading === "true" || __cmpProps().loading === "";
     return loading ? "Loading" : "";
   };
+  $: __pdsComponents = { PSpinner };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-switch");
 </script>
 
+<div class="p-switch" data-pds="switch">
 <div class="wrap">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<button
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<button
     type="button"
     role="switch"
     ><span class="toggle"
-      ><svelte:component
-        this={p - spinner}
+      ><PSpinner
         class="spinner"
         aria-hidden="true"
       /></span
@@ -210,8 +216,5 @@
   >
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

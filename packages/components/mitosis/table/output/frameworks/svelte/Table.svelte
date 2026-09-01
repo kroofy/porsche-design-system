@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Table.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTableProps {
     caption?: string;
@@ -8,14 +9,16 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let compact: LitTableProps["compact"];
   export let layout: LitTableProps["layout"];
   export let caption: LitTableProps["caption"];
+  function __cmpProps() { return { compact, layout, caption }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
-    const compact = isTrue(compact);
-    const layout = layout || "auto";
+    const compact = isTrue(__cmpProps().compact);
+    const layout = __cmpProps().layout || "auto";
     const pad = compact
       ? "var(--p-spacing-static-sm)"
       : "var(--p-spacing-fluid-sm)";
@@ -46,17 +49,13 @@
   $: captionText = () => {
     return caption || "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-table");
 </script>
 
+<div class="p-table" data-pds="table">
 <div class="table" role="table">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot />
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot />
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

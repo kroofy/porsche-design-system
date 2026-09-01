@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from AiTag.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -12,32 +14,37 @@ export interface LitAiTagProps {
 @Component({
   selector: "lit-ai-tag",
   template: `
+    <div class="p-ai-tag" data-pds="ai-tag">
     <div>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <ng-container *ngIf="isAbbreviation"
         ><abbr [attr.title]="longLabel">{{shortLabel}}</abbr></ng-container
       ><ng-container *ngIf="!(isAbbreviation)">{{copyLabel}}</ng-container>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-ai-tag {
         display: contents;
       }
-      :host {
+      .p-ai-tag {
         display: inline-flex;
         vertical-align: top;
         white-space: nowrap;
       }
-      :host([hidden]) {
+      .p-ai-tag[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitAiTag {
   @Input() locale!: LitAiTagProps["locale"];
   @Input() variant!: LitAiTagProps["variant"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-ai-tag");
+  }
 
   get cssText() {
     const iconMask =

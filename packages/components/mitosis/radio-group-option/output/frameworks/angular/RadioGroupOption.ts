@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from RadioGroupOption.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -19,10 +21,11 @@ export interface LitRadioGroupOptionProps {
 @Component({
   selector: "lit-radio-group-option",
   template: `
+    <div class="p-radio-group-option" data-pds="radio-group-option">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="wrapper">
-        <input type="radio" />
+        <input type="radio"  [value]="inputValue" [disabled]="isDisabled" />
         <p-spinner class="spinner" aria-hidden="true"></p-spinner>
       </div>
       <div class="label-wrapper">
@@ -33,20 +36,20 @@ export interface LitRadioGroupOptionProps {
       </div>
       <span class="loading" id="loading">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-radio-group-option {
         display: contents;
       }
-      :host {
+      .p-radio-group-option {
         display: block;
       }
-      :host([hidden]) {
+      .p-radio-group-option[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitRadioGroupOption {
   @Input() disabled!: LitRadioGroupOptionProps["disabled"];
@@ -58,6 +61,10 @@ export default class LitRadioGroupOption {
   @Input() label!: LitRadioGroupOptionProps["label"];
   @Input() name!: LitRadioGroupOptionProps["name"];
   @Input() value!: LitRadioGroupOptionProps["value"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-radio-group-option");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

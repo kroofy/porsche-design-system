@@ -1,12 +1,18 @@
+<!-- mitosis-native-host: native vue from TableCell.lite.tsx -->
 <template>
+  <div class="p-table-cell" data-pds="table-cell">
+
   <div class="root">
-    <component v-html="cssText" :is="'style'"></component><slot></slot>
+    <component v-html="scopedCssText" :is="'style'"></component><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitTableCellProps {
   multiline?: any;
 }
@@ -17,6 +23,9 @@ export default defineComponent({
   props: ["multiline"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-table-cell");
+    },
     cssText() {
       const multiline =
         this.multiline === true ||
@@ -37,11 +46,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: table-cell;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

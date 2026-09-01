@@ -1,13 +1,19 @@
+<!-- mitosis-native-host: native vue from MultiSelectOption.lite.tsx -->
 <template>
+  <div class="p-multi-select-option" data-pds="multi-select-option">
+
   <div class="option">
-    <component v-html="cssText" :is="'style'"></component
+    <component v-html="scopedCssText" :is="'style'"></component
     ><span class="checkbox"></span><slot></slot>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitMultiSelectOptionProps {
   value?: any;
   disabled?: any;
@@ -23,6 +29,9 @@ export default defineComponent({
   props: ["disabled", "disabledParent", "selected", "highlighted"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-multi-select-option");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const disabled = isTrue(this.disabled) || isTrue(this.disabledParent);
@@ -124,11 +133,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: block;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

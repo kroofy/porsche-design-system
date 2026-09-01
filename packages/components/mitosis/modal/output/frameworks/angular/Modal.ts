@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Modal.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -17,8 +19,9 @@ export interface LitModalProps {
 @Component({
   selector: "lit-modal",
   template: `
+    <div class="p-modal" data-pds="modal">
     <dialog aria-modal="true" [attr.inert]="true" [attr.tabIndex]="-1">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="scroller">
         <div class="modal">
           <button class="dismiss" type="button">
@@ -30,20 +33,20 @@ export interface LitModalProps {
         </div>
       </div>
     </dialog>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-modal {
         display: contents;
       }
-      :host {
+      .p-modal {
         display: contents;
       }
-      :host([hidden]) {
+      .p-modal[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitModal {
   @Input() open!: LitModalProps["open"];
@@ -52,6 +55,10 @@ export default class LitModal {
   @Input() backdrop!: LitModalProps["backdrop"];
   @Input() fullscreen!: LitModalProps["fullscreen"];
   @Input() aria!: LitModalProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-modal");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

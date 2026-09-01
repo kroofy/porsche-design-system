@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from Button.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitButtonProps {
+  className?: string;
   type?: string;
   variant?: string;
   icon?: string;
@@ -244,11 +249,13 @@ function LitButton(props: LitButtonProps) {
     return loading ? "Loading" : "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-button", props.className].filter(Boolean).join(" ")}
+      data-pds="button"
+    >
       <button className="root" type={buttonType()}>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <p-icon
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: inline-block;\n          vertical-align: top;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-button") }} />
+        <PIcon
           className="icon"
           size="inherit"
           color="inherit"
@@ -256,24 +263,15 @@ function LitButton(props: LitButtonProps) {
           name={iconName()}
           source={iconSrc()}
         />
-        <p-spinner className="spinner" size="inherit" aria-hidden="true" />
+        <PSpinner className="spinner" size="inherit" aria-hidden="true" />
         <span className="label">
-          <slot />
+          {props.children}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </button>{" "}
-      <style jsx>{`
-        :host {
-          display: inline-block;
-          vertical-align: top;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitButton;

@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from RadioGroup.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitRadioGroupProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -232,39 +237,36 @@ function LitRadioGroup(props: LitRadioGroupProps) {
     return "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-radio-group", props.className].filter(Boolean).join(" ")}
+      data-pds="radio-group"
+    >
       <fieldset className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-radio-group") }} />
         <div className="label-wrapper">
           <div className="label" id="label">
             {labelText()}
-            <slot name="label" />
+            {props["label"] ?? null}
           </div>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
-          <slot name="description" />
+          {props["description"] ?? null}
         </span>
         <div className="wrapper">
-          <slot />
-          <p-spinner className="spinner" aria-hidden="true" />
+          {props.children}
+          <PSpinner className="spinner" aria-hidden="true" />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading">
           {loadingText()}
         </span>
       </fieldset>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitRadioGroup;

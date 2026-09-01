@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from RadioGroupOption.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitRadioGroupOptionProps {
+  className?: string;
   value?: any;
   label?: string;
   disabled?: any;
@@ -212,35 +216,30 @@ function LitRadioGroupOption(props: LitRadioGroupOptionProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-radio-group-option", props.className].filter(Boolean).join(" ")}
+      data-pds="radio-group-option"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-radio-group-option") }} />
         <div className="wrapper">
-          <input type="radio" />
-          <p-spinner className="spinner" aria-hidden="true" />
+          <input type="radio"  value={inputValue()} disabled={!!isDisabled()} name={props.name} />
+          <PSpinner className="spinner" aria-hidden="true" />
         </div>
         <div className="label-wrapper">
           <label className="label" id="label">
             {labelText()}
-            <slot name="label" />
+            {props["label"] ?? null}
           </label>
           <span className="label-after">
-            <slot name="label-after" />
+            {props["label-after"] ?? null}
           </span>
         </div>
         <span className="loading" id="loading">
           {loadingText()}
         </span>
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

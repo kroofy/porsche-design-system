@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Divider.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -18,28 +20,33 @@ export interface LitDividerProps {
 @Component({
   selector: "lit-divider",
   template: `
+    <div class="p-divider" data-pds="divider">
     <ng-container
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <hr
     /></ng-container>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-divider {
         display: contents;
       }
-      :host {
+      .p-divider {
         display: block;
       }
-      :host([hidden]) {
+      .p-divider[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitDivider {
   @Input() direction!: LitDividerProps["direction"];
   @Input() color!: LitDividerProps["color"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-divider");
+  }
 
   get cssText() {
     const colorMap: any = {

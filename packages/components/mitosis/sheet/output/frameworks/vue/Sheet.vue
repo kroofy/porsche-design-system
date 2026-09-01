@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Sheet.lite.tsx -->
 <template>
+  <div class="p-sheet" data-pds="sheet">
+
   <dialog aria-modal="true" :inert="true" :tabIndex="-1">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="scroller">
       <div class="sheet">
         <button class="dismiss" type="button"><span>Dismiss sheet</span></button
@@ -8,11 +11,14 @@
       </div>
     </div>
   </dialog>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitSheetProps {
   open?: any;
   dismissButton?: any;
@@ -27,6 +33,9 @@ export default defineComponent({
   props: ["open", "dismissButton", "background", "aria"],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-sheet");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const isOpen = isTrue(this.open);
@@ -189,11 +198,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

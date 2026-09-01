@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TableHeadCell.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,24 +15,25 @@ export interface LitTableHeadCellProps {
 @Component({
   selector: "lit-table-head-cell",
   template: `
+    <div class="p-table-head-cell" data-pds="table-head-cell">
     <span
-      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      ><style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot
     ></span>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-table-head-cell {
         display: contents;
       }
-      :host {
+      .p-table-head-cell {
         display: table-cell;
       }
-      :host([hidden]) {
+      .p-table-head-cell[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTableHeadCell {
   @Input() sort!: LitTableHeadCellProps["sort"];
@@ -53,6 +56,10 @@ export default class LitTableHeadCell {
     if (!sort) return false;
     return sort.active !== undefined && sort.direction !== undefined;
   }
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-table-head-cell");
+  }
+
   get cssText() {
     const sort: any = this.parseSort();
     const active = sort ? sort.active : undefined;

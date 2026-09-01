@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from ButtonTile.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitButtonTileProps {
     size?: any;
@@ -18,6 +19,7 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let size: LitButtonTileProps["size"];
   export let weight: LitButtonTileProps["weight"];
   export let aspectRatio: LitButtonTileProps["aspectRatio"];
@@ -28,6 +30,7 @@
   export let gradient: LitButtonTileProps["gradient"];
   export let description: LitButtonTileProps["description"];
   export let label: LitButtonTileProps["label"];
+  function __cmpProps() { return { size, weight, aspectRatio, compact, align, disabled, loading, gradient, description, label }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -84,24 +87,24 @@
       inherit: "inherit",
     };
     const weightToken: any = {
-      regular: "var(--p-font-weight-normal)",
-      "semi-bold": "var(--p-font-weight-semibold)",
-      normal: "var(--p-font-weight-normal)",
-      semibold: "var(--p-font-weight-semibold)",
-      bold: "var(--p-font-weight-bold)",
+      regular: "var(--p-font-__cmpProps().__cmpProps().weight-normal)",
+      "semi-bold": "var(--p-font-__cmpProps().__cmpProps().weight-semibold)",
+      normal: "var(--p-font-__cmpProps().__cmpProps().weight-normal)",
+      semibold: "var(--p-font-__cmpProps().__cmpProps().weight-semibold)",
+      bold: "var(--p-font-__cmpProps().__cmpProps().weight-bold)",
     };
     const gradientStops =
       "hsla(from var(--p-color-canvas) h s l / .8) 0%,hsla(from var(--p-color-canvas) h s l / .8) 8.1%,hsla(from var(--p-color-canvas) h s l / .8) 15.5%,hsla(from var(--p-color-canvas) h s l / .8) 22.5%,hsla(from var(--p-color-canvas) h s l / .78) 29%,hsla(from var(--p-color-canvas) h s l / .73) 35.3%,hsla(from var(--p-color-canvas) h s l / .67) 41.2%,hsla(from var(--p-color-canvas) h s l / .6) 47.1%,hsla(from var(--p-color-canvas) h s l / .52) 52.9%,hsla(from var(--p-color-canvas) h s l / .44) 58.8%,hsla(from var(--p-color-canvas) h s l / .33) 64.7%,hsla(from var(--p-color-canvas) h s l / .22) 71%,hsla(from var(--p-color-canvas) h s l / .12) 77.5%,hsla(from var(--p-color-canvas) h s l / .05) 84.5%,hsla(from var(--p-color-canvas) h s l / .011) 91.9%,hsla(from var(--p-color-canvas) h s l / 0) 100%";
-    const size = parse(size, "medium");
-    const weight = parse(weight, "semi-bold");
-    const aspectRatio = parse(aspectRatio, "4/3");
-    let compact: any = parse(compact, false);
+    const size = parse(__cmpProps().size, "medium");
+    const weight = parse(__cmpProps().weight, "semi-bold");
+    const aspectRatio = parse(__cmpProps().aspectRatio, "4/3");
+    let compact: any = parse(__cmpProps().compact, false);
     if (compact === "true") compact = true;
     if (compact === "false") compact = false;
-    const align = align || "bottom";
+    const align = __cmpProps().align || "bottom";
     const isTop = align === "top";
-    const disabled = isTrue(disabled);
-    const loading = isTrue(loading);
+    const disabled = isTrue(__cmpProps().disabled);
+    const loading = isTrue(__cmpProps().loading);
     const isDisabledOrLoading = disabled || loading;
     const hasGradient = isTrue(gradient);
     const hasFooterSlot = false;
@@ -263,10 +266,12 @@
   $: labelText = () => {
     return label || "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: flex;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-button-tile");
 </script>
 
+<div class="p-button-tile" data-pds="button-tile">
 <div class="root">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot name="header" />
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot name="header" />
   <div class="media"><slot /></div>
   <div class="footer">
     <p>{descriptionText()}</p>
@@ -274,11 +279,5 @@
   </div>
 </div>
 
-<style>
-  :host {
-    display: flex;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

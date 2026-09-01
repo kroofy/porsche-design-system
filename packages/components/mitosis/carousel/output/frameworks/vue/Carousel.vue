@@ -1,13 +1,19 @@
+<!-- mitosis-native-host: native vue from Carousel.lite.tsx -->
 <template>
+  <div class="p-carousel" data-pds="carousel">
+
   <div class="header">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="nav"></div>
+  </div>
+
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitCarouselProps {
   heading?: any;
   headingSize?: any;
@@ -42,6 +48,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-carousel");
+    },
     cssText() {
       const isTrue = (v: any) => v === true || v === "true" || v === "";
       const parse = (raw: any, fallback: any) => {
@@ -202,12 +211,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: flex;
-  flex-direction: column;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

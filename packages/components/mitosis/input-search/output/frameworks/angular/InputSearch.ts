@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputSearch.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -29,8 +31,9 @@ export interface LitInputSearchProps {
 @Component({
   selector: "lit-input-search",
   template: `
+    <div class="p-input-search" data-pds="input-search">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-search">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -43,7 +46,7 @@ export interface LitInputSearchProps {
           color="contrast-medium"
           aria-hidden="true"
         ></p-icon>
-        <input type="search" id="input-search" dir="auto" />
+        <input type="search" id="input-search" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue" />
         <p-button-pure
           class="button"
           type="button"
@@ -60,17 +63,17 @@ export interface LitInputSearchProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-search {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-search[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputSearch {
   @Input() disabled!: LitInputSearchProps["disabled"];
@@ -87,6 +90,10 @@ export default class LitInputSearch {
   @Input() value!: LitInputSearchProps["value"];
   @Input() maxLength!: LitInputSearchProps["maxLength"];
   @Input() placeholder!: LitInputSearchProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-search");
+  }
 
   get cssText() {
     const minWidth: any = {

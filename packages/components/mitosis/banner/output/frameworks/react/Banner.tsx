@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Banner.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitBannerProps {
+  className?: string;
   open?: any;
   heading?: string;
   headingTag?: string;
@@ -14,7 +17,7 @@ function LitBanner(props: LitBannerProps) {
   function cssText() {
     const visual = props.state || "info";
     const heading = props.heading || "";
-    const hasHeadingSlot = hasHeadingSlot();
+    const hasHeadingSlot = hasHeadingSlot__fn();
     const hasHeading = !!(heading || hasHeadingSlot);
     let dismiss: any = props.dismissButton;
     if (dismiss === false || dismiss === "false") {
@@ -213,7 +216,7 @@ function LitBanner(props: LitBannerProps) {
     return true;
   }
 
-  function hasHeadingSlot() {
+  function hasHeadingSlot__fn() {
     return false;
   }
 
@@ -241,28 +244,23 @@ function LitBanner(props: LitBannerProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-banner", props.className].filter(Boolean).join(" ")}
+      data-pds="banner"
+    >
       <div popover="manual">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: contents;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-banner") }} />
         <div className="notification">
           <h5>{headingText()}</h5>
           <p>{descriptionText()}</p>
-          <slot name="heading" />
-          <slot name="description" />
+          {props["heading"] ?? null}
+          {props["description"] ?? null}
           <button className="dismiss" type="button">
             <span>Close banner</span>
           </button>
         </div>
       </div>
-      <style jsx>{`
-        :host {
-          display: contents;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

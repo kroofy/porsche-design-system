@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from TextList.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -11,24 +13,29 @@ export interface LitTextListProps {
 @Component({
   selector: "lit-text-list",
   template: `
+    <div class="p-text-list" data-pds="text-list">
     <ul>
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <slot></slot>
     </ul>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-text-list {
         display: contents;
       }
-      :host([hidden]) {
+      .p-text-list[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitTextList {
   @Input() type!: LitTextListProps["type"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-text-list");
+  }
 
   get cssText() {
     const type = this.type || "unordered";

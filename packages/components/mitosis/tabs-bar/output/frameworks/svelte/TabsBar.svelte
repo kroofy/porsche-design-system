@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from TabsBar.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTabsBarProps {
     background?: string;
@@ -10,10 +11,13 @@
 </script>
 
 <script lang="ts">
+  import PScroller from "../../../../scroller/output/frameworks/svelte/Scroller.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let compact: LitTabsBarProps["compact"];
   export let background: LitTabsBarProps["background"];
   export let size: LitTabsBarProps["size"];
   export let activeTabIndex: LitTabsBarProps["activeTabIndex"];
+  function __cmpProps() { return { compact, background, size, activeTabIndex }; }
 
   $: cssText = () => {
     const minWidth: any = {
@@ -47,10 +51,10 @@
       }
       return obj;
     };
-    const compact = isTrue(compact);
-    const background = background || "none";
+    const compact = isTrue(__cmpProps().compact);
+    const background = __cmpProps().background || "none";
     const hasBackground = background !== "none";
-    const size = parse(size, "small");
+    const size = parse(__cmpProps().size, "small");
     const sizeBase =
       typeof size === "object" && size !== null
         ? pick(size, "base", "small")
@@ -171,17 +175,16 @@
   $: isCompact = () => {
     return compact === true || compact === "true" || compact === "";
   };
+  $: __pdsComponents = { PScroller };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-tabs-bar");
 </script>
 
+<div class="p-tabs-bar" data-pds="tabs-bar">
 <div class="wrap">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}<svelte:component
-    this={p - scroller}
-    class="scroller"><slot /><span class="bar" /></svelte:component
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}<PScroller
+    class="scroller"><slot /><span class="bar" /></PScroller
   >
 </div>
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

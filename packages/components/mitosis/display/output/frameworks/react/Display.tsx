@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Display.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDisplayProps {
+  className?: string;
   tag?: string;
   size?: any;
   align?: string;
@@ -76,21 +79,15 @@ function LitDisplay(props: LitDisplayProps) {
     return rootOpen + "font-size:" + fontFor(size) + rootClose;
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-display", props.className].filter(Boolean).join(" ")}
+      data-pds="display"
+    >
       <h3>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
-        <slot />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-display") }} />
+        {props.children}
       </h3>{" "}
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitDisplay;

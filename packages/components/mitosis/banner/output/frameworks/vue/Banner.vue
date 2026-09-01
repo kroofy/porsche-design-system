@@ -1,6 +1,9 @@
+<!-- mitosis-native-host: native vue from Banner.lite.tsx -->
 <template>
+  <div class="p-banner" data-pds="banner">
+
   <div popover="manual">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="notification">
       <h5>{{ headingText }}</h5>
       <p>{{ descriptionText }}</p>
@@ -8,11 +11,14 @@
       ><button class="dismiss" type="button"><span>Close banner</span></button>
     </div>
   </div>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitBannerProps {
   open?: any;
   heading?: string;
@@ -37,6 +43,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-banner");
+    },
     cssText() {
       const visual = this.state || "info";
       const heading = this.heading || "";
@@ -261,11 +270,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host {
-  display: contents;
-}
-:host([hidden]) {
-  display: none !important;
-}
-</style>

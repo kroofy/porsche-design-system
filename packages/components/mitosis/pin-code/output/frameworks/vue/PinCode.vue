@@ -1,21 +1,28 @@
+<!-- mitosis-native-host: native vue from PinCode.lite.tsx -->
 <template>
+  <div class="p-pin-code" data-pds="pin-code">
+
   <fieldset class="root">
-    <component v-html="cssText" :is="'style'"></component>
+    <component v-html="scopedCssText" :is="'style'"></component>
     <div class="label-wrapper">
       <label class="label" id="label" for="current-input">{{ labelText }}</label
       ><slot name="label-after"></slot>
     </div>
     <span class="label" id="description">{{ descriptionText }}</span>
-    <div class="wrapper"><input /><input /><input /><input /></div>
+    <div class="wrapper"><input  :disabled="isDisabled" :name="name" /><input  :disabled="isDisabled" :name="name" /><input  :disabled="isDisabled" :name="name" /><input  :disabled="isDisabled" :name="name" /></div>
     <span class="message" id="message"
-      ><p-icon aria-hidden="true"></p-icon>{{ messageText }}</span
+      ><PIcon aria-hidden="true"></PIcon>{{ messageText }}</span
     ><span class="loading" id="loading">{{ loadingText }}</span>
   </fieldset>
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import PIcon from "../../../../icon/output/frameworks/vue/Icon.vue";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitPinCodeProps {
   label?: string;
   description?: string;
@@ -35,6 +42,7 @@ export interface LitPinCodeProps {
 }
 
 export default defineComponent({
+  components: { PIcon },
   name: "lit-pin-code",
 
   props: [
@@ -53,6 +61,9 @@ export default defineComponent({
   ],
 
   computed: {
+    scopedCssText() {
+      return scopeCss(this.cssText || "", ".p-pin-code");
+    },
     cssText() {
       const minWidth: any = {
         xs: 480,
@@ -294,8 +305,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-:host([hidden]) {
-  display: none !important;
-}
-</style>

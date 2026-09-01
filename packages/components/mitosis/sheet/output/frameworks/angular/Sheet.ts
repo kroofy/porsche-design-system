@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Sheet.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -15,8 +17,9 @@ export interface LitSheetProps {
 @Component({
   selector: "lit-sheet",
   template: `
+    <div class="p-sheet" data-pds="sheet">
     <dialog aria-modal="true" [attr.inert]="true" [attr.tabIndex]="-1">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="scroller">
         <div class="sheet">
           <button class="dismiss" type="button">
@@ -27,26 +30,30 @@ export interface LitSheetProps {
         </div>
       </div>
     </dialog>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-sheet {
         display: contents;
       }
-      :host {
+      .p-sheet {
         display: contents;
       }
-      :host([hidden]) {
+      .p-sheet[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSheet {
   @Input() open!: LitSheetProps["open"];
   @Input() dismissButton!: LitSheetProps["dismissButton"];
   @Input() background!: LitSheetProps["background"];
   @Input() aria!: LitSheetProps["aria"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-sheet");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

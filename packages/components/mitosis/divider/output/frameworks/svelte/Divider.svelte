@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from Divider.lite.tsx -->
 <script context="module" lang="ts">
   export type DividerColor =
     | "contrast-lower"
@@ -14,8 +15,10 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let direction: LitDividerProps["direction"];
   export let color: LitDividerProps["color"];
+  function __cmpProps() { return { direction, color }; }
 
   $: cssText = () => {
     const colorMap: any = {
@@ -34,7 +37,7 @@
     };
     const horizontal = "height:1px;width:100%";
     const vertical = "height:100%;width:1px";
-    let direction = direction || "horizontal";
+    let direction = __cmpProps().direction || "horizontal";
     if (typeof direction === "string" && direction.charAt(0) === "{") {
       try {
         direction = JSON.parse(direction);
@@ -65,16 +68,14 @@
       responsive
     );
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-divider");
 </script>
 
-{@html `<${"style"}  >${cssText()}<${"/style"}>`}
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+<div class="p-divider" data-pds="divider">
+{@html `<${"style"}>${scopedCssText}<${"/style"}>`}
+
 <hr />
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

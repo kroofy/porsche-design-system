@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from SegmentedControl.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -23,8 +25,9 @@ export interface LitSegmentedControlProps {
 @Component({
   selector: "lit-segmented-control",
   template: `
+    <div class="p-segmented-control" data-pds="segmented-control">
     <fieldset class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <div class="label" id="label">
           {{labelText}} <slot name="label"></slot>
@@ -39,17 +42,17 @@ export interface LitSegmentedControlProps {
         ><p-icon aria-hidden="true"></p-icon> {{messageText}}</span
       >
     </fieldset>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-segmented-control {
         display: contents;
       }
-      :host([hidden]) {
+      .p-segmented-control[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitSegmentedControl {
   @Input() disabled!: LitSegmentedControlProps["disabled"];
@@ -62,6 +65,10 @@ export default class LitSegmentedControl {
   @Input() label!: LitSegmentedControlProps["label"];
   @Input() description!: LitSegmentedControlProps["description"];
   @Input() required!: LitSegmentedControlProps["required"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-segmented-control");
+  }
 
   get cssText() {
     const minWidth: any = {

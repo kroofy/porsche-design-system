@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from Optgroup.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitOptgroupProps {
+  className?: string;
   label?: string;
   disabled?: any;
   hidden?: any;
@@ -38,23 +41,18 @@ function LitOptgroup(props: LitOptgroupProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-optgroup", props.className].filter(Boolean).join(" ")}
+      data-pds="optgroup"
+    >
       <div role="group">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-optgroup") }} />
         <span id="label" role="presentation">
           {labelText()}
         </span>
-        <slot />
+        {props.children}
       </div>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

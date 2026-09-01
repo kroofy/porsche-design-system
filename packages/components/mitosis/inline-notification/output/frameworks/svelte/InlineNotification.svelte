@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from InlineNotification.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitInlineNotificationProps {
     heading?: string;
@@ -12,6 +13,8 @@
 </script>
 
 <script lang="ts">
+  import PButtonPure from "../../../../button-pure/output/frameworks/svelte/ButtonPure.svelte";
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let state: LitInlineNotificationProps["state"];
   export let heading: LitInlineNotificationProps["heading"];
   export let actionLabel: LitInlineNotificationProps["actionLabel"];
@@ -20,13 +23,14 @@
   export let description: LitInlineNotificationProps["description"];
   export let actionIcon: LitInlineNotificationProps["actionIcon"];
   export let actionLoading: LitInlineNotificationProps["actionLoading"];
+  function __cmpProps() { return { state, heading, actionLabel, dismissButton, headingTag, description, actionIcon, actionLoading }; }
 
   $: cssText = () => {
     const visual = state || "info";
-    const heading = heading || "";
-    const hasHeadingSlot = hasHeadingSlot();
+    const heading = __cmpProps().heading || "";
+    const hasHeadingSlot = hasHeadingSlot__fn();
     const hasHeading = !!(heading || hasHeadingSlot);
-    const actionLabel = actionLabel || "";
+    const actionLabel = __cmpProps().actionLabel || "";
     const hasAction = !!actionLabel;
     let dismiss: any = dismissButton;
     if (dismiss === false || dismiss === "false") {
@@ -124,7 +128,7 @@
     }
     return out;
   };
-  $: hasHeadingSlot = () => {
+  $: hasHeadingSlot__fn = () => {
     return false;
   };
   $: headingText = () => {
@@ -165,25 +169,21 @@
     const visual = state || "info";
     return visual === "warning" || visual === "error" ? "assertive" : "polite";
   };
+  $: __pdsComponents = { PButtonPure };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-inline-notification");
 </script>
 
+<div class="p-inline-notification" data-pds="inline-notification">
 <div class="notification">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <h5>{headingText()}</h5>
   <p>{descriptionText()}</p>
-  <slot name="heading" /><slot /><svelte:component
-    this={p - button - pure}
+  <slot name="heading" /><slot /><PButtonPure
     class="action"
-    icon={actionIconName()}>{actionLabelText()}</svelte:component
+    icon={actionIconName()}>{actionLabelText()}</PButtonPure
   ><button class="dismiss" type="button"><span>Close notification</span></button
   >
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from ToastItem.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitToastItemProps {
     text?: string;
@@ -6,8 +7,10 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let state: LitToastItemProps["state"];
   export let text: LitToastItemProps["text"];
+  function __cmpProps() { return { state, text }; }
 
   $: cssText = () => {
     const visual = state || "info";
@@ -88,21 +91,17 @@
   $: textValue = () => {
     return text || "";
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: block;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-toast-item");
 </script>
 
+<div class="p-toast-item" data-pds="toast-item">
 <div class="notification">
-  {@html `<${"style"}  >${cssText()}<${"/style"}>`}
+  {@html `<${"style"}>${scopedCssText}<${"/style"}>`}
   <p>{textValue()}</p>
   <button class="dismiss" type="button"
     ><span>Close notification message</span></button
   >
 </div>
 
-<style>
-  :host {
-    display: block;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

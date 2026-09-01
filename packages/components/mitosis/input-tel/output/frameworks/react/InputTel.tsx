@@ -1,6 +1,11 @@
+/* mitosis-native-host: native react from InputTel.lite.tsx */
 import * as React from "react";
 
+import PSpinner from "../../../../spinner/output/frameworks/react/Spinner";
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitInputTelProps {
+  className?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -264,40 +269,37 @@ function LitInputTel(props: LitInputTelProps) {
     return props.placeholder || "";
   }
   return (
-    <>
-      {" "}
+    <div
+      className={["p-input-tel", props.className].filter(Boolean).join(" ")}
+      data-pds="input-tel"
+    >
       <div className="root">
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-input-tel") }} />
         <div className="label-wrapper">
           <label className="label" id="label" htmlFor="input-tel">
             {labelText()}
           </label>
-          <slot name="label-after" />
+          {props["label-after"] ?? null}
         </div>
         <span className="label" id="description">
           {descriptionText()}
         </span>
         <div className="wrapper">
-          <slot name="start" />
-          <p-icon name="phone" color="contrast-low" aria-hidden="true" />
-          <input type="tel" id="input-tel" dir="auto" />
-          <slot name="end" />
-          <p-spinner aria-hidden="true" />
+          {props["start"] ?? null}
+          <PIcon name="phone" color="contrast-low" aria-hidden="true" />
+          <input type="tel" id="input-tel" dir="auto"  value={inputValue()} placeholder={placeholderText()} disabled={!!isDisabled()} readOnly={!!isReadOnly()} maxLength={maxLengthValue() || undefined} />
+          {props["end"] ?? null}
+          <PSpinner aria-hidden="true" />
         </div>
         <span className="message" id="message">
-          <p-icon aria-hidden="true" />
+          <PIcon aria-hidden="true" />
           {messageText()}
         </span>
         <span className="loading" id="loading" role="status">
           {loadingText()}
         </span>
       </div>{" "}
-      <style jsx>{`
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>{" "}
-    </>
+    </div>
   );
 }
 export default LitInputTel;

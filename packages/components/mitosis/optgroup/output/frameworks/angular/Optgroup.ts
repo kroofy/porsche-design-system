@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Optgroup.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -13,29 +15,34 @@ export interface LitOptgroupProps {
 @Component({
   selector: "lit-optgroup",
   template: `
+    <div class="p-optgroup" data-pds="optgroup">
     <div role="group">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <span id="label" role="presentation">{{labelText}}</span>
       <slot></slot>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-optgroup {
         display: contents;
       }
-      :host {
+      .p-optgroup {
         display: block;
       }
-      :host([hidden]) {
+      .p-optgroup[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitOptgroup {
   @Input() disabled!: LitOptgroupProps["disabled"];
   @Input() label!: LitOptgroupProps["label"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-optgroup");
+  }
 
   get cssText() {
     const isTrue = (v: any) => v === true || v === "true" || v === "";

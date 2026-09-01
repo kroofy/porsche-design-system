@@ -1,6 +1,10 @@
+/* mitosis-native-host: native react from Pagination.lite.tsx */
 import * as React from "react";
 
+import PIcon from "../../../../icon/output/frameworks/react/Icon";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitPaginationProps {
+  className?: string;
   totalItemsCount?: any;
   itemsPerPage?: any;
   activePage?: any;
@@ -90,26 +94,21 @@ function LitPagination(props: LitPaginationProps) {
   }
 
   return (
-    <>
+    <div
+      className={["p-pagination", props.className].filter(Boolean).join(" ")}
+      data-pds="pagination"
+    >
       <nav>
-        <style dangerouslySetInnerHTML={{ __html: cssText() }} />
+        <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: block;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      " + cssText(), ".p-pagination") }} />
         <ul>
           <li className="prev">
             <span>
-              <p-icon name="arrow-left" color="primary" aria-hidden="true" />
+              <PIcon name="arrow-left" color="primary" aria-hidden="true" />
             </span>
           </li>
         </ul>
       </nav>
-      <style jsx>{`
-        :host {
-          display: block;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
-    </>
+    </div>
   );
 }
 

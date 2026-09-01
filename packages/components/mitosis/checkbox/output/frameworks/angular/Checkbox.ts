@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from Checkbox.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -22,11 +24,12 @@ export interface LitCheckboxProps {
 @Component({
   selector: "lit-checkbox",
   template: `
+    <div class="p-checkbox" data-pds="checkbox">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="wrapper">
         <div class="input-wrapper">
-          <input type="checkbox" />
+          <input type="checkbox"  [disabled]="isDisabled" />
           <p-spinner class="spinner" aria-hidden="true"></p-spinner>
         </div>
         <div class="label-wrapper">
@@ -38,17 +41,17 @@ export interface LitCheckboxProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-checkbox {
         display: contents;
       }
-      :host([hidden]) {
+      .p-checkbox[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitCheckbox {
   @Input() disabled!: LitCheckboxProps["disabled"];
@@ -59,6 +62,10 @@ export default class LitCheckbox {
   @Input() label!: LitCheckboxProps["label"];
   @Input() hideLabel!: LitCheckboxProps["hideLabel"];
   @Input() checked!: LitCheckboxProps["checked"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-checkbox");
+  }
 
   get cssText() {
     const minWidth: any = {

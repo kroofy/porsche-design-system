@@ -1,6 +1,9 @@
+/* mitosis-native-host: native react from DrilldownLink.lite.tsx */
 import * as React from "react";
 
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 export interface LitDrilldownLinkProps {
+  className?: string;
   href?: any;
   active?: any;
   target?: any;
@@ -76,17 +79,16 @@ function LitDrilldownLink(props: LitDrilldownLinkProps) {
   }
 
   return (
-    <>
-      <slot />
-      <style jsx>{`
-        :host {
-          display: grid;
-        }
-        :host([hidden]) {
-          display: none !important;
-        }
-      `}</style>
+    <div
+      className={["p-drilldown-link", props.className].filter(Boolean).join(" ")}
+      data-pds="drilldown-link"
+    >
+      <style dangerouslySetInnerHTML={{ __html: scopeCss("\n        :host {\n          display: grid;\n        }\n        :host([hidden]) {\n          display: none !important;\n        }\n      ", ".p-drilldown-link") }} />
+        <>
+      {props.children}
+      
     </>
+    </div>
   );
 }
 

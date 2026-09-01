@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from TableHeadCell.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitTableHeadCellProps {
     sort?: any;
@@ -7,12 +8,14 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let sort: LitTableHeadCellProps["sort"];
   export let hideLabel: LitTableHeadCellProps["hideLabel"];
   export let multiline: LitTableHeadCellProps["multiline"];
+  function __cmpProps() { return { sort, hideLabel, multiline }; }
 
   function parseSort() {
-    let sort: any = sort;
+    let sort: any = __cmpProps().sort;
     if (typeof sort === "string" && sort.charAt(0) === "{") {
       try {
         sort = JSON.parse(sort);
@@ -33,9 +36,9 @@
     const direction = sort ? sort.direction : undefined;
     const sortable = active !== undefined && direction !== undefined;
     const hideLabel =
-      hideLabel === true || hideLabel === "true" || hideLabel === "";
+      __cmpProps().hideLabel === true || __cmpProps().hideLabel === "true" || __cmpProps().hideLabel === "";
     const multiline =
-      multiline === true || multiline === "true" || multiline === "";
+      __cmpProps().multiline === true || __cmpProps().multiline === "true" || __cmpProps().multiline === "";
     const whiteSpace = multiline ? "normal" : "nowrap";
     let out =
       ":host{display:table-cell;" +
@@ -67,15 +70,11 @@
     }
     return out;
   };
+  $: scopedCssText = scopeCss("\n  :host {\n    display: table-cell;\n  }\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-table-head-cell");
 </script>
 
-<span>{@html `<${"style"}  >${cssText()}<${"/style"}>`}<slot /></span>
+<div class="p-table-head-cell" data-pds="table-head-cell">
+<span>{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<slot /></span>
 
-<style>
-  :host {
-    display: table-cell;
-  }
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

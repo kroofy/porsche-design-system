@@ -1,3 +1,4 @@
+<!-- mitosis-native-host: native svelte from StepperHorizontalItem.lite.tsx -->
 <script context="module" lang="ts">
   export interface LitStepperHorizontalItemProps {
     state?: string;
@@ -6,13 +7,15 @@
 </script>
 
 <script lang="ts">
+  import { scopeCss } from "../../../../_runtime/scope-css.js";
   export let state: LitStepperHorizontalItemProps["state"];
   export let disabled: LitStepperHorizontalItemProps["disabled"];
+  function __cmpProps() { return { state, disabled }; }
 
   $: cssText = () => {
     const isTrue = (v: any) => v === true || v === "true" || v === "";
     const step = state || "";
-    const disabled = isTrue(disabled);
+    const disabled = isTrue(__cmpProps().disabled);
     const isCurrent = step === "current";
     const isDot = !step || isCurrent;
     const isDisabled = !step || disabled;
@@ -95,15 +98,14 @@
   $: stateLabel = () => {
     return state || "";
   };
+  $: scopedCssText = scopeCss("\n  :host([hidden]) {\n    display: none !important;\n  }\n" + (typeof cssText === "function" ? cssText() : (cssText || "")), ".p-stepper-horizontal-item");
 </script>
 
+<div class="p-stepper-horizontal-item" data-pds="stepper-horizontal-item">
 <button type="button"
-  >{@html `<${"style"}  >${cssText()}<${"/style"}>`}<span class="icon" /><slot
+  >{@html `<${"style"}>${scopedCssText}<${"/style"}>`}<span class="icon" /><slot
   /></button
 >
 
-<style>
-  :host([hidden]) {
-    display: none !important;
-  }
-</style>
+
+</div>

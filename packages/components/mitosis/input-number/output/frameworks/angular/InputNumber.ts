@@ -1,4 +1,6 @@
+/* mitosis-native-host: native angular from InputNumber.lite.tsx */
 import { NgModule } from "@angular/core";
+import { scopeCss } from "../../../../_runtime/scope-css.js";
 import { CommonModule } from "@angular/common";
 
 import { Component, Input } from "@angular/core";
@@ -28,8 +30,9 @@ export interface LitInputNumberProps {
 @Component({
   selector: "lit-input-number",
   template: `
+    <div class="p-input-number" data-pds="input-number">
     <div class="root">
-      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(cssText)"></style>
+      <style [innerHTML]="sanitizer.bypassSecurityTrustHtml(scopedCssText)"></style>
       <div class="label-wrapper">
         <label class="label" id="label" for="input-number">{{labelText}}</label>
         <slot name="label-after"></slot>
@@ -37,7 +40,7 @@ export interface LitInputNumberProps {
       <span class="label" id="description">{{descriptionText}}</span>
       <div class="wrapper">
         <slot name="start"></slot>
-        <input type="number" id="input-number" dir="auto" />
+        <input type="number" id="input-number" dir="auto"  [value]="inputValue" [placeholder]="placeholderText" [disabled]="isDisabled" [readOnly]="isReadOnly" [maxLength]="maxLengthValue" />
         <p-button-pure
           class="button"
           type="button"
@@ -62,17 +65,17 @@ export interface LitInputNumberProps {
       >
       <span class="loading" id="loading" role="status">{{loadingText}}</span>
     </div>
+  
+    </div>
   `,
-  styles: [
-    `
-      :host {
+  styles: [`
+      .p-input-number {
         display: contents;
       }
-      :host([hidden]) {
+      .p-input-number[hidden] {
         display: none !important;
       }
-    `,
-  ],
+    `],
 })
 export default class LitInputNumber {
   @Input() disabled!: LitInputNumberProps["disabled"];
@@ -88,6 +91,10 @@ export default class LitInputNumber {
   @Input() value!: LitInputNumberProps["value"];
   @Input() maxLength!: LitInputNumberProps["maxLength"];
   @Input() placeholder!: LitInputNumberProps["placeholder"];
+
+  get scopedCssText() {
+    return scopeCss(this.cssText, ".p-input-number");
+  }
 
   get cssText() {
     const minWidth: any = {
