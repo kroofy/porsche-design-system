@@ -2,6 +2,12 @@
 
 Side-by-side document that mounts the generated Mitosis `react`, `vue`, `angular`, and `svelte` files for every in-flow tag.
 
+Framework emit under `packages/components/mitosis/*/output/frameworks/` is generated and gitignored. Generate it first:
+
+```bash
+npm run generate:frameworks-all --workspace=@porsche-design-system/components
+```
+
 Install and start from this folder (not a workspace):
 
 ```bash
