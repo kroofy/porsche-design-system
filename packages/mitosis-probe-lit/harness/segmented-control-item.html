@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-segmented-control-item harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="frosted-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="selected-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-strong)"
+    ></div>
+    <section id="default">
+      <lit-segmented-control-item value="1">1</lit-segmented-control-item>
+    </section>
+    <section id="labeled">
+      <lit-segmented-control-item value="1" label="Model">1</lit-segmented-control-item>
+    </section>
+    <section id="icon">
+      <lit-segmented-control-item value="3" label="Model" icon="car">3</lit-segmented-control-item>
+    </section>
+    <section id="disabled">
+      <lit-segmented-control-item value="2" disabled="true">2</lit-segmented-control-item>
+    </section>
+    <section id="selected">
+      <lit-segmented-control-item value="1" selected="true">1</lit-segmented-control-item>
+    </section>
+    <section id="hidden">
+      <lit-segmented-control-item value="1" hidden>1</lit-segmented-control-item>
+    </section>
+    <script src="lit-segmented-control-item.bundle.js"></script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-segmented-control harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <section id="default">
+      <lit-segmented-control>
+        <span data-item="1">1</span>
+        <span data-item="2">2</span>
+      </lit-segmented-control>
+    </section>
+    <section id="disabled">
+      <lit-segmented-control disabled="true">
+        <span data-item="1">1</span>
+      </lit-segmented-control>
+    </section>
+    <section id="labeled">
+      <lit-segmented-control label="Some label">
+        <span data-item="1">1</span>
+      </lit-segmented-control>
+    </section>
+    <section id="success">
+      <lit-segmented-control state="success" message="Some message.">
+        <span data-item="1">1</span>
+      </lit-segmented-control>
+    </section>
+    <section id="columns">
+      <lit-segmented-control columns="2">
+        <span data-item="1">1</span>
+        <span data-item="2">2</span>
+      </lit-segmented-control>
+    </section>
+    <section id="hidden">
+      <lit-segmented-control hidden>
+        <span data-item="1">1</span>
+      </lit-segmented-control>
+    </section>
+    <script src="lit-segmented-control.bundle.js"></script>
+  </body>
+</html>

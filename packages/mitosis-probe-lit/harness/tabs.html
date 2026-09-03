@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-tabs harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="sm-ref"
+      style="position: absolute; width: 1px; height: 1px; margin-bottom: var(--p-spacing-static-sm)"
+    ></div>
+    <section id="default">
+      <lit-tabs>
+        <p-tabs-item label="Some label (1)"><span>Some content (1)</span></p-tabs-item>
+        <p-tabs-item label="Some label (2)"><span>Some content (2)</span></p-tabs-item>
+        <p-tabs-item label="Some label (3)"><span>Some content (3)</span></p-tabs-item>
+      </lit-tabs>
+    </section>
+    <section id="canvas">
+      <lit-tabs background="canvas">
+        <p-tabs-item label="Some label (1)"><span>Some content (1)</span></p-tabs-item>
+        <p-tabs-item label="Some label (2)"><span>Some content (2)</span></p-tabs-item>
+      </lit-tabs>
+    </section>
+    <section id="medium">
+      <lit-tabs size="medium">
+        <p-tabs-item label="Some label (1)"><span>Some content (1)</span></p-tabs-item>
+        <p-tabs-item label="Some label (2)"><span>Some content (2)</span></p-tabs-item>
+      </lit-tabs>
+    </section>
+    <section id="hide-size">
+      <lit-tabs size='{"base":"small","m":"medium"}'>
+        <p-tabs-item label="Some label (1)"><span>Some content (1)</span></p-tabs-item>
+      </lit-tabs>
+    </section>
+    <section id="hidden">
+      <lit-tabs hidden>
+        <p-tabs-item label="Some label (1)"><span>Some content (1)</span></p-tabs-item>
+      </lit-tabs>
+    </section>
+    <script src="lit-tabs.bundle.js"></script>
+  </body>
+</html>

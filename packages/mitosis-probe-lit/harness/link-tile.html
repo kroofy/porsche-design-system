@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-link-tile harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary); color-scheme: dark"
+    ></div>
+    <section id="default">
+      <lit-link-tile
+        aspect-ratio="3/4"
+        href="https://porsche.com"
+        target="_blank"
+        label="Some label"
+        description="Some description"
+      >
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some description" />
+      </lit-link-tile>
+    </section>
+    <section id="top">
+      <lit-link-tile
+        weight="regular"
+        size="large"
+        gradient="true"
+        align="top"
+        aspect-ratio="9/16"
+        href="https://porsche.com"
+        target="_blank"
+        label="Some label"
+        description="Some description"
+      >
+        <p-tag slot="header">Some tag</p-tag>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some description" />
+        <p-text slot="footer">Some footer</p-text>
+      </lit-link-tile>
+    </section>
+    <section id="compact-json">
+      <lit-link-tile
+        compact='{"base":false,"m":true}'
+        href="https://porsche.com"
+        label="Some label"
+        description="Some description"
+      >
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some description" />
+      </lit-link-tile>
+    </section>
+    <section id="no-href">
+      <lit-link-tile label="Some label" description="Some description">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some description" />
+      </lit-link-tile>
+    </section>
+    <section id="hidden">
+      <lit-link-tile hidden href="https://porsche.com" label="Hidden" description="Hidden">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Hidden" />
+      </lit-link-tile>
+    </section>
+    <script src="lit-link-tile.bundle.js"></script>
+  </body>
+</html>

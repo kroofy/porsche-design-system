@@ -1,4 +1,4 @@
-import { Fragment, type FunctionalComponent, h } from '@stencil/core';
+import { Fragment, type FunctionalComponent, h } from '../../../types/html-stencil-element';
 import { hasDescription, hasLabel, isParentFieldsetRequired } from '../../../utils';
 import { Required } from '../required/required';
 import { descriptionId, type LabelTag, labelId } from './label-utils';

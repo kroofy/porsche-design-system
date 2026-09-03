@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-spinner harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-spinner.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-sm)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-spinner size="sm" color="primary" aria="{'aria-label': 'Loading page content'}"></lit-spinner>
+    </section>
+    <section id="xl">
+      <lit-spinner size="5xl" color="primary"></lit-spinner>
+    </section>
+    <section id="inherit">
+      <lit-spinner class="text-[99px]" size="inherit" color="inherit"></lit-spinner>
+    </section>
+    <section id="cssvar">
+      <lit-spinner style="--p-spinner-size:99px" color="primary"></lit-spinner>
+    </section>
+    <section id="bp">
+      <lit-spinner size='{"base":"sm","m":"5xl"}' color="primary"></lit-spinner>
+    </section>
+    <section id="hidden">
+      <lit-spinner size="sm" hidden></lit-spinner>
+    </section>
+  </body>
+</html>

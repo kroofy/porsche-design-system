@@ -1,4 +1,4 @@
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import { describe, expect, it } from 'vitest';
 import { TabsItem } from './tabs-item';
 

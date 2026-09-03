@@ -1,255 +1,35 @@
-import {
-  AttachInternals,
-  Component,
-  Element,
-  Event,
-  type EventEmitter,
-  h,
-  type JSX,
-  Listen,
-  Prop,
-  Watch,
-} from '@stencil/core';
-import type { BreakpointCustomizable, PropTypes } from '../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  FORM_STATES,
-  getPrefixedTagNames,
-  hasLabel,
-  hasMessage,
-  hasPropValueChanged,
-  isDisabledOrLoading,
-  setAriaIDREF,
-  syncFormState,
-  validateProps,
-} from '../../utils';
-import { Label } from '../common/label/label';
-import { LoadingMessage, loadingId } from '../common/loading-message/loading-message';
-import { messageId, StateMessage } from '../common/state-message/state-message';
-import { getComponentCss } from './checkbox-styles';
-import type { CheckboxBlurEventDetail, CheckboxChangeEventDetail, CheckboxState } from './checkbox-utils';
-
-const propTypes: PropTypes<typeof Checkbox> = {
-  label: AllowedTypes.string,
-  name: AllowedTypes.string,
-  value: AllowedTypes.string,
-  required: AllowedTypes.boolean,
-  disabled: AllowedTypes.boolean,
-  indeterminate: AllowedTypes.boolean,
-  checked: AllowedTypes.boolean,
-  form: AllowedTypes.string,
-  state: AllowedTypes.oneOf<CheckboxState>(FORM_STATES),
-  message: AllowedTypes.string,
-  hideLabel: AllowedTypes.breakpoint('boolean'),
-  loading: AllowedTypes.boolean,
-  compact: AllowedTypes.boolean,
-};
 /**
- * @slot {"name": "label", "description": "Shows a label. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
- * @slot {"name": "label-after", "description": "Places additional content after the label text (for content that should not be part of the label, e.g. external links or `p-popover`)."}
- * @slot {"name": "message", "description": "Shows a state message. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
+ * Stencil no longer owns p-checkbox. The playground tag is the Mitosis Lit
+ * custom element from mitosis/checkbox/Checkbox.lite.tsx.
+ * This file stays so generateConstructorMap can still import class Checkbox.
+ * Global HTMLPCheckboxElement stays if other files still type those hosts after
+ * Stencil drops the @Component declaration.
  */
-@Component({
-  tag: 'p-checkbox',
-  shadow: { delegatesFocus: true },
-  formAssociated: true,
-})
 export class Checkbox {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  label?: string = '';
+  name?: string = '';
+  value?: string = 'on';
+  checked?: boolean = false;
+  indeterminate?: boolean = false;
+  disabled?: boolean = false;
+  loading?: boolean = false;
+  compact?: boolean = false;
+  required?: boolean = false;
+  state?: string = 'none';
+  message?: string = '';
+  hideLabel?: unknown = false;
+  form?: string;
+  render(): void {}
+}
 
-  /** Sets the name submitted with the form data to identify this checkbox's value on the server. */
-  @Prop({ reflect: true }) public name?: string = '';
-  // The "name" property is reflected as an attribute to ensure compatibility with native form submission.
-  // In the React wrapper, all props are synced as properties on the element ref, so reflecting "name" as an attribute ensures it is properly handled in the form submission process.
-
-  /** Marks the checkbox as required — form submission is blocked unless the checkbox is checked. */
-  @Prop() public required?: boolean = false;
-
-  /** Disables the checkbox, preventing all interaction. The value is not submitted with the form. */
-  @Prop({ mutable: true }) public disabled?: boolean = false;
-
-  /** Puts the checkbox into an indeterminate state, indicating that a group of child items is only partially selected. */
-  @Prop() public indeterminate?: boolean = false;
-
-  /** Reflects the checkbox's current checked state and allows setting the initial checked value on load. */
-  @Prop({ mutable: true }) public checked?: boolean = false;
-
-  /** Associates the checkbox with a form element by its ID when not directly nested inside it. */
-  @Prop({ reflect: true }) public form?: string; // The ElementInternals API automatically detects the form attribute
-
-  /**
-   * Sets the value submitted with the form data when the checkbox is checked.
-   * Unchecked checkboxes are excluded from form submissions.
-   */
-  @Prop() public value?: string = 'on';
-
-  /** Sets the visible label text displayed next to the checkbox. */
-  @Prop() public label?: string = '';
-
-  /** Sets the validation state, controlling the visual appearance and style of the feedback message (`none`, `success`, `error`). */
-  @Prop() public state?: CheckboxState = 'none';
-
-  /** Sets the validation feedback message displayed below the checkbox when `state` is `success` or `error`. */
-  @Prop() public message?: string = '';
-
-  /** Hides the visible label while keeping it accessible to screen readers. Supports responsive breakpoint values. */
-  @Prop() public hideLabel?: BreakpointCustomizable<boolean> = false;
-
-  /** @experimental Disables the checkbox and displays a loading spinner to indicate an ongoing operation. */
-  @Prop() public loading?: boolean = false;
-
-  /** Reduces the checkbox size and spacing for a more compact layout. */
-  @Prop() public compact?: boolean = false;
-
-  /** Emitted when the user changes the checked state of the checkbox. */
-  @Event({ bubbles: true }) public change: EventEmitter<CheckboxChangeEventDetail>;
-
-  /** Emitted when the checkbox loses focus. */
-  @Event({ bubbles: false }) public blur: EventEmitter<CheckboxBlurEventDetail>;
-
-  @AttachInternals() private internals: ElementInternals;
-
-  private initialLoading: boolean = false;
-  private defaultChecked: boolean;
-  private checkboxInputElement: HTMLInputElement;
-  private externalLabel: HTMLLabelElement | null = null;
-
-  @Listen('keydown')
-  public onKeydown(e: KeyboardEvent): void {
-    const { key } = e;
-    if ((key === ' ' || key === 'Spacebar') && isDisabledOrLoading(this.disabled, this.loading)) {
-      e.preventDefault();
-    }
+declare global {
+  interface HTMLPCheckboxElement extends HTMLElement {
+    checked?: boolean;
+    disabled?: boolean;
+    indeterminate?: boolean;
   }
-
-  @Watch('indeterminate')
-  public onIndeterminateChange(newValue: boolean): void {
-    if (this.checkboxInputElement) {
-      this.checkboxInputElement.indeterminate = newValue;
-    }
+  interface HTMLElementTagNameMap {
+    'p-checkbox': HTMLPCheckboxElement;
   }
-
-  public connectedCallback(): void {
-    this.initialLoading = this.loading;
-    this.externalLabel = this.host.closest('label');
-  }
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
-  }
-
-  public componentWillLoad(): void {
-    this.initialLoading = this.loading;
-    this.defaultChecked = this.checked;
-  }
-
-  public componentDidLoad(): void {
-    this.checkboxInputElement.indeterminate = this.indeterminate;
-  }
-
-  public componentWillUpdate(): void {
-    if (this.loading) {
-      this.initialLoading = true;
-    }
-  }
-
-  public formResetCallback(): void {
-    this.checked = this.defaultChecked;
-  }
-
-  public formDisabledCallback(disabled: boolean): void {
-    // Called when a parent fieldset is disabled or enabled
-    this.disabled = disabled;
-  }
-
-  public formStateRestoreCallback(state: string): void {
-    this.checked = !!state;
-  }
-
-  public componentDidRender(): void {
-    syncFormState(this.internals, this.checkboxInputElement, {
-      disabled: this.disabled,
-      // If the checkbox is unchecked it is removed from native form submission
-      value: this.checked ? this.value : null,
-    });
-
-    // Handle cross-root ARIA labeling when the component is wrapped in a <label> element.
-    // We use the Accessibility Object Model (AOM) ariaLabelledByElements property to establish
-    // the relationship across the shadow DOM boundary, as IDREF-based aria-labelledby doesn't work cross-root.
-    if (this.externalLabel && !hasLabel(this.host, this.label)) {
-      if ('ariaLabelledByElements' in this.checkboxInputElement) {
-        this.checkboxInputElement.ariaLabelledByElements = [this.externalLabel];
-      } else {
-        (this.checkboxInputElement as HTMLInputElement).ariaLabel = this.externalLabel.textContent || '';
-      }
-    }
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-
-    attachComponentCss(
-      this.host,
-      getComponentCss,
-      this.hideLabel,
-      this.state,
-      this.disabled,
-      this.loading,
-      this.compact
-    );
-
-    const PrefixedTagNames = getPrefixedTagNames(this.host);
-    const selectMessageId = hasMessage(this.host, this.message, this.state) ? messageId : undefined;
-
-    const id = 'x';
-    return (
-      <div class="root">
-        <div class="wrapper">
-          <div class="input-wrapper">
-            <input
-              type="checkbox"
-              id={id}
-              aria-describedby={setAriaIDREF(this.loading && loadingId, selectMessageId)}
-              aria-invalid={this.state === 'error' ? 'true' : null}
-              aria-disabled={this.loading || this.disabled ? 'true' : null}
-              checked={this.checked}
-              form={this.form}
-              value={this.value}
-              name={this.name}
-              onChange={this.onChange}
-              onBlur={this.onBlur}
-              required={this.required}
-              disabled={this.disabled}
-              ref={(el: HTMLInputElement) => (this.checkboxInputElement = el)}
-            />
-            {this.loading && <PrefixedTagNames.pSpinner class="spinner" aria-hidden="true" />}
-          </div>
-          <Label
-            host={this.host}
-            htmlFor={id}
-            label={this.label}
-            isLoading={this.loading}
-            isDisabled={this.disabled}
-            isRequired={this.required}
-          />
-        </div>
-        <StateMessage state={this.state} message={this.message} host={this.host} />
-        <LoadingMessage loading={this.loading} initialLoading={this.initialLoading} />
-      </div>
-    );
-  }
-
-  private onBlur = (e: Event): void => {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this.blur.emit(e);
-  };
-
-  private onChange = (e: Event): void => {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this.checked = (e.target as HTMLInputElement).checked;
-    this.change.emit(e);
-  };
 }

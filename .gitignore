@@ -67,6 +67,7 @@ packages/components/src/utils-entry.ts
 packages/components/src/styles-entry.ts
 packages/components/src/test-utils/tag-names-constructor-map.ts
 packages/components/src/assets/tailwind.css
+packages/components/mitosis/*/output/
 
 # Components JS
 packages/components-js/public/assets/styles.css
@@ -114,7 +115,9 @@ packages/components/projects/stylesheets/lib/
 packages/styles/projects/scss/meta/
 packages/styles/projects/tailwindcss/meta/
 packages/styles/projects/vanilla-extract/meta/
+packages/styles/projects/vanilla-extract/vanillaExtractMeta/deprecations.ts
 packages/styles/projects/emotion/meta/
+packages/styles/projects/emotion/emotionMeta/deprecations.ts
 packages/components/projects/stylesheets/meta/
 
 # Agent Skills, ignored for now for testing and review of the skills. Remove once we decided on what skills to keep.

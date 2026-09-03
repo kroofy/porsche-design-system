@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-tabs-bar harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="frosted-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="canvas-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-canvas)"
+    ></div>
+    <div
+      id="md-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-md)"
+    ></div>
+    <section id="default">
+      <lit-tabs-bar>
+        <button type="button">Some label (1)</button>
+        <button type="button">Some label (2)</button>
+        <button type="button">Some label (3)</button>
+      </lit-tabs-bar>
+    </section>
+    <section id="links">
+      <lit-tabs-bar active-tab-index="1">
+        <a href="#">Some link label (1)</a>
+        <a href="#">Some link label (2)</a>
+        <a href="#">Some link label (3)</a>
+      </lit-tabs-bar>
+    </section>
+    <section id="canvas">
+      <lit-tabs-bar active-tab-index="2" background="canvas">
+        <button type="button">Some label (1)</button>
+        <button type="button">Some label (2)</button>
+        <button type="button">Some label (3)</button>
+      </lit-tabs-bar>
+    </section>
+    <section id="medium">
+      <lit-tabs-bar active-tab-index="0" size="medium">
+        <button type="button">Some label (1)</button>
+        <button type="button">Some label (2)</button>
+      </lit-tabs-bar>
+    </section>
+    <section id="hide-size">
+      <lit-tabs-bar size='{"base":"small","m":"medium"}'>
+        <button type="button">Some label (1)</button>
+      </lit-tabs-bar>
+    </section>
+    <section id="hidden">
+      <lit-tabs-bar hidden>
+        <button type="button">Some label (1)</button>
+      </lit-tabs-bar>
+    </section>
+    <script src="lit-tabs-bar.bundle.js"></script>
+  </body>
+</html>

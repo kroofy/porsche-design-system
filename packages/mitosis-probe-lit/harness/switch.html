@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-switch harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-switch.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="border-ref"
+      style="position: absolute; width: 1px; height: 1px; border: 1px solid var(--p-color-contrast-low)"
+    ></div>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-soft)"
+    ></div>
+    <div
+      id="checked-bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-success-frosted-soft)"
+    ></div>
+    <div
+      id="toggle-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="checked-toggle-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-success)"
+    ></div>
+    <section id="default">
+      <lit-switch>Some label</lit-switch>
+    </section>
+    <section id="checked">
+      <lit-switch checked="true">Some label</lit-switch>
+    </section>
+    <section id="loading">
+      <lit-switch loading="true">Some label</lit-switch>
+    </section>
+    <section id="disabled">
+      <lit-switch disabled="true">Some label</lit-switch>
+    </section>
+    <section id="hide-label">
+      <lit-switch hide-label="true">Some label</lit-switch>
+    </section>
+    <section id="stretch">
+      <lit-switch stretch="true">Some label</lit-switch>
+    </section>
+    <section id="hidden">
+      <lit-switch hidden>Some label</lit-switch>
+    </section>
+    <section id="breakpoint">
+      <lit-switch stretch='{"base":false,"m":true}'>bp</lit-switch>
+    </section>
+  </body>
+</html>

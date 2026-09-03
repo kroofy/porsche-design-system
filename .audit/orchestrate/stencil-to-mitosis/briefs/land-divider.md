@@ -1,0 +1,9 @@
+GOAL         Land p-divider from the Mitosis Lit probe into packages/components as the real p-divider tag. Pixel-diff 0 vs the existing Stencil divider playground baseline.
+SCOPE        May write: packages/components (divider source, stencil exclude, mitosis build wiring for divider only), packages/mitosis-probe-lit/src/Divider.lite.tsx if tagName must become p-divider, .audit/orchestrate/stencil-to-mitosis/reports/land-divider.md, /opt/cursor/artifacts/mitosis_land_divider_after.png. May not write: other TAG_NAME sources, packages/mitosis-probe/**, wholesale Stencil deletion, framework wrappers.
+CONTEXT      All 75 TAG_NAMES now have probe .lite.tsx files. packages/components is still 100% Stencil. This is the first real land: playground http://localhost:3333/?components=divider must serve Mitosis-generated p-divider (not lit-divider, not Stencil). Recipe cssText/shadow/no-fragments/alias still apply. Existing baseline: .audit/orchestrate/stencil-to-mitosis/baseline/stencil_divider_before.png. Control against that baseline must still be 0 after the land (or recapture only if the Stencil host is gone — then Lit vs stored baseline 0). Do not edit the baseline PNG to pass. You are the only writer.
+ACCEPTANCE   Stencil no longer compiles packages/components/src/components/divider/divider.tsx as p-divider. Mitosis Lit emits @customElement("p-divider") with useShadowDom. rg my-fragment on the generated Divider.ts is empty. Live playground card [data-card="divider"] pixel-diff 0 vs stored baseline. Report written.
+VERIFY       Recipe pixel-diff. Viewport 1440x900 dsf 2. threshold 0 includeAA true.
+TIMEBOX      60 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no second tag land, no deleting the Stencil toolchain, no customElement/webcomponent targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.

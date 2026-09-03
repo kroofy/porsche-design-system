@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-drilldown harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="closed">
+      <lit-drilldown aria="{'aria-label': 'Main'}">
+        <p>Some item</p>
+      </lit-drilldown>
+    </section>
+    <section id="secondary">
+      <lit-drilldown active-identifier="id-1" aria="{'aria-label': 'Main'}">
+        <p identifier="id-1">Nested</p>
+      </lit-drilldown>
+    </section>
+    <script src="lit-drilldown.bundle.js"></script>
+  </body>
+</html>

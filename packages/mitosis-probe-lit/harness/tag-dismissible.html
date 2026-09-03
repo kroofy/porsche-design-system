@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-tag-dismissible harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-tag-dismissible.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <div
+      id="label-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-high)"
+    ></div>
+    <section id="default">
+      <lit-tag-dismissible>Some label</lit-tag-dismissible>
+    </section>
+    <section id="with-label">
+      <lit-tag-dismissible label="Some label">Some label</lit-tag-dismissible>
+    </section>
+    <section id="compact">
+      <lit-tag-dismissible compact>Some label</lit-tag-dismissible>
+    </section>
+    <section id="hidden">
+      <lit-tag-dismissible hidden>Some label</lit-tag-dismissible>
+    </section>
+  </body>
+</html>

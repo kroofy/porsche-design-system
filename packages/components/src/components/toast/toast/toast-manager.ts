@@ -1,4 +1,4 @@
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import { cssVariableAnimationDuration } from '../../../styles';
 import { throwException } from '../../../utils';
 import { ANIMATION_DURATION } from './toast-styles';

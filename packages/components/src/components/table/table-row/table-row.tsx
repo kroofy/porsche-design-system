@@ -1,28 +1,18 @@
-import { Component, Element, Host, h, type JSX } from '@stencil/core';
-import { attachComponentCss, throwIfParentIsNotOfKind } from '../../../utils';
-import { getComponentCss } from './table-row-styles';
-
 /**
- * @slot {"name": "", "description": "Default slot for the table row content." }
+ * Stencil no longer owns p-table-row. The playground tag is the Mitosis Lit
+ * custom element from mitosis/table-row/TableRow.lite.tsx.
+ * This file stays so generateConstructorMap can still import class TableRow.
  */
-@Component({
-  tag: 'p-table-row',
-  shadow: true,
-})
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
+
 export class TableRow {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  render(): void {}
+}
 
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, ['p-table-body', 'p-table-head']);
-  }
-
-  public render(): JSX.Element {
-    attachComponentCss(this.host, getComponentCss);
-
-    return (
-      <Host role="row">
-        <slot />
-      </Host>
-    );
+declare global {
+  interface HTMLPTableRowElement extends HTMLStencilElement {}
+  interface HTMLElementTagNameMap {
+    'p-table-row': HTMLPTableRowElement;
   }
 }

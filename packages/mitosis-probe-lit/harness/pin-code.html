@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-pin-code harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-pin-code.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="error-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-error)"
+    ></div>
+    <section id="default">
+      <lit-pin-code label="Some label"></lit-pin-code>
+    </section>
+    <section id="loading">
+      <lit-pin-code label="Some label" loading="true"></lit-pin-code>
+    </section>
+    <section id="success">
+      <lit-pin-code label="Some label" state="success" message="Some message."></lit-pin-code>
+    </section>
+    <section id="error">
+      <lit-pin-code label="Some label" state="error" message="Some message."></lit-pin-code>
+    </section>
+    <section id="disabled">
+      <lit-pin-code label="Some label" disabled="true"></lit-pin-code>
+    </section>
+    <section id="length">
+      <lit-pin-code label="Some label" length="6"></lit-pin-code>
+    </section>
+    <section id="hidden">
+      <lit-pin-code hidden label="Some label"></lit-pin-code>
+    </section>
+  </body>
+</html>

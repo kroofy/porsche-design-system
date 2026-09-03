@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-link harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-link.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="fg-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-canvas)"
+    ></div>
+    <div
+      id="secondary-bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-strong)"
+    ></div>
+    <section id="default">
+      <lit-link variant="primary">
+        <a href="#">Some label</a>
+      </lit-link>
+    </section>
+    <section id="secondary">
+      <lit-link variant="secondary">
+        <a href="#">Some label</a>
+      </lit-link>
+    </section>
+    <section id="icon">
+      <lit-link variant="primary" icon="car">
+        <a href="#">Some label</a>
+      </lit-link>
+    </section>
+    <section id="hide-label">
+      <lit-link variant="primary" icon="car" hide-label="true">
+        <a href="#">Some label</a>
+      </lit-link>
+    </section>
+    <section id="href">
+      <lit-link href="#" variant="primary">Some label</lit-link>
+    </section>
+    <section id="hidden">
+      <lit-link hidden variant="primary">
+        <a href="#">Some label</a>
+      </lit-link>
+    </section>
+    <section id="breakpoint">
+      <lit-link hide-label='{"base":true,"m":false}' icon="car">
+        <a href="#">bp</a>
+      </lit-link>
+    </section>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 import { fontFamily } from '@porsche-design-system/emotion';
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import { hasDocument } from '../../../utils';
 import type { FormState } from '../../../utils/form/form-state';
 import type { SegmentedControlItem } from '../segmented-control-item/segmented-control-item';

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-canvas harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="open">
+      <lit-canvas sidebar-start-open="true" sidebar-end-open="true" background="surface">
+        <a slot="title" href="#">Playground</a>
+        <button slot="header-end">End</button>
+        <form slot="sidebar-start">Start</form>
+        <h2 slot="sidebar-end-header">Settings</h2>
+        <form slot="sidebar-end">End</form>
+        <div slot="background"></div>
+        <main>Main</main>
+      </lit-canvas>
+    </section>
+    <script src="lit-canvas.bundle.js"></script>
+  </body>
+</html>

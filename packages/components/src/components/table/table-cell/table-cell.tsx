@@ -1,37 +1,18 @@
-import { Component, Element, Host, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes } from '../../../types';
-import { AllowedTypes, attachComponentCss, throwIfParentIsNotOfKind, validateProps } from '../../../utils';
-import { getComponentCss } from './table-cell-styles';
-
-const propTypes: PropTypes<typeof TableCell> = {
-  multiline: AllowedTypes.boolean,
-};
-
 /**
- * @slot {"name": "", "description": "Default slot for the table cell content." }
+ * Stencil no longer owns p-table-cell. The playground tag is the Mitosis Lit
+ * custom element from mitosis/table-cell/TableCell.lite.tsx.
+ * This file stays so generateConstructorMap can still import class TableCell.
  */
-@Component({
-  tag: 'p-table-cell',
-  shadow: true,
-})
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
+
 export class TableCell {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  render(): void {}
+}
 
-  /** Allows slotted text to wrap onto multiple lines instead of being forced onto a single line. */
-  @Prop() public multiline?: boolean = false;
-
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, 'p-table-row');
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    attachComponentCss(this.host, getComponentCss, this.multiline);
-
-    return (
-      <Host role="cell">
-        <slot />
-      </Host>
-    );
+declare global {
+  interface HTMLPTableCellElement extends HTMLStencilElement {}
+  interface HTMLElementTagNameMap {
+    'p-table-cell': HTMLPTableCellElement;
   }
 }
