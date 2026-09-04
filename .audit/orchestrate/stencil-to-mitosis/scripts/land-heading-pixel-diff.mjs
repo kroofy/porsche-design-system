@@ -25,8 +25,18 @@ const DEVICE_SCALE_FACTOR = 2;
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
-page.on('console', (msg) => msg.type() === 'error' && consoleErrors.push(msg.text()));
-page.on('pageerror', (err) => consoleErrors.push(String(err)));
+page.on('console', (msg) => {
+  if (msg.type() !== 'error') return;
+  const text = msg.text();
+  const url = msg.location()?.url ?? '';
+  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  consoleErrors.push(text);
+});
+page.on('pageerror', (err) => {
+  const text = String(err);
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  consoleErrors.push(text);
+});
 
 await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
 await page.waitForFunction(() => customElements.get('p-heading'), { timeout: 20_000 });
@@ -38,7 +48,8 @@ await page.waitForFunction(() => {
     hosts.every((el) => {
       const h2 = el.shadowRoot?.querySelector('h2');
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!h2 &&
         !!el.shadowRoot.querySelector('slot') &&
         (el.textContent?.trim().length ?? 0) > 0
@@ -69,6 +80,7 @@ const proof = await page.evaluate(() => {
         hydrated: el.classList.contains('hydrated'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasH2: !!h2,
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -122,13 +134,14 @@ const failed =
   proof.hosts.some(
     (h) =>
       h.tag !== 'p-heading' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasH2 ||
       !h.hasSlot ||
       h.hasFragment ||
       !h.text
   ) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

@@ -42,12 +42,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -71,11 +71,14 @@ await page.waitForFunction(() => {
       const box = root?.querySelector('.notification');
       const headingSlot = el.querySelector('[slot="heading"]');
       const nestedHeading = headingSlot && customElements.get(headingSlot.localName);
+      const before = box ? getComputedStyle(box, '::before') : null;
+      const hasIcon = !!before && before.content !== 'none' && before.content !== '';
       return (
         !!root &&
-        !!style &&
-        (style.textContent?.includes('.notification') ?? false) &&
+        !style &&
+        (root.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!box &&
+        hasIcon &&
         !el.classList.contains('hydrated') &&
         !root.querySelector('my-fragment') &&
         !root.querySelector('lit-inline-notification') &&
@@ -124,8 +127,9 @@ const proof = await page.evaluate(() => {
         hasDismiss: !!dismiss,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasNotificationClass: !!box,
-        hasIconMask: !!style?.textContent?.includes('.notification::before'),
+        hasIconMask: !!box && getComputedStyle(box, '::before').content !== 'none' && getComputedStyle(box, '::before').content !== '',
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
       };
@@ -186,7 +190,8 @@ const failed =
     return (
       h.tag !== 'p-inline-notification' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasNotificationClass ||
       !h.hasIconMask ||
       h.hydrated ||

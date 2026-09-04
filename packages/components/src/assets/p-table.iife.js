@@ -599,24 +599,24 @@
 
   // ../../components/mitosis/table/output/lit/Table.ts
   var LitTable = class extends i4 {
-    get cssText() {
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const compact = isTrue(this.compact ?? this.getAttribute("compact"));
       const layout = this.layout ?? this.getAttribute("layout") ?? "auto";
-      const pad = compact ? "var(--p-spacing-static-sm)" : "var(--p-spacing-fluid-sm)";
-      let out = ":host{display:block;--p-scroller-indicator-top:var(--p-table-scroll-indicator-top,0px) !important;--p-scroller-indicator-bottom:var(--p-table-scroll-indicator-bottom,0px) !important;--_p-table-b:var(--p-color-frosted) !important;--_p-table-c:var(--p-color-contrast-low) !important;--_p-table-a:" + pad + " !important;--_p-table-d:1px !important;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next) !important;color:var(--p-color-primary) !important;text-align:start !important}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}.caption{margin-bottom:var(--p-spacing-fluid-md)}.table{display:table;border-collapse:collapse;white-space:nowrap";
-      if (layout === "fixed") {
-        out += ";table-layout:fixed;min-width:100%}";
-      } else {
-        out += ";width:100%}";
-      }
-      return out;
+      const fixed = layout === "fixed";
+      return {
+        "--p-table-pad": compact ? "var(--p-spacing-static-sm)" : "var(--p-spacing-fluid-sm)",
+        "--p-table-layout": fixed ? "fixed" : "",
+        "--p-table-w": fixed ? "" : "100%",
+        "--p-table-min-w": fixed ? "100%" : ""
+      };
     }
     get captionText() {
       return this.caption ?? this.getAttribute("caption") ?? "";
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => this.requestUpdate());
       this._childObserver.observe(this, { childList: true, subtree: false });
       this.addEventListener("slotchange", () => this.requestUpdate());
@@ -636,6 +636,18 @@
       this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
         slot.addEventListener("slotchange", () => this.requestUpdate());
       });
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     isTrue(v2) {
       return v2 === true || v2 === "true" || v2 === "";
@@ -658,15 +670,45 @@
       const captionEl = slotted ? b2`<div id="caption" class="caption"><slot name="caption"></slot></div>` : A;
       const label = caption && !slotted ? caption : A;
       const labelledBy = !caption && slotted ? "caption" : A;
-      return b2`<style .innerHTML="${this.cssText}"></style>${captionEl}<p-scroller scrollbar="true" ?compact=${this.isCompact()} ?sticky=${this.isSticky()}><div class="table" role="table" aria-label=${label} aria-labelledby=${labelledBy}><slot></slot></div></p-scroller>`;
+      return b2`${captionEl}<p-scroller scrollbar="true" ?compact=${this.isCompact()} ?sticky=${this.isSticky()}><div class="table" role="table" aria-label=${label} aria-labelledby=${labelledBy}><slot></slot></div></p-scroller>`;
     }
   };
   LitTable.styles = i`
       :host {
           display: block;
+          --p-scroller-indicator-top: var(
+            --p-table-scroll-indicator-top,
+            0px
+          ) !important;
+          --p-scroller-indicator-bottom: var(
+            --p-table-scroll-indicator-bottom,
+            0px
+          ) !important;
+          --_p-table-b: var(--p-color-frosted) !important;
+          --_p-table-c: var(--p-color-contrast-low) !important;
+          --_p-table-a: var(--p-table-pad, var(--p-spacing-fluid-sm)) !important;
+          --_p-table-d: 1px !important;
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+          color: var(--p-color-primary) !important;
+          text-align: start !important;
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        .caption {
+          margin-bottom: var(--p-spacing-fluid-md);
+        }
+        .table {
+          display: table;
+          border-collapse: collapse;
+          white-space: nowrap;
+          table-layout: var(--p-table-layout, auto);
+          width: var(--p-table-w, auto);
+          min-width: var(--p-table-min-w, auto);
         }
 `;
   __decorateClass([

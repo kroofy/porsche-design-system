@@ -35,6 +35,7 @@ const extraGetters = `  syncOptionsDisabled() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => {
       this.syncOptionsDisabled();
       this.requestUpdate();
@@ -60,14 +61,25 @@ const extraGetters = `  syncOptionsDisabled() {
     this.syncOptionsDisabled();
   }
   updated() {
+    this.applyHostStyle();
     this.syncOptionsDisabled();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
 
 const renderTemplate = `const disabled = !!this.isDisabled;
     const hidden = !!this.hasAttribute("hidden") || this.hidden === true;
-    return html\`<div role="group" aria-labelledby="label" aria-disabled=\${disabled ? "true" : nothing} aria-hidden=\${hidden ? "true" : nothing}><style .innerHTML="\${this.cssText}"></style><span id="label" role="presentation">\${this.labelText}</span><slot></slot></div>\`;`;
+    return html\`<div role="group" aria-labelledby="label" aria-disabled=\${disabled ? "true" : nothing} aria-hidden=\${hidden ? "true" : nothing}><span id="label" role="presentation">\${this.labelText}</span><slot></slot></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -118,10 +130,17 @@ const required = [
   'internalOptgroupUpdate',
   '--_p-select-option-b',
   '--_p-optgroup-a',
+  'hostStyle',
+  'applyHostStyle',
+  'static styles',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-optgroup: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-optgroup: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (

@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/segmented-control-item');
@@ -28,6 +32,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._lightDomObserver = new MutationObserver(() => this.requestUpdate());
     this._lightDomObserver.observe(this, { childList: true, characterData: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -53,9 +58,23 @@ const extraGetters = `  connectedCallback() {
     });
   }
 
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {`;
 
-const renderTemplate = `return html\`<button type="button" aria-pressed=\${this.isSelected ? "true" : "false"} aria-disabled=\${this.isDisabled ? "true" : nothing}><style .innerHTML="\${this.cssText}"></style>\${this.labelNode}\${this.iconNode}<slot></slot></button>\`;`;
+const renderTemplate = `return html\`<button type="button" aria-pressed=\${this.isSelected ? "true" : "false"} aria-disabled=\${this.isDisabled ? "true" : nothing}>\${this.labelNode}\${this.iconNode}<slot></slot></button>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -166,6 +185,12 @@ if (
   after.includes('delegatesFocus')
 ) {
   console.error('build-lit-segmented-control-item: generated output must stay p-* and not fake delegatesFocus');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-segmented-control-item', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-segmented-control-item: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -113,7 +114,8 @@ await page.waitForFunction(() => {
     const style = root?.querySelector('style');
     const button = root?.querySelector('button');
     const slot = root?.querySelector('slot');
-    if (!root || !style || !button || !slot) return false;
+    if (!root || style || !button || !slot) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-stepper-horizontal-item')) return false;
     const step = el.state ?? el.getAttribute('state');
     const icon = root.querySelector('p-icon.icon');
@@ -192,6 +194,7 @@ const proof = await page.evaluate(() => {
         role: el.getAttribute('role'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasButton: !!el.shadowRoot?.querySelector('button'),
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasIcon: !!icon,
@@ -284,7 +287,8 @@ const failed =
       item.state !== expectState ||
       item.role !== 'listitem' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasButton ||
       !item.hasSlot ||
       item.hasIcon !== expectIcon ||

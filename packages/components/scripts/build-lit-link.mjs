@@ -3,6 +3,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/link');
@@ -32,6 +36,7 @@ const after = before
   .replace(/<\/my-fragment>/g, '')
   .replace(/@property\(\)\s+iconSource/g, '@property({ attribute: "icon-source" }) iconSource')
   .replace(/@property\(\)\s+hideLabel/g, '@property({ attribute: "hide-label" }) hideLabel')
+  .replace(/<span\s*>\s*<p-icon/g, '<span class="root"><p-icon')
   .replace(/<span\s*>\s*<style/g, '<span class="root"><style')
   .replace(/<p-icon(?![^>]*class=)/g, '<p-icon class="icon"')
   .replace(/<span>\s*<slot/g, '<span class="label"><slot');
@@ -53,6 +58,16 @@ if (after.includes('href="undefined"') || after.includes("href='undefined'")) {
 }
 if (after.includes('lit-link') || after.includes('lit-icon')) {
   console.error('build-lit-link: generated output must use p-link / p-icon, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-link', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-link: ${err.message}`);
+  process.exit(1);
+}
+if (!after.includes('min-width: 760px')) {
+  console.error('build-lit-link: expected breakpoint media queries');
   process.exit(1);
 }
 if (after !== before) {

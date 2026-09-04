@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/button-tile');
@@ -28,6 +32,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this.addEventListener("click", this.onHostClick, true);
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: true });
@@ -58,6 +63,20 @@ const extraGetters = `  connectedCallback() {
     if (this.isDisabled() || this.isLoading()) event.stopPropagation();
   };
 
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {`;
 
 const renderTemplate = `const label = this.label ?? this.getAttribute("label") ?? "";
@@ -69,7 +88,7 @@ const renderTemplate = `const label = this.label ?? this.getAttribute("label") ?
     const loading = this.isLoading();
     const compactIcon = icon === "none" ? "arrow-right" : icon;
     const source = iconSource || nothing;
-    return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>\${description}</p><slot name="footer"></slot><p-button class="link-or-button-pure" variant="secondary" icon=\${compactIcon} type=\${type} ?disabled=\${disabled} ?loading=\${loading} hide-label="true" compact="true" .iconSource=\${source}>\${label}</p-button><p-button class="link-or-button" variant="secondary" icon=\${icon} type=\${type} ?disabled=\${disabled} ?loading=\${loading} .iconSource=\${source}>\${label}</p-button></div></div>\`;`;
+    return html\`<div class="root"><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>\${description}</p><slot name="footer"></slot><p-button class="link-or-button-pure" variant="secondary" icon=\${compactIcon} type=\${type} ?disabled=\${disabled} ?loading=\${loading} hide-label="true" compact="true" .iconSource=\${source}>\${label}</p-button><p-button class="link-or-button" variant="secondary" icon=\${icon} type=\${type} ?disabled=\${disabled} ?loading=\${loading} .iconSource=\${source}>\${label}</p-button></div></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -174,7 +193,10 @@ const required = [
   'p-button',
   'hasFooterSlot',
   'slot="footer"',
-  'm: 1000',
+  'min-width: 1000px',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
@@ -188,6 +210,12 @@ if (missing.length) {
 }
 if (after.includes('lit-button-tile') || after.includes('delegatesFocus') || after.includes('formAssociated')) {
   console.error('build-lit-button-tile: generated output must stay p-* and not fake delegatesFocus/formAssociated');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-button-tile', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-button-tile: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

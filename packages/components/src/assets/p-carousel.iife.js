@@ -3168,7 +3168,7 @@
 
   // ../../components/mitosis/carousel/output/lit/Carousel.ts
   var LitCarousel = class extends i4 {
-    get cssText() {
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const parse = (raw, fallback) => {
         if (raw === void 0 || raw === null || raw === "") return fallback;
@@ -3196,51 +3196,23 @@
       const pagination = parse(this.pagination ?? this.getAttribute("pagination"), false);
       const hasPagination = pagination === true || pagination === "true" || pagination && typeof pagination === "object";
       const isCenter = alignHeader === "center";
-      const slidesPerPageRaw = this.slidesPerPage ?? this.getAttribute("slides-per-page") ?? this.getAttribute("slidesperpage") ?? 1;
-      const parsedSpp = parse(slidesPerPageRaw, 1);
-      const sppNow = typeof parsedSpp === "object" && parsedSpp ? window.matchMedia("(min-width:1000px)").matches && parsedSpp.m !== void 0 ? parsedSpp.m : window.matchMedia("(min-width:760px)").matches && parsedSpp.s !== void 0 ? parsedSpp.s : parsedSpp.base !== void 0 ? parsedSpp.base : 1 : parsedSpp;
-      const slideCount = [...this.children].filter((el) => {
-        const slot = el.getAttribute("slot");
-        return slot !== "heading" && slot !== "description" && slot !== "controls";
-      }).length;
-      const sppNum = sppNow === "auto" ? 1 : Math.round(Number(sppNow) || 1);
-      const amountOfPages = slideCount === 0 ? 0 : slideCount < sppNum ? 1 : slideCount - sppNum + 1;
-      const hasNavigation = sppNow === "auto" || amountOfPages > 1;
-      const focusCenter = isTrue(this.focusOnCenterSlide ?? this.getAttribute("focus-on-center-slide") ?? this.getAttribute("focusoncenterslide"));
-      const isInfinite = (focusCenter ? slideCount : amountOfPages) > 5;
-      const col = width === "extended" ? "1" : "2";
-      const padBase = "max(22px, 10.625vw - 12px)";
-      const padS = "calc(calc(5vw - 16px) + (clamp(16px, 1.25vw + 12px, 36px) + calc((100vw - calc(5vw - 16px) * 2 - clamp(16px, 1.25vw + 12px, 36px) * 15) / 16)) * " + col + ")";
-      const padXxl = "calc(max(0px, 50vw - 2560px / 2) + min(50vw - 880px, 400px) + (clamp(16px, 1.25vw + 12px, 36px) + calc((min(100vw, 2560px) - min(50vw - 880px, 400px) * 2 - clamp(16px, 1.25vw + 12px, 36px) * 15) / 16)) * " + col + ")";
-      const pad2 = (v2) => "var(--p-carousel-ps,var(--p-carousel-px," + v2 + "))";
-      const fontSize = headingSize === "xx-large" ? "var(--p-typescale-2xl)" : "var(--p-typescale-xl)";
-      let out = ":host{display:flex;gap:var(--p-spacing-fluid-md) !important;flex-direction:column !important;box-sizing:content-box !important}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}::slotted(*){border-radius:var(--p-carousel-border-radius,var(--p-radius-3xl)) !important}";
-      if (hasHeading || hasDescription) {
-        out += '.heading,p,::slotted([slot="description"]){grid-column:1/-1 !important;color:var(--p-color-primary) !important' + (isCenter ? ";text-align:center !important;justify-self:center !important" : "") + "}";
-      }
-      if (hasHeading) {
-        out += ".heading{max-width:56.25rem !important;margin:0 0 " + (hasDescription ? "0" : "var(--p-spacing-fluid-md)") + " !important;font:var(--p-font-weight-normal) " + fontSize + ' / var(--p-leading-normal) var(--p-font-porsche-next) !important}::slotted([slot="heading"]){margin:0 !important;font:var(--p-font-weight-normal) ' + fontSize + " / var(--p-leading-normal) var(--p-font-porsche-next) !important}";
-      }
-      if (hasDescription) {
-        out += 'p,::slotted([slot="description"]){max-width:34.375rem !important;margin:var(--p-spacing-fluid-sm) 0 var(--p-spacing-fluid-md) !important;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next) !important}';
-      }
-      if (hasControls) {
-        const just = alignControls !== "auto" ? alignControls : isCenter ? "center" : "start";
-        out += 'slot[name="controls"]{display:block;grid-column:1/-1;grid-row-start:3;align-self:center;justify-self:' + just + "}";
-      }
-      out += ".header{display:grid;padding-inline-start:" + pad2(padBase) + ";padding-inline-end:" + pad2(padBase) + "}.nav{display:none;color-scheme:var(--p-carousel-prev-next-color-scheme)}.btn{padding:var(--p-spacing-static-sm)}.skip-link:not(:focus){opacity:0;pointer-events:none}.slide-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.splide{overflow:hidden;padding:4px 0;margin:-4px 0}.splide__track{position:relative;padding-block:0px !important;padding-inline-start:" + pad2(padBase) + " !important;padding-inline-end:" + pad2(padBase) + " !important" + (gradient ? ";-webkit-mask:linear-gradient(90deg,transparent 20%,#000 var(--p-gradient-color-width,33%) calc(100% - var(--p-gradient-color-width,33%)),transparent 80%);mask:linear-gradient(90deg,transparent 20%,#000 var(--p-gradient-color-width,33%) calc(100% - var(--p-gradient-color-width,33%)),transparent 80%)" : "") + "}.splide__list{backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex}.splide__slide{backface-visibility:hidden;-webkit-backface-visibility:hidden;flex-shrink:0;transform:translateZ(0);border-radius:var(--p-carousel-border-radius,var(--p-radius-3xl))}.splide__slide:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}.splide__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.splide__track--draggable{cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}";
-      if (isCenter) {
-        out += ".splide:not(.is-overflow) .splide__list{justify-content:center}.splide:not(.is-overflow) .splide__slide:last-child{margin-inline-end:0 !important}";
-      }
-      if (hasPagination && hasNavigation) {
-        const justPag = isInfinite ? "flex-start" : "center";
-        out += ".pagination-container{display:flex;position:relative;justify-content:" + justPag + ';width:calc(20px + 8px * 4 + 8px * 4);left:calc(50% - (calc(20px + 8px * 4 + 8px * 4)) / 2);overflow-x:hidden}.pagination{display:flex;align-items:center;width:fit-content;height:8px;gap:8px;transition:transform var(--p-transition-duration,var(--p-duration-md))}.bullet{border-radius:var(--p-radius-full);background:var(--p-color-contrast-medium);width:8px;height:8px;transition:background-color var(--p-transition-duration,var(--p-duration-md)), width var(--p-transition-duration,var(--p-duration-md))}.bullet--active{background:var(--p-color-primary);height:8px;width:20px !important}@media (pointer: coarse){.pagination-container{width:calc(20px + 8px * 4 + 16px * 4 + 2 * 8px);left:calc(50% - calc(20px + 8px * 4 + 16px * 4 + 2 * 8px) / 2)}.pagination{height:calc(8px + 2 * 8px);gap:16px}.bullet{position:relative}.bullet::before{content:"";position:absolute;inset:-8px}}@media(hover:hover){.bullet{cursor:pointer}}';
-      }
-      out += "@media(min-width:760px){.header{grid-template-columns:minmax(0px,1fr) auto;padding-inline-start:" + pad2(padS) + ";padding-inline-end:" + pad2(padS) + (hasNavigation ? ";column-gap:var(--p-spacing-static-md)" : "") + "}.nav{grid-row-start:3;grid-column-end:-1;display:flex;gap:var(--p-spacing-static-xs);align-self:flex-start}.splide__track{padding-inline-start:" + pad2(padS) + " !important;padding-inline-end:" + pad2(padS) + " !important}}@media(min-width:1920px){.header{padding-inline-start:" + pad2(padXxl) + ";padding-inline-end:" + pad2(padXxl) + "}.splide__track{padding-inline-start:" + pad2(padXxl) + " !important;padding-inline-end:" + pad2(padXxl) + " !important}}@media(forced-colors:active){.splide__slide:focus-visible{outline-color:Highlight}}";
-      return out;
+      const just = alignControls !== "auto" ? alignControls : isCenter ? "center" : "start";
+      return {
+        "--p-car-col": width === "extended" ? "1" : "2",
+        "--p-car-fs": headingSize === "xx-large" ? "var(--p-typescale-2xl)" : "var(--p-typescale-xl)",
+        "--p-car-h-mb": hasDescription ? "0" : "var(--p-spacing-fluid-md)",
+        "--p-car-ctrl-just": just,
+        "--p-car-heading": hasHeading ? "1" : "",
+        "--p-car-desc": hasDescription ? "1" : "",
+        "--p-car-controls": hasControls ? "1" : "",
+        "--p-car-center": isCenter ? "1" : "",
+        "--p-car-gradient": gradient ? "1" : "",
+        "--p-car-pag": hasPagination ? "1" : ""
+      };
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => {
         this._assignSlideSlots();
         this.requestUpdate();
@@ -3260,7 +3232,23 @@
       this.requestUpdate();
       queueMicrotask(() => this._initSplide());
     }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+      this.toggleAttribute("data-heading", vars["--p-car-heading"] === "1");
+      this.toggleAttribute("data-desc", vars["--p-car-desc"] === "1");
+      this.toggleAttribute("data-controls", vars["--p-car-controls"] === "1");
+      this.toggleAttribute("data-center", vars["--p-car-center"] === "1");
+      this.toggleAttribute("data-gradient", vars["--p-car-gradient"] === "1");
+      this.toggleAttribute("data-pag", vars["--p-car-pag"] === "1");
+    }
     updated() {
+      this.applyHostStyle();
       this._assignSlideSlots();
       if (this._splide) {
         this._splide.options = { drag: this._hasNavigation() };
@@ -3444,16 +3432,396 @@
       const navBtns = this._hasNavigation() ? b2`<p-button-pure class="btn btn-prev" type="button" hide-label="true" icon="arrow-left" icon-source="http://localhost:3001/icons/arrow-left.e03c25b.svg" @click=${() => this._slidePrev()}></p-button-pure><p-button-pure class="btn btn-next" type="button" hide-label="true" icon="arrow-right" @click=${() => this._slideNext()}></p-button-pure>` : A;
       const slideNodes = (this._slides || slides).map((_2, i5) => b2`<div class="splide__slide" tabindex="0"><slot name="slide-${i5}"></slot></div>`);
       const pagination = this._parsedPagination() && this._hasNavigation() ? b2`<div class="pagination-container" aria-hidden="true"><div class="pagination"></div></div>` : A;
-      return b2`<style .innerHTML="${this.cssText}"></style><div class="header">${headingNode}${descNode}${controlsNode}<div class="nav">${skipNode}${navBtns}</div></div><div id="splide" class="splide" @mousedown=${(e5) => e5.preventDefault()}><div class="splide__track"><div class="splide__list">${slideNodes}</div></div></div>${pagination}<div class="slide-status" aria-live="polite" aria-atomic="true"></div>`;
+      return b2`<div class="header">${headingNode}${descNode}${controlsNode}<div class="nav">${skipNode}${navBtns}</div></div><div id="splide" class="splide" @mousedown=${(e5) => e5.preventDefault()}><div class="splide__track"><div class="splide__list">${slideNodes}</div></div></div>${pagination}<div class="slide-status" aria-live="polite" aria-atomic="true"></div>`;
     }
   };
   LitCarousel.styles = i`
       :host {
           display: flex;
-          flex-direction: column;
+          gap: var(--p-spacing-fluid-md) !important;
+          flex-direction: column !important;
+          box-sizing: content-box !important;
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        ::slotted(*) {
+          border-radius: var(
+            --p-carousel-border-radius,
+            var(--p-radius-3xl)
+          ) !important;
+        }
+        :host([data-heading]) .heading,
+        :host([data-heading]) p,
+        :host([data-heading]) ::slotted([slot="description"]),
+        :host([data-desc]) .heading,
+        :host([data-desc]) p,
+        :host([data-desc]) ::slotted([slot="description"]) {
+          grid-column: 1 / -1 !important;
+          color: var(--p-color-primary) !important;
+        }
+        :host([data-center]) .heading,
+        :host([data-center]) p,
+        :host([data-center]) ::slotted([slot="description"]) {
+          text-align: center !important;
+          justify-self: center !important;
+        }
+        :host([data-heading]) .heading {
+          max-width: 56.25rem !important;
+          margin: 0 0 var(--p-car-h-mb, var(--p-spacing-fluid-md)) !important;
+          font: var(--p-font-weight-normal) var(--p-car-fs, var(--p-typescale-xl)) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+        }
+        :host([data-heading]) ::slotted([slot="heading"]) {
+          margin: 0 !important;
+          font: var(--p-font-weight-normal) var(--p-car-fs, var(--p-typescale-xl)) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+        }
+        :host([data-desc]) p,
+        :host([data-desc]) ::slotted([slot="description"]) {
+          max-width: 34.375rem !important;
+          margin: var(--p-spacing-fluid-sm) 0 var(--p-spacing-fluid-md) !important;
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+        }
+        :host([data-controls]) slot[name="controls"] {
+          display: block;
+          grid-column: 1 / -1;
+          grid-row-start: 3;
+          align-self: center;
+          justify-self: var(--p-car-ctrl-just, start);
+        }
+        .header {
+          display: grid;
+          padding-inline-start: var(
+            --p-carousel-ps,
+            var(--p-carousel-px, max(22px, 10.625vw - 12px))
+          );
+          padding-inline-end: var(
+            --p-carousel-ps,
+            var(--p-carousel-px, max(22px, 10.625vw - 12px))
+          );
+        }
+        .nav {
+          display: none;
+          color-scheme: var(--p-carousel-prev-next-color-scheme);
+        }
+        .btn {
+          padding: var(--p-spacing-static-sm);
+        }
+        .skip-link:not(:focus) {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .slide-status {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        .splide {
+          overflow: hidden;
+          padding: 4px 0;
+          margin: -4px 0;
+        }
+        .splide__track {
+          position: relative;
+          padding-block: 0px !important;
+          padding-inline-start: var(
+            --p-carousel-ps,
+            var(--p-carousel-px, max(22px, 10.625vw - 12px))
+          ) !important;
+          padding-inline-end: var(
+            --p-carousel-ps,
+            var(--p-carousel-px, max(22px, 10.625vw - 12px))
+          ) !important;
+        }
+        :host([data-gradient]) .splide__track {
+          -webkit-mask: linear-gradient(
+            90deg,
+            transparent 20%,
+            #000 var(--p-gradient-color-width, 33%)
+              calc(100% - var(--p-gradient-color-width, 33%)),
+            transparent 80%
+          );
+          mask: linear-gradient(
+            90deg,
+            transparent 20%,
+            #000 var(--p-gradient-color-width, 33%)
+              calc(100% - var(--p-gradient-color-width, 33%)),
+            transparent 80%
+          );
+        }
+        .splide__list {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          display: flex;
+        }
+        .splide__slide {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          flex-shrink: 0;
+          transform: translateZ(0);
+          border-radius: var(--p-carousel-border-radius, var(--p-radius-3xl));
+        }
+        .splide__slide:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        .splide__sr {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        .splide__track--draggable {
+          cursor: grab;
+          user-select: none;
+          -webkit-user-select: none;
+          -webkit-touch-callout: none;
+        }
+        :host([data-center]) .splide:not(.is-overflow) .splide__list {
+          justify-content: center;
+        }
+        :host([data-center]) .splide:not(.is-overflow) .splide__slide:last-child {
+          margin-inline-end: 0 !important;
+        }
+        :host([data-pag]) .pagination-container {
+          display: flex;
+          position: relative;
+          justify-content: center;
+          width: calc(20px + 8px * 4 + 8px * 4);
+          left: calc(50% - (calc(20px + 8px * 4 + 8px * 4)) / 2);
+          overflow-x: hidden;
+        }
+        :host([data-pag]) .pagination {
+          display: flex;
+          align-items: center;
+          width: fit-content;
+          height: 8px;
+          gap: 8px;
+          transition: transform var(--p-transition-duration, var(--p-duration-md));
+        }
+        :host([data-pag]) .bullet {
+          border-radius: var(--p-radius-full);
+          background: var(--p-color-contrast-medium);
+          width: 8px;
+          height: 8px;
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-md)),
+            width var(--p-transition-duration, var(--p-duration-md));
+        }
+        :host([data-pag]) .bullet--active {
+          background: var(--p-color-primary);
+          height: 8px;
+          width: 20px !important;
+        }
+        .header {
+          display: grid;
+        }
+        @media (min-width: 760px) {
+          .header {
+            grid-template-columns: minmax(0px, 1fr) auto;
+            padding-inline-start: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  calc(5vw - 16px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              100vw - calc(5vw - 16px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            );
+            padding-inline-end: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  calc(5vw - 16px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              100vw - calc(5vw - 16px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            );
+            column-gap: var(--p-spacing-static-md);
+          }
+          .nav {
+            grid-row-start: 3;
+            grid-column-end: -1;
+            display: flex;
+            gap: var(--p-spacing-static-xs);
+            align-self: flex-start;
+          }
+          .splide__track {
+            padding-inline-start: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  calc(5vw - 16px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              100vw - calc(5vw - 16px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            ) !important;
+            padding-inline-end: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  calc(5vw - 16px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              100vw - calc(5vw - 16px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            ) !important;
+          }
+        }
+        @media (min-width: 1920px) {
+          .header {
+            padding-inline-start: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  max(0px, 50vw - 2560px / 2) + min(50vw - 880px, 400px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              min(100vw, 2560px) - min(50vw - 880px, 400px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            );
+            padding-inline-end: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  max(0px, 50vw - 2560px / 2) + min(50vw - 880px, 400px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              min(100vw, 2560px) - min(50vw - 880px, 400px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            );
+          }
+          .splide__track {
+            padding-inline-start: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  max(0px, 50vw - 2560px / 2) + min(50vw - 880px, 400px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              min(100vw, 2560px) - min(50vw - 880px, 400px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            ) !important;
+            padding-inline-end: var(
+              --p-carousel-ps,
+              var(
+                --p-carousel-px,
+                calc(
+                  max(0px, 50vw - 2560px / 2) + min(50vw - 880px, 400px) +
+                    (
+                      clamp(16px, 1.25vw + 12px, 36px) +
+                        calc(
+                          (
+                              min(100vw, 2560px) - min(50vw - 880px, 400px) * 2 -
+                                clamp(16px, 1.25vw + 12px, 36px) * 15
+                            ) / 16
+                        )
+                    ) * var(--p-car-col, 2)
+                )
+              )
+            ) !important;
+          }
+        }
+        @media (pointer: coarse) {
+          :host([data-pag]) .pagination-container {
+            width: calc(20px + 8px * 4 + 16px * 4 + 2 * 8px);
+            left: calc(50% - calc(20px + 8px * 4 + 16px * 4 + 2 * 8px) / 2);
+          }
+          :host([data-pag]) .pagination {
+            height: calc(8px + 2 * 8px);
+            gap: 16px;
+          }
+          :host([data-pag]) .bullet {
+            position: relative;
+          }
+          :host([data-pag]) .bullet::before {
+            content: "";
+            position: absolute;
+            inset: -8px;
+          }
+        }
+        @media (hover: hover) {
+          :host([data-pag]) .bullet {
+            cursor: pointer;
+          }
+        }
+        @media (forced-colors: active) {
+          .splide__slide:focus-visible {
+            outline-color: Highlight;
+          }
         }
 `;
   __decorateClass([

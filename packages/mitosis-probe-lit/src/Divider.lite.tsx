@@ -5,65 +5,116 @@ export type DividerDirection = 'horizontal' | 'vertical';
 
 useMetadata({ tagName: 'lit-divider' });
 
+const COLOR: Record<string, string> = {
+  'contrast-lower': 'var(--p-color-contrast-lower)',
+  'contrast-low': 'var(--p-color-contrast-low)',
+  'contrast-medium': 'var(--p-color-contrast-medium)',
+  'contrast-high': 'var(--p-color-contrast-high)',
+};
+
+const BREAKPOINTS = ['base', 'xs', 's', 'm', 'l', 'xl', 'xxl'] as const;
+
+const sizeFor = (direction: string) =>
+  direction === 'vertical' ? { h: '100%', w: '1px' } : { h: '1px', w: '100%' };
+
+const parseDirection = (raw: unknown) => {
+  if (raw === undefined || raw === null || raw === '') return 'horizontal';
+  if (typeof raw === 'string' && raw.charAt(0) === '{') {
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return 'horizontal';
+    }
+  }
+  return raw;
+};
+
+const assignSize = (vars: Record<string, string>, bp: string, size: { h: string; w: string }) => {
+  if (bp === 'base') {
+    vars['--p-divider-h'] = size.h;
+    vars['--p-divider-w'] = size.w;
+    return;
+  }
+  vars[`--p-divider-h-${bp}`] = size.h;
+  vars[`--p-divider-w-${bp}`] = size.w;
+};
+
+useStyle(`
+  :host {
+    display: block;
+  }
+  :host([hidden]) {
+    display: none !important;
+  }
+  hr {
+    all: unset;
+    display: block;
+    background: var(--p-divider-bg);
+    height: var(--p-divider-h, 1px);
+    width: var(--p-divider-w, 100%);
+  }
+  @media (forced-colors: active) {
+    hr {
+      background: CanvasText;
+    }
+  }
+  @media (min-width: 480px) {
+    hr {
+      height: var(--p-divider-h-xs, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-xs, var(--p-divider-w, 100%));
+    }
+  }
+  @media (min-width: 760px) {
+    hr {
+      height: var(--p-divider-h-s, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-s, var(--p-divider-w, 100%));
+    }
+  }
+  @media (min-width: 1000px) {
+    hr {
+      height: var(--p-divider-h-m, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-m, var(--p-divider-w, 100%));
+    }
+  }
+  @media (min-width: 1300px) {
+    hr {
+      height: var(--p-divider-h-l, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-l, var(--p-divider-w, 100%));
+    }
+  }
+  @media (min-width: 1760px) {
+    hr {
+      height: var(--p-divider-h-xl, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-xl, var(--p-divider-w, 100%));
+    }
+  }
+  @media (min-width: 1920px) {
+    hr {
+      height: var(--p-divider-h-xxl, var(--p-divider-h, 1px));
+      width: var(--p-divider-w-xxl, var(--p-divider-w, 100%));
+    }
+  }
+`);
+
 export default function LitDivider(props: { color?: DividerColor; direction?: any }) {
   const state = useStore({
-    // The attachComponentCss analog: a pure props -> CSS text derivation
-    // mirroring getComponentCss in divider-styles.ts, rendered into the shadow
-    // root as a <style> element. Unlike the customElement probe's inline
-    // styles, real stylesheet rules can carry media queries, so breakpoint
-    // direction and the forced-colors CanvasText override stay expressible.
-    get cssText(): string {
-      const colorMap: any = {
-        'contrast-lower': 'var(--p-color-contrast-lower)',
-        'contrast-low': 'var(--p-color-contrast-low)',
-        'contrast-medium': 'var(--p-color-contrast-medium)',
-        'contrast-high': 'var(--p-color-contrast-high)',
+    get hostStyle(): Record<string, string> {
+      const vars: Record<string, string> = {
+        '--p-divider-bg': COLOR[props.color || 'contrast-lower'] || COLOR['contrast-lower'],
       };
-      // PDS breakpoints from @porsche-design-system/emotion (m is 1000, s is 760).
-      const minWidth: any = { xs: 480, s: 760, m: 1000, l: 1300, xl: 1760, xxl: 1920 };
-      const horizontal = 'height:1px;width:100%';
-      const vertical = 'height:100%;width:1px';
-      let direction = props.direction || 'horizontal';
-      // Attributes arrive as strings; the breakpoint form is a JSON object.
-      if (typeof direction === 'string' && direction.charAt(0) === '{') {
-        try {
-          direction = JSON.parse(direction);
-        } catch (e) {
-          direction = 'horizontal';
-        }
-      }
-      let responsive = '';
+      const direction = parseDirection(props.direction);
       if (typeof direction === 'object' && direction !== null) {
-        for (const bp of Object.keys(direction)) {
-          const rule = 'hr{' + (direction[bp] === 'vertical' ? vertical : horizontal) + '}';
-          responsive += bp === 'base' ? rule : '@media(min-width:' + minWidth[bp] + 'px){' + rule + '}';
+        let last = sizeFor(direction.base || 'horizontal');
+        for (const bp of BREAKPOINTS) {
+          if (direction[bp] !== undefined) last = sizeFor(direction[bp]);
+          assignSize(vars, bp, last);
         }
       } else {
-        responsive = 'hr{' + (direction === 'vertical' ? vertical : horizontal) + '}';
+        assignSize(vars, 'base', sizeFor(String(direction)));
       }
-      const background = colorMap[props.color || 'contrast-lower'] || colorMap['contrast-lower'];
-      return (
-        'hr{all:unset;display:block;background:' +
-        background +
-        '}@media(forced-colors:active){hr{background:CanvasText}}' +
-        responsive
-      );
+      return vars;
     },
   });
 
-  useStyle(`
-    :host {
-      display: block;
-    }
-    :host([hidden]) {
-      display: none !important;
-    }
-  `);
-
-  return (
-    <>
-      <style innerHTML={state.cssText} />
-      <hr />
-    </>
-  );
+  return <hr />;
 }

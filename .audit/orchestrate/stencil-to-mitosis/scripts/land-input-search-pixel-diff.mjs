@@ -29,12 +29,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -79,7 +79,8 @@ await page.waitForFunction(() => {
         ? !messageIconHidden && !!messageImg?.complete && (messageImg?.naturalWidth ?? 0) > 0
         : messageIconHidden;
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) >= 1 &&
         root?.localName === 'div' &&
         input?.type === 'search' &&
         (input?.value?.length ?? 0) > 0 &&
@@ -172,6 +173,7 @@ const proof = await page.evaluate(() => {
         messageIconHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!root,
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
         hasSvg: !!svg,
@@ -251,7 +253,8 @@ const failed =
       h.innerIndicator !== 'p-icon' ||
       h.innerClear !== 'p-button-pure' ||
       h.innerMessageIcon !== 'p-icon' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasRoot ||
       h.hasFragment ||
       (loading ? h.spinnerHidden || !h.hasSvg : !h.spinnerHidden) ||

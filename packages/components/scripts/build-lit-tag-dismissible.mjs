@@ -3,6 +3,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/tag-dismissible');
@@ -30,7 +34,6 @@ const before = await readFile(generated, 'utf8');
 const after = before
   .replace(/<my-fragment[\s\S]*?>/g, '')
   .replace(/<\/my-fragment>/g, '')
-  // Mitosis drops class on these spans. Stencil (and the probe cssText) needs them.
   .replace(/<span>Remove:<\/span>/g, '<span class="sr-only">Remove:</span>')
   .replace(
     /<span><span>\$\{this\.labelText\}<\/span>\s*<slot><\/slot><\/span>/g,
@@ -51,6 +54,12 @@ if (!after.includes('class="sr-only"') || !after.includes('class="label"') || !a
 }
 if (after.includes('lit-tag-dismissible') || after.includes('lit-icon')) {
   console.error('build-lit-tag-dismissible: generated output must use p-tag-dismissible / p-icon, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-tag-dismissible', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-tag-dismissible: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

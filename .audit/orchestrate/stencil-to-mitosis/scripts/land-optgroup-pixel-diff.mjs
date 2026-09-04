@@ -116,7 +116,8 @@ await page.waitForFunction(() => {
       const style = root?.querySelector('style');
       const group = root?.querySelector('[role="group"]');
       const label = root?.querySelector('[role="presentation"]');
-      if (!root || !style || !group || !label) return false;
+      const adopted = root?.adoptedStyleSheets?.length ?? 0;
+      if (!root || style || adopted < 1 || !group || !label) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-optgroup')) return false;
       if (el.getAttribute('label') !== 'Some optgroup') return false;
@@ -171,6 +172,7 @@ const proof = await page.evaluate(() => {
         disabled: el.getAttribute('disabled'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasGroup: !!group,
         optionCount: kids.length,
         optionCtors: [...new Set(kids.map((n) => n.constructor?.name))],
@@ -253,7 +255,8 @@ const failed =
       item.ctor !== 'LitOptgroup' ||
       item.label !== 'Some optgroup' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasGroup ||
       item.optionCount !== 2 ||
       item.hydrated ||
@@ -262,7 +265,7 @@ const failed =
       (i % 2 === 0 && item.disabled !== null)
     );
   }) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

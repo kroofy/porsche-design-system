@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/switch');
@@ -35,7 +39,23 @@ const after = before
   .replace(/<div(?![^>]*class=)/g, '<div class="wrap"')
   .replace(/<span(?![^>]*class=)(?=[^>]*><p-spinner)/g, '<span class="toggle"')
   .replace(/<p-spinner(?![^>]*class=)/g, '<p-spinner class="spinner"')
-  .replace(/<span([^>]*)\sid="loading"/g, '<span class="loading"$1 id="loading"');
+  .replace(/<span([^>]*)\sid="loading"/g, '<span class="loading"$1 id="loading"')
+  .replace('const checked = isTrue(this.checked);', 'const checked = isTrue(this.checked ?? this.getAttribute("checked"));')
+  .replace('const disabled = isTrue(this.disabled);', 'const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));')
+  .replace('const loading = isTrue(this.loading);', 'const loading = isTrue(this.loading ?? this.getAttribute("loading"));')
+  .replace('const compact = isTrue(this.compact);', 'const compact = isTrue(this.compact ?? this.getAttribute("compact"));')
+  .replace(
+    'const alignLabel = parse(this.alignLabel, "end");',
+    'const alignLabel = parse(this.getAttribute("align-label") ?? this.alignLabel, "end");'
+  )
+  .replace(
+    'const hideLabel = parse(this.hideLabel, false);',
+    'const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);'
+  )
+  .replace(
+    'const stretch = parse(this.stretch, false);',
+    'const stretch = parse(this.getAttribute("stretch") ?? this.stretch, false);'
+  );
 if (after.includes('my-fragment')) {
   console.error('build-lit-switch: my-fragment leaked after strip');
   process.exit(1);
@@ -55,6 +75,12 @@ if (
 }
 if (after.includes('lit-switch') || after.includes('lit-spinner')) {
   console.error('build-lit-switch: generated output must use p-switch / p-spinner, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-switch', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-switch: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

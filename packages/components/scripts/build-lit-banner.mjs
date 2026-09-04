@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/banner');
@@ -26,11 +30,27 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<div popover="manual" inert=\${this.isOpenFlag ? nothing : true} role=\${this.roleName} aria-live=\${this.ariaLive} aria-label=\${this.headingAria || nothing}><style .innerHTML="\${this.cssText}"></style><div class="notification">\${this.headingNode}\${this.descriptionNode}\${this.dismissNode}</div></div>\`;`;
+const renderTemplate = `return html\`<div popover="manual" inert=\${this.isOpenFlag ? nothing : true} role=\${this.roleName} aria-live=\${this.ariaLive} aria-label=\${this.headingAria || nothing}><div class="notification">\${this.headingNode}\${this.descriptionNode}\${this.dismissNode}</div></div>\`;`;
 
 const extraGetters = `  isInitialRender = true;
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+  syncHostStateAttrs() {
+    const heading = this.headingText;
+    if (heading || this.hasHeadingSlot) this.setAttribute("data-heading", "");
+    else this.removeAttribute("data-heading");
+  }
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
+    this.syncHostStateAttrs();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true });
     queueMicrotask(() => this.requestUpdate());
@@ -40,6 +60,8 @@ const extraGetters = `  isInitialRender = true;
     super.disconnectedCallback();
   }
   updated() {
+    this.applyHostStyle();
+    this.syncHostStateAttrs();
     const pop = this.renderRoot?.querySelector("[popover]");
     if (pop) {
       if (this.isOpenFlag) {
@@ -86,25 +108,9 @@ let after = before
   )
   .replace(/@property\(\)\s+headingTag/g, '@property({ attribute: "heading-tag" }) headingTag')
   .replace(/@property\(\)\s+dismissButton/g, '@property({ attribute: "dismiss-button" }) dismissButton')
-  .replaceAll(
-    'const visual = this.state || "info";',
-    'const visual = (this.getAttribute("state") ?? this.state) || "info";'
-  )
-  .replaceAll(
-    'const heading = this.heading || "";',
-    'const heading = (this.getAttribute("heading") ?? this.heading) || "";'
-  )
-  .replaceAll(
-    'let dismiss: any = this.dismissButton;',
-    'let dismiss: any = this.getAttribute("dismiss-button") ?? this.dismissButton;'
-  )
-  .replaceAll(
-    'let isOpen: any = this.open;',
-    'let isOpen: any = this.getAttribute("open") ?? this.open;'
-  )
-  .replaceAll(
-    'let position: any = this.position;',
-    'let position: any = this.getAttribute("position") ?? this.position;'
+  .replace(
+    /parse\(this\.position,\s*\{\s*base:\s*"bottom",\s*s:\s*"top"\s*\}\)/,
+    'parse(this.getAttribute("position") ?? this.position, { base: "bottom", s: "top" })'
   )
   .replaceAll(
     'return this.heading || "";',
@@ -172,16 +178,6 @@ after = after.replace(
   }`
 );
 
-if (!after.includes('@starting-style')) {
-  after = after.replace(
-    '    return out;',
-    `    if (isOpen && !this.isInitialRender) {
-      out += "@starting-style{[popover]{transform:var(--_p-banner-a)}.notification{opacity:0}}";
-    }
-    return out;`
-  );
-}
-
 if (after.includes('my-fragment')) {
   console.error('build-lit-banner: my-fragment leaked after strip');
   process.exit(1);
@@ -201,14 +197,27 @@ const required = [
   'querySelector',
   'MutationObserver',
   'showPopover',
-  'min-width:760px',
+  'min-width: 760px',
   'popover="manual"',
   'isInitialRender',
   '@starting-style',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-banner: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-banner: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-banner', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-banner: ${err.message}`);
   process.exit(1);
 }
 if (

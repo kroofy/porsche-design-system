@@ -44,7 +44,7 @@ const extraGetters = `  connectedCallback() {
 
   render() {`;
 
-const renderTemplate = `return html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;`;
+const renderTemplate = `return html\`<slot></slot>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -78,7 +78,7 @@ if (after.includes('class="root"') || after.includes("class='root'")) {
   process.exit(1);
 }
 
-const required = ['cssText', '<slot>', '@property() label', 'MutationObserver', 'slotchange'];
+const required = ['static styles', '<slot>', '@property() label', 'MutationObserver', 'slotchange'];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-tabs-item: missing ${missing.join(', ')}`);

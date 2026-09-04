@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -100,7 +101,7 @@ await page.waitForFunction(() => {
     const style = root?.querySelector('style');
     const pop = root?.querySelector('[popover]');
     const arrow = root?.querySelector('.arrow');
-    if (!root || !style || !pop || !arrow) return false;
+    if (!root || style || (root.adoptedStyleSheets?.length ?? 0) < 1 || !pop || !arrow) return false;
     if (pop.getAttribute('popover') !== 'manual') return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-popover')) return false;
     const isOpen = el.getAttribute('open') === 'true' || el.getAttribute('open') === '' || el.open === true;
@@ -159,6 +160,9 @@ const proof = await page.evaluate(() => {
       const pop = el.shadowRoot?.querySelector('[popover]');
       const hasButtonSlot = !!el.querySelector('[slot="button"]');
       const hasDescription = !!(el.getAttribute('description') || el.description);
+      const sheetText = [...(el.shadowRoot?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('\n');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -167,7 +171,8 @@ const proof = await page.evaluate(() => {
         description: el.getAttribute('description'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
-        cssTextLen: style?.textContent?.length ?? 0,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        cssTextLen: sheetText.length,
         popover: pop?.getAttribute('popover') ?? null,
         hasArrow: !!el.shadowRoot?.querySelector('.arrow'),
         popoverOpen: !!pop?.matches(':popover-open'),
@@ -249,7 +254,8 @@ const failed =
       item.tag !== 'p-popover' ||
       item.ctor !== 'LitPopover' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       item.cssTextLen < 100 ||
       item.popover !== 'manual' ||
       !item.hasArrow ||

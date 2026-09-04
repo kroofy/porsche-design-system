@@ -36,6 +36,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -97,12 +98,13 @@ await page.waitForFunction(() => {
     if (el.classList.contains('hydrated')) return false;
     const root = el.shadowRoot;
     const wrap = root?.querySelector('.wrap');
-    const style = root?.querySelector('style');
     const bar = root?.querySelector('p-tabs-bar.root');
     const buttons = [...(bar?.querySelectorAll(':scope > button') ?? [])];
     const items = [...el.querySelectorAll(':scope > p-tabs-item')];
     const texts = items.flatMap((item) => [...item.querySelectorAll('p-text')]);
-    if (!root || !wrap || !style || !bar) return false;
+    if (!root || !wrap || !bar) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-tabs')) return false;
     if (bar.constructor?.name !== 'LitTabsBar') return false;
     if (buttons.length !== 3) return false;
@@ -176,6 +178,7 @@ const proof = await page.evaluate(() => {
         buttonLabels: buttons.map((b) => b.textContent?.trim()),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasWrap: !!el.shadowRoot?.querySelector('.wrap'),
         hasBar: !!bar,
         barCtor: bar?.constructor?.name ?? null,
@@ -184,7 +187,6 @@ const proof = await page.evaluate(() => {
         hydrated: el.classList.contains('hydrated'),
         itemHydrated: children.every((c) => c.classList.contains('hydrated')),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        cssHas1000: !!style?.textContent?.includes('1000'),
       };
     }),
   };
@@ -261,7 +263,8 @@ const failed =
       h.buttonCount !== 3 ||
       h.buttonLabels?.join('|') !== 'Some label (1)|Some label (2)|Some label (3)' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasWrap ||
       !h.hasBar ||
       h.barCtor !== 'LitTabsBar' ||

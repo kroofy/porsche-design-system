@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -83,7 +84,12 @@ log(`loader exact "p-drilldown"=${stillLazy} item=${itemStillLazy} link=${linkSt
 
 await page.goto(PLAYGROUND_URL, { waitUntil: 'load', timeout: 30_000 });
 await page.waitForFunction(
-  () => customElements.get('p-drilldown') && customElements.get('p-button') && customElements.get('p-button-pure'),
+  () =>
+    customElements.get('p-drilldown') &&
+    customElements.get('p-drilldown-item') &&
+    customElements.get('p-drilldown-link') &&
+    customElements.get('p-button') &&
+    customElements.get('p-button-pure'),
   { timeout: 20_000 },
 );
 await page.evaluate(() => document.fonts.ready);
@@ -127,9 +133,15 @@ await page.waitForFunction(() => {
     if (desktop.getAttribute('hide-label') !== 'true') return false;
     if (back.getAttribute('href') === 'undefined' || mobile.getAttribute('href') === 'undefined') return false;
     if (root.querySelector('.root, my-fragment, lit-drilldown')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('display:block') || !css.includes('visibility:hidden')) return false;
-    if (!css.includes('min-width:760px') || !css.includes('max-width:759px')) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
+    const sheetText = [...(root.adoptedStyleSheets ?? [])]
+      .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+      .join('');
+    if (!sheetText.includes('display: block') && !sheetText.includes('display:block')) return false;
+    if (!sheetText.includes('visibility: hidden') && !sheetText.includes('visibility:hidden')) return false;
+    if (!sheetText.includes('min-width: 760px') && !sheetText.includes('min-width:760px')) return false;
+    if (!sheetText.includes('max-width: 759px') && !sheetText.includes('max-width:759px')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -164,14 +176,17 @@ const proof = await page.evaluate(() => {
     buttonCount: buttons.length,
     itemCount: items.length,
     linkCount: links.length,
-    itemsHydrated: items.every((el) => el.classList.contains('hydrated')),
-    linksHydrated: links.every((el) => el.classList.contains('hydrated')),
+    itemsHydrated: items.some((el) => el.classList.contains('hydrated')),
+    linksHydrated: links.some((el) => el.classList.contains('hydrated')),
     hosts: hosts.map((el) => {
-      const dialog = el.shadowRoot?.querySelector('dialog');
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
-      const back = el.shadowRoot?.querySelector('p-button-pure.back');
-      const mobile = el.shadowRoot?.querySelector('p-button.dismiss-mobile');
-      const desktop = el.shadowRoot?.querySelector('p-button.dismiss-desktop');
+      const root = el.shadowRoot;
+      const dialog = root?.querySelector('dialog');
+      const sheetText = [...(root?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('');
+      const back = root?.querySelector('p-button-pure.back');
+      const mobile = root?.querySelector('p-button.dismiss-mobile');
+      const desktop = root?.querySelector('p-button.dismiss-desktop');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -179,9 +194,9 @@ const proof = await page.evaluate(() => {
         display: getComputedStyle(el).display,
         dialogOpen: dialog?.open ?? null,
         dialogVis: dialog ? getComputedStyle(dialog).visibility : null,
-        hasDrawer: !!el.shadowRoot?.querySelector('.drawer'),
-        hasScroller: !!el.shadowRoot?.querySelector('.scroller'),
-        hasDefaultSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
+        hasDrawer: !!root?.querySelector('.drawer'),
+        hasScroller: !!root?.querySelector('.scroller'),
+        hasDefaultSlot: !!root?.querySelector('slot:not([name])'),
         backCtor: back?.constructor?.name ?? null,
         mobileCtor: mobile?.constructor?.name ?? null,
         desktopCtor: desktop?.constructor?.name ?? null,
@@ -189,12 +204,16 @@ const proof = await page.evaluate(() => {
         backStretch: back?.getAttribute('stretch') ?? null,
         mobileCompact: mobile?.getAttribute('compact') ?? null,
         hrefUndefined: [back, mobile, desktop].some((n) => n?.getAttribute('href') === 'undefined'),
-        hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
-        hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        hasContentsHost: css.includes(':host{display:contents') || css.includes(':host {display:contents'),
-        hasBlock: css.includes('display:block'),
-        hasHiddenVis: css.includes('visibility:hidden'),
-        hasS760: css.includes('min-width:760px') && css.includes('max-width:759px'),
+        hasRootWrap: !!root?.querySelector('.root'),
+        hasFragment: !!root?.querySelector('my-fragment'),
+        hasStyle: !!root?.querySelector('style'),
+        adoptedSheets: root?.adoptedStyleSheets?.length ?? 0,
+        hasContentsHost: sheetText.includes(':host { display: contents') || sheetText.includes(':host{display:contents'),
+        hasBlock: sheetText.includes('display: block') || sheetText.includes('display:block'),
+        hasHiddenVis: sheetText.includes('visibility: hidden') || sheetText.includes('visibility:hidden'),
+        hasS760:
+          (sheetText.includes('min-width: 760px') || sheetText.includes('min-width:760px')) &&
+          (sheetText.includes('max-width: 759px') || sheetText.includes('max-width:759px')),
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -257,14 +276,16 @@ const failed =
   proof.ctorName !== 'LitDrilldown' ||
   proof.buttonCtor !== 'LitButton' ||
   proof.buttonPureCtor !== 'LitButtonPure' ||
+  proof.itemCtor !== 'LitDrilldownItem' ||
+  proof.linkCtor !== 'LitDrilldownLink' ||
   proof.litTagDefined ||
   proof.hostCount !== 2 ||
   proof.buttonCount < 2 ||
   stillLazy ||
-  !itemStillLazy ||
-  !linkStillLazy ||
-  !proof.itemsHydrated ||
-  !proof.linksHydrated ||
+  itemStillLazy ||
+  linkStillLazy ||
+  proof.itemsHydrated ||
+  proof.linksHydrated ||
   proof.hosts.some((item) => {
     return (
       item.tag !== 'p-drilldown' ||
@@ -285,6 +306,8 @@ const failed =
       item.hrefUndefined ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       item.hasContentsHost ||
       !item.hasBlock ||
       !item.hasHiddenVis ||

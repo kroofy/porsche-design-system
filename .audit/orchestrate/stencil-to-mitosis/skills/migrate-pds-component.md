@@ -60,35 +60,30 @@ After `mitosis build`, open `output/lit/src/*.ts` and confirm:
 
 - `import { … } from "lit/decorators"` (invalid specifier, fixed at bundle time)
 - `@customElement("lit-…")`
-- `static styles` from `useStyle` (host only)
-- a `get cssText()` that returns a stylesheet string
+- `static styles` from `useStyle`
+- `get hostStyle()` when props set CSS vars
+- **no** `get cssText()` or `<style innerHTML>`
 - **no** `<my-fragment>`
 
 ## Source pattern
 
-Stencil does two things in `render()`: `attachComponentCss(this.host, getComponentCss, …props)` and a small template. Mitosis Lit cannot call `attachComponentCss` (it wants a host and constructed stylesheets). The analog that passed pixel-diff 0 is a `cssText` getter.
+Stencil does two things in `render()`: `attachComponentCss(this.host, getComponentCss, …props)` and a small template. Mitosis Lit cannot call `attachComponentCss`. The analog that passed pixel-diff 0 is `useStyle` plus `get hostStyle()`.
 
-### cssText, not inline background
+### useStyle and hostStyle, not cssText
 
-`useStore` exposes `get cssText()` that mirrors `getComponentCss(...)` from `{SHORT}-styles.ts`. The template renders it into the shadow root:
+`useStyle(\`…\`)` holds the static sheet. Lit emits it as `static styles`. Media queries and `@media (forced-colors: active)` stay real rules. Do not inject `<style innerHTML={state.cssText} />`. Build scripts must reject `get cssText` and `.innerHTML`.
 
-```tsx
-<style innerHTML={state.cssText} />
-```
-
-That is a real stylesheet. Media queries and `@media (forced-colors: active)` work. HCM honors `background: CanvasText` on a rule. It does not honor the same value when you force it as an inline `style.background`.
-
-The customElement probe bound color as an inline background. Forced-colors then painted a white rule on a white canvas. Invisible. If you catch yourself writing `style={{ background: … }}` for a token color, stop.
+Prop-dependent values go on `get hostStyle()` as CSS custom properties. `packages/components/mitosis/_runtime/apply-host-style-plugin.js` copies those vars onto the host. `style={{ … }}` on a child is dead on Lit 0.14. The `css` prop is also dead. Unset breakpoint vars must copy the last specified value forward, not fall back to base.
 
 Token colors are `var(--p-color-…)` with **no fallback**, same as `ref()` in the Stencil styles. Compare computed background to a reference `div` that uses the same `var()` on the same page. Do not assert hardcoded rgba.
 
-`:host` and `:host([hidden])` stay in `useStyle(\`…\`)` (static). Everything that depends on props goes in `cssText`.
+Static tags can lift with `packages/components/scripts/lift-static-css-text.mjs`. Dynamic tags need a `hostStyle` map.
 
 ### No JSX fragments
 
 The Lit generator has no Fragment branch. `<>…</>` and `<Fragment>` become a literal `<my-fragment>` element in the shadow root. Stencil does not have that node. It will break `:host > *`, slots, and child selectors even when it happens to pixel-diff 0 (divider did, because `my-fragment` is inline and empty-layout).
 
-Return one real root element that already exists in the Stencil shadow tree. Put `<style innerHTML={state.cssText} />` inside that root when the root can have children.
+Return one real root element that already exists in the Stencil shadow tree. Do not add a dummy `.root` wrapper unless slotted table or list layout requires `display: contents`.
 
 If Stencil's render is a void element (`hr`, `input`, `img`) you cannot add a sibling without a fragment. Do not wrap it in a layout-affecting extra `div`. Do not ship `my-fragment`. Either:
 

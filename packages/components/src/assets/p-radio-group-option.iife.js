@@ -599,7 +599,7 @@
 
   // ../../components/mitosis/radio-group-option/output/lit/RadioGroupOption.ts
   var LitRadioGroupOption = class extends i4 {
-    get cssText() {
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const disabled = isTrue(this.disabled ?? this.getAttribute("disabled")) || isTrue(this.disabledParent ?? this.getAttribute("disabled-parent") ?? this.getAttribute("disabledparent"));
       const selected = isTrue(this.selected ?? this.getAttribute("selected"));
@@ -628,30 +628,18 @@
         }
       };
       const palette = palettes[formState] || palettes.none;
-      const checkedIcon = `url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>') center/contain no-repeat`;
-      const dim = "calc(var(--_p-radio-group-option-a) * 1.75rem)";
-      let out = ':host{display:block}:host([hidden]){display:none !important}slot[name="label-after"]{display:inline-block;vertical-align:top}slot[name="label-after"]::slotted(*){margin-inline-start:var(--p-spacing-static-xs) !important}.label-after{display:inline-block;vertical-align:top}:not(:defined,[data-ssr]){visibility:hidden}input{all:unset;display:grid;width:' + dim + ";height:" + dim + ";margin-block:max(0px, calc((var(--p-leading-normal) - " + dim + ") / 2));box-sizing:border-box;font:var(--p-typescale-sm) var(--p-font-porsche-next);background:" + palette.bg + ";transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), border-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);border:1px solid " + palette.border + ";border-radius:var(--p-radius-full)";
-      if (blocked) out += ";pointer-events:none";
-      out += "}input:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}input:checked{background:" + palette.checked + '}input::before{content:"";grid-area:1/1}input::after{content:"";margin:calc(-1px - max(0px, calc(24px - ' + dim + ") / 2));grid-area:1/1}input:checked::before{-webkit-mask:" + checkedIcon + ";mask:" + checkedIcon + ";background-color:var(--p-color-canvas)}";
-      if (blocked) {
-        out += "@media(forced-colors:active){input{border-color:GrayText}input:checked::before{background:CanvasText}input:focus-visible{outline-color:Highlight}}";
-      } else {
-        out += "@media(forced-colors:active){input:checked::before{background:CanvasText}input:focus-visible{outline-color:Highlight}}@media(hover:hover){input:hover{border-color:" + palette.hover + "}}";
-      }
-      out += ".root{display:grid;grid-template-columns:auto minmax(0, 1fr);row-gap:var(--p-spacing-static-xs)}.wrapper{position:relative;display:flex;align-items:center;align-self:flex-start;min-height:var(--p-leading-normal);cursor:" + (blocked ? "not-allowed" : "pointer");
-      if (disabled) out += ";opacity:0.4";
-      out += "}";
-      if (loading) {
-        out += ".spinner{--p-spinner-size:calc(" + dim + " - 2px);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}";
-      }
-      out += ".label-wrapper{min-width:fit-content;position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal;padding-top:max(0px, calc((" + dim + " - var(--p-leading-normal)) / 2));padding-inline-start:calc(11.2px * (var(--_p-radio-group-option-a) - 0.64285714) + 4px)}.label{font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);cursor:" + (blocked ? "not-allowed" : "pointer") + ";color:var(--p-color-primary)";
-      if (blocked) out += ";pointer-events:none";
-      if (disabled) out += ";opacity:0.4";
-      out += ';transition:color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);display:inline}.label:empty{display:none}.label:is(span){cursor:unset;font-size:var(--p-typescale-xs);color:var(--p-color-contrast-high);position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal;margin-top:calc(-1 * var(--p-spacing-static-xs))}.label > slot[name="label"]::slotted(*){display:inline !important}.required{user-select:none}.loading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}';
-      if (disabled) {
-        out += "@media(forced-colors:active){.wrapper{opacity:1;color:GrayText}.label{opacity:1;color:GrayText}}";
-      }
-      return out;
+      return {
+        "--p-rgo-bg": palette.bg,
+        "--p-rgo-border": palette.border,
+        "--p-rgo-hover": blocked ? "" : palette.hover,
+        "--p-rgo-checked": palette.checked,
+        "--p-rgo-pe": blocked ? "none" : "",
+        "--p-rgo-cursor": blocked ? "not-allowed" : "pointer",
+        "--p-rgo-opacity": disabled ? "0.4" : "",
+        "--p-rgo-fc-opacity": disabled ? "1" : "",
+        "--p-rgo-fc-color": disabled ? "GrayText" : "",
+        "--p-rgo-fc-input-border": blocked ? "GrayText" : ""
+      };
     }
     get labelText() {
       return this.label ?? this.getAttribute("label") ?? "";
@@ -709,6 +697,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._lightDomObserver = new MutationObserver(() => this.requestUpdate());
       this._lightDomObserver.observe(this, { childList: true, characterData: true, subtree: true });
       queueMicrotask(() => this.requestUpdate());
@@ -741,8 +730,20 @@
         e5.stopPropagation();
       });
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
-      return b2`<div class="root"><style .innerHTML="${this.cssText}"></style><div class="wrapper"><input id="radio-group-option" type="radio" name=${this.inputName || A} value=${this.inputValue} .checked=${!!this.isSelected} ?disabled=${!!this.isDisabled || !!this.isLoading} aria-invalid=${this.ariaInvalid || A} aria-disabled=${this.isDisabled || this.isLoading ? "true" : A} aria-describedby=${this.isLoading ? "loading" : A}>${this.spinnerNode}</div>${this.labelNode}${this.loadingNode}</div>`;
+      return b2`<div class="root"><div class="wrapper"><input id="radio-group-option" type="radio" name=${this.inputName || A} value=${this.inputValue} .checked=${!!this.isSelected} ?disabled=${!!this.isDisabled || !!this.isLoading} aria-invalid=${this.ariaInvalid || A} aria-disabled=${this.isDisabled || this.isLoading ? "true" : A} aria-describedby=${this.isLoading ? "loading" : A}>${this.spinnerNode}</div>${this.labelNode}${this.loadingNode}</div>`;
     }
   };
   LitRadioGroupOption.styles = i`
@@ -751,6 +752,179 @@
         }
         :host([hidden]) {
           display: none !important;
+        }
+        slot[name="label-after"] {
+          display: inline-block;
+          vertical-align: top;
+        }
+        slot[name="label-after"]::slotted(*) {
+          margin-inline-start: var(--p-spacing-static-xs) !important;
+        }
+        .label-after {
+          display: inline-block;
+          vertical-align: top;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        input {
+          all: unset;
+          display: grid;
+          width: calc(var(--_p-radio-group-option-a) * 1.75rem);
+          height: calc(var(--_p-radio-group-option-a) * 1.75rem);
+          margin-block: max(
+            0px,
+            calc(
+              (var(--p-leading-normal) - calc(var(--_p-radio-group-option-a) * 1.75rem)) /
+                2
+            )
+          );
+          box-sizing: border-box;
+          font: var(--p-typescale-sm) var(--p-font-porsche-next);
+          background: var(--p-rgo-bg);
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out),
+            border-color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+          border: 1px solid var(--p-rgo-border);
+          border-radius: var(--p-radius-full);
+          pointer-events: var(--p-rgo-pe);
+        }
+        input:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        input:checked {
+          background: var(--p-rgo-checked);
+        }
+        input::before {
+          content: "";
+          grid-area: 1 / 1;
+        }
+        input::after {
+          content: "";
+          margin: calc(
+            -1px - max(0px, calc(24px - calc(var(--_p-radio-group-option-a) * 1.75rem)) /
+                  2)
+          );
+          grid-area: 1 / 1;
+        }
+        input:checked::before {
+          -webkit-mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>')
+            center / contain no-repeat;
+          mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>')
+            center / contain no-repeat;
+          background-color: var(--p-color-canvas);
+        }
+        .root {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr);
+          row-gap: var(--p-spacing-static-xs);
+        }
+        .wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          align-self: flex-start;
+          min-height: var(--p-leading-normal);
+          cursor: var(--p-rgo-cursor, pointer);
+          opacity: var(--p-rgo-opacity);
+        }
+        .spinner {
+          --p-spinner-size: calc(calc(var(--_p-radio-group-option-a) * 1.75rem) - 2px);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        .label-wrapper {
+          min-width: fit-content;
+          position: static;
+          width: auto;
+          height: auto;
+          padding: 0;
+          margin: 0;
+          overflow: visible;
+          clip: auto;
+          white-space: normal;
+          padding-top: max(
+            0px,
+            calc(
+              (calc(var(--_p-radio-group-option-a) * 1.75rem) - var(--p-leading-normal)) /
+                2
+            )
+          );
+          padding-inline-start: calc(
+            11.2px * (var(--_p-radio-group-option-a) - 0.64285714) + 4px
+          );
+        }
+        .label {
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          cursor: var(--p-rgo-cursor, pointer);
+          color: var(--p-color-primary);
+          pointer-events: var(--p-rgo-pe);
+          opacity: var(--p-rgo-opacity);
+          transition: color var(--p-transition-duration, var(--p-duration-sm))
+            var(--p-ease-in-out);
+          display: inline;
+        }
+        .label:empty {
+          display: none;
+        }
+        .label:is(span) {
+          cursor: unset;
+          font-size: var(--p-typescale-xs);
+          color: var(--p-color-contrast-high);
+          position: static;
+          width: auto;
+          height: auto;
+          padding: 0;
+          margin: 0;
+          overflow: visible;
+          clip: auto;
+          white-space: normal;
+          margin-top: calc(-1 * var(--p-spacing-static-xs));
+        }
+        .label > slot[name="label"]::slotted(*) {
+          display: inline !important;
+        }
+        .required {
+          user-select: none;
+        }
+        .loading {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        @media (forced-colors: active) {
+          input {
+            border-color: var(--p-rgo-fc-input-border);
+          }
+          input:checked::before {
+            background: CanvasText;
+          }
+          input:focus-visible {
+            outline-color: Highlight;
+          }
+          .wrapper {
+            opacity: var(--p-rgo-fc-opacity);
+            color: var(--p-rgo-fc-color);
+          }
+          .label {
+            opacity: var(--p-rgo-fc-opacity);
+            color: var(--p-rgo-fc-color);
+          }
+        }
+        @media (hover: hover) {
+          input:hover {
+            border-color: var(--p-rgo-hover);
+          }
         }
 `;
   __decorateClass([

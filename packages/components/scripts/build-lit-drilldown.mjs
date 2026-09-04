@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/drilldown');
@@ -31,6 +35,7 @@ if (!generated) {
 
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
+    this.syncHostStateAttrs();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -61,7 +66,29 @@ const extraMethods = `  connectedCallback() {
     });
   }
 
+  syncHostStateAttrs() {
+    if (this.isOpenFlag) this.setAttribute("open", "");
+    else this.removeAttribute("open");
+    const rawActive = this.activeIdentifier ?? this.getAttribute("active-identifier") ?? this.getAttribute("activeidentifier");
+    const activeId = rawActive == null || rawActive === "" ? "" : String(rawActive);
+    if (activeId) this.setAttribute("data-secondary", "");
+    else this.removeAttribute("data-secondary");
+    let isPrimary = true;
+    if (activeId) {
+      const items = this.querySelectorAll("p-drilldown-item");
+      for (const item of items) {
+        if (item.getAttribute("identifier") === activeId) {
+          isPrimary = item.parentElement === this;
+          break;
+        }
+      }
+    }
+    if (isPrimary) this.setAttribute("data-primary", "");
+    else this.removeAttribute("data-primary");
+  }
+
   updated() {
+    this.syncHostStateAttrs();
     const dialog = this.renderRoot?.querySelector("dialog");
     if (!dialog) return;
     if (this.isOpenFlag) {
@@ -78,7 +105,7 @@ const extraMethods = `  connectedCallback() {
 
   render() {
     const label = this.ariaLabelText || nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style><dialog ?inert=\${!this.isOpenFlag} aria-label=\${label}><div class="drawer"><p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" hide-label="true" icon="arrow-left">Back</p-button-pure><p-button class="dismiss-mobile" type="button" icon="close" compact="true" variant="secondary" hide-label="true">Dismiss drilldown</p-button><p-button class="dismiss-desktop" type="button" icon="close" variant="secondary" hide-label="true">Dismiss drilldown</p-button><div class="scroller"><slot></slot></div></div></dialog>\`;
+    return html\`<dialog ?inert=\${!this.isOpenFlag} aria-label=\${label}><div class="drawer"><p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" hide-label="true" icon="arrow-left">Back</p-button-pure><p-button class="dismiss-mobile" type="button" icon="close" compact="true" variant="secondary" hide-label="true">Dismiss drilldown</p-button><p-button class="dismiss-desktop" type="button" icon="close" variant="secondary" hide-label="true">Dismiss drilldown</p-button><div class="scroller"><slot></slot></div></div></dialog>\`;
   }
 }`;
 
@@ -92,26 +119,8 @@ let after = before
   );
 
 after = after.replace(
-  'const isOpen = isTrue(this.open);',
-  'const isOpen = isTrue(this.open ?? this.getAttribute("open"));'
-);
-after = after.replace(
-  /const activeId =\s*this\.activeIdentifier == null \|\| this\.activeIdentifier === ""\s*\? ""\s*: String\(this\.activeIdentifier\);/,
-  `const rawActive = this.activeIdentifier ?? this.getAttribute("active-identifier") ?? this.getAttribute("activeidentifier");
-    const activeId = rawActive == null || rawActive === "" ? "" : String(rawActive);`
-);
-after = after.replace(
-  'const isPrimary = true;',
-  `let isPrimary = true;
-    if (activeId) {
-      const items = this.querySelectorAll("p-drilldown-item");
-      for (const item of items) {
-        if (item.getAttribute("identifier") === activeId) {
-          isPrimary = item.parentElement === this;
-          break;
-        }
-      }
-    }`
+  /@property\(\)\s+activeIdentifier/g,
+  '@property({ attribute: "active-identifier" }) activeIdentifier'
 );
 
 after = after.replace(
@@ -158,8 +167,8 @@ if (after.includes('href="undefined"') || after.includes("href='undefined'")) {
 }
 
 const required = [
-  'display:block',
-  'visibility:hidden',
+  'display: block',
+  'visibility: hidden',
   'class="drawer"',
   'class="scroller"',
   'class="back"',
@@ -168,18 +177,29 @@ const required = [
   'hide-label="true"',
   'stretch="true"',
   'compact="true"',
-  'min-width:760px',
-  'max-width:759px',
+  'min-width: 760px',
+  'max-width: 759px',
   'p-button-pure',
   'showModal',
   'isOpenFlag',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'syncHostStateAttrs',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-drilldown: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-drilldown: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-drilldown' });
+} catch (err) {
+  console.error(`build-lit-drilldown: ${err.message}`);
   process.exit(1);
 }
 if (

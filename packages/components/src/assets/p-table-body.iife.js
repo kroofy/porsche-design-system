@@ -569,9 +569,6 @@
 
   // ../../components/mitosis/table-body/output/lit/TableBody.ts
   var LitTableBody = class extends i4 {
-    get cssText() {
-      return ":host{display:table-row-group}:host([hidden]){display:none !important}";
-    }
     connectedCallback() {
       super.connectedCallback();
       this.setAttribute("role", "rowgroup");
@@ -590,7 +587,7 @@
       });
     }
     render() {
-      return b2`<style .innerHTML="${this.cssText}"></style><slot></slot>`;
+      return b2`<slot></slot>`;
     }
   };
   LitTableBody.styles = i`

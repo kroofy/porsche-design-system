@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/input-text');
@@ -27,7 +31,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return html`<div class="root"><style .innerHTML="${this.cssText}"></style><div class="label-wrapper"><label class="label" id="label" for="input-text">${this.labelText}</label><slot name="label-after"></slot></div><span class="label" id="description">${this.descriptionText}</span><div class="wrapper"><slot name="start"></slot><input type="text" id="input-text" dir="auto" .value=${this.inputValue} placeholder=${this.placeholderText || nothing} name=${this.name || nothing} ?disabled=${!!this.isDisabled} ?readonly=${!!this.isReadOnly} maxlength=${this.maxLengthValue || nothing} aria-disabled=${this.ariaDisabled || nothing} aria-invalid=${this.ariaInvalid || nothing} aria-readonly=${this.ariaReadonly || nothing}><span class="sr-only" aria-live="polite">${this.remainingText}</span><span class="counter" aria-hidden="true">${this.counterText}</span><slot name="end"></slot><p-spinner aria-hidden="true"></p-spinner></div><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span><span class="loading" id="loading" role="status">${this.loadingText}</span></div>`;';
+  'return html`<div class="root"><div class="label-wrapper"><label class="label" id="label" for="input-text">${this.labelText}</label><slot name="label-after"></slot></div><span class="label" id="description">${this.descriptionText}</span><div class="wrapper"><slot name="start"></slot><input type="text" id="input-text" dir="auto" .value=${this.inputValue} placeholder=${this.placeholderText || nothing} name=${this.name || nothing} ?disabled=${!!this.isDisabled} ?readonly=${!!this.isReadOnly} maxlength=${this.maxLengthValue || nothing} aria-disabled=${this.ariaDisabled || nothing} aria-invalid=${this.ariaInvalid || nothing} aria-readonly=${this.ariaReadonly || nothing}><span class="sr-only" aria-live="polite">${this.remainingText}</span><span class="counter" aria-hidden="true">${this.counterText}</span><slot name="end"></slot><p-spinner aria-hidden="true"></p-spinner></div><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span><span class="loading" id="loading" role="status">${this.loadingText}</span></div>`;';
 
 const updatedBlock = `  get iconSrc() {
     const files = {
@@ -39,7 +43,23 @@ const updatedBlock = `  get iconSrc() {
     return "";
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   updated() {
+    this.applyHostStyle();
     const input = this.renderRoot?.querySelector("input");
     if (input) {
       const value = this.value ?? this.getAttribute("value") ?? "";
@@ -76,6 +96,26 @@ let after = before
     'const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);'
   )
   .replace(
+    'const disabled = isTrue(this.disabled);',
+    'const disabled = isTrue(this.getAttribute("disabled") ?? this.disabled);'
+  )
+  .replace(
+    'const loading = isTrue(this.loading);',
+    'const loading = isTrue(this.getAttribute("loading") ?? this.loading);'
+  )
+  .replace(
+    'const compact = isTrue(this.compact);',
+    'const compact = isTrue(this.getAttribute("compact") ?? this.compact);'
+  )
+  .replace(
+    'const formState = this.state === "success" || this.state === "error" ? this.state : "none";',
+    'const formState = (this.getAttribute("state") ?? this.state) === "success" || (this.getAttribute("state") ?? this.state) === "error" ? (this.getAttribute("state") ?? this.state) : "none";'
+  )
+  .replace(
+    'const message = this.message || "";',
+    'const message = this.getAttribute("message") ?? this.message ?? "";'
+  )
+  .replace(
     'const readOnly = isTrue(this.readOnly);',
     'const readOnly = isTrue(this.getAttribute("read-only") ?? this.readOnly);'
   )
@@ -101,12 +141,6 @@ let after = before
   )
   .replace(/return html`[\s\S]*?`;/, renderTemplate);
 
-const propsToEnsure = ['maxLength', 'readOnly', 'counter', 'value', 'placeholder', 'hideLabel', 'message', 'state', 'name'];
-for (const prop of propsToEnsure) {
-  if (!after.includes(`@property() ${prop}`) && !after.includes(`@property({ attribute:` ) || !after.includes(`${prop}: any`)) {
-    // keep existing kebab-mapped decls; only add missing bare props
-  }
-}
 if (!after.includes('@property() name:') && !after.includes('@property() name ')) {
   after = after.replace('@property() label: any;', '@property() label: any;\n  @property() name: any;');
 }
@@ -138,6 +172,16 @@ if (
 }
 if (after.includes('lit-input-text') || after.includes('lit-icon') || after.includes('lit-spinner')) {
   console.error('build-lit-input-text: generated output must use p-input-text / p-icon / p-spinner, not lit-*');
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML')) {
+  console.error('build-lit-input-text: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-input-text', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-input-text: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

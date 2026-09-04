@@ -1,21 +1,8 @@
-import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
+import { useMetadata, useStyle } from '@builder.io/mitosis';
 
 useMetadata({ tagName: 'p-crest' });
 
 export default function LitCrest(props: { href?: string; target?: string }) {
-  const state = useStore({
-    get cssText(): string {
-      return (
-        'a{all:unset;cursor:pointer}' +
-        'a::before{content:"";position:absolute;inset:0;border-radius:1px}' +
-        'a:focus-visible::before{outline:2px solid var(--p-color-focus);outline-offset:2px}' +
-        'picture{display:block;width:min(30px,100%);height:min(40px,100%)}' +
-        'img{display:block;max-width:100%;max-height:100%;width:auto;height:auto}' +
-        '@media(forced-colors:active){a:focus-visible::before{outline-color:Highlight}}'
-      );
-    },
-  });
-
   useStyle(`
     :host {
       position: relative;
@@ -30,11 +17,41 @@ export default function LitCrest(props: { href?: string; target?: string }) {
     :host([hidden]) {
       display: none !important;
     }
+    a {
+      all: unset;
+      cursor: pointer;
+    }
+    a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1px;
+    }
+    a:focus-visible::before {
+      outline: 2px solid var(--p-color-focus);
+      outline-offset: 2px;
+    }
+    picture {
+      display: block;
+      width: min(30px, 100%);
+      height: min(40px, 100%);
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+    }
+    @media (forced-colors: active) {
+      a:focus-visible::before {
+        outline-color: Highlight;
+      }
+    }
   `);
 
   return (
     <a href={props.href} target={props.target || '_self'}>
-      <style innerHTML={state.cssText} />
       <picture>
         <source
           srcSet="http://localhost:3001/crest/porsche-crest.0d0cc89@1x.webp 1x,http://localhost:3001/crest/porsche-crest.2245c45@2x.webp 2x,http://localhost:3001/crest/porsche-crest.19b4292@3x.webp 3x"

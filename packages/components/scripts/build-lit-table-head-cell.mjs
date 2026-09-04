@@ -33,6 +33,7 @@ const extraMethods = `  connectedCallback() {
     super.connectedCallback();
     this.setAttribute("scope", "col");
     this.setAttribute("role", "columnheader");
+    this.applyHostStyle();
     const sort = this.parseSort();
     if (sort?.active) {
       this.setAttribute("aria-sort", sort.direction === "asc" ? "ascending" : "descending");
@@ -56,6 +57,26 @@ const extraMethods = `  connectedCallback() {
     });
   }
 
+  updated() {
+    this.applyHostStyle();
+    const sort = this.parseSort();
+    if (sort?.active) {
+      this.setAttribute("aria-sort", sort.direction === "asc" ? "ascending" : "descending");
+    } else {
+      this.removeAttribute("aria-sort");
+    }
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   onButtonClick() {
     const sort = this.parseSort() || {};
     this.dispatchEvent(
@@ -72,9 +93,9 @@ const extraMethods = `  connectedCallback() {
 
   render() {
     if (this.sortable) {
-      return html\`<style .innerHTML="\${this.cssText}"></style><button type="button" @click=\${this.onButtonClick}><slot></slot><p-icon class="icon" color="inherit" size="x-small" name="arrow-up" aria-hidden="true"></p-icon></button>\`;
+      return html\`<button type="button" @click=\${this.onButtonClick}><slot></slot><p-icon class="icon" color="inherit" size="x-small" name="arrow-up" aria-hidden="true"></p-icon></button>\`;
     }
-    return html\`<span><style .innerHTML="\${this.cssText}"></style><slot></slot></span>\`;
+    return html\`<span><slot></slot></span>\`;
   }
 }`;
 
@@ -139,7 +160,9 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   'p-icon',
   'arrow-up',
   'internalSortingChange',
@@ -147,6 +170,10 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-table-head-cell: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-table-head-cell: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (after.includes('lit-table-head-cell') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

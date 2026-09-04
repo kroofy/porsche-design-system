@@ -598,6 +598,35 @@
   }
 
   // ../../components/mitosis/stepper-horizontal/output/lit/StepperHorizontal.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
+  var fontFor = (s4) => s4 === "medium" ? "var(--p-typescale-md)" : "var(--p-typescale-sm)";
+  var assignFont = (vars, bp, font) => {
+    if (bp === "base") {
+      vars["--p-sh-fs"] = font;
+      return;
+    }
+    vars[`--p-sh-fs-${bp}`] = font;
+  };
   var LitStepperHorizontal = class extends i4 {
     constructor() {
       super(...arguments);
@@ -608,48 +637,20 @@
         if (target) this.emitUpdate(items.indexOf(target));
       };
     }
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
-      const fontFor = (s4) => s4 === "medium" ? "var(--p-typescale-md)" : "var(--p-typescale-sm)";
+    get hostStyle() {
       const size = parse(this.getAttribute("size") ?? this.size, "small");
-      const sizeBase = typeof size === "object" && size !== null ? pick(size, "base", "small") : size;
-      let out = ":host{display:grid}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}.wrap{display:contents}.scroller{place-self:flex-start;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);font-size:" + fontFor(sizeBase) + "}";
-      if (size && typeof size === "object") {
-        for (const bp in minWidth) {
-          if (bp === "base") continue;
-          if (!minWidth[bp]) continue;
-          const s4 = pick(size, bp, sizeBase);
-          out += "@media(min-width:" + minWidth[bp] + "px){.scroller{font-size:" + fontFor(s4) + "}}";
+      const vars = {};
+      if (typeof size === "object" && size !== null) {
+        let last = fontFor(pick(size, "base", "small"));
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = fontFor(pick(size, bp, "small"));
+          assignFont(vars, bp, last);
         }
+      } else {
+        const font = fontFor(size);
+        for (const bp of BREAKPOINTS) assignFont(vars, bp, font);
       }
-      return out;
+      return vars;
     }
     stepItems() {
       return [...this.children].filter((el) => el.tagName === "P-STEPPER-HORIZONTAL-ITEM");
@@ -712,6 +713,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => {
         this.requestUpdate();
         this.updateComplete.then(() => {
@@ -760,13 +762,76 @@
         this._resizeObserver.observe(scroller);
       }
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
-      return b2`<div class="wrap"><style .innerHTML="${this.cssText}"></style><p-scroller class="scroller" .aria=${{ role: "list" }}><slot></slot></p-scroller></div>`;
+      return b2`<div class="wrap"><p-scroller class="scroller" .aria=${{ role: "list" }}><slot></slot></p-scroller></div>`;
     }
   };
   LitStepperHorizontal.styles = i`
-      :host([hidden]) {
+      :host {
+          display: grid;
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        .wrap {
+          display: contents;
+        }
+        .scroller {
+          place-self: flex-start;
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          font-size: var(--p-sh-fs, var(--p-typescale-sm));
+        }
+        @media (min-width: 480px) {
+          .scroller {
+            font-size: var(--p-sh-fs-xs, var(--p-sh-fs, var(--p-typescale-sm)));
+          }
+        }
+        @media (min-width: 760px) {
+          .scroller {
+            font-size: var(
+              --p-sh-fs-s,
+              var(--p-sh-fs-xs, var(--p-sh-fs, var(--p-typescale-sm)))
+            );
+          }
+        }
+        @media (min-width: 1000px) {
+          .scroller {
+            font-size: var(
+              --p-sh-fs-m,
+              var(--p-sh-fs-s, var(--p-sh-fs-xs, var(--p-sh-fs, var(--p-typescale-sm))))
+            );
+          }
+        }
+        @media (min-width: 1300px) {
+          .scroller {
+            font-size: var(--p-sh-fs-l, var(--p-sh-fs-m));
+          }
+        }
+        @media (min-width: 1760px) {
+          .scroller {
+            font-size: var(--p-sh-fs-xl, var(--p-sh-fs-l));
+          }
+        }
+        @media (min-width: 1920px) {
+          .scroller {
+            font-size: var(--p-sh-fs-xxl, var(--p-sh-fs-xl));
+          }
         }
 `;
   __decorateClass([

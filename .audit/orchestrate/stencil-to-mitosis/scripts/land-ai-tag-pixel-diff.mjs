@@ -77,10 +77,15 @@ await page.waitForFunction(() => {
         : variant === 'modified'
           ? text.includes('AI-modified')
           : text.includes('AI-generated');
+      const sheets = el.shadowRoot?.adoptedStyleSheets ?? [];
+      const sheetText = sheets
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return (
         !!el.shadowRoot &&
-        !!style &&
-        (style.textContent?.includes('div::before') ?? false) &&
+        !style &&
+        sheets.length > 0 &&
+        sheetText.includes('div::before') &&
         !!pill &&
         copyOk &&
         (expectAbbr ? !!abbr : !abbr) &&
@@ -123,7 +128,11 @@ const proof = await page.evaluate(() => {
         variant: el.getAttribute('variant'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
-        hasIconMask: !!style?.textContent?.includes('div::before'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasIconMask: (el.shadowRoot?.adoptedStyleSheets ?? [])
+          .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+          .join(' ')
+          .includes('div::before'),
         hasAbbr: !!abbr,
         copy: (pill?.textContent ?? '').trim(),
         hydrated: el.classList.contains('hydrated'),
@@ -192,7 +201,8 @@ const failed =
     return (
       h.tag !== 'p-ai-tag' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasIconMask ||
       h.hasAbbr !== expectAbbr ||
       !h.copy.includes(expectCopy) ||

@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/tabs-bar');
@@ -166,8 +170,19 @@ const extraGetters = `  tabChildren() {
     if (target.matches?.("button,a")) e.preventDefault();
   };
 
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => {
       this.requestUpdate();
       this.updateComplete.then(() => requestAnimationFrame(() => this.scrollActiveIntoView()));
@@ -206,6 +221,7 @@ const extraGetters = `  tabChildren() {
     }
   }
   updated() {
+    this.applyHostStyle();
     this.syncTabAria();
   }
 
@@ -213,7 +229,7 @@ const extraGetters = `  tabChildren() {
 
 const renderTemplate = `const compact = !!this.isCompact;
     const aria = this.scrollerAria();
-    return html\`<div class="wrap"><style .innerHTML="\${this.cssText}"></style><p-scroller class="scroller" ?compact=\${compact} .aria=\${aria === nothing ? nothing : aria}><slot></slot><span class="bar"></span></p-scroller></div>\`;`;
+    return html\`<div class="wrap"><p-scroller class="scroller" ?compact=\${compact} .aria=\${aria === nothing ? nothing : aria}><slot></slot><span class="bar"></span></p-scroller></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -235,11 +251,6 @@ let after = before
   .replace(
     'const size = parse(this.size, "small");',
     'const size = parse(this.getAttribute("size") ?? this.size, "small");'
-  )
-  .replace('const tabCount = 0;', 'const tabCount = this.tabCount();')
-  .replace(
-    'const rawIndex = this.activeTabIndex;',
-    'const rawIndex = this.activeTabIndex ?? this.getAttribute("active-tab-index") ?? this.getAttribute("activetabindex");'
   )
   .replace(
     /this\.compact === true \|\| this\.compact === "true" \|\| this\.compact === ""/,
@@ -291,11 +302,24 @@ const required = [
   'MutationObserver',
   'active-tab-index',
   'p-scroller',
-  'nth-child',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
+  'aria-selected',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-tabs-bar: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-tabs-bar: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-tabs-bar', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-tabs-bar: ${err.message}`);
   process.exit(1);
 }
 if (

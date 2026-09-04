@@ -32,6 +32,7 @@ if (!generated) {
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
     this.setAttribute("role", "cell");
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -49,8 +50,22 @@ const extraMethods = `  connectedCallback() {
     });
   }
 
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {
-    return html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;
+    return html\`<slot></slot>\`;
   }
 }`;
 
@@ -64,15 +79,8 @@ let after = before
   );
 
 after = after.replace(
-  `    const multiline =
-      this.multiline === true ||
-      this.multiline === "true" ||
-      this.multiline === "";`,
-  `    const multiline =
-      this.multiline === true ||
-      this.multiline === "true" ||
-      this.multiline === "" ||
-      this.hasAttribute("multiline");`
+  `      const multiline = this.multiline === true || this.multiline === "true" || this.multiline === "";`,
+  `      const multiline = this.multiline === true || this.multiline === "true" || this.multiline === "" || this.hasAttribute("multiline");`
 );
 
 after = after.replace(/  render\(\) \{[\s\S]*?\n  \}\n\}/, extraMethods);
@@ -98,11 +106,17 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-table-cell: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-table-cell: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (after.includes('lit-table-cell') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

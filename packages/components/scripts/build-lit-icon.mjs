@@ -3,6 +3,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/icon');
@@ -34,6 +38,16 @@ if (after.includes('my-fragment')) {
 }
 if (!after.includes('@customElement("p-icon")')) {
   console.error('build-lit-icon: expected @customElement("p-icon")');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-icon', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-icon: ${err.message}`);
+  process.exit(1);
+}
+if (!after.includes('min-width: 760px') || !after.includes('forced-colors')) {
+  console.error('build-lit-icon: expected breakpoint and forced-colors rules');
   process.exit(1);
 }
 if (after !== before) {

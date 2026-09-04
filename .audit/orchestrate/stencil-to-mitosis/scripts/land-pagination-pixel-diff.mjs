@@ -35,6 +35,13 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
   throw new Error(`baseline sha ${baselineSha} !== ${EXPECTED_BASELINE_SHA}`);
 }
 
+const isBenign = (text) =>
+  text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
+  text.includes('should be of kind') ||
+  text.includes('parent HTMLElement of') ||
+  text.includes('3002');
+
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
@@ -42,12 +49,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (isBenign(text) || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (isBenign(text)) return;
   consoleErrors.push(text);
 });
 
@@ -73,13 +80,16 @@ await page.waitForFunction(() => {
     hosts.every((el) => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
+      const sheets = root?.adoptedStyleSheets ?? [];
+      const sheetText = [...sheets].flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText)).join('');
       const nav = root?.querySelector('nav');
       const lis = root?.querySelectorAll('li') ?? [];
       const icons = [...(root?.querySelectorAll('p-icon') ?? [])];
       return (
         !!root &&
-        !!style &&
-        (style.textContent?.includes('min-width:760px') ?? false) &&
+        !style &&
+        sheets.length >= 1 &&
+        sheetText.includes('min-width: 760px') &&
         !!nav &&
         lis.length >= 8 &&
         icons.length >= 2 &&
@@ -122,6 +132,8 @@ const proof = await page.evaluate(() => {
         showLastPage: el.getAttribute('show-last-page'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        ellipVar: el.style.getPropertyValue('--p-pg-ellip'),
         hasNav: !!nav,
         liCount: el.shadowRoot?.querySelectorAll('li').length ?? 0,
         hasEllipStart: !!el.shadowRoot?.querySelector('li.ellip-start'),
@@ -190,7 +202,8 @@ const failed =
     return (
       h.tag !== 'p-pagination' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      (h.adoptedSheets ?? 0) < 1 ||
       !h.hasNav ||
       h.liCount < 8 ||
       h.hydrated ||

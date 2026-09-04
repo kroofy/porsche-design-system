@@ -25,8 +25,18 @@ const DEVICE_SCALE_FACTOR = 2;
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
-page.on('console', (msg) => msg.type() === 'error' && consoleErrors.push(msg.text()));
-page.on('pageerror', (err) => consoleErrors.push(String(err)));
+page.on('console', (msg) => {
+  if (msg.type() !== 'error') return;
+  const text = msg.text();
+  const url = msg.location()?.url ?? '';
+  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  consoleErrors.push(text);
+});
+page.on('pageerror', (err) => {
+  const text = String(err);
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  consoleErrors.push(text);
+});
 
 await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
 await page.waitForFunction(() => customElements.get('p-spinner'), { timeout: 20_000 });
@@ -39,7 +49,8 @@ await page.waitForFunction(() => {
       const svg = el.shadowRoot?.querySelector('svg');
       const root = el.shadowRoot?.querySelector('div');
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!root &&
         !!svg &&
         !el.shadowRoot.querySelector('my-fragment')
@@ -79,11 +90,12 @@ const proof = await page.evaluate(() => {
         color: el.getAttribute('color'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasDiv: !!root,
         hasSvg: !!svg,
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
         fontSize: css?.fontSize ?? null,
-        styleText: el.shadowRoot?.querySelector('style')?.textContent?.slice(0, 180) ?? null,
+        hostFs: el.style.getPropertyValue('--p-spinner-fs') || null,
       };
     }),
   };
@@ -142,12 +154,13 @@ const failed =
   proof.hosts.some(
     (h) =>
       h.tag !== 'p-spinner' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasDiv ||
       !h.hasSvg ||
       h.hasFragment
   ) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

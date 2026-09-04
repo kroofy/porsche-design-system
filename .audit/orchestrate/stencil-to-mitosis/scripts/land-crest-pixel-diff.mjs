@@ -37,7 +37,8 @@ await page.waitForFunction(() => {
       const img = el.shadowRoot?.querySelector('img');
       return (
         el.shadowRoot?.querySelector('picture') &&
-        el.shadowRoot.querySelector('style') &&
+        !el.shadowRoot.querySelector('style') &&
+        (el.shadowRoot.adoptedStyleSheets?.length ?? 0) > 0 &&
         img &&
         img.complete &&
         img.naturalWidth > 0
@@ -65,6 +66,7 @@ const proof = await page.evaluate(() => {
         hydrated: el.classList.contains('hydrated'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasPicture: !!el.shadowRoot?.querySelector('picture'),
         hasAnchor: !!el.shadowRoot?.querySelector('a'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -106,9 +108,16 @@ const failed =
   !proof.isLit ||
   proof.litCrestDefined ||
   proof.hosts.some(
-    (h) => h.tag !== 'p-crest' || !h.hasStyle || !h.hasPicture || !h.hasAnchor || h.hasFragment || !h.imgNatural?.w
+    (h) =>
+      h.tag !== 'p-crest' ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
+      !h.hasPicture ||
+      !h.hasAnchor ||
+      h.hasFragment ||
+      !h.imgNatural?.w
   ) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

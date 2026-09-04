@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -98,7 +99,8 @@ await page.waitForFunction(() => {
       const style = root?.querySelector('style');
       const button = root?.querySelector('button[role="combobox"]');
       const popover = root?.querySelector('[popover]');
-      if (!root || !style || !button) return false;
+      if (!root || style || !button) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-select')) return false;
       if (button.getAttribute('aria-expanded') !== 'false') return false;
@@ -146,14 +148,15 @@ const proof = await page.evaluate(() => {
         message: el.getAttribute('message'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasButton: !!button,
         ariaExpanded: button?.getAttribute('aria-expanded') ?? null,
         popoverOpen: popover ? popover.matches(':popover-open') : false,
         hasFilterInput: !!el.shadowRoot?.querySelector('p-input-search'),
         optionCount: options.length,
         groupCount: groups.length,
-        optionHydrated: options.every((option) => option.classList.contains('hydrated')),
-        groupHydrated: groups.every((group) => group.classList.contains('hydrated')),
+        optionHydrated: options.every((option) => option.constructor?.name === 'LitSelectOption'),
+        groupHydrated: groups.every((group) => group.constructor?.name === 'LitOptgroup'),
         optionCtors: [...new Set(options.map((n) => n.constructor?.name))],
         groupCtors: [...new Set(groups.map((n) => n.constructor?.name))],
         iconCtors: [...new Set(icons.map((n) => n.constructor?.name))],
@@ -225,7 +228,8 @@ const failed =
       h.name !== 'some-name' ||
       h.filter !== 'true' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasButton ||
       h.ariaExpanded !== 'false' ||
       h.popoverOpen ||

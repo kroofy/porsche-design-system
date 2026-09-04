@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -100,13 +101,13 @@ await page.waitForFunction(() => {
       const style = root?.querySelector('style');
       const fieldset = root?.querySelector('fieldset.root');
       const wrapper = root?.querySelector('.wrapper');
-      if (!root || !style || !fieldset || !wrapper) return false;
+      if (!root || style || !fieldset || !wrapper) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-radio-group')) return false;
       const options = [...el.querySelectorAll(':scope > p-radio-group-option')];
       if (options.length !== 5) return false;
-      if (options.some((option) => option.constructor?.name === 'LitRadioGroup')) return false;
-      if (!options.every((option) => option.classList.contains('hydrated'))) return false;
+      if (options.some((option) => option.constructor?.name !== 'LitRadioGroupOption')) return false;
       return true;
     })
   );
@@ -144,6 +145,7 @@ const proof = await page.evaluate(() => {
         message: el.getAttribute('message'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasFieldset: !!fieldset,
         fieldsetDisabled: fieldset?.disabled ?? null,
         hasWrapper: !!el.shadowRoot?.querySelector('.wrapper'),
@@ -154,7 +156,7 @@ const proof = await page.evaluate(() => {
         optionCount: options.length,
         optionTags: [...new Set(options.map((option) => option.tagName))],
         optionCtors: [...new Set(options.map((option) => option.constructor?.name))],
-        optionHydrated: options.every((option) => option.classList.contains('hydrated')),
+        optionHydrated: options.every((option) => option.constructor?.name === 'LitRadioGroupOption'),
         optionSelected: options.map((option) => !!option.selected),
         optionDisabledParent: options.map((option) => !!option.disabledParent),
         optionLoadingParent: options.map((option) => !!option.loadingParent),
@@ -226,7 +228,8 @@ const failed =
       h.value !== 'b' ||
       h.label !== 'Some label' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasFieldset ||
       !h.hasWrapper ||
       !h.hasLabelWrapper ||

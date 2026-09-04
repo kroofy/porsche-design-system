@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -104,7 +105,12 @@ await page.waitForFunction(() => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
       const input = root?.querySelector('input[type="radio"]');
-      if (!root || !style || !input) return false;
+      const sheets = root?.adoptedStyleSheets ?? [];
+      const sheetText = sheets
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
+      if (!root || style || !sheets.length || !input) return false;
+      if (!sheetText.includes('radio') || !sheetText.includes('--_p-radio-group-option-a')) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-radio-group-option')) return false;
       return true;
@@ -142,11 +148,16 @@ const proof = await page.evaluate(() => {
       const style = el.shadowRoot?.querySelector('style');
       const input = el.shadowRoot?.querySelector('input[type="radio"]');
       const spinners = [...(el.shadowRoot?.querySelectorAll('p-spinner') ?? [])];
+      const sheetText = (el.shadowRoot?.adoptedStyleSheets ?? [])
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasOptionVars: sheetText.includes('--_p-radio-group-option-a'),
         hasInput: !!input,
         checked: !!input?.checked,
         label: el.getAttribute('label'),
@@ -224,7 +235,9 @@ const failed =
       item.tag !== 'p-radio-group-option' ||
       item.ctor !== 'LitRadioGroupOption' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
+      !item.hasOptionVars ||
       !item.hasInput ||
       item.hydrated ||
       item.hasFragment

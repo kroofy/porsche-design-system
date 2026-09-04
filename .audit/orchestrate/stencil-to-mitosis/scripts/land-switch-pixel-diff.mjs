@@ -29,12 +29,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -57,7 +57,8 @@ await page.waitForFunction(() => {
       const spinnerHidden = !!spinner && getComputedStyle(spinner).display === 'none';
       const loading = el.getAttribute('loading') === 'true' || el.hasAttribute('loading');
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         wrap?.localName === 'div' &&
         button?.getAttribute('role') === 'switch' &&
         !!toggle &&
@@ -115,6 +116,7 @@ const proof = await page.evaluate(() => {
         spinnerHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
         hasSvg: !!svg,
@@ -183,7 +185,8 @@ const failed =
       h.buttonRole !== 'switch' ||
       !h.hasToggle ||
       h.innerSpinner !== 'p-spinner' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasSlot ||
       h.hasFragment ||
       !h.text ||

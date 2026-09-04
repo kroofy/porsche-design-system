@@ -598,117 +598,116 @@
   }
 
   // ../../components/mitosis/icon/output/lit/Icon.ts
+  var SIZE_MAP = {
+    "xx-small": "var(--p-typescale-2xs)",
+    "x-small": "var(--p-typescale-xs)",
+    small: "var(--p-typescale-sm)",
+    medium: "var(--p-typescale-md)",
+    large: "var(--p-typescale-lg)",
+    "x-large": "var(--p-typescale-xl)",
+    "xx-large": "var(--p-typescale-2xl)",
+    "2xs": "var(--p-typescale-2xs)",
+    xs: "var(--p-typescale-xs)",
+    sm: "var(--p-typescale-sm)",
+    md: "var(--p-typescale-md)",
+    lg: "var(--p-typescale-lg)",
+    xl: "var(--p-typescale-xl)",
+    "2xl": "var(--p-typescale-2xl)",
+    "3xl": "var(--p-typescale-3xl)",
+    "4xl": "var(--p-typescale-4xl)",
+    "5xl": "var(--p-typescale-5xl)",
+    inherit: "inherit"
+  };
+  var COLOR_MAP = {
+    primary: "var(--p-color-primary)",
+    "contrast-higher": "var(--p-color-contrast-higher)",
+    "contrast-high": "var(--p-color-contrast-high)",
+    "contrast-medium": "var(--p-color-contrast-medium)",
+    "contrast-low": "var(--p-color-contrast-low)",
+    "contrast-lower": "var(--p-color-contrast-lower)",
+    success: "var(--p-color-success)",
+    warning: "var(--p-color-warning)",
+    error: "var(--p-color-error)",
+    info: "var(--p-color-info)",
+    inherit: "currentcolor"
+  };
+  var FLIPPABLE = {
+    "arrow-compact-left": 1,
+    "arrow-compact-right": 1,
+    "arrow-double-left": 1,
+    "arrow-double-right": 1,
+    "arrow-first": 1,
+    "arrow-head-left": 1,
+    "arrow-head-right": 1,
+    "arrow-last": 1,
+    "arrow-left": 1,
+    "arrow-right": 1,
+    chart: 1,
+    chat: 1,
+    copy: 1,
+    external: 1,
+    increase: 1,
+    list: 1,
+    logout: 1,
+    return: 1,
+    send: 1
+  };
+  var FILES = {
+    car: "car.35229c9.svg",
+    "arrow-right": "arrow-right.872716b.svg"
+  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var fontFor = (size) => SIZE_MAP[String(size)] || SIZE_MAP.sm;
+  var parseSize = (raw) => {
+    if (raw === void 0 || raw === null || raw === "") return "sm";
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return "sm";
+      }
+    }
+    return raw;
+  };
+  var assignFont = (vars, bp, font) => {
+    const value = font === "inherit" ? "" : font;
+    if (bp === "base") {
+      vars["--p-icon-fs"] = value;
+      return;
+    }
+    vars[`--p-icon-fs-${bp}`] = value;
+  };
+  var resolveSrc = (name, source) => {
+    if (source && /(\/)/.test(source)) return source;
+    const key = name || "arrow-right";
+    return "http://localhost:3001/icons/" + (FILES[key] || FILES["arrow-right"]);
+  };
   var LitIcon = class extends i4 {
-    get cssText() {
-      const sizeMap = {
-        "xx-small": "var(--p-typescale-2xs)",
-        "x-small": "var(--p-typescale-xs)",
-        small: "var(--p-typescale-sm)",
-        medium: "var(--p-typescale-md)",
-        large: "var(--p-typescale-lg)",
-        "x-large": "var(--p-typescale-xl)",
-        "xx-large": "var(--p-typescale-2xl)",
-        "2xs": "var(--p-typescale-2xs)",
-        xs: "var(--p-typescale-xs)",
-        sm: "var(--p-typescale-sm)",
-        md: "var(--p-typescale-md)",
-        lg: "var(--p-typescale-lg)",
-        xl: "var(--p-typescale-xl)",
-        "2xl": "var(--p-typescale-2xl)",
-        "3xl": "var(--p-typescale-3xl)",
-        "4xl": "var(--p-typescale-4xl)",
-        "5xl": "var(--p-typescale-5xl)",
-        inherit: "inherit"
-      };
-      const colorMap = {
-        primary: "var(--p-color-primary)",
-        "contrast-higher": "var(--p-color-contrast-higher)",
-        "contrast-high": "var(--p-color-contrast-high)",
-        "contrast-medium": "var(--p-color-contrast-medium)",
-        "contrast-low": "var(--p-color-contrast-low)",
-        "contrast-lower": "var(--p-color-contrast-lower)",
-        success: "var(--p-color-success)",
-        warning: "var(--p-color-warning)",
-        error: "var(--p-color-error)",
-        info: "var(--p-color-info)",
-        inherit: "currentcolor"
-      };
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const flippable = {
-        "arrow-compact-left": 1,
-        "arrow-compact-right": 1,
-        "arrow-double-left": 1,
-        "arrow-double-right": 1,
-        "arrow-first": 1,
-        "arrow-head-left": 1,
-        "arrow-head-right": 1,
-        "arrow-last": 1,
-        "arrow-left": 1,
-        "arrow-right": 1,
-        chart: 1,
-        chat: 1,
-        copy: 1,
-        external: 1,
-        increase: 1,
-        list: 1,
-        logout: 1,
-        return: 1,
-        send: 1
-      };
-      const files = {
-        car: "car.35229c9.svg",
-        "arrow-right": "arrow-right.872716b.svg"
-      };
-      const name = this.name || "arrow-right";
+    get hostStyle() {
       const source = this.source || "";
-      const color = this.color || "primary";
-      const bg = colorMap[color] || colorMap.primary;
-      let src = "";
-      if (source && /(\/)/.test(source)) {
-        src = source;
-      } else {
-        src = "http://localhost:3001/icons/" + (files[name] || files["arrow-right"]);
-      }
-      const mask = 'url("' + src + '") center/contain no-repeat';
-      const imgBase = "img{display:block;margin:0;padding:0;border:0;outline:0;overflow:hidden;object-position:-9999px -9999px;pointer-events:none;width:var(--p-icon-size,var(--p-leading-normal));height:var(--p-icon-size,var(--p-leading-normal));font-family:var(--p-font-porsche-next);";
-      const imgTail = "-webkit-mask:" + mask + ";mask:" + mask + ";background:var(--p-icon-color," + bg + ")}@media(forced-colors:active){img{background:CanvasText}}" + (!source && flippable[name] ? "img:dir(rtl){transform:scaleX(-1)}" : "");
-      let size = this.size || "sm";
-      if (typeof size === "string" && size.charAt(0) === "{") {
-        try {
-          size = JSON.parse(
-            size.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-          );
-        } catch (e5) {
-          size = "sm";
-        }
-      }
-      const fontFor = (s4) => sizeMap[s4] || sizeMap.sm;
+      const name = this.name || "arrow-right";
+      const src = resolveSrc(name, source);
+      const vars = {
+        "--p-icon-fallback": COLOR_MAP[this.color || "primary"] || COLOR_MAP.primary,
+        "--p-icon-mask": 'url("' + src + '") center/contain no-repeat',
+        "--p-icon-flip": !source && FLIPPABLE[name] ? "scaleX(-1)" : "none"
+      };
+      const size = parseSize(this.size);
       if (typeof size === "object" && size !== null) {
-        let out = imgBase + "font-size:" + fontFor(size.base || "sm") + ";" + imgTail;
-        for (const bp of Object.keys(size)) {
-          if (bp === "base") continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){img{font-size:" + fontFor(size[bp]) + "}}";
+        let last = fontFor(size.base || "sm");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = fontFor(size[bp]);
+          assignFont(vars, bp, last);
         }
-        return out;
+      } else {
+        assignFont(vars, "base", fontFor(size));
       }
-      return imgBase + "font-size:" + fontFor(size) + ";" + imgTail;
+      return vars;
     }
     get src() {
-      const files = {
-        car: "car.35229c9.svg",
-        "arrow-right": "arrow-right.872716b.svg"
-      };
-      const source = this.source || "";
-      if (source && /(\/)/.test(source)) return source;
-      const name = this.name || "arrow-right";
-      return "http://localhost:3001/icons/" + (files[name] || files["arrow-right"]);
+      return resolveSrc(this.name, this.source);
     }
     get alt() {
       let raw = this.aria;
@@ -725,16 +724,31 @@
       if (typeof raw === "object" && raw !== null) return raw["aria-label"] || "";
       return "";
     }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
       return b2`
 
-          <style .innerHTML="${this.cssText}"></style>
           <img
-            width="24"
-            height="24"
-            loading="lazy"
-            .src="${this.src}"
-            .alt="${this.alt}"
+          width="24"
+          height="24"
+          loading="lazy"
+          .src="${this.src}"
+          .alt="${this.alt}"
         />
 
         `;
@@ -748,13 +762,72 @@
         :host([hidden]) {
           display: none !important;
         }
+        img {
+          display: block;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          outline: 0;
+          overflow: hidden;
+          object-position: -9999px -9999px;
+          pointer-events: none;
+          width: var(--p-icon-size, var(--p-leading-normal));
+          height: var(--p-icon-size, var(--p-leading-normal));
+          font-family: var(--p-font-porsche-next);
+          font-size: inherit;
+          font-size: var(--p-icon-fs);
+          -webkit-mask: var(--p-icon-mask);
+          mask: var(--p-icon-mask);
+          background: var(
+            --p-icon-color,
+            var(--p-icon-fallback, var(--p-color-primary))
+          );
+        }
+        @media (forced-colors: active) {
+          img {
+            background: CanvasText;
+          }
+        }
+        img:dir(rtl) {
+          transform: var(--p-icon-flip, none);
+        }
+        @media (min-width: 480px) {
+          img {
+            font-size: var(--p-icon-fs-xs, var(--p-icon-fs));
+          }
+        }
+        @media (min-width: 760px) {
+          img {
+            font-size: var(--p-icon-fs-s, var(--p-icon-fs));
+          }
+        }
+        @media (min-width: 1000px) {
+          img {
+            font-size: var(--p-icon-fs-m, var(--p-icon-fs));
+          }
+        }
+        @media (min-width: 1300px) {
+          img {
+            font-size: var(--p-icon-fs-l, var(--p-icon-fs));
+          }
+        }
+        @media (min-width: 1760px) {
+          img {
+            font-size: var(--p-icon-fs-xl, var(--p-icon-fs));
+          }
+        }
+        @media (min-width: 1920px) {
+          img {
+            font-size: var(--p-icon-fs-xxl, var(--p-icon-fs));
+          }
+        }
 `;
   __decorateClass([
     n4()
-  ], LitIcon.prototype, "name", 2);
+  ], LitIcon.prototype, "source", 2);
   __decorateClass([
     n4()
-  ], LitIcon.prototype, "source", 2);
+  ], LitIcon.prototype, "name", 2);
   __decorateClass([
     n4()
   ], LitIcon.prototype, "color", 2);
