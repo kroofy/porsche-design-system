@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/drilldown-item');
@@ -31,6 +35,7 @@ if (!generated) {
 
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
+    this.syncHostStateAttrs();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -89,7 +94,18 @@ const extraMethods = `  connectedCallback() {
     }));
   }
 
+  syncHostStateAttrs() {
+    const sync = (name, on) => {
+      if (on) this.setAttribute(name, "");
+      else this.removeAttribute(name);
+    };
+    sync("primary", this.isPrimaryFlag);
+    sync("secondary", this.isSecondaryFlag);
+    sync("cascade", this.isCascadeFlag);
+  }
+
   updated() {
+    this.syncHostStateAttrs();
     const scroller = this.renderRoot?.querySelector(".scroller");
     if (scroller && typeof scroller.scrollTo === "function") {
       scroller.scrollTo(0, 0);
@@ -118,7 +134,7 @@ const extraMethods = `  connectedCallback() {
       ? html\`<slot name="button"></slot>\`
       : html\`<p-button-pure class="button" type="button" size="medium" align-label="start" stretch="true" icon="arrow-head-right" icon-source="http://localhost:3001/icons/arrow-head-right.304b330.svg" ?inert=\${isPrimary || isCascade} active=\${isSecondary ? "true" : nothing} aria-expanded=\${isSecondary ? "true" : "false"} @click=\${this._onCascadeClick}>\${label}</p-button-pure>\`;
     const header = hasHeader ? html\`<slot name="header"></slot>\` : html\`<h2>\${label}</h2>\`;
-    return html\`<style .innerHTML="\${this.cssText}"></style>\${cascade}<p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" icon="arrow-left" icon-source="http://localhost:3001/icons/arrow-left.e03c25b.svg" hide-label='{"base":true,"s":false}' @click=\${this._onBackClick}>\${label}</p-button-pure>\${header}<div class="drawer"><div class="scroller"><slot></slot></div></div>\`;
+    return html\`\${cascade}<p-button-pure class="back" type="button" size="small" align-label="end" stretch="true" icon="arrow-left" icon-source="http://localhost:3001/icons/arrow-left.e03c25b.svg" hide-label='{"base":true,"s":false}' @click=\${this._onBackClick}>\${label}</p-button-pure>\${header}<div class="drawer"><div class="scroller"><slot></slot></div></div>\`;
   }
 }`;
 
@@ -130,19 +146,6 @@ let after = before
     'import { LitElement, html, css } from "lit";',
     'import { LitElement, html, css, nothing } from "lit";'
   );
-
-after = after.replace(
-  'const isPrimary = isTrue(this.primary);',
-  'const isPrimary = isTrue(this.primary ?? this.getAttribute("primary"));'
-);
-after = after.replace(
-  'const isSecondary = isTrue(this.secondary);',
-  'const isSecondary = isTrue(this.secondary ?? this.getAttribute("secondary"));'
-);
-after = after.replace(
-  'const isCascade = isTrue(this.cascade);',
-  'const isCascade = isTrue(this.cascade ?? this.getAttribute("cascade"));'
-);
 
 after = after.replace(
   /get labelValue\(\) \{[\s\S]*?\n  \}/,
@@ -181,27 +184,38 @@ if (after.includes('href="undefined"') || after.includes("href='undefined'")) {
 }
 
 const required = [
-  'display:contents',
+  'display: contents',
   'class="drawer"',
   'class="scroller"',
   'class="button"',
   'class="back"',
   'stretch="true"',
   '{"base":true,"s":false}',
-  'min-width:760px',
-  'max-width:759px',
+  'min-width: 760px',
+  'max-width: 759px',
   'p-button-pure',
   'slot name="button"',
   'slot name="header"',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'syncHostStateAttrs',
   'arrow-head-right',
   'arrow-left',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-drilldown-item: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-drilldown-item: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-drilldown-item' });
+} catch (err) {
+  console.error(`build-lit-drilldown-item: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('"s":false') && after.includes('hide-label') && after.includes('"m":false')) {

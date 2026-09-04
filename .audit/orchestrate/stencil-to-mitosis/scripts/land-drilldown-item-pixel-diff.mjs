@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -86,6 +87,7 @@ await page.waitForFunction(
   () =>
     customElements.get('p-drilldown') &&
     customElements.get('p-drilldown-item') &&
+    customElements.get('p-drilldown-link') &&
     customElements.get('p-button') &&
     customElements.get('p-button-pure'),
   { timeout: 20_000 },
@@ -115,7 +117,9 @@ await page.waitForFunction(() => {
   if (parents.length !== 2 || items.length !== 17 || links.length !== 57 || buttons.length < 2) return false;
   if (parents.some((el) => el.classList.contains('hydrated'))) return false;
   if (items.some((el) => el.classList.contains('hydrated'))) return false;
-  if (!links.every((el) => el.classList.contains('hydrated'))) return false;
+  if (links.some((el) => el.classList.contains('hydrated'))) return false;
+  const Link = customElements.get('p-drilldown-link');
+  if (Link?.name !== 'LitDrilldownLink') return false;
   return items.every((el) => {
     if (el.closest('[data-card="drilldown"]')?.getAttribute('data-card') !== 'drilldown') return false;
     if (getComputedStyle(el).display !== 'contents') return false;
@@ -132,9 +136,14 @@ await page.waitForFunction(() => {
     if (back.getAttribute('hide-label') !== '{"base":true,"s":false}') return false;
     if (cascade?.getAttribute('href') === 'undefined' || back.getAttribute('href') === 'undefined') return false;
     if (root.querySelector('.root, my-fragment, lit-drilldown-item')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('display:contents')) return false;
-    if (!css.includes('min-width:760px') || !css.includes('max-width:759px')) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
+    const sheetText = [...(root.adoptedStyleSheets ?? [])]
+      .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+      .join('');
+    if (!sheetText.includes('display: contents') && !sheetText.includes('display:contents')) return false;
+    if (!sheetText.includes('min-width: 760px') && !sheetText.includes('min-width:760px')) return false;
+    if (!sheetText.includes('max-width: 759px') && !sheetText.includes('max-width:759px')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -171,21 +180,24 @@ const proof = await page.evaluate(() => {
     linkCount: links.length,
     parentsHydrated: parents.some((el) => el.classList.contains('hydrated')),
     itemsHydrated: items.some((el) => el.classList.contains('hydrated')),
-    linksHydrated: links.every((el) => el.classList.contains('hydrated')),
+    linksHydrated: links.some((el) => el.classList.contains('hydrated')),
     dialogsOpen: parents.some((el) => el.shadowRoot?.querySelector('dialog')?.open),
     hosts: items.slice(0, 3).map((el) => {
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
-      const cascade = el.shadowRoot?.querySelector('p-button-pure.button');
-      const buttonSlot = el.shadowRoot?.querySelector('slot[name="button"]');
-      const back = el.shadowRoot?.querySelector('p-button-pure.back');
+      const root = el.shadowRoot;
+      const sheetText = [...(root?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('');
+      const cascade = root?.querySelector('p-button-pure.button');
+      const buttonSlot = root?.querySelector('slot[name="button"]');
+      const back = root?.querySelector('p-button-pure.back');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
         parentCard: el.closest('[data-card="drilldown"]')?.getAttribute('data-card') ?? null,
         display: getComputedStyle(el).display,
-        hasDrawer: !!el.shadowRoot?.querySelector('.drawer'),
-        hasScroller: !!el.shadowRoot?.querySelector('.scroller'),
-        hasDefaultSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
+        hasDrawer: !!root?.querySelector('.drawer'),
+        hasScroller: !!root?.querySelector('.scroller'),
+        hasDefaultSlot: !!root?.querySelector('slot:not([name])'),
         hasButtonOrSlot: !!cascade || !!buttonSlot,
         buttonCtor: cascade?.constructor?.name ?? null,
         backCtor: back?.constructor?.name ?? null,
@@ -193,10 +205,14 @@ const proof = await page.evaluate(() => {
         backStretch: back?.getAttribute('stretch') ?? null,
         backHideLabel: back?.getAttribute('hide-label') ?? null,
         hrefUndefined: [cascade, back].some((n) => n?.getAttribute('href') === 'undefined'),
-        hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
-        hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        hasContents: css.includes(':host{display:contents') || css.includes('display:contents'),
-        hasS760: css.includes('min-width:760px') && css.includes('max-width:759px'),
+        hasRootWrap: !!root?.querySelector('.root'),
+        hasFragment: !!root?.querySelector('my-fragment'),
+        hasStyle: !!root?.querySelector('style'),
+        adoptedSheets: root?.adoptedStyleSheets?.length ?? 0,
+        hasContents: sheetText.includes('display: contents') || sheetText.includes('display:contents'),
+        hasS760:
+          (sheetText.includes('min-width: 760px') || sheetText.includes('min-width:760px')) &&
+          (sheetText.includes('max-width: 759px') || sheetText.includes('max-width:759px')),
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -256,7 +272,7 @@ const failed =
   proof.ctorName !== 'LitDrilldownItem' ||
   proof.buttonCtor !== 'LitButton' ||
   proof.buttonPureCtor !== 'LitButtonPure' ||
-  proof.linkCtor !== 'HostElement' ||
+  proof.linkCtor !== 'LitDrilldownLink' ||
   proof.litTagDefined ||
   proof.parentCount !== 2 ||
   proof.hostCount !== 17 ||
@@ -264,10 +280,10 @@ const failed =
   proof.buttonCount < 2 ||
   parentStillLazy ||
   itemStillLazy ||
-  !linkStillLazy ||
+  linkStillLazy ||
   proof.parentsHydrated ||
   proof.itemsHydrated ||
-  !proof.linksHydrated ||
+  proof.linksHydrated ||
   proof.dialogsOpen ||
   proof.hosts.some((item) => {
     return (
@@ -287,6 +303,8 @@ const failed =
       item.hrefUndefined ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       !item.hasContents ||
       !item.hasS760 ||
       item.hydrated
