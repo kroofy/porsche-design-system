@@ -598,6 +598,27 @@
   }
 
   // ../../components/mitosis/tabs/output/lit/Tabs.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
   var LitTabs = class extends i4 {
     constructor() {
       super(...arguments);
@@ -612,47 +633,18 @@
         this.dispatchEvent(new CustomEvent("update", { detail: { activeTabIndex: next }, bubbles: false }));
       };
     }
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
+    get hostStyle() {
       const size = parse(this.getAttribute("size") ?? this.size, "small");
-      let out = ":host{display:block}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}.root{margin-bottom:var(--p-spacing-static-sm)}.wrap{display:contents}";
-      if (size && typeof size === "object") {
-        const sizeBase = pick(size, "base", "small");
-        for (const bp in minWidth) {
-          if (bp === "base") continue;
-          if (!minWidth[bp]) continue;
-          const s4 = pick(size, bp, sizeBase);
-          out += "@media(min-width:" + minWidth[bp] + "px){:host{--_p-tabs-size:" + s4 + "}}";
+      const vars = {};
+      if (typeof size === "object" && size !== null) {
+        let last = String(pick(size, "base", "small") || "small");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = String(pick(size, bp, last));
+          const key = bp === "base" ? "--p-tabs-size" : `--p-tabs-size-${bp}`;
+          vars[key] = last;
         }
       }
-      return out;
+      return vars;
     }
     get sizeValue() {
       return this.getAttribute("size") ?? this.size ?? "small";
@@ -719,6 +711,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => {
         this.requestUpdate();
         this.updateComplete.then(() => this.syncPanels());
@@ -746,7 +739,17 @@
       });
       this.syncPanels();
     }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     updated() {
+      this.applyHostStyle();
       this.syncPanels();
     }
     render() {
@@ -756,12 +759,24 @@
       const active = this.parsedActiveIndex();
       const aria = this.parsedAria();
       const labels = this.tabItems().map((el) => this.itemLabel(el));
-      return b2`<div class="wrap"><style .innerHTML="${this.cssText}"></style><p-tabs-bar class="root" size=${size} background=${background} ?compact=${compact} .activeTabIndex=${active} .aria=${aria}>${labels.map((label) => b2`<button type="button">${label}</button>`)}</p-tabs-bar><slot></slot></div>`;
+      return b2`<div class="wrap"><p-tabs-bar class="root" size=${size} background=${background} ?compact=${compact} .activeTabIndex=${active} .aria=${aria}>${labels.map((label) => b2`<button type="button">${label}</button>`)}</p-tabs-bar><slot></slot></div>`;
     }
   };
   LitTabs.styles = i`
-      :host([hidden]) {
+      :host {
+          display: block;
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        .root {
+          margin-bottom: var(--p-spacing-static-sm);
+        }
+        .wrap {
+          display: contents;
         }
 `;
   __decorateClass([
