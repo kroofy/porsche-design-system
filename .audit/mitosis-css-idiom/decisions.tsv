@@ -32,3 +32,6 @@ ts	phase	decision	why	evidence	result
 2026-09-04T10:53:00Z	verify	input-email off cssText	same as input-text + indicator --p-it-ind-display + RTL ltr; extraMethods applyHostStyle merge	/opt/cursor/artifacts/input-email-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T10:56:00Z	verify	input-url off cssText	clone of email; linked indicator	/opt/cursor/artifacts/input-url-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T10:56:30Z	verify	input-tel off cssText	clone of email; phone indicator	/opt/cursor/artifacts/input-tel-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:00:00Z	verify	input-search off cssText	email idiom + search-cancel hide + clear via :host(:not([clear]))	/opt/cursor/artifacts/input-search-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:00:15Z	verify	input-password off cssText	email idiom + toggle via :host(:not([toggle]))	/opt/cursor/artifacts/input-password-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:00:30Z	verify	input-number off cssText	email idiom + hide spin buttons + controls via :host(:not([controls]))	/opt/cursor/artifacts/input-number-pixel-diff.log	pixel-diff 0 byte-equal
