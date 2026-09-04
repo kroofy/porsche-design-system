@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/canvas');
@@ -29,10 +33,25 @@ if (!generated) {
   process.exit(1);
 }
 
-const extraMethods = `  connectedCallback() {
+const extraMethods = `  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
+  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
+  }
+
+  updated() {
+    this.applyHostStyle();
   }
 
   disconnectedCallback() {
@@ -76,7 +95,7 @@ const extraMethods = `  connectedCallback() {
       : nothing;
     const footerNode = hasFooter ? html\`<footer class="footer"><slot name="footer"></slot></footer>\` : nothing;
     const backgroundNode = hasBackground ? html\`<slot name="background"></slot>\` : nothing;
-    return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style><header class="header" tabindex="-1"><div class="blur"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="header__area header__area--start">\${headerToggle}<slot name="header-start"></slot></div><p-crest class="header__crest"></p-crest><p-wordmark class="header__wordmark" size="inherit"></p-wordmark><div class="header__area header__area--end"><slot name="header-end"></slot></div></header><aside class="sidebar sidebar--start" ?inert=\${!startOpen} aria-label=\${startOpen ? "Navigation sidebar open" : "Navigation sidebar closed"} tabindex="-1"><div class="sidebar__header sidebar__header--start"><p-button icon="sidebar" icon-source="http://localhost:3001/icons/sidebar.8e43896.svg" variant="secondary" compact="true" hide-label="true" aria=\${startOpen ? '{"aria-expanded":true}' : '{"aria-expanded":false}'} @click=\${() => this._toggleStart()}>\${startOpen ? "Close" : "Open"} navigation sidebar</p-button>\${titleNode}</div><slot name="sidebar-start"></slot></aside><main class="main"><slot></slot></main>\${sidebarEndNode}\${footerNode}\${backgroundNode}</div>\`;
+    return html\`<div class="root"><header class="header" tabindex="-1"><div class="blur"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="header__area header__area--start">\${headerToggle}<slot name="header-start"></slot></div><p-crest class="header__crest"></p-crest><p-wordmark class="header__wordmark" size="inherit"></p-wordmark><div class="header__area header__area--end"><slot name="header-end"></slot></div></header><aside class="sidebar sidebar--start" ?inert=\${!startOpen} aria-label=\${startOpen ? "Navigation sidebar open" : "Navigation sidebar closed"} tabindex="-1"><div class="sidebar__header sidebar__header--start"><p-button icon="sidebar" icon-source="http://localhost:3001/icons/sidebar.8e43896.svg" variant="secondary" compact="true" hide-label="true" aria=\${startOpen ? '{"aria-expanded":true}' : '{"aria-expanded":false}'} @click=\${() => this._toggleStart()}>\${startOpen ? "Close" : "Open"} navigation sidebar</p-button>\${titleNode}</div><slot name="sidebar-start"></slot></aside><main class="main"><slot></slot></main>\${sidebarEndNode}\${footerNode}\${backgroundNode}</div>\`;
   }
 }`;
 
@@ -84,7 +103,9 @@ const before = await readFile(generated, 'utf8');
 let after = before
   .replace(/<my-fragment[\s\S]*?>/g, '')
   .replace(/<\/my-fragment>/g, '')
-  .replace('import { LitElement, html, css } from "lit";', 'import { LitElement, html, css, nothing } from "lit";');
+  .replace('import { LitElement, html, css } from "lit";', 'import { LitElement, html, css, nothing } from "lit";')
+  .replace(/@property\(\)\s+sidebarStartOpen/g, '@property({ attribute: "sidebar-start-open" }) sidebarStartOpen')
+  .replace(/@property\(\)\s+sidebarEndOpen/g, '@property({ attribute: "sidebar-end-open" }) sidebarEndOpen');
 
 after = after.replace(
   'const startOpen = isTrue(this.sidebarStartOpen);',
@@ -101,7 +122,7 @@ after = after.replace(
 
 const propsToEnsure = ['sidebarStartOpen', 'sidebarEndOpen', 'background'];
 for (const prop of propsToEnsure) {
-  if (!after.includes(`@property() ${prop}`) && !after.includes(`@property() ${prop}:`)) {
+  if (!after.includes(` ${prop}`) && !after.includes(`${prop}:`)) {
     after = after.replace(
       'export default class LitCanvas extends LitElement {',
       `export default class LitCanvas extends LitElement {\n  @property() ${prop}: any;`,
@@ -129,7 +150,7 @@ if (after.includes('href="undefined"') || after.includes("href='undefined'")) {
 }
 
 const required = [
-  'display:block',
+  'display: block',
   'class="root"',
   'class="header"',
   'sidebar__header--start',
@@ -142,8 +163,8 @@ const required = [
   'slot name="sidebar-end"',
   'slot name="sidebar-end-header"',
   'slot name="background"',
-  'min-width:1000px',
-  'max-width:999px',
+  'min-width: 1000px',
+  'max-width: 999px',
   'hide-label="true"',
   'compact="true"',
   'icon-source="http://localhost:3001/icons/sidebar.8e43896.svg"',
@@ -152,11 +173,24 @@ const required = [
   'p-crest',
   'p-wordmark',
   'MutationObserver',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
+  '--p-cv-primary',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-canvas: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-canvas: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-canvas', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-canvas: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-canvas') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -133,9 +134,19 @@ await page.waitForFunction(() => {
     if (buttons.some((btn) => btn.getAttribute('hide-label') !== 'true')) return false;
     if (buttons.some((btn) => btn.getAttribute('compact') !== 'true')) return false;
     if (root.querySelector('[href="undefined"]')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('min-width:1000px')) return false;
-    if (!css.includes('max-width:999px')) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
+    const css = [...(root.adoptedStyleSheets ?? [])]
+      .flatMap((sheet) => {
+        try {
+          return [...sheet.cssRules].map((rule) => rule.cssText);
+        } catch {
+          return [];
+        }
+      })
+      .join('\n');
+    if (!css.includes('min-width: 1000px') && !css.includes('min-width:1000px')) return false;
+    if (!css.includes('max-width: 999px') && !css.includes('max-width:999px')) return false;
     if (el.getAttribute('sidebar-start-open') !== 'true') return false;
     if (el.getAttribute('sidebar-end-open') !== 'true') return false;
     return true;
@@ -156,7 +167,15 @@ const proof = await page.evaluate(() => {
   const hosts = [...document.querySelectorAll('p-canvas')];
   const el = hosts[0];
   const sr = el?.shadowRoot;
-  const css = sr?.querySelector('style')?.textContent ?? '';
+  const css = [...(sr?.adoptedStyleSheets ?? [])]
+    .flatMap((sheet) => {
+      try {
+        return [...sheet.cssRules].map((rule) => rule.cssText);
+      } catch {
+        return [];
+      }
+    })
+    .join('\n');
   const style = getComputedStyle(el);
   const buttons = [...(sr?.querySelectorAll('p-button') ?? [])];
   const named = [
@@ -190,8 +209,10 @@ const proof = await page.evaluate(() => {
     hasEndHeader: !!sr?.querySelector('.sidebar__header--end'),
     rootCount: sr?.querySelectorAll('.root').length ?? 0,
     hasFragment: !!sr?.querySelector('my-fragment'),
-    cssHasM: css.includes('min-width:1000px'),
-    cssHasMaxM: css.includes('max-width:999px'),
+    hasStyle: !!sr?.querySelector('style'),
+    adoptedSheets: sr?.adoptedStyleSheets?.length ?? 0,
+    cssHasM: css.includes('min-width: 1000px') || css.includes('min-width:1000px'),
+    cssHasMaxM: css.includes('max-width: 999px') || css.includes('max-width:999px'),
     crest: sr?.querySelector('p-crest')?.tagName ?? '',
     wordmark: sr?.querySelector('p-wordmark')?.tagName ?? '',
     nestedLit:
@@ -253,6 +274,8 @@ const failed =
   !proof.hasHeader ||
   !proof.hasStartHeader ||
   !proof.hasEndHeader ||
+  proof.hasStyle ||
+  proof.adoptedSheets < 1 ||
   !proof.cssHasM ||
   !proof.cssHasMaxM ||
   proof.crest !== 'P-CREST' ||
