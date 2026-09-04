@@ -90,10 +90,14 @@ await page.waitForFunction(() => {
   const Host = customElements.get('p-table');
   const Scroller = customElements.get('p-scroller');
   const Heading = customElements.get('p-heading');
+  const Head = customElements.get('p-table-head');
+  const Body = customElements.get('p-table-body');
   if (hosts.length !== 2) return false;
   if (Host?.name !== 'LitTable') return false;
   if (Scroller?.name !== 'LitScroller') return false;
   if (Heading?.name !== 'LitHeading') return false;
+  if (Head?.name !== 'LitTableHead') return false;
+  if (Body?.name !== 'LitTableBody') return false;
   return hosts.every((el, i) => {
     if (el.classList.contains('hydrated')) return false;
     const root = el.shadowRoot;
@@ -113,7 +117,9 @@ await page.waitForFunction(() => {
     if (scroller.getAttribute('scrollbar') !== 'true') return false;
     const head = el.querySelector(':scope > p-table-head');
     const body = el.querySelector(':scope > p-table-body');
-    if (!head?.classList.contains('hydrated') || !body?.classList.contains('hydrated')) return false;
+    if (!head || !body) return false;
+    if (head.classList.contains('hydrated') || body.classList.contains('hydrated')) return false;
+    if (head.constructor?.name !== 'LitTableHead' || body.constructor?.name !== 'LitTableBody') return false;
     if (i === 0) {
       if (table.getAttribute('aria-label') !== 'Some caption') return false;
       if (root.querySelector('slot[name="caption"]')) return false;
@@ -182,6 +188,8 @@ const proof = await page.evaluate(() => {
         headHydrated: !!el.querySelector(':scope > p-table-head')?.classList.contains('hydrated'),
         bodyHydrated: !!el.querySelector(':scope > p-table-body')?.classList.contains('hydrated'),
         headingCtor: el.querySelector(':scope > p-heading')?.constructor?.name ?? null,
+        headCtor: el.querySelector(':scope > p-table-head')?.constructor?.name ?? null,
+        bodyCtor: el.querySelector(':scope > p-table-body')?.constructor?.name ?? null,
         hostStyle: el.getAttribute('style'),
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -259,8 +267,10 @@ const failed =
       item.scrollbar !== 'true' ||
       item.lightHead !== 'P-TABLE-HEAD' ||
       item.lightBody !== 'P-TABLE-BODY' ||
-      !item.headHydrated ||
-      !item.bodyHydrated ||
+      item.headCtor !== 'LitTableHead' ||
+      item.bodyCtor !== 'LitTableBody' ||
+      item.headHydrated ||
+      item.bodyHydrated ||
       item.hydrated ||
       item.hasFragment ||
       (i === 0
