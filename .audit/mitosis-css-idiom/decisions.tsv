@@ -16,3 +16,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T09:55:31Z	verify	select-option off cssText	disabled opacity/cursor/forced-colors via host vars; extraMethods applyHostStyle merge; land adoptedSheets; byte-equal	/opt/cursor/artifacts/select-option-pixel-diff.log	pixel-diff 0
 2026-09-04T09:57:47Z	verify	multi-select-option off cssText	disabled/selected via opacity mask hover forced-colors vars; extraMethods applyHostStyle merge; byte-equal	/opt/cursor/artifacts/multi-select-option-pixel-diff.log	pixel-diff 0
 2026-09-04T09:59:52Z	verify	radio-group-option off cssText	state palette + disabled/loading via host vars; extraMethods applyHostStyle merge; byte-equal	/opt/cursor/artifacts/radio-group-option-pixel-diff.log	pixel-diff 0
+2026-09-04T10:04:38Z	verify	checkbox off cssText	compact/scale + state palette + loading masks + hideLabel cascade; IACVT fallback on checked bg; extraMethods applyHostStyle merge	/opt/cursor/artifacts/checkbox-pixel-diff.log	pixel-diff 0
