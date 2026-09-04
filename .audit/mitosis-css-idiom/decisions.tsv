@@ -30,3 +30,5 @@ ts	phase	decision	why	evidence	result
 2026-09-04T10:43:00Z	verify	pin-code off cssText	hideLabel/compact/disabled/loading/length/state via --p-pc-*; font shorthand on host var; extraMethods applyHostStyle merge	/opt/cursor/artifacts/pin-code-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T10:50:00Z	verify	input-text off cssText	hideLabel/compact/disabled/loading/readOnly/state via --p-it-*; font on --p-it-font; extraMethods applyHostStyle merge	/opt/cursor/artifacts/input-text-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T10:53:00Z	verify	input-email off cssText	same as input-text + indicator --p-it-ind-display + RTL ltr; extraMethods applyHostStyle merge	/opt/cursor/artifacts/input-email-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T10:56:00Z	verify	input-url off cssText	clone of email; linked indicator	/opt/cursor/artifacts/input-url-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T10:56:30Z	verify	input-tel off cssText	clone of email; phone indicator	/opt/cursor/artifacts/input-tel-pixel-diff.log	pixel-diff 0 byte-equal
