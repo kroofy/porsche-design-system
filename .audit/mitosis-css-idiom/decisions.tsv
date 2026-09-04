@@ -35,3 +35,7 @@ ts	phase	decision	why	evidence	result
 2026-09-04T11:00:00Z	verify	input-search off cssText	email idiom + search-cancel hide + clear via :host(:not([clear]))	/opt/cursor/artifacts/input-search-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:00:15Z	verify	input-password off cssText	email idiom + toggle via :host(:not([toggle]))	/opt/cursor/artifacts/input-password-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:00:30Z	verify	input-number off cssText	email idiom + hide spin buttons + controls via :host(:not([controls]))	/opt/cursor/artifacts/input-number-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:05:00Z	verify	input-date off cssText	hide native picker in static sheet; always-on calendar button	/opt/cursor/artifacts/input-date-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:05:10Z	verify	input-time off cssText	same; clock button	/opt/cursor/artifacts/input-time-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:05:20Z	verify	input-month off cssText	same; calendar button	/opt/cursor/artifacts/input-month-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:05:30Z	verify	input-week off cssText	same; calendar button	/opt/cursor/artifacts/input-week-pixel-diff.log	pixel-diff 0 byte-equal
