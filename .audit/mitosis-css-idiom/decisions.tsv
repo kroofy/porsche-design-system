@@ -50,3 +50,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T11:55:00Z	verify	flyout off cssText	--p-fo-* open/position/fullscreen/background; fullscreen copy-forward all bps; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_flyout_after.png	pixel-diff 0 byte-equal
 2026-09-04T12:00:00Z	verify	modal off cssText	--p-mo-* open/fullscreen/background/backdrop; fullscreen copy-forward all bps; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_modal_after.png	pixel-diff 0 byte-equal
 2026-09-04T12:05:00Z	verify	canvas off cssText	--p-cv-* sidebar open/background; public --p-canvas-sidebar-* unset; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_canvas_after.png	pixel-diff 0 byte-equal
+2026-09-04T12:20:00Z	verify	button off cssText	--p-btn-* hideLabel/compact copy-forward; variant wraps public --p-button-*; plugin applyHostStyle	/opt/cursor/artifacts/mitosis_land_button_after.png	pixel-diff 0 byte-equal
