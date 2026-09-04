@@ -137,6 +137,7 @@ const proof = await page.evaluate(() => {
         hasNext: !!next,
         sentinelCount: el.shadowRoot?.querySelectorAll('.sentinel').length ?? 0,
         nextOpacity: next ? getComputedStyle(next).opacity : null,
+        nextVisibility: next ? getComputedStyle(next).visibility : null,
         prevOpacity: prev ? getComputedStyle(prev).opacity : null,
         overflows: scroll ? scroll.scrollWidth > scroll.clientWidth + 1 : null,
         prevPosition: prevPos,
@@ -210,7 +211,7 @@ const failed =
       h.hydrated ||
       h.hasFragment ||
       h.hasStickyCss ||
-      (h.overflows && h.nextOpacity !== '1') ||
+      (h.overflows && (h.nextOpacity !== '1' || h.nextVisibility !== 'visible')) ||
       h.tagCtor.some((name) => name !== 'LitTag')
     );
   }) ||
