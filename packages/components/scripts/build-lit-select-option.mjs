@@ -41,6 +41,7 @@ const extraGetters = `  syncHostAria() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, characterData: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -60,7 +61,18 @@ const extraGetters = `  syncHostAria() {
     });
   }
   updated() {
+    this.applyHostStyle();
     this.syncHostAria();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
@@ -75,7 +87,7 @@ const renderTemplate = `const selected = !!this.isSelected;
     const icon = selected
       ? html\`<p-icon class="icon" name="check" source="http://localhost:3001/icons/check.8ba06be.svg" color="primary" aria-hidden="true"></p-icon>\`
       : nothing;
-    return html\`<div class="\${cls.join(" ")}"><style .innerHTML="\${this.cssText}"></style><slot></slot>\${icon}</div>\`;`;
+    return html\`<div class="\${cls.join(" ")}"><slot></slot>\${icon}</div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -144,10 +156,17 @@ const required = [
   'p-icon',
   'slotchange',
   'internalOptionUpdate',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-select-option: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-select-option: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (
