@@ -638,11 +638,12 @@
     return raw;
   };
   var assignFont = (vars, bp, font) => {
+    const value = font === "inherit" ? "" : font;
     if (bp === "base") {
-      vars["--p-spinner-fs"] = font;
+      vars["--p-spinner-fs"] = value;
       return;
     }
-    vars[`--p-spinner-fs-${bp}`] = font;
+    vars[`--p-spinner-fs-${bp}`] = value;
   };
   var LitSpinner = class extends i4 {
     get hostStyle() {
@@ -747,7 +748,8 @@
           width: var(--p-spinner-size, var(--p-leading-normal));
           height: var(--p-spinner-size, var(--p-leading-normal));
           font-family: var(--p-font-porsche-next);
-          font-size: var(--p-spinner-fs, var(--p-typescale-sm));
+          font-size: inherit;
+          font-size: var(--p-spinner-fs);
         }
         svg {
           display: block;
@@ -805,50 +807,32 @@
         }
         @media (min-width: 480px) {
           div {
-            font-size: var(
-              --p-spinner-fs-xs,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-xs, var(--p-spinner-fs));
           }
         }
         @media (min-width: 760px) {
           div {
-            font-size: var(
-              --p-spinner-fs-s,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-s, var(--p-spinner-fs));
           }
         }
         @media (min-width: 1000px) {
           div {
-            font-size: var(
-              --p-spinner-fs-m,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-m, var(--p-spinner-fs));
           }
         }
         @media (min-width: 1300px) {
           div {
-            font-size: var(
-              --p-spinner-fs-l,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-l, var(--p-spinner-fs));
           }
         }
         @media (min-width: 1760px) {
           div {
-            font-size: var(
-              --p-spinner-fs-xl,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-xl, var(--p-spinner-fs));
           }
         }
         @media (min-width: 1920px) {
           div {
-            font-size: var(
-              --p-spinner-fs-xxl,
-              var(--p-spinner-fs, var(--p-typescale-sm))
-            );
+            font-size: var(--p-spinner-fs-xxl, var(--p-spinner-fs));
           }
         }
 `;
