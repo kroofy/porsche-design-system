@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -99,7 +100,12 @@ await page.waitForFunction(() => {
     const style = root?.querySelector('style');
     const table = root?.querySelector('.table');
     const scroller = root?.querySelector('p-scroller');
-    if (!root || !style || !table || !scroller) return false;
+    const sheets = root?.adoptedStyleSheets ?? [];
+    const sheetText = sheets
+      .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+      .join(' ');
+    if (!root || style || !sheets.length || !table || !scroller) return false;
+    if (!sheetText.includes('--_p-table-a') || !sheetText.includes('--p-scroller-indicator-top')) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-table') || root.querySelector('.root')) {
       return false;
     }
@@ -147,15 +153,18 @@ const proof = await page.evaluate(() => {
       const style = el.shadowRoot?.querySelector('style');
       const table = el.shadowRoot?.querySelector('.table');
       const scroller = el.shadowRoot?.querySelector('p-scroller');
-      const css = style?.textContent ?? '';
+      const sheetText = (el.shadowRoot?.adoptedStyleSheets ?? [])
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
         caption: el.getAttribute('caption'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
-        cssTextLen: css.length,
-        hasTableVars: css.includes('--_p-table-a') && css.includes('--p-scroller-indicator-top'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        cssTextLen: sheetText.length,
+        hasTableVars: sheetText.includes('--_p-table-a') && sheetText.includes('--p-scroller-indicator-top'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasTable: !!table,
         role: table?.getAttribute('role') ?? null,
@@ -238,7 +247,8 @@ const failed =
       item.tag !== 'p-table' ||
       item.ctor !== 'LitTable' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       item.cssTextLen < 100 ||
       !item.hasTableVars ||
       item.hasRootWrap ||

@@ -31,6 +31,7 @@ if (!generated) {
 
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -52,6 +53,20 @@ const extraMethods = `  connectedCallback() {
     this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
       slot.addEventListener("slotchange", () => this.requestUpdate());
     });
+  }
+
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   isTrue(v) {
@@ -82,7 +97,7 @@ const extraMethods = `  connectedCallback() {
       : nothing;
     const label = caption && !slotted ? caption : nothing;
     const labelledBy = !caption && slotted ? "caption" : nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style>\${captionEl}<p-scroller scrollbar="true" ?compact=\${this.isCompact()} ?sticky=\${this.isSticky()}><div class="table" role="table" aria-label=\${label} aria-labelledby=\${labelledBy}><slot></slot></div></p-scroller>\`;
+    return html\`\${captionEl}<p-scroller scrollbar="true" ?compact=\${this.isCompact()} ?sticky=\${this.isSticky()}><div class="table" role="table" aria-label=\${label} aria-labelledby=\${labelledBy}><slot></slot></div></p-scroller>\`;
   }
 }`;
 
@@ -141,13 +156,19 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   '--_p-table-a',
   '--p-scroller-indicator-top',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-table: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-table: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (after.includes('lit-table') || after.includes('delegatesFocus') || after.includes('formAssociated')) {
