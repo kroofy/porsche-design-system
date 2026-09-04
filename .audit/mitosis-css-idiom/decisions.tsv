@@ -48,3 +48,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T11:45:00Z	verify	popover off cssText	--p-pop-* pad/radius/ease/opacity/btn; @starting-style always; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_popover_after.png	pixel-diff 0 byte-equal
 2026-09-04T11:50:00Z	verify	sheet off cssText	--p-sh-* open/background; --_p-dialog-a !important fallback; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_sheet_after.png	pixel-diff 0 byte-equal
 2026-09-04T11:55:00Z	verify	flyout off cssText	--p-fo-* open/position/fullscreen/background; fullscreen copy-forward all bps; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_flyout_after.png	pixel-diff 0 byte-equal
+2026-09-04T12:00:00Z	verify	modal off cssText	--p-mo-* open/fullscreen/background/backdrop; fullscreen copy-forward all bps; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_modal_after.png	pixel-diff 0 byte-equal
