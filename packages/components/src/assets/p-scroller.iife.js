@@ -629,7 +629,7 @@
         const hiddenTf = isPrev ? "translate3d(calc(-1 * var(--p-spacing-static-sm)), 0, 0)" : "translate3d(var(--p-spacing-static-sm), 0, 0)";
         return {
           [prefix + "-op"]: visible ? "1" : "0",
-          [prefix + "-vis"]: visible ? "inherit" : "hidden",
+          [prefix + "-vis"]: visible ? "visible" : "hidden",
           [prefix + "-tf"]: visible ? "translate3d(0, 0, 0)" : hiddenTf,
           [prefix + "-delay"]: visible ? "0s" : "var(--p-transition-duration, var(--p-duration-sm))"
         };
