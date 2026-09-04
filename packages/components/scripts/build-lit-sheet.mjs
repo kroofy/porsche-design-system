@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/sheet');
@@ -29,8 +33,19 @@ if (!generated) {
   process.exit(1);
 }
 
-const extraMethods = `  connectedCallback() {
+const extraMethods = `  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
+  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -52,6 +67,7 @@ const extraMethods = `  connectedCallback() {
   }
 
   updated() {
+    this.applyHostStyle();
     const dialog = this.renderRoot?.querySelector("dialog");
     if (!dialog) return;
     if (this.isOpenFlag) {
@@ -72,7 +88,7 @@ const extraMethods = `  connectedCallback() {
       ? html\`<button class="dismiss" type="button"><span>Dismiss sheet</span></button>\`
       : nothing;
     const label = this.ariaLabelText || nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style><dialog ?inert=\${!this.isOpenFlag} tabindex="-1" aria-modal="true" aria-label=\${label}><div class="scroller"><div class="sheet">\${dismiss}<slot name="header"></slot><slot></slot></div></div></dialog>\`;
+    return html\`<dialog ?inert=\${!this.isOpenFlag} tabindex="-1" aria-modal="true" aria-label=\${label}><div class="scroller"><div class="sheet">\${dismiss}<slot name="header"></slot><slot></slot></div></div></dialog>\`;
   }
 }`;
 
@@ -148,9 +164,7 @@ if (/\bclass="root"/.test(after) || after.includes("class='root'")) {
 }
 
 const required = [
-  'display:contents',
-  'width:0px',
-  'visibility:hidden',
+  'display: contents',
   'class="scroller"',
   'class="sheet"',
   'class="dismiss"',
@@ -158,15 +172,28 @@ const required = [
   'slot name="header"',
   'showModal',
   'isOpenFlag',
-  'translate3d(0,25vh,0)',
-  'inset:0',
+  'inset: 0',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
+  '--p-sh-w',
+  'translate3d(0, 25vh, 0)',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-sheet: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-sheet: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-sheet', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-sheet: ${err.message}`);
   process.exit(1);
 }
 if (
