@@ -110,17 +110,17 @@ await page.waitForFunction(() => {
     if (el.parentElement?.tagName !== 'P-TABLE-HEAD') return false;
     if (el.parentElement?.constructor?.name !== 'LitTableHead') return false;
     const root = el.shadowRoot;
-    const style = root?.querySelector('style');
     const slot = root?.querySelector('slot');
-    if (!root || !style || !slot) return false;
+    const sheets = root?.adoptedStyleSheets ?? [];
+    const css = [...sheets].flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText)).join('');
+    if (!root || !slot || root.querySelector('style') || sheets.length < 1) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-table-head-row') || root.querySelector('.root')) {
       return false;
     }
     if (el.getAttribute('role') !== 'row') return false;
-    const css = style.textContent || '';
     if (!css.includes('table-row')) return false;
     const cells = [...el.querySelectorAll(':scope > p-table-head-cell')];
-    return cells.length > 0 && cells.every((cell) => cell.classList.contains('hydrated'));
+    return cells.length > 0 && cells.every((cell) => cell.constructor?.name === 'LitTableHeadCell');
   });
 }, { timeout: 30_000 });
 
@@ -152,7 +152,8 @@ const proof = await page.evaluate(() => {
     hostCount: rows.length,
     hosts: rows.map((el) => {
       const style = el.shadowRoot?.querySelector('style');
-      const css = style?.textContent ?? '';
+      const sheets = el.shadowRoot?.adoptedStyleSheets ?? [];
+      const css = [...sheets].flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText)).join('');
       const cells = [...el.querySelectorAll(':scope > p-table-head-cell')];
       return {
         tag: el.localName,
@@ -162,12 +163,13 @@ const proof = await page.evaluate(() => {
         role: el.getAttribute('role'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: sheets.length,
         cssText: css,
         hasTableRow: css.includes('table-row'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         cellCount: cells.length,
-        cellsHydrated: cells.every((cell) => cell.classList.contains('hydrated')),
+        cellsLit: cells.every((cell) => cell.constructor?.name === 'LitTableHeadCell'),
         parentHydrated: el.parentElement?.classList.contains('hydrated') ?? true,
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -240,12 +242,13 @@ const failed =
       item.parentCtor !== 'LitTableHead' ||
       item.role !== 'row' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasTableRow ||
       item.hasRootWrap ||
       !item.hasSlot ||
       item.cellCount < 1 ||
-      !item.cellsHydrated ||
+      !item.cellsLit ||
       item.parentHydrated ||
       item.hydrated ||
       item.hasFragment

@@ -569,9 +569,6 @@
 
   // ../../components/mitosis/table-head-row/output/lit/TableHeadRow.ts
   var LitTableHeadRow = class extends i4 {
-    get cssText() {
-      return ":host{display:table-row}:host([hidden]){display:none !important}";
-    }
     connectedCallback() {
       super.connectedCallback();
       this.setAttribute("role", "row");
@@ -590,7 +587,7 @@
       });
     }
     render() {
-      return b2`<style .innerHTML="${this.cssText}"></style><slot></slot>`;
+      return b2`<slot></slot>`;
     }
   };
   LitTableHeadRow.styles = i`
