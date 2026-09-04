@@ -59,3 +59,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T12:58:00Z	verify	link-tile-product off cssText	--p-ltp-ar* aspect; href/price-original/description via :host; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_link_tile_product_after.png	pixel-diff 0 byte-equal
 2026-09-04T13:10:00Z	verify	pagination off cssText	--p-pg-* page window; data-pg-* host attrs for hide rules; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_pagination_after.png	pixel-diff 0 byte-equal
 2026-09-04T13:20:00Z	verify	scroller off cssText	--p-scr-* indicator vis; data-fade masks; data-bar/compact/sticky; inherit vis trap	/opt/cursor/artifacts/mitosis_land_scroller_after.png	pixel-diff 0 byte-equal
+2026-09-04T13:30:00Z	verify	carousel off cssText	--p-car-* pad/fs/heading; data-heading/desc/pag/gradient; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_carousel_after.png	pixel-diff 0 byte-equal
