@@ -160,9 +160,9 @@ const proof = await page.evaluate(() => {
         hasRoot: !!root,
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
         hasSvg: !!svg,
-        hidesNativePicker: !!el.shadowRoot
-          ?.querySelector('style')
-          ?.textContent?.includes('::-webkit-calendar-picker-indicator'),
+        hidesNativePicker: [...(el.shadowRoot?.adoptedStyleSheets ?? [])].some((sheet) =>
+          [...sheet.cssRules].some((rule) => String(rule.cssText).includes('::-webkit-calendar-picker-indicator'))
+        ),
         buttonImgComplete: !!buttonImg?.complete,
         buttonImgNaturalWidth: buttonImg?.naturalWidth ?? 0,
         messageImgComplete: !!messageImg?.complete,
