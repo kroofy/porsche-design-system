@@ -51,21 +51,27 @@ await page.waitForFunction(() => {
     hosts.every((el) => {
       const list = el.shadowRoot?.querySelector('ul,ol');
       const style = el.shadowRoot?.querySelector('style');
+      const sheets = el.shadowRoot?.adoptedStyleSheets ?? [];
+      const sheetText = sheets
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       const items = [...el.querySelectorAll(':scope > p-text-list-item')];
       const nested = el.querySelector(':scope > p-text-list-item p-text-list');
       const type = el.getAttribute('type');
       const expectOl = type === 'numbered' || type === 'alphabetically';
       return (
-        !!style &&
-        (style.textContent?.includes('::slotted(*)') ?? false) &&
-        (style.textContent?.includes('p-text-list-counter') ?? false) &&
+        !style &&
+        sheets.length > 0 &&
+        sheetText.includes('::slotted(*)') &&
+        sheetText.includes('p-text-list-counter') &&
         list?.localName === (expectOl ? 'ol' : 'ul') &&
         !!el.shadowRoot?.querySelector('slot:not([name])') &&
         items.length === 3 &&
-        items.every((item) => item.localName === 'p-text-list-item' && item.classList.contains('hydrated')) &&
+        items.every((item) => item.localName === 'p-text-list-item' && customElements.get(item.localName)?.name === 'LitTextListItem') &&
         nested?.localName === 'p-text-list' &&
         customElements.get(nested.localName)?.name === 'LitTextList' &&
-        !!nested.shadowRoot?.querySelector('style') &&
+        !nested.shadowRoot?.querySelector('style') &&
+        (nested.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !el.shadowRoot.querySelector('lit-text-list') &&
         !el.shadowRoot.querySelector('my-fragment')
       );
@@ -104,13 +110,20 @@ const proof = await page.evaluate(() => {
         type: el.getAttribute('type'),
         listTag: list?.localName ?? null,
         itemCount: items.length,
-        itemsHydrated: items.every((item) => item.classList.contains('hydrated')),
+        itemsLit: items.every((item) => customElements.get(item.localName)?.name === 'LitTextListItem'),
         nestedTag: nested?.localName ?? null,
         nestedCtor: nested ? customElements.get(nested.localName)?.name ?? null : null,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
-        hasSlotted: !!style?.textContent?.includes('::slotted(*)'),
-        hasCounter: !!style?.textContent?.includes('p-text-list-counter'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasSlotted: (el.shadowRoot?.adoptedStyleSheets ?? [])
+          .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+          .join(' ')
+          .includes('::slotted(*)'),
+        hasCounter: (el.shadowRoot?.adoptedStyleSheets ?? [])
+          .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+          .join(' ')
+          .includes('p-text-list-counter'),
         hasSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
       };
@@ -173,10 +186,11 @@ const failed =
       h.tag !== 'p-text-list' ||
       h.listTag !== (expectOl ? 'ol' : 'ul') ||
       h.itemCount !== 3 ||
-      !h.itemsHydrated ||
+      !h.itemsLit ||
       h.nestedTag !== 'p-text-list' ||
       h.nestedCtor !== 'LitTextList' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasSlotted ||
       !h.hasCounter ||
       !h.hasSlot ||
