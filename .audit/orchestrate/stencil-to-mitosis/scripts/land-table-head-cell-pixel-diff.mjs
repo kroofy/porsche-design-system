@@ -115,15 +115,18 @@ await page.waitForFunction(() => {
     const style = root?.querySelector('style');
     const slot = root?.querySelector('slot');
     const span = root?.querySelector('span');
-    if (!root || !style || !slot || !span) return false;
+    const sheets = root?.adoptedStyleSheets ?? [];
+    const sheetText = sheets
+      .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+      .join(' ');
+    if (!root || style || !sheets.length || !slot || !span) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-table-head-cell') || root.querySelector('.root')) {
       return false;
     }
     if (root.querySelector('button')) return false;
     if (el.getAttribute('role') !== 'columnheader') return false;
     if (el.getAttribute('scope') !== 'col') return false;
-    const css = style.textContent || '';
-    if (!css.includes('table-cell') || !css.includes('--_p-table-a')) return false;
+    if (!sheetText.includes('table-cell') || !sheetText.includes('--_p-table-a')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -156,7 +159,9 @@ const proof = await page.evaluate(() => {
     hostCount: cells.length,
     hosts: cells.map((el) => {
       const style = el.shadowRoot?.querySelector('style');
-      const css = style?.textContent ?? '';
+      const sheetText = (el.shadowRoot?.adoptedStyleSheets ?? [])
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -167,10 +172,11 @@ const proof = await page.evaluate(() => {
         ariaSort: el.getAttribute('aria-sort'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
-        cssText: css,
-        hasTableCell: css.includes('table-cell'),
-        hasPaddingVar: css.includes('--_p-table-a'),
-        hasNowrap: css.includes('white-space:nowrap'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        cssText: sheetText,
+        hasTableCell: sheetText.includes('table-cell'),
+        hasPaddingVar: sheetText.includes('--_p-table-a'),
+        hasNowrap: sheetText.includes('nowrap'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasSpan: !!el.shadowRoot?.querySelector('span'),
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
@@ -250,7 +256,8 @@ const failed =
       item.scope !== 'col' ||
       item.ariaSort != null ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasTableCell ||
       !item.hasPaddingVar ||
       !item.hasNowrap ||
