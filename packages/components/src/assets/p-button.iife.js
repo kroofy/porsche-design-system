@@ -598,126 +598,105 @@
   }
 
   // ../../components/mitosis/button/output/lit/Button.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
+  var assignBp = (vars, bp, hide, compact) => {
+    const s4 = bp === "base" ? "" : `-${bp}`;
+    const hidden = isTrue(hide);
+    vars[`--p-btn-scale${s4}`] = isTrue(compact) ? "0.64285714" : "1";
+    vars[`--p-btn-br${s4}`] = isTrue(compact) ? "var(--p-radius-lg)" : "var(--p-radius-xl)";
+    vars[`--p-btn-host-r${s4}`] = hidden ? "var(--p-button-radius, var(--p-radius-full))" : "var(--p-button-radius, var(--_p-link-button-a))";
+    vars[`--p-btn-pad${s4}`] = hidden ? "var(--p-button-py, calc(28px * (var(--_p-button-a) - 0.64285714) + 6px)) var(--p-button-px, calc(28px * (var(--_p-button-a) - 0.64285714) + 6px))" : "var(--p-button-py, calc(28px * (var(--_p-button-a) - 0.64285714) + 6px)) var(--p-button-px, calc(33.6px * (var(--_p-button-a) - 0.64285714) + 16px))";
+    vars[`--p-btn-gap${s4}`] = hidden ? "var(--p-button-gap, 0)" : "var(--p-button-gap, calc(11.2px * (var(--_p-button-a) - 0.64285714) + 4px))";
+    vars[`--p-btn-icon-m${s4}`] = hidden ? "0" : "calc(-1 * (11.2px * (var(--_p-button-a) - 0.64285714) + 4px))";
+    if (hidden) {
+      vars[`--p-btn-l-pos${s4}`] = "absolute";
+      vars[`--p-btn-l-w${s4}`] = "1px";
+      vars[`--p-btn-l-h${s4}`] = "1px";
+      vars[`--p-btn-l-pad${s4}`] = "0";
+      vars[`--p-btn-l-m${s4}`] = "-1px";
+      vars[`--p-btn-l-ov${s4}`] = "hidden";
+      vars[`--p-btn-l-clip${s4}`] = "rect(0, 0, 0, 0)";
+      vars[`--p-btn-l-ws${s4}`] = "nowrap";
+      return;
+    }
+    vars[`--p-btn-l-pos${s4}`] = "static";
+    vars[`--p-btn-l-w${s4}`] = "auto";
+    vars[`--p-btn-l-h${s4}`] = "auto";
+    vars[`--p-btn-l-pad${s4}`] = "0";
+    vars[`--p-btn-l-m${s4}`] = "0";
+    vars[`--p-btn-l-ov${s4}`] = "visible";
+    vars[`--p-btn-l-clip${s4}`] = "auto";
+    vars[`--p-btn-l-ws${s4}`] = "normal";
+  };
   var LitButton = class extends i4 {
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
+    get hostStyle() {
       const variant = this.variant || "primary";
-      const icon = this.icon || "none";
-      const source = this.iconSource || "";
-      const hasVisibleIcon = icon !== "none" && icon !== "" || source !== "";
-      const disabled = isTrue(this.disabled);
-      const loading = isTrue(this.loading);
-      const blocked = disabled || loading;
       const hideLabel = parse(this.hideLabel, false);
       const compact = parse(this.compact, false);
-      const hideBase = typeof hideLabel === "object" && hideLabel !== null ? pick(hideLabel, "base", false) : hideLabel;
-      const compactBase = typeof compact === "object" && compact !== null ? pick(compact, "base", false) : compact;
-      const scaleFor = (c4) => isTrue(c4) ? "0.64285714" : "1";
-      const buttonRadiusFor = (c4) => isTrue(c4) ? "var(--p-radius-lg)" : "var(--p-radius-xl)";
-      const hostRadiusFor = (h3) => isTrue(h3) ? "var(--p-button-radius,var(--p-radius-full))" : "var(--p-button-radius,var(--_p-link-button-a))";
-      const padFor = (h3) => isTrue(h3) ? "var(--p-button-py,calc(28px * (var(--_p-button-a) - 0.64285714) + 6px)) var(--p-button-px,calc(28px * (var(--_p-button-a) - 0.64285714) + 6px))" : "var(--p-button-py,calc(28px * (var(--_p-button-a) - 0.64285714) + 6px)) var(--p-button-px,calc(33.6px * (var(--_p-button-a) - 0.64285714) + 16px))";
-      const gapFor = (h3) => isTrue(h3) ? "var(--p-button-gap,0)" : "var(--p-button-gap,calc(11.2px * (var(--_p-button-a) - 0.64285714) + 4px))";
-      const labelFor = (h3) => isTrue(h3) ? "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" : "position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal";
-      const iconMarginFor = (h3) => isTrue(h3) ? "0" : "calc(-1 * (11.2px * (var(--_p-button-a) - 0.64285714) + 4px))";
       const colors = {
         primary: {
-          bg: "var(--p-button-bg,var(--p-color-primary))",
-          fg: "var(--p-button-fg,var(--p-color-canvas))",
-          hoverBg: "var(--p-button-bg,var(--p-color-contrast-high))",
-          hoverFg: "var(--p-button-fg,var(--p-color-canvas))"
+          bg: "var(--p-button-bg, var(--p-color-primary))",
+          fg: "var(--p-button-fg, var(--p-color-canvas))",
+          hoverBg: "var(--p-button-bg, var(--p-color-contrast-high))",
+          hoverFg: "var(--p-button-fg, var(--p-color-canvas))"
         },
         secondary: {
-          bg: "var(--p-button-bg,var(--p-color-frosted-strong))",
-          fg: "var(--p-button-fg,var(--p-color-primary))",
-          hoverBg: "var(--p-button-bg,var(--p-color-frosted))",
-          hoverFg: "var(--p-button-fg,var(--p-color-primary))"
+          bg: "var(--p-button-bg, var(--p-color-frosted-strong))",
+          fg: "var(--p-button-fg, var(--p-color-primary))",
+          hoverBg: "var(--p-button-bg, var(--p-color-frosted))",
+          hoverFg: "var(--p-button-fg, var(--p-color-primary))"
         },
         destructive: {
-          bg: "var(--p-button-bg,var(--p-color-error))",
-          fg: "var(--p-button-fg,var(--p-color-canvas))",
-          hoverBg: "var(--p-button-bg,var(--p-color-error-medium))",
-          hoverFg: "var(--p-button-fg,var(--p-color-primary))"
+          bg: "var(--p-button-bg, var(--p-color-error))",
+          fg: "var(--p-button-fg, var(--p-color-canvas))",
+          hoverBg: "var(--p-button-bg, var(--p-color-error-medium))",
+          hoverFg: "var(--p-button-fg, var(--p-color-primary))"
         }
       };
       const palette = colors[variant] || colors.primary;
-      const hasIconCss = hasVisibleIcon || isTrue(hideBase) || typeof hideLabel === "object" && hideLabel !== null;
-      let out = ":host{--_p-button-a:" + scaleFor(compactBase) + ";--_p-link-button-a:" + buttonRadiusFor(compactBase) + ";border-radius:" + hostRadiusFor(hideBase) + "!important}:not(:defined,[data-ssr]){visibility:hidden}.root{all:unset;display:flex;justify-content:center;width:100%;min-width:min-content;box-sizing:border-box;-webkit-backdrop-filter:var(--p-blur-frosted);backdrop-filter:var(--p-blur-frosted);font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);border-radius:inherit;transform:translate3d(0,0,0);background-color:" + palette.bg + ";color:" + palette.fg + ";cursor:" + (blocked ? "not-allowed" : "pointer") + ";transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), border-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);padding:" + padFor(hideBase) + ";gap:" + gapFor(hideBase);
-      if (disabled) out += ";opacity:0.4";
-      out += "}.root:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}.label{" + labelFor(hideBase) + ";transition:opacity var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)";
-      if (loading && !disabled) out += ";opacity:0";
-      if (disabled) out += ";opacity:0.4";
-      out += "}";
-      if (hasIconCss) {
-        out += ".icon{font:var(--p-typescale-sm) var(--p-font-porsche-next);width:var(--p-leading-normal);height:var(--p-leading-normal);margin-inline-start:" + iconMarginFor(hideBase) + ";transition:opacity var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)";
-        if (loading && !disabled) out += ";opacity:0";
-        if (disabled) out += ";opacity:0.4";
-        out += "}";
-      } else {
-        out += ".icon{transition:opacity var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)";
-        if (loading && !disabled) out += ";opacity:0";
-        if (disabled) out += ";opacity:0.4";
-        out += "}";
-      }
-      if (loading) {
-        out += ".spinner{--p-spinner-color:currentcolor;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}";
-      } else {
-        out += "p-spinner{display:none}";
-      }
-      if (!hasVisibleIcon) out += "p-icon{display:none}";
-      out += ".loading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}";
-      if (disabled) {
-        out += "@media(forced-colors:active){.root{forced-color-adjust:none;background:Canvas;color:GrayText;box-shadow:inset 0 0 0 2px LinkText;opacity:1}.root:is(button){box-shadow:inset 0 0 0 2px ButtonBorder;color:ButtonText}.root{box-shadow:inset 0 0 0 2px GrayText !important}.root:focus-visible{outline-color:Highlight}.label{opacity:1;color:GrayText}.icon{opacity:1;color:GrayText}}";
-      } else {
-        out += "@media(forced-colors:active){.root{forced-color-adjust:none;background:Canvas;color:LinkText;box-shadow:inset 0 0 0 2px LinkText}.root:is(button){box-shadow:inset 0 0 0 2px ButtonBorder;color:ButtonText}.root:focus-visible{outline-color:Highlight}}";
-      }
-      if (!blocked) {
-        out += "@media(hover:hover){.root:hover{color:" + palette.hoverFg + ";background-color:" + palette.hoverBg + "}@media(forced-colors:active){.root:hover{background:Canvas}}}";
-      }
-      const keys = {};
-      if (typeof hideLabel === "object" && hideLabel !== null)
-        for (const k2 of Object.keys(hideLabel)) keys[k2] = 1;
-      if (typeof compact === "object" && compact !== null)
-        for (const k2 of Object.keys(compact)) keys[k2] = 1;
-      for (const bp of Object.keys(keys)) {
-        if (bp === "base") continue;
-        if (!minWidth[bp]) continue;
-        const h3 = pick(hideLabel, bp, hideBase);
-        const c4 = pick(compact, bp, compactBase);
-        out += "@media(min-width:" + minWidth[bp] + "px){:host{--_p-button-a:" + scaleFor(c4) + ";--_p-link-button-a:" + buttonRadiusFor(c4) + ";border-radius:" + hostRadiusFor(h3) + "!important}.root{padding:" + padFor(h3) + ";gap:" + gapFor(h3) + "}.label{" + labelFor(h3) + "}";
-        if (hasIconCss) {
-          out += ".icon{margin-inline-start:" + iconMarginFor(h3) + "}";
+      const vars = {
+        "--p-btn-bg": palette.bg,
+        "--p-btn-fg": palette.fg,
+        "--p-btn-hbg": palette.hoverBg,
+        "--p-btn-hfg": palette.hoverFg
+      };
+      if (typeof hideLabel === "object" || typeof compact === "object") {
+        const hideObj = typeof hideLabel === "object" && hideLabel !== null ? hideLabel : null;
+        const compactObj = typeof compact === "object" && compact !== null ? compact : null;
+        let lastH = hideObj ? pick(hideObj, "base", false) : hideLabel;
+        let lastC = compactObj ? pick(compactObj, "base", false) : compact;
+        for (const bp of BREAKPOINTS) {
+          if (hideObj && hideObj[bp] !== void 0)
+            lastH = pick(hideObj, bp, lastH);
+          if (compactObj && compactObj[bp] !== void 0)
+            lastC = pick(compactObj, bp, lastC);
+          assignBp(vars, bp, lastH, lastC);
         }
-        out += "}";
+      } else {
+        for (const bp of BREAKPOINTS) assignBp(vars, bp, hideLabel, compact);
       }
-      return out;
+      return vars;
     }
     get iconName() {
       if (this.iconSource) return "";
@@ -740,11 +719,26 @@
       const loading = this.loading === true || this.loading === "true" || this.loading === "";
       return loading ? "Loading" : "";
     }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
       return b2`
 
           <button class="root" .type="${this.buttonType}">
-          <style .innerHTML="${this.cssText}"></style>
           <p-icon class="icon"
             size="inherit"
             color="inherit"
@@ -764,26 +758,293 @@
       :host {
           display: inline-block;
           vertical-align: top;
+          --_p-button-a: var(--p-btn-scale);
+          --_p-link-button-a: var(--p-btn-br);
+          border-radius: var(--p-btn-host-r) !important;
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        .root {
+          all: unset;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          min-width: min-content;
+          box-sizing: border-box;
+          -webkit-backdrop-filter: var(--p-blur-frosted);
+          backdrop-filter: var(--p-blur-frosted);
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          border-radius: inherit;
+          transform: translate3d(0, 0, 0);
+          background-color: var(--p-btn-bg);
+          color: var(--p-btn-fg);
+          cursor: pointer;
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out),
+            border-color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out),
+            color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+          padding: var(--p-btn-pad);
+          gap: var(--p-btn-gap);
+        }
+        :host([disabled]) .root,
+        :host([loading]) .root {
+          cursor: not-allowed;
+        }
+        :host([disabled]) .root {
+          opacity: 0.4;
+        }
+        .root:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        .label {
+          position: var(--p-btn-l-pos);
+          width: var(--p-btn-l-w);
+          height: var(--p-btn-l-h);
+          padding: var(--p-btn-l-pad);
+          margin: var(--p-btn-l-m);
+          overflow: var(--p-btn-l-ov);
+          clip: var(--p-btn-l-clip);
+          white-space: var(--p-btn-l-ws);
+          transition: opacity var(--p-transition-duration, var(--p-duration-sm))
+            var(--p-ease-in-out);
+        }
+        :host([loading]:not([disabled])) .label,
+        :host([loading]:not([disabled])) .icon {
+          opacity: 0;
+        }
+        :host([disabled]) .label,
+        :host([disabled]) .icon {
+          opacity: 0.4;
+        }
+        .icon {
+          font: var(--p-typescale-sm) var(--p-font-porsche-next);
+          width: var(--p-leading-normal);
+          height: var(--p-leading-normal);
+          margin-inline-start: var(--p-btn-icon-m);
+          transition: opacity var(--p-transition-duration, var(--p-duration-sm))
+            var(--p-ease-in-out);
+        }
+        :host(:not([icon-source]):not([icon])) p-icon,
+        :host([icon="none"]:not([icon-source])) p-icon,
+        :host([icon=""]:not([icon-source])) p-icon {
+          display: none;
+        }
+        .spinner {
+          --p-spinner-color: currentcolor;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        :host(:not([loading])) p-spinner {
+          display: none;
+        }
+        .loading {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        @media (forced-colors: active) {
+          .root {
+            forced-color-adjust: none;
+            background: Canvas;
+            color: LinkText;
+            box-shadow: inset 0 0 0 2px LinkText;
+          }
+          .root:is(button) {
+            box-shadow: inset 0 0 0 2px ButtonBorder;
+            color: ButtonText;
+          }
+          .root:focus-visible {
+            outline-color: Highlight;
+          }
+          :host([disabled]) .root {
+            color: GrayText;
+            box-shadow: inset 0 0 0 2px GrayText !important;
+            opacity: 1;
+          }
+          :host([disabled]) .root:is(button) {
+            box-shadow: inset 0 0 0 2px ButtonBorder;
+            color: ButtonText;
+          }
+          :host([disabled]) .label,
+          :host([disabled]) .icon {
+            opacity: 1;
+            color: GrayText;
+          }
+        }
+        @media (hover: hover) {
+          :host(:not([disabled]):not([loading])) .root:hover {
+            color: var(--p-btn-hfg);
+            background-color: var(--p-btn-hbg);
+          }
+          @media (forced-colors: active) {
+            :host(:not([disabled]):not([loading])) .root:hover {
+              background: Canvas;
+            }
+          }
+        }
+        @media (min-width: 480px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-xs);
+            --_p-link-button-a: var(--p-btn-br-xs);
+            border-radius: var(--p-btn-host-r-xs) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-xs);
+            gap: var(--p-btn-gap-xs);
+          }
+          .label {
+            position: var(--p-btn-l-pos-xs);
+            width: var(--p-btn-l-w-xs);
+            height: var(--p-btn-l-h-xs);
+            padding: var(--p-btn-l-pad-xs);
+            margin: var(--p-btn-l-m-xs);
+            overflow: var(--p-btn-l-ov-xs);
+            clip: var(--p-btn-l-clip-xs);
+            white-space: var(--p-btn-l-ws-xs);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-xs);
+          }
+        }
+        @media (min-width: 760px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-s);
+            --_p-link-button-a: var(--p-btn-br-s);
+            border-radius: var(--p-btn-host-r-s) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-s);
+            gap: var(--p-btn-gap-s);
+          }
+          .label {
+            position: var(--p-btn-l-pos-s);
+            width: var(--p-btn-l-w-s);
+            height: var(--p-btn-l-h-s);
+            padding: var(--p-btn-l-pad-s);
+            margin: var(--p-btn-l-m-s);
+            overflow: var(--p-btn-l-ov-s);
+            clip: var(--p-btn-l-clip-s);
+            white-space: var(--p-btn-l-ws-s);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-s);
+          }
+        }
+        @media (min-width: 1000px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-m);
+            --_p-link-button-a: var(--p-btn-br-m);
+            border-radius: var(--p-btn-host-r-m) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-m);
+            gap: var(--p-btn-gap-m);
+          }
+          .label {
+            position: var(--p-btn-l-pos-m);
+            width: var(--p-btn-l-w-m);
+            height: var(--p-btn-l-h-m);
+            padding: var(--p-btn-l-pad-m);
+            margin: var(--p-btn-l-m-m);
+            overflow: var(--p-btn-l-ov-m);
+            clip: var(--p-btn-l-clip-m);
+            white-space: var(--p-btn-l-ws-m);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-m);
+          }
+        }
+        @media (min-width: 1300px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-l);
+            --_p-link-button-a: var(--p-btn-br-l);
+            border-radius: var(--p-btn-host-r-l) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-l);
+            gap: var(--p-btn-gap-l);
+          }
+          .label {
+            position: var(--p-btn-l-pos-l);
+            width: var(--p-btn-l-w-l);
+            height: var(--p-btn-l-h-l);
+            padding: var(--p-btn-l-pad-l);
+            margin: var(--p-btn-l-m-l);
+            overflow: var(--p-btn-l-ov-l);
+            clip: var(--p-btn-l-clip-l);
+            white-space: var(--p-btn-l-ws-l);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-l);
+          }
+        }
+        @media (min-width: 1760px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-xl);
+            --_p-link-button-a: var(--p-btn-br-xl);
+            border-radius: var(--p-btn-host-r-xl) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-xl);
+            gap: var(--p-btn-gap-xl);
+          }
+          .label {
+            position: var(--p-btn-l-pos-xl);
+            width: var(--p-btn-l-w-xl);
+            height: var(--p-btn-l-h-xl);
+            padding: var(--p-btn-l-pad-xl);
+            margin: var(--p-btn-l-m-xl);
+            overflow: var(--p-btn-l-ov-xl);
+            clip: var(--p-btn-l-clip-xl);
+            white-space: var(--p-btn-l-ws-xl);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-xl);
+          }
+        }
+        @media (min-width: 1920px) {
+          :host {
+            --_p-button-a: var(--p-btn-scale-xxl);
+            --_p-link-button-a: var(--p-btn-br-xxl);
+            border-radius: var(--p-btn-host-r-xxl) !important;
+          }
+          .root {
+            padding: var(--p-btn-pad-xxl);
+            gap: var(--p-btn-gap-xxl);
+          }
+          .label {
+            position: var(--p-btn-l-pos-xxl);
+            width: var(--p-btn-l-w-xxl);
+            height: var(--p-btn-l-h-xxl);
+            padding: var(--p-btn-l-pad-xxl);
+            margin: var(--p-btn-l-m-xxl);
+            overflow: var(--p-btn-l-ov-xxl);
+            clip: var(--p-btn-l-clip-xxl);
+            white-space: var(--p-btn-l-ws-xxl);
+          }
+          .icon {
+            margin-inline-start: var(--p-btn-icon-m-xxl);
+          }
         }
 `;
   __decorateClass([
     n4()
   ], LitButton.prototype, "variant", 2);
-  __decorateClass([
-    n4()
-  ], LitButton.prototype, "icon", 2);
-  __decorateClass([
-    n4({ attribute: "icon-source" })
-  ], LitButton.prototype, "iconSource", 2);
-  __decorateClass([
-    n4()
-  ], LitButton.prototype, "disabled", 2);
-  __decorateClass([
-    n4()
-  ], LitButton.prototype, "loading", 2);
   __decorateClass([
     n4({ attribute: "hide-label" })
   ], LitButton.prototype, "hideLabel", 2);
@@ -791,8 +1052,20 @@
     n4()
   ], LitButton.prototype, "compact", 2);
   __decorateClass([
+    n4({ attribute: "icon-source" })
+  ], LitButton.prototype, "iconSource", 2);
+  __decorateClass([
+    n4()
+  ], LitButton.prototype, "icon", 2);
+  __decorateClass([
     n4()
   ], LitButton.prototype, "type", 2);
+  __decorateClass([
+    n4()
+  ], LitButton.prototype, "disabled", 2);
+  __decorateClass([
+    n4()
+  ], LitButton.prototype, "loading", 2);
   LitButton = __decorateClass([
     t3("p-button")
   ], LitButton);
