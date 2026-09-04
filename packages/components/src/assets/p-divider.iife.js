@@ -598,50 +598,82 @@
   }
 
   // ../../components/mitosis/divider/output/lit/divider/Divider.ts
-  var LitDivider = class extends i4 {
-    get cssText() {
-      const colorMap = {
-        "contrast-lower": "var(--p-color-contrast-lower)",
-        "contrast-low": "var(--p-color-contrast-low)",
-        "contrast-medium": "var(--p-color-contrast-medium)",
-        "contrast-high": "var(--p-color-contrast-high)"
-      };
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const horizontal = "height:1px;width:100%";
-      const vertical = "height:100%;width:1px";
-      let direction = this.direction || "horizontal";
-      if (typeof direction === "string" && direction.charAt(0) === "{") {
-        try {
-          direction = JSON.parse(direction);
-        } catch (e5) {
-          direction = "horizontal";
-        }
+  var COLOR = {
+    "contrast-lower": "var(--p-color-contrast-lower)",
+    "contrast-low": "var(--p-color-contrast-low)",
+    "contrast-medium": "var(--p-color-contrast-medium)",
+    "contrast-high": "var(--p-color-contrast-high)"
+  };
+  var MIN_WIDTH = {
+    xs: 480,
+    s: 760,
+    m: 1e3,
+    l: 1300,
+    xl: 1760,
+    xxl: 1920
+  };
+  var sizeFor = (direction) => direction === "vertical" ? {
+    h: "100%",
+    w: "1px"
+  } : {
+    h: "1px",
+    w: "100%"
+  };
+  var parseDirection = (raw) => {
+    if (raw === void 0 || raw === null || raw === "") return "horizontal";
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return "horizontal";
       }
-      let responsive = "";
+    }
+    return raw;
+  };
+  var LitDivider = class extends i4 {
+    get hostStyle() {
+      const vars = {
+        "--p-divider-bg": COLOR[this.color || "contrast-lower"] || COLOR["contrast-lower"]
+      };
+      const direction = parseDirection(this.direction);
       if (typeof direction === "object" && direction !== null) {
         for (const bp of Object.keys(direction)) {
-          const rule = "hr{" + (direction[bp] === "vertical" ? vertical : horizontal) + "}";
-          responsive += bp === "base" ? rule : "@media(min-width:" + minWidth[bp] + "px){" + rule + "}";
+          const size = sizeFor(direction[bp]);
+          if (bp === "base") {
+            vars["--p-divider-h"] = size.h;
+            vars["--p-divider-w"] = size.w;
+          } else if (MIN_WIDTH[bp]) {
+            vars[`--p-divider-h-${bp}`] = size.h;
+            vars[`--p-divider-w-${bp}`] = size.w;
+          }
         }
       } else {
-        responsive = "hr{" + (direction === "vertical" ? vertical : horizontal) + "}";
+        const size = sizeFor(String(direction));
+        vars["--p-divider-h"] = size.h;
+        vars["--p-divider-w"] = size.w;
       }
-      const background = colorMap[this.color || "contrast-lower"] || colorMap["contrast-lower"];
-      return "hr{all:unset;display:block;background:" + background + "}@media(forced-colors:active){hr{background:CanvasText}}" + responsive;
+      return vars;
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     render() {
       return b2`
 
-          <style .innerHTML="${this.cssText}"></style>
-          <hr
-        />
+          <hr />
 
         `;
     }
@@ -653,13 +685,61 @@
         :host([hidden]) {
           display: none !important;
         }
+        hr {
+          all: unset;
+          display: block;
+          background: var(--p-divider-bg);
+          height: var(--p-divider-h, 1px);
+          width: var(--p-divider-w, 100%);
+        }
+        @media (forced-colors: active) {
+          hr {
+            background: CanvasText;
+          }
+        }
+        @media (min-width: 480px) {
+          hr {
+            height: var(--p-divider-h-xs, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-xs, var(--p-divider-w, 100%));
+          }
+        }
+        @media (min-width: 760px) {
+          hr {
+            height: var(--p-divider-h-s, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-s, var(--p-divider-w, 100%));
+          }
+        }
+        @media (min-width: 1000px) {
+          hr {
+            height: var(--p-divider-h-m, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-m, var(--p-divider-w, 100%));
+          }
+        }
+        @media (min-width: 1300px) {
+          hr {
+            height: var(--p-divider-h-l, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-l, var(--p-divider-w, 100%));
+          }
+        }
+        @media (min-width: 1760px) {
+          hr {
+            height: var(--p-divider-h-xl, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-xl, var(--p-divider-w, 100%));
+          }
+        }
+        @media (min-width: 1920px) {
+          hr {
+            height: var(--p-divider-h-xxl, var(--p-divider-h, 1px));
+            width: var(--p-divider-w-xxl, var(--p-divider-w, 100%));
+          }
+        }
 `;
   __decorateClass([
     n4()
-  ], LitDivider.prototype, "direction", 2);
+  ], LitDivider.prototype, "color", 2);
   __decorateClass([
     n4()
-  ], LitDivider.prototype, "color", 2);
+  ], LitDivider.prototype, "direction", 2);
   LitDivider = __decorateClass([
     t3("p-divider")
   ], LitDivider);

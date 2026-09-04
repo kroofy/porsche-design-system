@@ -1,3 +1,5 @@
+const applyHostStylePlugin = require('../components/mitosis/_runtime/apply-host-style-plugin');
+
 /** @type {import('@builder.io/mitosis').MitosisConfig} */
 module.exports = {
   files: 'src/**',
@@ -14,6 +16,6 @@ module.exports = {
     // ToLitOptions documents useShadowDom as "Default: enabled", but no code
     // path sets that default; undefined is falsy and the generator emits a
     // light-DOM createRenderRoot instead. Must be explicit.
-    lit: { useShadowDom: true },
+    lit: { useShadowDom: true, plugins: [applyHostStylePlugin] },
   },
 };

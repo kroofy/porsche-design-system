@@ -3,7 +3,7 @@ import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
 export type DividerColor = 'contrast-lower' | 'contrast-low' | 'contrast-medium' | 'contrast-high';
 export type DividerDirection = 'horizontal' | 'vertical';
 
-useMetadata({ tagName: 'p-divider' });
+useMetadata({ tagName: 'lit-divider' });
 
 const COLOR: Record<string, string> = {
   'contrast-lower': 'var(--p-color-contrast-lower)',
@@ -36,54 +36,6 @@ useStyle(`
   :host([hidden]) {
     display: none !important;
   }
-  hr {
-    all: unset;
-    display: block;
-    background: var(--p-divider-bg);
-    height: var(--p-divider-h, 1px);
-    width: var(--p-divider-w, 100%);
-  }
-  @media (forced-colors: active) {
-    hr {
-      background: CanvasText;
-    }
-  }
-  @media (min-width: 480px) {
-    hr {
-      height: var(--p-divider-h-xs, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-xs, var(--p-divider-w, 100%));
-    }
-  }
-  @media (min-width: 760px) {
-    hr {
-      height: var(--p-divider-h-s, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-s, var(--p-divider-w, 100%));
-    }
-  }
-  @media (min-width: 1000px) {
-    hr {
-      height: var(--p-divider-h-m, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-m, var(--p-divider-w, 100%));
-    }
-  }
-  @media (min-width: 1300px) {
-    hr {
-      height: var(--p-divider-h-l, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-l, var(--p-divider-w, 100%));
-    }
-  }
-  @media (min-width: 1760px) {
-    hr {
-      height: var(--p-divider-h-xl, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-xl, var(--p-divider-w, 100%));
-    }
-  }
-  @media (min-width: 1920px) {
-    hr {
-      height: var(--p-divider-h-xxl, var(--p-divider-h, 1px));
-      width: var(--p-divider-w-xxl, var(--p-divider-w, 100%));
-    }
-  }
 `);
 
 export default function LitDivider(props: { color?: DividerColor; direction?: any }) {
@@ -113,5 +65,43 @@ export default function LitDivider(props: { color?: DividerColor; direction?: an
     },
   });
 
-  return <hr />;
+  return (
+    <hr
+      css={{
+        all: 'unset',
+        display: 'block',
+        background: 'var(--p-divider-bg)',
+        height: 'var(--p-divider-h, 1px)',
+        width: 'var(--p-divider-w, 100%)',
+        '@media (forced-colors: active)': {
+          background: 'CanvasText',
+        },
+        '@media (min-width: 480px)': {
+          height: 'var(--p-divider-h-xs, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-xs, var(--p-divider-w, 100%))',
+        },
+        '@media (min-width: 760px)': {
+          height: 'var(--p-divider-h-s, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-s, var(--p-divider-w, 100%))',
+        },
+        '@media (min-width: 1000px)': {
+          height: 'var(--p-divider-h-m, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-m, var(--p-divider-w, 100%))',
+        },
+        '@media (min-width: 1300px)': {
+          height: 'var(--p-divider-h-l, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-l, var(--p-divider-w, 100%))',
+        },
+        '@media (min-width: 1760px)': {
+          height: 'var(--p-divider-h-xl, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-xl, var(--p-divider-w, 100%))',
+        },
+        '@media (min-width: 1920px)': {
+          height: 'var(--p-divider-h-xxl, var(--p-divider-h, 1px))',
+          width: 'var(--p-divider-w-xxl, var(--p-divider-w, 100%))',
+        },
+      }}
+      style={state.hostStyle}
+    />
+  );
 }

@@ -33,7 +33,7 @@ await page.waitForFunction(() => {
   const hosts = [...document.querySelectorAll('[data-card="divider"] p-divider')];
   return (
     hosts.length >= 4 &&
-    hosts.every((el) => el.shadowRoot?.querySelector('hr') && el.shadowRoot.querySelector('style'))
+    hosts.every((el) => el.shadowRoot?.querySelector('hr'))
   );
 }, { timeout: 20_000 });
 
@@ -54,10 +54,11 @@ const proof = await page.evaluate(() => {
       direction: el.getAttribute('direction'),
       hydrated: el.classList.contains('hydrated'),
       hasShadow: !!el.shadowRoot,
-      hasStyle: !!el.shadowRoot?.querySelector('style'),
+      adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+      hasInjectedStyle: !!el.shadowRoot?.querySelector('style'),
       hasHr: !!el.shadowRoot?.querySelector('hr'),
       hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-      styleText: el.shadowRoot?.querySelector('style')?.textContent?.slice(0, 120) ?? null,
+      hostInlineStyle: el.getAttribute('style'),
     })),
   };
 });

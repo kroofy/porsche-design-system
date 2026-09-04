@@ -1,9 +1,8 @@
 import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
 
 export type DividerColor = 'contrast-lower' | 'contrast-low' | 'contrast-medium' | 'contrast-high';
-export type DividerDirection = 'horizontal' | 'vertical';
 
-useMetadata({ tagName: 'p-divider' });
+useMetadata({ tagName: 'lit-divider' });
 
 const COLOR: Record<string, string> = {
   'contrast-lower': 'var(--p-color-contrast-lower)',
@@ -113,5 +112,5 @@ export default function LitDivider(props: { color?: DividerColor; direction?: an
     },
   });
 
-  return <hr />;
+  return <hr style={state.hostStyle} />;
 }
