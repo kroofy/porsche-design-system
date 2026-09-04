@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/drilldown-link');
@@ -31,6 +35,7 @@ if (!generated) {
 
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -46,6 +51,20 @@ const extraMethods = `  connectedCallback() {
     this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
       slot.addEventListener("slotchange", () => this.requestUpdate());
     });
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
+  updated() {
+    this.applyHostStyle();
   }
 
   get hrefValue() {
@@ -91,9 +110,9 @@ const extraMethods = `  connectedCallback() {
     const relAttr = (rel !== nothing && rel !== undefined && rel !== null && rel !== "undefined") ? rel : nothing;
     const ariaLabel = this.ariaAttrs["aria-label"] || nothing;
     if (hasHref) {
-      return html\`<style .innerHTML="\${this.cssText}"></style><a href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} aria-current=\${this.isActiveFlag ? "true" : "false"} aria-label=\${ariaLabel}><slot></slot></a>\`;
+      return html\`<a href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} aria-current=\${this.isActiveFlag ? "true" : "false"} aria-label=\${ariaLabel}><slot></slot></a>\`;
     }
-    return html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;
+    return html\`<slot></slot>\`;
   }
 }`;
 
@@ -106,22 +125,6 @@ let after = before
     'import { LitElement, html, css, nothing } from "lit";'
   );
 
-after = after.replace(
-  'const rawHref = this.href;',
-  `const rawHref = (() => {
-      const raw = this.href;
-      if (raw !== nothing && raw !== undefined && raw !== null && raw !== "undefined") return raw;
-      if (this.hasAttribute("href")) {
-        const attr = this.getAttribute("href");
-        if (attr !== "undefined") return attr;
-      }
-      return nothing;
-    })();`
-);
-after = after.replace(
-  'const hasSlottedAnchor = rawHref === undefined || rawHref === null;',
-  'const hasSlottedAnchor = rawHref === nothing || rawHref === undefined || rawHref === null;'
-);
 after = after.replace(
   'const isActive = isTrue(this.active);',
   'const isActive = isTrue(this.active ?? this.getAttribute("active"));'
@@ -161,13 +164,15 @@ if (after.includes('delegatesFocus')) {
 }
 
 const required = [
-  'display:grid',
+  'display: grid',
   '<slot></slot>',
   'href !== nothing',
   'hasHrefFlag',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   '::slotted(a)',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
@@ -177,6 +182,16 @@ if (missing.length) {
 }
 if (after.includes('lit-drilldown-link') || after.includes('formAssociated')) {
   console.error('build-lit-drilldown-link: generated output must stay p-drilldown-link');
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-drilldown-link: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-drilldown-link', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-drilldown-link: ${err.message}`);
   process.exit(1);
 }
 

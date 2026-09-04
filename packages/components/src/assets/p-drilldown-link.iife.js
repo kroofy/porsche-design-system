@@ -599,31 +599,17 @@
 
   // ../../components/mitosis/drilldown-link/output/lit/DrilldownLink.ts
   var LitDrilldownLink = class extends i4 {
-    get cssText() {
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const rawHref = (() => {
-        const raw = this.href;
-        if (raw !== A && raw !== void 0 && raw !== null && raw !== "undefined") return raw;
-        if (this.hasAttribute("href")) {
-          const attr = this.getAttribute("href");
-          if (attr !== "undefined") return attr;
-        }
-        return A;
-      })();
-      const hasSlottedAnchor = rawHref === A || rawHref === void 0 || rawHref === null;
       const isActive = isTrue(this.active ?? this.getAttribute("active"));
-      const deco = isActive ? "inherit" : "transparent";
-      const cursor = isActive ? "default" : "pointer";
-      const important = hasSlottedAnchor ? " !important" : "";
-      const host = ":host{display:grid}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}";
-      const anchor = "all:unset" + important + ";padding:calc(var(--p-spacing-fluid-sm) + 2px) calc(var(--p-spacing-fluid-sm) + 4px)" + important + ";margin:-2px calc(var(--p-spacing-fluid-sm) * -1 - 4px)" + important + ";border-radius:var(--p-radius-sm)" + important + ";font:var(--p-font-weight-normal) var(--p-typescale-md) / var(--p-leading-normal) var(--p-font-porsche-next)" + important + ";color:var(--_p-drilldown-a)" + important + ";text-decoration:underline" + important + ";text-decoration-color:" + deco + important + ";cursor:" + cursor + important + ";transition:text-decoration-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)" + important;
-      const sel = hasSlottedAnchor ? "::slotted(a)" : "a";
-      const hoverSel = hasSlottedAnchor ? "::slotted(a:hover)" : "a:hover";
-      const focusSel = hasSlottedAnchor ? "::slotted(a:focus-visible)" : "a:focus-visible";
-      return host + sel + "{" + anchor + "}" + focusSel + "{outline:2px solid var(--p-color-focus)" + important + ";outline-offset:2px" + important + "}@media(forced-colors:active){" + focusSel + "{outline-color:Highlight" + important + "}}@media(hover:hover){" + hoverSel + "{text-decoration-color:inherit" + important + "}}";
+      return {
+        "--p-ddl-deco": isActive ? "" : "transparent",
+        "--p-ddl-cursor": isActive ? "default" : "pointer"
+      };
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => this.requestUpdate());
       this._childObserver.observe(this, { childList: true, subtree: false });
       this.addEventListener("slotchange", () => this.requestUpdate());
@@ -637,6 +623,18 @@
       this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
         slot.addEventListener("slotchange", () => this.requestUpdate());
       });
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
+    updated() {
+      this.applyHostStyle();
     }
     get hrefValue() {
       const raw = this.href;
@@ -677,9 +675,9 @@
       const relAttr = rel !== A && rel !== void 0 && rel !== null && rel !== "undefined" ? rel : A;
       const ariaLabel = this.ariaAttrs["aria-label"] || A;
       if (hasHref) {
-        return b2`<style .innerHTML="${this.cssText}"></style><a href=${href} target=${target} download=${downloadAttr} rel=${relAttr} aria-current=${this.isActiveFlag ? "true" : "false"} aria-label=${ariaLabel}><slot></slot></a>`;
+        return b2`<a href=${href} target=${target} download=${downloadAttr} rel=${relAttr} aria-current=${this.isActiveFlag ? "true" : "false"} aria-label=${ariaLabel}><slot></slot></a>`;
       }
-      return b2`<style .innerHTML="${this.cssText}"></style><slot></slot>`;
+      return b2`<slot></slot>`;
     }
   };
   LitDrilldownLink.styles = i`
@@ -688,6 +686,63 @@
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        a {
+          all: unset;
+          padding: calc(var(--p-spacing-fluid-sm) + 2px)
+            calc(var(--p-spacing-fluid-sm) + 4px);
+          margin: -2px calc(var(--p-spacing-fluid-sm) * -1 - 4px);
+          border-radius: var(--p-radius-sm);
+          font: var(--p-font-weight-normal) var(--p-typescale-md) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          color: var(--_p-drilldown-a);
+          text-decoration: underline;
+          text-decoration-color: var(--p-ddl-deco, inherit);
+          cursor: var(--p-ddl-cursor, pointer);
+          transition: text-decoration-color
+            var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out);
+        }
+        ::slotted(a) {
+          all: unset !important;
+          padding: calc(var(--p-spacing-fluid-sm) + 2px)
+            calc(var(--p-spacing-fluid-sm) + 4px) !important;
+          margin: -2px calc(var(--p-spacing-fluid-sm) * -1 - 4px) !important;
+          border-radius: var(--p-radius-sm) !important;
+          font: var(--p-font-weight-normal) var(--p-typescale-md) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+          color: var(--_p-drilldown-a) !important;
+          text-decoration: underline !important;
+          text-decoration-color: var(--p-ddl-deco, inherit) !important;
+          cursor: var(--p-ddl-cursor, pointer) !important;
+          transition: text-decoration-color
+            var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out) !important;
+        }
+        a:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        ::slotted(a:focus-visible) {
+          outline: 2px solid var(--p-color-focus) !important;
+          outline-offset: 2px !important;
+        }
+        @media (forced-colors: active) {
+          a:focus-visible {
+            outline-color: Highlight;
+          }
+          ::slotted(a:focus-visible) {
+            outline-color: Highlight !important;
+          }
+        }
+        @media (hover: hover) {
+          a:hover {
+            text-decoration-color: inherit;
+          }
+          ::slotted(a:hover) {
+            text-decoration-color: inherit !important;
+          }
         }
 `;
   __decorateClass([
