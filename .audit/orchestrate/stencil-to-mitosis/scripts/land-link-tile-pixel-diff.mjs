@@ -181,7 +181,10 @@ const proof = await page.evaluate(() => {
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
         cssHasFooterSlot: getComputedStyle(el).getPropertyValue('--p-lt-pure-row').trim() === '1 / 3',
         cssHasCursor: [...(el.shadowRoot?.adoptedStyleSheets ?? [])].some((sheet) =>
-          [...(sheet.cssRules ?? [])].some((rule) => String(rule.cssText || '').includes('cursor:'))
+          [...(sheet.cssRules ?? [])].some((rule) => {
+            const text = String(rule.cssText || '');
+            return text.includes('cursor: pointer') || text.includes('cursor: not-allowed');
+          })
         ),
       };
     }),
