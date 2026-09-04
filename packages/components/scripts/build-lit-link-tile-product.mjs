@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/link-tile-product');
@@ -28,6 +32,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -68,6 +73,20 @@ const extraGetters = `  connectedCallback() {
     this.dispatchEvent(new CustomEvent("like", { detail: { liked: this.isLiked() }, bubbles: false }));
   };
 
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {`;
 
 const renderTemplate = `const heading = this.heading ?? this.getAttribute("heading") ?? "";
@@ -94,7 +113,7 @@ const renderTemplate = `const heading = this.heading ?? this.getAttribute("headi
         ? html\`<p id="price" class="price"><span class="sr-only">sale price</span>\${price}<span class="sr-only">original price</span><s>\${priceOriginal}</s></p>\`
         : html\`<p id="price" class="price">\${price}</p>\`
       : nothing;
-    return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style>\${anchor}<div id="header" class="header"><slot name="header"></slot>\${like}</div><div class="image"><slot></slot></div><div class="wrapper">\${heading ? html\`<h3 id="heading" class="heading">\${heading}</h3>\` : nothing}\${priceEl}\${description && description !== "undefined" ? html\`<p id="description" class="description">\${description}</p>\` : nothing}</div></div>\`;`;
+    return html\`<div class="root">\${anchor}<div id="header" class="header"><slot name="header"></slot>\${like}</div><div class="image"><slot></slot></div><div class="wrapper">\${heading ? html\`<h3 id="heading" class="heading">\${heading}</h3>\` : nothing}\${priceEl}\${description && description !== "undefined" ? html\`<p id="description" class="description">\${description}</p>\` : nothing}</div></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -178,7 +197,10 @@ const required = [
   'Remove from wishlist',
   'Add to wishlist',
   'sr-only',
-  'm: 1000',
+  'min-width: 760px',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
@@ -197,6 +219,12 @@ if (
   console.error(
     'build-lit-link-tile-product: generated output must stay p-* and not fake delegatesFocus/formAssociated'
   );
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-link-tile-product', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-link-tile-product: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {
