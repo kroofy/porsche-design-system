@@ -109,7 +109,7 @@ let after = before
   .replace(/@property\(\)\s+headingTag/g, '@property({ attribute: "heading-tag" }) headingTag')
   .replace(/@property\(\)\s+dismissButton/g, '@property({ attribute: "dismiss-button" }) dismissButton')
   .replace(
-    'parse(this.position, { base: "bottom", s: "top" })',
+    /parse\(this\.position,\s*\{\s*base:\s*"bottom",\s*s:\s*"top"\s*\}\)/,
     'parse(this.getAttribute("position") ?? this.position, { base: "bottom", s: "top" })'
   )
   .replaceAll(
