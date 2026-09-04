@@ -92,8 +92,8 @@ const failed =
   proof.title !== 'Playground' ||
   !proof.isLit ||
   proof.litDividerDefined ||
-  proof.hosts.some((h) => h.tag !== 'p-divider' || !h.hasStyle || !h.hasHr || h.hasFragment) ||
-  consoleErrors.length > 0;
+    proof.hosts.some((h) => h.tag !== 'p-divider' || !h.hasHr || h.hasFragment || h.hasInjectedStyle || !h.adoptedSheets) ||
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

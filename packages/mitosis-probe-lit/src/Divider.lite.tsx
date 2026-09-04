@@ -12,7 +12,7 @@ const COLOR: Record<string, string> = {
   'contrast-high': 'var(--p-color-contrast-high)',
 };
 
-const MIN_WIDTH: Record<string, number> = { xs: 480, s: 760, m: 1000, l: 1300, xl: 1760, xxl: 1920 };
+const BREAKPOINTS = ['base', 'xs', 's', 'm', 'l', 'xl', 'xxl'] as const;
 
 const sizeFor = (direction: string) =>
   direction === 'vertical' ? { h: '100%', w: '1px' } : { h: '1px', w: '100%' };
@@ -27,6 +27,16 @@ const parseDirection = (raw: unknown) => {
     }
   }
   return raw;
+};
+
+const assignSize = (vars: Record<string, string>, bp: string, size: { h: string; w: string }) => {
+  if (bp === 'base') {
+    vars['--p-divider-h'] = size.h;
+    vars['--p-divider-w'] = size.w;
+    return;
+  }
+  vars[`--p-divider-h-${bp}`] = size.h;
+  vars[`--p-divider-w-${bp}`] = size.w;
 };
 
 useStyle(`
@@ -94,20 +104,13 @@ export default function LitDivider(props: { color?: DividerColor; direction?: an
       };
       const direction = parseDirection(props.direction);
       if (typeof direction === 'object' && direction !== null) {
-        for (const bp of Object.keys(direction)) {
-          const size = sizeFor(direction[bp]);
-          if (bp === 'base') {
-            vars['--p-divider-h'] = size.h;
-            vars['--p-divider-w'] = size.w;
-          } else if (MIN_WIDTH[bp]) {
-            vars[`--p-divider-h-${bp}`] = size.h;
-            vars[`--p-divider-w-${bp}`] = size.w;
-          }
+        let last = sizeFor(direction.base || 'horizontal');
+        for (const bp of BREAKPOINTS) {
+          if (direction[bp] !== undefined) last = sizeFor(direction[bp]);
+          assignSize(vars, bp, last);
         }
       } else {
-        const size = sizeFor(String(direction));
-        vars['--p-divider-h'] = size.h;
-        vars['--p-divider-w'] = size.w;
+        assignSize(vars, 'base', sizeFor(String(direction)));
       }
       return vars;
     },

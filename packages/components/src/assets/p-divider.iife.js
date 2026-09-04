@@ -604,14 +604,7 @@
     "contrast-medium": "var(--p-color-contrast-medium)",
     "contrast-high": "var(--p-color-contrast-high)"
   };
-  var MIN_WIDTH = {
-    xs: 480,
-    s: 760,
-    m: 1e3,
-    l: 1300,
-    xl: 1760,
-    xxl: 1920
-  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
   var sizeFor = (direction) => direction === "vertical" ? {
     h: "100%",
     w: "1px"
@@ -630,6 +623,15 @@
     }
     return raw;
   };
+  var assignSize = (vars, bp, size) => {
+    if (bp === "base") {
+      vars["--p-divider-h"] = size.h;
+      vars["--p-divider-w"] = size.w;
+      return;
+    }
+    vars[`--p-divider-h-${bp}`] = size.h;
+    vars[`--p-divider-w-${bp}`] = size.w;
+  };
   var LitDivider = class extends i4 {
     get hostStyle() {
       const vars = {
@@ -637,20 +639,13 @@
       };
       const direction = parseDirection(this.direction);
       if (typeof direction === "object" && direction !== null) {
-        for (const bp of Object.keys(direction)) {
-          const size = sizeFor(direction[bp]);
-          if (bp === "base") {
-            vars["--p-divider-h"] = size.h;
-            vars["--p-divider-w"] = size.w;
-          } else if (MIN_WIDTH[bp]) {
-            vars[`--p-divider-h-${bp}`] = size.h;
-            vars[`--p-divider-w-${bp}`] = size.w;
-          }
+        let last = sizeFor(direction.base || "horizontal");
+        for (const bp of BREAKPOINTS) {
+          if (direction[bp] !== void 0) last = sizeFor(direction[bp]);
+          assignSize(vars, bp, last);
         }
       } else {
-        const size = sizeFor(String(direction));
-        vars["--p-divider-h"] = size.h;
-        vars["--p-divider-w"] = size.w;
+        assignSize(vars, "base", sizeFor(String(direction)));
       }
       return vars;
     }
