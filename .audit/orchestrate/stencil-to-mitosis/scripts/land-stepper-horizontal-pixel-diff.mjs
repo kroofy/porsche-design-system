@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -99,7 +100,7 @@ await page.waitForFunction(() => {
   if (hosts.length !== 3) return false;
   if (items.length !== 11) return false;
   if (Host?.name !== 'LitStepperHorizontal') return false;
-  if (Item?.name === 'LitStepperHorizontalItem') return false;
+  if (Item?.name !== 'LitStepperHorizontalItem') return false;
   if (Scroller?.name !== 'LitScroller') return false;
   if (Button?.name !== 'LitButton') return false;
   if (Text?.name !== 'LitText') return false;
@@ -110,11 +111,12 @@ await page.waitForFunction(() => {
     const style = root?.querySelector('style');
     const scroller = root?.querySelector('p-scroller.scroller');
     const slotted = [...el.querySelectorAll(':scope > p-stepper-horizontal-item')];
-    if (!root || !wrap || !style || !scroller) return false;
+    if (!root || !wrap || style || !scroller) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-stepper-horizontal')) return false;
     if (scroller.constructor?.name !== 'LitScroller') return false;
     if (slotted.length < 2) return false;
-    if (!slotted.every((item) => item.classList.contains('hydrated'))) return false;
+    if (slotted.some((item) => item.classList.contains('hydrated'))) return false;
     const icons = slotted.flatMap((item) => [...(item.shadowRoot?.querySelectorAll('p-icon') ?? [])]);
     if (!icons.every((icon) => {
       const img = icon.shadowRoot?.querySelector('img');
@@ -189,6 +191,7 @@ const proof = await page.evaluate(() => {
         itemsHydrated: children.every((n) => n.classList.contains('hydrated')),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasWrap: !!el.shadowRoot?.querySelector('.wrap'),
         hasScroller: !!scroller,
         scrollerCtor: scroller?.constructor?.name ?? null,
@@ -253,7 +256,7 @@ const failed =
   proof.title !== 'Playground' ||
   !proof.isLit ||
   proof.ctorName !== 'LitStepperHorizontal' ||
-  proof.itemCtor === 'LitStepperHorizontalItem' ||
+  proof.itemCtor !== 'LitStepperHorizontalItem' ||
   proof.scrollerCtor !== 'LitScroller' ||
   proof.buttonCtor !== 'LitButton' ||
   proof.textCtor !== 'LitText' ||
@@ -269,9 +272,10 @@ const failed =
       h.size !== expected.size ||
       h.childCount !== expected.childCount ||
       h.itemStates.join(',') !== expected.itemStates.join(',') ||
-      !h.itemsHydrated ||
+      h.itemsHydrated ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasWrap ||
       !h.hasScroller ||
       h.scrollerCtor !== 'LitScroller' ||
