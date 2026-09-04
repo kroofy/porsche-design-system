@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/multi-select');
@@ -61,6 +65,7 @@ const extraGetters = `  itemChildren() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, characterData: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -74,10 +79,23 @@ const extraGetters = `  itemChildren() {
       slot.addEventListener("slotchange", () => this.requestUpdate());
     });
   }
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
 
   render() {`;
 
-const renderTemplate = `return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style>\${this.labelNode}\${this.descriptionNode}<button type="button" role="combobox" id="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-required=\${this.isRequired ? "true" : "false"} aria-controls="listbox" aria-autocomplete="none" aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.comboDescribedBy()} aria-invalid=\${this.ariaInvalid || nothing} ?disabled=\${!!this.isDisabled}><span>\${this.selectedLabel()}</span><p-icon class="icon" name="arrow-head-down" source="http://localhost:3001/icons/arrow-head-down.1e3cbb8.svg" color="primary" aria-hidden="true"></p-icon></button><div popover="manual" tabindex="0"><div id="listbox" class="options" role="listbox" aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-required=\${this.isRequired ? "true" : "false"} aria-multiselectable="true" tabindex="-1"><slot></slot></div></div><span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span></div>\`;`;
+const renderTemplate = `return html\`<div class="root">\${this.labelNode}\${this.descriptionNode}<button type="button" role="combobox" id="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-required=\${this.isRequired ? "true" : "false"} aria-controls="listbox" aria-autocomplete="none" aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.comboDescribedBy()} aria-invalid=\${this.ariaInvalid || nothing} ?disabled=\${!!this.isDisabled}><span>\${this.selectedLabel()}</span><p-icon class="icon" name="arrow-head-down" source="http://localhost:3001/icons/arrow-head-down.1e3cbb8.svg" color="primary" aria-hidden="true"></p-icon></button><div popover="manual" tabindex="0"><div id="listbox" class="options" role="listbox" aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-required=\${this.isRequired ? "true" : "false"} aria-multiselectable="true" tabindex="-1"><slot></slot></div></div><span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -223,6 +241,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-multi-select: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-multi-select', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-multi-select: ${err.message}`);
   process.exit(1);
 }
 if (
