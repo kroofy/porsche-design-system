@@ -36,6 +36,18 @@ if (!after.includes('@customElement("p-wordmark")')) {
   console.error('build-lit-wordmark: expected @customElement("p-wordmark")');
   process.exit(1);
 }
+if (!after.includes('static styles')) {
+  console.error('build-lit-wordmark: expected Lit static styles from useStyle');
+  process.exit(1);
+}
+if (!after.includes('get hostStyle') || !after.includes('applyHostStyle()')) {
+  console.error('build-lit-wordmark: expected hostStyle and applyHostStyle');
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-wordmark: cssText/innerHTML stylesheet hack is not allowed');
+  process.exit(1);
+}
 if (after !== before) {
   await writeFile(generated, after);
 }

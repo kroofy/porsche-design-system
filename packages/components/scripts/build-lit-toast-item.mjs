@@ -32,6 +32,7 @@ if (!generated) {
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
     this.setAttribute("popover", "manual");
+    this.applyHostStyle();
     if (typeof this.showPopover === "function") {
       this.showPopover();
     }
@@ -57,13 +58,24 @@ const extraMethods = `  connectedCallback() {
   }
 
   updated() {
+    this.applyHostStyle();
     if (typeof this.showPopover === "function" && !this.matches(":popover-open")) {
       this.showPopover();
     }
   }
 
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {
-    return html\`<style .innerHTML="\${this.cssText}"></style><div class="notification"><p>\${this.textValue}</p><button class="dismiss" type="button"><span>Close notification message</span></button></div>\`;
+    return html\`<div class="notification"><p>\${this.textValue}</p><button class="dismiss" type="button"><span>Close notification message</span></button></div>\`;
   }
 }`;
 
@@ -111,13 +123,19 @@ const required = [
   'textValue',
   'getAttribute("text")',
   'getAttribute("state")',
-  'min-width:760px',
+  'min-width: 760px',
   'info-frosted',
-  'cssText',
+  'hostStyle',
+  'applyHostStyle',
+  'static styles',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-toast-item: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-toast-item: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (
