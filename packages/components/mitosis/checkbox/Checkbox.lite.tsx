@@ -245,7 +245,7 @@ export default function LitCheckbox(props: {
       background-color: var(--p-cb-indeterminate);
     }
     input:checked {
-      background: var(--p-cb-checked);
+      background: var(--p-cb-checked, var(--p-cb-bg));
     }
     input:checked::before {
       -webkit-mask: var(--p-cb-check-mask);

@@ -652,14 +652,14 @@
         }
         return obj;
       };
-      const disabled = isTrue(this.disabled);
-      const loading = isTrue(this.loading);
-      const compact = isTrue(this.compact);
+      const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));
+      const loading = isTrue(this.loading ?? this.getAttribute("loading"));
+      const compact = isTrue(this.compact ?? this.getAttribute("compact"));
       const blocked = disabled || loading;
-      const formState = this.state || "none";
+      const formState = this.state ?? this.getAttribute("state") ?? "none";
       const message = this.message || "";
       const hasMsg = !!message && (formState === "success" || formState === "error");
-      const hasLbl = !!(this.label || "");
+      const hasLbl = !!(this.label ?? this.getAttribute("label") ?? "");
       const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);
       const hideBase = typeof hideLabel === "object" && hideLabel !== null ? pick(hideLabel, "base", false) : hideLabel;
       const palettes = {
@@ -868,7 +868,7 @@
           background-color: var(--p-cb-indeterminate);
         }
         input:checked {
-          background: var(--p-cb-checked);
+          background: var(--p-cb-checked, var(--p-cb-bg));
         }
         input:checked::before {
           -webkit-mask: var(--p-cb-check-mask);
