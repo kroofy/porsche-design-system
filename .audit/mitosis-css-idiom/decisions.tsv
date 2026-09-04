@@ -39,3 +39,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T11:05:10Z	verify	input-time off cssText	same; clock button	/opt/cursor/artifacts/input-time-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:05:20Z	verify	input-month off cssText	same; calendar button	/opt/cursor/artifacts/input-month-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:05:30Z	verify	input-week off cssText	same; calendar button	/opt/cursor/artifacts/input-week-pixel-diff.log	pixel-diff 0 byte-equal
+2026-09-04T11:10:00Z	verify	tabs off cssText	static host/wrap/root; object size --p-tabs-size-*; extraMethods applyHostStyle merge	/opt/cursor/artifacts/tabs-pixel-diff.log	pixel-diff 0 byte-equal
