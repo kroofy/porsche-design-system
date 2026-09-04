@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/scroller');
@@ -26,10 +30,47 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style><span class="prev" @click=\${this.scrollPrev}></span><span class="next" @click=\${this.scrollNext}></span><div class="scroll" tabindex=\${this.prevVis || this.nextVis ? 0 : nothing}><span class="sentinel"></span><slot></slot><span class="sentinel"></span></div></div>\`;`;
+const renderTemplate = `return html\`<div class="root"><span class="prev" @click=\${this.scrollPrev}></span><span class="next" @click=\${this.scrollNext}></span><div class="scroll" tabindex=\${this.prevVis || this.nextVis ? 0 : nothing}><span class="sentinel"></span><slot></slot><span class="sentinel"></span></div></div>\`;`;
 
 const extraGetters = `  prevVis = false;
   nextVis = false;
+  connectedCallback() {
+    super.connectedCallback();
+    this.applyHostStyle();
+  }
+  updated() {
+    this.applyHostStyle();
+  }
+  get fadeStyle() {
+    const visRule = (visible, isPrev) => {
+      const prefix = isPrev ? "--p-scr-prev" : "--p-scr-next";
+      const hiddenTf = isPrev
+        ? "translate3d(calc(-1 * var(--p-spacing-static-sm)), 0, 0)"
+        : "translate3d(var(--p-spacing-static-sm), 0, 0)";
+      return {
+        [prefix + "-op"]: visible ? "1" : "0",
+        [prefix + "-vis"]: visible ? "inherit" : "hidden",
+        [prefix + "-tf"]: visible ? "translate3d(0, 0, 0)" : hiddenTf,
+        [prefix + "-delay"]: visible ? "0s" : "var(--p-transition-duration, var(--p-duration-sm))",
+      };
+    };
+    return { ...visRule(!!this.prevVis, true), ...visRule(!!this.nextVis, false) };
+  }
+  applyHostStyle() {
+    const isTrue = (v) => v === true || v === "true" || v === "";
+    const vars = { ...this.hostStyle, ...this.fadeStyle };
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+    const fade = !this.prevVis && !this.nextVis ? "none" : !this.prevVis ? "right" : !this.nextVis ? "left" : "both";
+    if (fade === "none") this.removeAttribute("data-fade");
+    else this.setAttribute("data-fade", fade);
+    this.toggleAttribute("data-bar", isTrue(this.getAttribute("scrollbar") ?? this.scrollbar));
+    this.toggleAttribute("data-compact", isTrue(this.getAttribute("compact") ?? this.compact));
+    this.toggleAttribute("data-sticky", isTrue(this.getAttribute("sticky") ?? this.sticky));
+  }
   disconnectedCallback() {
     this._io?.disconnect();
     this._childObserver?.disconnect();
@@ -86,20 +127,6 @@ let after = before
     'import { LitElement, html, css } from "lit";',
     'import { LitElement, html, css, nothing } from "lit";'
   )
-  .replaceAll('let prevVis: any = false;', 'let prevVis: any = this.prevVis;')
-  .replaceAll('let nextVis: any = false;', 'let nextVis: any = this.nextVis;')
-  .replaceAll(
-    'let hasBar: any = this.scrollbar;',
-    'let hasBar: any = this.getAttribute("scrollbar") ?? this.scrollbar;'
-  )
-  .replaceAll(
-    'let isCompact: any = this.compact;',
-    'let isCompact: any = this.getAttribute("compact") ?? this.compact;'
-  )
-  .replaceAll(
-    'let isSticky: any = this.sticky;',
-    'let isSticky: any = this.getAttribute("sticky") ?? this.sticky;'
-  )
   .replace(/return html`[\s\S]*?`;/, renderTemplate);
 
 if (!after.includes('@property() scrollbar') && !after.includes('@property() scrollbar:')) {
@@ -137,6 +164,9 @@ const required = [
   'threshold: 0.1',
   'MutationObserver',
   '::after',
+  'data-fade',
+  '--p-scr-prev-op',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
@@ -145,6 +175,12 @@ if (missing.length) {
 }
 if (after.includes('lit-scroller') || after.includes('indicator-sticky')) {
   console.error('build-lit-scroller: generated output must use p-scroller and must not map indicator-sticky');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-scroller', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-scroller: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

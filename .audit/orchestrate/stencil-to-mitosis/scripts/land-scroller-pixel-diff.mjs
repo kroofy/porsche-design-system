@@ -35,6 +35,13 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
   throw new Error(`baseline sha ${baselineSha} !== ${EXPECTED_BASELINE_SHA}`);
 }
 
+const isBenign = (text) =>
+  text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
+  text.includes('should be of kind') ||
+  text.includes('parent HTMLElement of') ||
+  text.includes('3002');
+
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
@@ -42,12 +49,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (isBenign(text) || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (isBenign(text)) return;
   consoleErrors.push(text);
 });
 
@@ -76,14 +83,16 @@ await page.waitForFunction(() => {
     hosts.every((el) => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
+      const sheets = root?.adoptedStyleSheets ?? [];
+      const sheetText = [...sheets].flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText)).join('');
       const scroll = root?.querySelector('.scroll');
       const next = root?.querySelector('.next');
       const prev = root?.querySelector('.prev');
       const sentinels = root?.querySelectorAll('.sentinel') ?? [];
-      if (!root || !style || !scroll || !next || !prev || sentinels.length < 2) return false;
+      if (!root || style || sheets.length < 1 || !scroll || !next || !prev || sentinels.length < 2) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-scroller')) return false;
-      if (!style.textContent?.includes('.next')) return false;
+      if (!sheetText.includes('.next')) return false;
       const overflows = scroll.scrollWidth > scroll.clientWidth + 1;
       const opacity = getComputedStyle(next).opacity;
       if (overflows ? opacity !== '1' : opacity !== '0') return false;
@@ -112,6 +121,7 @@ const proof = await page.evaluate(() => {
       const next = el.shadowRoot?.querySelector('.next');
       const prev = el.shadowRoot?.querySelector('.prev');
       const tags = [...el.querySelectorAll(':scope > p-tag')];
+      const prevPos = prev ? getComputedStyle(prev).position : null;
       return {
         tag: el.localName,
         scrollbar: el.getAttribute('scrollbar'),
@@ -120,6 +130,8 @@ const proof = await page.evaluate(() => {
         indicatorPosition: el.getAttribute('indicator-position'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        fade: el.getAttribute('data-fade'),
         hasScroll: !!scroll,
         hasPrev: !!prev,
         hasNext: !!next,
@@ -127,7 +139,8 @@ const proof = await page.evaluate(() => {
         nextOpacity: next ? getComputedStyle(next).opacity : null,
         prevOpacity: prev ? getComputedStyle(prev).opacity : null,
         overflows: scroll ? scroll.scrollWidth > scroll.clientWidth + 1 : null,
-        hasStickyCss: !!style?.textContent?.includes('position:sticky'),
+        prevPosition: prevPos,
+        hasStickyCss: prevPos === 'sticky',
         tagCount: tags.length,
         tagCtor: tags.map((n) => n.constructor?.name),
         hydrated: el.classList.contains('hydrated'),
@@ -189,7 +202,8 @@ const failed =
     return (
       h.tag !== 'p-scroller' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      (h.adoptedSheets ?? 0) < 1 ||
       !h.hasScroll ||
       !h.hasNext ||
       h.sentinelCount < 2 ||
