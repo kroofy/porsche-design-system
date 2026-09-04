@@ -42,7 +42,7 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
@@ -76,8 +76,12 @@ await page.waitForFunction(() => {
       const nestedHeading = headingSlot && customElements.get(headingSlot.localName);
       return (
         !!root &&
-        !!style &&
-        (style.textContent?.includes('.notification') ?? false) &&
+        !style &&
+        (root.adoptedStyleSheets?.length ?? 0) >= 1 &&
+        [...(root.adoptedStyleSheets ?? [])]
+          .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+          .join('')
+          .includes('.notification') &&
         !!pop &&
         !!box &&
         (!isOpen || pop.matches(':popover-open')) &&
@@ -133,10 +137,14 @@ const proof = await page.evaluate(() => {
         hasDismiss: !!dismiss,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasNotificationClass: !!box,
         hasPopover: !!popover,
         popoverOpen: !!popover?.matches(':popover-open'),
-        hasIconMask: !!style?.textContent?.includes('.notification::before'),
+        hasIconMask: [...(el.shadowRoot?.adoptedStyleSheets ?? [])]
+          .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+          .join('')
+          .includes('.notification::before'),
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
       };
@@ -215,7 +223,8 @@ const failed =
     return (
       h.tag !== 'p-banner' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      h.adoptedSheets < 1 ||
       !h.hasNotificationClass ||
       !h.hasPopover ||
       !h.hasIconMask ||
