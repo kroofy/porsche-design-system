@@ -56,3 +56,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T12:35:00Z	verify	link-pure off cssText	--p-lp-* size/stretch/hideLabel/alignLabel; slotted ::slotted(a); inherit fs unset	/opt/cursor/artifacts/mitosis_land_link_pure_after.png	pixel-diff 0 byte-equal
 2026-09-04T12:50:00Z	verify	button-tile off cssText	--p-bt-* size/weight/aspect/compact; align/gradient via :host; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_button_tile_after.png	pixel-diff 0 byte-equal
 2026-09-04T12:52:00Z	verify	link-tile off cssText	--p-lt-* clone of button-tile; no root cursor; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_link_tile_after.png	pixel-diff 0 byte-equal
+2026-09-04T12:58:00Z	verify	link-tile-product off cssText	--p-ltp-ar* aspect; href/price-original/description via :host; extraMethods applyHostStyle merge	/opt/cursor/artifacts/mitosis_land_link_tile_product_after.png	pixel-diff 0 byte-equal
