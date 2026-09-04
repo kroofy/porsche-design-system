@@ -119,6 +119,10 @@ after = after.replace(
   'const background = this.background === "surface" ? "surface" : "canvas";',
   'const background = (this.background ?? this.getAttribute("background")) === "surface" ? "surface" : "canvas";',
 );
+after = after.replace(
+  'const isSurface = this.background === "surface";',
+  'const isSurface = (this.background ?? this.getAttribute("background")) === "surface";',
+);
 
 const propsToEnsure = ['sidebarStartOpen', 'sidebarEndOpen', 'background'];
 for (const prop of propsToEnsure) {

@@ -603,7 +603,7 @@
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const startOpen = isTrue(this.sidebarStartOpen ?? this.getAttribute("sidebar-start-open") ?? this.getAttribute("sidebarstartopen"));
       const endOpen = isTrue(this.sidebarEndOpen ?? this.getAttribute("sidebar-end-open") ?? this.getAttribute("sidebarendopen"));
-      const isSurface = this.background === "surface";
+      const isSurface = (this.background ?? this.getAttribute("background")) === "surface";
       const startMobile = "min(100vw, var(--p-canvas-sidebar-start-width, 320px))";
       const endMobile = "min(100vw, var(--p-canvas-sidebar-end-width, 320px))";
       const startDesktop = "min(calc(100vw - 320px), var(--p-canvas-sidebar-start-width, 320px))";
