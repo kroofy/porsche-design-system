@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/inline-notification');
@@ -26,10 +30,11 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<div class="notification" role=\${this.roleName} aria-live=\${this.ariaLive} aria-label=\${this.headingAria || nothing}><style .innerHTML="\${this.cssText}"></style>\${this.headingNode}\${this.descriptionNode}\${this.actionNode}\${this.dismissNode}</div>\`;`;
+const renderTemplate = `return html\`<div class="notification" role=\${this.roleName} aria-live=\${this.ariaLive} aria-label=\${this.headingAria || nothing}>\${this.headingNode}\${this.descriptionNode}\${this.actionNode}\${this.dismissNode}</div>\`;`;
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true });
     queueMicrotask(() => this.requestUpdate());
@@ -62,6 +67,20 @@ const extraGetters = `  connectedCallback() {
   get dismissNode() {
     if (!this.showDismiss) return nothing;
     return html\`<button class="dismiss" type="button"><span>Close notification</span></button>\`;
+  }
+
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
@@ -187,9 +206,15 @@ if (
   !after.includes('action-icon') ||
   !after.includes('querySelector') ||
   !after.includes('MutationObserver') ||
-  !after.includes('min-width:760px')
+  !(after.includes('min-width: 760px') || after.includes('min-width:760px'))
 ) {
   console.error('build-lit-inline-notification: expected notification layout, slots, kebab attrs, and slot detection');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-inline-notification', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-inline-notification: ${err.message}`);
   process.exit(1);
 }
 if (
