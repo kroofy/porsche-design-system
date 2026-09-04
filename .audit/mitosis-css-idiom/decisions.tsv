@@ -41,3 +41,4 @@ ts	phase	decision	why	evidence	result
 2026-09-04T11:05:30Z	verify	input-week off cssText	same; calendar button	/opt/cursor/artifacts/input-week-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:10:00Z	verify	tabs off cssText	static host/wrap/root; object size --p-tabs-size-*; extraMethods applyHostStyle merge	/opt/cursor/artifacts/tabs-pixel-diff.log	pixel-diff 0 byte-equal
 2026-09-04T11:15:00Z	verify	drilldown-link off cssText	static a + ::slotted(a); active → --p-ddl-deco/--p-ddl-cursor (inherit via unset); extraMethods applyHostStyle merge	/opt/cursor/artifacts/land-drilldown-link-verify.log	pixel-diff 0 byte-equal
+2026-09-04T11:20:00Z	verify	drilldown-item off cssText	static sheet + :host([primary]|[secondary]|[cascade]); syncHostStateAttrs reflects props; land flipped to Lit links	/opt/cursor/artifacts/land_drilldown_item_verify.log	pixel-diff 0 byte-equal
