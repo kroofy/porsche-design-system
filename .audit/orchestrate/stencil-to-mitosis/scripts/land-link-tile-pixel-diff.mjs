@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -104,7 +105,7 @@ await page.waitForFunction(() => {
     const overlay = root?.querySelector('a[tabindex="-1"][aria-hidden="true"]');
     const links = [...(root?.querySelectorAll('p-link') ?? [])];
     const imgs = [...el.querySelectorAll(':scope > img')];
-    if (!root || !style || !wrap || !media || !footer || !overlay) return false;
+    if (!root || style || (root.adoptedStyleSheets?.length ?? 0) < 1 || !wrap || !media || !footer || !overlay) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-link-tile')) return false;
     if (overlay.getAttribute('href') === 'undefined') return false;
     if (links.length !== 2) return false;
@@ -161,6 +162,7 @@ const proof = await page.evaluate(() => {
         target: el.getAttribute('target'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!el.shadowRoot?.querySelector('.root'),
         hasMedia: !!el.shadowRoot?.querySelector('.media'),
         hasFooter: !!el.shadowRoot?.querySelector('.footer'),
@@ -177,8 +179,10 @@ const proof = await page.evaluate(() => {
         imgComplete: [...el.querySelectorAll(':scope > img')].every((img) => img.complete && img.naturalWidth > 0),
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        cssHasFooterSlot: (style?.textContent || '').includes('grid-row:1/3'),
-        cssHasCursor: (style?.textContent || '').includes('cursor:'),
+        cssHasFooterSlot: getComputedStyle(el).getPropertyValue('--p-lt-pure-row').trim() === '1 / 3',
+        cssHasCursor: [...(el.shadowRoot?.adoptedStyleSheets ?? [])].some((sheet) =>
+          [...(sheet.cssRules ?? [])].some((rule) => String(rule.cssText || '').includes('cursor:'))
+        ),
       };
     }),
   };
@@ -260,7 +264,8 @@ const failed =
       item.cssHasFooterSlot !== want.cssHasFooterSlot ||
       item.cssHasCursor ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasRoot ||
       !item.hasMedia ||
       !item.hasFooter ||

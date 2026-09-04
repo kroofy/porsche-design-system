@@ -598,6 +598,74 @@
   }
 
   // ../../components/mitosis/button-tile/output/lit/ButtonTile.ts
+  var SIZE_MAP = {
+    "xx-small": "var(--p-typescale-2xs)",
+    "x-small": "var(--p-typescale-xs)",
+    small: "var(--p-typescale-sm)",
+    medium: "var(--p-typescale-md)",
+    large: "var(--p-typescale-lg)",
+    "x-large": "var(--p-typescale-xl)",
+    "xx-large": "var(--p-typescale-2xl)",
+    "2xs": "var(--p-typescale-2xs)",
+    xs: "var(--p-typescale-xs)",
+    sm: "var(--p-typescale-sm)",
+    md: "var(--p-typescale-md)",
+    lg: "var(--p-typescale-lg)",
+    xl: "var(--p-typescale-xl)",
+    "2xl": "var(--p-typescale-2xl)",
+    "3xl": "var(--p-typescale-3xl)",
+    "4xl": "var(--p-typescale-4xl)",
+    "5xl": "var(--p-typescale-5xl)"
+  };
+  var WEIGHT_MAP = {
+    regular: "var(--p-font-weight-normal)",
+    "semi-bold": "var(--p-font-weight-semibold)",
+    normal: "var(--p-font-weight-normal)",
+    semibold: "var(--p-font-weight-semibold)",
+    bold: "var(--p-font-weight-bold)"
+  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    if (raw === "true") return true;
+    if (raw === "false") return false;
+    return raw;
+  };
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
+  var fontFor = (size) => {
+    if (size === "inherit") return "";
+    return SIZE_MAP[String(size)] || SIZE_MAP.medium;
+  };
+  var weightFor = (weight) => WEIGHT_MAP[String(weight)] || WEIGHT_MAP["semi-bold"];
+  var assignBp = (vars, bp, size, weight, ratio, compact) => {
+    const s4 = bp === "base" ? "" : `-${bp}`;
+    const on = compact === true || compact === "true";
+    vars[`--p-bt-fs${s4}`] = fontFor(size);
+    vars[`--p-bt-fw${s4}`] = weightFor(weight);
+    vars[`--p-bt-ar${s4}`] = String(ratio || "4/3");
+    vars[`--p-bt-foot-d${s4}`] = on ? "grid" : "flex";
+    vars[`--p-bt-foot-cols${s4}`] = on ? "minmax(0, 1fr) auto" : "none";
+    vars[`--p-bt-foot-gap${s4}`] = on ? "var(--p-spacing-static-md)" : "0";
+    vars[`--p-bt-foot-dir${s4}`] = on ? "row" : "column";
+    vars[`--p-bt-foot-ai${s4}`] = on ? "stretch" : "start";
+    vars[`--p-bt-pure-d${s4}`] = on ? "inline-block" : "none";
+    vars[`--p-bt-btn-d${s4}`] = on ? "none" : "inline-block";
+  };
   var LitButtonTile = class extends i4 {
     constructor() {
       super(...arguments);
@@ -605,148 +673,43 @@
         if (this.isDisabled() || this.isLoading()) event.stopPropagation();
       };
     }
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        if (raw === "true") return true;
-        if (raw === "false") return false;
-        return raw;
-      };
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
-      const sizeToken = {
-        "xx-small": "var(--p-typescale-2xs)",
-        "x-small": "var(--p-typescale-xs)",
-        small: "var(--p-typescale-sm)",
-        medium: "var(--p-typescale-md)",
-        large: "var(--p-typescale-lg)",
-        "x-large": "var(--p-typescale-xl)",
-        "xx-large": "var(--p-typescale-2xl)",
-        "2xs": "var(--p-typescale-2xs)",
-        xs: "var(--p-typescale-xs)",
-        sm: "var(--p-typescale-sm)",
-        md: "var(--p-typescale-md)",
-        lg: "var(--p-typescale-lg)",
-        xl: "var(--p-typescale-xl)",
-        "2xl": "var(--p-typescale-2xl)",
-        "3xl": "var(--p-typescale-3xl)",
-        "4xl": "var(--p-typescale-4xl)",
-        "5xl": "var(--p-typescale-5xl)",
-        inherit: "inherit"
-      };
-      const weightToken = {
-        regular: "var(--p-font-weight-normal)",
-        "semi-bold": "var(--p-font-weight-semibold)",
-        normal: "var(--p-font-weight-normal)",
-        semibold: "var(--p-font-weight-semibold)",
-        bold: "var(--p-font-weight-bold)"
-      };
-      const gradientStops = "hsla(from var(--p-color-canvas) h s l / .8) 0%,hsla(from var(--p-color-canvas) h s l / .8) 8.1%,hsla(from var(--p-color-canvas) h s l / .8) 15.5%,hsla(from var(--p-color-canvas) h s l / .8) 22.5%,hsla(from var(--p-color-canvas) h s l / .78) 29%,hsla(from var(--p-color-canvas) h s l / .73) 35.3%,hsla(from var(--p-color-canvas) h s l / .67) 41.2%,hsla(from var(--p-color-canvas) h s l / .6) 47.1%,hsla(from var(--p-color-canvas) h s l / .52) 52.9%,hsla(from var(--p-color-canvas) h s l / .44) 58.8%,hsla(from var(--p-color-canvas) h s l / .33) 64.7%,hsla(from var(--p-color-canvas) h s l / .22) 71%,hsla(from var(--p-color-canvas) h s l / .12) 77.5%,hsla(from var(--p-color-canvas) h s l / .05) 84.5%,hsla(from var(--p-color-canvas) h s l / .011) 91.9%,hsla(from var(--p-color-canvas) h s l / 0) 100%";
+    get hostStyle() {
       const size = parse(this.size ?? this.getAttribute("size"), "medium");
       const weight = parse(this.weight ?? this.getAttribute("weight"), "semi-bold");
       const aspectRatio = parse(this.aspectRatio ?? this.getAttribute("aspect-ratio") ?? this.getAttribute("aspectratio"), "4/3");
       let compact = parse(this.compact ?? this.getAttribute("compact"), false);
       if ((this.compact ?? this.getAttribute("compact")) === "true") compact = true;
       if ((this.compact ?? this.getAttribute("compact")) === "false") compact = false;
-      const align = this.align ?? this.getAttribute("align") ?? "bottom";
-      const isTop = align === "top";
-      const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));
-      const loading = isTrue(this.loading ?? this.getAttribute("loading"));
-      const isDisabledOrLoading = disabled || loading;
-      const hasGradient = isTrue(this.gradient ?? this.getAttribute("gradient"));
       const hasFooterSlot = !!this.querySelector('[slot="footer"]');
-      const sizeBase = typeof size === "object" && size !== null ? size.base || "medium" : size;
-      const weightBase = typeof weight === "object" && weight !== null ? weight.base || "semi-bold" : weight;
-      const ratioBase = typeof aspectRatio === "object" && aspectRatio !== null ? aspectRatio.base || "4/3" : aspectRatio;
-      const compactBase = typeof compact === "object" && compact !== null ? compact.base : compact;
-      const compactOn = compactBase === true || compactBase === "true";
-      let out = ':host{display:flex;align-items:stretch;color-scheme:dark;hyphens:auto}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}slot{display:block}slot:not([name]){width:100%;height:100%;transition:transform var(--p-transition-duration,var(--p-duration-md)) var(--p-ease-in-out)}slot[name="header"]{grid-area:' + (isTop ? "4" : "2") + '/2;z-index:5}slot[name="footer"]{grid-row:2;z-index:3}::slotted(:is(img,video,picture)){display:block !important;width:100% !important;height:100% !important}::slotted(:is(img,video)){object-fit:cover !important}a{grid-area:1/1/-1 /-1;z-index:4;outline:0}p{all:unset;z-index:3;max-width:34.375rem;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);color:var(--p-color-primary);hyphens:inherit;font-size:' + (sizeToken[sizeBase] || sizeToken.medium) + ";font-weight:" + (weightToken[weightBase] || weightToken["semi-bold"]) + "}@supports (-webkit-hyphens: auto){:host{align-items:baseline}}.root{display:grid;grid-template:var(--p-spacing-fluid-md) auto minmax(0px, 1fr) auto var(--p-spacing-fluid-md)/var(--p-spacing-fluid-md) minmax(0px, 1fr) var(--p-spacing-fluid-md);width:100%;border-radius:var(--p-radius-3xl);aspect-ratio:" + ratioBase + ";cursor:" + (isDisabledOrLoading ? "not-allowed" : "pointer") + "}";
-      if (typeof aspectRatio === "object" && aspectRatio !== null) {
-        for (const bp of Object.keys(aspectRatio)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){.root{aspect-ratio:" + aspectRatio[bp] + "}}";
-        }
-      }
-      if (hasGradient) {
-        if (isTop) {
-          out += '.root::after{content:"";z-index:2;grid-area:1/1/3/-1;background:linear-gradient(to bottom, ' + gradientStops + ");;margin-bottom:calc(var(--p-spacing-fluid-lg) * -1);border-start-start-radius:inherit;border-start-end-radius:inherit}";
-        } else {
-          out += '.root::after{content:"";z-index:2;grid-area:4/1/6/-1;background:linear-gradient(to top, ' + gradientStops + ");;margin-top:calc(var(--p-spacing-fluid-lg) * -1);border-end-start-radius:inherit;border-end-end-radius:inherit}";
-        }
-      }
-      out += ".media{position:relative;grid-area:1/1/-1 /-1;z-index:1;overflow:hidden;border-radius:inherit}.footer{grid-area:" + (isTop ? "2" : "4") + "/2";
-      if (typeof compact === "object" && compact !== null) {
-        out += compactOn ? ";display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}" : ";display:flex;flex-direction:column;align-items:start}";
-        for (const bp of Object.keys(compact)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          const on = compact[bp] === true || compact[bp] === "true";
-          out += on ? "@media(min-width:" + minWidth[bp] + "px){.footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}}" : "@media(min-width:" + minWidth[bp] + "px){.footer{display:flex;flex-direction:column;align-items:start}}";
+      const vars = {
+        "--p-bt-pure-row": hasFooterSlot ? "1 / 3" : "1 / 2"
+      };
+      const objecty = typeof size === "object" || typeof weight === "object" || typeof aspectRatio === "object" || typeof compact === "object";
+      if (objecty) {
+        const sizeObj = typeof size === "object" && size !== null ? size : null;
+        const weightObj = typeof weight === "object" && weight !== null ? weight : null;
+        const ratioObj = typeof aspectRatio === "object" && aspectRatio !== null ? aspectRatio : null;
+        const compactObj = typeof compact === "object" && compact !== null ? compact : null;
+        let lastS = sizeObj ? pick(sizeObj, "base", "medium") : size;
+        let lastW = weightObj ? pick(weightObj, "base", "semi-bold") : weight;
+        let lastR = ratioObj ? pick(ratioObj, "base", "4/3") : aspectRatio;
+        let lastC = compactObj ? pick(compactObj, "base", false) : compact;
+        for (const bp of BREAKPOINTS) {
+          if (sizeObj && sizeObj[bp] !== void 0)
+            lastS = pick(sizeObj, bp, lastS);
+          if (weightObj && weightObj[bp] !== void 0)
+            lastW = pick(weightObj, bp, lastW);
+          if (ratioObj && ratioObj[bp] !== void 0)
+            lastR = pick(ratioObj, bp, lastR);
+          if (compactObj && compactObj[bp] !== void 0)
+            lastC = pick(compactObj, bp, lastC);
+          assignBp(vars, bp, lastS, lastW, lastR, lastC);
         }
       } else {
-        out += compactOn ? ";display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}" : ";display:flex;flex-direction:column;align-items:start}";
+        for (const bp of BREAKPOINTS)
+          assignBp(vars, bp, size, weight, aspectRatio, compact);
       }
-      out += ".link-or-button-pure{z-index:5;grid-column:2;grid-row:1/" + (hasFooterSlot ? "3" : "2") + ";align-self:" + (isTop ? "flex-start" : "flex-end");
-      if (typeof compact === "object" && compact !== null) {
-        out += ";display:" + (compactOn ? "inline-block" : "none") + "}";
-        for (const bp of Object.keys(compact)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          const on = compact[bp] === true || compact[bp] === "true";
-          out += "@media(min-width:" + minWidth[bp] + "px){.link-or-button-pure{display:" + (on ? "inline-block" : "none") + "}}";
-        }
-      } else {
-        out += ";display:" + (compactOn ? "inline-block" : "none") + "}";
-      }
-      out += ".link-or-button{min-height:54px;z-index:5;margin-top:var(--p-spacing-static-md)";
-      if (typeof compact === "object" && compact !== null) {
-        out += ";display:" + (compactOn ? "none" : "inline-block") + "}";
-        for (const bp of Object.keys(compact)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          const on = compact[bp] === true || compact[bp] === "true";
-          out += "@media(min-width:" + minWidth[bp] + "px){.link-or-button{display:" + (on ? "none" : "inline-block") + "}}";
-        }
-      } else {
-        out += ";display:" + (compactOn ? "none" : "inline-block") + "}";
-      }
-      if (!disabled) {
-        out += "@media(hover:hover){.root:hover slot:not([name]){transform:scale3d(1.05,1.05,1.05)}}";
-      }
-      out += "@supports (-webkit-hyphens: auto){.root{height:100%}}";
-      if (typeof size === "object" && size !== null) {
-        for (const bp of Object.keys(size)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){p{font-size:" + (sizeToken[size[bp]] || size[bp]) + "}}";
-        }
-      }
-      if (typeof weight === "object" && weight !== null) {
-        for (const bp of Object.keys(weight)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){p{font-weight:" + (weightToken[weight[bp]] || weight[bp]) + "}}";
-        }
-      }
-      return out;
+      return vars;
     }
     get descriptionText() {
       return this.description ?? this.getAttribute("description") ?? "";
@@ -756,6 +719,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this.addEventListener("click", this.onHostClick, true);
       this._childObserver = new MutationObserver(() => this.requestUpdate());
       this._childObserver.observe(this, { childList: true, subtree: true });
@@ -779,6 +743,18 @@
       const raw = this.loading ?? this.getAttribute("loading");
       return raw === true || raw === "true" || raw === "";
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
       const label = this.label ?? this.getAttribute("label") ?? "";
       const description = this.description ?? this.getAttribute("description") ?? "";
@@ -789,15 +765,321 @@
       const loading = this.isLoading();
       const compactIcon = icon === "none" ? "arrow-right" : icon;
       const source = iconSource || A;
-      return b2`<div class="root"><style .innerHTML="${this.cssText}"></style><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>${description}</p><slot name="footer"></slot><p-button class="link-or-button-pure" variant="secondary" icon=${compactIcon} type=${type} ?disabled=${disabled} ?loading=${loading} hide-label="true" compact="true" .iconSource=${source}>${label}</p-button><p-button class="link-or-button" variant="secondary" icon=${icon} type=${type} ?disabled=${disabled} ?loading=${loading} .iconSource=${source}>${label}</p-button></div></div>`;
+      return b2`<div class="root"><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>${description}</p><slot name="footer"></slot><p-button class="link-or-button-pure" variant="secondary" icon=${compactIcon} type=${type} ?disabled=${disabled} ?loading=${loading} hide-label="true" compact="true" .iconSource=${source}>${label}</p-button><p-button class="link-or-button" variant="secondary" icon=${icon} type=${type} ?disabled=${disabled} ?loading=${loading} .iconSource=${source}>${label}</p-button></div></div>`;
     }
   };
   LitButtonTile.styles = i`
       :host {
           display: flex;
+          align-items: stretch;
+          color-scheme: dark;
+          hyphens: auto;
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        slot {
+          display: block;
+        }
+        slot:not([name]) {
+          width: 100%;
+          height: 100%;
+          transition: transform var(--p-transition-duration, var(--p-duration-md))
+            var(--p-ease-in-out);
+        }
+        slot[name="header"] {
+          grid-area: 2 / 2;
+          z-index: 5;
+        }
+        :host([align="top"]) slot[name="header"] {
+          grid-area: 4 / 2;
+        }
+        slot[name="footer"] {
+          grid-row: 2;
+          z-index: 3;
+        }
+        ::slotted(:is(img, video, picture)) {
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
+        }
+        ::slotted(:is(img, video)) {
+          object-fit: cover !important;
+        }
+        a {
+          grid-area: 1 / 1 / -1 / -1;
+          z-index: 4;
+          outline: 0;
+        }
+        p {
+          all: unset;
+          z-index: 3;
+          max-width: 34.375rem;
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          color: var(--p-color-primary);
+          hyphens: inherit;
+          font-size: inherit;
+          font-size: var(--p-bt-fs);
+          font-weight: var(--p-bt-fw);
+        }
+        @supports (-webkit-hyphens: auto) {
+          :host {
+            align-items: baseline;
+          }
+        }
+        .root {
+          display: grid;
+          grid-template:
+            var(--p-spacing-fluid-md) auto minmax(0px, 1fr) auto var(
+              --p-spacing-fluid-md
+            )
+            / var(--p-spacing-fluid-md) minmax(0px, 1fr) var(--p-spacing-fluid-md);
+          width: 100%;
+          border-radius: var(--p-radius-3xl);
+          aspect-ratio: var(--p-bt-ar);
+          cursor: pointer;
+        }
+        :host([disabled]) .root,
+        :host([loading]) .root {
+          cursor: not-allowed;
+        }
+        .root::after {
+          content: "";
+          z-index: 2;
+          grid-area: 4 / 1 / 6 / -1;
+          background: linear-gradient(
+            to top,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 0%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 8.1%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 15.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 22.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.78) 29%,
+            hsla(from var(--p-color-canvas) h s l / 0.73) 35.3%,
+            hsla(from var(--p-color-canvas) h s l / 0.67) 41.2%,
+            hsla(from var(--p-color-canvas) h s l / 0.6) 47.1%,
+            hsla(from var(--p-color-canvas) h s l / 0.52) 52.9%,
+            hsla(from var(--p-color-canvas) h s l / 0.44) 58.8%,
+            hsla(from var(--p-color-canvas) h s l / 0.33) 64.7%,
+            hsla(from var(--p-color-canvas) h s l / 0.22) 71%,
+            hsla(from var(--p-color-canvas) h s l / 0.12) 77.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.05) 84.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.011) 91.9%,
+            hsla(from var(--p-color-canvas) h s l / 0) 100%
+          );
+          margin-top: calc(var(--p-spacing-fluid-lg) * -1);
+          border-end-start-radius: inherit;
+          border-end-end-radius: inherit;
+        }
+        :host([align="top"]) .root::after {
+          grid-area: 1 / 1 / 3 / -1;
+          background: linear-gradient(
+            to bottom,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 0%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 8.1%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 15.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.8) 22.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.78) 29%,
+            hsla(from var(--p-color-canvas) h s l / 0.73) 35.3%,
+            hsla(from var(--p-color-canvas) h s l / 0.67) 41.2%,
+            hsla(from var(--p-color-canvas) h s l / 0.6) 47.1%,
+            hsla(from var(--p-color-canvas) h s l / 0.52) 52.9%,
+            hsla(from var(--p-color-canvas) h s l / 0.44) 58.8%,
+            hsla(from var(--p-color-canvas) h s l / 0.33) 64.7%,
+            hsla(from var(--p-color-canvas) h s l / 0.22) 71%,
+            hsla(from var(--p-color-canvas) h s l / 0.12) 77.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.05) 84.5%,
+            hsla(from var(--p-color-canvas) h s l / 0.011) 91.9%,
+            hsla(from var(--p-color-canvas) h s l / 0) 100%
+          );
+          margin-top: 0;
+          margin-bottom: calc(var(--p-spacing-fluid-lg) * -1);
+          border-end-start-radius: 0;
+          border-end-end-radius: 0;
+          border-start-start-radius: inherit;
+          border-start-end-radius: inherit;
+        }
+        :host(:not([gradient])) .root::after {
+          content: none;
+        }
+        .media {
+          position: relative;
+          grid-area: 1 / 1 / -1 / -1;
+          z-index: 1;
+          overflow: hidden;
+          border-radius: inherit;
+        }
+        .footer {
+          grid-area: 4 / 2;
+          display: var(--p-bt-foot-d);
+          grid-template-columns: var(--p-bt-foot-cols);
+          column-gap: var(--p-bt-foot-gap);
+          flex-direction: var(--p-bt-foot-dir);
+          align-items: var(--p-bt-foot-ai);
+        }
+        :host([align="top"]) .footer {
+          grid-area: 2 / 2;
+        }
+        .link-or-button-pure {
+          z-index: 5;
+          grid-column: 2;
+          grid-row: var(--p-bt-pure-row);
+          align-self: flex-end;
+          display: var(--p-bt-pure-d);
+        }
+        :host([align="top"]) .link-or-button-pure {
+          align-self: flex-start;
+        }
+        .link-or-button {
+          min-height: 54px;
+          z-index: 5;
+          margin-top: var(--p-spacing-static-md);
+          display: var(--p-bt-btn-d);
+        }
+        @media (hover: hover) {
+          :host(:not([disabled])) .root:hover slot:not([name]) {
+            transform: scale3d(1.05, 1.05, 1.05);
+          }
+        }
+        @supports (-webkit-hyphens: auto) {
+          .root {
+            height: 100%;
+          }
+        }
+        @media (min-width: 480px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-xs, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-xs, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-xs, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-xs);
+            grid-template-columns: var(--p-bt-foot-cols-xs);
+            column-gap: var(--p-bt-foot-gap-xs);
+            flex-direction: var(--p-bt-foot-dir-xs);
+            align-items: var(--p-bt-foot-ai-xs);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-xs);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-xs);
+          }
+        }
+        @media (min-width: 760px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-s, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-s, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-s, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-s);
+            grid-template-columns: var(--p-bt-foot-cols-s);
+            column-gap: var(--p-bt-foot-gap-s);
+            flex-direction: var(--p-bt-foot-dir-s);
+            align-items: var(--p-bt-foot-ai-s);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-s);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-s);
+          }
+        }
+        @media (min-width: 1000px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-m, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-m, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-m, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-m);
+            grid-template-columns: var(--p-bt-foot-cols-m);
+            column-gap: var(--p-bt-foot-gap-m);
+            flex-direction: var(--p-bt-foot-dir-m);
+            align-items: var(--p-bt-foot-ai-m);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-m);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-m);
+          }
+        }
+        @media (min-width: 1300px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-l, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-l, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-l, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-l);
+            grid-template-columns: var(--p-bt-foot-cols-l);
+            column-gap: var(--p-bt-foot-gap-l);
+            flex-direction: var(--p-bt-foot-dir-l);
+            align-items: var(--p-bt-foot-ai-l);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-l);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-l);
+          }
+        }
+        @media (min-width: 1760px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-xl, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-xl, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-xl, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-xl);
+            grid-template-columns: var(--p-bt-foot-cols-xl);
+            column-gap: var(--p-bt-foot-gap-xl);
+            flex-direction: var(--p-bt-foot-dir-xl);
+            align-items: var(--p-bt-foot-ai-xl);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-xl);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-xl);
+          }
+        }
+        @media (min-width: 1920px) {
+          .root {
+            aspect-ratio: var(--p-bt-ar-xxl, var(--p-bt-ar));
+          }
+          p {
+            font-size: var(--p-bt-fs-xxl, var(--p-bt-fs));
+            font-weight: var(--p-bt-fw-xxl, var(--p-bt-fw));
+          }
+          .footer {
+            display: var(--p-bt-foot-d-xxl);
+            grid-template-columns: var(--p-bt-foot-cols-xxl);
+            column-gap: var(--p-bt-foot-gap-xxl);
+            flex-direction: var(--p-bt-foot-dir-xxl);
+            align-items: var(--p-bt-foot-ai-xxl);
+          }
+          .link-or-button-pure {
+            display: var(--p-bt-pure-d-xxl);
+          }
+          .link-or-button {
+            display: var(--p-bt-btn-d-xxl);
+          }
         }
 `;
   __decorateClass([
@@ -811,7 +1093,19 @@
   ], LitButtonTile.prototype, "icon", 2);
   __decorateClass([
     n4()
+  ], LitButtonTile.prototype, "loading", 2);
+  __decorateClass([
+    n4()
+  ], LitButtonTile.prototype, "disabled", 2);
+  __decorateClass([
+    n4()
   ], LitButtonTile.prototype, "type", 2);
+  __decorateClass([
+    n4()
+  ], LitButtonTile.prototype, "gradient", 2);
+  __decorateClass([
+    n4()
+  ], LitButtonTile.prototype, "align", 2);
   __decorateClass([
     n4()
   ], LitButtonTile.prototype, "size", 2);
@@ -824,18 +1118,6 @@
   __decorateClass([
     n4()
   ], LitButtonTile.prototype, "compact", 2);
-  __decorateClass([
-    n4()
-  ], LitButtonTile.prototype, "align", 2);
-  __decorateClass([
-    n4()
-  ], LitButtonTile.prototype, "disabled", 2);
-  __decorateClass([
-    n4()
-  ], LitButtonTile.prototype, "loading", 2);
-  __decorateClass([
-    n4()
-  ], LitButtonTile.prototype, "gradient", 2);
   __decorateClass([
     n4()
   ], LitButtonTile.prototype, "description", 2);

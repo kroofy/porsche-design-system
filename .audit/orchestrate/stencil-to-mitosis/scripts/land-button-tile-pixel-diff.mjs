@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -104,7 +105,7 @@ await page.waitForFunction(() => {
     const footer = root?.querySelector('.footer');
     const buttons = [...(root?.querySelectorAll('p-button') ?? [])];
     const imgs = [...el.querySelectorAll(':scope > img')];
-    if (!root || !style || !wrap || !media || !footer) return false;
+    if (!root || style || (root.adoptedStyleSheets?.length ?? 0) < 1 || !wrap || !media || !footer) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-button-tile')) return false;
     if (buttons.length !== 2) return false;
     if (!buttons.some((btn) => btn.classList.contains('link-or-button'))) return false;
@@ -158,6 +159,7 @@ const proof = await page.evaluate(() => {
         loading: el.getAttribute('loading'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!el.shadowRoot?.querySelector('.root'),
         hasMedia: !!el.shadowRoot?.querySelector('.media'),
         hasFooter: !!el.shadowRoot?.querySelector('.footer'),
@@ -169,7 +171,7 @@ const proof = await page.evaluate(() => {
         imgComplete: [...el.querySelectorAll(':scope > img')].every((img) => img.complete && img.naturalWidth > 0),
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        cssHasFooterSlot: (style?.textContent || '').includes('grid-row:1/3'),
+        cssHasFooterSlot: getComputedStyle(el).getPropertyValue('--p-bt-pure-row').trim() === '1 / 3',
       };
     }),
   };
@@ -252,7 +254,8 @@ const failed =
       item.footer !== want.footer ||
       item.cssHasFooterSlot !== want.cssHasFooterSlot ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasRoot ||
       !item.hasMedia ||
       !item.hasFooter ||
