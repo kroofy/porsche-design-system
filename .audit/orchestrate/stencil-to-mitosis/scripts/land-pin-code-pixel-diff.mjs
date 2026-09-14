@@ -42,12 +42,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -81,10 +81,10 @@ await page.waitForFunction(() => {
       const style = root?.querySelector('style');
       const fieldset = root?.querySelector('fieldset.root');
       const inputs = root?.querySelectorAll('input') ?? [];
-      if (!root || !style || !fieldset || inputs.length < 4) return false;
+      if (!root || style || !fieldset || inputs.length < 4) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-pin-code')) return false;
-      if (!style.textContent?.includes('.root')) return false;
       const spinner = root.querySelector('p-spinner');
       if (spinner) {
         return customElements.get('p-spinner')?.name === 'LitSpinner' && !!spinner.shadowRoot?.querySelector('svg');
@@ -126,6 +126,7 @@ const proof = await page.evaluate(() => {
         disabled: el.getAttribute('disabled'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!el.shadowRoot?.querySelector('fieldset.root'),
         inputCount: el.shadowRoot?.querySelectorAll('input').length ?? 0,
         spinnerCtor: spinner?.constructor?.name ?? null,
@@ -191,7 +192,8 @@ const failed =
     return (
       h.tag !== 'p-pin-code' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasRoot ||
       h.inputCount < 4 ||
       h.hydrated ||

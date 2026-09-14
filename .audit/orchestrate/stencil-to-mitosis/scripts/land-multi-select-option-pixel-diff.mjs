@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -113,7 +114,12 @@ await page.waitForFunction(() => {
       const style = root?.querySelector('style');
       const option = root?.querySelector('.option');
       const checkbox = root?.querySelector('.checkbox');
-      if (!root || !style || !option || !checkbox) return false;
+      const sheets = root?.adoptedStyleSheets ?? [];
+      const sheetText = sheets
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
+      if (!root || style || !sheets.length || !option || !checkbox) return false;
+      if (!sheetText.includes('--_p-multi-select-option-a') || !sheetText.includes('checkbox')) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-multi-select-option')) return false;
       if (!el.textContent?.trim()) return false;
@@ -160,6 +166,9 @@ const proof = await page.evaluate(() => {
     options: options.map((el) => {
       const style = el.shadowRoot?.querySelector('style');
       const option = el.shadowRoot?.querySelector('.option');
+      const sheetText = (el.shadowRoot?.adoptedStyleSheets ?? [])
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -168,6 +177,8 @@ const proof = await page.evaluate(() => {
         disabled: el.getAttribute('disabled'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasOptionVars: sheetText.includes('--_p-multi-select-option-a') && sheetText.includes('checkbox'),
         hasOption: !!option,
         hasCheckbox: !!el.shadowRoot?.querySelector('.checkbox'),
         optionClass: option?.className ?? '',
@@ -250,7 +261,9 @@ const failed =
       item.tag !== 'p-multi-select-option' ||
       item.ctor !== 'LitMultiSelectOption' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
+      !item.hasOptionVars ||
       !item.hasOption ||
       !item.hasCheckbox ||
       !item.text ||

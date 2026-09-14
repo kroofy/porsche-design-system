@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/radio-group');
@@ -60,6 +64,7 @@ const extraGetters = `  itemChildren() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     const stampArg = (node) => {
       if (node && node.localName === "p-radio-group-option") this.stampOption(node);
       if (node && node.nodeType === 11) {
@@ -113,12 +118,23 @@ const extraGetters = `  itemChildren() {
     this.syncOptions();
   }
   updated() {
+    this.applyHostStyle();
     this.syncOptions();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
 
-const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} role="radiogroup" aria-required=\${this.isRequired ? "true" : nothing} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.fieldsetDescribedBy()}><style .innerHTML="\${this.cssText}"></style>\${this.labelNode}\${this.descriptionNode}<div class="wrapper"><slot></slot>\${this.spinnerNode}</div><span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span><span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
+const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} role="radiogroup" aria-required=\${this.isRequired ? "true" : nothing} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.fieldsetDescribedBy()}>\${this.labelNode}\${this.descriptionNode}<div class="wrapper"><slot></slot>\${this.spinnerNode}</div><span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span><span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -297,6 +313,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-radio-group: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-radio-group', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-radio-group: ${err.message}`);
   process.exit(1);
 }
 if (

@@ -42,12 +42,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -87,11 +87,14 @@ await page.waitForFunction(() => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
       const fieldset = root?.querySelector('fieldset.root');
-      if (!root || !style || !fieldset) return false;
+      const slot = root?.querySelector('slot:not([name])');
+      const grid = slot ? getComputedStyle(slot).gridTemplateColumns : '';
+      if (!root || style || !fieldset) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-segmented-control')) return false;
       if (root.querySelector('.label-wrapper')) return false;
-      if (!style.textContent?.includes('repeat(auto-fit,')) return false;
+      if (!grid || grid === 'none') return false;
       const items = [...el.querySelectorAll('p-segmented-control-item')];
       if (items.length !== 4) return false;
       if (items.some((item) => item.constructor?.name === 'LitSegmentedControl')) return false;
@@ -123,10 +126,14 @@ const proof = await page.evaluate(() => {
         className: el.className,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasFieldset: !!fieldset,
         fieldsetDisabled: fieldset?.disabled ?? null,
         hasLabelWrapper: !!el.shadowRoot?.querySelector('.label-wrapper'),
-        grid: style?.textContent?.match(/repeat\(auto-fit,[^)]+\)/)?.[0] ?? null,
+        grid: (() => {
+          const slot = el.shadowRoot?.querySelector('slot:not([name])');
+          return slot ? getComputedStyle(slot).gridTemplateColumns : null;
+        })(),
         itemCount: items.length,
         itemTags: [...new Set(items.map((item) => item.tagName))],
         itemCtors: [...new Set(items.map((item) => item.constructor?.name))],
@@ -200,7 +207,8 @@ const failed =
       h.tag !== 'p-segmented-control' ||
       h.className !== 'w-full' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasFieldset ||
       h.hasLabelWrapper ||
       h.itemCount !== 4 ||

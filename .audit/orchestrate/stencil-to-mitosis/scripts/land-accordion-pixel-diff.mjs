@@ -42,7 +42,7 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
@@ -88,10 +88,14 @@ await page.waitForFunction(() => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
       const details = root?.querySelector('details');
-      if (!root || !style || !details) return false;
+      if (!root || style || !details) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-accordion')) return false;
-      if (!style.textContent?.includes('summary::after')) return false;
+      const sheetText = [...(root.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('');
+      if (!sheetText.includes('summary::after')) return false;
       const isOpen = el.getAttribute('open') === 'true' || el.getAttribute('open') === '';
       if (isOpen && !details.hasAttribute('open')) return false;
       if (isOpen) {
@@ -123,27 +127,32 @@ const proof = await page.evaluate(() => {
     openCount: hosts.filter((el) => el.getAttribute('open') === 'true' || el.getAttribute('open') === '').length,
     popoverCtor: customElements.get('p-popover')?.name ?? null,
     hosts: hosts.map((el) => {
-      const style = el.shadowRoot?.querySelector('style');
-      const details = el.shadowRoot?.querySelector('details');
+      const root = el.shadowRoot;
+      const style = root?.querySelector('style');
+      const details = root?.querySelector('details');
       const body = details?.querySelector(':scope > div');
+      const sheetText = [...(root?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('');
       return {
         tag: el.localName,
         open: el.getAttribute('open'),
         alignMarker: el.getAttribute('align-marker'),
         background: el.getAttribute('background'),
         sticky: el.getAttribute('sticky'),
-        hasShadow: !!el.shadowRoot,
+        hasShadow: !!root,
         hasStyle: !!style,
+        adoptedSheets: root?.adoptedStyleSheets?.length ?? 0,
         hasDetails: !!details,
         detailsOpen: details?.hasAttribute('open') ?? null,
         bodyOpacity: body ? getComputedStyle(body).opacity : null,
-        hasSummarySlot: !!el.shadowRoot?.querySelector('slot[name="summary"]'),
-        hasHeadingSlot: !!el.shadowRoot?.querySelector('slot[name="heading"]'),
-        hasBeforeSlot: !!el.shadowRoot?.querySelector('slot[name="summary-before"]'),
-        hasAfterSlot: !!el.shadowRoot?.querySelector('slot[name="summary-after"]'),
-        hasChevron: !!style?.textContent?.includes('summary::after'),
+        hasSummarySlot: !!root?.querySelector('slot[name="summary"]'),
+        hasHeadingSlot: !!root?.querySelector('slot[name="heading"]'),
+        hasBeforeSlot: !!root?.querySelector('slot[name="summary-before"]'),
+        hasAfterSlot: !!root?.querySelector('slot[name="summary-after"]'),
+        hasChevron: sheetText.includes('summary::after'),
         hydrated: el.classList.contains('hydrated'),
-        hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
+        hasFragment: !!root?.querySelector('my-fragment'),
       };
     }),
   };
@@ -204,7 +213,8 @@ const failed =
     return (
       h.tag !== 'p-accordion' ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      h.adoptedSheets < 1 ||
       !h.hasDetails ||
       !h.hasChevron ||
       h.hydrated ||

@@ -28,6 +28,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._lightDomObserver = new MutationObserver(() => this.requestUpdate());
     this._lightDomObserver.observe(this, { childList: true, characterData: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -60,10 +61,22 @@ const extraGetters = `  connectedCallback() {
       e.stopPropagation();
     });
   }
+  updated() {
+    this.applyHostStyle();
+  }
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
 
   render() {`;
 
-const renderTemplate = `return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style><div class="wrapper"><input id="radio-group-option" type="radio" name=\${this.inputName || nothing} value=\${this.inputValue} .checked=\${!!this.isSelected} ?disabled=\${!!this.isDisabled || !!this.isLoading} aria-invalid=\${this.ariaInvalid || nothing} aria-disabled=\${this.isDisabled || this.isLoading ? "true" : nothing} aria-describedby=\${this.isLoading ? "loading" : nothing}>\${this.spinnerNode}</div>\${this.labelNode}\${this.loadingNode}</div>\`;`;
+const renderTemplate = `return html\`<div class="root"><div class="wrapper"><input id="radio-group-option" type="radio" name=\${this.inputName || nothing} value=\${this.inputValue} .checked=\${!!this.isSelected} ?disabled=\${!!this.isDisabled || !!this.isLoading} aria-invalid=\${this.ariaInvalid || nothing} aria-disabled=\${this.isDisabled || this.isLoading ? "true" : nothing} aria-describedby=\${this.isLoading ? "loading" : nothing}>\${this.spinnerNode}</div>\${this.labelNode}\${this.loadingNode}</div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -192,10 +205,17 @@ const required = [
   'slotchange',
   'internalRadioGroupOptionChange',
   'p-spinner',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-radio-group-option: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-radio-group-option: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (

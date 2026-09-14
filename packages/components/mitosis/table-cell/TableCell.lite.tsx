@@ -4,24 +4,21 @@ useMetadata({ tagName: 'p-table-cell' });
 
 export default function LitTableCell(props: { multiline?: any }) {
   const state = useStore({
-    get cssText(): string {
+    get hostStyle(): Record<string, string> {
       const multiline = props.multiline === true || props.multiline === 'true' || props.multiline === '';
-      const whiteSpace = multiline ? 'normal' : 'nowrap';
-      return (
-        ':host{display:table-cell;vertical-align:middle;' +
-        'padding:var(--_p-table-a) !important;' +
-        'margin:0 !important;' +
-        'white-space:' +
-        whiteSpace +
-        ' !important}' +
-        ':host([hidden]){display:none !important}'
-      );
+      return {
+        '--p-table-cell-ws': multiline ? 'normal' : 'nowrap',
+      };
     },
   });
 
   useStyle(`
     :host {
       display: table-cell;
+      vertical-align: middle;
+      padding: var(--_p-table-a) !important;
+      margin: 0 !important;
+      white-space: var(--p-table-cell-ws, nowrap) !important;
     }
     :host([hidden]) {
       display: none !important;
@@ -30,7 +27,6 @@ export default function LitTableCell(props: { multiline?: any }) {
 
   return (
     <div class="root">
-      <style innerHTML={state.cssText} />
       <slot />
     </div>
   );

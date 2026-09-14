@@ -27,7 +27,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return html`<div class="root"><style .innerHTML="${this.cssText}"></style><slot></slot></div>`;';
+  'return html`<div class="root"><slot></slot></div>`;';
 
 const before = await readFile(generated, 'utf8');
 let after = before

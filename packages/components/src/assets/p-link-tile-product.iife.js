@@ -598,6 +598,27 @@
   }
 
   // ../../components/mitosis/link-tile-product/output/lit/LinkTileProduct.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
   var LitLinkTileProduct = class extends i4 {
     constructor() {
       super(...arguments);
@@ -606,80 +627,23 @@
         this.dispatchEvent(new CustomEvent("like", { detail: { liked: this.isLiked() }, bubbles: false }));
       };
     }
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const isFalse = (v2) => v2 === false || v2 === "false";
-      const href = this.href ?? this.getAttribute("href");
-      const hasHref = !(href == null || href === "" || href === "undefined");
-      const hasSlottedAnchor = !hasHref;
-      const hasLikeButton = !isFalse(this.likeButton ?? this.getAttribute("like-button") ?? this.getAttribute("likebutton"));
-      const hasPriceOriginal = !!((this.priceOriginal ?? this.getAttribute("price-original") ?? this.getAttribute("priceoriginal")) && (this.priceOriginal ?? this.getAttribute("price-original") ?? this.getAttribute("priceoriginal")) !== "undefined");
-      const hasDescription = !!((this.description ?? this.getAttribute("description")) && (this.description ?? this.getAttribute("description")) !== "undefined");
+    get hostStyle() {
       const aspectRatio = parse(this.aspectRatio ?? this.getAttribute("aspect-ratio") ?? this.getAttribute("aspectratio"), "3/4");
-      const ratioBase = typeof aspectRatio === "object" && aspectRatio !== null ? aspectRatio.base || "3/4" : aspectRatio;
-      let out = ':host{display:block;position:relative}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}slot[name="header"]{display:block}::slotted([slot="header"]){display:flex !important;flex-wrap:wrap !important;gap:var(--p-spacing-fluid-xs) !important}::slotted(:is(img,picture)){display:block !important;width:100% !important;height:100% !important;object-fit:cover !important;border-radius:var(--p-radius-2xl) !important;overflow:hidden !important}';
-      if (hasSlottedAnchor) {
-        out += "::slotted(a[slot='anchor']){position:absolute !important;inset:0 !important;z-index:1 !important;border-radius:var(--p-radius-3xl) !important;text-indent:-999999px !important}::slotted(a[slot='anchor']:focus-visible){outline:2px solid var(--p-color-focus) !important;outline-offset:2px !important}";
-      }
-      if (hasPriceOriginal) {
-        out += "s{color:var(--p-color-contrast-medium)}";
-      }
-      if (hasSlottedAnchor) {
-        out += "@media(forced-colors:active){::slotted(a[slot='anchor']:focus-visible){outline-color:Highlight !important}::slotted(a[slot='anchor']){forced-color-adjust:none !important;box-shadow:inset 0 0 0 2px LinkText !important}}";
-      }
-      out += ".root{display:flex;flex-direction:column;aspect-ratio:" + ratioBase + ";overflow:hidden;box-sizing:border-box;border-radius:var(--p-radius-3xl);padding:var(--p-spacing-fluid-sm);color:var(--p-color-primary);background-color:var(--p-color-surface)}";
+      const vars = {};
       if (typeof aspectRatio === "object" && aspectRatio !== null) {
-        for (const bp of Object.keys(aspectRatio)) {
-          if (bp === "base" || !minWidth[bp]) continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){.root{aspect-ratio:" + aspectRatio[bp] + "}}";
+        let last = pick(aspectRatio, "base", "3/4");
+        for (const bp of BREAKPOINTS) {
+          if (aspectRatio[bp] !== void 0) last = pick(aspectRatio, bp, last);
+          const s4 = bp === "base" ? "" : `-${bp}`;
+          vars[`--p-ltp-ar${s4}`] = String(last);
+        }
+      } else {
+        for (const bp of BREAKPOINTS) {
+          const s4 = bp === "base" ? "" : `-${bp}`;
+          vars[`--p-ltp-ar${s4}`] = String(aspectRatio || "3/4");
         }
       }
-      if (!hasSlottedAnchor) {
-        out += ".anchor{position:absolute;inset:0;z-index:1;border-radius:var(--p-radius-3xl)}.anchor:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}";
-      }
-      out += ".header{display:flex;gap:var(--p-spacing-fluid-sm);justify-content:space-between;align-items:flex-start}";
-      if (hasLikeButton) {
-        out += ".button{position:relative;z-index:2}";
-      }
-      out += ".image{aspect-ratio:8/9;margin:var(--p-spacing-fluid-sm) auto var(--p-spacing-fluid-xs);overflow:hidden;transition:transform var(--p-transition-duration,var(--p-duration-md)) var(--p-ease-in-out)}.wrapper{display:flex;flex-direction:column;margin:auto;text-align:center}.heading{margin:0 0 2px;font:var(--p-font-weight-semibold) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.price{margin:0;font:var(--p-font-weight-normal) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next)";
-      if (hasPriceOriginal) {
-        out += ";display:flex;flex-wrap:wrap;justify-content:center;column-gap:var(--p-spacing-fluid-xs)}";
-      } else {
-        out += "}";
-      }
-      if (hasDescription) {
-        out += ".description{margin:0;font:var(--p-font-weight-normal) var(--p-typescale-2xs) / var(--p-leading-normal) var(--p-font-porsche-next);color:var(--p-color-contrast-high);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}";
-      }
-      if (hasPriceOriginal) {
-        out += ".sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}";
-      }
-      out += "@media(min-width:760px){.image{padding:0 var(--p-spacing-fluid-md)}}";
-      if (!hasSlottedAnchor) {
-        out += "@media(forced-colors:active){.anchor{forced-color-adjust:none;box-shadow:inset 0 0 0 2px LinkText}.anchor:focus-visible{outline-color:Highlight}}";
-      }
-      out += "@media(hover:hover){.root:hover .image{transform:scale3d(1.05,1.05,1.05)}}";
-      return out;
+      return vars;
     }
     get headingText() {
       return this.heading ?? this.getAttribute("heading") ?? "";
@@ -689,6 +653,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => this.requestUpdate());
       this._childObserver.observe(this, { childList: true, subtree: true });
       queueMicrotask(() => this.requestUpdate());
@@ -719,6 +684,18 @@
       if (raw == null || raw === "" || raw === "undefined") return A;
       return raw;
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
       const heading = this.heading ?? this.getAttribute("heading") ?? "";
       const price = this.price ?? this.getAttribute("price") ?? "";
@@ -736,7 +713,7 @@
       const anchor = hasHref ? b2`<a class="anchor" href=${href} target=${target} rel=${relAttr} aria-labelledby="heading price" aria-describedby="header description"></a>` : b2`<slot name="anchor"></slot>`;
       const like = likeButton ? b2`<p-button-pure class="button" type="button" icon=${iconName} hide-label="true" .iconSource=${iconSource} @click=${this.onLikeClick}>${liked ? "Remove from wishlist" : "Add to wishlist"}</p-button-pure>` : A;
       const priceEl = price ? priceOriginal && priceOriginal !== "undefined" ? b2`<p id="price" class="price"><span class="sr-only">sale price</span>${price}<span class="sr-only">original price</span><s>${priceOriginal}</s></p>` : b2`<p id="price" class="price">${price}</p>` : A;
-      return b2`<div class="root"><style .innerHTML="${this.cssText}"></style>${anchor}<div id="header" class="header"><slot name="header"></slot>${like}</div><div class="image"><slot></slot></div><div class="wrapper">${heading ? b2`<h3 id="heading" class="heading">${heading}</h3>` : A}${priceEl}${description && description !== "undefined" ? b2`<p id="description" class="description">${description}</p>` : A}</div></div>`;
+      return b2`<div class="root">${anchor}<div id="header" class="header"><slot name="header"></slot>${like}</div><div class="image"><slot></slot></div><div class="wrapper">${heading ? b2`<h3 id="heading" class="heading">${heading}</h3>` : A}${priceEl}${description && description !== "undefined" ? b2`<p id="description" class="description">${description}</p>` : A}</div></div>`;
     }
   };
   LitLinkTileProduct.styles = i`
@@ -747,6 +724,180 @@
         :host([hidden]) {
           display: none !important;
         }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        slot[name="header"] {
+          display: block;
+        }
+        ::slotted([slot="header"]) {
+          display: flex !important;
+          flex-wrap: wrap !important;
+          gap: var(--p-spacing-fluid-xs) !important;
+        }
+        ::slotted(:is(img, picture)) {
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          border-radius: var(--p-radius-2xl) !important;
+          overflow: hidden !important;
+        }
+        :host(:not([href])) ::slotted(a[slot="anchor"]) {
+          position: absolute !important;
+          inset: 0 !important;
+          z-index: 1 !important;
+          border-radius: var(--p-radius-3xl) !important;
+          text-indent: -999999px !important;
+        }
+        :host(:not([href])) ::slotted(a[slot="anchor"]:focus-visible) {
+          outline: 2px solid var(--p-color-focus) !important;
+          outline-offset: 2px !important;
+        }
+        :host([price-original]) s {
+          color: var(--p-color-contrast-medium);
+        }
+        .root {
+          display: flex;
+          flex-direction: column;
+          aspect-ratio: var(--p-ltp-ar);
+          overflow: hidden;
+          box-sizing: border-box;
+          border-radius: var(--p-radius-3xl);
+          padding: var(--p-spacing-fluid-sm);
+          color: var(--p-color-primary);
+          background-color: var(--p-color-surface);
+        }
+        :host([href]) .anchor {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          border-radius: var(--p-radius-3xl);
+        }
+        :host([href]) .anchor:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        .header {
+          display: flex;
+          gap: var(--p-spacing-fluid-sm);
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+        .button {
+          position: relative;
+          z-index: 2;
+        }
+        :host([like-button="false"]) .button {
+          display: none;
+        }
+        .image {
+          aspect-ratio: 8 / 9;
+          margin: var(--p-spacing-fluid-sm) auto var(--p-spacing-fluid-xs);
+          overflow: hidden;
+          transition: transform var(--p-transition-duration, var(--p-duration-md))
+            var(--p-ease-in-out);
+        }
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          margin: auto;
+          text-align: center;
+        }
+        .heading {
+          margin: 0 0 2px;
+          font: var(--p-font-weight-semibold) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .price {
+          margin: 0;
+          font: var(--p-font-weight-normal) var(--p-typescale-xs) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+        }
+        :host([price-original]) .price {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          column-gap: var(--p-spacing-fluid-xs);
+        }
+        .description {
+          margin: 0;
+          font: var(--p-font-weight-normal) var(--p-typescale-2xs) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          color: var(--p-color-contrast-high);
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        @media (min-width: 760px) {
+          .image {
+            padding: 0 var(--p-spacing-fluid-md);
+          }
+          .root {
+            aspect-ratio: var(--p-ltp-ar-s, var(--p-ltp-ar));
+          }
+        }
+        @media (min-width: 480px) {
+          .root {
+            aspect-ratio: var(--p-ltp-ar-xs, var(--p-ltp-ar));
+          }
+        }
+        @media (min-width: 1000px) {
+          .root {
+            aspect-ratio: var(--p-ltp-ar-m, var(--p-ltp-ar));
+          }
+        }
+        @media (min-width: 1300px) {
+          .root {
+            aspect-ratio: var(--p-ltp-ar-l, var(--p-ltp-ar));
+          }
+        }
+        @media (min-width: 1760px) {
+          .root {
+            aspect-ratio: var(--p-ltp-ar-xl, var(--p-ltp-ar));
+          }
+        }
+        @media (min-width: 1920px) {
+          .root {
+            aspect-ratio: var(--p-ltp-ar-xxl, var(--p-ltp-ar));
+          }
+        }
+        @media (forced-colors: active) {
+          :host(:not([href])) ::slotted(a[slot="anchor"]:focus-visible) {
+            outline-color: Highlight !important;
+          }
+          :host(:not([href])) ::slotted(a[slot="anchor"]) {
+            forced-color-adjust: none !important;
+            box-shadow: inset 0 0 0 2px LinkText !important;
+          }
+          :host([href]) .anchor {
+            forced-color-adjust: none;
+            box-shadow: inset 0 0 0 2px LinkText;
+          }
+          :host([href]) .anchor:focus-visible {
+            outline-color: Highlight;
+          }
+        }
+        @media (hover: hover) {
+          .root:hover .image {
+            transform: scale3d(1.05, 1.05, 1.05);
+          }
+        }
 `;
   __decorateClass([
     n4()
@@ -756,19 +907,19 @@
   ], LitLinkTileProduct.prototype, "target", 2);
   __decorateClass([
     n4()
-  ], LitLinkTileProduct.prototype, "liked", 2);
+  ], LitLinkTileProduct.prototype, "href", 2);
   __decorateClass([
     n4()
-  ], LitLinkTileProduct.prototype, "href", 2);
+  ], LitLinkTileProduct.prototype, "liked", 2);
   __decorateClass([
     n4({ attribute: "like-button" })
   ], LitLinkTileProduct.prototype, "likeButton", 2);
   __decorateClass([
-    n4({ attribute: "price-original" })
-  ], LitLinkTileProduct.prototype, "priceOriginal", 2);
-  __decorateClass([
     n4()
   ], LitLinkTileProduct.prototype, "description", 2);
+  __decorateClass([
+    n4({ attribute: "price-original" })
+  ], LitLinkTileProduct.prototype, "priceOriginal", 2);
   __decorateClass([
     n4({ attribute: "aspect-ratio" })
   ], LitLinkTileProduct.prototype, "aspectRatio", 2);

@@ -569,16 +569,35 @@
 
   // ../../components/mitosis/text-list-item/output/lit/TextListItem.ts
   var LitTextListItem = class extends i4 {
-    get cssText() {
-      return ':host{display:grid;grid-template-columns:var(--_p-text-list-e) 1fr !important;column-gap:var(--p-spacing-static-md) !important;font:inherit !important;color:inherit !important}:host([hidden]){display:none !important}.root{display:contents}slot{display:inline}::slotted(*){--_p-text-list-f:.625rem !important;--_p-text-list-g:"\u2013" !important;--_p-text-list-a:2rem !important;--_p-text-list-b:"" !important}::slotted(*:last-child){grid-column:2 !important}';
-    }
     render() {
-      return b2`<div class="root"><style .innerHTML="${this.cssText}"></style><slot></slot></div>`;
+      return b2`<div class="root"><slot></slot></div>`;
     }
   };
   LitTextListItem.styles = i`
-      :host([hidden]) {
+      :host {
+          display: grid;
+          grid-template-columns: var(--_p-text-list-e) 1fr !important;
+          column-gap: var(--p-spacing-static-md) !important;
+          font: inherit !important;
+          color: inherit !important;
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        .root {
+          display: contents;
+        }
+        slot {
+          display: inline;
+        }
+        ::slotted(*) {
+          --_p-text-list-f: 0.625rem !important;
+          --_p-text-list-g: "–" !important;
+          --_p-text-list-a: 2rem !important;
+          --_p-text-list-b: "" !important;
+        }
+        ::slotted(*:last-child) {
+          grid-column: 2 !important;
         }
 `;
   LitTextListItem = __decorateClass([

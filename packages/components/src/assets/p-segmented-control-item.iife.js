@@ -599,7 +599,7 @@
 
   // ../../components/mitosis/segmented-control-item/output/lit/SegmentedControlItem.ts
   var LitSegmentedControlItem = class extends i4 {
-    get cssText() {
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const compact = isTrue(this.compact ?? this.getAttribute("compact"));
       const disabled = isTrue(this.disabled ?? this.getAttribute("disabled")) || isTrue(this.disabledParent ?? this.getAttribute("disabled-parent") ?? this.getAttribute("disabledparent"));
@@ -610,10 +610,8 @@
       const hasIcon = icon !== "" || source !== "";
       const hasSlotted = !!this.textContent?.trim() || [...this.childNodes].some((n5) => n5.nodeType === 1);
       const scaling = compact ? "0.5" : "1";
-      const vp = "max(2px, var(--p-spacing-static-sm) * var(--_p-segmented-control-a," + scaling + "))";
+      const vp = "max(2px, var(--p-spacing-static-sm) * var(--_p-segmented-control-a, var(--p-sci-a, 1)))";
       const hp = "calc(" + vp + " + 4px)";
-      const padding = hasIcon && hasSlotted ? vp + " " + hp + " " + vp + " " + vp : vp + " " + hp;
-      const dimension = "calc(max(var(--p-leading-normal), var(--_p-segmented-control-a," + scaling + ") * (var(--p-leading-normal) + 10px)) + (" + vp + " + 1px) * 2)";
       const borders = {
         none: "var(--p-color-contrast-lower)",
         success: "var(--p-color-success)",
@@ -631,33 +629,24 @@
       };
       const border = selected ? borderHovers[formState] || borderHovers.none : borders[formState] || borders.none;
       const background = selected ? "var(--p-color-frosted-strong)" : backgrounds[formState] || backgrounds.none;
-      const radius = compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)";
-      const spanColor = selected ? "var(--p-color-contrast-high)" : "var(--p-color-contrast-medium)";
-      const buttonFont = "normal normal 400 1rem/calc(6px + 2.125ex) 'Porsche Next','Arial Narrow',Arial,'Heiti SC',SimHei,sans-serif";
-      const labelFont = "normal normal 400 .875rem/calc(6px + 2.125ex) 'Porsche Next','Arial Narrow',Arial,'Heiti SC',SimHei,sans-serif";
-      let out = ":host{display:block";
-      if (disabled) out += ";opacity:0.4 !important";
-      out += "}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}button{position:relative;display:block;height:100%;width:100%;min-height:" + dimension + ";min-width:" + dimension + ";padding:" + padding + ";border:1px solid " + border + ";border-radius:" + radius + ";background:" + background + ";color:var(--p-color-primary);font:" + buttonFont;
-      if (disabled) {
-        out += ";cursor:not-allowed";
-      } else {
-        out += ";cursor:pointer";
-      }
-      out += "}button:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}span{display:block;font:" + labelFont + ";overflow-wrap:normal;color:" + spanColor + "}";
-      if (disabled) {
-        out += "@media(forced-colors:active){:host{opacity:1 !important;color:GrayText !important}button{color:GrayText;border-color:GrayText}button:focus-visible{outline-color:Highlight}span{color:GrayText}}";
-      } else {
-        out += "@media(forced-colors:active){button:focus-visible{outline-color:Highlight}}";
-        if (!selected) {
-          out += "@media(hover:hover){button{transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)}button:hover{background-color:var(--p-color-frosted-strong)}}";
-        }
-      }
-      if (hasIcon) {
-        out += ".icon{height:1.5rem;width:1.5rem";
-        if (hasSlotted) out += ";margin-inline-end:.25rem";
-        out += "}";
-      }
-      return out;
+      return {
+        "--p-sci-a": scaling,
+        "--p-sci-radius": compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)",
+        "--p-sci-pad": hasIcon && hasSlotted ? vp + " " + hp + " " + vp + " " + vp : vp + " " + hp,
+        "--p-sci-border": border,
+        "--p-sci-bg": background,
+        "--p-sci-hover-bg": !disabled && !selected ? "var(--p-color-frosted-strong)" : background,
+        "--p-sci-cursor": disabled ? "not-allowed" : "pointer",
+        "--p-sci-opacity": disabled ? "0.4" : "",
+        "--p-sci-span": selected ? "var(--p-color-contrast-high)" : "var(--p-color-contrast-medium)",
+        "--p-sci-icon-me": hasIcon && hasSlotted ? "0.25rem" : "0",
+        "--p-sci-btn-font": "normal normal 400 1rem/calc(6px + 2.125ex) 'Porsche Next','Arial Narrow',Arial,'Heiti SC',SimHei,sans-serif",
+        "--p-sci-label-font": "normal normal 400 .875rem/calc(6px + 2.125ex) 'Porsche Next','Arial Narrow',Arial,'Heiti SC',SimHei,sans-serif",
+        "--p-sci-fc-opacity": disabled ? "1" : "",
+        "--p-sci-fc-color": disabled ? "GrayText" : "",
+        "--p-sci-fc-border": disabled ? "GrayText" : "",
+        "--p-sci-hover-transition": !disabled && !selected ? "background-color var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out)" : ""
+      };
     }
     get labelText() {
       return this.label ?? this.getAttribute("label") ?? "";
@@ -689,6 +678,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._lightDomObserver = new MutationObserver(() => this.requestUpdate());
       this._lightDomObserver.observe(this, { childList: true, characterData: true, subtree: true });
       queueMicrotask(() => this.requestUpdate());
@@ -713,16 +703,110 @@
         slot.addEventListener("slotchange", () => this.requestUpdate());
       });
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
-      return b2`<button type="button" aria-pressed=${this.isSelected ? "true" : "false"} aria-disabled=${this.isDisabled ? "true" : A}><style .innerHTML="${this.cssText}"></style>${this.labelNode}${this.iconNode}<slot></slot></button>`;
+      return b2`<button type="button" aria-pressed=${this.isSelected ? "true" : "false"} aria-disabled=${this.isDisabled ? "true" : A}>${this.labelNode}${this.iconNode}<slot></slot></button>`;
     }
   };
   LitSegmentedControlItem.styles = i`
       :host {
           display: block;
+          opacity: var(--p-sci-opacity);
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        button {
+          position: relative;
+          display: block;
+          height: 100%;
+          width: 100%;
+          min-height: calc(
+            max(
+                var(--p-leading-normal),
+                var(--_p-segmented-control-a, var(--p-sci-a, 1)) *
+                  (var(--p-leading-normal) + 10px)
+              ) +
+              (
+                max(
+                    2px,
+                    var(--p-spacing-static-sm) *
+                      var(--_p-segmented-control-a, var(--p-sci-a, 1))
+                  ) + 1px
+              ) * 2
+          );
+          min-width: calc(
+            max(
+                var(--p-leading-normal),
+                var(--_p-segmented-control-a, var(--p-sci-a, 1)) *
+                  (var(--p-leading-normal) + 10px)
+              ) +
+              (
+                max(
+                    2px,
+                    var(--p-spacing-static-sm) *
+                      var(--_p-segmented-control-a, var(--p-sci-a, 1))
+                  ) + 1px
+              ) * 2
+          );
+          padding: var(--p-sci-pad);
+          border: 1px solid var(--p-sci-border);
+          border-radius: var(--p-sci-radius);
+          background: var(--p-sci-bg);
+          color: var(--p-color-primary);
+          font: var(--p-sci-btn-font);
+          cursor: var(--p-sci-cursor, pointer);
+          transition: var(--p-sci-hover-transition);
+        }
+        button:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        span {
+          display: block;
+          font: var(--p-sci-label-font);
+          overflow-wrap: normal;
+          color: var(--p-sci-span);
+        }
+        .icon {
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-inline-end: var(--p-sci-icon-me);
+        }
+        @media (forced-colors: active) {
+          :host {
+            opacity: var(--p-sci-fc-opacity, var(--p-sci-opacity, 1));
+            color: var(--p-sci-fc-color);
+          }
+          button {
+            color: var(--p-sci-fc-color, var(--p-color-primary));
+            border-color: var(--p-sci-fc-border, var(--p-sci-border));
+          }
+          button:focus-visible {
+            outline-color: Highlight;
+          }
+          span {
+            color: var(--p-sci-fc-color, var(--p-sci-span));
+          }
+        }
+        @media (hover: hover) {
+          button:hover {
+            background-color: var(--p-sci-hover-bg, var(--p-sci-bg));
+          }
         }
 `;
   __decorateClass([

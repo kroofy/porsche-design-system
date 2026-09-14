@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/accordion');
@@ -26,11 +30,31 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<details ?open=\${!!this.isOpenFlag}><style .innerHTML="\${this.cssText}"></style><summary @click=\${this.onSummaryClick}>\${this.summaryNode}</summary>\${this.beforeNode}\${this.afterNode}<div><slot></slot></div></details>\`;`;
+const renderTemplate = `return html\`<details ?open=\${!!this.isOpenFlag}><summary @click=\${this.onSummaryClick}>\${this.summaryNode}</summary>\${this.beforeNode}\${this.afterNode}<div><slot></slot></div></details>\`;`;
 
 const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+  syncHostStateAttrs() {
+    const sync = (name, on) => {
+      if (on) this.setAttribute(name, "");
+      else this.removeAttribute(name);
+    };
+    sync("data-before", this.hasSummaryBefore);
+    sync("data-after", this.hasSummaryAfter);
+    sync("data-summary", this.hasSummarySlot);
+  }
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
+    this.syncHostStateAttrs();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true });
     queueMicrotask(() => this.requestUpdate());
@@ -43,6 +67,10 @@ const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOpt
     this.renderRoot?.querySelectorAll("slot").forEach((slot) => {
       slot.addEventListener("slotchange", () => this.requestUpdate());
     });
+  }
+  updated() {
+    this.syncHostStateAttrs();
+    this.applyHostStyle();
   }
   onSummaryClick(e: Event) {
     e.preventDefault();
@@ -166,10 +194,23 @@ const required = [
   'delegatesFocus',
   '1300',
   'preventDefault',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-accordion: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-accordion: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-accordion', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-accordion: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-accordion') || after.includes('lit-heading') || after.includes('lit-checkbox')) {

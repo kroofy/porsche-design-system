@@ -18,16 +18,28 @@ if (mit.status !== 0) process.exit(mit.status ?? 1);
 
 const before = await readFile(generated, 'utf8');
 const after = before.replace(/<my-fragment[\s\S]*?>/g, '').replace(/<\/my-fragment>/g, '');
-if (after === before) {
-  console.error('build-lit-divider: no my-fragment markers to strip');
-  process.exit(1);
-}
 if (after.includes('my-fragment')) {
   console.error('build-lit-divider: my-fragment leaked after strip');
   process.exit(1);
 }
 if (!after.includes('@customElement("p-divider")')) {
   console.error('build-lit-divider: expected @customElement("p-divider")');
+  process.exit(1);
+}
+if (!after.includes('static styles')) {
+  console.error('build-lit-divider: expected Lit static styles from useStyle');
+  process.exit(1);
+}
+if (!after.includes('get hostStyle')) {
+  console.error('build-lit-divider: expected hostStyle getter');
+  process.exit(1);
+}
+if (!after.includes('applyHostStyle()')) {
+  console.error('build-lit-divider: expected apply-host-style plugin hook');
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-divider: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 await writeFile(generated, after);

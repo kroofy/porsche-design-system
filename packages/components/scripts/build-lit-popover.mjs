@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/popover');
@@ -34,8 +38,19 @@ const extraMethods = `  _isInitialRender = true;
   _cleanUpAutoUpdate;
   _boundTrigger;
 
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("click", this._onHostClick);
@@ -171,6 +186,7 @@ const extraMethods = `  _isInitialRender = true;
   }
 
   async updated() {
+    this.applyHostStyle();
     this.stampSlottedIcons();
     const pop = this.renderRoot?.querySelector("[popover]");
     const open = this.effectiveOpen();
@@ -208,7 +224,7 @@ const extraMethods = `  _isInitialRender = true;
           }
         }}></button>\`;
     const body = hasDescription ? html\`<p>\${description}</p>\` : html\`<slot></slot>\`;
-    return html\`<style .innerHTML="\${this.cssText}"></style>\${trigger}<div id="popover" popover="manual" ?inert=\${!open}><div class="arrow"></div>\${body}</div>\`;
+    return html\`\${trigger}<div id="popover" popover="manual" ?inert=\${!open}><div class="arrow"></div>\${body}</div>\`;
   }
 }`;
 
@@ -221,7 +237,10 @@ let after = before
     'import { LitElement, html, css, nothing } from "lit";'
   )
   .replaceAll('const isOpen = isTrue(this.open);', 'const isOpen = this.effectiveOpen();')
-  .replaceAll('const skipEntry = true;', 'const skipEntry = this._isInitialRender !== false;')
+  .replaceAll(
+    'const compact = isTrue(this.compact);',
+    'const compact = isTrue(this.compact ?? this.getAttribute("compact"));'
+  )
   .replace('return this.description || "";', 'return this.description ?? this.getAttribute("description") ?? "";');
 
 if (!after.includes('@floating-ui/dom')) {
@@ -267,11 +286,25 @@ const required = [
   'stampSlottedIcons',
   'computePosition',
   'autoUpdate',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
+  '@starting-style',
+  '--p-pop-pad',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-popover: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-popover: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-popover', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-popover: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-popover') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

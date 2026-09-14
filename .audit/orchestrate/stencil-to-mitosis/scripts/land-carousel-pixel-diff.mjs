@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -109,9 +110,12 @@ await page.waitForFunction(() => {
     if (!root.querySelector('.splide__track')) return false;
     if (!root.querySelector('.splide__list')) return false;
     if (!root.querySelector('.slide-status')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('min-width:760px')) return false;
-    if (!css.includes('min-width:1920px')) return false;
+    if (root.querySelector('style')) return false;
+    const sheets = root.adoptedStyleSheets ?? [];
+    const css = [...sheets].flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText)).join('');
+    if (sheets.length < 1) return false;
+    if (!css.includes('min-width: 760px') && !css.includes('min-width:760px')) return false;
+    if (!css.includes('min-width: 1920px') && !css.includes('min-width:1920px')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -140,7 +144,9 @@ const proof = await page.evaluate(() => {
     hydrated: hosts.some((el) => el.classList.contains('hydrated')),
     popoverOpen: popover?.matches(':popover-open') ?? null,
     hosts: hosts.map((el) => {
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
+      const injected = el.shadowRoot?.querySelector('style');
+      const sheets = el.shadowRoot?.adoptedStyleSheets ?? [];
+      const css = [...sheets].flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText)).join('');
       const style = getComputedStyle(el);
       return {
         tag: el.localName,
@@ -155,8 +161,10 @@ const proof = await page.evaluate(() => {
         hasStatus: !!el.shadowRoot?.querySelector('.slide-status'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        cssHasS: css.includes('min-width:760px'),
-        cssHasXxl: css.includes('min-width:1920px'),
+        hasStyle: !!injected,
+        adoptedSheets: sheets.length,
+        cssHasS: css.includes('min-width: 760px') || css.includes('min-width:760px'),
+        cssHasXxl: css.includes('min-width: 1920px') || css.includes('min-width:1920px'),
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -232,6 +240,8 @@ const failed =
       !item.hasStatus ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      (item.adoptedSheets ?? 0) < 1 ||
       !item.cssHasS ||
       !item.cssHasXxl ||
       item.hydrated

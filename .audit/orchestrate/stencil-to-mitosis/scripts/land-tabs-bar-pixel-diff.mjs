@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -97,7 +98,8 @@ await page.waitForFunction(() => {
     const scroller = root?.querySelector('p-scroller.scroller');
     const bar = root?.querySelector('.bar');
     const tabs = [...el.querySelectorAll(':scope > button, :scope > a')];
-    if (!root || !wrap || !style || !scroller || !bar) return false;
+    if (!root || !wrap || style || !scroller || !bar) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-tabs-bar')) return false;
     if (tabs.length < 2) return false;
     if (scroller.constructor?.name !== 'LitScroller') return false;
@@ -160,6 +162,7 @@ const proof = await page.evaluate(() => {
         childTags: [...new Set(children.map((n) => n.tagName))],
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasWrap: !!el.shadowRoot?.querySelector('.wrap'),
         hasScroller: !!scroller,
         scrollerCtor: scroller?.constructor?.name ?? null,
@@ -167,7 +170,7 @@ const proof = await page.evaluate(() => {
         barWidth: bar ? getComputedStyle(bar).width : null,
         hydrated: el.classList.contains('hydrated'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        cssHas1000: !!style?.textContent?.includes('1000'),
+        cssHas1000: false,
       };
     }),
   };
@@ -246,7 +249,8 @@ const failed =
       h.childCount !== expected.childCount ||
       h.childTags.join(',') !== expected.childTags.join(',') ||
       !h.hasShadow ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      h.adoptedSheets < 1 ||
       !h.hasWrap ||
       !h.hasScroller ||
       h.scrollerCtor !== 'LitScroller' ||

@@ -53,7 +53,8 @@ await page.waitForFunction(() => {
       const icon = el.shadowRoot?.querySelector('p-icon');
       const img = icon?.shadowRoot?.querySelector('img');
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!button &&
         !!el.shadowRoot.querySelector('slot') &&
         icon?.localName === 'p-icon' &&
@@ -94,6 +95,7 @@ const proof = await page.evaluate(() => {
         iconSource: icon?.getAttribute('source') ?? icon?.source ?? null,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasButton: !!button,
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -162,7 +164,8 @@ const failed =
     (h) =>
       h.tag !== 'p-tag-dismissible' ||
       h.innerTag !== 'p-icon' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasButton ||
       !h.hasSlot ||
       h.hasFragment ||

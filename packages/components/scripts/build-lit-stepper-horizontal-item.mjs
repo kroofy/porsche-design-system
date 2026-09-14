@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/stepper-horizontal-item');
@@ -28,6 +32,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this.setAttribute("role", "listitem");
     this.addEventListener("click", this.onHostClick, true);
     this._childObserver = new MutationObserver(() => this.requestUpdate());
@@ -46,7 +51,18 @@ const extraGetters = `  connectedCallback() {
     });
   }
   updated() {
+    this.applyHostStyle();
     this.stampIcon();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   parsedState() {
@@ -84,7 +100,7 @@ const renderTemplate = `const step = this.parsedState();
     const isCurrent = step === "current";
     const isIcon = step === "complete" || step === "warning";
     const iconName = step === "complete" ? "success" : "warning";
-    return html\`<style .innerHTML="\${this.cssText}"></style><button type="button" aria-disabled=\${isDisabled ? "true" : nothing} aria-current=\${isCurrent ? "step" : nothing}>\${isIcon ? html\`<p-icon class="icon" name=\${iconName} size="inherit" color=\${iconName} aria-hidden="true"></p-icon>\` : html\`<span class="icon" aria-hidden="true"></span>\`}\${step ? html\`<span class="sr-only">\${step}: </span>\` : nothing}<slot></slot></button>\`;`;
+    return html\`<button type="button" aria-disabled=\${isDisabled ? "true" : nothing} aria-current=\${isCurrent ? "step" : nothing}>\${isIcon ? html\`<p-icon class="icon" name=\${iconName} size="inherit" color=\${iconName} aria-hidden="true"></p-icon>\` : html\`<span class="icon" aria-hidden="true"></span>\`}\${step ? html\`<span class="sr-only">\${step}: </span>\` : nothing}<slot></slot></button>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -141,6 +157,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-stepper-horizontal-item: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-stepper-horizontal-item', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-stepper-horizontal-item: ${err.message}`);
   process.exit(1);
 }
 if (

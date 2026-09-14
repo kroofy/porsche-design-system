@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/tabs');
@@ -95,6 +99,7 @@ const extraGetters = `  tabItems() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => {
       this.requestUpdate();
       this.updateComplete.then(() => this.syncPanels());
@@ -122,7 +127,18 @@ const extraGetters = `  tabItems() {
     });
     this.syncPanels();
   }
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   updated() {
+    this.applyHostStyle();
     this.syncPanels();
   }
 
@@ -134,7 +150,7 @@ const renderTemplate = `const size = this.parsedSize();
     const active = this.parsedActiveIndex();
     const aria = this.parsedAria();
     const labels = this.tabItems().map((el) => this.itemLabel(el));
-    return html\`<div class="wrap"><style .innerHTML="\${this.cssText}"></style><p-tabs-bar class="root" size=\${size} background=\${background} ?compact=\${compact} .activeTabIndex=\${active} .aria=\${aria}>\${labels.map((label) => html\`<button type="button">\${label}</button>\`)}</p-tabs-bar><slot></slot></div>\`;`;
+    return html\`<div class="wrap"><p-tabs-bar class="root" size=\${size} background=\${background} ?compact=\${compact} .activeTabIndex=\${active} .aria=\${aria}>\${labels.map((label) => html\`<button type="button">\${label}</button>\`)}</p-tabs-bar><slot></slot></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -215,6 +231,16 @@ if (missing.length) {
 }
 if (after.includes('lit-tabs') || after.includes('delegatesFocus') || after.includes('formAssociated')) {
   console.error('build-lit-tabs: generated output must stay p-* and not fake delegatesFocus/formAssociated');
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-tabs: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-tabs', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-tabs: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

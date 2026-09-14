@@ -598,96 +598,114 @@
   }
 
   // ../../components/mitosis/text/output/lit/Text.ts
+  var SIZE_MAP = {
+    "xx-small": "var(--p-typescale-2xs)",
+    "x-small": "var(--p-typescale-xs)",
+    small: "var(--p-typescale-sm)",
+    medium: "var(--p-typescale-md)",
+    large: "var(--p-typescale-lg)",
+    "x-large": "var(--p-typescale-xl)",
+    "xx-large": "var(--p-typescale-2xl)",
+    "2xs": "var(--p-typescale-2xs)",
+    xs: "var(--p-typescale-xs)",
+    sm: "var(--p-typescale-sm)",
+    md: "var(--p-typescale-md)",
+    lg: "var(--p-typescale-lg)",
+    xl: "var(--p-typescale-xl)",
+    "2xl": "var(--p-typescale-2xl)",
+    "3xl": "var(--p-typescale-3xl)",
+    "4xl": "var(--p-typescale-4xl)",
+    "5xl": "var(--p-typescale-5xl)",
+    inherit: "inherit"
+  };
+  var WEIGHT_MAP = {
+    regular: "var(--p-font-weight-normal)",
+    normal: "var(--p-font-weight-normal)",
+    "semi-bold": "var(--p-font-weight-semibold)",
+    semibold: "var(--p-font-weight-semibold)",
+    bold: "var(--p-font-weight-bold)"
+  };
+  var COLOR_MAP = {
+    primary: "var(--p-color-primary)",
+    "contrast-higher": "var(--p-color-contrast-higher)",
+    "contrast-high": "var(--p-color-contrast-high)",
+    "contrast-medium": "var(--p-color-contrast-medium)",
+    success: "var(--p-color-success)",
+    warning: "var(--p-color-warning)",
+    error: "var(--p-color-error)",
+    info: "var(--p-color-info)",
+    inherit: "currentcolor"
+  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var fontFor = (size) => SIZE_MAP[String(size)] || SIZE_MAP.sm;
+  var parseSize = (raw) => {
+    if (raw === void 0 || raw === null || raw === "") return "sm";
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return "sm";
+      }
+    }
+    return raw;
+  };
+  var assignFont = (vars, bp, font) => {
+    const value = font === "inherit" ? "" : font;
+    if (bp === "base") {
+      vars["--p-text-fs"] = value;
+      return;
+    }
+    vars[`--p-text-fs-${bp}`] = value;
+  };
   var LitText = class extends i4 {
-    get cssText() {
-      const sizeMap = {
-        "xx-small": "var(--p-typescale-2xs)",
-        "x-small": "var(--p-typescale-xs)",
-        small: "var(--p-typescale-sm)",
-        medium: "var(--p-typescale-md)",
-        large: "var(--p-typescale-lg)",
-        "x-large": "var(--p-typescale-xl)",
-        "xx-large": "var(--p-typescale-2xl)",
-        "2xs": "var(--p-typescale-2xs)",
-        xs: "var(--p-typescale-xs)",
-        sm: "var(--p-typescale-sm)",
-        md: "var(--p-typescale-md)",
-        lg: "var(--p-typescale-lg)",
-        xl: "var(--p-typescale-xl)",
-        "2xl": "var(--p-typescale-2xl)",
-        "3xl": "var(--p-typescale-3xl)",
-        "4xl": "var(--p-typescale-4xl)",
-        "5xl": "var(--p-typescale-5xl)",
-        inherit: "inherit"
-      };
-      const weightMap = {
-        regular: "var(--p-font-weight-normal)",
-        normal: "var(--p-font-weight-normal)",
-        "semi-bold": "var(--p-font-weight-semibold)",
-        semibold: "var(--p-font-weight-semibold)",
-        bold: "var(--p-font-weight-bold)"
-      };
-      const colorMap = {
-        primary: "var(--p-color-primary)",
-        "contrast-higher": "var(--p-color-contrast-higher)",
-        "contrast-high": "var(--p-color-contrast-high)",
-        "contrast-medium": "var(--p-color-contrast-medium)",
-        success: "var(--p-color-success)",
-        warning: "var(--p-color-warning)",
-        error: "var(--p-color-error)",
-        info: "var(--p-color-info)",
-        inherit: "currentcolor"
-      };
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const weight = weightMap[this.weight || "normal"] || weightMap.normal;
-      const align = this.align || "start";
-      const color = colorMap[this.color || "primary"] || colorMap.primary;
+    get hostStyle() {
       const hyphens = this.hyphens || "inherit";
-      let ellipsis = this.ellipsis;
-      if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
-        ellipsis = true;
-      } else {
-        ellipsis = false;
-      }
-      let extra = "";
-      if (hyphens === "auto" || hyphens === "manual")
-        extra += ";overflow-wrap:break-word";
-      if (ellipsis)
-        extra += ";max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
-      const rootOpen = "::slotted(:is(p,span,div,address,blockquote,figcaption,cite,time,legend)){all:unset}p{all:unset;display:block;font:" + weight + " var(--p-typescale-sm)/var(--p-leading-normal) var(--p-font-porsche-next);";
-      const rootClose = ";color:" + color + ";text-align:" + align + ";hyphens:" + hyphens + extra + "}";
-      let size = this.size || "sm";
-      if (typeof size === "string" && size.charAt(0) === "{") {
-        try {
-          size = JSON.parse(
-            size.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-          );
-        } catch (e5) {
-          size = "sm";
-        }
-      }
-      const fontFor = (s4) => sizeMap[s4] || sizeMap.sm;
+      const ellipsis = this.ellipsis === true || this.ellipsis === "true" || this.ellipsis === "";
+      const vars = {
+        "--p-text-weight": WEIGHT_MAP[this.weight || "normal"] || WEIGHT_MAP.normal,
+        "--p-text-fg": COLOR_MAP[this.color || "primary"] || COLOR_MAP.primary,
+        "--p-text-align": this.align || "start",
+        "--p-text-hyphens": hyphens === "inherit" ? "" : hyphens,
+        "--p-text-wrap": hyphens === "auto" || hyphens === "manual" ? "break-word" : "",
+        "--p-text-max": ellipsis ? "100%" : "",
+        "--p-text-overflow": ellipsis ? "hidden" : "",
+        "--p-text-ellipsis": ellipsis ? "ellipsis" : "",
+        "--p-text-ws": ellipsis ? "nowrap" : ""
+      };
+      const size = parseSize(this.size);
       if (typeof size === "object" && size !== null) {
-        let out = rootOpen + "font-size:" + fontFor(size.base || "sm") + rootClose;
-        for (const bp of Object.keys(size)) {
-          if (bp === "base") continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){p{font-size:" + fontFor(size[bp]) + "}}";
+        let last = fontFor(size.base || "sm");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = fontFor(size[bp]);
+          assignFont(vars, bp, last);
         }
-        return out;
+      } else {
+        assignFont(vars, "base", fontFor(size));
       }
-      return rootOpen + "font-size:" + fontFor(size) + rootClose;
+      return vars;
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     render() {
       return b2`
 
-          <p><style .innerHTML="${this.cssText}"></style> <slot></slot></p>
+          <p><slot></slot></p>
 
         `;
     }
@@ -699,22 +717,74 @@
         :host([hidden]) {
           display: none !important;
         }
+        ::slotted(
+            :is(p, span, div, address, blockquote, figcaption, cite, time, legend)
+          ) {
+          all: unset;
+        }
+        p {
+          all: unset;
+          display: block;
+          font: var(--p-text-weight) var(--p-typescale-sm) / var(--p-leading-normal)
+            var(--p-font-porsche-next);
+          font-size: inherit;
+          font-size: var(--p-text-fs);
+          color: var(--p-text-fg);
+          text-align: var(--p-text-align);
+          hyphens: inherit;
+          hyphens: var(--p-text-hyphens);
+          overflow-wrap: var(--p-text-wrap);
+          max-width: var(--p-text-max);
+          overflow: var(--p-text-overflow);
+          text-overflow: var(--p-text-ellipsis);
+          white-space: var(--p-text-ws);
+        }
+        @media (min-width: 480px) {
+          p {
+            font-size: var(--p-text-fs-xs, var(--p-text-fs));
+          }
+        }
+        @media (min-width: 760px) {
+          p {
+            font-size: var(--p-text-fs-s, var(--p-text-fs));
+          }
+        }
+        @media (min-width: 1000px) {
+          p {
+            font-size: var(--p-text-fs-m, var(--p-text-fs));
+          }
+        }
+        @media (min-width: 1300px) {
+          p {
+            font-size: var(--p-text-fs-l, var(--p-text-fs));
+          }
+        }
+        @media (min-width: 1760px) {
+          p {
+            font-size: var(--p-text-fs-xl, var(--p-text-fs));
+          }
+        }
+        @media (min-width: 1920px) {
+          p {
+            font-size: var(--p-text-fs-xxl, var(--p-text-fs));
+          }
+        }
 `;
-  __decorateClass([
-    n4()
-  ], LitText.prototype, "weight", 2);
-  __decorateClass([
-    n4()
-  ], LitText.prototype, "align", 2);
-  __decorateClass([
-    n4()
-  ], LitText.prototype, "color", 2);
   __decorateClass([
     n4()
   ], LitText.prototype, "hyphens", 2);
   __decorateClass([
     n4()
   ], LitText.prototype, "ellipsis", 2);
+  __decorateClass([
+    n4()
+  ], LitText.prototype, "weight", 2);
+  __decorateClass([
+    n4()
+  ], LitText.prototype, "color", 2);
+  __decorateClass([
+    n4()
+  ], LitText.prototype, "align", 2);
   __decorateClass([
     n4()
   ], LitText.prototype, "size", 2);

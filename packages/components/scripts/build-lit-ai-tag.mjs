@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/ai-tag');
@@ -27,7 +31,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return this.isAbbreviation\n      ? html`<div><style .innerHTML="${this.cssText}"></style><abbr title=${this.longLabel}>${this.shortLabel}</abbr></div>`\n      : html`<div><style .innerHTML="${this.cssText}"></style>${this.copyLabel}</div>`;';
+  'return this.isAbbreviation\n      ? html`<div><abbr title=${this.longLabel}>${this.shortLabel}</abbr></div>`\n      : html`<div>${this.copyLabel}</div>`;';
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -78,6 +82,12 @@ if (
 }
 if (after.includes('lit-ai-tag')) {
   console.error('build-lit-ai-tag: generated output must use p-ai-tag, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-ai-tag' });
+} catch (err) {
+  console.error(`build-lit-ai-tag: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

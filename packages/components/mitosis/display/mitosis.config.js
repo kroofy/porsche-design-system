@@ -1,3 +1,5 @@
+const applyHostStylePlugin = require('../_runtime/apply-host-style-plugin');
+
 /** @type {import('@builder.io/mitosis').MitosisConfig} */
 module.exports = {
   files: 'Display.lite.tsx',
@@ -7,6 +9,6 @@ module.exports = {
     typescript: true,
   },
   options: {
-    lit: { useShadowDom: true },
+    lit: { useShadowDom: true, plugins: [applyHostStylePlugin] },
   },
 };

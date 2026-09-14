@@ -68,8 +68,8 @@ const extraMethods = `  connectedCallback() {
   render() {
     const toast = this._toastMessage;
     return toast
-      ? html\`<style .innerHTML="\${this.cssText}"></style><p-toast-item text="\${toast.text}" state="\${toast.state}"></p-toast-item>\`
-      : html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;
+      ? html\`<p-toast-item text="\${toast.text}" state="\${toast.state}"></p-toast-item>\`
+      : html\`<slot></slot>\`;
   }
 }`;
 
@@ -98,16 +98,16 @@ if (/\bclass="root"/.test(after) || after.includes("class='root'")) {
 }
 
 const required = [
-  'position:fixed',
+  'position: fixed',
   '--_p-toast-a',
-  'z-index:999999',
-  'min-width:760px',
+  'z-index: 999999',
+  'min-width: 760px',
   'role", "status',
   'addMessage',
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {

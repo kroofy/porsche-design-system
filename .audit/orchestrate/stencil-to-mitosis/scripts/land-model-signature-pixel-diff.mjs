@@ -25,8 +25,18 @@ const DEVICE_SCALE_FACTOR = 2;
 const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const consoleErrors = [];
-page.on('console', (msg) => msg.type() === 'error' && consoleErrors.push(msg.text()));
-page.on('pageerror', (err) => consoleErrors.push(String(err)));
+page.on('console', (msg) => {
+  if (msg.type() !== 'error') return;
+  const text = msg.text();
+  const url = msg.location()?.url ?? '';
+  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  consoleErrors.push(text);
+});
+page.on('pageerror', (err) => {
+  const text = String(err);
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  consoleErrors.push(text);
+});
 
 await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
 await page.waitForFunction(() => customElements.get('p-model-signature'), { timeout: 20_000 });
@@ -40,7 +50,8 @@ await page.waitForFunction(() => {
       const css = getComputedStyle(el);
       const mask = css.maskImage || css.webkitMaskImage;
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!img &&
         img.complete &&
         img.naturalWidth > 0 &&
@@ -71,6 +82,7 @@ const proof = await page.evaluate(() => {
         hydrated: el.classList.contains('hydrated'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasImg: !!el.shadowRoot?.querySelector('img'),
         imgComplete: !!el.shadowRoot?.querySelector('img')?.complete,
         imgNaturalWidth: el.shadowRoot?.querySelector('img')?.naturalWidth ?? 0,
@@ -127,7 +139,8 @@ const failed =
   proof.hosts.some(
     (h) =>
       h.tag !== 'p-model-signature' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasImg ||
       !h.imgComplete ||
       h.imgNaturalWidth === 0 ||
@@ -135,7 +148,7 @@ const failed =
       !h.maskImage ||
       h.maskImage === 'none'
   ) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

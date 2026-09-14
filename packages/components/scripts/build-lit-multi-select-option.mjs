@@ -41,6 +41,7 @@ const extraGetters = `  syncHostAria() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, characterData: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -60,7 +61,18 @@ const extraGetters = `  syncHostAria() {
     });
   }
   updated() {
+    this.applyHostStyle();
     this.syncHostAria();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
@@ -72,7 +84,7 @@ const renderTemplate = `const selected = !!this.isSelected;
     if (selected) cls.push("option--selected");
     if (highlighted) cls.push("option--highlighted");
     if (disabled) cls.push("option--disabled");
-    return html\`<div class="\${cls.join(" ")}"><style .innerHTML="\${this.cssText}"></style><span class="checkbox" aria-hidden="true"></span><slot></slot></div>\`;`;
+    return html\`<div class="\${cls.join(" ")}"><span class="checkbox" aria-hidden="true"></span><slot></slot></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -145,10 +157,17 @@ const required = [
   'slotchange',
   'internalOptionUpdate',
   '--_p-multi-select-option-a',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-multi-select-option: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-multi-select-option: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (

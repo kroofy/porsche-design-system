@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/segmented-control');
@@ -111,6 +115,7 @@ const extraGetters = `  itemChildren() {
 
   connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     const stampArg = (node) => {
       if (node && node.localName === "p-segmented-control-item") this.stampItem(node);
       if (node && node.nodeType === 11) {
@@ -157,12 +162,23 @@ const extraGetters = `  itemChildren() {
     this.syncItems();
   }
   updated() {
+    this.applyHostStyle();
     this.syncItems();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
 
-const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.hasDescription ? "description" : nothing}><style .innerHTML="\${this.cssText}"></style>\${this.labelNode}\${this.descriptionNode}\${this.slotNode}<span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span></fieldset>\`;`;
+const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.hasLabel ? "label" : nothing} aria-describedby=\${this.hasDescription ? "description" : nothing}>\${this.labelNode}\${this.descriptionNode}\${this.slotNode}<span class="message" id="message" role=\${this.messageRole}>\${this.iconNode}\${this.messageText}</span></fieldset>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -315,6 +331,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-segmented-control: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-segmented-control', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-segmented-control: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-segmented-control') || after.includes('lit-icon') || after.includes('lit-scroller')) {

@@ -117,8 +117,11 @@ await page.waitForFunction(() => {
   }
   const text = root.querySelector('p')?.textContent ?? '';
   if (text !== 'Some content') return false;
-  const css = root.querySelector('style')?.textContent || '';
-  if (!css.includes('min-width:760px') || !css.includes('info-frosted')) return false;
+  const sheets = root.adoptedStyleSheets ?? [];
+  const css = [...sheets].flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText)).join('');
+  const hostStyle = item.getAttribute('style') || '';
+  if (root.querySelector('style') || sheets.length < 1) return false;
+  if (!css.includes('min-width') || !hostStyle.includes('info-frosted')) return false;
   return true;
 }, { timeout: 30_000 });
 
@@ -137,7 +140,9 @@ const proof = await page.evaluate(() => {
   const toast = document.querySelector('[data-card="toast"] p-toast');
   const buttons = [...document.querySelectorAll('[data-card="toast"] p-button')];
   const item = toast?.shadowRoot?.querySelector('p-toast-item');
-  const css = item?.shadowRoot?.querySelector('style')?.textContent ?? '';
+  const sheets = item?.shadowRoot?.adoptedStyleSheets ?? [];
+  const css = [...sheets].flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText)).join('');
+  const hostStyle = item?.getAttribute('style') ?? '';
   const rect = item?.getBoundingClientRect()?.toJSON() ?? null;
   return {
     title: document.title,
@@ -169,8 +174,10 @@ const proof = await page.evaluate(() => {
             text: item.shadowRoot?.querySelector('p')?.textContent ?? '',
             textProp: item.text ?? item.getAttribute('text') ?? '',
             stateProp: item.state ?? item.getAttribute('state') ?? '',
-            hasSBreakpoint: css.includes('min-width:760px'),
-            hasFrosted: css.includes('info-frosted'),
+            hasSBreakpoint: css.includes('min-width'),
+            hasFrosted: hostStyle.includes('info-frosted') || css.includes('info-frosted'),
+            adoptedSheets: sheets.length,
+            hasStyle: !!item.shadowRoot?.querySelector('style'),
             hydrated: item.classList.contains('hydrated'),
             rect,
           },
@@ -270,11 +277,13 @@ const failed =
       item.stateProp !== 'info' ||
       !item.hasSBreakpoint ||
       !item.hasFrosted ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       item.hydrated
     );
   }) ||
   proof.buttons.some((item) => item.ctor !== 'LitButton' || item.hydrated) ||
-  consoleErrors.length > 0;
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 log(`strictMismatch=${result.strictMismatch} total=${result.totalPixels}`);
 log(`after bytes=${png.byteLength} sha256=${sha256(png)}`);

@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -121,8 +122,8 @@ await page.waitForFunction(() => {
     if (!root.querySelector('slot:not([name])')) return false;
     if (root.querySelector('.root, my-fragment, lit-drilldown-link')) return false;
     if (root.querySelector('[href="undefined"]')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('display:grid')) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
     const wrap = root.querySelector('a');
     const hasHrefAttr = el.hasAttribute('href');
     if (hasHrefAttr) {
@@ -169,7 +170,6 @@ const proof = await page.evaluate(() => {
     dialogsOpen: parents.some((el) => el.shadowRoot?.querySelector('dialog')?.open),
     hrefUndefined: links.some((el) => el.shadowRoot?.querySelector('[href="undefined"]')),
     hosts: links.slice(0, 3).map((el) => {
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
       const wrap = el.shadowRoot?.querySelector('a');
       return {
         tag: el.localName,
@@ -181,7 +181,9 @@ const proof = await page.evaluate(() => {
         hasSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        hasGrid: css.includes(':host{display:grid') || css.includes('display:grid'),
+        hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasGrid: getComputedStyle(el).display === 'grid',
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -263,6 +265,8 @@ const failed =
       !item.hasSlot ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       !item.hasGrid ||
       item.hydrated
     );

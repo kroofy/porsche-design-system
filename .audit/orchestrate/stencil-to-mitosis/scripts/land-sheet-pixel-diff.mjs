@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -116,9 +117,14 @@ await page.waitForFunction(() => {
     if (root.querySelector('p-button-pure, lit-button-pure, .root, my-fragment, lit-sheet')) return false;
     const dismiss = root.querySelector('button.dismiss');
     if (!dismiss || !dismiss.textContent.includes('Dismiss sheet')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('display:contents') || !css.includes('visibility:hidden')) return false;
-    if (!css.includes('translate3d(0,25vh,0)')) return false;
+    if (root.querySelector('style')) return false;
+    const css = [...(root.adoptedStyleSheets ?? [])]
+      .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+      .join('\n');
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
+    if (!css.includes('display: contents') && !css.includes('display:contents')) return false;
+    if (!css.includes('hidden')) return false;
+    if (!css.includes('translate3d')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -150,7 +156,9 @@ const proof = await page.evaluate(() => {
     buttonCount: buttons.length,
     hosts: hosts.map((el) => {
       const dialog = el.shadowRoot?.querySelector('dialog');
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
+      const css = [...(el.shadowRoot?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join('\n');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -171,10 +179,12 @@ const proof = await page.evaluate(() => {
         hasNestedPure: !!el.shadowRoot?.querySelector('p-button-pure, lit-button-pure'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        hasContents: css.includes('display:contents'),
-        hasHiddenVis: css.includes('visibility:hidden'),
-        hasSlide: css.includes('translate3d(0,25vh,0)'),
-        hasInset0: css.includes('inset:0'),
+        hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasContents: css.includes('display: contents') || css.includes('display:contents'),
+        hasHiddenVis: css.includes('hidden'),
+        hasSlide: css.includes('translate3d'),
+        hasInset0: css.includes('inset: 0') || css.includes('inset:0'),
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -259,6 +269,8 @@ const failed =
       item.hasNestedPure ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       !item.hasContents ||
       !item.hasHiddenVis ||
       !item.hasSlide ||

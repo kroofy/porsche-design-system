@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -106,7 +107,7 @@ await page.waitForFunction(() => {
     const anchorSlot = root?.querySelector('slot[name="anchor"]');
     const like = root?.querySelector('p-button-pure.button');
     const imgs = [...el.querySelectorAll(':scope > img')];
-    if (!root || !style || !wrap || !header || !image || !wrapper || !like) return false;
+    if (!root || style || (root.adoptedStyleSheets?.length ?? 0) < 1 || !wrap || !header || !image || !wrapper || !like) return false;
     if (root.querySelector('my-fragment') || root.querySelector('lit-link-tile-product')) return false;
     if (like.constructor?.name !== 'LitButtonPure') return false;
     if (overlay?.getAttribute('href') === 'undefined') return false;
@@ -172,6 +173,7 @@ const proof = await page.evaluate(() => {
         description: el.getAttribute('description'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!el.shadowRoot?.querySelector('.root'),
         hasHeader: !!el.shadowRoot?.querySelector('.header'),
         hasImage: !!el.shadowRoot?.querySelector('.image'),
@@ -254,7 +256,8 @@ const failed =
       item.ctor !== 'LitLinkTileProduct' ||
       item.heading !== 'Some heading' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasRoot ||
       !item.hasHeader ||
       !item.hasImage ||

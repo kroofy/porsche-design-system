@@ -3,6 +3,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/model-signature');
@@ -34,6 +38,16 @@ if (after.includes('my-fragment')) {
 }
 if (!after.includes('@customElement("p-model-signature")')) {
   console.error('build-lit-model-signature: expected @customElement("p-model-signature")');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-model-signature', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-model-signature: ${err.message}`);
+  process.exit(1);
+}
+if (!after.includes('forced-colors') || !after.includes('::slotted')) {
+  console.error('build-lit-model-signature: expected slotted and forced-colors rules');
   process.exit(1);
 }
 if (after !== before) {

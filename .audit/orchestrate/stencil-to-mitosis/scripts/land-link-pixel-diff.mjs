@@ -29,12 +29,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -53,7 +53,8 @@ await page.waitForFunction(() => {
       const img = icon?.shadowRoot?.querySelector('img');
       const iconHidden = !!icon && getComputedStyle(icon).display === 'none';
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) >= 1 &&
         !!root &&
         !!el.shadowRoot.querySelector('slot') &&
         icon?.localName === 'p-icon' &&
@@ -100,6 +101,7 @@ const proof = await page.evaluate(() => {
         iconHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasRoot: !!root,
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -169,7 +171,8 @@ const failed =
       h.rootTag !== 'span' ||
       h.rootHref === 'undefined' ||
       h.hostHref === 'undefined' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasRoot ||
       !h.hasSlot ||
       h.hasFragment ||

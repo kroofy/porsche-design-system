@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/text-list');
@@ -27,7 +31,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return this.isOrdered\n      ? html`<ol><style .innerHTML="${this.cssText}"></style><slot></slot></ol>`\n      : html`<ul><style .innerHTML="${this.cssText}"></style><slot></slot></ul>`;';
+  'return this.isOrdered\n      ? html`<ol><slot></slot></ol>`\n      : html`<ul><slot></slot></ul>`;';
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -71,6 +75,12 @@ if (
 }
 if (after.includes('lit-text-list') || after.includes('lit-text-list-item')) {
   console.error('build-lit-text-list: generated output must use p-text-list, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-text-list', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-text-list: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

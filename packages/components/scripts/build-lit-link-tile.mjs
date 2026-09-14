@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/link-tile');
@@ -28,6 +32,7 @@ if (!generated) {
 
 const extraGetters = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: true });
     queueMicrotask(() => this.requestUpdate());
@@ -53,6 +58,20 @@ const extraGetters = `  connectedCallback() {
     return raw;
   }
 
+  updated() {
+    this.applyHostStyle();
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
   render() {`;
 
 const renderTemplate = `const label = this.label ?? this.getAttribute("label") ?? "";
@@ -61,7 +80,7 @@ const renderTemplate = `const label = this.label ?? this.getAttribute("label") ?
     const target = this.target ?? this.getAttribute("target") ?? "_self";
     const downloadAttr = this.optionalAttr(this.download ?? this.getAttribute("download"));
     const relAttr = this.optionalAttr(this.rel ?? this.getAttribute("rel"));
-    return html\`<div class="root"><style .innerHTML="\${this.cssText}"></style><a href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} tabindex="-1" aria-hidden="true"></a><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>\${description}</p><slot name="footer"></slot><p-link class="link-or-button-pure" variant="secondary" href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} hide-label="true" icon="arrow-right" compact="true">\${label}</p-link><p-link class="link-or-button" variant="secondary" href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr}>\${label}</p-link></div></div>\`;`;
+    return html\`<div class="root"><a href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} tabindex="-1" aria-hidden="true"></a><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>\${description}</p><slot name="footer"></slot><p-link class="link-or-button-pure" variant="secondary" href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr} hide-label="true" icon="arrow-right" compact="true">\${label}</p-link><p-link class="link-or-button" variant="secondary" href=\${href} target=\${target} download=\${downloadAttr} rel=\${relAttr}>\${label}</p-link></div></div>\`;`;
 
 const before = await readFile(generated, 'utf8');
 let after = before
@@ -156,7 +175,10 @@ const required = [
   'p-link',
   'hasFooterSlot',
   'slot="footer"',
-  'm: 1000',
+  'min-width: 1000px',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
@@ -171,6 +193,12 @@ if (missing.length) {
 }
 if (after.includes('lit-link-tile') || after.includes('delegatesFocus') || after.includes('formAssociated')) {
   console.error('build-lit-link-tile: generated output must stay p-* and not fake delegatesFocus/formAssociated');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-link-tile', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-link-tile: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('cursor:') && after.includes('pointer')) {

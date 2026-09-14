@@ -598,92 +598,113 @@
   }
 
   // ../../components/mitosis/switch/output/lit/Switch.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
+  var assignStretch = (vars, bp, stretch) => {
+    const p3 = bp === "base" ? "--p-sw" : `--p-sw-${bp}`;
+    if (stretch) {
+      vars[`${p3}-display`] = "flex";
+      vars[`${p3}-justify`] = "space-between";
+      vars[`${p3}-w`] = "100%";
+      vars[`${p3}-va`] = "top";
+      return;
+    }
+    vars[`${p3}-display`] = "inline-flex";
+    vars[`${p3}-justify`] = "flex-start";
+    vars[`${p3}-w`] = "auto";
+    vars[`${p3}-va`] = "top";
+  };
+  var assignAlign = (vars, bp, align) => {
+    const p3 = bp === "base" ? "--p-sw-order" : `--p-sw-${bp}-order`;
+    vars[p3] = align === "start" ? "-1" : "0";
+  };
+  var assignHide = (vars, bp, hidden) => {
+    const p3 = bp === "base" ? "--p-sw-lbl" : `--p-sw-${bp}-lbl`;
+    if (hidden) {
+      vars[`${p3}-pos`] = "absolute";
+      vars[`${p3}-w`] = "1px";
+      vars[`${p3}-h`] = "1px";
+      vars[`${p3}-pad`] = "0";
+      vars[`${p3}-m`] = "-1px";
+      vars[`${p3}-ov`] = "hidden";
+      vars[`${p3}-clip`] = "rect(0, 0, 0, 0)";
+      vars[`${p3}-ws`] = "nowrap";
+      vars[`${p3}-pt`] = "0";
+      return;
+    }
+    vars[`${p3}-pos`] = "static";
+    vars[`${p3}-w`] = "auto";
+    vars[`${p3}-h`] = "auto";
+    vars[`${p3}-pad`] = "0";
+    vars[`${p3}-m`] = "0";
+    vars[`${p3}-ov`] = "visible";
+    vars[`${p3}-clip`] = "auto";
+    vars[`${p3}-ws`] = "normal";
+    vars[`${p3}-pt`] = "max(0px, calc((calc(var(--_p-switch-a) * 1.75rem) - var(--p-leading-normal)) / 2))";
+  };
+  var walkBreakpoints = (raw, fallback, assign, vars, normalize) => {
+    if (typeof raw === "object" && raw !== null) {
+      let last = normalize(pick(raw, "base", fallback));
+      for (const bp of BREAKPOINTS) {
+        if (raw[bp] !== void 0) last = normalize(pick(raw, bp, fallback));
+        assign(vars, bp, last);
+      }
+      return;
+    }
+    const value = normalize(raw);
+    for (const bp of BREAKPOINTS) assign(vars, bp, value);
+  };
   var LitSwitch = class extends i4 {
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
-      const checked = isTrue(this.checked);
-      const disabled = isTrue(this.disabled);
-      const loading = isTrue(this.loading);
-      const compact = isTrue(this.compact);
+    get hostStyle() {
+      const checked = isTrue(this.checked ?? this.getAttribute("checked"));
+      const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));
+      const loading = isTrue(this.loading ?? this.getAttribute("loading"));
+      const compact = isTrue(this.compact ?? this.getAttribute("compact"));
       const blocked = disabled || loading;
-      const alignLabel = parse(this.alignLabel, "end");
-      const hideLabel = parse(this.hideLabel, false);
-      const stretch = parse(this.stretch, false);
-      const alignBase = typeof alignLabel === "object" && alignLabel !== null ? pick(alignLabel, "base", "end") : alignLabel;
-      const hideBase = typeof hideLabel === "object" && hideLabel !== null ? pick(hideLabel, "base", false) : hideLabel;
-      const stretchBase = typeof stretch === "object" && stretch !== null ? pick(stretch, "base", false) : stretch;
-      const hostFor = (st) => isTrue(st) ? "display:flex;justify-content:space-between !important;width:100% !important" : "display:inline-flex;justify-content:flex-start !important;width:auto !important;vertical-align:top !important";
-      const orderFor = (al) => al === "start" ? "-1" : "0";
-      const labelVisFor = (h3) => isTrue(h3) ? "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" : "position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal;padding-top:max(0px, calc((calc(var(--_p-switch-a) * 1.75rem) - var(--p-leading-normal)) / 2))";
-      const border = checked ? "var(--p-color-success-low)" : "var(--p-color-contrast-low)";
-      const hoverBorder = checked ? "var(--p-color-success)" : "var(--p-color-primary)";
-      const buttonBg = checked ? "var(--p-color-success-frosted-soft)" : "var(--p-color-frosted-soft)";
-      const toggleBg = loading ? "transparent" : checked ? "var(--p-color-success)" : "var(--p-color-primary)";
+      const alignLabel = parse(this.getAttribute("align-label") ?? this.alignLabel, "end");
+      const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);
+      const stretch = parse(this.getAttribute("stretch") ?? this.stretch, false);
       const toggleOff = "calc(var(--_p-switch-a) * .1875rem)";
       const toggleOn = "calc(calc(var(--_p-switch-a) * 3rem) - 1px * 2 - 100% - calc(var(--_p-switch-a) * .1875rem))";
-      const toggleX = checked ? toggleOn : toggleOff;
-      let out = ".wrap{display:contents}:host{--_p-switch-a:" + (compact ? "0.64285714" : "1") + ";" + hostFor(stretchBase);
-      if (disabled) out += ";opacity:0.4 !important";
-      out += ";outline:0 !important;font:var(--p-typescale-sm) var(--p-font-porsche-next) !important;gap:calc(11.2px * (var(--_p-switch-a) - 0.64285714) + 4px) !important}:not(:defined,[data-ssr]){visibility:hidden}button{all:unset;position:relative;display:flex;align-items:center;flex-shrink:0;box-sizing:border-box;width:calc(var(--_p-switch-a) * 3rem);height:calc(var(--_p-switch-a) * 1.75rem);margin-block:max(0px, calc((var(--p-leading-normal) - calc(var(--_p-switch-a) * 1.75rem)) / 2));font:var(--p-typescale-sm) var(--p-font-porsche-next);border:1px solid " + border + ";border-radius:var(--p-radius-full);background:" + buttonBg + ";cursor:" + (blocked ? "not-allowed" : "pointer") + ';transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), border-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)}button:focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}button::before{content:"";position:absolute;inset:calc(-1px - max(0px, calc(24px - calc(var(--_p-switch-a) * 1.75rem)) / 2))}label{font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);min-width:0;min-height:0;cursor:' + (blocked ? "not-allowed" : "pointer") + ";color:var(--p-color-primary);order:" + orderFor(alignBase) + ";" + labelVisFor(hideBase) + "}.toggle{display:flex;place-items:center;place-content:center;width:calc(var(--_p-switch-a) * 1.25rem);height:calc(var(--_p-switch-a) * 1.25rem);border-radius:var(--p-radius-full);background:" + toggleBg + ";transition:transform var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);transform:translate3d(" + toggleX + ", 0, 0)}.toggle:dir(rtl){transform:translate3d(calc(" + toggleX + " * -1), 0, 0)}.loading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}";
-      if (loading) {
-        out += ".spinner{--p-spinner-size:calc(var(--_p-switch-a) * 1.75rem)}";
-      } else {
-        out += "p-spinner{display:none}";
-      }
-      if (disabled) {
-        out += "@media(forced-colors:active){:host{opacity:1 !important;color:GrayText !important}button{border-color:GrayText}button:focus-visible{outline-color:Highlight}label{color:GrayText}.toggle{background:CanvasText}}";
-      } else if (loading) {
-        out += "@media(forced-colors:active){button{border-color:GrayText}button:focus-visible{outline-color:Highlight}label{color:GrayText}.toggle{background:CanvasText}}";
-      } else {
-        out += "@media(forced-colors:active){button:focus-visible{outline-color:Highlight}.toggle{background:CanvasText}}";
-      }
-      if (!blocked) {
-        out += "@media(hover:hover){button:hover{border-color:" + hoverBorder + "}}";
-      }
-      const keys = {};
-      if (typeof alignLabel === "object" && alignLabel !== null)
-        for (const k2 of Object.keys(alignLabel)) keys[k2] = 1;
-      if (typeof hideLabel === "object" && hideLabel !== null)
-        for (const k2 of Object.keys(hideLabel)) keys[k2] = 1;
-      if (typeof stretch === "object" && stretch !== null)
-        for (const k2 of Object.keys(stretch)) keys[k2] = 1;
-      for (const bp of Object.keys(keys)) {
-        if (bp === "base") continue;
-        if (!minWidth[bp]) continue;
-        const al = pick(alignLabel, bp, alignBase);
-        const h3 = pick(hideLabel, bp, hideBase);
-        const st = pick(stretch, bp, stretchBase);
-        out += "@media(min-width:" + minWidth[bp] + "px){:host{" + hostFor(st) + "}label{order:" + orderFor(al) + ";" + labelVisFor(h3) + "}}";
-      }
-      return out;
+      const vars = {
+        "--p-sw-a": compact ? "0.64285714" : "1",
+        "--p-sw-border": checked ? "var(--p-color-success-low)" : "var(--p-color-contrast-low)",
+        "--p-sw-hover-border": blocked ? checked ? "var(--p-color-success-low)" : "var(--p-color-contrast-low)" : checked ? "var(--p-color-success)" : "var(--p-color-primary)",
+        "--p-sw-btn-bg": checked ? "var(--p-color-success-frosted-soft)" : "var(--p-color-frosted-soft)",
+        "--p-sw-toggle-bg": loading ? "transparent" : checked ? "var(--p-color-success)" : "var(--p-color-primary)",
+        "--p-sw-toggle-x": checked ? toggleOn : toggleOff,
+        "--p-sw-cursor": blocked ? "not-allowed" : "pointer",
+        "--p-sw-opacity": disabled ? "0.4" : "",
+        "--p-sw-spinner-display": loading ? "" : "none",
+        "--p-sw-fc-opacity": disabled ? "1" : "",
+        "--p-sw-fc-color": disabled ? "GrayText" : "",
+        "--p-sw-fc-border": blocked ? "GrayText" : "",
+        "--p-sw-fc-label": blocked ? "GrayText" : ""
+      };
+      walkBreakpoints(stretch, false, assignStretch, vars, isTrue);
+      walkBreakpoints(alignLabel, "end", assignAlign, vars, (v2) => v2);
+      walkBreakpoints(hideLabel, false, assignHide, vars, isTrue);
+      return vars;
     }
     get ariaDisabled() {
       const disabled = this.disabled === true || this.disabled === "true" || this.disabled === "";
@@ -698,11 +719,26 @@
       const loading = this.loading === true || this.loading === "true" || this.loading === "";
       return loading ? "Loading" : "";
     }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
       return b2`
 
           <div class="wrap">
-          <style .innerHTML="${this.cssText}"></style>
           <button type="button" role="switch">
             <span class="toggle"><p-spinner class="spinner" aria-hidden="true"></p-spinner></span>
           </button>
@@ -714,8 +750,333 @@
     }
   };
   LitSwitch.styles = i`
-      :host([hidden]) {
+      .wrap {
+          display: contents;
+        }
+        :host {
+          --_p-switch-a: var(--p-sw-a, 1);
+          display: var(--p-sw-display, inline-flex);
+          justify-content: var(--p-sw-justify, flex-start) !important;
+          width: var(--p-sw-w, auto) !important;
+          vertical-align: var(--p-sw-va, top) !important;
+          opacity: var(--p-sw-opacity);
+          outline: 0 !important;
+          font: var(--p-typescale-sm) var(--p-font-porsche-next) !important;
+          gap: calc(11.2px * (var(--_p-switch-a) - 0.64285714) + 4px) !important;
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        button {
+          all: unset;
+          position: relative;
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          box-sizing: border-box;
+          width: calc(var(--_p-switch-a) * 3rem);
+          height: calc(var(--_p-switch-a) * 1.75rem);
+          margin-block: max(
+            0px,
+            calc((var(--p-leading-normal) - calc(var(--_p-switch-a) * 1.75rem)) / 2)
+          );
+          font: var(--p-typescale-sm) var(--p-font-porsche-next);
+          border: 1px solid var(--p-sw-border);
+          border-radius: var(--p-radius-full);
+          background: var(--p-sw-btn-bg);
+          cursor: var(--p-sw-cursor, pointer);
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out),
+            border-color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+        }
+        button:focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        button::before {
+          content: "";
+          position: absolute;
+          inset: calc(
+            -1px - max(0px, calc(24px - calc(var(--_p-switch-a) * 1.75rem)) / 2)
+          );
+        }
+        label {
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          min-width: 0;
+          min-height: 0;
+          cursor: var(--p-sw-cursor, pointer);
+          color: var(--p-color-primary);
+          order: var(--p-sw-order, 0);
+          position: var(--p-sw-lbl-pos, static);
+          width: var(--p-sw-lbl-w, auto);
+          height: var(--p-sw-lbl-h, auto);
+          padding: var(--p-sw-lbl-pad, 0);
+          margin: var(--p-sw-lbl-m, 0);
+          overflow: var(--p-sw-lbl-ov, visible);
+          clip: var(--p-sw-lbl-clip, auto);
+          white-space: var(--p-sw-lbl-ws, normal);
+          padding-top: var(--p-sw-lbl-pt);
+        }
+        .toggle {
+          display: flex;
+          place-items: center;
+          place-content: center;
+          width: calc(var(--_p-switch-a) * 1.25rem);
+          height: calc(var(--_p-switch-a) * 1.25rem);
+          border-radius: var(--p-radius-full);
+          background: var(--p-sw-toggle-bg);
+          transition: transform var(--p-transition-duration, var(--p-duration-sm))
+            var(--p-ease-in-out);
+          transform: translate3d(var(--p-sw-toggle-x), 0, 0);
+        }
+        .toggle:dir(rtl) {
+          transform: translate3d(calc(var(--p-sw-toggle-x) * -1), 0, 0);
+        }
+        .loading {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        .spinner {
+          --p-spinner-size: calc(var(--_p-switch-a) * 1.75rem);
+        }
+        .spinner,
+        p-spinner {
+          display: var(--p-sw-spinner-display);
+        }
+        @media (forced-colors: active) {
+          :host {
+            opacity: var(--p-sw-fc-opacity, var(--p-sw-opacity, 1));
+            color: var(--p-sw-fc-color);
+          }
+          button {
+            border-color: var(--p-sw-fc-border, var(--p-sw-border));
+          }
+          button:focus-visible {
+            outline-color: Highlight;
+          }
+          label {
+            color: var(--p-sw-fc-label, var(--p-color-primary));
+          }
+          .toggle {
+            background: CanvasText;
+          }
+        }
+        @media (hover: hover) {
+          button:hover {
+            border-color: var(--p-sw-hover-border, var(--p-sw-border));
+          }
+        }
+        @media (min-width: 480px) {
+          :host {
+            display: var(--p-sw-xs-display, var(--p-sw-display, inline-flex));
+            justify-content: var(
+              --p-sw-xs-justify,
+              var(--p-sw-justify, flex-start)
+            ) !important;
+            width: var(--p-sw-xs-w, var(--p-sw-w, auto)) !important;
+            vertical-align: var(--p-sw-xs-va, var(--p-sw-va, top)) !important;
+          }
+          label {
+            order: var(--p-sw-xs-order, var(--p-sw-order, 0));
+            position: var(--p-sw-xs-lbl-pos, var(--p-sw-lbl-pos, static));
+            width: var(--p-sw-xs-lbl-w, var(--p-sw-lbl-w, auto));
+            height: var(--p-sw-xs-lbl-h, var(--p-sw-lbl-h, auto));
+            padding: var(--p-sw-xs-lbl-pad, var(--p-sw-lbl-pad, 0));
+            margin: var(--p-sw-xs-lbl-m, var(--p-sw-lbl-m, 0));
+            overflow: var(--p-sw-xs-lbl-ov, var(--p-sw-lbl-ov, visible));
+            clip: var(--p-sw-xs-lbl-clip, var(--p-sw-lbl-clip, auto));
+            white-space: var(--p-sw-xs-lbl-ws, var(--p-sw-lbl-ws, normal));
+            padding-top: var(--p-sw-xs-lbl-pt, var(--p-sw-lbl-pt));
+          }
+        }
+        @media (min-width: 760px) {
+          :host {
+            display: var(
+              --p-sw-s-display,
+              var(--p-sw-xs-display, var(--p-sw-display, inline-flex))
+            );
+            justify-content: var(
+              --p-sw-s-justify,
+              var(--p-sw-xs-justify, var(--p-sw-justify, flex-start))
+            ) !important;
+            width: var(--p-sw-s-w, var(--p-sw-xs-w, var(--p-sw-w, auto))) !important;
+            vertical-align: var(
+              --p-sw-s-va,
+              var(--p-sw-xs-va, var(--p-sw-va, top))
+            ) !important;
+          }
+          label {
+            order: var(--p-sw-s-order, var(--p-sw-xs-order, var(--p-sw-order, 0)));
+            position: var(
+              --p-sw-s-lbl-pos,
+              var(--p-sw-xs-lbl-pos, var(--p-sw-lbl-pos, static))
+            );
+            width: var(--p-sw-s-lbl-w, var(--p-sw-xs-lbl-w, var(--p-sw-lbl-w, auto)));
+            height: var(--p-sw-s-lbl-h, var(--p-sw-xs-lbl-h, var(--p-sw-lbl-h, auto)));
+            padding: var(
+              --p-sw-s-lbl-pad,
+              var(--p-sw-xs-lbl-pad, var(--p-sw-lbl-pad, 0))
+            );
+            margin: var(--p-sw-s-lbl-m, var(--p-sw-xs-lbl-m, var(--p-sw-lbl-m, 0)));
+            overflow: var(
+              --p-sw-s-lbl-ov,
+              var(--p-sw-xs-lbl-ov, var(--p-sw-lbl-ov, visible))
+            );
+            clip: var(
+              --p-sw-s-lbl-clip,
+              var(--p-sw-xs-lbl-clip, var(--p-sw-lbl-clip, auto))
+            );
+            white-space: var(
+              --p-sw-s-lbl-ws,
+              var(--p-sw-xs-lbl-ws, var(--p-sw-lbl-ws, normal))
+            );
+            padding-top: var(
+              --p-sw-s-lbl-pt,
+              var(--p-sw-xs-lbl-pt, var(--p-sw-lbl-pt))
+            );
+          }
+        }
+        @media (min-width: 1000px) {
+          :host {
+            display: var(
+              --p-sw-m-display,
+              var(
+                --p-sw-s-display,
+                var(--p-sw-xs-display, var(--p-sw-display, inline-flex))
+              )
+            );
+            justify-content: var(
+              --p-sw-m-justify,
+              var(
+                --p-sw-s-justify,
+                var(--p-sw-xs-justify, var(--p-sw-justify, flex-start))
+              )
+            ) !important;
+            width: var(
+              --p-sw-m-w,
+              var(--p-sw-s-w, var(--p-sw-xs-w, var(--p-sw-w, auto)))
+            ) !important;
+            vertical-align: var(
+              --p-sw-m-va,
+              var(--p-sw-s-va, var(--p-sw-xs-va, var(--p-sw-va, top)))
+            ) !important;
+          }
+          label {
+            order: var(
+              --p-sw-m-order,
+              var(--p-sw-s-order, var(--p-sw-xs-order, var(--p-sw-order, 0)))
+            );
+            position: var(
+              --p-sw-m-lbl-pos,
+              var(--p-sw-s-lbl-pos, var(--p-sw-xs-lbl-pos, var(--p-sw-lbl-pos, static)))
+            );
+            width: var(
+              --p-sw-m-lbl-w,
+              var(--p-sw-s-lbl-w, var(--p-sw-xs-lbl-w, var(--p-sw-lbl-w, auto)))
+            );
+            height: var(
+              --p-sw-m-lbl-h,
+              var(--p-sw-s-lbl-h, var(--p-sw-xs-lbl-h, var(--p-sw-lbl-h, auto)))
+            );
+            padding: var(
+              --p-sw-m-lbl-pad,
+              var(--p-sw-s-lbl-pad, var(--p-sw-xs-lbl-pad, var(--p-sw-lbl-pad, 0)))
+            );
+            margin: var(
+              --p-sw-m-lbl-m,
+              var(--p-sw-s-lbl-m, var(--p-sw-xs-lbl-m, var(--p-sw-lbl-m, 0)))
+            );
+            overflow: var(
+              --p-sw-m-lbl-ov,
+              var(--p-sw-s-lbl-ov, var(--p-sw-xs-lbl-ov, var(--p-sw-lbl-ov, visible)))
+            );
+            clip: var(
+              --p-sw-m-lbl-clip,
+              var(
+                --p-sw-s-lbl-clip,
+                var(--p-sw-xs-lbl-clip, var(--p-sw-lbl-clip, auto))
+              )
+            );
+            white-space: var(
+              --p-sw-m-lbl-ws,
+              var(--p-sw-s-lbl-ws, var(--p-sw-xs-lbl-ws, var(--p-sw-lbl-ws, normal)))
+            );
+            padding-top: var(
+              --p-sw-m-lbl-pt,
+              var(--p-sw-s-lbl-pt, var(--p-sw-xs-lbl-pt, var(--p-sw-lbl-pt)))
+            );
+          }
+        }
+        @media (min-width: 1300px) {
+          :host {
+            display: var(--p-sw-l-display, var(--p-sw-m-display));
+            justify-content: var(--p-sw-l-justify, var(--p-sw-m-justify)) !important;
+            width: var(--p-sw-l-w, var(--p-sw-m-w)) !important;
+            vertical-align: var(--p-sw-l-va, var(--p-sw-m-va)) !important;
+          }
+          label {
+            order: var(--p-sw-l-order, var(--p-sw-m-order));
+            position: var(--p-sw-l-lbl-pos, var(--p-sw-m-lbl-pos));
+            width: var(--p-sw-l-lbl-w, var(--p-sw-m-lbl-w));
+            height: var(--p-sw-l-lbl-h, var(--p-sw-m-lbl-h));
+            padding: var(--p-sw-l-lbl-pad, var(--p-sw-m-lbl-pad));
+            margin: var(--p-sw-l-lbl-m, var(--p-sw-m-lbl-m));
+            overflow: var(--p-sw-l-lbl-ov, var(--p-sw-m-lbl-ov));
+            clip: var(--p-sw-l-lbl-clip, var(--p-sw-m-lbl-clip));
+            white-space: var(--p-sw-l-lbl-ws, var(--p-sw-m-lbl-ws));
+            padding-top: var(--p-sw-l-lbl-pt, var(--p-sw-m-lbl-pt));
+          }
+        }
+        @media (min-width: 1760px) {
+          :host {
+            display: var(--p-sw-xl-display, var(--p-sw-l-display));
+            justify-content: var(--p-sw-xl-justify, var(--p-sw-l-justify)) !important;
+            width: var(--p-sw-xl-w, var(--p-sw-l-w)) !important;
+            vertical-align: var(--p-sw-xl-va, var(--p-sw-l-va)) !important;
+          }
+          label {
+            order: var(--p-sw-xl-order, var(--p-sw-l-order));
+            position: var(--p-sw-xl-lbl-pos, var(--p-sw-l-lbl-pos));
+            width: var(--p-sw-xl-lbl-w, var(--p-sw-l-lbl-w));
+            height: var(--p-sw-xl-lbl-h, var(--p-sw-l-lbl-h));
+            padding: var(--p-sw-xl-lbl-pad, var(--p-sw-l-lbl-pad));
+            margin: var(--p-sw-xl-lbl-m, var(--p-sw-l-lbl-m));
+            overflow: var(--p-sw-xl-lbl-ov, var(--p-sw-l-lbl-ov));
+            clip: var(--p-sw-xl-lbl-clip, var(--p-sw-l-lbl-clip));
+            white-space: var(--p-sw-xl-lbl-ws, var(--p-sw-l-lbl-ws));
+            padding-top: var(--p-sw-xl-lbl-pt, var(--p-sw-l-lbl-pt));
+          }
+        }
+        @media (min-width: 1920px) {
+          :host {
+            display: var(--p-sw-xxl-display, var(--p-sw-xl-display));
+            justify-content: var(--p-sw-xxl-justify, var(--p-sw-xl-justify)) !important;
+            width: var(--p-sw-xxl-w, var(--p-sw-xl-w)) !important;
+            vertical-align: var(--p-sw-xxl-va, var(--p-sw-xl-va)) !important;
+          }
+          label {
+            order: var(--p-sw-xxl-order, var(--p-sw-xl-order));
+            position: var(--p-sw-xxl-lbl-pos, var(--p-sw-xl-lbl-pos));
+            width: var(--p-sw-xxl-lbl-w, var(--p-sw-xl-lbl-w));
+            height: var(--p-sw-xxl-lbl-h, var(--p-sw-xl-lbl-h));
+            padding: var(--p-sw-xxl-lbl-pad, var(--p-sw-xl-lbl-pad));
+            margin: var(--p-sw-xxl-lbl-m, var(--p-sw-xl-lbl-m));
+            overflow: var(--p-sw-xxl-lbl-ov, var(--p-sw-xl-lbl-ov));
+            clip: var(--p-sw-xxl-lbl-clip, var(--p-sw-xl-lbl-clip));
+            white-space: var(--p-sw-xxl-lbl-ws, var(--p-sw-xl-lbl-ws));
+            padding-top: var(--p-sw-xxl-lbl-pt, var(--p-sw-xl-lbl-pt));
+          }
         }
 `;
   __decorateClass([

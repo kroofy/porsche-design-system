@@ -599,16 +599,12 @@
 
   // ../../components/mitosis/optgroup/output/lit/Optgroup.ts
   var LitOptgroup = class extends i4 {
-    get cssText() {
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));
-      let out = ':host{display:block}:host([hidden]){display:none !important}::slotted(*){--_p-select-option-b:calc(44.8px * (var(--_p-optgroup-a) - 0.64285714) + 12px);--_p-multi-select-option-b:calc(44.8px * (var(--_p-optgroup-a) - 0.64285714) + 12px)}[role="group"]{display:flex;flex-direction:column;gap:calc(11.2px * (var(--_p-optgroup-a) - 0.64285714) + 4px)}[role="presentation"]{padding-block:calc(11.2px * (var(--_p-optgroup-a) - 0.64285714) + 4px);padding-inline:calc(16.8px * (var(--_p-optgroup-a) - 0.64285714) + 6px);font:var(--p-font-weight-semibold) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next);color:var(--p-color-primary)';
-      if (disabled) out += ";opacity:0.4";
-      out += "}";
-      if (disabled) {
-        out += '@media(forced-colors:active){[role="presentation"]{opacity:1;color:GrayText}}';
-      }
-      return out;
+    get hostStyle() {
+      const disabled = this.disabled === true || this.disabled === "true" || this.disabled === "";
+      return {
+        "--p-optgroup-opacity": disabled ? "0.4" : "1",
+        "--p-optgroup-hcm-color": disabled ? "GrayText" : "var(--p-color-primary)"
+      };
     }
     get labelText() {
       return this.getAttribute("label") ?? this.label ?? "";
@@ -624,6 +620,7 @@
     }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => {
         this.syncOptionsDisabled();
         this.requestUpdate();
@@ -649,12 +646,22 @@
       this.syncOptionsDisabled();
     }
     updated() {
+      this.applyHostStyle();
       this.syncOptionsDisabled();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     render() {
       const disabled = !!this.isDisabled;
       const hidden = !!this.hasAttribute("hidden") || this.hidden === true;
-      return b2`<div role="group" aria-labelledby="label" aria-disabled=${disabled ? "true" : A} aria-hidden=${hidden ? "true" : A}><style .innerHTML="${this.cssText}"></style><span id="label" role="presentation">${this.labelText}</span><slot></slot></div>`;
+      return b2`<div role="group" aria-labelledby="label" aria-disabled=${disabled ? "true" : A} aria-hidden=${hidden ? "true" : A}><span id="label" role="presentation">${this.labelText}</span><slot></slot></div>`;
     }
   };
   LitOptgroup.styles = i`
@@ -663,6 +670,33 @@
         }
         :host([hidden]) {
           display: none !important;
+        }
+        ::slotted(*) {
+          --_p-select-option-b: calc(
+            44.8px * (var(--_p-optgroup-a) - 0.64285714) + 12px
+          );
+          --_p-multi-select-option-b: calc(
+            44.8px * (var(--_p-optgroup-a) - 0.64285714) + 12px
+          );
+        }
+        [role="group"] {
+          display: flex;
+          flex-direction: column;
+          gap: calc(11.2px * (var(--_p-optgroup-a) - 0.64285714) + 4px);
+        }
+        [role="presentation"] {
+          padding-block: calc(11.2px * (var(--_p-optgroup-a) - 0.64285714) + 4px);
+          padding-inline: calc(16.8px * (var(--_p-optgroup-a) - 0.64285714) + 6px);
+          font: var(--p-font-weight-semibold) var(--p-typescale-xs) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          color: var(--p-color-primary);
+          opacity: var(--p-optgroup-opacity, 1);
+        }
+        @media (forced-colors: active) {
+          [role="presentation"] {
+            opacity: 1;
+            color: var(--p-optgroup-hcm-color, var(--p-color-primary));
+          }
         }
 `;
   __decorateClass([

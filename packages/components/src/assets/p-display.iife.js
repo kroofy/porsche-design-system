@@ -598,67 +598,85 @@
   }
 
   // ../../components/mitosis/display/output/lit/Display.ts
+  var SIZE_MAP = {
+    small: "var(--p-typescale-3xl)",
+    medium: "var(--p-typescale-4xl)",
+    large: "var(--p-typescale-5xl)",
+    inherit: "inherit",
+    "3xl": "var(--p-typescale-3xl)",
+    "4xl": "var(--p-typescale-4xl)",
+    "5xl": "var(--p-typescale-5xl)"
+  };
+  var COLOR_MAP = {
+    primary: "var(--p-color-primary)",
+    inherit: "currentcolor"
+  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var fontFor = (size) => SIZE_MAP[String(size)] || SIZE_MAP.large;
+  var parseSize = (raw) => {
+    if (raw === void 0 || raw === null || raw === "") return "large";
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return "large";
+      }
+    }
+    return raw;
+  };
+  var assignFont = (vars, bp, font) => {
+    const value = font === "inherit" ? "" : font;
+    if (bp === "base") {
+      vars["--p-display-fs"] = value;
+      return;
+    }
+    vars[`--p-display-fs-${bp}`] = value;
+  };
   var LitDisplay = class extends i4 {
-    get cssText() {
-      const sizeMap = {
-        small: "var(--p-typescale-3xl)",
-        medium: "var(--p-typescale-4xl)",
-        large: "var(--p-typescale-5xl)",
-        inherit: "inherit",
-        "3xl": "var(--p-typescale-3xl)",
-        "4xl": "var(--p-typescale-4xl)",
-        "5xl": "var(--p-typescale-5xl)"
+    get hostStyle() {
+      const ellipsis = this.ellipsis === true || this.ellipsis === "true" || this.ellipsis === "";
+      const vars = {
+        "--p-display-fg": COLOR_MAP[this.color || "primary"] || COLOR_MAP.primary,
+        "--p-display-align": this.align || "start",
+        "--p-display-max": ellipsis ? "100%" : "",
+        "--p-display-overflow": ellipsis ? "hidden" : "",
+        "--p-display-ellipsis": ellipsis ? "ellipsis" : "",
+        "--p-display-ws": ellipsis ? "nowrap" : ""
       };
-      const colorMap = {
-        primary: "var(--p-color-primary)",
-        inherit: "currentcolor"
-      };
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const align = this.align || "start";
-      const color = colorMap[this.color || "primary"] || colorMap.primary;
-      let ellipsis = this.ellipsis;
-      if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
-        ellipsis = true;
-      } else {
-        ellipsis = false;
-      }
-      let extra = "";
-      if (ellipsis)
-        extra += ";max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
-      const rootOpen = "::slotted(:is(h1,h2,h3,h4,h5,h6)){all:unset!important}h3{all:unset;display:block;font:var(--p-font-weight-normal) var(--p-typescale-5xl)/var(--p-leading-normal) var(--p-font-porsche-next);";
-      const rootClose = ";color:" + color + ";text-align:" + align + extra + "}";
-      let size = this.size || "large";
-      if (typeof size === "string" && size.charAt(0) === "{") {
-        try {
-          size = JSON.parse(
-            size.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-          );
-        } catch (e5) {
-          size = "large";
-        }
-      }
-      const fontFor = (s4) => sizeMap[s4] || sizeMap.large;
+      const size = parseSize(this.size);
       if (typeof size === "object" && size !== null) {
-        let out = rootOpen + "font-size:" + fontFor(size.base || "large") + rootClose;
-        for (const bp of Object.keys(size)) {
-          if (bp === "base") continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){h3{font-size:" + fontFor(size[bp]) + "}}";
+        let last = fontFor(size.base || "large");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = fontFor(size[bp]);
+          assignFont(vars, bp, last);
         }
-        return out;
+      } else {
+        assignFont(vars, "base", fontFor(size));
       }
-      return rootOpen + "font-size:" + fontFor(size) + rootClose;
+      return vars;
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     render() {
       return b2`
 
-          <h3><style .innerHTML="${this.cssText}"></style> <slot></slot></h3>
+          <h3><slot></slot></h3>
 
         `;
     }
@@ -670,16 +688,63 @@
         :host([hidden]) {
           display: none !important;
         }
+        ::slotted(:is(h1, h2, h3, h4, h5, h6)) {
+          all: unset !important;
+        }
+        h3 {
+          all: unset;
+          display: block;
+          font: var(--p-font-weight-normal) var(--p-typescale-5xl) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          font-size: inherit;
+          font-size: var(--p-display-fs);
+          color: var(--p-display-fg);
+          text-align: var(--p-display-align);
+          max-width: var(--p-display-max);
+          overflow: var(--p-display-overflow);
+          text-overflow: var(--p-display-ellipsis);
+          white-space: var(--p-display-ws);
+        }
+        @media (min-width: 480px) {
+          h3 {
+            font-size: var(--p-display-fs-xs, var(--p-display-fs));
+          }
+        }
+        @media (min-width: 760px) {
+          h3 {
+            font-size: var(--p-display-fs-s, var(--p-display-fs));
+          }
+        }
+        @media (min-width: 1000px) {
+          h3 {
+            font-size: var(--p-display-fs-m, var(--p-display-fs));
+          }
+        }
+        @media (min-width: 1300px) {
+          h3 {
+            font-size: var(--p-display-fs-l, var(--p-display-fs));
+          }
+        }
+        @media (min-width: 1760px) {
+          h3 {
+            font-size: var(--p-display-fs-xl, var(--p-display-fs));
+          }
+        }
+        @media (min-width: 1920px) {
+          h3 {
+            font-size: var(--p-display-fs-xxl, var(--p-display-fs));
+          }
+        }
 `;
   __decorateClass([
     n4()
-  ], LitDisplay.prototype, "align", 2);
+  ], LitDisplay.prototype, "ellipsis", 2);
   __decorateClass([
     n4()
   ], LitDisplay.prototype, "color", 2);
   __decorateClass([
     n4()
-  ], LitDisplay.prototype, "ellipsis", 2);
+  ], LitDisplay.prototype, "align", 2);
   __decorateClass([
     n4()
   ], LitDisplay.prototype, "size", 2);

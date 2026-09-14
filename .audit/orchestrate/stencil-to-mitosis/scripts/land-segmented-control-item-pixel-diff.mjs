@@ -42,12 +42,12 @@ page.on('console', (msg) => {
   if (msg.type() !== 'error') return;
   const text = msg.text();
   const url = msg.location()?.url ?? '';
-  if (text.includes('ERR_CONNECTION_REFUSED') || url.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || url.includes('3002')) return;
   consoleErrors.push(text);
 });
 page.on('pageerror', (err) => {
   const text = String(err);
-  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('3002')) return;
+  if (text.includes('ERR_CONNECTION_REFUSED') || text.includes('ERR_ABORTED') || text.includes('3002')) return;
   consoleErrors.push(text);
 });
 
@@ -95,7 +95,8 @@ await page.waitForFunction(() => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
       const button = root?.querySelector('button');
-      if (!root || !style || !button) return false;
+      if (!root || style || !button) return false;
+      if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-segmented-control-item')) return false;
       return true;
@@ -135,6 +136,7 @@ const proof = await page.evaluate(() => {
         ctor: el.constructor?.name,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasButton: !!button,
         ariaPressed: button?.getAttribute('aria-pressed') ?? null,
         label: el.getAttribute('label'),
@@ -208,7 +210,8 @@ const failed =
       item.tag !== 'p-segmented-control-item' ||
       item.ctor !== 'LitSegmentedControlItem' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
       !item.hasButton ||
       item.hydrated ||
       item.hasFragment

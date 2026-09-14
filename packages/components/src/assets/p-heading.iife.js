@@ -598,92 +598,110 @@
   }
 
   // ../../components/mitosis/heading/output/lit/Heading.ts
+  var SIZE_MAP = {
+    "xx-small": "var(--p-typescale-2xs)",
+    "x-small": "var(--p-typescale-xs)",
+    small: "var(--p-typescale-sm)",
+    medium: "var(--p-typescale-md)",
+    large: "var(--p-typescale-lg)",
+    "x-large": "var(--p-typescale-xl)",
+    "xx-large": "var(--p-typescale-2xl)",
+    "2xs": "var(--p-typescale-2xs)",
+    xs: "var(--p-typescale-xs)",
+    sm: "var(--p-typescale-sm)",
+    md: "var(--p-typescale-md)",
+    lg: "var(--p-typescale-lg)",
+    xl: "var(--p-typescale-xl)",
+    "2xl": "var(--p-typescale-2xl)",
+    "3xl": "var(--p-typescale-3xl)",
+    "4xl": "var(--p-typescale-4xl)",
+    "5xl": "var(--p-typescale-5xl)",
+    inherit: "inherit"
+  };
+  var WEIGHT_MAP = {
+    regular: "var(--p-font-weight-normal)",
+    normal: "var(--p-font-weight-normal)",
+    "semi-bold": "var(--p-font-weight-semibold)",
+    semibold: "var(--p-font-weight-semibold)",
+    bold: "var(--p-font-weight-bold)"
+  };
+  var COLOR_MAP = {
+    primary: "var(--p-color-primary)",
+    "contrast-higher": "var(--p-color-contrast-higher)",
+    "contrast-high": "var(--p-color-contrast-high)",
+    "contrast-medium": "var(--p-color-contrast-medium)",
+    inherit: "currentcolor"
+  };
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var fontFor = (size) => SIZE_MAP[String(size)] || SIZE_MAP["2xl"];
+  var parseSize = (raw) => {
+    if (raw === void 0 || raw === null || raw === "") return "2xl";
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return "2xl";
+      }
+    }
+    return raw;
+  };
+  var assignFont = (vars, bp, font) => {
+    const value = font === "inherit" ? "" : font;
+    if (bp === "base") {
+      vars["--p-heading-fs"] = value;
+      return;
+    }
+    vars[`--p-heading-fs-${bp}`] = value;
+  };
   var LitHeading = class extends i4 {
-    get cssText() {
-      const sizeMap = {
-        "xx-small": "var(--p-typescale-2xs)",
-        "x-small": "var(--p-typescale-xs)",
-        small: "var(--p-typescale-sm)",
-        medium: "var(--p-typescale-md)",
-        large: "var(--p-typescale-lg)",
-        "x-large": "var(--p-typescale-xl)",
-        "xx-large": "var(--p-typescale-2xl)",
-        "2xs": "var(--p-typescale-2xs)",
-        xs: "var(--p-typescale-xs)",
-        sm: "var(--p-typescale-sm)",
-        md: "var(--p-typescale-md)",
-        lg: "var(--p-typescale-lg)",
-        xl: "var(--p-typescale-xl)",
-        "2xl": "var(--p-typescale-2xl)",
-        "3xl": "var(--p-typescale-3xl)",
-        "4xl": "var(--p-typescale-4xl)",
-        "5xl": "var(--p-typescale-5xl)",
-        inherit: "inherit"
-      };
-      const weightMap = {
-        regular: "var(--p-font-weight-normal)",
-        normal: "var(--p-font-weight-normal)",
-        "semi-bold": "var(--p-font-weight-semibold)",
-        semibold: "var(--p-font-weight-semibold)",
-        bold: "var(--p-font-weight-bold)"
-      };
-      const colorMap = {
-        primary: "var(--p-color-primary)",
-        "contrast-higher": "var(--p-color-contrast-higher)",
-        "contrast-high": "var(--p-color-contrast-high)",
-        "contrast-medium": "var(--p-color-contrast-medium)",
-        inherit: "currentcolor"
-      };
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const weight = weightMap[this.weight || "normal"] || weightMap.normal;
-      const align = this.align || "start";
-      const color = colorMap[this.color || "primary"] || colorMap.primary;
+    get hostStyle() {
       const hyphens = this.hyphens || "none";
-      let ellipsis = this.ellipsis;
-      if (ellipsis === true || ellipsis === "true" || ellipsis === "") {
-        ellipsis = true;
-      } else {
-        ellipsis = false;
-      }
-      let extra = "";
-      if (hyphens === "auto" || hyphens === "manual")
-        extra += ";overflow-wrap:break-word";
-      if (ellipsis)
-        extra += ";max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
-      const rootOpen = "::slotted(:is(h1,h2,h3,h4,h5,h6)){all:unset}h2{all:unset;display:block;font:" + weight + " var(--p-typescale-2xl)/var(--p-leading-normal) var(--p-font-porsche-next);";
-      const rootClose = ";color:" + color + ";text-align:" + align + ";hyphens:" + hyphens + extra + "}";
-      let size = this.size || "2xl";
-      if (typeof size === "string" && size.charAt(0) === "{") {
-        try {
-          size = JSON.parse(
-            size.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-          );
-        } catch (e5) {
-          size = "2xl";
-        }
-      }
-      const fontFor = (s4) => sizeMap[s4] || sizeMap["2xl"];
+      const ellipsis = this.ellipsis === true || this.ellipsis === "true" || this.ellipsis === "";
+      const vars = {
+        "--p-heading-weight": WEIGHT_MAP[this.weight || "normal"] || WEIGHT_MAP.normal,
+        "--p-heading-fg": COLOR_MAP[this.color || "primary"] || COLOR_MAP.primary,
+        "--p-heading-align": this.align || "start",
+        "--p-heading-hyphens": hyphens,
+        "--p-heading-wrap": hyphens === "auto" || hyphens === "manual" ? "break-word" : "",
+        "--p-heading-max": ellipsis ? "100%" : "",
+        "--p-heading-overflow": ellipsis ? "hidden" : "",
+        "--p-heading-ellipsis": ellipsis ? "ellipsis" : "",
+        "--p-heading-ws": ellipsis ? "nowrap" : ""
+      };
+      const size = parseSize(this.size);
       if (typeof size === "object" && size !== null) {
-        let out = rootOpen + "font-size:" + fontFor(size.base || "2xl") + rootClose;
-        for (const bp of Object.keys(size)) {
-          if (bp === "base") continue;
-          out += "@media(min-width:" + minWidth[bp] + "px){h2{font-size:" + fontFor(size[bp]) + "}}";
+        let last = fontFor(size.base || "2xl");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = fontFor(size[bp]);
+          assignFont(vars, bp, last);
         }
-        return out;
+      } else {
+        assignFont(vars, "base", fontFor(size));
       }
-      return rootOpen + "font-size:" + fontFor(size) + rootClose;
+      return vars;
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
     }
     render() {
       return b2`
 
-          <h2><style .innerHTML="${this.cssText}"></style> <slot></slot></h2>
+          <h2><slot></slot></h2>
 
         `;
     }
@@ -695,22 +713,71 @@
         :host([hidden]) {
           display: none !important;
         }
+        ::slotted(:is(h1, h2, h3, h4, h5, h6)) {
+          all: unset;
+        }
+        h2 {
+          all: unset;
+          display: block;
+          font: var(--p-heading-weight) var(--p-typescale-2xl) / var(--p-leading-normal)
+            var(--p-font-porsche-next);
+          font-size: inherit;
+          font-size: var(--p-heading-fs);
+          color: var(--p-heading-fg);
+          text-align: var(--p-heading-align);
+          hyphens: var(--p-heading-hyphens);
+          overflow-wrap: var(--p-heading-wrap);
+          max-width: var(--p-heading-max);
+          overflow: var(--p-heading-overflow);
+          text-overflow: var(--p-heading-ellipsis);
+          white-space: var(--p-heading-ws);
+        }
+        @media (min-width: 480px) {
+          h2 {
+            font-size: var(--p-heading-fs-xs, var(--p-heading-fs));
+          }
+        }
+        @media (min-width: 760px) {
+          h2 {
+            font-size: var(--p-heading-fs-s, var(--p-heading-fs));
+          }
+        }
+        @media (min-width: 1000px) {
+          h2 {
+            font-size: var(--p-heading-fs-m, var(--p-heading-fs));
+          }
+        }
+        @media (min-width: 1300px) {
+          h2 {
+            font-size: var(--p-heading-fs-l, var(--p-heading-fs));
+          }
+        }
+        @media (min-width: 1760px) {
+          h2 {
+            font-size: var(--p-heading-fs-xl, var(--p-heading-fs));
+          }
+        }
+        @media (min-width: 1920px) {
+          h2 {
+            font-size: var(--p-heading-fs-xxl, var(--p-heading-fs));
+          }
+        }
 `;
-  __decorateClass([
-    n4()
-  ], LitHeading.prototype, "weight", 2);
-  __decorateClass([
-    n4()
-  ], LitHeading.prototype, "align", 2);
-  __decorateClass([
-    n4()
-  ], LitHeading.prototype, "color", 2);
   __decorateClass([
     n4()
   ], LitHeading.prototype, "hyphens", 2);
   __decorateClass([
     n4()
   ], LitHeading.prototype, "ellipsis", 2);
+  __decorateClass([
+    n4()
+  ], LitHeading.prototype, "weight", 2);
+  __decorateClass([
+    n4()
+  ], LitHeading.prototype, "color", 2);
+  __decorateClass([
+    n4()
+  ], LitHeading.prototype, "align", 2);
   __decorateClass([
     n4()
   ], LitHeading.prototype, "size", 2);

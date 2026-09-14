@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/carousel');
@@ -31,6 +35,7 @@ if (!generated) {
 
 const extraMethods = `  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => {
       this._assignSlideSlots();
       this.requestUpdate();
@@ -53,7 +58,24 @@ const extraMethods = `  connectedCallback() {
     queueMicrotask(() => this._initSplide());
   }
 
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+    this.toggleAttribute("data-heading", vars["--p-car-heading"] === "1");
+    this.toggleAttribute("data-desc", vars["--p-car-desc"] === "1");
+    this.toggleAttribute("data-controls", vars["--p-car-controls"] === "1");
+    this.toggleAttribute("data-center", vars["--p-car-center"] === "1");
+    this.toggleAttribute("data-gradient", vars["--p-car-gradient"] === "1");
+    this.toggleAttribute("data-pag", vars["--p-car-pag"] === "1");
+  }
+
   updated() {
+    this.applyHostStyle();
     this._assignSlideSlots();
     if (this._splide) {
       this._splide.options = { drag: this._hasNavigation() };
@@ -267,7 +289,7 @@ const extraMethods = `  connectedCallback() {
     const pagination = this._parsedPagination() && this._hasNavigation()
       ? html\`<div class="pagination-container" aria-hidden="true"><div class="pagination"></div></div>\`
       : nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style><div class="header">\${headingNode}\${descNode}\${controlsNode}<div class="nav">\${skipNode}\${navBtns}</div></div><div id="splide" class="splide" @mousedown=\${(e) => e.preventDefault()}><div class="splide__track"><div class="splide__list">\${slideNodes}</div></div></div>\${pagination}<div class="slide-status" aria-live="polite" aria-atomic="true"></div>\`;
+    return html\`<div class="header">\${headingNode}\${descNode}\${controlsNode}<div class="nav">\${skipNode}\${navBtns}</div></div><div id="splide" class="splide" @mousedown=\${(e) => e.preventDefault()}><div class="splide__track"><div class="splide__list">\${slideNodes}</div></div></div>\${pagination}<div class="slide-status" aria-live="polite" aria-atomic="true"></div>\`;
   }
 }`;
 
@@ -393,8 +415,8 @@ if (after.includes('href="undefined"') || after.includes("href='undefined'")) {
 }
 
 const required = [
-  'display:flex',
-  'flex-direction:column',
+  'display: flex',
+  'flex-direction: column',
   'class="header"',
   'id="splide"',
   'class="splide"',
@@ -402,14 +424,15 @@ const required = [
   'splide__list',
   'slide-status',
   'speed: 0',
-  'min-width:760px',
-  'min-width:1920px',
+  'min-width: 760px',
+  'min-width: 1920px',
   'min-width:1000px',
   'hide-label="true"',
   'p-button-pure',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'applyHostStyle',
+  '--p-car-col',
   'slot name="heading"',
   'slot name="description"',
   'slot name="controls"',
@@ -417,6 +440,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-carousel: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-carousel', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-carousel: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-carousel') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

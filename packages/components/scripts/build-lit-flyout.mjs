@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/flyout');
@@ -29,8 +33,19 @@ if (!generated) {
   process.exit(1);
 }
 
-const extraMethods = `  connectedCallback() {
+const extraMethods = `  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+  }
+
+  connectedCallback() {
     super.connectedCallback();
+    this.applyHostStyle();
     this._childObserver = new MutationObserver(() => this.requestUpdate());
     this._childObserver.observe(this, { childList: true, subtree: false });
     this.addEventListener("slotchange", () => this.requestUpdate());
@@ -53,6 +68,7 @@ const extraMethods = `  connectedCallback() {
   }
 
   updated() {
+    this.applyHostStyle();
     const dialog = this.renderRoot?.querySelector("dialog");
     if (!dialog) return;
     if (this.isOpenFlag) {
@@ -86,7 +102,7 @@ const extraMethods = `  connectedCallback() {
   render() {
     const dismiss = html\`<button class="dismiss" type="button"><span>Dismiss flyout</span></button>\`;
     const label = this.ariaLabelText || nothing;
-    return html\`<style .innerHTML="\${this.cssText}"></style><dialog ?inert=\${!this.isOpenFlag} tabindex="-1" aria-modal="true" aria-label=\${label}><div class="scroller"><div class="flyout">\${dismiss}<slot name="header"></slot><slot></slot><slot name="footer"></slot><slot name="sub-footer"></slot></div></div></dialog>\`;
+    return html\`<dialog ?inert=\${!this.isOpenFlag} tabindex="-1" aria-modal="true" aria-label=\${label}><div class="scroller"><div class="flyout">\${dismiss}<slot name="header"></slot><slot></slot><slot name="footer"></slot><slot name="sub-footer"></slot></div></div></dialog>\`;
   }
 }`;
 
@@ -97,7 +113,9 @@ let after = before
   .replace(
     'import { LitElement, html, css } from "lit";',
     'import { LitElement, html, css, nothing } from "lit";'
-  );
+  )
+  .replace(/@property\(\)\s+footerBehavior/g, '@property({ attribute: "footer-behavior" }) footerBehavior')
+  .replace(/@property\(\)\s+disableBackdropClick/g, '@property({ attribute: "disable-backdrop-click" }) disableBackdropClick');
 
 const attrFallbacks = [
   ['const isOpen = isTrue(this.open);', 'const isOpen = isTrue(this.open ?? this.getAttribute("open"));'],
@@ -118,6 +136,10 @@ const attrFallbacks = [
     'const isFooterFixed = (this.footerBehavior ?? this.getAttribute("footer-behavior") ?? this.getAttribute("footerbehavior")) === "fixed";',
   ],
   ['let fullscreen: any = this.fullscreen;', 'let fullscreen: any = this.fullscreen ?? this.getAttribute("fullscreen");'],
+  [
+    'parse(this.fullscreen, false)',
+    'parse(this.fullscreen ?? this.getAttribute("fullscreen"), false)',
+  ],
 ];
 for (const [from, to] of attrFallbacks) {
   after = after.replace(from, to);
@@ -163,9 +185,7 @@ if (/\bclass="root"/.test(after) || after.includes("class='root'")) {
 }
 
 const required = [
-  'display:contents',
-  'width:0px',
-  'visibility:hidden',
+  'display: contents',
   'class="scroller"',
   'class="flyout"',
   'class="dismiss"',
@@ -177,17 +197,30 @@ const required = [
   'isOpenFlag',
   'charAt(0) === "{"',
   '([{,]',
-  'm: 1000',
-  'grid-template-rows:auto 1fr auto',
+  'min-width: 760px',
+  'grid-template-rows: auto 1fr auto',
   '--p-flyout-sticky-top',
+  '--p-fo-w',
   'ResizeObserver',
   'MutationObserver',
   'queueMicrotask',
-  'cssText',
+  'static styles',
+  'hostStyle',
+  'applyHostStyle',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-flyout: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('<style') || after.includes('.innerHTML') || after.includes('get cssText')) {
+  console.error('build-lit-flyout: injected style must be gone');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-flyout', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-flyout: ${err.message}`);
   process.exit(1);
 }
 if (

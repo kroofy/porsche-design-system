@@ -50,7 +50,7 @@ const extraMethods = `  connectedCallback() {
   }
 
   render() {
-    return html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;
+    return html\`<slot></slot>\`;
   }
 }`;
 
@@ -84,11 +84,15 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-table-head-row: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-table-head-row: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (after.includes('lit-table-head-row') || after.includes('delegatesFocus') || after.includes('formAssociated')) {

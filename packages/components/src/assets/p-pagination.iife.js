@@ -599,19 +599,13 @@
 
   // ../../components/mitosis/pagination/output/lit/Pagination.ts
   var LitPagination = class extends i4 {
-    get cssText() {
-      const totalItems = Number(
-        this.totalItemsCount == null || this.totalItemsCount === "" ? 1 : this.totalItemsCount
-      );
-      const perPage = Number(
-        this.itemsPerPage == null || this.itemsPerPage === "" ? 1 : this.itemsPerPage
-      );
+    get hostStyle() {
+      const totalItems = Number((this.getAttribute("total-items-count") ?? this.totalItemsCount) == null || (this.getAttribute("total-items-count") ?? this.totalItemsCount) === "" ? 1 : this.getAttribute("total-items-count") ?? this.totalItemsCount);
+      const perPage = Number((this.getAttribute("items-per-page") ?? this.itemsPerPage) == null || (this.getAttribute("items-per-page") ?? this.itemsPerPage) === "" ? 1 : this.getAttribute("items-per-page") ?? this.itemsPerPage);
       const pageTotal = Math.ceil(
         (totalItems < 1 ? 1 : totalItems) / (perPage < 1 ? 1 : perPage)
       );
-      let active = Number(
-        this.activePage == null || this.activePage === "" ? 1 : this.activePage
-      );
+      let active = Number((this.getAttribute("active-page") ?? this.activePage) == null || (this.getAttribute("active-page") ?? this.activePage) === "" ? 1 : this.getAttribute("active-page") ?? this.activePage);
       if (active < 1) active = 1;
       if (active > pageTotal) active = pageTotal;
       let showLast = this.getAttribute("show-last-page") ?? this.showLastPage;
@@ -620,38 +614,56 @@
       } else {
         showLast = true;
       }
-      let out = ":host{display:block}:host([hidden]){display:none !important}:not(:defined,[data-ssr]){visibility:hidden}nav{display:flex;justify-content:center;user-select:none}ul{display:flex;gap:var(--p-spacing-static-xs);margin:0;padding:0}li{list-style-type:none}span{display:flex;justify-content:center;align-items:center;transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);position:relative;padding:0 6px;min-width:2.25rem;height:2.25rem;box-sizing:border-box;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);white-space:nowrap;cursor:pointer;background-color:transparent;color:var(--p-color-primary);border-radius:var(--p-radius-full);border-color:transparent;outline:0}span[aria-current]{cursor:default;pointer-events:none;background-color:var(--p-color-frosted-strong)}span[aria-disabled]{cursor:default;pointer-events:none;opacity:0.4}span:not(.ellipsis):focus-visible{outline:2px solid var(--p-color-focus);outline-offset:2px}";
-      let minS = "ul{gap:var(--p-spacing-static-sm)}";
-      if (pageTotal < 8) {
-        minS += "li.ellip{display:none}";
-      } else {
-        if (active <= 4) minS += "li.ellip-start{display:none}";
-        if (pageTotal - active < 4)
-          minS += "li.ellip-end:nth-last-child(3){display:none}";
-        if (pageTotal - active < 3)
-          minS += "li.ellip-end:nth-last-child(2){display:none}";
+      const vis = "list-item";
+      const hide = "none";
+      const few = pageTotal < 8;
+      const many = pageTotal > 5;
+      const fromEnd = pageTotal - active;
+      const mStart = many && active < 4;
+      const mEnd = many && fromEnd < 3;
+      const mMid = many && !mStart && !mEnd;
+      const forceEllipEnd = many && !showLast && fromEnd >= 2 && active > 2;
+      return {
+        "--p-pg-ellip": few ? hide : vis,
+        "--p-pg-ellip-start": !few && active <= 4 ? hide : vis,
+        "--p-pg-ellip-end-3": !few && fromEnd < 4 ? hide : vis,
+        "--p-pg-ellip-end-2": !few && fromEnd < 3 ? hide : vis,
+        "--p-pg-m-start": mStart ? hide : vis,
+        "--p-pg-m-end": mEnd ? hide : vis,
+        "--p-pg-m-mid": mMid ? hide : vis,
+        "--p-pg-m-ellip-end-show": forceEllipEnd ? "1" : "",
+        "--p-pg-m-cur-2": many && !showLast && fromEnd < 2 ? hide : vis,
+        "--p-pg-m-cur-1": many && !showLast && fromEnd === 1 ? hide : vis,
+        "--p-pg-m-cur-after": many && !showLast && fromEnd >= 2 && active > 2 ? hide : vis
+      };
+    }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
       }
-      out += "@media(min-width:760px){" + minS + "}";
-      if (pageTotal > 5) {
-        let maxS = "";
-        if (active < 4) {
-          maxS = "li.ellip-start, li:nth-child(6), li:nth-child(7), li:not(.ellip):nth-child(8){display:none}";
-        } else if (pageTotal - active < 3) {
-          maxS = "li.ellip-end, li.ellip-start + li:not(.current), li.ellip-start + li:not(.current) + li:not(.current){display:none}";
-        } else {
-          maxS = "li.ellip-start + li:not(.current), li.current-1, li.current+1, li.current+1 + li:not(.ellip){display:none}";
-        }
-        if (!showLast) {
-          if (pageTotal - active < 2) {
-            maxS += "li.current-2" + (pageTotal - active === 1 ? ",li.current-1" : "") + "{display:none}";
-          } else if (active > 2) {
-            maxS += "li.current+1,li.current+2{display:none}li.ellip-end{display:initial}";
-          }
-        }
-        out += "@media(max-width:759px){" + maxS + "}";
-      }
-      out += '@media(forced-colors:active){span:not(.ellipsis):focus-visible{outline-color:Highlight}span[aria-disabled]{opacity:1;color:GrayText}span[aria-current]{border:2px solid CanvasText}}@media(hover:hover){span:not([aria-disabled]):not(.ellipsis):hover{-webkit-backdrop-filter:var(--p-blur-frosted);backdrop-filter:var(--p-blur-frosted);background:var(--p-color-frosted)}@media(forced-colors:active){span:not([aria-disabled]):not(.ellipsis):hover{outline:2px solid CanvasText;outline-offset:-2px}}}.ellipsis{cursor:default;pointer-events:none}.ellipsis::after{content:"\u2026"}';
-      return out;
+      const hide = (name) => vars[name] === "none";
+      this.toggleAttribute("data-pg-few", hide("--p-pg-ellip"));
+      this.toggleAttribute("data-pg-start", hide("--p-pg-ellip-start"));
+      this.toggleAttribute("data-pg-end-4", hide("--p-pg-ellip-end-3"));
+      this.toggleAttribute("data-pg-end-3", hide("--p-pg-ellip-end-2"));
+      this.toggleAttribute("data-pg-m-start", hide("--p-pg-m-start"));
+      this.toggleAttribute("data-pg-m-end", hide("--p-pg-m-end"));
+      this.toggleAttribute("data-pg-m-mid", hide("--p-pg-m-mid"));
+      this.toggleAttribute("data-pg-m-cur-2", hide("--p-pg-m-cur-2"));
+      this.toggleAttribute("data-pg-m-cur-1", hide("--p-pg-m-cur-1"));
+      this.toggleAttribute("data-pg-m-cur-after", hide("--p-pg-m-cur-after"));
+      this.toggleAttribute("data-pg-m-ellip-end-show", vars["--p-pg-m-ellip-end-show"] === "1");
     }
     get pageItems() {
       const totalItems = Number(this.getAttribute("total-items-count") ?? this.totalItemsCount ?? 1);
@@ -730,7 +742,7 @@
       });
     }
     render() {
-      return b2`<nav aria-label="Pagination"><style .innerHTML="${this.cssText}"></style><ul>${this.pageNodes}</ul></nav>`;
+      return b2`<nav aria-label="Pagination"><ul>${this.pageNodes}</ul></nav>`;
     }
   };
   LitPagination.styles = i`
@@ -739,6 +751,141 @@
         }
         :host([hidden]) {
           display: none !important;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        nav {
+          display: flex;
+          justify-content: center;
+          user-select: none;
+        }
+        ul {
+          display: flex;
+          gap: var(--p-spacing-static-xs);
+          margin: 0;
+          padding: 0;
+        }
+        li {
+          list-style-type: none;
+        }
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out),
+            color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+          position: relative;
+          padding: 0 6px;
+          min-width: 2.25rem;
+          height: 2.25rem;
+          box-sizing: border-box;
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          white-space: nowrap;
+          cursor: pointer;
+          background-color: transparent;
+          color: var(--p-color-primary);
+          border-radius: var(--p-radius-full);
+          border-color: transparent;
+          outline: 0;
+        }
+        span[aria-current] {
+          cursor: default;
+          pointer-events: none;
+          background-color: var(--p-color-frosted-strong);
+        }
+        span[aria-disabled] {
+          cursor: default;
+          pointer-events: none;
+          opacity: 0.4;
+        }
+        span:not(.ellipsis):focus-visible {
+          outline: 2px solid var(--p-color-focus);
+          outline-offset: 2px;
+        }
+        .ellipsis {
+          cursor: default;
+          pointer-events: none;
+        }
+        .ellipsis::after {
+          content: "…";
+        }
+        @media (min-width: 760px) {
+          ul {
+            gap: var(--p-spacing-static-sm);
+          }
+          :host([data-pg-few]) li.ellip {
+            display: none;
+          }
+          :host([data-pg-start]) li.ellip-start {
+            display: none;
+          }
+          :host([data-pg-end-4]) li.ellip-end:nth-last-child(3) {
+            display: none;
+          }
+          :host([data-pg-end-3]) li.ellip-end:nth-last-child(2) {
+            display: none;
+          }
+        }
+        @media (max-width: 759px) {
+          :host([data-pg-m-start]) li.ellip-start,
+          :host([data-pg-m-start]) li:nth-child(6),
+          :host([data-pg-m-start]) li:nth-child(7),
+          :host([data-pg-m-start]) li:not(.ellip):nth-child(8) {
+            display: none;
+          }
+          :host([data-pg-m-end]) li.ellip-end,
+          :host([data-pg-m-end]) li.ellip-start + li:not(.current),
+          :host([data-pg-m-end]) li.ellip-start + li:not(.current) + li:not(.current) {
+            display: none;
+          }
+          :host([data-pg-m-mid]) li.ellip-start + li:not(.current),
+          :host([data-pg-m-mid]) li.current-1,
+          :host([data-pg-m-mid]) li[class~="current+1"],
+          :host([data-pg-m-mid]) li[class~="current+1"] + li:not(.ellip) {
+            display: none;
+          }
+          :host([data-pg-m-cur-2]) li.current-2 {
+            display: none;
+          }
+          :host([data-pg-m-cur-1]) li.current-1 {
+            display: none;
+          }
+          :host([data-pg-m-cur-after]) li[class~="current+1"],
+          :host([data-pg-m-cur-after]) li[class~="current+2"] {
+            display: none;
+          }
+          :host([data-pg-m-ellip-end-show]) li.ellip-end {
+            display: initial;
+          }
+        }
+        @media (forced-colors: active) {
+          span:not(.ellipsis):focus-visible {
+            outline-color: Highlight;
+          }
+          span[aria-disabled] {
+            opacity: 1;
+            color: GrayText;
+          }
+          span[aria-current] {
+            border: 2px solid CanvasText;
+          }
+        }
+        @media (hover: hover) {
+          span:not([aria-disabled]):not(.ellipsis):hover {
+            -webkit-backdrop-filter: var(--p-blur-frosted);
+            backdrop-filter: var(--p-blur-frosted);
+            background: var(--p-color-frosted);
+          }
+          @media (forced-colors: active) {
+            span:not([aria-disabled]):not(.ellipsis):hover {
+              outline: 2px solid CanvasText;
+              outline-offset: -2px;
+            }
+          }
         }
 `;
   LitPagination.shadowRootOptions = { ...i4.shadowRootOptions, delegatesFocus: true };

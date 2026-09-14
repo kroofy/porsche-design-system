@@ -36,6 +36,14 @@ if (!after.includes('@customElement("p-crest")')) {
   console.error('build-lit-crest: expected @customElement("p-crest")');
   process.exit(1);
 }
+if (!after.includes('static styles')) {
+  console.error('build-lit-crest: expected Lit static styles from useStyle');
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-crest: cssText/innerHTML stylesheet hack is not allowed');
+  process.exit(1);
+}
 if (after !== before) {
   await writeFile(generated, after);
 }

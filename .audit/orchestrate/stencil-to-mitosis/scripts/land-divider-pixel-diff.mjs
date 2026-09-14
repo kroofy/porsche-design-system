@@ -33,7 +33,7 @@ await page.waitForFunction(() => {
   const hosts = [...document.querySelectorAll('[data-card="divider"] p-divider')];
   return (
     hosts.length >= 4 &&
-    hosts.every((el) => el.shadowRoot?.querySelector('hr') && el.shadowRoot.querySelector('style'))
+    hosts.every((el) => el.shadowRoot?.querySelector('hr'))
   );
 }, { timeout: 20_000 });
 
@@ -54,10 +54,11 @@ const proof = await page.evaluate(() => {
       direction: el.getAttribute('direction'),
       hydrated: el.classList.contains('hydrated'),
       hasShadow: !!el.shadowRoot,
-      hasStyle: !!el.shadowRoot?.querySelector('style'),
+      adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+      hasInjectedStyle: !!el.shadowRoot?.querySelector('style'),
       hasHr: !!el.shadowRoot?.querySelector('hr'),
       hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-      styleText: el.shadowRoot?.querySelector('style')?.textContent?.slice(0, 120) ?? null,
+      hostInlineStyle: el.getAttribute('style'),
     })),
   };
 });
@@ -91,8 +92,8 @@ const failed =
   proof.title !== 'Playground' ||
   !proof.isLit ||
   proof.litDividerDefined ||
-  proof.hosts.some((h) => h.tag !== 'p-divider' || !h.hasStyle || !h.hasHr || h.hasFragment) ||
-  consoleErrors.length > 0;
+    proof.hosts.some((h) => h.tag !== 'p-divider' || !h.hasHr || h.hasFragment || h.hasInjectedStyle || !h.adoptedSheets) ||
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

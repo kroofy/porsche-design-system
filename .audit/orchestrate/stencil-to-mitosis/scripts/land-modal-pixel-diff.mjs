@@ -46,6 +46,7 @@ log(`baseline bytes=${baselineBuf.byteLength} sha256=${baselineSha}`);
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes("can't be used like this") ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
@@ -113,8 +114,19 @@ await page.waitForFunction(() => {
     if (!root.querySelector('slot:not([name])')) return false;
     if (!root.querySelector('slot[name="header"]') || !root.querySelector('slot[name="footer"]')) return false;
     if (root.querySelector('p-button-pure, lit-button-pure, .root, my-fragment, lit-modal')) return false;
-    const css = root.querySelector('style')?.textContent || '';
-    if (!css.includes('display:contents') || !css.includes('visibility:hidden')) return false;
+    if (root.querySelector('style')) return false;
+    if ((root.adoptedStyleSheets?.length ?? 0) < 1) return false;
+    const css = [...(root.adoptedStyleSheets ?? [])]
+      .flatMap((sheet) => {
+        try {
+          return [...sheet.cssRules].map((rule) => rule.cssText);
+        } catch {
+          return [];
+        }
+      })
+      .join('\n');
+    if (!css.includes('display: contents') && !css.includes('display:contents')) return false;
+    if (!css.includes('hidden')) return false;
     return true;
   });
 }, { timeout: 30_000 });
@@ -146,7 +158,15 @@ const proof = await page.evaluate(() => {
     buttonCount: buttons.length,
     hosts: hosts.map((el) => {
       const dialog = el.shadowRoot?.querySelector('dialog');
-      const css = el.shadowRoot?.querySelector('style')?.textContent ?? '';
+      const css = [...(el.shadowRoot?.adoptedStyleSheets ?? [])]
+        .flatMap((sheet) => {
+          try {
+            return [...sheet.cssRules].map((rule) => rule.cssText);
+          } catch {
+            return [];
+          }
+        })
+        .join('\n');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -165,8 +185,10 @@ const proof = await page.evaluate(() => {
         hasNestedPure: !!el.shadowRoot?.querySelector('p-button-pure, lit-button-pure'),
         hasRootWrap: !!el.shadowRoot?.querySelector('.root'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
-        hasContents: css.includes('display:contents'),
-        hasHiddenVis: css.includes('visibility:hidden'),
+        hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasContents: css.includes('display: contents') || css.includes('display:contents'),
+        hasHiddenVis: css.includes('hidden'),
         hydrated: el.classList.contains('hydrated'),
       };
     }),
@@ -248,6 +270,8 @@ const failed =
       item.hasNestedPure ||
       item.hasRootWrap ||
       item.hasFragment ||
+      item.hasStyle ||
+      item.adoptedSheets < 1 ||
       !item.hasContents ||
       !item.hasHiddenVis ||
       item.hydrated

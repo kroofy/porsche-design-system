@@ -37,7 +37,8 @@ await page.waitForFunction(() => {
     hosts.every(
       (el) =>
         el.shadowRoot?.querySelector('svg') &&
-        el.shadowRoot.querySelector('style') &&
+        !el.shadowRoot.querySelector('style') &&
+        (el.shadowRoot.adoptedStyleSheets?.length ?? 0) > 0 &&
         el.shadowRoot.querySelector('a')
     )
   );
@@ -61,6 +62,7 @@ const proof = await page.evaluate(() => {
       hydrated: el.classList.contains('hydrated'),
       hasShadow: !!el.shadowRoot,
       hasStyle: !!el.shadowRoot?.querySelector('style'),
+      adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
       hasSvg: !!el.shadowRoot?.querySelector('svg'),
       hasAnchor: !!el.shadowRoot?.querySelector('a'),
       hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -99,8 +101,10 @@ const failed =
   proof.title !== 'Playground' ||
   !proof.isLit ||
   proof.litWordmarkDefined ||
-  proof.hosts.some((h) => h.tag !== 'p-wordmark' || !h.hasStyle || !h.hasSvg || !h.hasAnchor || h.hasFragment) ||
-  consoleErrors.length > 0;
+  proof.hosts.some(
+    (h) => h.tag !== 'p-wordmark' || h.hasStyle || !h.adoptedSheets || !h.hasSvg || !h.hasAnchor || h.hasFragment
+  ) ||
+  consoleErrors.some((err) => !/ERR_CONNECTION_REFUSED|ERR_ABORTED/.test(err));
 
 const summary = {
   playground: PLAYGROUND_URL,

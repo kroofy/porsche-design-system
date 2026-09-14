@@ -598,37 +598,71 @@
   }
 
   // ../../components/mitosis/pin-code/output/lit/PinCode.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
+  var assignHide = (vars, bp, hidden) => {
+    const p3 = bp === "base" ? "--p-pc-lw" : `--p-pc-lw-${bp}`;
+    const d3 = bp === "base" ? "--p-pc-desc" : `--p-pc-desc-${bp}`;
+    if (hidden) {
+      vars[`${p3}-pos`] = "absolute";
+      vars[`${p3}-w`] = "1px";
+      vars[`${p3}-h`] = "1px";
+      vars[`${p3}-pad`] = "0";
+      vars[`${p3}-m`] = "-1px";
+      vars[`${p3}-ov`] = "hidden";
+      vars[`${p3}-clip`] = "rect(0, 0, 0, 0)";
+      vars[`${p3}-ws`] = "nowrap";
+      vars[`${p3}-minw`] = "";
+      vars[`${d3}-pos`] = "absolute";
+      vars[`${d3}-w`] = "1px";
+      vars[`${d3}-h`] = "1px";
+      vars[`${d3}-pad`] = "0";
+      vars[`${d3}-m`] = "-1px";
+      vars[`${d3}-ov`] = "hidden";
+      vars[`${d3}-clip`] = "rect(0, 0, 0, 0)";
+      vars[`${d3}-ws`] = "nowrap";
+      return;
+    }
+    vars[`${p3}-pos`] = "static";
+    vars[`${p3}-w`] = "auto";
+    vars[`${p3}-h`] = "auto";
+    vars[`${p3}-pad`] = "0";
+    vars[`${p3}-m`] = "0";
+    vars[`${p3}-ov`] = "visible";
+    vars[`${p3}-clip`] = "auto";
+    vars[`${p3}-ws`] = "normal";
+    vars[`${p3}-minw`] = "fit-content";
+    vars[`${d3}-pos`] = "static";
+    vars[`${d3}-w`] = "auto";
+    vars[`${d3}-h`] = "auto";
+    vars[`${d3}-pad`] = "0";
+    vars[`${d3}-m`] = "0";
+    vars[`${d3}-ov`] = "visible";
+    vars[`${d3}-clip`] = "auto";
+    vars[`${d3}-ws`] = "normal";
+  };
   var LitPinCode = class extends i4 {
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
-      const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
+    get hostStyle() {
       const disabled = isTrue(this.getAttribute("disabled") ?? this.disabled);
       const loading = isTrue(this.getAttribute("loading") ?? this.loading);
       const compact = isTrue(this.getAttribute("compact") ?? this.compact);
@@ -636,7 +670,6 @@
       const message = (this.getAttribute("message") ?? this.message) || "";
       const hasMsg = !!message && (formState === "success" || formState === "error");
       const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);
-      const hideBase = typeof hideLabel === "object" && hideLabel !== null ? pick(hideLabel, "base", false) : hideLabel;
       let length = Number(this.getAttribute("length") ?? this.length);
       if (!Number.isFinite(length) || length < 1) length = 4;
       if (length > 6) length = 6;
@@ -661,45 +694,42 @@
         }
       };
       const palette = palettes[formState] || palettes.none;
-      const labelVisFor = (h3) => isTrue(h3) ? "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" : "min-width:fit-content;position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal";
-      const descVisFor = (h3) => isTrue(h3) ? "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;margin-top:calc(-1 * var(--p-spacing-static-xs))" : "position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal;margin-top:calc(-1 * var(--p-spacing-static-xs))";
       const pad = "calc(11.2px * (var(--_p-pin-code-a) - 0.64285714) + 4px)";
-      let out = ":host{display:block;--_p-pin-code-a:" + (compact ? "0.64285714" : "1") + '}:host([hidden]){display:none !important}slot[name="label-after"]{display:inline-block;vertical-align:top}slot[name="label-after"]::slotted(*){margin-inline-start:var(--p-spacing-static-xs) !important}.label-after{display:inline-block;vertical-align:top}:not(:defined,[data-ssr]){visibility:hidden}input{all:unset;display:block;width:auto;min-width:calc(1ch + ' + pad + " * 2 + 1px * 2);max-width:calc(var(--_p-pin-code-a) * 3.5rem);height:calc(var(--_p-pin-code-a) * 3.5rem);padding:" + pad + ";box-sizing:border-box;border:1px solid " + palette.border + ";border-radius:" + (compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)") + ";background:" + palette.bg + ";font:var(--p-font-weight-normal) var(--p-typescale-sm) / calc(var(--p-leading-normal) + 6px) var(--p-font-porsche-next);color:var(--p-color-primary);transition:background-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), border-color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);text-overflow:ellipsis;cursor:" + (disabled || loading ? "not-allowed" : "text") + ";text-align:center";
-      if (disabled || loading) out += ";opacity:0.4";
-      out += "}input:focus-visible{border-color:" + palette.hover + "}";
-      if (!disabled && !loading) {
-        out += "@media(hover:hover){input:hover{border-color:" + palette.hover + "}}";
+      const vars = {
+        "--p-pc-scale": compact ? "0.64285714" : "1",
+        "--p-pc-radius": compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)",
+        "--p-pc-border": palette.border,
+        "--p-pc-bg": palette.bg,
+        "--p-pc-hover": palette.hover,
+        "--p-pc-pad": pad,
+        "--p-pc-cols": "repeat(" + length + ", 1fr)",
+        "--p-pc-font": "var(--p-font-weight-normal) var(--p-typescale-sm) / calc(var(--p-leading-normal) + 6px) var(--p-font-porsche-next)",
+        "--p-pc-cursor": disabled || loading ? "not-allowed" : "text",
+        "--p-pc-input-op": disabled || loading ? "0.4" : "",
+        "--p-pc-input-fc-op": disabled || loading ? "1" : "",
+        "--p-pc-input-fc-color": disabled || loading ? "GrayText" : "",
+        "--p-pc-label-cursor": disabled || loading ? "not-allowed" : "pointer",
+        "--p-pc-pe": disabled || loading ? "none" : "",
+        "--p-pc-opacity": disabled ? "0.4" : "",
+        "--p-pc-fc-op": disabled ? "1" : "",
+        "--p-pc-fc-color": disabled ? "GrayText" : "",
+        "--p-pc-msg": palette.message || "",
+        "--p-pc-msg-op": hasMsg ? "" : "0",
+        "--p-pc-msg-pos": hasMsg ? "" : "absolute",
+        "--p-pc-icon-display": hasMsg ? "inline-flex" : "none"
+      };
+      if (typeof hideLabel === "object" && hideLabel !== null) {
+        let last = isTrue(pick(hideLabel, "base", false));
+        for (const bp of BREAKPOINTS) {
+          if (hideLabel[bp] !== void 0)
+            last = isTrue(pick(hideLabel, bp, false));
+          assignHide(vars, bp, last);
+        }
+      } else {
+        const hidden = isTrue(hideLabel);
+        for (const bp of BREAKPOINTS) assignHide(vars, bp, hidden);
       }
-      if (disabled || loading) {
-        out += "@media(forced-colors:active){input{opacity:1;color:GrayText}}";
-      }
-      out += ".root{all:unset;display:grid;gap:var(--p-spacing-static-xs)}.wrapper{position:relative;display:grid;grid-template-columns:repeat(" + length + ", 1fr);justify-self:flex-start;gap:" + pad + "}";
-      if (loading) {
-        out += ".spinner{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);pointer-events:none}";
-      }
-      out += ".label-wrapper{" + labelVisFor(hideBase) + "}";
-      out += ".label{font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);cursor:" + (disabled || loading ? "not-allowed" : "pointer") + ";color:var(--p-color-primary)";
-      if (disabled || loading) out += ";pointer-events:none";
-      if (disabled) out += ";opacity:0.4";
-      out += ";transition:color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out);display:inline}.label:empty{display:none}.label:is(span){cursor:unset;font-size:var(--p-typescale-xs);color:var(--p-color-contrast-high);" + descVisFor(hideBase) + '}.label > slot[name="label"]::slotted(*){display:inline !important}.required{user-select:none}.message{display:flex;gap:var(--p-spacing-static-xs);font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next)';
-      if (palette.message) out += ";color:" + palette.message;
-      out += ";transition:color var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out), opacity var(--p-transition-duration,var(--p-duration-sm)) var(--p-ease-in-out)}.message:empty{opacity:0;position:absolute}";
-      if (!hasMsg)
-        out += ".message{opacity:0;position:absolute}.message p-icon{display:none}";
-      out += ".loading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}";
-      if (disabled) {
-        out += "@media(forced-colors:active){.label{opacity:1;color:GrayText}}";
-      }
-      const keys = {};
-      if (typeof hideLabel === "object" && hideLabel !== null)
-        for (const k2 of Object.keys(hideLabel)) keys[k2] = 1;
-      for (const bp of Object.keys(keys)) {
-        if (bp === "base") continue;
-        if (!minWidth[bp]) continue;
-        const h3 = pick(hideLabel, bp, hideBase);
-        out += "@media(min-width:" + minWidth[bp] + "px){.label-wrapper{" + labelVisFor(h3) + "}.label:is(span){" + descVisFor(h3) + "}}";
-      }
-      return out;
+      return vars;
     }
     get labelText() {
       return (this.getAttribute("label") ?? this.label) || "";
@@ -786,13 +816,363 @@
       const src = icon === "exclamation" ? "http://localhost:3001/icons/exclamation.46cd17b.svg" : "http://localhost:3001/icons/check.8ba06be.svg";
       return b2`<span id="message" class="message" role=${this.messageRole}><p-icon name=${icon} source=${src} color=${this.iconColor} aria-hidden="true"></p-icon>${text}</span>`;
     }
+    connectedCallback() {
+      super.connectedCallback();
+      this.applyHostStyle();
+    }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
-      return b2`<fieldset class="root" ?disabled=${!!this.isDisabled} aria-invalid=${this.ariaInvalid || A} aria-labelledby=${this.labelText ? "label" : A}><style .innerHTML="${this.cssText}"></style>${this.labelNode}<div class="wrapper" dir="ltr">${this.inputNodes}${this.spinnerNode}</div>${this.messageNode}<span class="loading" id="loading" role="status">${this.loadingText}</span></fieldset>`;
+      return b2`<fieldset class="root" ?disabled=${!!this.isDisabled} aria-invalid=${this.ariaInvalid || A} aria-labelledby=${this.labelText ? "label" : A}>${this.labelNode}<div class="wrapper" dir="ltr">${this.inputNodes}${this.spinnerNode}</div>${this.messageNode}<span class="loading" id="loading" role="status">${this.loadingText}</span></fieldset>`;
     }
   };
   LitPinCode.styles = i`
-      :host([hidden]) {
+      :host {
+          display: block;
+          --_p-pin-code-a: var(--p-pc-scale, 1);
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        slot[name="label-after"] {
+          display: inline-block;
+          vertical-align: top;
+        }
+        slot[name="label-after"]::slotted(*) {
+          margin-inline-start: var(--p-spacing-static-xs) !important;
+        }
+        .label-after {
+          display: inline-block;
+          vertical-align: top;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        input {
+          all: unset;
+          display: block;
+          width: auto;
+          min-width: calc(1ch + var(--p-pc-pad) * 2 + 1px * 2);
+          max-width: calc(var(--_p-pin-code-a) * 3.5rem);
+          height: calc(var(--_p-pin-code-a) * 3.5rem);
+          padding: var(--p-pc-pad);
+          box-sizing: border-box;
+          border: 1px solid var(--p-pc-border);
+          border-radius: var(--p-pc-radius, var(--p-radius-xl));
+          background: var(--p-pc-bg);
+          font: var(--p-pc-font);
+          color: var(--p-color-primary);
+          transition: background-color
+              var(--p-transition-duration, var(--p-duration-sm)) var(--p-ease-in-out),
+            border-color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+          text-overflow: ellipsis;
+          cursor: var(--p-pc-cursor, text);
+          text-align: center;
+          opacity: var(--p-pc-input-op);
+        }
+        input:focus-visible {
+          border-color: var(--p-pc-hover);
+        }
+        .root {
+          all: unset;
+          display: grid;
+          gap: var(--p-spacing-static-xs);
+        }
+        .wrapper {
+          position: relative;
+          display: grid;
+          grid-template-columns: var(--p-pc-cols);
+          justify-self: flex-start;
+          gap: var(--p-pc-pad);
+        }
+        .spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
+        .loading {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+        }
+        .label-wrapper {
+          min-width: var(--p-pc-lw-minw);
+          position: var(--p-pc-lw-pos, static);
+          width: var(--p-pc-lw-w, auto);
+          height: var(--p-pc-lw-h, auto);
+          padding: var(--p-pc-lw-pad, 0);
+          margin: var(--p-pc-lw-m, 0);
+          overflow: var(--p-pc-lw-ov, visible);
+          clip: var(--p-pc-lw-clip, auto);
+          white-space: var(--p-pc-lw-ws, normal);
+        }
+        .label {
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          cursor: var(--p-pc-label-cursor, pointer);
+          color: var(--p-color-primary);
+          pointer-events: var(--p-pc-pe);
+          opacity: var(--p-pc-opacity);
+          transition: color var(--p-transition-duration, var(--p-duration-sm))
+            var(--p-ease-in-out);
+          display: inline;
+        }
+        .label:empty {
+          display: none;
+        }
+        .label:is(span) {
+          cursor: unset;
+          font-size: var(--p-typescale-xs);
+          color: var(--p-color-contrast-high);
+          min-width: unset;
+          position: var(--p-pc-desc-pos, static);
+          width: var(--p-pc-desc-w, auto);
+          height: var(--p-pc-desc-h, auto);
+          padding: var(--p-pc-desc-pad, 0);
+          margin: var(--p-pc-desc-m, 0);
+          overflow: var(--p-pc-desc-ov, visible);
+          clip: var(--p-pc-desc-clip, auto);
+          white-space: var(--p-pc-desc-ws, normal);
+          margin-top: calc(-1 * var(--p-spacing-static-xs));
+        }
+        .label > slot[name="label"]::slotted(*) {
+          display: inline !important;
+        }
+        .required {
+          user-select: none;
+        }
+        .message {
+          display: flex;
+          gap: var(--p-spacing-static-xs);
+          font: var(--p-font-weight-normal) var(--p-typescale-sm) /
+            var(--p-leading-normal) var(--p-font-porsche-next);
+          color: var(--p-pc-msg, inherit);
+          opacity: var(--p-pc-msg-op);
+          position: var(--p-pc-msg-pos);
+          transition: color var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out),
+            opacity var(--p-transition-duration, var(--p-duration-sm))
+              var(--p-ease-in-out);
+        }
+        .message:empty {
+          opacity: 0;
+          position: absolute;
+        }
+        .message p-icon {
+          display: var(--p-pc-icon-display, none);
+        }
+        @media (forced-colors: active) {
+          input {
+            opacity: var(--p-pc-input-fc-op, var(--p-pc-input-op, 1));
+            color: var(--p-pc-input-fc-color, var(--p-color-primary));
+          }
+          .label {
+            opacity: var(--p-pc-fc-op, var(--p-pc-opacity, 1));
+            color: var(--p-pc-fc-color, var(--p-color-primary));
+          }
+        }
+        @media (hover: hover) {
+          :host(:not([disabled]):not([loading])) input:hover {
+            border-color: var(--p-pc-hover);
+          }
+        }
+        @media (min-width: 480px) {
+          .label-wrapper {
+            min-width: var(--p-pc-lw-xs-minw, var(--p-pc-lw-minw));
+            position: var(--p-pc-lw-xs-pos, var(--p-pc-lw-pos, static));
+            width: var(--p-pc-lw-xs-w, var(--p-pc-lw-w, auto));
+            height: var(--p-pc-lw-xs-h, var(--p-pc-lw-h, auto));
+            padding: var(--p-pc-lw-xs-pad, var(--p-pc-lw-pad, 0));
+            margin: var(--p-pc-lw-xs-m, var(--p-pc-lw-m, 0));
+            overflow: var(--p-pc-lw-xs-ov, var(--p-pc-lw-ov, visible));
+            clip: var(--p-pc-lw-xs-clip, var(--p-pc-lw-clip, auto));
+            white-space: var(--p-pc-lw-xs-ws, var(--p-pc-lw-ws, normal));
+          }
+          .label:is(span) {
+            position: var(--p-pc-desc-xs-pos, var(--p-pc-desc-pos, static));
+            width: var(--p-pc-desc-xs-w, var(--p-pc-desc-w, auto));
+            height: var(--p-pc-desc-xs-h, var(--p-pc-desc-h, auto));
+            padding: var(--p-pc-desc-xs-pad, var(--p-pc-desc-pad, 0));
+            margin: var(--p-pc-desc-xs-m, var(--p-pc-desc-m, 0));
+            overflow: var(--p-pc-desc-xs-ov, var(--p-pc-desc-ov, visible));
+            clip: var(--p-pc-desc-xs-clip, var(--p-pc-desc-clip, auto));
+            white-space: var(--p-pc-desc-xs-ws, var(--p-pc-desc-ws, normal));
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
+        }
+        @media (min-width: 760px) {
+          .label-wrapper {
+            min-width: var(
+              --p-pc-lw-s-minw,
+              var(--p-pc-lw-xs-minw, var(--p-pc-lw-minw))
+            );
+            position: var(
+              --p-pc-lw-s-pos,
+              var(--p-pc-lw-xs-pos, var(--p-pc-lw-pos, static))
+            );
+            width: var(--p-pc-lw-s-w, var(--p-pc-lw-xs-w, var(--p-pc-lw-w, auto)));
+            height: var(--p-pc-lw-s-h, var(--p-pc-lw-xs-h, var(--p-pc-lw-h, auto)));
+            padding: var(--p-pc-lw-s-pad, var(--p-pc-lw-xs-pad, var(--p-pc-lw-pad, 0)));
+            margin: var(--p-pc-lw-s-m, var(--p-pc-lw-xs-m, var(--p-pc-lw-m, 0)));
+            overflow: var(
+              --p-pc-lw-s-ov,
+              var(--p-pc-lw-xs-ov, var(--p-pc-lw-ov, visible))
+            );
+            clip: var(
+              --p-pc-lw-s-clip,
+              var(--p-pc-lw-xs-clip, var(--p-pc-lw-clip, auto))
+            );
+            white-space: var(
+              --p-pc-lw-s-ws,
+              var(--p-pc-lw-xs-ws, var(--p-pc-lw-ws, normal))
+            );
+          }
+          .label:is(span) {
+            position: var(
+              --p-pc-desc-s-pos,
+              var(--p-pc-desc-xs-pos, var(--p-pc-desc-pos, static))
+            );
+            width: var(
+              --p-pc-desc-s-w,
+              var(--p-pc-desc-xs-w, var(--p-pc-desc-w, auto))
+            );
+            height: var(
+              --p-pc-desc-s-h,
+              var(--p-pc-desc-xs-h, var(--p-pc-desc-h, auto))
+            );
+            padding: var(
+              --p-pc-desc-s-pad,
+              var(--p-pc-desc-xs-pad, var(--p-pc-desc-pad, 0))
+            );
+            margin: var(--p-pc-desc-s-m, var(--p-pc-desc-xs-m, var(--p-pc-desc-m, 0)));
+            overflow: var(
+              --p-pc-desc-s-ov,
+              var(--p-pc-desc-xs-ov, var(--p-pc-desc-ov, visible))
+            );
+            clip: var(
+              --p-pc-desc-s-clip,
+              var(--p-pc-desc-xs-clip, var(--p-pc-desc-clip, auto))
+            );
+            white-space: var(
+              --p-pc-desc-s-ws,
+              var(--p-pc-desc-xs-ws, var(--p-pc-desc-ws, normal))
+            );
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
+        }
+        @media (min-width: 1000px) {
+          .label-wrapper {
+            min-width: var(--p-pc-lw-m-minw, var(--p-pc-lw-s-minw));
+            position: var(--p-pc-lw-m-pos, var(--p-pc-lw-s-pos, static));
+            width: var(--p-pc-lw-m-w, var(--p-pc-lw-s-w, auto));
+            height: var(--p-pc-lw-m-h, var(--p-pc-lw-s-h, auto));
+            padding: var(--p-pc-lw-m-pad, var(--p-pc-lw-s-pad, 0));
+            margin: var(--p-pc-lw-m-m, var(--p-pc-lw-s-m, 0));
+            overflow: var(--p-pc-lw-m-ov, var(--p-pc-lw-s-ov, visible));
+            clip: var(--p-pc-lw-m-clip, var(--p-pc-lw-s-clip, auto));
+            white-space: var(--p-pc-lw-m-ws, var(--p-pc-lw-s-ws, normal));
+          }
+          .label:is(span) {
+            position: var(--p-pc-desc-m-pos, var(--p-pc-desc-s-pos, static));
+            width: var(--p-pc-desc-m-w, var(--p-pc-desc-s-w, auto));
+            height: var(--p-pc-desc-m-h, var(--p-pc-desc-s-h, auto));
+            padding: var(--p-pc-desc-m-pad, var(--p-pc-desc-s-pad, 0));
+            margin: var(--p-pc-desc-m-m, var(--p-pc-desc-s-m, 0));
+            overflow: var(--p-pc-desc-m-ov, var(--p-pc-desc-s-ov, visible));
+            clip: var(--p-pc-desc-m-clip, var(--p-pc-desc-s-clip, auto));
+            white-space: var(--p-pc-desc-m-ws, var(--p-pc-desc-s-ws, normal));
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
+        }
+        @media (min-width: 1300px) {
+          .label-wrapper {
+            min-width: var(--p-pc-lw-l-minw, var(--p-pc-lw-m-minw));
+            position: var(--p-pc-lw-l-pos, var(--p-pc-lw-m-pos, static));
+            width: var(--p-pc-lw-l-w, var(--p-pc-lw-m-w, auto));
+            height: var(--p-pc-lw-l-h, var(--p-pc-lw-m-h, auto));
+            padding: var(--p-pc-lw-l-pad, var(--p-pc-lw-m-pad, 0));
+            margin: var(--p-pc-lw-l-m, var(--p-pc-lw-m-m, 0));
+            overflow: var(--p-pc-lw-l-ov, var(--p-pc-lw-m-ov, visible));
+            clip: var(--p-pc-lw-l-clip, var(--p-pc-lw-m-clip, auto));
+            white-space: var(--p-pc-lw-l-ws, var(--p-pc-lw-m-ws, normal));
+          }
+          .label:is(span) {
+            position: var(--p-pc-desc-l-pos, var(--p-pc-desc-m-pos, static));
+            width: var(--p-pc-desc-l-w, var(--p-pc-desc-m-w, auto));
+            height: var(--p-pc-desc-l-h, var(--p-pc-desc-m-h, auto));
+            padding: var(--p-pc-desc-l-pad, var(--p-pc-desc-m-pad, 0));
+            margin: var(--p-pc-desc-l-m, var(--p-pc-desc-m-m, 0));
+            overflow: var(--p-pc-desc-l-ov, var(--p-pc-desc-m-ov, visible));
+            clip: var(--p-pc-desc-l-clip, var(--p-pc-desc-m-clip, auto));
+            white-space: var(--p-pc-desc-l-ws, var(--p-pc-desc-m-ws, normal));
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
+        }
+        @media (min-width: 1760px) {
+          .label-wrapper {
+            min-width: var(--p-pc-lw-xl-minw, var(--p-pc-lw-l-minw));
+            position: var(--p-pc-lw-xl-pos, var(--p-pc-lw-l-pos, static));
+            width: var(--p-pc-lw-xl-w, var(--p-pc-lw-l-w, auto));
+            height: var(--p-pc-lw-xl-h, var(--p-pc-lw-l-h, auto));
+            padding: var(--p-pc-lw-xl-pad, var(--p-pc-lw-l-pad, 0));
+            margin: var(--p-pc-lw-xl-m, var(--p-pc-lw-l-m, 0));
+            overflow: var(--p-pc-lw-xl-ov, var(--p-pc-lw-l-ov, visible));
+            clip: var(--p-pc-lw-xl-clip, var(--p-pc-lw-l-clip, auto));
+            white-space: var(--p-pc-lw-xl-ws, var(--p-pc-lw-l-ws, normal));
+          }
+          .label:is(span) {
+            position: var(--p-pc-desc-xl-pos, var(--p-pc-desc-l-pos, static));
+            width: var(--p-pc-desc-xl-w, var(--p-pc-desc-l-w, auto));
+            height: var(--p-pc-desc-xl-h, var(--p-pc-desc-l-h, auto));
+            padding: var(--p-pc-desc-xl-pad, var(--p-pc-desc-l-pad, 0));
+            margin: var(--p-pc-desc-xl-m, var(--p-pc-desc-l-m, 0));
+            overflow: var(--p-pc-desc-xl-ov, var(--p-pc-desc-l-ov, visible));
+            clip: var(--p-pc-desc-xl-clip, var(--p-pc-desc-l-clip, auto));
+            white-space: var(--p-pc-desc-xl-ws, var(--p-pc-desc-l-ws, normal));
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
+        }
+        @media (min-width: 1920px) {
+          .label-wrapper {
+            min-width: var(--p-pc-lw-xxl-minw, var(--p-pc-lw-xl-minw));
+            position: var(--p-pc-lw-xxl-pos, var(--p-pc-lw-xl-pos, static));
+            width: var(--p-pc-lw-xxl-w, var(--p-pc-lw-xl-w, auto));
+            height: var(--p-pc-lw-xxl-h, var(--p-pc-lw-xl-h, auto));
+            padding: var(--p-pc-lw-xxl-pad, var(--p-pc-lw-xl-pad, 0));
+            margin: var(--p-pc-lw-xxl-m, var(--p-pc-lw-xl-m, 0));
+            overflow: var(--p-pc-lw-xxl-ov, var(--p-pc-lw-xl-ov, visible));
+            clip: var(--p-pc-lw-xxl-clip, var(--p-pc-lw-xl-clip, auto));
+            white-space: var(--p-pc-lw-xxl-ws, var(--p-pc-lw-xl-ws, normal));
+          }
+          .label:is(span) {
+            position: var(--p-pc-desc-xxl-pos, var(--p-pc-desc-xl-pos, static));
+            width: var(--p-pc-desc-xxl-w, var(--p-pc-desc-xl-w, auto));
+            height: var(--p-pc-desc-xxl-h, var(--p-pc-desc-xl-h, auto));
+            padding: var(--p-pc-desc-xxl-pad, var(--p-pc-desc-xl-pad, 0));
+            margin: var(--p-pc-desc-xxl-m, var(--p-pc-desc-xl-m, 0));
+            overflow: var(--p-pc-desc-xxl-ov, var(--p-pc-desc-xl-ov, visible));
+            clip: var(--p-pc-desc-xxl-clip, var(--p-pc-desc-xl-clip, auto));
+            white-space: var(--p-pc-desc-xxl-ws, var(--p-pc-desc-xl-ws, normal));
+            margin-top: calc(-1 * var(--p-spacing-static-xs));
+          }
         }
 `;
   LitPinCode.shadowRootOptions = { ...i4.shadowRootOptions, delegatesFocus: true };

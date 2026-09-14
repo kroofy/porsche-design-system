@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/button');
@@ -57,6 +61,16 @@ if (
 }
 if (after.includes('lit-button') || after.includes('lit-icon') || after.includes('lit-spinner')) {
   console.error('build-lit-button: generated output must use p-button / p-icon / p-spinner, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-button', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-button: ${err.message}`);
+  process.exit(1);
+}
+if (!after.includes('min-width: 760px')) {
+  console.error('build-lit-button: expected breakpoint media queries');
   process.exit(1);
 }
 if (after !== before) {

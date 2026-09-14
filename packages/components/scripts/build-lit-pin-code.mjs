@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/pin-code');
@@ -26,7 +30,7 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.labelText ? "label" : nothing}><style .innerHTML="\${this.cssText}"></style>\${this.labelNode}<div class="wrapper" dir="ltr">\${this.inputNodes}\${this.spinnerNode}</div>\${this.messageNode}<span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
+const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.labelText ? "label" : nothing}>\${this.labelNode}<div class="wrapper" dir="ltr">\${this.inputNodes}\${this.spinnerNode}</div>\${this.messageNode}<span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
 
 const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
   get labelNode() {
@@ -58,6 +62,23 @@ const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOpt
         ? "http://localhost:3001/icons/exclamation.46cd17b.svg"
         : "http://localhost:3001/icons/check.8ba06be.svg";
     return html\`<span id="message" class="message" role=\${this.messageRole}><p-icon name=\${icon} source=\${src} color=\${this.iconColor} aria-hidden="true"></p-icon>\${text}</span>\`;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.applyHostStyle();
+  }
+  updated() {
+    this.applyHostStyle();
+  }
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
   }
 
   render() {`;
@@ -152,6 +173,12 @@ const required = [
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
   console.error(`build-lit-pin-code: missing ${missing.join(', ')}`);
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-pin-code', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-pin-code: ${err.message}`);
   process.exit(1);
 }
 if (after.includes('lit-pin-code') || after.includes('lit-icon') || after.includes('lit-spinner')) {

@@ -54,7 +54,8 @@ await page.waitForFunction(() => {
       const iconHidden = !!icon && getComputedStyle(icon).display === 'none';
       const sourceOnly = !!el.getAttribute('icon-source') && !el.getAttribute('icon');
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         !!span &&
         !!el.shadowRoot.querySelector('slot') &&
         icon?.localName === 'p-icon' &&
@@ -96,6 +97,7 @@ const proof = await page.evaluate(() => {
         iconHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasSpan: !!span,
         hasSlot: !!el.shadowRoot?.querySelector('slot'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -163,7 +165,8 @@ const failed =
     (h) =>
       h.tag !== 'p-tag' ||
       h.innerTag !== 'p-icon' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasSpan ||
       !h.hasSlot ||
       h.hasFragment ||

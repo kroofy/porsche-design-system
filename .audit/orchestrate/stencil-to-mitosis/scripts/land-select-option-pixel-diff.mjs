@@ -37,6 +37,7 @@ if (baselineSha !== EXPECTED_BASELINE_SHA) {
 
 const isBenign = (text) =>
   text.includes('ERR_CONNECTION_REFUSED') ||
+  text.includes('ERR_ABORTED') ||
   text.includes('should be of kind') ||
   text.includes('parent HTMLElement of') ||
   text.includes('3002');
@@ -110,7 +111,12 @@ await page.waitForFunction(() => {
       const root = el.shadowRoot;
       const style = root?.querySelector('style');
       const option = root?.querySelector('.option');
-      if (!root || !style || !option) return false;
+      const sheets = root?.adoptedStyleSheets ?? [];
+      const sheetText = sheets
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
+      if (!root || style || !sheets.length || !option) return false;
+      if (!sheetText.includes('scroll-margin-block-start') || !sheetText.includes('--_p-select-option-a')) return false;
       if (el.classList.contains('hydrated')) return false;
       if (root.querySelector('my-fragment') || root.querySelector('lit-select-option')) return false;
       if (!el.textContent?.trim()) return false;
@@ -159,6 +165,9 @@ const proof = await page.evaluate(() => {
       const style = el.shadowRoot?.querySelector('style');
       const option = el.shadowRoot?.querySelector('.option');
       const icons = [...(el.shadowRoot?.querySelectorAll('p-icon') ?? [])];
+      const sheetText = (el.shadowRoot?.adoptedStyleSheets ?? [])
+        .flatMap((sheet) => [...(sheet.cssRules ?? [])].map((rule) => rule.cssText))
+        .join(' ');
       return {
         tag: el.localName,
         ctor: el.constructor?.name,
@@ -167,6 +176,8 @@ const proof = await page.evaluate(() => {
         disabled: el.getAttribute('disabled'),
         hasShadow: !!el.shadowRoot,
         hasStyle: !!style,
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
+        hasOptionVars: sheetText.includes('scroll-margin-block-start') && sheetText.includes('--_p-select-option-a'),
         hasOption: !!option,
         optionClass: option?.className ?? '',
         iconCount: icons.length,
@@ -251,7 +262,9 @@ const failed =
       item.tag !== 'p-select-option' ||
       item.ctor !== 'LitSelectOption' ||
       !item.hasShadow ||
-      !item.hasStyle ||
+      item.hasStyle ||
+      !item.adoptedSheets ||
+      !item.hasOptionVars ||
       !item.hasOption ||
       !item.text ||
       item.hydrated ||

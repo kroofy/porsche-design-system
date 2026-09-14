@@ -76,7 +76,8 @@ await page.waitForFunction(() => {
           );
         });
       return (
-        !!el.shadowRoot?.querySelector('style') &&
+        !el.shadowRoot?.querySelector('style') &&
+        (el.shadowRoot?.adoptedStyleSheets?.length ?? 0) > 0 &&
         fieldset?.localName === 'fieldset' &&
         (legend?.textContent?.length ?? 0) > 0 &&
         icon?.localName === 'p-icon' &&
@@ -134,6 +135,7 @@ const proof = await page.evaluate(() => {
         iconHidden,
         hasShadow: !!el.shadowRoot,
         hasStyle: !!el.shadowRoot?.querySelector('style'),
+        adoptedSheets: el.shadowRoot?.adoptedStyleSheets?.length ?? 0,
         hasFieldset: fieldset?.localName === 'fieldset',
         hasSlot: !!el.shadowRoot?.querySelector('slot:not([name])'),
         hasFragment: !!el.shadowRoot?.querySelector('my-fragment'),
@@ -204,7 +206,8 @@ const failed =
       h.slottedCount !== 2 ||
       h.slottedTags.some((t) => t !== 'p-input-text') ||
       h.innerIcon !== 'p-icon' ||
-      !h.hasStyle ||
+      h.hasStyle ||
+      !h.adoptedSheets ||
       !h.hasFieldset ||
       !h.hasSlot ||
       h.hasFragment ||

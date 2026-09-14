@@ -599,14 +599,16 @@
 
   // ../../components/mitosis/table-cell/output/lit/TableCell.ts
   var LitTableCell = class extends i4 {
-    get cssText() {
-      const multiline = this.multiline === true || this.multiline === "true" || this.multiline === "" || this.hasAttribute("multiline");
-      const whiteSpace = multiline ? "normal" : "nowrap";
-      return ":host{display:table-cell;vertical-align:middle;padding:var(--_p-table-a) !important;margin:0 !important;white-space:" + whiteSpace + " !important}:host([hidden]){display:none !important}";
+    get hostStyle() {
+      const multiline = this.multiline === true || this.multiline === "true" || this.multiline === "";
+      return {
+        "--p-table-cell-ws": multiline ? "normal" : "nowrap"
+      };
     }
     connectedCallback() {
       super.connectedCallback();
       this.setAttribute("role", "cell");
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => this.requestUpdate());
       this._childObserver.observe(this, { childList: true, subtree: false });
       this.addEventListener("slotchange", () => this.requestUpdate());
@@ -621,13 +623,29 @@
         slot.addEventListener("slotchange", () => this.requestUpdate());
       });
     }
+    updated() {
+      this.applyHostStyle();
+    }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     render() {
-      return b2`<style .innerHTML="${this.cssText}"></style><slot></slot>`;
+      return b2`<slot></slot>`;
     }
   };
   LitTableCell.styles = i`
       :host {
           display: table-cell;
+          vertical-align: middle;
+          padding: var(--_p-table-a) !important;
+          margin: 0 !important;
+          white-space: var(--p-table-cell-ws, nowrap) !important;
         }
         :host([hidden]) {
           display: none !important;

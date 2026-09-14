@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/fieldset');
@@ -27,7 +31,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return html`<fieldset><style .innerHTML="${this.cssText}"></style><legend>${this.labelText}</legend><slot></slot><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span></fieldset>`;';
+  'return html`<fieldset><legend>${this.labelText}</legend><slot></slot><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span></fieldset>`;';
 
 const extraGetters = `  get iconSrc() {
     const files = {
@@ -50,23 +54,35 @@ let after = before
     'import { LitElement, html, css } from "lit";',
     'import { LitElement, html, css, nothing } from "lit";'
   )
-  .replace(
+  .replaceAll(
     'const label = this.label || "";',
     'const label = (this.getAttribute("label") ?? this.label) || "";'
   )
-  .replace(
+  .replaceAll(
     'const labelSize = this.labelSize || "medium";',
     'const labelSize = (this.getAttribute("label-size") ?? this.labelSize) || "medium";'
   )
-  .replace(
+  .replaceAll(
+    '(this.labelSize || "medium")',
+    '((this.getAttribute("label-size") ?? this.labelSize) || "medium")'
+  )
+  .replaceAll(
     'return this.label || "";',
     'return (this.getAttribute("label") ?? this.label) || "";'
   )
-  .replace(
+  .replaceAll(
     'const formState = this.state || "none";',
     'const formState = (this.getAttribute("state") ?? this.state) || "none";'
   )
-  .replace(
+  .replaceAll(
+    'this.state === "success"',
+    '(this.getAttribute("state") ?? this.state) === "success"'
+  )
+  .replaceAll(
+    'this.state === "error"',
+    '(this.getAttribute("state") ?? this.state) === "error"'
+  )
+  .replaceAll(
     'const message = this.message || "";',
     'const message = (this.getAttribute("message") ?? this.message) || "";'
   )
@@ -99,6 +115,12 @@ if (
 }
 if (after.includes('lit-fieldset') || after.includes('lit-icon') || after.includes('lit-input-text')) {
   console.error('build-lit-fieldset: generated output must use p-fieldset / p-icon, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-fieldset', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-fieldset: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

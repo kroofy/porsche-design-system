@@ -3,6 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/pagination');
@@ -26,9 +30,37 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<nav aria-label="Pagination"><style .innerHTML="\${this.cssText}"></style><ul>\${this.pageNodes}</ul></nav>\`;`;
+const renderTemplate = `return html\`<nav aria-label="Pagination"><ul>\${this.pageNodes}</ul></nav>\`;`;
 
 const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  connectedCallback() {
+    super.connectedCallback();
+    this.applyHostStyle();
+  }
+  updated() {
+    this.applyHostStyle();
+  }
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
+    }
+    const hide = (name) => vars[name] === "none";
+    this.toggleAttribute("data-pg-few", hide("--p-pg-ellip"));
+    this.toggleAttribute("data-pg-start", hide("--p-pg-ellip-start"));
+    this.toggleAttribute("data-pg-end-4", hide("--p-pg-ellip-end-3"));
+    this.toggleAttribute("data-pg-end-3", hide("--p-pg-ellip-end-2"));
+    this.toggleAttribute("data-pg-m-start", hide("--p-pg-m-start"));
+    this.toggleAttribute("data-pg-m-end", hide("--p-pg-m-end"));
+    this.toggleAttribute("data-pg-m-mid", hide("--p-pg-m-mid"));
+    this.toggleAttribute("data-pg-m-cur-2", hide("--p-pg-m-cur-2"));
+    this.toggleAttribute("data-pg-m-cur-1", hide("--p-pg-m-cur-1"));
+    this.toggleAttribute("data-pg-m-cur-after", hide("--p-pg-m-cur-after"));
+    this.toggleAttribute("data-pg-m-ellip-end-show", vars["--p-pg-m-ellip-end-show"] === "1");
+  }
   get pageItems() {
     const totalItems = Number(this.getAttribute("total-items-count") ?? this.totalItemsCount ?? 1);
     const perPage = Number(this.getAttribute("items-per-page") ?? this.itemsPerPage ?? 1);
@@ -128,16 +160,16 @@ let after = before
   .replace(/@property\(\)\s+itemsPerPage/g, '@property({ attribute: "items-per-page" }) itemsPerPage')
   .replace(/@property\(\)\s+activePage/g, '@property({ attribute: "active-page" }) activePage')
   .replace(/@property\(\)\s+showLastPage/g, '@property({ attribute: "show-last-page" }) showLastPage')
-  .replaceAll(
-    'const totalItems = Number(this.totalItemsCount == null || this.totalItemsCount === \'\' ? 1 : this.totalItemsCount);',
+  .replace(
+    /const totalItems = Number\(\s*this\.totalItemsCount[\s\S]*?\);/,
     'const totalItems = Number((this.getAttribute("total-items-count") ?? this.totalItemsCount) == null || (this.getAttribute("total-items-count") ?? this.totalItemsCount) === "" ? 1 : (this.getAttribute("total-items-count") ?? this.totalItemsCount));'
   )
-  .replaceAll(
-    'const perPage = Number(this.itemsPerPage == null || this.itemsPerPage === \'\' ? 1 : this.itemsPerPage);',
+  .replace(
+    /const perPage = Number\(\s*this\.itemsPerPage[\s\S]*?\);/,
     'const perPage = Number((this.getAttribute("items-per-page") ?? this.itemsPerPage) == null || (this.getAttribute("items-per-page") ?? this.itemsPerPage) === "" ? 1 : (this.getAttribute("items-per-page") ?? this.itemsPerPage));'
   )
-  .replaceAll(
-    'let active = Number(this.activePage == null || this.activePage === \'\' ? 1 : this.activePage);',
+  .replace(
+    /let active = Number\(\s*this\.activePage[\s\S]*?\);/,
     'let active = Number((this.getAttribute("active-page") ?? this.activePage) == null || (this.getAttribute("active-page") ?? this.activePage) === "" ? 1 : (this.getAttribute("active-page") ?? this.activePage));'
   )
   .replaceAll(
@@ -181,10 +213,11 @@ const required = [
   'items-per-page',
   'active-page',
   'show-last-page',
-  'min-width:760px',
+  'min-width: 760px',
   'pageNodes',
   'delegatesFocus',
   'aria-label="Pagination"',
+  '--p-pg-ellip',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {
@@ -193,6 +226,12 @@ if (missing.length) {
 }
 if (after.includes('lit-pagination') || after.includes('lit-icon')) {
   console.error('build-lit-pagination: generated output must use p-* tags, not lit-*');
+  process.exit(1);
+}
+try {
+  assertLitIdiom(after, { tag: 'p-pagination', requireHostStyle: true });
+} catch (err) {
+  console.error(`build-lit-pagination: ${err.message}`);
   process.exit(1);
 }
 if (after !== before) {

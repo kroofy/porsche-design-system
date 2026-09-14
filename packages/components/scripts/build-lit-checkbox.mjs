@@ -27,7 +27,7 @@ if (!generated) {
 }
 
 const renderTemplate =
-  'return html`<div class="root"><style .innerHTML="${this.cssText}"></style><div class="wrapper"><div class="input-wrapper"><input type="checkbox" id="x" .checked=${!!this.isChecked} ?disabled=${!!this.isDisabled} aria-disabled=${this.ariaDisabled || nothing} aria-invalid=${this.ariaInvalid || nothing}><p-spinner class="spinner" aria-hidden="true"></p-spinner></div><div class="label-wrapper"><label class="label" id="label" for="x">${this.labelText}</label></div></div><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span><span class="loading" id="loading" role="status">${this.loadingText}</span></div>`;';
+  'return html`<div class="root"><div class="wrapper"><div class="input-wrapper"><input type="checkbox" id="x" .checked=${!!this.isChecked} ?disabled=${!!this.isDisabled} aria-disabled=${this.ariaDisabled || nothing} aria-invalid=${this.ariaInvalid || nothing}><p-spinner class="spinner" aria-hidden="true"></p-spinner></div><div class="label-wrapper"><label class="label" id="label" for="x">${this.labelText}</label></div></div><span class="message" id="message"><p-icon name=${this.iconName || nothing} source=${this.iconSrc || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span><span class="loading" id="loading" role="status">${this.loadingText}</span></div>`;';
 
 const updatedBlock = `  get iconSrc() {
     const files = {
@@ -39,11 +39,27 @@ const updatedBlock = `  get iconSrc() {
     return "";
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.applyHostStyle();
+  }
+
   updated() {
+    this.applyHostStyle();
     const input = this.renderRoot?.querySelector("input");
     if (input) {
       const raw = this.indeterminate ?? this.getAttribute("indeterminate");
       input.indeterminate = raw === true || raw === "true" || raw === "";
+    }
+  }
+
+  applyHostStyle() {
+    const vars = this.hostStyle;
+    if (!vars) return;
+    for (const name of Object.keys(vars)) {
+      const value = vars[name];
+      if (value == null || value === "") this.style.removeProperty(name);
+      else this.style.setProperty(name, String(value));
     }
   }
 
@@ -59,6 +75,12 @@ let after = before
     'import { LitElement, html, css, nothing } from "lit";'
   )
   .replace('const hideLabel = parse(this.hideLabel, false);', 'const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);')
+  .replace('const disabled = isTrue(this.disabled);', 'const disabled = isTrue(this.disabled ?? this.getAttribute("disabled"));')
+  .replace('const loading = isTrue(this.loading);', 'const loading = isTrue(this.loading ?? this.getAttribute("loading"));')
+  .replace('const compact = isTrue(this.compact);', 'const compact = isTrue(this.compact ?? this.getAttribute("compact"));')
+  .replace('const formState = this.state || "none";', 'const formState = this.state ?? this.getAttribute("state") ?? "none";')
+  .replace("const message = this.message || '';", 'const message = this.message ?? this.getAttribute("message") ?? "";')
+  .replace('const hasLbl = !!(this.label || "");', 'const hasLbl = !!(this.label ?? this.getAttribute("label") ?? "");')
   .replace('@property() checked: any;', '@property() checked: any;\n  @property() indeterminate: any;')
   .replace(/return html`[\s\S]*?`;/, renderTemplate);
 
@@ -89,6 +111,14 @@ if (
 }
 if (after.includes('lit-checkbox') || after.includes('lit-icon') || after.includes('lit-spinner')) {
   console.error('build-lit-checkbox: generated output must use p-checkbox / p-icon / p-spinner, not lit-*');
+  process.exit(1);
+}
+if (!after.includes('static styles') || !after.includes('hostStyle') || !after.includes('applyHostStyle')) {
+  console.error('build-lit-checkbox: expected static styles + hostStyle + applyHostStyle');
+  process.exit(1);
+}
+if (after.includes('get cssText') || after.includes('.innerHTML')) {
+  console.error('build-lit-checkbox: cssText/innerHTML stylesheet hack is not allowed');
   process.exit(1);
 }
 if (after !== before) {

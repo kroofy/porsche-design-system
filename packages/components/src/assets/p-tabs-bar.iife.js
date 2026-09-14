@@ -598,6 +598,27 @@
   }
 
   // ../../components/mitosis/tabs-bar/output/lit/TabsBar.ts
+  var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
+  var parse = (raw, fallback) => {
+    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (typeof raw === "string" && raw.charAt(0) === "{") {
+      try {
+        return JSON.parse(
+          raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+        );
+      } catch {
+        return fallback;
+      }
+    }
+    return raw;
+  };
+  var pick = (obj, key, fallback) => {
+    if (obj && typeof obj === "object") {
+      if (obj[key] === void 0) return fallback;
+      return obj[key];
+    }
+    return obj;
+  };
   var LitTabsBar = class extends i4 {
     constructor() {
       super(...arguments);
@@ -649,95 +670,49 @@
         if (target.matches?.("button,a")) e5.preventDefault();
       };
     }
-    get cssText() {
-      const minWidth = {
-        xs: 480,
-        s: 760,
-        m: 1e3,
-        l: 1300,
-        xl: 1760,
-        xxl: 1920
-      };
-      const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
-        if (typeof raw === "string" && raw.charAt(0) === "{") {
-          try {
-            return JSON.parse(
-              raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
-            );
-          } catch (e5) {
-            return fallback;
-          }
-        }
-        return raw;
-      };
+    get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
-      const pick = (obj, key, fallback) => {
-        if (obj && typeof obj === "object") {
-          if (obj[key] === void 0) return fallback;
-          return obj[key];
-        }
-        return obj;
-      };
       const compact = isTrue(this.compact ?? this.getAttribute("compact"));
       const background = this.background ?? this.getAttribute("background") ?? "none";
       const hasBackground = background !== "none";
       const size = parse(this.getAttribute("size") ?? this.size, "small");
-      const sizeBase = typeof size === "object" && size !== null ? pick(size, "base", "small") : size;
       const fontFor = (s4) => s4 === "medium" ? "var(--p-typescale-md)" : "var(--p-typescale-sm)";
-      const tabCount = this.tabCount();
-      const rawIndex = this.activeTabIndex ?? this.getAttribute("active-tab-index") ?? this.getAttribute("activetabindex");
-      let active;
-      if (rawIndex === void 0 || rawIndex === null || rawIndex === "") {
-        active = void 0;
-      } else {
-        const n5 = Number(rawIndex);
-        if (!Number.isInteger(n5) || tabCount < 1 || n5 < 0 || n5 > tabCount - 1)
-          active = void 0;
-        else active = n5;
-      }
-      const hasActive = active !== void 0;
-      const nth = hasActive ? active + 1 : 0;
       const radiusButton = hasBackground ? compact ? "var(--p-radius-md)" : "var(--p-radius-lg)" : compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)";
       const tabPad = hasBackground ? compact ? "calc(7 * var(--p-spacing-static-2xs) - var(--p-spacing-static-xs)) calc(var(--p-spacing-static-md) - var(--p-spacing-static-xs))" : "calc(var(--p-spacing-static-md) - var(--p-spacing-static-xs)) calc(28 * var(--p-spacing-static-2xs) - var(--p-spacing-static-xs))" : compact ? "calc(6 * var(--p-spacing-static-2xs)) var(--p-spacing-static-md)" : "var(--p-spacing-static-md) calc(28 * var(--p-spacing-static-2xs))";
-      const bgMap = {
-        canvas: "var(--p-color-canvas)",
-        surface: "var(--p-color-surface)",
-        frosted: "var(--p-color-frosted)"
+      const vars = {
+        "--p-tb-radius": radiusButton,
+        "--p-tb-pad": tabPad
       };
-      let out = ":host{display:grid}:host([hidden]){display:none !important}.wrap{display:contents}:not(:defined,[data-ssr]){visibility:hidden}::slotted(a),::slotted(button){all:unset !important;white-space:nowrap !important;cursor:pointer !important;border-radius:" + radiusButton + " !important;padding:" + tabPad + " !important;font:var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next) !important;font-size:" + fontFor(sizeBase) + " !important;color:var(--p-color-primary) !important;background:0 0 / 0% 100% no-repeat !important;transition:background-color var(--p-duration-sm) var(--p-ease-in-out) !important}::slotted(a:focus-visible),::slotted(button:focus-visible){outline:2px solid var(--p-color-focus) !important;outline-offset:2px !important}";
-      if (hasActive) {
-        out += "::slotted(a:nth-child(" + nth + ")),::slotted(button:nth-child(" + nth + ")){background-image:linear-gradient(var(--p-color-frosted-strong), var(--p-color-frosted-strong)) !important;background-size:100% 100% !important;transition:background-size 0s linear var(--p-duration-md) !important}";
-      }
-      out += "@media(forced-colors:active){::slotted(a),::slotted(button){forced-color-adjust:none !important;background:Canvas !important}::slotted(a){color:LinkText !important;box-shadow:inset 0 0 0 2px LinkText !important}::slotted(button){color:ButtonText !important;box-shadow:inset 0 0 0 2px ButtonBorder !important}::slotted(a:focus-visible),::slotted(button:focus-visible){outline-color:Highlight !important}}";
-      if (hasActive) {
-        out += "@media(hover:hover){::slotted(a:not(:nth-child(" + nth + ")):hover),::slotted(button:not(:nth-child(" + nth + ")):hover){background-color:var(--p-color-frosted) !important}}";
-      } else {
-        out += "@media(hover:hover){::slotted(a:hover),::slotted(button:hover){background-color:var(--p-color-frosted) !important}}";
-      }
-      out += ".scroller{--_p-scroller-focus-ring-radius:" + radiusButton + ";place-self:flex-start";
-      if (hasBackground) {
-        out += ";background:" + bgMap[background] + ";padding:" + (compact ? "calc(3 * var(--p-spacing-static-2xs))" : "var(--p-spacing-static-xs)") + ";border-radius:" + (compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)");
-        if (background === "frosted") {
-          out += ";-webkit-backdrop-filter:var(--p-blur-frosted);backdrop-filter:var(--p-blur-frosted)";
-        }
-      }
-      out += "}";
-      out += ".bar{position:absolute;inset-inline-start:0;width:0px;height:100%;z-index:-1;pointer-events:none;border-radius:" + radiusButton + ";background:var(--p-color-frosted-strong)}";
-      if (hasBackground) {
-        out += "@media(forced-colors:active){.scroller{forced-color-adjust:none;outline:1px solid CanvasText}.bar{display:none}}";
-      } else {
-        out += "@media(forced-colors:active){.bar{display:none}}";
-      }
       if (typeof size === "object" && size !== null) {
-        for (const bp of Object.keys(size)) {
+        let last = String(pick(size, "base", "small") || "small");
+        for (const bp of BREAKPOINTS) {
+          if (size[bp] !== void 0) last = String(pick(size, bp, last));
+          const key = bp === "base" ? "--p-tb-fs" : `--p-tb-fs-${bp}`;
+          vars[key] = fontFor(last);
+        }
+      } else {
+        const fs = fontFor(size);
+        vars["--p-tb-fs"] = fs;
+        for (const bp of BREAKPOINTS) {
           if (bp === "base") continue;
-          if (!minWidth[bp]) continue;
-          const s4 = pick(size, bp, sizeBase);
-          out += "@media(min-width:" + minWidth[bp] + "px){::slotted(a),::slotted(button){font-size:" + fontFor(s4) + " !important}}";
+          vars[`--p-tb-fs-${bp}`] = fs;
         }
       }
-      return out;
+      if (hasBackground) {
+        const bgMap = {
+          canvas: "var(--p-color-canvas)",
+          surface: "var(--p-color-surface)",
+          frosted: "var(--p-color-frosted)"
+        };
+        vars["--p-tb-scroller-bg"] = bgMap[background] || "";
+        vars["--p-tb-scroller-pad"] = compact ? "calc(3 * var(--p-spacing-static-2xs))" : "var(--p-spacing-static-xs)";
+        vars["--p-tb-scroller-radius"] = compact ? "var(--p-radius-lg)" : "var(--p-radius-xl)";
+      } else {
+        vars["--p-tb-scroller-bg"] = "";
+        vars["--p-tb-scroller-pad"] = "";
+        vars["--p-tb-scroller-radius"] = "";
+      }
+      return vars;
     }
     get isCompact() {
       return (this.compact ?? this.getAttribute("compact")) === true || (this.compact ?? this.getAttribute("compact")) === "true" || (this.compact ?? this.getAttribute("compact")) === "";
@@ -822,8 +797,18 @@
     emitUpdate(activeTabIndex) {
       this.dispatchEvent(new CustomEvent("update", { detail: { activeTabIndex }, bubbles: false }));
     }
+    applyHostStyle() {
+      const vars = this.hostStyle;
+      if (!vars) return;
+      for (const name of Object.keys(vars)) {
+        const value = vars[name];
+        if (value == null || value === "") this.style.removeProperty(name);
+        else this.style.setProperty(name, String(value));
+      }
+    }
     connectedCallback() {
       super.connectedCallback();
+      this.applyHostStyle();
       this._childObserver = new MutationObserver(() => {
         this.requestUpdate();
         this.updateComplete.then(() => requestAnimationFrame(() => this.scrollActiveIntoView()));
@@ -862,22 +847,118 @@
       }
     }
     updated() {
+      this.applyHostStyle();
       this.syncTabAria();
     }
     render() {
       const compact = !!this.isCompact;
       const aria = this.scrollerAria();
-      return b2`<div class="wrap"><style .innerHTML="${this.cssText}"></style><p-scroller class="scroller" ?compact=${compact} .aria=${aria === A ? A : aria}><slot></slot><span class="bar"></span></p-scroller></div>`;
+      return b2`<div class="wrap"><p-scroller class="scroller" ?compact=${compact} .aria=${aria === A ? A : aria}><slot></slot><span class="bar"></span></p-scroller></div>`;
     }
   };
   LitTabsBar.styles = i`
-      :host([hidden]) {
+      :host {
+          display: grid;
+        }
+        :host([hidden]) {
           display: none !important;
+        }
+        .wrap {
+          display: contents;
+        }
+        :not(:defined, [data-ssr]) {
+          visibility: hidden;
+        }
+        ::slotted(a),
+        ::slotted(button) {
+          all: unset !important;
+          white-space: nowrap !important;
+          cursor: pointer !important;
+          border-radius: var(--p-tb-radius) !important;
+          padding: var(--p-tb-pad) !important;
+          font: var(--p-typescale-sm) / var(--p-leading-normal)
+            var(--p-font-porsche-next) !important;
+          font-size: var(--p-tb-fs) !important;
+          color: var(--p-color-primary) !important;
+          background: 0 0 / 0% 100% no-repeat !important;
+          transition: background-color var(--p-duration-sm) var(--p-ease-in-out) !important;
+        }
+        ::slotted(a:focus-visible),
+        ::slotted(button:focus-visible) {
+          outline: 2px solid var(--p-color-focus) !important;
+          outline-offset: 2px !important;
+        }
+        ::slotted(a[aria-current="true"]),
+        ::slotted(button[aria-selected="true"]) {
+          background-image: linear-gradient(
+            var(--p-color-frosted-strong),
+            var(--p-color-frosted-strong)
+          ) !important;
+          background-size: 100% 100% !important;
+          transition: background-size 0s linear var(--p-duration-md) !important;
+        }
+        @media (forced-colors: active) {
+          ::slotted(a),
+          ::slotted(button) {
+            forced-color-adjust: none !important;
+            background: Canvas !important;
+          }
+          ::slotted(a) {
+            color: LinkText !important;
+            box-shadow: inset 0 0 0 2px LinkText !important;
+          }
+          ::slotted(button) {
+            color: ButtonText !important;
+            box-shadow: inset 0 0 0 2px ButtonBorder !important;
+          }
+          ::slotted(a:focus-visible),
+          ::slotted(button:focus-visible) {
+            outline-color: Highlight !important;
+          }
+          .bar {
+            display: none;
+          }
+          :host([background]:not([background="none"])) .scroller {
+            forced-color-adjust: none;
+            outline: 1px solid CanvasText;
+          }
+        }
+        @media (hover: hover) {
+          ::slotted(a:not([aria-current="true"]):hover),
+          ::slotted(button:not([aria-selected="true"]):hover) {
+            background-color: var(--p-color-frosted) !important;
+          }
+        }
+        .scroller {
+          --_p-scroller-focus-ring-radius: var(--p-tb-radius);
+          place-self: flex-start;
+        }
+        :host([background]:not([background="none"])) .scroller {
+          background: var(--p-tb-scroller-bg);
+          padding: var(--p-tb-scroller-pad);
+          border-radius: var(--p-tb-scroller-radius);
+        }
+        :host([background="frosted"]) .scroller {
+          -webkit-backdrop-filter: var(--p-blur-frosted);
+          backdrop-filter: var(--p-blur-frosted);
+        }
+        .bar {
+          position: absolute;
+          inset-inline-start: 0;
+          width: 0px;
+          height: 100%;
+          z-index: -1;
+          pointer-events: none;
+          border-radius: var(--p-tb-radius);
+          background: var(--p-color-frosted-strong);
         }
 `;
   __decorateClass([
     n4()
   ], LitTabsBar.prototype, "aria", 2);
+  __decorateClass([
+    n4({ attribute: "active-tab-index" })
+  ], LitTabsBar.prototype, "activeTabIndex", 2);
   __decorateClass([
     n4()
   ], LitTabsBar.prototype, "weight", 2);
@@ -890,9 +971,6 @@
   __decorateClass([
     n4()
   ], LitTabsBar.prototype, "size", 2);
-  __decorateClass([
-    n4({ attribute: "active-tab-index" })
-  ], LitTabsBar.prototype, "activeTabIndex", 2);
   LitTabsBar = __decorateClass([
     t3("p-tabs-bar")
   ], LitTabsBar);

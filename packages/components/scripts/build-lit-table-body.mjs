@@ -50,7 +50,7 @@ const extraMethods = `  connectedCallback() {
   }
 
   render() {
-    return html\`<style .innerHTML="\${this.cssText}"></style><slot></slot>\`;
+    return html\`<slot></slot>\`;
   }
 }`;
 
@@ -84,7 +84,7 @@ const required = [
   'MutationObserver',
   'slotchange',
   'queueMicrotask',
-  'cssText',
+  'static styles',
 ];
 const missing = required.filter((needle) => !after.includes(needle));
 if (missing.length) {

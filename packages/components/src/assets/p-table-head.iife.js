@@ -569,9 +569,6 @@
 
   // ../../components/mitosis/table-head/output/lit/TableHead.ts
   var LitTableHead = class extends i4 {
-    get cssText() {
-      return ":host{display:table-header-group;font:var(--p-font-weight-semibold) var(--p-typescale-xs) / var(--p-leading-normal) var(--p-font-porsche-next) !important;border-bottom:1px solid var(--_p-table-c) !important}:host([hidden]){display:none !important}::slotted(*){--_p-table-d:0px !important;--_p-table-b:none !important}";
-    }
     connectedCallback() {
       super.connectedCallback();
       this.setAttribute("role", "rowgroup");
@@ -590,15 +587,22 @@
       });
     }
     render() {
-      return b2`<style .innerHTML="${this.cssText}"></style><slot></slot>`;
+      return b2`<slot></slot>`;
     }
   };
   LitTableHead.styles = i`
       :host {
           display: table-header-group;
+          font: var(--p-font-weight-semibold) var(--p-typescale-xs) /
+            var(--p-leading-normal) var(--p-font-porsche-next) !important;
+          border-bottom: 1px solid var(--_p-table-c) !important;
         }
         :host([hidden]) {
           display: none !important;
+        }
+        ::slotted(*) {
+          --_p-table-d: 0px !important;
+          --_p-table-b: none !important;
         }
 `;
   LitTableHead = __decorateClass([
