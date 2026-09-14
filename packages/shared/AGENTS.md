@@ -40,6 +40,7 @@ npm run test:unit:shared
 ## Implementation Notes
 
 - Changes here can affect components, wrappers, styles, storefront tooling, and tests across the monorepo.
+- `scripts/generateTagNames.ts` reads `useMetadata({ tagName })` from `packages/components/mitosis/**/*.lite.tsx`.
 - Generators read source files from sibling packages, so keep paths and naming conventions stable unless you intentionally update all consumers.
 - Prefer updating source data, models, and generator scripts rather than patching generated output.
 - Be conservative when changing framework conversion helpers because they feed example generation and docs tooling.
