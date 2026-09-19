@@ -30,12 +30,15 @@ if (!generated) {
   process.exit(1);
 }
 
-const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.labelText ? "label" : nothing}>\${this.labelNode}<div class="wrapper" dir="ltr">\${this.inputNodes}\${this.spinnerNode}</div>\${this.messageNode}<span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
+const renderTemplate = `return html\`<fieldset class="root" ?disabled=\${!!this.isDisabled} aria-invalid=\${this.ariaInvalid || nothing} aria-labelledby=\${this.labelText ? "label" : nothing}>\${this.labelNode}<div class="wrapper" dir="ltr" @keydown=\${this.onKeyDown} @paste=\${this.onPaste} @input=\${this.onInput}>\${this.inputNodes}\${this.spinnerNode}</div>\${this.messageNode}<span class="loading" id="loading" role="status">\${this.loadingText}</span></fieldset>\`;`;
 
 const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  get inputElements() {
+    return Array.from(this.renderRoot?.querySelectorAll("input") || []);
+  }
   get labelNode() {
     if (!this.labelText) return nothing;
-    return html\`<div class="label-wrapper"><label class="label" id="label" for="current-input" aria-disabled=\${this.isDisabled || this.isLoading ? "true" : nothing}>\${this.labelText}</label><slot name="label-after"></slot></div>\`;
+    return html\`<div class="label-wrapper"><label class="label" id="label" for="current-input" aria-disabled=\${this.isDisabled || this.isLoading ? "true" : nothing} @click=\${this.focusCurrentInput}>\${this.labelText}</label><slot name="label-after"></slot></div>\`;
   }
   get inputNodes() {
     const n = Number(this.pinLength) || 4;
@@ -45,7 +48,7 @@ const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOpt
     for (let i = 0; i < n; i++) {
       const isCurrent = !value ? i === 0 : value.indexOf(" ") === -1 ? i === n - 1 : i === value.indexOf(" ");
       const ch = value[i] && value[i] !== " " ? value[i] : "";
-      nodes.push(html\`<input id=\${isCurrent ? "current-input" : nothing} type=\${type} aria-label=\${i + 1 + "-" + n} aria-invalid=\${this.ariaInvalid || nothing} aria-disabled=\${this.isLoading ? "true" : nothing} autocomplete="one-time-code" pattern="\\\\d*" inputmode="numeric" .value=\${ch} ?disabled=\${!!this.isDisabled}>\`);
+      nodes.push(html\`<input id=\${isCurrent ? "current-input" : nothing} type=\${type} aria-label=\${i + 1 + " of " + n} aria-invalid=\${this.ariaInvalid || nothing} aria-disabled=\${this.isLoading ? "true" : nothing} autocomplete="one-time-code" pattern="\\\\d*" inputmode="numeric" .value=\${ch} ?disabled=\${!!this.isDisabled} ?required=\${!!this.isRequired} @focus=\${this.onInputFocus} @mouseup=\${this.onInputMouseUp} @blur=\${this.onInputBlur} @beforeinput=\${this.onBeforeInput}>\`);
     }
     return nodes;
   }
@@ -78,6 +81,134 @@ const extraGetters = `  static shadowRootOptions = { ...LitElement.shadowRootOpt
       const value = vars[name];
       if (value == null || value === "") this.style.removeProperty(name);
       else this.style.setProperty(name, String(value));
+    }
+  }
+  isInputOnlyDigits(input) {
+    return /^[0-9]*$/.test(input);
+  }
+  removeWhiteSpaces(value) {
+    return String(value ?? "").replace(/\\s/g, "");
+  }
+  hasInputOnlyDigitsOrWhitespaces(input) {
+    return /^[\\d ]+$/.test(input);
+  }
+  getConcatenatedInputValues() {
+    return this.inputElements.map((el) => el.value || " ").join("");
+  }
+  getSanitisedValue(value, length) {
+    if (value && !this.hasInputOnlyDigitsOrWhitespaces(value)) return "";
+    if (this.removeWhiteSpaces(value).length > length) return String(value).slice(0, length);
+    return value;
+  }
+  onBeforeInput(event) {
+    const { data, inputType, target } = event;
+    if (this.isLoading) {
+      event.preventDefault();
+      return;
+    }
+    if (data && !this.isInputOnlyDigits(data)) {
+      event.preventDefault();
+      return;
+    }
+    if (inputType === "insertText" && target.value.length > 0 && data?.length === 1) {
+      event.preventDefault();
+      target.value = data;
+      this.updateValue(this.getConcatenatedInputValues());
+      if (target.nextElementSibling) target.nextElementSibling.focus();
+      else target.select();
+      return;
+    }
+    if (inputType === "insertText" && target.value.length > 0) {
+      event.preventDefault();
+    }
+  }
+  onInputFocus(event) {
+    if (event.target.value) event.target.select();
+  }
+  onInputMouseUp(event) {
+    if (event.target.value) event.preventDefault();
+  }
+  onInput(event) {
+    const { target } = event;
+    const length = Number(this.pinLength) || 4;
+    if (target.value.length >= length) {
+      const sanitisedValue = this.removeWhiteSpaces(this.getSanitisedValue(target.value, length));
+      this.updateValue(sanitisedValue);
+      this.focusFirstEmptyOrLastInput(sanitisedValue);
+    } else {
+      this.updateValue(this.getConcatenatedInputValues());
+      target.nextElementSibling?.focus();
+    }
+  }
+  onKeyDown(event) {
+    const { key, target } = event;
+    const previousElementSibling = target.previousElementSibling;
+    const nextElementSibling = target.nextElementSibling;
+    if (key === "ArrowLeft") {
+      event.preventDefault();
+      previousElementSibling?.focus();
+    } else if (key === "ArrowRight") {
+      event.preventDefault();
+      nextElementSibling?.focus();
+    } else if (key === "Home") {
+      event.preventDefault();
+      this.inputElements[0]?.focus();
+    } else if (key === "End") {
+      event.preventDefault();
+      this.inputElements[this.inputElements.length - 1]?.focus();
+    } else if (key === "Backspace" || key === "Delete") {
+      if (!target.value) {
+        event.preventDefault();
+        if (key === "Backspace" && previousElementSibling) {
+          previousElementSibling.value = "";
+          previousElementSibling.focus();
+        } else if (key === "Delete" && nextElementSibling) {
+          nextElementSibling.value = "";
+          nextElementSibling.focus();
+        }
+      }
+      target.value = "";
+      this.updateValue(this.getConcatenatedInputValues());
+    } else if (key === "Dead" || key === "Process") {
+      target.blur();
+      requestAnimationFrame(() => target.focus());
+    }
+  }
+  onPaste(event) {
+    const length = Number(this.pinLength) || 4;
+    const sanitisedPastedValue = this.removeWhiteSpaces(
+      this.getSanitisedValue(event.clipboardData.getData("Text"), length)
+    );
+    if (sanitisedPastedValue !== this.parsedValue) {
+      this.updateValue(sanitisedPastedValue);
+      this.focusFirstEmptyOrLastInput(sanitisedPastedValue);
+    }
+    event.preventDefault();
+  }
+  updateValue(newValue) {
+    this.value = newValue;
+    if (newValue == null) this.removeAttribute("value");
+    else this.setAttribute("value", String(newValue));
+    const length = Number(this.pinLength) || 4;
+    this.dispatchEvent(
+      new CustomEvent("change", {
+        bubbles: true,
+        composed: true,
+        detail: { value: newValue, isComplete: this.removeWhiteSpaces(newValue).length === length },
+      })
+    );
+  }
+  focusFirstEmptyOrLastInput(sanitisedValue) {
+    const length = Number(this.pinLength) || 4;
+    this.inputElements[sanitisedValue.length === length ? sanitisedValue.length - 1 : sanitisedValue.length]?.focus();
+  }
+  focusCurrentInput() {
+    this.inputElements.find((input) => input.id === "current-input")?.focus();
+  }
+  onInputBlur(event) {
+    event.stopPropagation();
+    if (!event.relatedTarget || !this.inputElements.includes(event.relatedTarget)) {
+      this.dispatchEvent(new CustomEvent("blur", { bubbles: false, composed: true }));
     }
   }
 
@@ -165,6 +296,10 @@ const required = [
   'hide-label',
   'loading',
   'current-input',
+  ' of ',
+  'onBeforeInput',
+  'onKeyDown',
+  'focusCurrentInput',
   'exclamation.46cd17b.svg',
   'check.8ba06be.svg',
   'delegatesFocus',
