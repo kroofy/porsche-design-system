@@ -75,9 +75,11 @@ if (
   !after.includes('isAbbreviation') ||
   !after.includes('copyLabel') ||
   !after.includes('AI-generated') ||
+  !after.includes('zhCN') ||
+  !after.includes('人工知能') ||
   !after.includes('div::before')
 ) {
-  console.error('build-lit-ai-tag: expected abbr/copy variants and icon mask');
+  console.error('build-lit-ai-tag: expected abbr/copy variants, locales, and icon mask');
   process.exit(1);
 }
 if (after.includes('lit-ai-tag')) {
