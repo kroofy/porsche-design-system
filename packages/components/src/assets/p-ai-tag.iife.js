@@ -598,26 +598,255 @@
   }
 
   // ../../components/mitosis/ai-tag/output/lit/AiTag.ts
+  var ZH_REGION = {
+    CN: "zhCN",
+    HK: "zhHK",
+    TW: "zhTW"
+  };
+  var AI_TAG_TRANSLATIONS = {
+    ar: {
+      short: "AI",
+      long: "\u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064A",
+      generated: "\u0645\u064F\u0646\u0634\u0623 \u0628\u0648\u0627\u0633\u0637\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064A",
+      modified: "\u0645\u064F\u0639\u062F\u0651\u064E\u0644 \u0628\u0648\u0627\u0633\u0637\u0629 \u0627\u0644\u0630\u0643\u0627\u0621 \u0627\u0644\u0627\u0635\u0637\u0646\u0627\u0639\u064A"
+    },
+    bg: {
+      short: "\u0418\u0418",
+      long: "\u0438\u0437\u043A\u0443\u0441\u0442\u0432\u0435\u043D \u0438\u043D\u0442\u0435\u043B\u0435\u043A\u0442",
+      generated: "\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u0430\u043D \u043E\u0442 \u0438\u0437\u043A\u0443\u0441\u0442\u0432\u0435\u043D \u0438\u043D\u0442\u0435\u043B\u0435\u043A\u0442",
+      modified: "\u043C\u043E\u0434\u0438\u0444\u0438\u0446\u0438\u0440\u0430\u043D \u043E\u0442 \u0438\u0437\u043A\u0443\u0441\u0442\u0432\u0435\u043D \u0438\u043D\u0442\u0435\u043B\u0435\u043A\u0442"
+    },
+    bs: {
+      short: "AI",
+      long: "vje\u0161ta\u010Dka inteligencija",
+      generated: "AI-generisano",
+      modified: "AI-modifikovano"
+    },
+    cs: {
+      short: "AI",
+      long: "um\u011Bl\xE1 inteligence",
+      generated: "Vytvo\u0159eno AI",
+      modified: "Upraveno AI"
+    },
+    da: {
+      short: "KI",
+      long: "kunstig intelligens",
+      generated: "AI-genereret",
+      modified: "AI-modificeret"
+    },
+    de: {
+      short: "KI",
+      long: "k\xFCnstliche Intelligenz",
+      generated: "KI-generiert",
+      modified: "KI-modifiziert"
+    },
+    el: {
+      short: "\u03A4\u039D",
+      long: "\u03C4\u03B5\u03C7\u03BD\u03B7\u03C4\u03AE \u03BD\u03BF\u03B7\u03BC\u03BF\u03C3\u03CD\u03BD\u03B7",
+      generated: "\u0394\u03B7\u03BC\u03B9\u03BF\u03C5\u03C1\u03B3\u03B7\u03BC\u03AD\u03BD\u03BF \u03B1\u03C0\u03CC \u03A4\u039D",
+      modified: "\u03A4\u03C1\u03BF\u03C0\u03BF\u03C0\u03BF\u03B9\u03B7\u03BC\u03AD\u03BD\u03BF \u03B1\u03C0\u03CC \u03A4\u039D"
+    },
+    en: {
+      short: "AI",
+      long: "artificial intelligence",
+      generated: "AI-generated",
+      modified: "AI-modified"
+    },
+    es: {
+      short: "IA",
+      long: "inteligencia artificial",
+      generated: "Generado por IA",
+      modified: "Modificado por IA"
+    },
+    et: {
+      short: "TI",
+      long: "tehisintellekt",
+      generated: "TI abil loodud",
+      modified: "TI abil muudetud"
+    },
+    fi: {
+      short: "AI",
+      long: "teko\xE4ly",
+      generated: "Teko\xE4lyn tuottama",
+      modified: "Teko\xE4lyn muokkaama"
+    },
+    fr: {
+      short: "IA",
+      long: "intelligence artificielle",
+      generated: "G\xE9n\xE9r\xE9 par une IA",
+      modified: "Modifi\xE9 par une IA"
+    },
+    he: {
+      short: "AI",
+      long: "\u05D1\u05D9\u05E0\u05D4 \u05DE\u05DC\u05D0\u05DB\u05D5\u05EA\u05D9\u05EA",
+      generated: "\u05E0\u05D5\u05E6\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05D1\u05D9\u05E0\u05D4 \u05DE\u05DC\u05D0\u05DB\u05D5\u05EA\u05D9\u05EA",
+      modified: "\u05E0\u05E2\u05E8\u05DA \u05D1\u05D0\u05DE\u05E6\u05E2\u05D5\u05EA \u05D1\u05D9\u05E0\u05D4 \u05DE\u05DC\u05D0\u05DB\u05D5\u05EA\u05D9\u05EA"
+    },
+    hr: {
+      short: "UI",
+      long: "umjetna inteligencija",
+      generated: "Generirano uz pomo\u0107 UI",
+      modified: "Izmijenjeno uz pomo\u0107 UI"
+    },
+    hu: {
+      short: "MI",
+      long: "mesters\xE9ges intelligencia",
+      generated: "MI-gener\xE1lt",
+      modified: "MI-m\xF3dos\xEDtott"
+    },
+    is: {
+      short: "AI",
+      long: "gervigreind",
+      generated: "B\xFAi\xF0 til af gervigreind",
+      modified: "Breytt af gervigreind"
+    },
+    it: {
+      short: "IA",
+      long: "intelligenza artificiale",
+      generated: "Generato dall'IA",
+      modified: "Modificato dall'IA"
+    },
+    ja: {
+      short: "AI",
+      long: "\u4EBA\u5DE5\u77E5\u80FD",
+      generated: "AI\u306B\u3088\u308B\u751F\u6210",
+      modified: "AI\u306B\u3088\u308B\u4FEE\u6B63"
+    },
+    ko: {
+      short: "AI",
+      long: "\uC778\uACF5\uC9C0\uB2A5",
+      generated: "\uC778\uACF5\uC9C0\uB2A5 \uC0DD\uC131",
+      modified: "\uC778\uACF5\uC9C0\uB2A5 \uC218\uC815"
+    },
+    lt: {
+      short: "DI",
+      long: "dirbtinis intelektas",
+      generated: "DI sugeneruotas",
+      modified: "DI modifikuotas"
+    },
+    lv: {
+      short: "MI",
+      long: "m\u0101ksl\u012Bgais intelekts",
+      generated: "MI \u0123ener\u0113ts",
+      modified: "MI p\u0101rveidots"
+    },
+    me: {
+      short: "AI",
+      long: "ve\u0161ta\u010Dka inteligencija",
+      generated: "AI-generisano",
+      modified: "AI-modifikovano"
+    },
+    mk: {
+      short: "\u0412\u0418",
+      long: "\u0432\u0435\u0448\u0442\u0430\u0447\u043A\u0430 \u0438\u043D\u0442\u0435\u043B\u0438\u0433\u0435\u043D\u0446\u0438\u0458\u0430",
+      generated: "\u0421\u043E\u0437\u0434\u0430\u0434\u0435\u043D\u043E \u043E\u0434 \u0412\u0418",
+      modified: "\u0418\u0437\u043C\u0435\u043D\u0435\u0442\u043E \u0441\u043E \u0412\u0418"
+    },
+    mt: {
+      short: "AI",
+      long: "artificial intelligence",
+      generated: "AI-generated",
+      modified: "AI-modified"
+    },
+    no: {
+      short: "KI",
+      long: "kunstig intelligens",
+      generated: "KI-generert",
+      modified: "KI-modifisert"
+    },
+    nl: {
+      short: "AI",
+      long: "kunstmatige intelligentie",
+      generated: "Door AI gegenereerd",
+      modified: "Door AI gewijzigd"
+    },
+    pl: {
+      short: "SI",
+      long: "sztuczna inteligencja",
+      generated: "Wygenerowane przez SI",
+      modified: "Zmodyfikowane przez SI"
+    },
+    pt: {
+      short: "IA",
+      long: "intelig\xEAncia artificial",
+      generated: "Gerado por IA",
+      modified: "Modificado por IA"
+    },
+    ro: {
+      short: "IA",
+      long: "inteligen\u021B\u0103 artificial\u0103",
+      generated: "Generat cu ajutorul IA",
+      modified: "Modificat cu ajutorul IA"
+    },
+    ru: {
+      short: "\u0418\u0418",
+      long: "\u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0439 \u0438\u043D\u0442\u0435\u043B\u043B\u0435\u043A\u0442",
+      generated: "\u0421\u0433\u0435\u043D\u0435\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u043E \u0418\u0418",
+      modified: "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u043E \u0418\u0418"
+    },
+    sk: {
+      short: "AI",
+      long: "umel\xE1 inteligencia",
+      generated: "Vytvoren\xE9 AI",
+      modified: "Upraven\xE9 AI"
+    },
+    sl: {
+      short: "UI",
+      long: "umetna inteligenca",
+      generated: "Ustvarjeno z UI",
+      modified: "Spremenjeno z UI"
+    },
+    sr: {
+      short: "AI",
+      long: "ve\u0161ta\u010Dka inteligencija",
+      generated: "AI-generisano",
+      modified: "AI-modifikovano"
+    },
+    sv: {
+      short: "AI",
+      long: "artificiell intelligens",
+      generated: "AI-genererad",
+      modified: "AI-modifierad"
+    },
+    tr: {
+      short: "AI",
+      long: "yapay zeka",
+      generated: "Yapay zeka taraf\u0131ndan \xFCretilmi\u015F",
+      modified: "Yapay zeka taraf\u0131ndan de\u011Fi\u015Ftirilmi\u015F"
+    },
+    uk: {
+      short: "\u0428\u0406",
+      long: "\u0448\u0442\u0443\u0447\u043D\u0438\u0439 \u0456\u043D\u0442\u0435\u043B\u0435\u043A\u0442",
+      generated: "\u0417\u0433\u0435\u043D\u0435\u0440\u043E\u0432\u0430\u043D\u043E \u0428\u0406",
+      modified: "\u0417\u043C\u0456\u043D\u0435\u043D\u043E \u0428\u0406"
+    },
+    zhCN: {
+      short: "AI",
+      long: "\u4EBA\u5DE5\u667A\u80FD",
+      generated: "AI\u751F\u6210",
+      modified: "AI\u6DA6\u8272"
+    },
+    zhHK: {
+      short: "AI",
+      long: "\u4EBA\u5DE5\u667A\u80FD",
+      generated: "\u7531 AI \u751F\u6210\u7684",
+      modified: "\u7D93 AI \u4FEE\u6539\u7684"
+    },
+    zhTW: {
+      short: "AI",
+      long: "\u4EBA\u5DE5\u667A\u6167",
+      generated: "AI\u751F\u6210",
+      modified: "AI\u4FEE\u6539"
+    }
+  };
   var LitAiTag = class extends i4 {
     get translation() {
       const locale = (this.getAttribute("locale") ?? this.locale) || "en-US";
-      let language = String(locale).replace(/-/g, "_").split("_")[0];
-      if (language === "nb") language = "no";
-      const table = {
-        en: {
-          short: "AI",
-          long: "artificial intelligence",
-          generated: "AI-generated",
-          modified: "AI-modified"
-        },
-        de: {
-          short: "KI",
-          long: "k\xFCnstliche Intelligenz",
-          generated: "KI-generiert",
-          modified: "KI-modifiziert"
-        }
-      };
-      return table[language] || table.en;
+      const [language, region] = String(locale).replace(/-/g, "_").split("_");
+      let key = language === "nb" ? "no" : language;
+      if (language === "zh" && region && ZH_REGION[region])
+        key = ZH_REGION[region];
+      return AI_TAG_TRANSLATIONS[key] || AI_TAG_TRANSLATIONS.en;
     }
     get isAbbreviation() {
       return ((this.getAttribute("variant") ?? this.variant) || "generated") === "abbreviation";
