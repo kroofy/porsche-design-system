@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-inline-notification harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-inline-notification.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="info-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-info-frosted)"
+    ></div>
+    <div
+      id="error-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-error-frosted)"
+    ></div>
+    <section id="default">
+      <lit-inline-notification heading="Some heading" heading-tag="h2" description="Some content"></lit-inline-notification>
+    </section>
+    <section id="description-only">
+      <lit-inline-notification description="Some content"></lit-inline-notification>
+    </section>
+    <section id="no-dismiss">
+      <lit-inline-notification dismiss-button="false" heading="Some heading" description="Some content"></lit-inline-notification>
+    </section>
+    <section id="slotted">
+      <lit-inline-notification dismiss-button="false">
+        <span slot="heading">Slot heading</span>
+        Slot body
+      </lit-inline-notification>
+    </section>
+    <section id="action">
+      <lit-inline-notification
+        dismiss-button="false"
+        action-label="Some action"
+        action-icon="car"
+        heading="Some heading"
+        description="Some content"
+      ></lit-inline-notification>
+    </section>
+    <section id="loading">
+      <lit-inline-notification
+        dismiss-button="false"
+        action-label="Some action"
+        action-icon="car"
+        action-loading="true"
+        heading="Some heading"
+        description="Some content"
+      ></lit-inline-notification>
+    </section>
+    <section id="error">
+      <lit-inline-notification state="error" heading="Some heading" description="Some content"></lit-inline-notification>
+    </section>
+    <section id="hidden">
+      <lit-inline-notification hidden heading="Some heading" description="Some content"></lit-inline-notification>
+    </section>
+  </body>
+</html>

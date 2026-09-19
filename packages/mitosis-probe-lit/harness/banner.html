@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-banner harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-banner.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="info-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-info-frosted)"
+    ></div>
+    <div
+      id="error-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-error-frosted)"
+    ></div>
+    <section id="default">
+      <lit-banner
+        open="true"
+        heading="Some heading"
+        heading-tag="h3"
+        description="Some content"
+      ></lit-banner>
+    </section>
+    <section id="closed">
+      <lit-banner heading="Closed heading" description="Closed content"></lit-banner>
+    </section>
+    <section id="no-dismiss">
+      <lit-banner open="true" dismiss-button="false" heading="Some heading" description="Some content"></lit-banner>
+    </section>
+    <section id="slotted">
+      <lit-banner open="true" dismiss-button="false">
+        <span slot="heading">Slot heading</span>
+        <span slot="description">Slot body</span>
+      </lit-banner>
+    </section>
+    <section id="error">
+      <lit-banner open="true" state="error" heading="Some heading" description="Some content"></lit-banner>
+    </section>
+    <section id="hidden">
+      <lit-banner hidden open="true" heading="Some heading" description="Some content"></lit-banner>
+    </section>
+    <section id="position-json">
+      <lit-banner
+        open="true"
+        heading="Some heading"
+        description="Some content"
+        position='{"base":"bottom","s":"top"}'
+      ></lit-banner>
+    </section>
+  </body>
+</html>

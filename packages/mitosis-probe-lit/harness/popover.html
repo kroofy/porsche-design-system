@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-popover harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="canvas-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-canvas)"
+    ></div>
+    <section id="default">
+      <lit-popover description="Some content"></lit-popover>
+    </section>
+    <section id="slotted">
+      <lit-popover direction="top">
+        <button slot="button" type="button">More information</button>
+        <span>Some content</span>
+      </lit-popover>
+    </section>
+    <section id="open">
+      <lit-popover open="true" description="Open content"></lit-popover>
+    </section>
+    <section id="compact">
+      <lit-popover compact="true" description="Compact"></lit-popover>
+    </section>
+    <section id="hidden">
+      <lit-popover hidden description="Hidden"></lit-popover>
+    </section>
+    <script src="lit-popover.bundle.js"></script>
+  </body>
+</html>

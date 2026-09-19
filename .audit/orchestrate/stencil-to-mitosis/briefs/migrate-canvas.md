@@ -1,0 +1,9 @@
+GOAL         Migrate p-canvas to Mitosis Lit following the recipe, pixel-diff 0 on the live playground shell chrome.
+SCOPE        May write: packages/mitosis-probe-lit/src/Canvas.lite.tsx and matching harness only, .audit/orchestrate/stencil-to-mitosis/reports/migrate-canvas.md, /opt/cursor/artifacts/mitosis_lit_canvas_after.png, /opt/cursor/artifacts/canvas_pixel_diff.png, a baseline under .audit/orchestrate/stencil-to-mitosis/baseline/. May not write: packages/components/**, packages/mitosis-probe/**, existing *.lite.tsx except Canvas, other TAG_NAMEs.
+CONTEXT      Recipe: .audit/orchestrate/stencil-to-mitosis/skills/migrate-pds-component.md. Carousel just passed byte-identical closed-card swap. There is no [data-card="canvas"]. p-canvas is the playground page shell at http://localhost:3333/. Stencil: packages/components/src/components/canvas/. Keep nested p-button, p-crest, p-wordmark and all slotted PDS children as Stencil. Copy light-DOM children and named slots (title, header-start, header-end, footer, sidebar-start, sidebar-end, sidebar-end-header, background, default). Crop a stable header/sidebar chrome region, not the full scrolling main. Pause motion. You are the only writer in packages/mitosis-probe-lit.
+ACCEPTANCE   Canvas.lite.tsx compiles with target lit and useShadowDom true. rg my-fragment on Canvas.ts is empty. Live shell swap pixel-diff 0. Report written.
+VERIFY       Recipe pixel-diff section. Control Stencil vs baseline 0 first.
+TIMEBOX      45 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no packages/components, no second tag, no customElement/webcomponent/stencil targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.

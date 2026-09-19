@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-wordmark harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+      #default {
+        width: 400px;
+      }
+    </style>
+    <script src="lit-wordmark.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="fill-ref"
+      style="position: absolute; width: 1px; height: 1px; fill: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-wordmark class="w-full" href="#"></lit-wordmark>
+    </section>
+    <section id="inherit">
+      <lit-wordmark href="#" size="inherit" style="height: 24px; width: 200px"></lit-wordmark>
+    </section>
+    <section id="hidden">
+      <lit-wordmark href="#" hidden></lit-wordmark>
+    </section>
+  </body>
+</html>

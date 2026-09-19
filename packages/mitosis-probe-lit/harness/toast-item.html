@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-toast-item harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      #bg-ref {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: var(--p-color-info-frosted);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bg-ref"></div>
+    <section id="default">
+      <lit-toast-item text="Some content" state="info"></lit-toast-item>
+    </section>
+    <section id="hidden">
+      <lit-toast-item hidden text="Hidden"></lit-toast-item>
+    </section>
+    <section id="success">
+      <lit-toast-item text="Saved" state="success"></lit-toast-item>
+    </section>
+    <script src="lit-toast-item.bundle.js"></script>
+  </body>
+</html>

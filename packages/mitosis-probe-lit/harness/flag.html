@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-flag harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-flag.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-sm)"
+    ></div>
+    <section id="default">
+      <lit-flag size="sm" aria="{'aria-label': 'Flag of Germany'}"></lit-flag>
+    </section>
+    <section id="xl">
+      <lit-flag size="5xl" aria="{'aria-label': 'Flag of Germany'}"></lit-flag>
+    </section>
+    <section id="inherit">
+      <lit-flag class="text-[99px]" size="inherit" name="ch" aria="{'aria-label': 'Flag of France'}"></lit-flag>
+    </section>
+    <section id="cssvar">
+      <lit-flag style="--p-flag-size:99px" name="pt" aria="{'aria-label': 'Flag of South Africa'}"></lit-flag>
+    </section>
+    <section id="bp">
+      <lit-flag size='{"base":"sm","m":"5xl"}' aria="{'aria-label': 'Flag of Germany'}"></lit-flag>
+    </section>
+    <section id="hidden">
+      <lit-flag hidden size="sm"></lit-flag>
+    </section>
+  </body>
+</html>

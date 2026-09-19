@@ -1,4 +1,4 @@
-import { type FunctionalComponent, h, type JSX } from '@stencil/core';
+import { type FunctionalComponent, h, type JSX } from '../../../types/html-stencil-element';
 import type { AriaAttributes } from '../../../types';
 import { getPrefixedTagNames, hasDescription, hasMessage, setAriaIDREF } from '../../../utils';
 import { Label } from '../label/label';

@@ -1,4 +1,4 @@
-import type { EventEmitter } from '@stencil/core';
+import type { EventEmitter } from './html-stencil-element';
 
 // utility type to return public properties of generic type that are not a function or EventEmitter
 export type FunctionPropertyNames<T> = {

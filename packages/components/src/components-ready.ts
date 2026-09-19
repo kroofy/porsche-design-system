@@ -1,4 +1,4 @@
-import type { HostElement } from '@stencil/core/internal';
+import type { HostElement } from './types/html-stencil-element';
 import type { PorscheDesignSystem } from './types';
 
 type PromiseResolve = (amount: number) => void;

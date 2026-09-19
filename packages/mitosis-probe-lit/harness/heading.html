@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-heading harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-heading.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-sm)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-heading size="sm" color="primary">ABC</lit-heading>
+    </section>
+    <section id="xl">
+      <lit-heading size="5xl" color="primary">ABC</lit-heading>
+    </section>
+    <section id="inherit">
+      <lit-heading class="text-[deeppink] text-[48px]" size="inherit" color="inherit">ABC</lit-heading>
+    </section>
+    <section id="bold">
+      <lit-heading size="2xs" weight="bold" color="contrast-medium">ABC</lit-heading>
+    </section>
+    <section id="bp">
+      <lit-heading size='{"base":"sm","m":"5xl"}' color="primary">ABC</lit-heading>
+    </section>
+    <section id="hidden">
+      <lit-heading size="sm" hidden>ABC</lit-heading>
+    </section>
+    <section id="rich">
+      <lit-heading>Some <i>italic</i> and <b>bold</b> text.</lit-heading>
+    </section>
+  </body>
+</html>

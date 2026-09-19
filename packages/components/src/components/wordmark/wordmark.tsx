@@ -1,68 +1,13 @@
-import { Component, Element, Host, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes, SelectedAriaAttributes } from '../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  hasPropValueChanged,
-  LINK_ARIA_ATTRIBUTES,
-  parseAndGetAriaAttributes,
-  validateProps,
-} from '../../utils';
-import { getComponentCss } from './wordmark-styles';
-import { WORDMARK_SIZES, type WordmarkAriaAttribute, type WordmarkSize, type WordmarkTarget } from './wordmark-utils';
-
-const propTypes: PropTypes<typeof Wordmark> = {
-  size: AllowedTypes.oneOf<WordmarkSize>(WORDMARK_SIZES),
-  href: AllowedTypes.string,
-  target: AllowedTypes.string,
-  aria: AllowedTypes.aria<WordmarkAriaAttribute>(LINK_ARIA_ATTRIBUTES),
-};
-
-@Component({
-  tag: 'p-wordmark',
-  shadow: { delegatesFocus: true },
-})
+/**
+ * Stencil no longer owns p-wordmark. The playground tag is the Mitosis Lit
+ * custom element from mitosis/wordmark/Wordmark.lite.tsx.
+ * This file stays so generateConstructorMap can still import class Wordmark.
+ */
 export class Wordmark {
-  @Element() public host!: HTMLElement;
-
-  /** Sets the display size of the Porsche wordmark SVG using predefined PDS size tokens. */
-  @Prop() public size?: WordmarkSize = 'small';
-
-  /** When set, wraps the wordmark in an anchor element that navigates to the given URL on click. */
-  @Prop() public href?: string;
-
-  /** Specifies where to open the linked URL when `href` is set (e.g. `_self`, `_blank`). */
-  @Prop() public target?: WordmarkTarget = '_self';
-
-  /** Sets ARIA attributes on the anchor element to improve accessibility when the wordmark is used as a link. */
-  @Prop() public aria?: SelectedAriaAttributes<WordmarkAriaAttribute>;
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    attachComponentCss(this.host, getComponentCss, this.size);
-
-    // optimized with SVGO, see docs in assets folder
-    const svg = (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4500 300">
-        <title>Porsche</title>
-        <path d="M502 221c48.1 0 74-25.9 74-74V74c0-48.1-25.9-74-74-74H0v300h68v-79h434zm6-143v65c0 7.8-4.2 12-12 12H68V66h428c7.8 0 12 4.2 12 12zm228 222c-48.1 0-74-25.9-74-74V74c0-48.1 25.9-74 74-74h417c48.1 0 74 25.9 74 74v152c0 48.1-25.9 74-74 74H736zm411-66c7.8 0 12-4.2 12-12V78c0-7.8-4.2-12-12-12H742c-7.8 0-12 4.2-12 12v144c0 7.8 4.2 12 12 12h405zm675-36c39.844 16.757 67.853 56.1 68 102h-68c0-54-25-79-79-79h-361v79h-68V0h502c48.1 0 74 25.9 74 74v50.14c0 46.06-23.75 71.76-68 73.86zm-12-43c7.8 0 12-4.2 12-12V78c0-7.8-4.2-12-12-12h-428v89h428zm162-81c0-48.1 25.9-74 74-74h492v56h-486c-7.8 0-12 4.2-12 12v42c0 7.8 4.2 12 12 12h422c48.1 0 74 25.9 74 74v30c0 48.1-25.9 74-74 74h-492v-56h486c7.8 0 12-4.2 12-12v-42c0-7.8-4.2-12-12-12h-422c-48.1 0-74-25.9-74-74V74zm661 0c0-48.1 25.9-74 74-74h480v66h-474c-7.8 0-12 4.2-12 12v144c0 7.8 4.2 12 12 12h474v66h-480c-48.1 0-74-25.9-74-74V74zM3817 0v300h-68V183h-407v117h-68V0h68v117h407V0h68zm156 56v66h527v56h-527v66h527v56h-595V0h595v56h-527z" />
-      </svg>
-    );
-
-    return (
-      <Host>
-        {this.href === undefined ? (
-          svg
-        ) : (
-          <a href={this.href} target={this.target} {...parseAndGetAriaAttributes(this.aria)}>
-            {svg}
-          </a>
-        )}
-      </Host>
-    );
-  }
+  host!: HTMLElement;
+  size?: string = 'small';
+  href?: string;
+  target?: string = '_self';
+  aria?: unknown;
+  render(): void {}
 }

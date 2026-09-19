@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-link-tile-product harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="surface-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-surface)"
+    ></div>
+    <section id="default">
+      <lit-link-tile-product
+        heading="Some heading"
+        price="718,00 €"
+        liked="true"
+        href="https://porsche.com"
+        target="_blank"
+      >
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some alt text" />
+      </lit-link-tile-product>
+    </section>
+    <section id="slotted">
+      <lit-link-tile-product
+        aspect-ratio="9/16"
+        heading="Some heading"
+        price="718,00 €"
+        price-original="911,00 €"
+        description="Some description"
+      >
+        <a slot="anchor" href="https://porsche.com" target="_blank">Some label</a>
+        <p-tag slot="header">New</p-tag>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some alt text" />
+      </lit-link-tile-product>
+    </section>
+    <section id="ratio-json">
+      <lit-link-tile-product
+        aspect-ratio='{"base":"3/4","m":"9/16"}'
+        heading="Some heading"
+        price="718,00 €"
+        href="https://porsche.com"
+      >
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some alt text" />
+      </lit-link-tile-product>
+    </section>
+    <section id="no-like">
+      <lit-link-tile-product like-button="false" heading="Some heading" price="718,00 €" href="https://porsche.com">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Some alt text" />
+      </lit-link-tile-product>
+    </section>
+    <section id="hidden">
+      <lit-link-tile-product hidden heading="Hidden" price="0" href="https://porsche.com">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Hidden" />
+      </lit-link-tile-product>
+    </section>
+    <script src="lit-link-tile-product.bundle.js"></script>
+  </body>
+</html>

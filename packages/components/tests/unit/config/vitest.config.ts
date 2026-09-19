@@ -13,9 +13,6 @@ export default defineConfig({
     globals: true, // enables global test APIs like describe, it, expect
     clearMocks: true,
     restoreMocks: true,
-    alias: {
-      '@stencil/core': path.resolve(__dirname, '../../../tests/unit/mocks/stencil-decorator.mocks.ts'),
-    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

@@ -1,0 +1,3181 @@
+{
+  "tagCount": 75,
+  "iifeCount": 75,
+  "iifeUnchanged": true,
+  "combinedFailures": 2,
+  "counts": {
+    "tags": 75,
+    "targets": {
+      "react": {
+        "compiled": 73,
+        "failed": 2
+      },
+      "vue": {
+        "compiled": 75,
+        "failed": 0
+      },
+      "angular": {
+        "compiled": 75,
+        "failed": 0
+      },
+      "svelte": {
+        "compiled": 75,
+        "failed": 0
+      }
+    }
+  },
+  "failedPairs": [
+    "button-pure/react",
+    "tag-dismissible/react"
+  ],
+  "tags": {
+    "accordion": {
+      "lite": "accordion/Accordion.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Accordion.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Accordion.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Accordion.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Accordion.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "ai-tag": {
+      "lite": "ai-tag/AiTag.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/AiTag.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/AiTag.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/AiTag.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/AiTag.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "banner": {
+      "lite": "banner/Banner.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Banner.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Banner.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Banner.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Banner.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "button": {
+      "lite": "button/Button.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Button.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Button.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Button.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Button.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "button-pure": {
+      "lite": "button-pure/ButtonPure.lite.tsx",
+      "mitosisExit": 1,
+      "targets": {
+        "react": {
+          "compiled": false,
+          "mitosisExit": 1,
+          "files": [],
+          "myFragment": [],
+          "stripped": false,
+          "stderr": "Format error for file: import * as React from 'react';\n\n\n\n\n\n  export interface LitButtonPureProps {\ntype?: string;\nsize?: any;\ncolor?: string;\nunderline?: any;\nactive?: any;\nstretch?: any;\nhideLabel?: any;\nalignLabel?: any;\nicon?: string;\niconSource?: string;\ndisabled?: any;\nloading?: any;\nname?: string;\nvalue?: string;\naria?: any;\n}\n\n\n\n\n\n  function LitButtonPure(props:LitButtonPureProps) {\n\n  function cssText() {\nconst sizeMap: any = {\n'xx-small': 'var(--p-typescale-2xs)',\n'x-small': 'var(--p-typescale-xs)',\nsmall: 'var(--p-typescale-sm)',\nmedium: 'var(--p-typescale-md)',\nlarge: 'var(--p-typescale-lg)',\n'x-large': 'var(--p-typescale-xl)',\n'xx-large': 'var(--p-typescale-2xl)',\n'2xs': 'var(--p-typescale-2xs)',\nxs: 'var(--p-typescale-xs)',\nsm: 'var(--p-typescale-sm)',\nmd: 'var(--p-typescale-md)',\nlg: 'var(--p-typescale-lg)',\nxl: 'var(--p-typescale-xl)',\n'2xl': 'var(--p-typescale-2xl)',\n'3xl': 'var(--p-typescale-3xl)',\n'4xl': 'var(--p-typescale-4xl)',\n'5xl': 'var(--p-typescale-5xl)',\ninherit: 'inherit'\n};\nconst colorMap: any = {\nprimary: 'var(--p-color-primary)',\n'contrast-higher': 'var(--p-color-contrast-higher)',\n'contrast-high': 'var(--p-color-contrast-high)',\n'contrast-medium': 'var(--p-color-contrast-medium)',\ninherit: 'currentcolor'\n};\nconst minWidth: any = {\nxs: 480,\ns: 760,\nm: 1000,\nl: 1300,\nxl: 1760,\nxxl: 1920\n};\nconst parse = (raw: any, fallback: any) => {\nif (raw === undefined || raw === null || raw === '') return fallback;\nif (typeof raw === 'string' && raw.charAt(0)"
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/ButtonPure.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/ButtonPure.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/ButtonPure.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "button-tile": {
+      "lite": "button-tile/ButtonTile.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/ButtonTile.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/ButtonTile.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/ButtonTile.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/ButtonTile.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "canvas": {
+      "lite": "canvas/Canvas.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Canvas.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Canvas.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Canvas.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Canvas.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "carousel": {
+      "lite": "carousel/Carousel.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Carousel.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Carousel.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Carousel.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Carousel.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "checkbox": {
+      "lite": "checkbox/Checkbox.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Checkbox.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Checkbox.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Checkbox.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Checkbox.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "crest": {
+      "lite": "crest/Crest.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Crest.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Crest.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Crest.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Crest.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "display": {
+      "lite": "display/Display.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Display.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Display.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Display.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Display.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "divider": {
+      "lite": "divider/Divider.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Divider.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Divider.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Divider.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Divider.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "drilldown": {
+      "lite": "drilldown/Drilldown.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Drilldown.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Drilldown.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Drilldown.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Drilldown.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "drilldown-item": {
+      "lite": "drilldown-item/DrilldownItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/DrilldownItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/DrilldownItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/DrilldownItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/DrilldownItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "drilldown-link": {
+      "lite": "drilldown-link/DrilldownLink.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/DrilldownLink.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/DrilldownLink.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/DrilldownLink.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/DrilldownLink.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "fieldset": {
+      "lite": "fieldset/Fieldset.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Fieldset.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Fieldset.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Fieldset.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Fieldset.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "flag": {
+      "lite": "flag/Flag.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Flag.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Flag.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Flag.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Flag.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "flyout": {
+      "lite": "flyout/Flyout.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Flyout.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Flyout.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Flyout.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Flyout.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "heading": {
+      "lite": "heading/Heading.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Heading.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Heading.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Heading.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Heading.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "icon": {
+      "lite": "icon/Icon.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Icon.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Icon.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Icon.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Icon.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "inline-notification": {
+      "lite": "inline-notification/InlineNotification.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InlineNotification.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InlineNotification.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InlineNotification.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InlineNotification.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-date": {
+      "lite": "input-date/InputDate.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputDate.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputDate.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputDate.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputDate.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-email": {
+      "lite": "input-email/InputEmail.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputEmail.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputEmail.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputEmail.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputEmail.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-month": {
+      "lite": "input-month/InputMonth.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputMonth.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputMonth.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputMonth.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputMonth.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-number": {
+      "lite": "input-number/InputNumber.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputNumber.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputNumber.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputNumber.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputNumber.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-password": {
+      "lite": "input-password/InputPassword.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputPassword.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputPassword.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputPassword.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputPassword.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-search": {
+      "lite": "input-search/InputSearch.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputSearch.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputSearch.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputSearch.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputSearch.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-tel": {
+      "lite": "input-tel/InputTel.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputTel.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputTel.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputTel.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputTel.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-text": {
+      "lite": "input-text/InputText.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputText.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputText.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputText.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputText.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-time": {
+      "lite": "input-time/InputTime.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputTime.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputTime.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputTime.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputTime.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-url": {
+      "lite": "input-url/InputUrl.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputUrl.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputUrl.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputUrl.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputUrl.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "input-week": {
+      "lite": "input-week/InputWeek.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/InputWeek.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/InputWeek.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/InputWeek.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/InputWeek.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "link": {
+      "lite": "link/Link.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Link.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Link.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Link.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Link.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "link-pure": {
+      "lite": "link-pure/LinkPure.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/LinkPure.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/LinkPure.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/LinkPure.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/LinkPure.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "link-tile": {
+      "lite": "link-tile/LinkTile.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/LinkTile.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/LinkTile.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/LinkTile.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/LinkTile.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "link-tile-product": {
+      "lite": "link-tile-product/LinkTileProduct.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/LinkTileProduct.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/LinkTileProduct.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/LinkTileProduct.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/LinkTileProduct.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "modal": {
+      "lite": "modal/Modal.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Modal.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Modal.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Modal.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Modal.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "model-signature": {
+      "lite": "model-signature/ModelSignature.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/ModelSignature.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/ModelSignature.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/ModelSignature.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/ModelSignature.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "multi-select": {
+      "lite": "multi-select/MultiSelect.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/MultiSelect.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/MultiSelect.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/MultiSelect.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/MultiSelect.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "multi-select-option": {
+      "lite": "multi-select-option/MultiSelectOption.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/MultiSelectOption.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/MultiSelectOption.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/MultiSelectOption.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/MultiSelectOption.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "optgroup": {
+      "lite": "optgroup/Optgroup.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Optgroup.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Optgroup.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Optgroup.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Optgroup.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "pagination": {
+      "lite": "pagination/Pagination.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Pagination.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Pagination.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Pagination.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Pagination.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "pin-code": {
+      "lite": "pin-code/PinCode.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/PinCode.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/PinCode.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/PinCode.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/PinCode.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "popover": {
+      "lite": "popover/Popover.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Popover.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Popover.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Popover.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Popover.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "radio-group": {
+      "lite": "radio-group/RadioGroup.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/RadioGroup.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/RadioGroup.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/RadioGroup.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/RadioGroup.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "radio-group-option": {
+      "lite": "radio-group-option/RadioGroupOption.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/RadioGroupOption.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/RadioGroupOption.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/RadioGroupOption.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/RadioGroupOption.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "scroller": {
+      "lite": "scroller/Scroller.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Scroller.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Scroller.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Scroller.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Scroller.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "segmented-control": {
+      "lite": "segmented-control/SegmentedControl.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/SegmentedControl.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/SegmentedControl.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/SegmentedControl.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/SegmentedControl.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "segmented-control-item": {
+      "lite": "segmented-control-item/SegmentedControlItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/SegmentedControlItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/SegmentedControlItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/SegmentedControlItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/SegmentedControlItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "select": {
+      "lite": "select/Select.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Select.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Select.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Select.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Select.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "select-option": {
+      "lite": "select-option/SelectOption.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/SelectOption.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/SelectOption.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/SelectOption.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/SelectOption.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "sheet": {
+      "lite": "sheet/Sheet.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Sheet.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Sheet.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Sheet.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Sheet.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "spinner": {
+      "lite": "spinner/Spinner.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Spinner.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Spinner.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Spinner.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Spinner.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "stepper-horizontal": {
+      "lite": "stepper-horizontal/StepperHorizontal.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/StepperHorizontal.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/StepperHorizontal.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/StepperHorizontal.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/StepperHorizontal.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "stepper-horizontal-item": {
+      "lite": "stepper-horizontal-item/StepperHorizontalItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/StepperHorizontalItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/StepperHorizontalItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/StepperHorizontalItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/StepperHorizontalItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "switch": {
+      "lite": "switch/Switch.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Switch.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Switch.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Switch.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Switch.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table": {
+      "lite": "table/Table.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Table.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Table.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Table.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Table.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-body": {
+      "lite": "table-body/TableBody.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableBody.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableBody.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableBody.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableBody.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-cell": {
+      "lite": "table-cell/TableCell.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableCell.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableCell.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableCell.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableCell.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-head": {
+      "lite": "table-head/TableHead.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableHead.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableHead.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableHead.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableHead.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-head-cell": {
+      "lite": "table-head-cell/TableHeadCell.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableHeadCell.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableHeadCell.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableHeadCell.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableHeadCell.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-head-row": {
+      "lite": "table-head-row/TableHeadRow.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableHeadRow.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableHeadRow.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableHeadRow.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableHeadRow.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "table-row": {
+      "lite": "table-row/TableRow.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TableRow.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TableRow.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TableRow.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TableRow.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "tabs": {
+      "lite": "tabs/Tabs.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Tabs.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Tabs.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Tabs.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Tabs.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "tabs-bar": {
+      "lite": "tabs-bar/TabsBar.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TabsBar.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TabsBar.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TabsBar.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TabsBar.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "tabs-item": {
+      "lite": "tabs-item/TabsItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TabsItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TabsItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TabsItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TabsItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "tag": {
+      "lite": "tag/Tag.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Tag.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Tag.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Tag.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Tag.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "tag-dismissible": {
+      "lite": "tag-dismissible/TagDismissible.lite.tsx",
+      "mitosisExit": 1,
+      "targets": {
+        "react": {
+          "compiled": false,
+          "mitosisExit": 1,
+          "files": [],
+          "myFragment": [],
+          "stripped": false,
+          "stderr": "Format error for file: import * as React from 'react';\n\n\n\n\n\n  export interface LitTagDismissibleProps {\nlabel?: string;\ncompact?: any;\naria?: any;\n}\n\n\n\n\n\n  function LitTagDismissible(props:LitTagDismissibleProps) {\n\n  function cssText() {\nlet compact: any = props.compact;\nif (compact === true || compact === 'true' || compact === '') {\ncompact = true;\n} else {\ncompact = false;\n}\nconst hasLabel = !!(props.label && props.label !== '');\nconst scale = compact ? '0.64285714' : '1';\nconst radius = compact ? 'var(--p-radius-lg)' : 'var(--p-radius-xl)';\nconst padBlock = hasLabel ? 'calc(16.8px * (var(--_p-tag-dismissible-a) - 0.64285714))' : 'calc(28px * (var(--_p-tag-dismissible-a) - 0.64285714) + 6px)';\nconst padInline = 'calc(22.4px * (var(--_p-tag-dismissible-a) - 0.64285714) + 4px)';\nconst gap = padInline;\nconst iconPad = 'calc(11.2px * (var(--_p-tag-dismissible-a) - 0.64285714))';\nconst labelRule = hasLabel ? '.label,button>span:nth-of-type(2)>span{display:block;margin-bottom:-4px;color:var(--p-color-contrast-high);font-size:var(--p-typescale-xs)}' : '.label,button>span:nth-of-type(2)>span{display:none}';\nreturn ':host{--_p-tag-dismissible-a:' + scale + '}' + ':not(:defined,[data-ssr]){visibility:hidden}' + 'button{all:unset;display:flex;position:relative;align-items:center;gap:' + gap + ';padding:' + padBlock + ' ' + padInline + ';border-radius:' + radius + ';cursor:pointer;background:var(--p-color-frosted);color:var(--p-color-primary);text-align:start;font:var(--p-font-weight-"
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TagDismissible.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TagDismissible.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TagDismissible.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "text": {
+      "lite": "text/Text.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Text.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Text.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Text.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Text.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "text-list": {
+      "lite": "text-list/TextList.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TextList.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TextList.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TextList.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TextList.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "text-list-item": {
+      "lite": "text-list-item/TextListItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TextListItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/TextListItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/TextListItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/TextListItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "textarea": {
+      "lite": "textarea/Textarea.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Textarea.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Textarea.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Textarea.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Textarea.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "toast": {
+      "lite": "toast/Toast.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Toast.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Toast.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Toast.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Toast.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "toast-item": {
+      "lite": "toast-item/ToastItem.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/ToastItem.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/ToastItem.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/ToastItem.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/ToastItem.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    },
+    "wordmark": {
+      "lite": "wordmark/Wordmark.lite.tsx",
+      "mitosisExit": 0,
+      "targets": {
+        "react": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/Wordmark.tsx"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "vue": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/vue/Wordmark.vue"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "angular": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/angular/Wordmark.ts"
+          ],
+          "myFragment": [],
+          "stripped": false
+        },
+        "svelte": {
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/svelte/Wordmark.svelte"
+          ],
+          "myFragment": [],
+          "stripped": false
+        }
+      }
+    }
+  }
+}

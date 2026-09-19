@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-text-list harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-text-list.bundle.js"></script>
+  </head>
+  <body>
+    <section id="unordered">
+      <lit-text-list type="unordered">
+        <span>ABC</span>
+        <span>ABC</span>
+      </lit-text-list>
+    </section>
+    <section id="numbered">
+      <lit-text-list type="numbered">
+        <span>ABC</span>
+        <span>ABC</span>
+      </lit-text-list>
+    </section>
+    <section id="alphabetically">
+      <lit-text-list type="alphabetically">
+        <span>ABC</span>
+        <span>ABC</span>
+      </lit-text-list>
+    </section>
+    <section id="default">
+      <lit-text-list>
+        <span>ABC</span>
+      </lit-text-list>
+    </section>
+    <section id="hidden">
+      <lit-text-list hidden type="unordered"></lit-text-list>
+    </section>
+  </body>
+</html>

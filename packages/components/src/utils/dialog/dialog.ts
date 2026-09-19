@@ -1,4 +1,4 @@
-import type { EventEmitter } from '@stencil/core';
+import type { EventEmitter } from '../../types/html-stencil-element';
 
 // Shared by `p-modal`, `p-flyout`, `p-sheet` and `p-drilldown` so their `dismiss` payloads cannot diverge. All four
 // render the same `DialogBase` and therefore have the same three dismissal paths. `p-popover` declares its own union

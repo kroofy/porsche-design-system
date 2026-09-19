@@ -1,0 +1,345 @@
+# Orchestrate status
+
+Generated: 2026-08-31T17:50:41.030Z
+
+## Units
+
+States: done=158
+
+| ID | Track | State | Branch | PR | SHA | Brief |
+| --- | --- | --- | --- | --- | --- | --- |
+| fitness-divider | fitness | done | cursor/mitosis-migration-41e6 | 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | briefs/fitness-divider.md |
+| baseline-divider | baseline | done | cursor/mitosis-migration-41e6 | 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | briefs/baseline-divider.md |
+| fitness-lit | fitness | done | cursor/mitosis-migration-41e6 | 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | briefs/fitness-lit.md |
+| lever-migrate-recipe | primitives | done | cursor/mitosis-migration-41e6 | 3 | 36c4774e5cb40277cd44f1229e547ece70828ff3 | briefs/lever-migrate-recipe.md |
+| migrate-crest | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2cbcee0ebe22bd6c3f4fcbe3ee8e5341a5923f99 | briefs/migrate-crest.md |
+| migrate-wordmark | migrate | done | cursor/mitosis-migration-41e6 | 3 | adcb403aa5617fafce8206125dc84cbf5fc451b1 | briefs/migrate-wordmark.md |
+| migrate-flag | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4edd6127ec542c2b7b5310e7501a8e7f2997cae8 | briefs/migrate-flag.md |
+| migrate-model-signature | migrate | done | cursor/mitosis-migration-41e6 | 3 | 3ab704f859 | briefs/migrate-model-signature.md |
+| migrate-icon | migrate | done | cursor/mitosis-migration-41e6 | 3 | d702e8eb4f | briefs/migrate-icon.md |
+| migrate-heading | migrate | done | cursor/mitosis-migration-41e6 | 3 | 0fe05aaab6 | briefs/migrate-heading.md |
+| migrate-text | migrate | done | cursor/mitosis-migration-41e6 | 3 | fa008afa41 | briefs/migrate-text.md |
+| migrate-display | migrate | done | cursor/mitosis-migration-41e6 | 3 | 6825564b24 | briefs/migrate-display.md |
+| migrate-spinner | migrate | done | cursor/mitosis-migration-41e6 | 3 | d04025d34b | briefs/migrate-spinner.md |
+| migrate-tag | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4ece9a7b58 | briefs/migrate-tag.md |
+| migrate-tag-dismissible | migrate | done | cursor/mitosis-migration-41e6 | 3 | c81276e448 | briefs/migrate-tag-dismissible.md |
+| migrate-link-pure | migrate | done | cursor/mitosis-migration-41e6 | 3 | 76d8e86f32 | briefs/migrate-link-pure.md |
+| migrate-link | migrate | done | cursor/mitosis-migration-41e6 | 3 | 5e0e89280c | briefs/migrate-link.md |
+| migrate-button-pure | migrate | done | cursor/mitosis-migration-41e6 | 3 | 6baa018a19 | briefs/migrate-button-pure.md |
+| migrate-button | migrate | done | cursor/mitosis-migration-41e6 | 3 | be67982f60 | briefs/migrate-button.md |
+| migrate-switch | migrate | done | cursor/mitosis-migration-41e6 | 3 | 21f0480a7a | briefs/migrate-switch.md |
+| migrate-checkbox | migrate | done | cursor/mitosis-migration-41e6 | 3 | 1c30147f75 | briefs/migrate-checkbox.md |
+| migrate-input-text | migrate | done | cursor/mitosis-migration-41e6 | 3 | ad2c0b2800 | briefs/migrate-input-text.md |
+| migrate-input-email | migrate | done | cursor/mitosis-migration-41e6 | 3 | 04eeb6103b | briefs/migrate-input-email.md |
+| migrate-input-password | migrate | done | cursor/mitosis-migration-41e6 | 3 | 83f7074dfa | briefs/migrate-input-password.md |
+| migrate-input-search | migrate | done | cursor/mitosis-migration-41e6 | 3 | f769bb4bd1 | briefs/migrate-input-search.md |
+| migrate-input-url | migrate | done | cursor/mitosis-migration-41e6 | 3 | 76cd1db714 | briefs/migrate-input-url.md |
+| migrate-input-tel | migrate | done | cursor/mitosis-migration-41e6 | 3 | 9effa727d4 | briefs/migrate-input-tel.md |
+| migrate-input-number | migrate | done | cursor/mitosis-migration-41e6 | 3 | e75a3157ec | briefs/migrate-input-number.md |
+| migrate-input-date | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4f57c21f09 | briefs/migrate-input-date.md |
+| migrate-input-month | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4ee7e76eb3 | briefs/migrate-input-month.md |
+| migrate-input-time | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4bd2a33b0d | briefs/migrate-input-time.md |
+| migrate-input-week | migrate | done | cursor/mitosis-migration-41e6 | 3 | 351781a0a3 | briefs/migrate-input-week.md |
+| migrate-textarea | migrate | done | cursor/mitosis-migration-41e6 | 3 | ff19cc9e95 | briefs/migrate-textarea.md |
+| migrate-fieldset | migrate | done | cursor/mitosis-migration-41e6 | 3 | 4ce75102fa | briefs/migrate-fieldset.md |
+| migrate-text-list | migrate | done | cursor/mitosis-migration-41e6 | 3 | e19a407efb | briefs/migrate-text-list.md |
+| migrate-text-list-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2a90289a53 | briefs/migrate-text-list-item.md |
+| migrate-ai-tag | migrate | done | cursor/mitosis-migration-41e6 | 3 | 946729dbd4 | briefs/migrate-ai-tag.md |
+| migrate-inline-notification | migrate | done | cursor/mitosis-migration-41e6 | 3 | 7a9c018f8c | briefs/migrate-inline-notification.md |
+| migrate-banner | migrate | done | cursor/mitosis-migration-41e6 | 3 | 0d5748bd59 | briefs/migrate-banner.md |
+| migrate-pagination | migrate | done | cursor/mitosis-migration-41e6 | 3 | b534672020 | briefs/migrate-pagination.md |
+| migrate-scroller | migrate | done | cursor/mitosis-migration-41e6 | 3 | 49829db8e5 | briefs/migrate-scroller.md |
+| migrate-pin-code | migrate | done | cursor/mitosis-migration-41e6 | 3 | ae7b0de7ce | briefs/migrate-pin-code.md |
+| migrate-accordion | migrate | done | cursor/mitosis-migration-41e6 | 3 | c1caf142cf | briefs/migrate-accordion.md |
+| migrate-segmented-control | migrate | done | cursor/mitosis-migration-41e6 | 3 | 68912a1f30 | briefs/migrate-segmented-control.md |
+| migrate-segmented-control-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 813b1176bb | briefs/migrate-segmented-control-item.md |
+| migrate-radio-group | migrate | done | cursor/mitosis-migration-41e6 | 3 | 1a878a21be | briefs/migrate-radio-group.md |
+| migrate-radio-group-option | migrate | done | cursor/mitosis-migration-41e6 | 3 | e29c428d91 | briefs/migrate-radio-group-option.md |
+| migrate-select | migrate | done | cursor/mitosis-migration-41e6 | 3 | 335b1f9ea3 | briefs/migrate-select.md |
+| migrate-select-option | migrate | done | cursor/mitosis-migration-41e6 | 3 | 9d59840ac7 | briefs/migrate-select-option.md |
+| migrate-optgroup | migrate | done | cursor/mitosis-migration-41e6 | 3 | 392ec16105 | briefs/migrate-optgroup.md |
+| migrate-multi-select | migrate | done | cursor/mitosis-migration-41e6 | 3 | 663eaf8d2a | briefs/migrate-multi-select.md |
+| migrate-multi-select-option | migrate | done | cursor/mitosis-migration-41e6 | 3 | 78d9002118 | briefs/migrate-multi-select-option.md |
+| migrate-tabs-bar | migrate | done | cursor/mitosis-migration-41e6 | 3 | 167998c4b8 | briefs/migrate-tabs-bar.md |
+| migrate-tabs | migrate | done | cursor/mitosis-migration-41e6 | 3 | c6a92f81e3 | briefs/migrate-tabs.md |
+| migrate-tabs-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | e62fa8006c | briefs/migrate-tabs-item.md |
+| migrate-stepper-horizontal | migrate | done | cursor/mitosis-migration-41e6 | 3 | a3a8d30eee | briefs/migrate-stepper-horizontal.md |
+| migrate-stepper-horizontal-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | c82fbe7a35 | briefs/migrate-stepper-horizontal-item.md |
+| migrate-button-tile | migrate | done | cursor/mitosis-migration-41e6 | 3 | 8c4ecc1167 | briefs/migrate-button-tile.md |
+| migrate-link-tile | migrate | done | cursor/mitosis-migration-41e6 | 3 | 7b9a7080e4 | briefs/migrate-link-tile.md |
+| migrate-link-tile-product | migrate | done | cursor/mitosis-migration-41e6 | 3 | 47486fdbb5 | briefs/migrate-link-tile-product.md |
+| migrate-popover | migrate | done | cursor/mitosis-migration-41e6 | 3 | 489b44deb7 | briefs/migrate-popover.md |
+| migrate-table | migrate | done | cursor/mitosis-migration-41e6 | 3 | f91446e884 | briefs/migrate-table.md |
+| migrate-table-head | migrate | done | cursor/mitosis-migration-41e6 | 3 | 8fee620d21 | briefs/migrate-table-head.md |
+| migrate-table-head-row | migrate | done | cursor/mitosis-migration-41e6 | 3 | 2cf82f85af | briefs/migrate-table-head-row.md |
+| migrate-table-head-cell | migrate | done | cursor/mitosis-migration-41e6 | 3 | b2cc71f145 | briefs/migrate-table-head-cell.md |
+| migrate-table-body | migrate | done | cursor/mitosis-migration-41e6 | 3 | 6d7bd9f688 | briefs/migrate-table-body.md |
+| migrate-table-row | migrate | done | cursor/mitosis-migration-41e6 | 3 | 1e7bda6d56 | briefs/migrate-table-row.md |
+| migrate-table-cell | migrate | done | cursor/mitosis-migration-41e6 | 3 | eb4fbf15fc | briefs/migrate-table-cell.md |
+| migrate-toast | migrate | done | cursor/mitosis-migration-41e6 | 3 | 13bf53daa9 | briefs/migrate-toast.md |
+| migrate-toast-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 41b8142c1c | briefs/migrate-toast-item.md |
+| migrate-modal | migrate | done | cursor/mitosis-migration-41e6 | 3 | ba6334587f | briefs/migrate-modal.md |
+| migrate-flyout | migrate | done | cursor/mitosis-migration-41e6 | 3 | b49bbc9516 | briefs/migrate-flyout.md |
+| migrate-sheet | migrate | done | cursor/mitosis-migration-41e6 | 3 | e98b7e33d4 | briefs/migrate-sheet.md |
+| migrate-drilldown | migrate | done | cursor/mitosis-migration-41e6 | 3 | 919e9d5271 | briefs/migrate-drilldown.md |
+| migrate-drilldown-item | migrate | done | cursor/mitosis-migration-41e6 | 3 | 84322dac41 | briefs/migrate-drilldown-item.md |
+| migrate-drilldown-link | migrate | done | cursor/mitosis-migration-41e6 | 3 | 432ed0bf80 | briefs/migrate-drilldown-link.md |
+| migrate-carousel | migrate | done | cursor/mitosis-migration-41e6 | 3 | e69e169b9e | briefs/migrate-carousel.md |
+| migrate-canvas | migrate | done | cursor/mitosis-migration-41e6 | 3 | 1cfcd3b96d | briefs/migrate-canvas.md |
+| land-divider | land | done | cursor/mitosis-migration-41e6 | 3 | eda1dbe65c | briefs/land-divider.md |
+| land-crest | land | done | cursor/mitosis-migration-41e6 | 3 | 61444dbf29 | briefs/land-crest.md |
+| land-wordmark | land | done | cursor/mitosis-migration-41e6 | 3 | 07b5f09d0d | briefs/land-wordmark.md |
+| land-flag | land | done | cursor/mitosis-migration-41e6 | 3 | a1be5a7f85 | briefs/land-flag.md |
+| land-model-signature | land | done | cursor/mitosis-migration-41e6 | 3 | a500376c45 | briefs/land-model-signature.md |
+| land-icon | land | done | cursor/mitosis-migration-41e6 | 3 | 33e0d257c1 | briefs/land-icon.md |
+| land-heading | land | done | cursor/mitosis-migration-41e6 | 3 | 7d8a28e367 | briefs/land-heading.md |
+| land-text | land | done | cursor/mitosis-migration-41e6 | 3 | ecd30d0db4 | briefs/land-text.md |
+| land-display | land | done | cursor/mitosis-migration-41e6 | 3 | 39ee7b02e5 | briefs/land-display.md |
+| land-spinner | land | done | cursor/mitosis-migration-41e6 | 3 | 85bdd0340f | briefs/land-spinner.md |
+| land-tag | land | done | cursor/mitosis-migration-41e6 | 3 | 6733197e99 | briefs/land-tag.md |
+| land-tag-dismissible | land | done | cursor/mitosis-migration-41e6 | 3 | d2709a7d30 | briefs/land-tag-dismissible.md |
+| land-link-pure | land | done | cursor/mitosis-migration-41e6 | 3 | 461c0b0441 | briefs/land-link-pure.md |
+| land-link | land | done | cursor/mitosis-migration-41e6 | 3 | 13a60cf48e | briefs/land-link.md |
+| land-button-pure | land | done | cursor/mitosis-migration-41e6 | 3 | 806b33a9e7 | briefs/land-button-pure.md |
+| land-button | land | done | cursor/mitosis-migration-41e6 | 3 | 5f7142a48d | briefs/land-button.md |
+| land-switch | land | done | cursor/mitosis-migration-41e6 | 3 | 5136d6e54c | briefs/land-switch.md |
+| land-checkbox | land | done | cursor/mitosis-migration-41e6 | 3 | 47befa23d6 | briefs/land-checkbox.md |
+| land-input-text | land | done | cursor/mitosis-migration-41e6 | 3 | 08b9c93ede | briefs/land-input-text.md |
+| land-input-email | land | done | cursor/mitosis-migration-41e6 | 3 | 7494f0924f | briefs/land-input-email.md |
+| land-input-password | land | done | cursor/mitosis-migration-41e6 | 3 | d2d118fd3b | briefs/land-input-password.md |
+| land-input-search | land | done | cursor/mitosis-migration-41e6 | 3 | b3c7415d2d | briefs/land-input-search.md |
+| land-input-url | land | done | cursor/mitosis-migration-41e6 | 3 | 6f3e159f3d | briefs/land-input-url.md |
+| land-input-tel | land | done | cursor/mitosis-migration-41e6 | 3 | 91acf3533c | briefs/land-input-tel.md |
+| land-input-number | land | done | cursor/mitosis-migration-41e6 | 3 | 4675988989 | briefs/land-input-number.md |
+| land-input-date | land | done | cursor/mitosis-migration-41e6 | 3 | 97690733ef | briefs/land-input-date.md |
+| land-input-month | land | done | cursor/mitosis-migration-41e6 | 3 | 9580183841 | briefs/land-input-month.md |
+| land-input-time | land | done | cursor/mitosis-migration-41e6 | 3 | d87db22f35 | briefs/land-input-time.md |
+| land-input-week | land | done | cursor/mitosis-migration-41e6 | 3 | c43b52f7de | briefs/land-input-week.md |
+| land-textarea | land | done | cursor/mitosis-migration-41e6 | 3 | 324c312f3a | briefs/land-textarea.md |
+| land-fieldset | land | done | cursor/mitosis-migration-41e6 | 3 | 27a5c989ed | briefs/land-fieldset.md |
+| land-text-list | land | done | cursor/mitosis-migration-41e6 | 3 | 4ea8fccca1 | briefs/land-text-list.md |
+| land-text-list-item | land | done | cursor/mitosis-migration-41e6 | 3 | 91a40f445e | briefs/land-text-list-item.md |
+| land-ai-tag | land | done | cursor/mitosis-migration-41e6 | 3 | 5e18afdd61 | briefs/land-ai-tag.md |
+| land-inline-notification | land | done | cursor/mitosis-migration-41e6 | 3 | 8591b22065 | briefs/land-inline-notification.md |
+| land-banner | land | done | cursor/mitosis-migration-41e6 | 3 | 3a66d6b78f | briefs/land-banner.md |
+| land-pagination | land | done | cursor/mitosis-migration-41e6 | 3 | 7cd63a2805 | briefs/land-pagination.md |
+| land-scroller | land | done | cursor/mitosis-migration-41e6 | 3 | 5e81177baa | briefs/land-scroller.md |
+| land-pin-code | land | done | cursor/mitosis-migration-41e6 | 3 | 6fe129bf40 | briefs/land-pin-code.md |
+| land-accordion | land | done | cursor/mitosis-migration-41e6 | 3 | 8e5cf261cc | briefs/land-accordion.md |
+| land-segmented-control | land | done | cursor/mitosis-migration-41e6 | 3 | 23c19ec88e | briefs/land-segmented-control.md |
+| land-segmented-control-item | land | done | cursor/mitosis-migration-41e6 | 3 | 64d0a6171c | briefs/land-segmented-control-item.md |
+| land-radio-group | land | done | cursor/mitosis-migration-41e6 | 3 | b114bf0ccf | briefs/land-radio-group.md |
+| land-radio-group-option | land | done | cursor/mitosis-migration-41e6 | 3 | 731cd9b8e9 | briefs/land-radio-group-option.md |
+| land-select | land | done | cursor/mitosis-migration-41e6 | 3 | 94a71c8b2a | briefs/land-select.md |
+| land-select-option | land | done | cursor/mitosis-migration-41e6 | 3 | 3674bc5112 | briefs/land-select-option.md |
+| land-optgroup | land | done | cursor/mitosis-migration-41e6 | 3 | 6229da722a | briefs/land-optgroup.md |
+| land-multi-select | land | done | cursor/mitosis-migration-41e6 | 3 | 1fa8ad03fb | briefs/land-multi-select.md |
+| land-multi-select-option | land | done | cursor/mitosis-migration-41e6 | 3 | 6d5c63a79a | briefs/land-multi-select-option.md |
+| land-tabs-bar | land | done | cursor/mitosis-migration-41e6 | 3 | 5f3387a527 | briefs/land-tabs-bar.md |
+| land-tabs | land | done | cursor/mitosis-migration-41e6 | 3 | 5a31b39d82 | briefs/land-tabs.md |
+| land-tabs-item | land | done | cursor/mitosis-migration-41e6 | 3 | d47e1875a5 | briefs/land-tabs-item.md |
+| land-stepper-horizontal | land | done | cursor/mitosis-migration-41e6 | 3 | 0161199f96 | briefs/land-stepper-horizontal.md |
+| land-stepper-horizontal-item | land | done | cursor/mitosis-migration-41e6 | 3 | 2e13d0c1c0 | briefs/land-stepper-horizontal-item.md |
+| land-button-tile | land | done | cursor/mitosis-migration-41e6 | 3 | 0e0a8e971e | briefs/land-button-tile.md |
+| land-link-tile | land | done | cursor/mitosis-migration-41e6 | 3 | 8bf2165e06 | briefs/land-link-tile.md |
+| land-link-tile-product | land | done | cursor/mitosis-migration-41e6 | 3 | bbce24639c | briefs/land-link-tile-product.md |
+| land-popover | land | done | cursor/mitosis-migration-41e6 | 3 | 7d8b653e99 | briefs/land-popover.md |
+| land-table | land | done | cursor/mitosis-migration-41e6 | 3 | 2c3ec35fd1 | briefs/land-table.md |
+| land-table-head | land | done | cursor/mitosis-migration-41e6 | 3 | 33d229e812 | briefs/land-table-head.md |
+| land-table-head-row | land | done | cursor/mitosis-migration-41e6 | 3 | 69be8aac93 | briefs/land-table-head-row.md |
+| land-table-head-cell | land | done | cursor/mitosis-migration-41e6 | 3 | 614ad81224 | briefs/land-table-head-cell.md |
+| land-table-body | land | done | cursor/mitosis-migration-41e6 | 3 | 755e65ba30 | briefs/land-table-body.md |
+| land-table-row | land | done | cursor/mitosis-migration-41e6 | 3 | beb5becf5c | briefs/land-table-row.md |
+| land-table-cell | land | done | cursor/mitosis-migration-41e6 | 3 | eb81ff4856 | briefs/land-table-cell.md |
+| land-toast | land | done | cursor/mitosis-migration-41e6 | 3 | 6599277d78 | briefs/land-toast.md |
+| land-toast-item | land | done | cursor/mitosis-migration-41e6 | 3 | b9a06927dd | briefs/land-toast-item.md |
+| land-modal | land | done | cursor/mitosis-migration-41e6 | 3 | 84e6337016 | briefs/land-modal.md |
+| land-flyout | land | done | cursor/mitosis-migration-41e6 | 3 | 05f321d3dc | briefs/land-flyout.md |
+| land-sheet | land | done | cursor/mitosis-migration-41e6 | 3 | 186a1fea5a | briefs/land-sheet.md |
+| land-drilldown | land | done | cursor/mitosis-migration-41e6 | 3 | 231e43e522 | briefs/land-drilldown.md |
+| land-drilldown-item | land | done | cursor/mitosis-migration-41e6 | 3 | 7774c4ec64 | briefs/land-drilldown-item.md |
+| land-drilldown-link | land | done | cursor/mitosis-migration-41e6 | 3 | 914c818f25 | briefs/land-drilldown-link.md |
+| land-carousel | land | done | cursor/mitosis-migration-41e6 | 3 | 2b927c6544 | briefs/land-carousel.md |
+| land-canvas | land | done | cursor/mitosis-migration-41e6 | 3 | 0e06d018bf | briefs/land-canvas.md |
+| delete-stencil | land | done | cursor/mitosis-migration-41e6 | 3 | 53a8b053e1 | briefs/delete-stencil.md |
+| delete-stencil-core | land | done | cursor/mitosis-migration-41e6 | 3 | e9f750b549 | briefs/delete-stencil-core.md |
+| generate-frameworks-divider | generate | done | cursor/mitosis-migration-41e6 | 3 | 2e9a617d9a | briefs/generate-frameworks-divider.md |
+| generate-frameworks-all | generate | done | cursor/mitosis-migration-41e6 | 3 | 8ba9fb2c50 | briefs/generate-frameworks-all.md |
+| generate-frameworks-react-fix | generate | done | cursor/mitosis-migration-41e6 | 3 | 220215b886 | briefs/generate-frameworks-react-fix.md |
+
+## Verification ledger
+
+Verdicts: live-ui-verified=156, verifier-failed=1
+
+| PR | SHA | Verdict | Evidence | Verifier | Timestamp |
+| --- | --- | --- | --- | --- | --- |
+| 3 | ad0d909eee3bd4b645954069cffd352020bc9ac3 | live-ui-verified | /opt/cursor/artifacts/stencil_divider_before.png | coordinator-receipt | 2026-08-30T21:03:11.275Z |
+| 3 | d3d2baa45c118ff183ef52501e82ac865f53a646 | verifier-failed | /workspace/.audit/orchestrate/stencil-to-mitosis/reports/fitness-divider.md | coordinator-receipt | 2026-08-30T21:11:17.772Z |
+| 3 | efd4b7f2b04661a1b8757b5f16ac50e2f377b178 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_divider_after.png | coordinator-byte-equal-png | 2026-08-30T21:31:04.657Z |
+| 3 | 2cbcee0ebe22bd6c3f4fcbe3ee8e5341a5923f99 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_crest_after.png | coordinator-byte-equal-png | 2026-08-30T21:38:06.734Z |
+| 3 | adcb403aa5617fafce8206125dc84cbf5fc451b1 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_wordmark_after.png | coordinator-byte-equal-png | 2026-08-30T21:42:06.265Z |
+| 3 | 4edd6127ec542c2b7b5310e7501a8e7f2997cae8 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_flag_after.png | coordinator-byte-equal-png | 2026-08-30T21:51:12.288Z |
+| 3 | 3ab704f859 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_model_signature_after.png | coordinator-byte-equal-png | 2026-08-30T21:57:25.184Z |
+| 3 | d702e8eb4f | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_icon_after.png | coordinator-byte-equal-png | 2026-08-30T22:01:26.766Z |
+| 3 | 0fe05aaab6 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_heading_after.png | coordinator-byte-equal-png | 2026-08-30T22:06:22.642Z |
+| 3 | fa008afa41 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_text_after.png | coordinator-byte-equal-png | 2026-08-30T22:09:38.651Z |
+| 3 | 6825564b24 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_display_after.png | coordinator-byte-equal-png | 2026-08-30T22:14:10.282Z |
+| 3 | d04025d34b | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_spinner_after.png | coordinator-byte-equal-png | 2026-08-30T22:18:36.094Z |
+| 3 | 4ece9a7b58 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_tag_after.png | coordinator-byte-equal-png | 2026-08-30T22:23:30.113Z |
+| 3 | c81276e448 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_tag_dismissible_after.png | coordinator-byte-equal-png | 2026-08-30T22:26:26.194Z |
+| 3 | 76d8e86f32 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_link_pure_after.png | coordinator-byte-equal-png | 2026-08-30T22:33:43.636Z |
+| 3 | 5e0e89280c | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_link_after.png | coordinator-byte-equal-png | 2026-08-30T22:38:16.242Z |
+| 3 | 6baa018a19 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_button_pure_after.png | coordinator-byte-equal-png | 2026-08-30T22:42:48.200Z |
+| 3 | be67982f60 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_button_after.png | coordinator-byte-equal-png | 2026-08-30T22:48:40.354Z |
+| 3 | 21f0480a7a | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_switch_after.png | coordinator-byte-equal-png | 2026-08-30T22:52:05.410Z |
+| 3 | 1c30147f75 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_checkbox_after.png | coordinator-byte-equal-png | 2026-08-30T22:57:18.433Z |
+| 3 | ad2c0b2800 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_text_after.png | coordinator-byte-equal-png | 2026-08-30T23:06:53.275Z |
+| 3 | 04eeb6103b | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_email_after.png | coordinator-byte-equal-png | 2026-08-30T23:11:23.708Z |
+| 3 | 83f7074dfa | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_password_after.png | coordinator-byte-equal-png | 2026-08-30T23:16:06.924Z |
+| 3 | f769bb4bd1 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_search_after.png | coordinator-byte-equal-png | 2026-08-30T23:22:16.562Z |
+| 3 | 76cd1db714 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_url_after.png | coordinator-byte-equal-png | 2026-08-30T23:25:53.672Z |
+| 3 | 9effa727d4 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_tel_after.png | coordinator-byte-equal-png | 2026-08-30T23:28:16.266Z |
+| 3 | e75a3157ec | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_number_after.png | coordinator-byte-equal-png | 2026-08-30T23:33:09.205Z |
+| 3 | 4f57c21f09 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_date_after.png | coordinator-byte-equal-png | 2026-08-30T23:39:12.129Z |
+| 3 | 4ee7e76eb3 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_month_after.png | coordinator-byte-equal-png | 2026-08-30T23:42:13.054Z |
+| 3 | 4bd2a33b0d | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_time_after.png | coordinator-byte-equal-png | 2026-08-30T23:45:11.919Z |
+| 3 | 351781a0a3 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_input_week_after.png | coordinator-byte-equal-png | 2026-08-30T23:47:23.303Z |
+| 3 | ff19cc9e95 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_textarea_after.png | coordinator-byte-equal-png | 2026-08-30T23:55:11.289Z |
+| 3 | 4ce75102fa | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_fieldset_after.png | coordinator-byte-equal-png | 2026-08-30T23:59:52.211Z |
+| 3 | e19a407efb | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_text_list_after.png | coordinator-byte-equal-png | 2026-08-31T00:05:46.193Z |
+| 3 | 2a90289a53 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_text_list_item_after.png | coordinator-byte-equal-png | 2026-08-31T00:12:30.078Z |
+| 3 | 946729dbd4 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_ai_tag_after.png | coordinator-byte-equal-png | 2026-08-31T00:19:09.054Z |
+| 3 | 7a9c018f8c | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_inline_notification_after.png | coordinator-byte-equal-png | 2026-08-31T00:25:54.991Z |
+| 3 | 0d5748bd59 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_banner_after.png | coordinator-byte-equal-png | 2026-08-31T00:33:50.922Z |
+| 3 | b534672020 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_pagination_after.png | coordinator-byte-equal-png | 2026-08-31T00:39:20.319Z |
+| 3 | 49829db8e5 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_scroller_after.png | coordinator-byte-equal-png | 2026-08-31T00:46:11.751Z |
+| 3 | ae7b0de7ce | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_pin_code_after.png | coordinator-byte-equal-png | 2026-08-31T00:50:30.592Z |
+| 3 | c1caf142cf | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_accordion_after.png | coordinator-byte-equal-png | 2026-08-31T00:57:14.991Z |
+| 3 | 68912a1f30 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_segmented_control_after.png | coordinator-byte-equal-png | 2026-08-31T01:04:10.742Z |
+| 3 | 813b1176bb | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_segmented_control_item_after.png | coordinator-byte-equal-png | 2026-08-31T01:08:59.996Z |
+| 3 | 1a878a21be | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_radio_group_after.png | coordinator-byte-equal-png | 2026-08-31T01:15:17.499Z |
+| 3 | e29c428d91 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_radio_group_option_after.png | coordinator-byte-equal-png | 2026-08-31T01:21:11.267Z |
+| 3 | 335b1f9ea3 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_select_after.png | coordinator-byte-equal-png | 2026-08-31T01:30:37.649Z |
+| 3 | 9d59840ac7 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_select_option_after.png | coordinator-byte-equal-png | 2026-08-31T01:36:58.733Z |
+| 3 | 392ec16105 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_optgroup_after.png | coordinator-byte-equal-png | 2026-08-31T01:40:53.830Z |
+| 3 | 663eaf8d2a | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_multi_select_after.png | coordinator-byte-equal-png | 2026-08-31T01:47:10.936Z |
+| 3 | 78d9002118 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_multi_select_option_after.png | coordinator-byte-equal-png | 2026-08-31T01:52:46.890Z |
+| 3 | 167998c4b8 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_tabs_bar_after.png | coordinator-byte-equal-png | 2026-08-31T02:00:12.096Z |
+| 3 | c6a92f81e3 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_tabs_after.png | coordinator-byte-equal-png | 2026-08-31T02:06:24.761Z |
+| 3 | e62fa8006c | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_tabs_item_after.png | coordinator-byte-equal-png | 2026-08-31T02:10:48.445Z |
+| 3 | a3a8d30eee | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_stepper_horizontal_after.png | coordinator-byte-equal-png | 2026-08-31T02:15:02.770Z |
+| 3 | c82fbe7a35 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_stepper_horizontal_item_after.png | coordinator-byte-equal-png | 2026-08-31T02:23:13.993Z |
+| 3 | 8c4ecc1167 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_button_tile_after.png | coordinator-byte-equal-png | 2026-08-31T02:29:31.122Z |
+| 3 | 7b9a7080e4 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_link_tile_after.png | coordinator-byte-equal-png | 2026-08-31T02:34:18.371Z |
+| 3 | 47486fdbb5 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_link_tile_product_after.png | coordinator-byte-equal-png | 2026-08-31T02:40:23.073Z |
+| 3 | 489b44deb7 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_popover_after.png | coordinator-byte-equal-png | 2026-08-31T02:51:38.497Z |
+| 3 | f91446e884 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_after.png | coordinator-byte-equal-png | 2026-08-31T02:56:21.539Z |
+| 3 | 8fee620d21 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_after.png | coordinator-byte-equal-png | 2026-08-31T03:00:34.953Z |
+| 3 | 2cf82f85af | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_row_after.png | coordinator-byte-equal-png | 2026-08-31T03:04:38.605Z |
+| 3 | b2cc71f145 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_head_cell_after.png | coordinator-byte-equal-png | 2026-08-31T03:09:56.011Z |
+| 3 | 6d7bd9f688 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_body_after.png | coordinator-byte-equal-png | 2026-08-31T03:13:38.535Z |
+| 3 | 1e7bda6d56 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_row_after.png | coordinator-byte-equal-png | 2026-08-31T03:17:21.190Z |
+| 3 | eb4fbf15fc | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_table_cell_after.png | coordinator-byte-equal-png | 2026-08-31T03:22:11.440Z |
+| 3 | 13bf53daa9 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_toast_after.png | coordinator-byte-equal-png | 2026-08-31T03:27:06.294Z |
+| 3 | 41b8142c1c | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_toast_item_after.png | coordinator-byte-equal-png | 2026-08-31T03:33:14.909Z |
+| 3 | ba6334587f | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_modal_after.png | coordinator-byte-equal-png | 2026-08-31T03:39:42.119Z |
+| 3 | b49bbc9516 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_flyout_after.png | coordinator-byte-equal-png | 2026-08-31T03:49:30.236Z |
+| 3 | e98b7e33d4 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_sheet_after.png | coordinator-byte-equal-png | 2026-08-31T03:54:26.764Z |
+| 3 | 919e9d5271 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_drilldown_after.png | coordinator-byte-equal-png | 2026-08-31T04:00:42.885Z |
+| 3 | 84322dac41 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_drilldown_item_after.png | coordinator-byte-equal-png | 2026-08-31T04:10:32.588Z |
+| 3 | 432ed0bf80 | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_drilldown_link_after.png | coordinator-byte-equal-png | 2026-08-31T04:16:24.593Z |
+| 3 | e69e169b9e | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_carousel_after.png | coordinator-byte-equal-png | 2026-08-31T04:25:31.566Z |
+| 3 | 1cfcd3b96d | live-ui-verified | /opt/cursor/artifacts/mitosis_lit_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T04:33:06.143Z |
+| 3 | eda1dbe65c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_divider_after.png | coordinator-byte-equal-png | 2026-08-31T04:44:14.083Z |
+| 3 | 61444dbf29 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_crest_after.png | coordinator-byte-equal-png | 2026-08-31T04:49:21.814Z |
+| 3 | 07b5f09d0d | live-ui-verified | /opt/cursor/artifacts/mitosis_land_wordmark_after.png | coordinator-byte-equal-png | 2026-08-31T04:53:12.673Z |
+| 3 | a1be5a7f85 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_flag_after.png | coordinator-byte-equal-png | 2026-08-31T05:03:04.572Z |
+| 3 | a500376c45 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_model_signature_after.png | coordinator-byte-equal-png | 2026-08-31T05:09:11.870Z |
+| 3 | 33e0d257c1 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_icon_after.png | coordinator-byte-equal-png | 2026-08-31T05:16:30.612Z |
+| 3 | 7d8a28e367 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_heading_after.png | coordinator-byte-equal-png | 2026-08-31T05:23:05.307Z |
+| 3 | ecd30d0db4 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_text_after.png | coordinator-byte-equal-png | 2026-08-31T05:29:37.032Z |
+| 3 | 39ee7b02e5 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_display_after.png | coordinator-byte-equal-png | 2026-08-31T05:33:52.967Z |
+| 3 | 85bdd0340f | live-ui-verified | /opt/cursor/artifacts/mitosis_land_spinner_after.png | coordinator-byte-equal-png | 2026-08-31T05:38:39.883Z |
+| 3 | 6733197e99 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_tag_after.png | coordinator-byte-equal-png | 2026-08-31T05:48:23.164Z |
+| 3 | d2709a7d30 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_tag_dismissible_after.png | coordinator-byte-equal-png | 2026-08-31T05:59:08.303Z |
+| 3 | 461c0b0441 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_link_pure_after.png | coordinator-byte-equal-png | 2026-08-31T06:05:03.018Z |
+| 3 | 13a60cf48e | live-ui-verified | /opt/cursor/artifacts/mitosis_land_link_after.png | coordinator-byte-equal-png | 2026-08-31T06:09:57.534Z |
+| 3 | 806b33a9e7 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_button_pure_after.png | coordinator-byte-equal-png | 2026-08-31T06:18:44.344Z |
+| 3 | 5f7142a48d | live-ui-verified | /opt/cursor/artifacts/mitosis_land_button_after.png | coordinator-byte-equal-png | 2026-08-31T06:26:53.857Z |
+| 3 | 5136d6e54c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_switch_after.png | coordinator-byte-equal-png | 2026-08-31T06:32:33.739Z |
+| 3 | 47befa23d6 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_checkbox_after.png | coordinator-byte-equal-png | 2026-08-31T06:37:34.489Z |
+| 3 | 08b9c93ede | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_text_after.png | coordinator-byte-equal-png | 2026-08-31T06:43:42.566Z |
+| 3 | 7494f0924f | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_email_after.png | coordinator-byte-equal-png | 2026-08-31T06:49:21.244Z |
+| 3 | d2d118fd3b | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_password_after.png | coordinator-byte-equal-png | 2026-08-31T06:57:14.095Z |
+| 3 | b3c7415d2d | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_search_after.png | coordinator-byte-equal-png | 2026-08-31T07:04:46.326Z |
+| 3 | 6f3e159f3d | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_url_after.png | coordinator-byte-equal-png | 2026-08-31T07:12:17.978Z |
+| 3 | 91acf3533c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_tel_after.png | coordinator-byte-equal-png | 2026-08-31T07:20:15.359Z |
+| 3 | 4675988989 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_number_after.png | coordinator-byte-equal-png | 2026-08-31T07:26:38.300Z |
+| 3 | 97690733ef | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_date_after.png | coordinator-byte-equal-png | 2026-08-31T07:32:47.417Z |
+| 3 | 9580183841 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_month_after.png | coordinator-byte-equal-png | 2026-08-31T07:40:27.057Z |
+| 3 | d87db22f35 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_time_after.png | coordinator-byte-equal-png | 2026-08-31T07:50:31.435Z |
+| 3 | c43b52f7de | live-ui-verified | /opt/cursor/artifacts/mitosis_land_input_week_after.png | coordinator-byte-equal-png | 2026-08-31T07:59:54.231Z |
+| 3 | 324c312f3a | live-ui-verified | /opt/cursor/artifacts/mitosis_land_textarea_after.png | coordinator-byte-equal-png | 2026-08-31T08:08:06.761Z |
+| 3 | 27a5c989ed | live-ui-verified | /opt/cursor/artifacts/mitosis_land_fieldset_after.png | coordinator-byte-equal-png | 2026-08-31T08:17:06.020Z |
+| 3 | 4ea8fccca1 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_text_list_after.png | coordinator-byte-equal-png | 2026-08-31T08:24:01.069Z |
+| 3 | 91a40f445e | live-ui-verified | /opt/cursor/artifacts/mitosis_land_text_list_item_after.png | coordinator-byte-equal-png | 2026-08-31T08:34:19.521Z |
+| 3 | 5e18afdd61 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_ai_tag_after.png | coordinator-byte-equal-png | 2026-08-31T08:42:59.841Z |
+| 3 | 8591b22065 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_inline_notification_after.png | coordinator-byte-equal-png | 2026-08-31T08:56:46.599Z |
+| 3 | 3a66d6b78f | live-ui-verified | /opt/cursor/artifacts/mitosis_land_banner_after.png | coordinator-byte-equal-png | 2026-08-31T09:14:54.932Z |
+| 3 | 7cd63a2805 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_pagination_after.png | coordinator-byte-equal-png | 2026-08-31T09:26:45.283Z |
+| 3 | 5e81177baa | live-ui-verified | /opt/cursor/artifacts/mitosis_land_scroller_after.png | coordinator-byte-equal-png | 2026-08-31T09:37:13.791Z |
+| 3 | 6fe129bf40 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_pin_code_after.png | coordinator-byte-equal-png | 2026-08-31T09:50:17.756Z |
+| 3 | 8e5cf261cc | live-ui-verified | /opt/cursor/artifacts/mitosis_land_accordion_after.png | coordinator-byte-equal-png | 2026-08-31T10:04:44.595Z |
+| 3 | 23c19ec88e | live-ui-verified | /opt/cursor/artifacts/mitosis_land_segmented_control_after.png | coordinator-byte-equal-png | 2026-08-31T11:26:56.483Z |
+| 3 | 64d0a6171c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_segmented_control_item_after.png | coordinator-byte-equal-png | 2026-08-31T11:36:52.078Z |
+| 3 | b114bf0ccf | live-ui-verified | /opt/cursor/artifacts/mitosis_land_radio_group_after.png | coordinator-byte-equal-png | 2026-08-31T11:45:19.695Z |
+| 3 | 731cd9b8e9 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_radio_group_option_after.png | coordinator-byte-equal-png | 2026-08-31T11:51:05.344Z |
+| 3 | 94a71c8b2a | live-ui-verified | /opt/cursor/artifacts/mitosis_land_select_after.png | coordinator-byte-equal-png | 2026-08-31T12:00:33.733Z |
+| 3 | 3674bc5112 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_select_option_after.png | coordinator-byte-equal-png | 2026-08-31T12:09:49.606Z |
+| 3 | 6229da722a | live-ui-verified | /opt/cursor/artifacts/mitosis_land_optgroup_after.png | coordinator-byte-equal-png | 2026-08-31T12:16:17.447Z |
+| 3 | 1fa8ad03fb | live-ui-verified | /opt/cursor/artifacts/mitosis_land_multi_select_after.png | coordinator-byte-equal-png | 2026-08-31T12:22:34.659Z |
+| 3 | 6d5c63a79a | live-ui-verified | /opt/cursor/artifacts/mitosis_land_multi_select_option_after.png | coordinator-byte-equal-png | 2026-08-31T12:29:32.951Z |
+| 3 | 5f3387a527 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_tabs_bar_after.png | coordinator-byte-equal-png | 2026-08-31T12:42:31.952Z |
+| 3 | 5a31b39d82 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_tabs_after.png | coordinator-byte-equal-png | 2026-08-31T12:51:11.586Z |
+| 3 | d47e1875a5 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_tabs_item_after.png | coordinator-byte-equal-png | 2026-08-31T13:00:42.073Z |
+| 3 | 0161199f96 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_stepper_horizontal_after.png | coordinator-byte-equal-png | 2026-08-31T13:14:50.768Z |
+| 3 | 2e13d0c1c0 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_stepper_horizontal_item_after.png | coordinator-byte-equal-png | 2026-08-31T13:20:49.704Z |
+| 3 | 0e0a8e971e | live-ui-verified | /opt/cursor/artifacts/mitosis_land_button_tile_after.png | coordinator-byte-equal-png | 2026-08-31T13:32:54.898Z |
+| 3 | 8bf2165e06 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_link_tile_after.png | coordinator-byte-equal-png | 2026-08-31T13:40:10.218Z |
+| 3 | bbce24639c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_link_tile_product_after.png | coordinator-byte-equal-png | 2026-08-31T13:48:31.988Z |
+| 3 | 7d8b653e99 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_popover_after.png | coordinator-byte-equal-png | 2026-08-31T14:00:45.033Z |
+| 3 | 2c3ec35fd1 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_after.png | coordinator-byte-equal-png | 2026-08-31T14:10:45.603Z |
+| 3 | 33d229e812 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_head_after.png | coordinator-byte-equal-png | 2026-08-31T14:17:48.406Z |
+| 3 | 69be8aac93 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_head_row_after.png | coordinator-byte-equal-png | 2026-08-31T14:28:51.950Z |
+| 3 | 614ad81224 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_head_cell_after.png | coordinator-byte-equal-png | 2026-08-31T14:38:37.650Z |
+| 3 | 755e65ba30 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_body_after.png | coordinator-byte-equal-png | 2026-08-31T14:47:03.684Z |
+| 3 | beb5becf5c | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_row_after.png | coordinator-byte-equal-png | 2026-08-31T14:53:50.957Z |
+| 3 | eb81ff4856 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_table_cell_after.png | coordinator-byte-equal-png | 2026-08-31T15:04:20.146Z |
+| 3 | 6599277d78 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_toast_after.png | coordinator-byte-equal-png | 2026-08-31T15:14:39.587Z |
+| 3 | b9a06927dd | live-ui-verified | /opt/cursor/artifacts/mitosis_land_toast_item_after.png | coordinator-byte-equal-png | 2026-08-31T15:21:07.583Z |
+| 3 | 84e6337016 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_modal_after.png | coordinator-byte-equal-png | 2026-08-31T15:34:57.598Z |
+| 3 | 05f321d3dc | live-ui-verified | /opt/cursor/artifacts/mitosis_land_flyout_after.png | coordinator-byte-equal-png | 2026-08-31T15:40:55.348Z |
+| 3 | 186a1fea5a | live-ui-verified | /opt/cursor/artifacts/mitosis_land_sheet_after.png | coordinator-byte-equal-png | 2026-08-31T15:48:11.993Z |
+| 3 | 231e43e522 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_drilldown_after.png | coordinator-byte-equal-png | 2026-08-31T16:03:28.706Z |
+| 3 | 7774c4ec64 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_drilldown_item_after.png | coordinator-byte-equal-png | 2026-08-31T16:20:37.904Z |
+| 3 | 914c818f25 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_drilldown_link_after.png | coordinator-byte-equal-png | 2026-08-31T16:28:08.416Z |
+| 3 | 2b927c6544 | live-ui-verified | /opt/cursor/artifacts/mitosis_land_carousel_after.png | coordinator-byte-equal-png | 2026-08-31T16:39:43.383Z |
+| 3 | 0e06d018bf | live-ui-verified | /opt/cursor/artifacts/mitosis_land_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T16:52:46.788Z |
+| 3 | 53a8b053e1 | live-ui-verified | /opt/cursor/artifacts/delete_stencil_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T17:00:57.962Z |
+| 3 | e9f750b549 | live-ui-verified | /opt/cursor/artifacts/delete_stencil_core_canvas_after.png | coordinator-byte-equal-png | 2026-08-31T17:10:43.428Z |
+| 3 | 2e9a617d9a | live-ui-verified | packages/components/mitosis/divider/output/frameworks/react/Divider.tsx | coordinator-files-exist | 2026-08-31T17:40:59.990Z |
+| 3 | 8ba9fb2c50 | live-ui-verified | .audit/orchestrate/stencil-to-mitosis/reports/generate-frameworks-all.md | coordinator-file-counts | 2026-08-31T17:47:27.820Z |
+| 3 | 220215b886 | live-ui-verified | packages/components/mitosis/button-pure/output/frameworks/react/ButtonPure.tsx | coordinator-files-exist | 2026-08-31T17:50:39.694Z |
+
+## Frontier
+
+Generation: 0
+Lowest unmerged: none
+
+(none)
+
+## Gates
+
+(none)
+
+<!-- orch-summary {"unitStates":{"done":158},"ledgerVerdicts":{"live-ui-verified":156,"verifier-failed":1},"frontierGeneration":0,"openGateIds":[]} -->

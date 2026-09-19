@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-radio-group harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <section id="default">
+      <lit-radio-group name="options" value="b" label="Some label">
+        <span data-item="a">A</span>
+        <span data-item="b">B</span>
+      </lit-radio-group>
+    </section>
+    <section id="disabled">
+      <lit-radio-group name="options" value="b" label="Some label" disabled="true">
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <section id="labeled">
+      <lit-radio-group name="options" value="b" label="Some label">
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <section id="success">
+      <lit-radio-group name="options" value="b" label="Some label" state="success" message="Some message.">
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <section id="loading">
+      <lit-radio-group name="options" value="b" label="Some label" loading="true">
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <section id="direction">
+      <lit-radio-group name="options" value="b" label="Some label" direction='{"base":"column","m":"row"}'>
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <section id="hidden">
+      <lit-radio-group hidden name="options" value="b" label="Some label">
+        <span data-item="a">A</span>
+      </lit-radio-group>
+    </section>
+    <script src="lit-radio-group.bundle.js"></script>
+  </body>
+</html>

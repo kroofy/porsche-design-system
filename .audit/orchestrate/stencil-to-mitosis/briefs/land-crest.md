@@ -1,0 +1,9 @@
+GOAL         Land p-crest from the Mitosis Lit probe into packages/components as the real p-crest tag. Pixel-diff 0 vs the stored Stencil crest playground baseline.
+SCOPE        May write: packages/components (crest source, stencil exclude, mitosis build wiring for crest only), packages/mitosis-probe-lit/src/Crest.lite.tsx if tagName must become p-crest, .audit/orchestrate/stencil-to-mitosis/reports/land-crest.md, /opt/cursor/artifacts/mitosis_land_crest_after.png. May not write: other TAG_NAME sources, packages/mitosis-probe/**, wholesale Stencil deletion, framework wrappers.
+CONTEXT      land-divider just passed: playground p-divider is Mitosis Lit, baseline byte-equal. Repeat that wiring for p-crest only. Playground: http://localhost:3333/?components=crest. Card [data-card="crest"]. Stored baseline: /opt/cursor/artifacts/stencil_crest_before.png or .audit/orchestrate/stencil-to-mitosis/baseline/stencil_crest_before.png. Stencil 4 excludeComponents is prod-only; strip @Component from crest.tsx and restart --dev so bootstrapLazy drops p-crest. IIFE register like p-divider. Recipe cssText/shadow/no-fragments/alias still apply. Do not edit the baseline PNG. You are the only writer.
+ACCEPTANCE   Stencil no longer compiles crest as p-crest. Mitosis Lit emits @customElement("p-crest") with useShadowDom. rg my-fragment on generated Crest.ts is empty. Live playground card pixel-diff 0 vs stored baseline. Report written.
+VERIFY       Recipe pixel-diff. Viewport 1440x900 dsf 2. threshold 0 includeAA true.
+TIMEBOX      60 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no second tag land, no deleting the Stencil toolchain, no customElement/webcomponent targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.

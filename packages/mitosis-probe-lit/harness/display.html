@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-display harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-display.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-3xl)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-display size="small" color="primary">ABC</lit-display>
+    </section>
+    <section id="xl">
+      <lit-display size="large" color="primary">ABC</lit-display>
+    </section>
+    <section id="inherit">
+      <lit-display class="text-[deeppink] text-[48px]" size="inherit" color="inherit">ABC</lit-display>
+    </section>
+    <section id="bp">
+      <lit-display size='{"base":"small","m":"large"}' color="primary">ABC</lit-display>
+    </section>
+    <section id="hidden">
+      <lit-display size="small" hidden>ABC</lit-display>
+    </section>
+    <section id="rich">
+      <lit-display>Some <i>italic</i> and <b>bold</b> text.</lit-display>
+    </section>
+  </body>
+</html>

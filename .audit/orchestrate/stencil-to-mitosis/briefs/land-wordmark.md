@@ -1,0 +1,9 @@
+GOAL         Land p-wordmark from the Mitosis Lit probe into packages/components as the real p-wordmark tag. Pixel-diff 0 vs the stored Stencil wordmark playground baseline.
+SCOPE        May write: packages/components (wordmark source, stencil exclude, mitosis build wiring for wordmark only), packages/mitosis-probe-lit/src/Wordmark.lite.tsx if tagName must become p-wordmark, .audit/orchestrate/stencil-to-mitosis/reports/land-wordmark.md, /opt/cursor/artifacts/mitosis_land_wordmark_after.png. May not write: other TAG_NAME sources, packages/mitosis-probe/**, wholesale Stencil deletion, framework wrappers.
+CONTEXT      land-crest just passed: playground p-crest is Mitosis Lit, baseline byte-equal. Repeat that wiring for p-wordmark only. Playground: http://localhost:3333/?components=wordmark. Card [data-card="wordmark"]. Stored baseline: .audit/orchestrate/stencil-to-mitosis/baseline/stencil_wordmark_before.png or /opt/cursor/artifacts/stencil_wordmark_before.png. Own mitosis.config.js so crest/divider output is not regenerated. Strip @Component from wordmark.tsx and restart --dev so bootstrapLazy drops p-wordmark. Recipe cssText/shadow/no-fragments/alias still apply. Do not edit the baseline PNG. You are the only writer.
+ACCEPTANCE   Stencil no longer compiles wordmark as p-wordmark. Mitosis Lit emits @customElement("p-wordmark") with useShadowDom. rg my-fragment on generated Wordmark.ts is empty. Live playground card pixel-diff 0 vs stored baseline. Report written.
+VERIFY       Recipe pixel-diff. Viewport 1440x900 dsf 2. threshold 0 includeAA true.
+TIMEBOX      60 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no second tag land, no deleting the Stencil toolchain, no customElement/webcomponent targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.

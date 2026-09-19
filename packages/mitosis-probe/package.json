@@ -1,0 +1,13 @@
+{
+  "name": "@porsche-design-system/mitosis-probe",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Throwaway fitness probe: can Mitosis express p-divider? Not part of the monorepo build. Install with `npm install --workspaces=false` inside this directory to keep the root lockfile untouched.",
+  "scripts": {
+    "build": "mitosis build"
+  },
+  "devDependencies": {
+    "@builder.io/mitosis": "^0.14.0",
+    "@builder.io/mitosis-cli": "^0.14.0"
+  }
+}

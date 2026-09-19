@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-tabs-item harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <p-tabs>
+        <lit-tabs-item label="Some label (1)"><span>Some content (1)</span></lit-tabs-item>
+      </p-tabs>
+    </section>
+    <section id="hidden">
+      <lit-tabs-item hidden label="Hidden"><span>Hidden content</span></lit-tabs-item>
+    </section>
+    <script src="lit-tabs-item.bundle.js"></script>
+  </body>
+</html>

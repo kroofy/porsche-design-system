@@ -1,89 +1,23 @@
-import { Component, Element, Host, h, type JSX, Listen, Prop, Watch } from '@stencil/core';
-import type { PropTypes } from '../../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  getPrefixedTagNames,
-  throwIfParentIsNotOfKind,
-  updateParent,
-  validateProps,
-} from '../../../utils';
-import { getComponentCss } from './stepper-horizontal-item-styles';
-import {
-  getStepperHorizontalIconName,
-  isItemClickable,
-  isStateCompleteOrWarning,
-  STEPPER_ITEM_STATES,
-  type StepperHorizontalItemState,
-  throwIfCurrentAndDisabled,
-} from './stepper-horizontal-item-utils';
-
-const propTypes: PropTypes<typeof StepperHorizontalItem> = {
-  state: AllowedTypes.oneOf<StepperHorizontalItemState>([undefined, ...STEPPER_ITEM_STATES]),
-  disabled: AllowedTypes.boolean,
-};
-
 /**
- * @slot {"name": "", "description": "Default slot for the content." }
+ * Stencil no longer owns p-stepper-horizontal-item. The playground tag is the Mitosis Lit
+ * custom element from mitosis/stepper-horizontal-item/StepperHorizontalItem.lite.tsx.
+ * This file stays so generateConstructorMap can still import class StepperHorizontalItem.
  */
-@Component({
-  tag: 'p-stepper-horizontal-item',
-  shadow: { delegatesFocus: true },
-})
+import type { HTMLStencilElement } from '../../../types/html-stencil-element';
+
 export class StepperHorizontalItem {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  state?: string;
+  disabled?: boolean = false;
+  render(): void {}
+}
 
-  /** The current progression state of the step. Use `current` for the active step, `complete` for finished steps, `warning` for steps with issues. Leave unset for future steps. */
-  @Prop() public state?: StepperHorizontalItemState;
-
-  /** Disables the stepper-horizontal-item. No events will be triggered while disabled state is active. */
-  @Prop() public disabled?: boolean = false;
-
-  @Listen('click', { capture: true })
-  public onClick(e: MouseEvent): void {
-    if (!isItemClickable(this.state, this.disabled)) {
-      e.stopPropagation();
-    }
+declare global {
+  interface HTMLPStepperHorizontalItemElement extends HTMLStencilElement {
+    state?: string;
+    disabled?: boolean;
   }
-
-  @Watch('state')
-  public onStateChange(): void {
-    updateParent(this.host);
-  }
-
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, 'p-stepper-horizontal');
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    throwIfCurrentAndDisabled(this.host);
-    attachComponentCss(this.host, getComponentCss, this.state, this.disabled);
-
-    const PrefixedTagNames = getPrefixedTagNames(this.host);
-
-    return (
-      <Host role="listitem">
-        <button
-          type="button"
-          aria-disabled={!this.state || this.disabled ? 'true' : null}
-          aria-current={this.state === 'current' ? 'step' : null}
-        >
-          {isStateCompleteOrWarning(this.state) ? (
-            <PrefixedTagNames.pIcon
-              class="icon"
-              name={getStepperHorizontalIconName(this.state)}
-              size="inherit"
-              color={getStepperHorizontalIconName(this.state)}
-              aria-hidden="true"
-            />
-          ) : (
-            <span class="icon" aria-hidden="true" />
-          )}
-          {this.state && <span class="sr-only">{this.state}: </span>}
-          <slot />
-        </button>
-      </Host>
-    );
+  interface HTMLElementTagNameMap {
+    'p-stepper-horizontal-item': HTMLPStepperHorizontalItemElement;
   }
 }

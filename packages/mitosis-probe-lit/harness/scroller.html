@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-scroller harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+      .narrow {
+        width: 240px;
+      }
+    </style>
+    <script src="lit-scroller.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <section id="default" class="narrow">
+      <lit-scroller>
+        <button type="button">One</button>
+        <button type="button">Two</button>
+        <button type="button">Three</button>
+        <button type="button">Four</button>
+        <button type="button">Five</button>
+        <button type="button">Six</button>
+      </lit-scroller>
+    </section>
+    <section id="scrollbar" class="narrow">
+      <lit-scroller scrollbar="true">
+        <button type="button">One</button>
+        <button type="button">Two</button>
+        <button type="button">Three</button>
+        <button type="button">Four</button>
+        <button type="button">Five</button>
+        <button type="button">Six</button>
+      </lit-scroller>
+    </section>
+    <section id="fits">
+      <lit-scroller>
+        <button type="button">Fits</button>
+      </lit-scroller>
+    </section>
+    <section id="hidden">
+      <lit-scroller hidden>
+        <button type="button">Hidden</button>
+      </lit-scroller>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-tag harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-tag.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="text-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-canvas)"
+    ></div>
+    <section id="default">
+      <lit-tag icon="car" variant="primary">
+        <button type="button">Some label</button>
+      </lit-tag>
+    </section>
+    <section id="secondary">
+      <lit-tag icon="car" variant="secondary">
+        <button type="button">Some label</button>
+      </lit-tag>
+    </section>
+    <section id="noicon">
+      <lit-tag variant="secondary">Some label</lit-tag>
+    </section>
+    <section id="source">
+      <lit-tag icon-source="http://localhost:3001/icon-custom-kaixin.svg">Some label</lit-tag>
+    </section>
+    <section id="compact">
+      <lit-tag compact icon="car" variant="info">Some label</lit-tag>
+    </section>
+    <section id="hidden">
+      <lit-tag hidden icon="car" variant="primary">Some label</lit-tag>
+    </section>
+  </body>
+</html>

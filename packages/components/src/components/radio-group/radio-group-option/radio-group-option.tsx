@@ -1,149 +1,35 @@
-import { Component, Element, Host, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes, ValidatorFunction } from '../../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  getPrefixedTagNames,
-  throwIfParentIsNotOfKind,
-  throwIfPropIsUndefined,
-  validateProps,
-} from '../../../utils';
-import { Label } from '../../common/label/label';
-import { LoadingMessage, loadingId } from '../../common/loading-message/loading-message';
-import type { RadioGroupChangeEventDetail } from '../radio-group/radio-group-utils';
-import { getComponentCss } from './radio-group-option-styles';
-import type { RadioGroupOptionInternalHTMLProps } from './radio-group-option-utils';
-
-const propTypes: PropTypes<typeof RadioGroupOption> = {
-  value: AllowedTypes.oneOf<ValidatorFunction>([AllowedTypes.string, AllowedTypes.number]),
-  label: AllowedTypes.string,
-  disabled: AllowedTypes.boolean,
-  loading: AllowedTypes.boolean,
-};
-
-// Though "description" and "message" slots are technically available (provided by the "label" component),
-// they are not documented here to avoid confusion since they are not intended for use within radio group options.
 /**
- * @slot {"name": "label", "description": "Shows a label. Only [phrasing content](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Phrasing_content) is allowed."}
- * @slot {"name": "label-after", "description": "Places additional content after the label text (for content that should not be part of the label, e.g. external links or `p-popover`)." }
+ * Stencil no longer owns p-radio-group-option. The playground tag is the Mitosis Lit
+ * custom element from mitosis/radio-group-option/RadioGroupOption.lite.tsx.
+ * This file stays so generateConstructorMap can still import class RadioGroupOption.
  */
-@Component({
-  tag: 'p-radio-group-option',
-  shadow: { delegatesFocus: true },
-})
 export class RadioGroupOption {
-  @Element() public host!: HTMLElement & RadioGroupOptionInternalHTMLProps;
+  host!: HTMLElement;
+  value?: string | number;
+  label?: string;
+  disabled?: boolean = false;
+  loading?: boolean = false;
+  selected?: boolean;
+  disabledParent?: boolean;
+  loadingParent?: boolean;
+  name?: string;
+  state?: string;
+  render(): void {}
+}
 
-  /** Sets the required option value. Must be a string or number and is selected when it strictly matches the parent `p-radio-group` value by type and value. */
-  @Prop() public value: string | number;
-
-  /** Sets the visible label text displayed next to the radio button that the user reads to identify the option. */
-  @Prop() public label?: string;
-
-  /** Prevents this option from being selected and excludes its value from form submissions while it is disabled. */
-  @Prop() public disabled?: boolean = false;
-
-  /** @experimental Disables this option and shows a spinner to indicate that this particular option is in a loading state. */
-  @Prop() public loading?: boolean = false;
-
-  private initialLoading: boolean = false;
-  private inputElement!: HTMLInputElement;
-
-  public connectedCallback(): void {
-    throwIfParentIsNotOfKind(this.host, ['p-radio-group']);
-    this.initialLoading = this.loading;
+declare global {
+  interface HTMLPRadioGroupOptionElement extends HTMLElement {
+    value?: string | number;
+    label?: string;
+    disabled?: boolean;
+    loading?: boolean;
+    selected?: boolean;
+    disabledParent?: boolean;
+    loadingParent?: boolean;
+    name?: string;
+    state?: string;
   }
-
-  public componentWillLoad(): void {
-    this.initialLoading = this.loading;
+  interface HTMLElementTagNameMap {
+    'p-radio-group-option': HTMLPRadioGroupOptionElement;
   }
-
-  public componentWillUpdate(): void {
-    if (this.loading) {
-      this.initialLoading = true;
-    }
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    throwIfPropIsUndefined(this.host, 'value', this.value);
-    const { selected: isSelected, name, state } = this.host;
-    const isDisabled = this.disabled || this.host.disabledParent;
-    const isOptionLoading = this.loading && !isSelected;
-    const isLoading = isOptionLoading || this.host.loadingParent;
-
-    attachComponentCss(this.host, getComponentCss, isDisabled, isLoading, state);
-
-    const id = 'radio-group-option';
-    const PrefixedTagNames = getPrefixedTagNames(this.host);
-
-    return (
-      <Host onClick={!isDisabled && !isLoading && this.onHostClick} onBlur={this.onBlur}>
-        {/* wrapped in host for programmatic selection via radio-group-option */}
-        <div class="root">
-          <div class="wrapper">
-            <input
-              id={id}
-              type="radio"
-              name={name}
-              checked={isSelected}
-              disabled={isDisabled || isLoading}
-              value={this.value}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-              }}
-              onChange={this.onChange}
-              onBlur={this.onBlur}
-              aria-describedby={isLoading ? loadingId : null}
-              aria-invalid={state === 'error' ? 'true' : null}
-              aria-disabled={isDisabled || isLoading ? 'true' : null}
-              ref={(el) => (this.inputElement = el)}
-            />
-            {/* true if this option should show its own loading state (option loading, NOT selected, parent NOT loading) */}
-            {isOptionLoading && !this.host.loadingParent && (
-              <PrefixedTagNames.pSpinner class="spinner" aria-hidden="true" />
-            )}
-          </div>
-          <Label
-            host={this.host}
-            label={this.label}
-            htmlFor={id}
-            isDisabled={isDisabled}
-            isLoading={isLoading}
-            stopClickPropagation={true}
-          />
-          {!this.host.loadingParent && (
-            <LoadingMessage loading={isOptionLoading} initialLoading={this.initialLoading} />
-          )}
-        </div>
-      </Host>
-    );
-  }
-
-  private onChange = (e: RadioGroupChangeEventDetail): void => {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this.host.dispatchEvent(
-      new CustomEvent('internalRadioGroupOptionChange', {
-        bubbles: true,
-        detail: e, // forward native input change event
-      })
-    );
-  };
-
-  private onBlur = (e: FocusEvent): void => {
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    this.host.dispatchEvent(
-      new CustomEvent('internalRadioGroupOptionBlur', {
-        bubbles: true,
-      })
-    );
-  };
-
-  private onHostClick = (): void => {
-    this.inputElement.focus();
-    this.inputElement.click();
-  };
 }

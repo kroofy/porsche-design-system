@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-textarea harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-textarea.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="readonly-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-medium)"
+    ></div>
+    <section id="default">
+      <lit-textarea
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="Some value"
+        rows="1"
+        counter="true"
+        max-length="100"
+      ></lit-textarea>
+    </section>
+    <section id="success">
+      <lit-textarea
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="Some value"
+        rows="2"
+        counter="true"
+        max-length="100"
+        state="success"
+        message="Some message."
+      ></lit-textarea>
+    </section>
+    <section id="error">
+      <lit-textarea
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="Some value"
+        rows="2"
+        counter="true"
+        max-length="100"
+        state="error"
+        message="Some message."
+      ></lit-textarea>
+    </section>
+    <section id="disabled">
+      <lit-textarea
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="Some value"
+        rows="2"
+        counter="false"
+        max-length="100"
+        disabled="true"
+      ></lit-textarea>
+    </section>
+    <section id="readonly">
+      <lit-textarea
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="Some value"
+        rows="1"
+        counter="false"
+        max-length="100"
+        read-only="true"
+      ></lit-textarea>
+    </section>
+    <section id="hide-label">
+      <lit-textarea label="Some label" hide-label="true"></lit-textarea>
+    </section>
+    <section id="hidden">
+      <lit-textarea hidden label="Some label"></lit-textarea>
+    </section>
+    <section id="breakpoint">
+      <lit-textarea label="bp" hide-label='{"base":true,"m":false}'></lit-textarea>
+    </section>
+  </body>
+</html>

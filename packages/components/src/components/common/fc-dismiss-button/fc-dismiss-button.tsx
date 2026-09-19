@@ -1,4 +1,4 @@
-import { type FunctionalComponent, h } from '@stencil/core';
+import { type FunctionalComponent, h } from '../../../types/html-stencil-element';
 
 type FCDismissButtonProps = {
   /** Accessible (visually hidden) label of the dismiss button. */

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table-row harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      .table {
+        display: table;
+        --_p-table-d: 1px;
+        --_p-table-c: var(--p-color-contrast-low);
+        --_p-table-b: var(--p-color-frosted);
+      }
+      .body {
+        display: table-row-group;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="border-ref"
+      style="position: absolute; width: 1px; height: 1px; border-bottom: 1px solid var(--p-color-contrast-low)"
+    ></div>
+    <section id="default">
+      <div class="table">
+        <div class="body">
+          <lit-table-row>
+            <span>718 Cayman</span>
+          </lit-table-row>
+        </div>
+      </div>
+    </section>
+    <section id="hidden">
+      <div class="table">
+        <div class="body">
+          <lit-table-row hidden>
+            <span>Hidden</span>
+          </lit-table-row>
+        </div>
+      </div>
+    </section>
+    <script src="lit-table-row.bundle.js"></script>
+  </body>
+</html>

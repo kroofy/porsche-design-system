@@ -1,0 +1,9 @@
+GOAL         Get Mitosis react output for the two tags that failed prettier: button-pure and tag-dismissible. Vue, angular, and svelte for both already compiled. Do not break those or Lit IIFEs.
+SCOPE        May write: packages/components/mitosis/button-pure and mitosis/tag-dismissible (frameworks config, generate script, output/frameworks/react only), a post-prettier strip if needed, .audit/orchestrate/stencil-to-mitosis/reports/generate-frameworks-react-fix.md. May not write: other tags, published wrappers, Lit IIFEs, restoring Stencil. Prefer not to edit .lite.tsx; if the React generator cannot emit valid TSX without a lite change, document that as a dead-end instead of rewriting the Lit host.
+CONTEXT      generate-frameworks-all compiled 75 vue / 75 angular / 75 svelte / 73 react. Failed pairs: button-pure/react and tag-dismissible/react. Combined mitosis build failed because the React prettier step threw SyntaxError: '}' expected. The lite files parsed; Vue/Angular/Svelte still compiled. This is a generator format issue. Do not force a failing target by faking files. Isolated configs dest output/frameworks. rg my-fragment must stay empty. You are the only writer. Stay on cursor/mitosis-migration-41e6.
+ACCEPTANCE   React output files exist for button-pure and tag-dismissible, or a dead-end report explains why prettier still fails. Existing vue/angular/svelte outputs for those tags remain. Lit IIFEs remain.
+VERIFY       Files exist at mitosis/{button-pure,tag-dismissible}/output/frameworks/react/. my-fragment empty. mitosis build for react-only on those two tags.
+TIMEBOX      45 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no published-wrapper rewrite, no customElement/webcomponent, no restoring stencil.
+REPORT       status, SHA, whether each react file compiled, follow-ups.
+STANDING     Partial success already accepted. This unit only fills the two react holes.
