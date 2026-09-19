@@ -5,7 +5,8 @@ useMetadata({ tagName: 'p-pin-code' });
 const BREAKPOINTS = ['base', 'xs', 's', 'm', 'l', 'xl', 'xxl'] as const;
 
 const parse = (raw: any, fallback: any) => {
-  if (raw === undefined || raw === null || raw === '') return fallback;
+  if (raw === undefined || raw === null) return fallback;
+  if (raw === '') return typeof fallback === 'boolean' ? true : fallback;
   if (typeof raw === 'string' && raw.charAt(0) === '{') {
     try {
       return JSON.parse(raw.replace(/'/g, '"').replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":'));

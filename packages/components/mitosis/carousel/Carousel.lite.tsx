@@ -24,7 +24,8 @@ export default function LitCarousel(props: {
     get hostStyle(): Record<string, string> {
       const isTrue = (v: any) => v === true || v === 'true' || v === '';
       const parse = (raw: any, fallback: any) => {
-        if (raw === undefined || raw === null || raw === '') return fallback;
+        if (raw === undefined || raw === null) return fallback;
+        if (raw === '') return typeof fallback === 'boolean' ? true : fallback;
         if (typeof raw === 'string' && raw.charAt(0) === '{') {
           try {
             return JSON.parse(

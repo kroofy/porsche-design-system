@@ -97,7 +97,8 @@ const extraMethods = `  connectedCallback() {
   }
 
   _parseJson(raw, fallback) {
-    if (raw === undefined || raw === null || raw === "") return fallback;
+    if (raw === undefined || raw === null) return fallback;
+    if (raw === "") return typeof fallback === "boolean" ? true : fallback;
     if (typeof raw === "string" && raw.charAt(0) === "{") {
       try {
         return JSON.parse(raw.replace(/'/g, '"').replace(/([{,]\\s*)([A-Za-z_][A-Za-z0-9_]*)\\s*:/g, '$1"$2":'));
