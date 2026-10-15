@@ -255,6 +255,36 @@ const replacePdsTagsWithComponents = (code, nested, kind) => {
   return next;
 };
 
+/**
+ * Lite markup passes HTML-style attributes to nested tags (`<p-button-pure hide-label="true">`).
+ * React, Svelte and Angular match props by exact name, so `hide-label` would be dropped.
+ */
+const camelizeNestedAttrs = (code, opener) => {
+  let out = '';
+  let index = 0;
+  for (const match of code.matchAll(opener)) {
+    if (match.index < index) continue;
+    let depth = 0;
+    let quote = null;
+    let end = match.index + match[0].length;
+    for (; end < code.length; end += 1) {
+      const char = code[end];
+      if (quote) {
+        if (char === quote) quote = null;
+      } else if (char === '"' || char === "'" || char === '`') quote = char;
+      else if (char === '{') depth += 1;
+      else if (char === '}') depth -= 1;
+      else if (char === '>' && depth === 0) break;
+    }
+    const head = code
+      .slice(match.index, end)
+      .replace(/(\s)(?!data-|aria-)([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?==)/g, (_, space, name) => `${space}${camel(name)}`);
+    out += code.slice(index, match.index) + head;
+    index = end;
+  }
+  return out + code.slice(index);
+};
+
 const availableIdents = (code) => {
   const names = new Set();
   for (const match of code.matchAll(/function (\w+)\s*\(/g)) names.add(match[1]);
@@ -279,13 +309,13 @@ const bindNativeFields = (code, target) => {
       if (has('isDisabled')) bits.push('disabled={!!isDisabled()}');
       if (has('isReadOnly')) bits.push('readOnly={!!isReadOnly()}');
       if (code.includes('props.name')) bits.push('name={props.name}');
-      if (has('maxLengthValue')) bits.push('maxLength={maxLengthValue() || undefined}');
+      if (has('maxLengthValue')) bits.push('maxLength={Number(maxLengthValue()) || undefined}');
     } else if (target === 'vue') {
       if (has('inputValue')) bits.push(':value="inputValue"');
       if (has('placeholderText')) bits.push(':placeholder="placeholderText"');
       if (has('isDisabled')) bits.push(':disabled="isDisabled"');
       if (has('isReadOnly')) bits.push(':readonly="isReadOnly"');
-      if (code.includes('"name"') || code.includes('name:')) bits.push(':name="name"');
+      if (/props:\s*\[[^\]]*"name"/.test(code)) bits.push(':name="name"');
       if (has('maxLengthValue')) bits.push(':maxlength="maxLengthValue"');
     } else if (target === 'svelte') {
       if (has('inputValue')) bits.push('value={inputValue()}');
@@ -300,9 +330,14 @@ const bindNativeFields = (code, target) => {
       if (has('isReadOnly')) bits.push('[readOnly]="isReadOnly"');
       if (has('maxLengthValue')) bits.push('[maxLength]="maxLengthValue"');
     }
-    if (!bits.length) return full;
+    const bound = (bit) => {
+      const name = bit.match(/^[:[]?(\w+)\]?=/)?.[1]?.toLowerCase();
+      return name && new RegExp(`(?:^|\\s)[:[]?(?:attr\\.)?${name}\\]?=`, 'i').test(attrs);
+    };
+    const missing = bits.filter((bit) => !bound(bit));
+    if (!missing.length) return full;
     const end = self ? ' />' : '>';
-    return `<${tag}${attrs} ${bits.join(' ')}${end}`;
+    return `<${tag}${attrs} ${missing.join(' ')}${end}`;
   });
 };
 
@@ -412,11 +447,21 @@ const adaptReact = (code, tag) => {
   next = rewriteReactSlots(next);
   const nested = findNestedTags(next, tag);
   next = replacePdsTagsWithComponents(next, nested, 'react');
+  next = camelizeNestedAttrs(next, /<P[A-Z]\w*/g);
   next = bindNativeFields(next, 'react');
   next = addNestedImports(next, tag, 'react', nested);
 
   if (!next.includes('className?: string')) {
-    next = next.replace(/export interface (\w+) \{/, 'export interface $1 {\n  className?: string;');
+    const declared = declaredProps(next);
+    const slotProps = [...new Set([...next.matchAll(/props\[("[^"]+")\]/g)].map((match) => match[1]))].filter(
+      (name) => !declared.has(JSON.parse(name))
+    );
+    const members = [
+      'className?: string;',
+      ...(next.includes('props.children') ? ['children?: React.ReactNode;'] : []),
+      ...slotProps.map((name) => `${name}?: React.ReactNode;`),
+    ];
+    next = next.replace(/export interface (\w+) \{/, `export interface $1 {\n  ${members.join('\n  ')}`);
   }
 
   if (next.includes(`data-pds="${tag}"`)) return next;
@@ -537,6 +582,7 @@ const adaptSvelte = (code, tag) => {
   next = rewriteSveltePropShadowing(next);
   const nested = findNestedTags(next, tag);
   next = replacePdsTagsWithComponents(next, nested, 'svelte');
+  next = camelizeNestedAttrs(next, /<P[A-Z]\w*/g);
   next = bindNativeFields(next, 'svelte');
   next = wrapTemplateSlots(next, true);
 
@@ -600,7 +646,13 @@ const adaptSvelte = (code, tag) => {
 const adaptAngular = (code, tag) => {
   let next = code;
   const nested = findNestedTags(next, tag);
+  next = camelizeNestedAttrs(next, /<p-[a-z0-9-]+/g);
   next = bindNativeFields(next, 'angular');
+  // `[attr.checked]="false"` still sets the attribute; boolean attributes need null to be absent.
+  next = next.replace(
+    /\[attr\.(checked|disabled|readonly|required|selected|hidden|open|multiple)\]="([^"]+)"/gi,
+    (_, name, expr) => `[attr.${name}]="(${expr}) ? '' : null"`
+  );
 
   const host = hostClass(tag);
   if (/get cssText\(\)/.test(next) && !next.includes('get scopedCssText(')) {

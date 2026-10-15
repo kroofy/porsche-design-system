@@ -159,3 +159,38 @@ describe('adaptFile angular', () => {
     assert.match(next, /\[style\]="hostStyle"/);
   });
 });
+
+describe('native field bindings', () => {
+  it('does not duplicate a binding the lite source already has', () => {
+    for (const [target, file] of [
+      ['vue', 'Checkbox.vue'],
+      ['svelte', 'Checkbox.svelte'],
+      ['react', 'Checkbox.tsx'],
+    ]) {
+      const next = adapted('checkbox', target, file);
+      const input = next.match(/<input[\s\S]*?\/>/)[0];
+      assert.equal(input.match(/disabled=/g).length, 1, `${target}: ${input}`);
+    }
+  });
+
+  it('drops angular boolean attributes instead of writing "false"', () => {
+    const next = adapted('checkbox', 'angular', 'Checkbox.ts');
+    assert.match(next, /\[attr\.checked\]="\(!!isChecked\) \? '' : null"/);
+  });
+});
+
+describe('nested component props', () => {
+  it('camelizes HTML-style attributes passed to nested PDS components', () => {
+    const react = adapted('drilldown', 'react', 'Drilldown.tsx');
+    assert.doesNotMatch(react, /<PButtonPure[^>]*\shide-label=/);
+    assert.match(react, /<PButtonPure[^>]*\shideLabel=/);
+    const angular = adapted('drilldown', 'angular', 'Drilldown.ts');
+    assert.doesNotMatch(angular, /<p-button-pure[^>]*\shide-label=/);
+    assert.match(angular, /aria-hidden=|hideLabel=/);
+  });
+
+  it('types children and named slots on the react props interface', () => {
+    const next = adapted('input-text', 'react', 'InputText.tsx');
+    assert.match(next, /"label-after"\?: React\.ReactNode;/);
+  });
+});
