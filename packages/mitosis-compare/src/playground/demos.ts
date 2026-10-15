@@ -766,19 +766,36 @@ export const DEMOS: Demo[] = [
 
 export const DEMO_BY_TAG = new Map(DEMOS.map((demo) => [demo.tag, demo]));
 
-/** Known gaps in the React / Vue / Svelte / Angular emit; Lit gets this behavior from build-lit-* post-processing. */
+/**
+ * Known gaps in the React / Vue / Svelte / Angular emit, from the React vs upstream screenshot diff.
+ * Most come from markup or behavior that build-lit-*.mjs injects into the Lit build only.
+ */
 export const NOTES: Record<string, string> = {
+  accordion: 'Framework emit renders the heading twice and keeps the panel hidden.',
   banner: 'Framework emit never opens: showPopover() is injected only into the Lit build.',
+  modal: 'Framework emit never opens: showModal() is injected only into the Lit build.',
+  flyout: 'Framework emit never opens: showModal() is injected only into the Lit build.',
+  sheet: 'Framework emit never opens: showModal() is injected only into the Lit build.',
   carousel: 'Framework emit renders nothing: the Splide wiring is injected only into the Lit build.',
-  accordion:
-    'Framework emit duplicates the heading and hides the panel: the Lit template is hand-written in build-lit-accordion.',
-  'button-tile':
-    'Framework emit misses the inner CTA button: the Lit template is hand-written in build-lit-button-tile.',
-  'link-tile': 'Framework emit misses the inner CTA link: the Lit template is hand-written in build-lit-link-tile.',
-  drilldown: 'Framework emit has no level navigation: data-* state is injected only into the Lit build.',
-  pagination: 'Framework emit has no page layout state: data-* flags are injected only into the Lit build.',
-  scroller: 'Framework emit has no scroll indicators: data-* flags are injected only into the Lit build.',
-  tabs: 'Framework emit cannot pass activeTabIndex to the tabs bar (Angular AOT error NG8002).',
+  drilldown: 'Framework emit loses the item labels and has no level navigation.',
+  canvas: 'Framework emit misses the header (sidebar toggle, crest).',
+  'radio-group': 'Framework emit duplicates labels, leaves options in the loading state and shows no selection.',
+  'segmented-control': 'Framework emit shows no selection and an arrow icon in every item.',
+  select: 'Framework emit shows no selected value and renders the options inline.',
+  'multi-select': 'Framework emit shows no selected value and renders the options inline.',
+  tabs: 'Framework emit has no tab bar and shows every panel. Angular AOT: NG8002 activeTabIndex on p-tabs-bar.',
+  'tabs-bar': 'Framework emit has no active tab indicator.',
+  pagination: 'Framework emit misses the page numbers.',
+  scroller: 'Framework emit misses the scroll button.',
+  'inline-notification': 'Framework emit renders the heading twice.',
+  'button-tile': 'Framework emit misses the inner CTA button.',
+  'link-tile': 'Framework emit misses the inner CTA link.',
+  'link-tile-product': 'Framework emit misses the like button.',
+  tag: 'Framework emit pills are larger than upstream.',
+  'tag-dismissible': 'Framework emit label sizes differ from upstream.',
+  textarea: 'Framework emit is shorter than upstream.',
+  table: 'Framework emit does not stretch the columns.',
+  'toast-item': 'Framework emit renders an empty box.',
   checkbox: 'indeterminate is a DOM property only; framework emit cannot set it without a ref.',
 };
 

@@ -197,3 +197,13 @@ describe('nested component props', () => {
     assert.match(next, /"label-after"\?: React\.ReactNode;/);
   });
 });
+
+describe('slot outlets', () => {
+  it('wraps slots whose closing tag prettier split across lines', () => {
+    const next = adapted('tag', 'angular', 'Tag.ts');
+    assert.doesNotMatch(next, /<slot/);
+    assert.match(next, /<span data-pds-slot=""><ng-content><\/ng-content><\/span>/);
+    const vue = adapted('radio-group-option', 'vue', 'RadioGroupOption.vue');
+    assert.doesNotMatch(vue, /(?<!data-pds-slot="label">)<slot name="label"/);
+  });
+});

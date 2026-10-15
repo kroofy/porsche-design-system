@@ -53,7 +53,7 @@
       "vue": {
         "status": "adapted",
         "dest": "banner/output/frameworks/vue/Banner.vue",
-        "bytes": 14752
+        "bytes": 14786
       },
       "angular": {
         "status": "adapted",
@@ -339,7 +339,7 @@
       "vue": {
         "status": "adapted",
         "dest": "fieldset/output/frameworks/vue/Fieldset.vue",
-        "bytes": 3844
+        "bytes": 3869
       },
       "angular": {
         "status": "adapted",
@@ -383,7 +383,7 @@
       "vue": {
         "status": "adapted",
         "dest": "flyout/output/frameworks/vue/Flyout.vue",
-        "bytes": 19092
+        "bytes": 19119
       },
       "angular": {
         "status": "adapted",
@@ -449,7 +449,7 @@
       "vue": {
         "status": "adapted",
         "dest": "inline-notification/output/frameworks/vue/InlineNotification.vue",
-        "bytes": 9187
+        "bytes": 9212
       },
       "angular": {
         "status": "adapted",
@@ -471,7 +471,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-date/output/frameworks/vue/InputDate.vue",
-        "bytes": 22658
+        "bytes": 22686
       },
       "angular": {
         "status": "adapted",
@@ -493,7 +493,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-email/output/frameworks/vue/InputEmail.vue",
-        "bytes": 22640
+        "bytes": 22694
       },
       "angular": {
         "status": "adapted",
@@ -515,7 +515,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-month/output/frameworks/vue/InputMonth.vue",
-        "bytes": 22709
+        "bytes": 22737
       },
       "angular": {
         "status": "adapted",
@@ -537,7 +537,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-number/output/frameworks/vue/InputNumber.vue",
-        "bytes": 23316
+        "bytes": 23344
       },
       "angular": {
         "status": "adapted",
@@ -559,7 +559,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-password/output/frameworks/vue/InputPassword.vue",
-        "bytes": 23088
+        "bytes": 23116
       },
       "angular": {
         "status": "adapted",
@@ -581,7 +581,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-search/output/frameworks/vue/InputSearch.vue",
-        "bytes": 23456
+        "bytes": 23484
       },
       "angular": {
         "status": "adapted",
@@ -603,7 +603,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-tel/output/frameworks/vue/InputTel.vue",
-        "bytes": 22536
+        "bytes": 22590
       },
       "angular": {
         "status": "adapted",
@@ -625,7 +625,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-text/output/frameworks/vue/InputText.vue",
-        "bytes": 23846
+        "bytes": 23874
       },
       "angular": {
         "status": "adapted",
@@ -647,7 +647,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-time/output/frameworks/vue/InputTime.vue",
-        "bytes": 22655
+        "bytes": 22683
       },
       "angular": {
         "status": "adapted",
@@ -669,7 +669,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-url/output/frameworks/vue/InputUrl.vue",
-        "bytes": 22537
+        "bytes": 22591
       },
       "angular": {
         "status": "adapted",
@@ -691,7 +691,7 @@
       "vue": {
         "status": "adapted",
         "dest": "input-week/output/frameworks/vue/InputWeek.vue",
-        "bytes": 22658
+        "bytes": 22686
       },
       "angular": {
         "status": "adapted",
@@ -850,7 +850,7 @@
       "angular": {
         "status": "adapted",
         "dest": "multi-select/output/frameworks/angular/MultiSelect.ts",
-        "bytes": 25065
+        "bytes": 25167
       },
       "svelte": {
         "status": "adapted",
@@ -977,12 +977,12 @@
       "vue": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/vue/RadioGroup.vue",
-        "bytes": 20904
+        "bytes": 20940
       },
       "angular": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/angular/RadioGroup.ts",
-        "bytes": 23512
+        "bytes": 23567
       },
       "svelte": {
         "status": "adapted",
@@ -1004,7 +1004,7 @@
       "angular": {
         "status": "adapted",
         "dest": "radio-group-option/output/frameworks/angular/RadioGroupOption.ts",
-        "bytes": 11676
+        "bytes": 11723
       },
       "svelte": {
         "status": "adapted",
@@ -1043,12 +1043,12 @@
       "vue": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/vue/SegmentedControl.vue",
-        "bytes": 20124
+        "bytes": 20149
       },
       "angular": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/angular/SegmentedControl.ts",
-        "bytes": 22587
+        "bytes": 22642
       },
       "svelte": {
         "status": "adapted",
@@ -1092,7 +1092,7 @@
       "angular": {
         "status": "adapted",
         "dest": "select/output/frameworks/angular/Select.ts",
-        "bytes": 25211
+        "bytes": 25313
       },
       "svelte": {
         "status": "adapted",
@@ -1461,12 +1461,12 @@
       "vue": {
         "status": "adapted",
         "dest": "tag/output/frameworks/vue/Tag.vue",
-        "bytes": 5642
+        "bytes": 5669
       },
       "angular": {
         "status": "adapted",
         "dest": "tag/output/frameworks/angular/Tag.ts",
-        "bytes": 6332
+        "bytes": 6369
       },
       "svelte": {
         "status": "adapted",
@@ -1488,7 +1488,7 @@
       "angular": {
         "status": "adapted",
         "dest": "tag-dismissible/output/frameworks/angular/TagDismissible.ts",
-        "bytes": 4953
+        "bytes": 4988
       },
       "svelte": {
         "status": "adapted",

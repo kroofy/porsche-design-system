@@ -2,7 +2,7 @@
 /**
  * Screenshot every demo: React vs upstream side by side, all targets, and a per-variant pixel diff (React vs upstream).
  *
- *   node scripts/screenshots.mjs [--base http://localhost:5174] [--out screenshots] [--themes light,dark] [--tags button,tag] [--skip-all]
+ *   node scripts/screenshots.mjs [--base http://localhost:5174] [--out screenshots] [--themes light,dark] [--tags button,tag] [--skip-all | --only-all]
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -20,6 +20,7 @@ const outDir = arg('out', 'screenshots');
 const themes = arg('themes', 'light,dark').split(',');
 const onlyTags = arg('tags', '') ? arg('tags', '').split(',') : null;
 const skipAll = args.includes('--skip-all');
+const onlyAll = args.includes('--only-all');
 const ALL = 'react,vue,svelte,angular,lit,upstream';
 const DIFF_THRESHOLD = 0.005;
 
@@ -60,7 +61,11 @@ const variantShots = async (target, tag, theme, variant) => {
   const shots = {};
   for (const section of await page.locator('.variant').all()) {
     const name = await section.getAttribute('data-variant');
-    shots[name] = PNG.sync.read(await section.locator('.variant-mount').screenshot());
+    const mount = section.locator('.variant-mount');
+    const box = await mount.boundingBox();
+    // An empty mount never becomes "visible"; record it as a blank strip instead of timing out.
+    shots[name] =
+      box && box.height >= 1 ? PNG.sync.read(await mount.screenshot()) : new PNG({ width: 1, height: 1, fill: true });
   }
   await page.close();
   return shots;
@@ -70,9 +75,10 @@ const variantShots = async (target, tag, theme, variant) => {
 const compare = (a, b) => {
   const width = Math.max(a.width, b.width);
   const height = Math.max(a.height, b.height);
+  // Pad with the capture's own background so size differences only count where content differs.
   const pad = (png) => {
     const out = new PNG({ width, height, fill: true });
-    out.data.fill(255);
+    for (let i = 0; i < out.data.length; i += 4) out.data.set(png.data.subarray(0, 4), i);
     PNG.bitblt(png, out, 0, 0, png.width, png.height, 0, 0);
     return out;
   };
@@ -119,8 +125,12 @@ async function shootDemo(theme, demo, variant) {
   const suffix = variant ? `--${variant.replace(/\W+/g, '-')}` : '';
   const hash = (targets) =>
     new URLSearchParams({ tag: demo.tag, targets, theme, ...(variant ? { variant } : {}) }).toString();
-  await shoot(hash('react,upstream'), join(outDir, 'compare', theme, `${demo.tag}${suffix}.png`), 1280);
   if (!skipAll) await shoot(hash(ALL), join(outDir, 'all-targets', theme, `${demo.tag}${suffix}.png`), 2200);
+  if (onlyAll) {
+    process.stderr.write(`${theme} ${demo.tag}${suffix}\n`);
+    return;
+  }
+  await shoot(hash('react,upstream'), join(outDir, 'compare', theme, `${demo.tag}${suffix}.png`), 1280);
 
   const react = await variantShots('react', demo.tag, theme, variant);
   const upstream = await variantShots('upstream', demo.tag, theme, variant);
@@ -136,6 +146,10 @@ async function shootDemo(theme, demo, variant) {
   process.stderr.write(`${theme} ${demo.tag}${suffix}\n`);
 }
 
+if (onlyAll) {
+  console.log('all-targets only; reports untouched');
+  process.exit(failures.length ? 1 : 0);
+}
 report.sort((a, b) => b.mismatch - a.mismatch);
 writeFileSync(join(outDir, 'diff-report.json'), `${JSON.stringify(report, null, 2)}\n`);
 const rows = report.map(
@@ -143,7 +157,7 @@ const rows = report.map(
 );
 writeFileSync(
   join(outDir, 'diff-report.md'),
-  `# React vs upstream pixel mismatch\n\nPer variant, pixelmatch threshold 0.15, size difference counts as mismatch. Strips for >0.5% are in \`diff/\` (React | upstream | diff).\n\n| Theme | Component | Variant | Mismatch |\n| --- | --- | --- | --- |\n${rows.join('\n')}\n`
+  `# React vs upstream pixel mismatch\n\nPer variant, pixelmatch threshold 0.15; the smaller capture is padded with its own background color. Strips for >0.5% are in \`diff/\` (React | upstream | diff).\n\n| Theme | Component | Variant | Mismatch |\n| --- | --- | --- | --- |\n${rows.join('\n')}\n`
 );
 console.log(
   `${report.length} variant comparisons, ${report.filter((row) => row.mismatch > DIFF_THRESHOLD).length} above 0.5%`

@@ -229,7 +229,7 @@ const rewriteSveltePropShadowing = (code) => {
 };
 
 // Slot outlets keep a `display: contents` marker so scopeCss can target `::slotted()` children precisely.
-const SLOT_RE = /<slot(\s+name="([^"]+)")?\s*(?:\/>|><\/slot>)/g;
+const SLOT_RE = /<slot(\s+name="([^"]+)")?\s*(?:\/>|>\s*<\/slot\s*>)/g;
 const slotMarker = (name, content) => `<span data-pds-slot="${name ?? ''}">${content}</span>`;
 
 const rewriteReactSlots = (code) =>
