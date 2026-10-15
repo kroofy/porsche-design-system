@@ -44,6 +44,14 @@ describe('prefixSelectors', () => {
     assert.equal(next, '@media(min-width:480px){.p-button{color:red}.p-button .root{padding:0}}');
   });
 
+  it('prefixes the first rule inside an @media body', () => {
+    const css = '.a{x:1}\n@media (hover: hover) {\n  a:not(:hover), button {\n    color: red;\n  }\n  .root { y: 2 }\n}';
+    assert.equal(
+      prefixSelectors(css, '.p-tabs-bar'),
+      '.p-tabs-bar .a{x:1}\n@media (hover: hover) {\n  .p-tabs-bar a:not(:hover), .p-tabs-bar button{\n    color: red;\n  }\n  .p-tabs-bar .root{ y: 2 }\n}'
+    );
+  });
+
   it('does not treat .p-button-pure as already scoped to .p-button', () => {
     const next = prefixSelectors('.p-button-pure{opacity:1}', '.p-button');
     assert.equal(next, '.p-button .p-button-pure{opacity:1}');

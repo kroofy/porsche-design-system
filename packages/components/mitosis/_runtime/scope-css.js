@@ -57,7 +57,8 @@ const splitSelectors = (selectors) => {
 };
 
 export function prefixSelectors(css, host) {
-  return css.replace(/(^|[}{])(\s*)([^{}@][^{}]*)\{/g, (match, brace, space, selectors) => {
+  // Lookbehind so the `{` that opens an @media body stays available to its first rule.
+  return css.replace(/(?<=^|[{}])(\s*)([^{}]+)\{/g, (match, space, selectors) => {
     const trimmed = selectors.trim();
     if (!trimmed) return match;
     if (trimmed.startsWith('@')) return match;
@@ -71,7 +72,7 @@ export function prefixSelectors(css, host) {
         return `${leading}${host} ${sel}`;
       })
       .join(',');
-    return `${brace}${space}${scoped}{`;
+    return `${space}${scoped}{`;
   });
 }
 
