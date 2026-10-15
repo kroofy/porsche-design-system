@@ -15,10 +15,11 @@ const adapted = (tag, target, file) => {
 };
 
 describe('adaptFile react', () => {
-  it('wraps button with a host, children, scoped cssText, and sibling components', () => {
+  it('wraps button with a host, children, pre-scoped css, and sibling components', () => {
     const next = adapted('button', 'react', 'Button.tsx');
     assert.match(next, /data-pds="button"/);
-    assert.match(next, /scopeCss\(/);
+    assert.match(next, /__html: "\.p-button \{/);
+    assert.doesNotMatch(next, /:host/);
     assert.match(next, /\{props\.children\}/);
     assert.doesNotMatch(next, /<slot/);
     assert.match(next, /import PIcon from/);
@@ -28,10 +29,17 @@ describe('adaptFile react', () => {
     assert.doesNotMatch(next, /<style jsx>/);
   });
 
-  it('keeps wordmark host height in the scoped cssText call', () => {
+  it('applies hostStyle vars and mirrors :host([attr]) props on the wrapper', () => {
+    const next = adapted('button', 'react', 'Button.tsx');
+    assert.match(next, /style=\{hostStyle\(\) as React\.CSSProperties\}/);
+    assert.match(next, /\{\.\.\.hostAttrs\(\{ disabled: props\.disabled, icon: props\.icon, "icon-source": props\.iconSource, loading: props\.loading \}\)\}/);
+    assert.match(next, /import \{ hostAttrs \} from "\.\.\/\.\.\/\.\.\/\.\.\/_runtime\/host\.js"/);
+  });
+
+  it('keeps wordmark host height in the pre-scoped css', () => {
     const next = adapted('wordmark', 'react', 'Wordmark.tsx');
     assert.match(next, /data-pds="wordmark"/);
-    assert.match(next, /scopeCss\([^,]+, "\.p-wordmark"\)/);
+    assert.match(next, /\.p-wordmark \{[^}]*height/);
   });
 
   it('binds input-text value from the lite getter', () => {
@@ -83,11 +91,12 @@ describe('adaptFile react', () => {
 });
 
 describe('adaptFile vue / svelte', () => {
-  it('scopes vue button cssText and wraps a host', () => {
+  it('pre-scopes vue button css into a global style block and wraps a host', () => {
     const next = adapted('button', 'vue', 'Button.vue');
-    assert.match(next, /data-pds="button"/);
-    assert.match(next, /scopedCssText/);
-    assert.match(next, /v-html="scopedCssText"/);
+    assert.match(next, /<div class="p-button" data-pds="button" :style="hostStyle" v-bind="pdsHostAttrs">/);
+    assert.match(next, /<style>\n\.p-button \{/);
+    assert.doesNotMatch(next, /<style scoped>/);
+    assert.doesNotMatch(next, /this\.cssText/);
     assert.match(next, /<PIcon/);
     assert.match(next, /from "\.\.\/\.\.\/\.\.\/\.\.\/icon\/output\/frameworks\/vue\/Icon\.vue"/);
     assert.doesNotMatch(next, /\.vue\.vue/);
@@ -103,6 +112,10 @@ describe('adaptFile vue / svelte', () => {
     assert.match(next, /<\$\{"style"\}>/);
     assert.doesNotMatch(next, /\{@html `<style>/);
     assert.match(next, /\$: __pdsComponents = \{ PIcon, PSpinner \}/);
+    assert.match(next, /const scopedCssText = "\.p-button \{/);
+    assert.match(next, /\$: pdsHostStyle = styleString\(hostStyle\(\)\);/);
+    assert.match(next, /style=\{pdsHostStyle\} \{\.\.\.pdsHostAttrs\}/);
+    assert.doesNotMatch(next, /\bcssText\b/);
   });
 
   it('rewrites svelte reads that would TDZ against a later const loading', () => {
@@ -125,5 +138,20 @@ describe('adaptFile vue / svelte', () => {
     assert.match(next, /isTrue\(__cmpProps\(\)\.loading\)/);
     assert.match(next, /const loading = optionLoading/);
     assert.match(next, /data-pds="radio-group-option"/);
+  });
+});
+
+describe('adaptFile angular', () => {
+  it('emits a standalone p-* component with nested imports and projected content', () => {
+    const next = adapted('button', 'angular', 'Button.ts');
+    assert.match(next, /selector: "p-button"/);
+    assert.match(next, /standalone: true/);
+    assert.match(next, /imports: \[CommonModule, PIcon, PSpinner\]/);
+    assert.match(next, /encapsulation: ViewEncapsulation\.None/);
+    assert.match(next, /<ng-content><\/ng-content>/);
+    assert.doesNotMatch(next, /<slot/);
+    assert.doesNotMatch(next, /NgModule/);
+    assert.match(next, /\[attr\.disabled\]="hostAttr\(disabled\) \?\? null"/);
+    assert.match(next, /\[style\]="hostStyle"/);
   });
 });
