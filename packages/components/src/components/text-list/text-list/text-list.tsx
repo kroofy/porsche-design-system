@@ -1,36 +1,21 @@
-import { Component, Element, h, type JSX, Prop } from '@stencil/core';
-import type { PropTypes } from '../../../types';
-import { AllowedTypes, attachComponentCss, validateProps } from '../../../utils';
-import { getComponentCss } from './text-list-styles';
-import { isListTypeOrdered, TEXT_LIST_TYPES, type TextListType } from './text-list-utils';
-
-const propTypes: PropTypes<typeof TextList> = {
-  type: AllowedTypes.oneOf<TextListType>(TEXT_LIST_TYPES),
-};
-
 /**
- * @slot {"name": "", "description": "Default slot for the `p-text-list-item` tags or nested `p-text-list` tags." }
+ * Stencil no longer owns p-text-list. The playground tag is the Mitosis Lit
+ * custom element from mitosis/text-list/TextList.lite.tsx.
+ * This file stays so generateConstructorMap can still import class TextList.
+ * Global HTMLPTextListElement stays if other files still type those hosts after
+ * Stencil drops the @Component declaration.
  */
-@Component({
-  tag: 'p-text-list',
-  shadow: true,
-})
 export class TextList {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
+  type?: string = 'unordered';
+  render(): void {}
+}
 
-  /** Sets the list type to either `unordered` (bulleted) or `ordered` (numbered), controlling the rendered HTML element (`ul` vs `ol`). */
-  @Prop() public type?: TextListType = 'unordered';
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    attachComponentCss(this.host, getComponentCss, this.type);
-
-    const TagType = isListTypeOrdered(this.type) ? 'ol' : 'ul';
-
-    return (
-      <TagType>
-        <slot />
-      </TagType>
-    );
+declare global {
+  interface HTMLPTextListElement extends HTMLElement {
+    type?: string;
+  }
+  interface HTMLElementTagNameMap {
+    'p-text-list': HTMLPTextListElement;
   }
 }

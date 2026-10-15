@@ -7,8 +7,81 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="/favicon.ico" rel="icon" type="image/x-icon">
     <link href="http://localhost:3001/styles/font-face.css" rel="stylesheet" type="text/css">
-    <script nomodule src="/build/porsche-design-system.js"></script>
-    <script src="/build/porsche-design-system.esm.js" type="module"></script>
+    <script src="/assets/p-divider.iife.js"></script>
+    <script src="/assets/p-crest.iife.js"></script>
+    <script src="/assets/p-wordmark.iife.js"></script>
+    <script src="/assets/p-flag.iife.js"></script>
+    <script src="/assets/p-model-signature.iife.js"></script>
+    <script src="/assets/p-icon.iife.js"></script>
+    <script src="/assets/p-heading.iife.js"></script>
+    <script src="/assets/p-text.iife.js"></script>
+    <script src="/assets/p-display.iife.js"></script>
+    <script src="/assets/p-spinner.iife.js"></script>
+    <script src="/assets/p-tag.iife.js"></script>
+    <script src="/assets/p-tag-dismissible.iife.js"></script>
+    <script src="/assets/p-link-pure.iife.js"></script>
+    <script src="/assets/p-link.iife.js"></script>
+    <script src="/assets/p-button-pure.iife.js"></script>
+    <script src="/assets/p-button.iife.js"></script>
+    <script src="/assets/p-switch.iife.js"></script>
+    <script src="/assets/p-checkbox.iife.js"></script>
+    <script src="/assets/p-input-text.iife.js"></script>
+    <script src="/assets/p-input-email.iife.js"></script>
+    <script src="/assets/p-input-password.iife.js"></script>
+    <script src="/assets/p-input-search.iife.js"></script>
+    <script src="/assets/p-input-url.iife.js"></script>
+    <script src="/assets/p-input-tel.iife.js"></script>
+    <script src="/assets/p-input-number.iife.js"></script>
+    <script src="/assets/p-input-date.iife.js"></script>
+    <script src="/assets/p-input-month.iife.js"></script>
+    <script src="/assets/p-input-time.iife.js"></script>
+    <script src="/assets/p-input-week.iife.js"></script>
+    <script src="/assets/p-textarea.iife.js"></script>
+    <script src="/assets/p-fieldset.iife.js"></script>
+    <script src="/assets/p-text-list.iife.js"></script>
+    <script src="/assets/p-text-list-item.iife.js"></script>
+    <script src="/assets/p-ai-tag.iife.js"></script>
+    <script src="/assets/p-inline-notification.iife.js"></script>
+    <script src="/assets/p-banner.iife.js"></script>
+    <script src="/assets/p-pagination.iife.js"></script>
+    <script src="/assets/p-scroller.iife.js"></script>
+    <script src="/assets/p-pin-code.iife.js"></script>
+    <script src="/assets/p-accordion.iife.js"></script>
+    <script src="/assets/p-segmented-control.iife.js"></script>
+    <script src="/assets/p-segmented-control-item.iife.js"></script>
+    <script src="/assets/p-radio-group.iife.js"></script>
+    <script src="/assets/p-radio-group-option.iife.js"></script>
+    <script src="/assets/p-select.iife.js"></script>
+    <script src="/assets/p-select-option.iife.js"></script>
+    <script src="/assets/p-optgroup.iife.js"></script>
+    <script src="/assets/p-multi-select.iife.js"></script>
+    <script src="/assets/p-multi-select-option.iife.js"></script>
+    <script src="/assets/p-tabs-bar.iife.js"></script>
+    <script src="/assets/p-tabs.iife.js"></script>
+    <script src="/assets/p-tabs-item.iife.js"></script>
+    <script src="/assets/p-stepper-horizontal.iife.js"></script>
+    <script src="/assets/p-stepper-horizontal-item.iife.js"></script>
+    <script src="/assets/p-button-tile.iife.js"></script>
+    <script src="/assets/p-link-tile.iife.js"></script>
+    <script src="/assets/p-link-tile-product.iife.js"></script>
+    <script src="/assets/p-popover.iife.js"></script>
+    <script src="/assets/p-table.iife.js"></script>
+    <script src="/assets/p-table-head.iife.js"></script>
+    <script src="/assets/p-table-head-row.iife.js"></script>
+    <script src="/assets/p-table-head-cell.iife.js"></script>
+    <script src="/assets/p-table-body.iife.js"></script>
+    <script src="/assets/p-table-row.iife.js"></script>
+    <script src="/assets/p-table-cell.iife.js"></script>
+    <script src="/assets/p-toast.iife.js"></script>
+    <script src="/assets/p-toast-item.iife.js"></script>
+    <script src="/assets/p-modal.iife.js"></script>
+    <script src="/assets/p-flyout.iife.js"></script>
+    <script src="/assets/p-sheet.iife.js"></script>
+    <script src="/assets/p-drilldown.iife.js"></script>
+    <script src="/assets/p-drilldown-item.iife.js"></script>
+    <script src="/assets/p-drilldown-link.iife.js"></script>
+    <script src="/assets/p-carousel.iife.js"></script>
+    <script src="/assets/p-canvas.iife.js"></script>
     <link rel="stylesheet" href="/assets/tailwind.css">
   </head>
   <body>
@@ -18,6 +91,7 @@
       <p-button
         slot="header-end"
         icon="configurate"
+        icon-source="http://localhost:3001/icons/configurate.5311c8d.svg"
         variant="secondary"
         compact="true"
         hide-label="true"
@@ -3462,7 +3536,8 @@
     const controlledPopovers = document.querySelectorAll('.controlled-popover');
     if (controlledPopovers.length > 0) {
       for (const controlledPopover of controlledPopovers) {
-        controlledPopover.open = false; // boolean definition initializes them component as controlled component
+        const attr = controlledPopover.getAttribute('open');
+        controlledPopover.open = attr === '' || attr === 'true';
         controlledPopover.querySelector('[slot="button"]').addEventListener('click', () => {
           controlledPopover.open = !controlledPopover.open;
         });

@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../types/html-stencil-element';
 import * as childrenObserverUtils from '../../utils/children-observer';
 import { Banner } from './banner';
 

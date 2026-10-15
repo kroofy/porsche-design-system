@@ -1,0 +1,24 @@
+{
+  "results": {
+    "button-pure": {
+      "tag": "button-pure",
+      "mitosisExit": 0,
+      "dest": "button-pure/output/frameworks/react/ButtonPure.tsx",
+      "exists": true,
+      "myFragment": false,
+      "bytes": 8610,
+      "compiled": true
+    },
+    "tag-dismissible": {
+      "tag": "tag-dismissible",
+      "mitosisExit": 0,
+      "dest": "tag-dismissible/output/frameworks/react/TagDismissible.tsx",
+      "exists": true,
+      "myFragment": false,
+      "bytes": 3476,
+      "compiled": true
+    }
+  },
+  "keepUnchanged": true,
+  "iifeUnchanged": true
+}

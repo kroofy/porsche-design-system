@@ -1,0 +1,120 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const file = resolve(dirname(fileURLToPath(import.meta.url)), '../output/lit/src/InputSearch.ts');
+const before = await readFile(file, 'utf8');
+let after = before
+  .replace(
+    'import { LitElement, html, css } from "lit";',
+    'import { LitElement, html, css, nothing } from "lit";',
+  )
+  .replace(
+    'const hideLabel = parse(this.hideLabel, false);',
+    'const hideLabel = parse(this.getAttribute("hide-label") ?? this.hideLabel, false);',
+  )
+  .replace(
+    'const readOnly = isTrue(this.readOnly);',
+    'const readOnly = isTrue(this.getAttribute("read-only") ?? this.readOnly);',
+  )
+  .replace(
+    'const hasIndicator = isTrue(this.indicator);',
+    'const hasIndicator = isTrue(this.getAttribute("indicator") ?? this.indicator);',
+  )
+  .replace(
+    'const hasClear = isTrue(this.clear);',
+    'const hasClear = isTrue(this.getAttribute("clear") ?? this.clear);',
+  )
+  .replace(
+    'return this.value == null ? "" : String(this.value);',
+    'const rawValue = this.value ?? this.getAttribute("value");\n    return rawValue == null ? "" : String(rawValue);',
+  )
+  .replace(
+    'const value = this.value == null ? "" : String(this.value);\n    return value !== "";',
+    'const rawClear = this.value ?? this.getAttribute("value");\n    return rawClear != null && String(rawClear) !== "";',
+  )
+  .replace(
+    'return this.maxLength == null || this.maxLength === ""\n      ? ""\n      : String(this.maxLength);',
+    'const raw = this.maxLength ?? this.getAttribute("max-length") ?? this.getAttribute("maxlength");\n    return raw == null || raw === "" ? "" : String(raw);',
+  )
+  .replace(
+    'this.readOnly === true || this.readOnly === "true" || this.readOnly === ""',
+    '(this.readOnly ?? this.getAttribute("read-only")) === true || (this.readOnly ?? this.getAttribute("read-only")) === "true" || (this.readOnly ?? this.getAttribute("read-only")) === ""',
+  );
+
+const propsToEnsure = [
+  'maxLength',
+  'readOnly',
+  'indicator',
+  'clear',
+  'value',
+  'placeholder',
+  'hideLabel',
+  'message',
+  'state',
+];
+for (const prop of propsToEnsure) {
+  const decl = `@property() ${prop}: any;`;
+  if (!after.includes(decl) && !after.includes(`@property() ${prop}:`)) {
+    after = after.replace('@property() label: any;', `@property() label: any;\n  ${decl}`);
+  }
+}
+
+after = after.replace(
+  /  updated\(\) \{[\s\S]*?\n  \}\n\n  render\(\) \{/,
+  `  updated() {
+    const input = this.renderRoot?.querySelector("input");
+    if (input) {
+      const value = this.value ?? this.getAttribute("value") ?? "";
+      if (input.value !== String(value)) input.value = String(value);
+      const maxLength = this.maxLength ?? this.getAttribute("max-length") ?? this.getAttribute("maxlength");
+      if (maxLength != null && maxLength !== "") input.maxLength = Number(maxLength);
+      const readOnly = this.readOnly ?? this.getAttribute("read-only");
+      input.readOnly = readOnly === true || readOnly === "true" || readOnly === "";
+      const placeholder = this.placeholder ?? this.getAttribute("placeholder") ?? "";
+      input.placeholder = placeholder;
+      const name = this.name ?? this.getAttribute("name") ?? "";
+      input.name = name;
+      const disabled = this.disabled ?? this.getAttribute("disabled");
+      input.disabled = disabled === true || disabled === "true" || disabled === "";
+    }
+  }
+
+  render() {`,
+);
+if (!after.includes('updated()')) {
+  after = after.replace(
+    '  render() {',
+    `  updated() {
+    const input = this.renderRoot?.querySelector("input");
+    if (input) {
+      const value = this.value ?? this.getAttribute("value") ?? "";
+      if (input.value !== String(value)) input.value = String(value);
+      const maxLength = this.maxLength ?? this.getAttribute("max-length") ?? this.getAttribute("maxlength");
+      if (maxLength != null && maxLength !== "") input.maxLength = Number(maxLength);
+      const readOnly = this.readOnly ?? this.getAttribute("read-only");
+      input.readOnly = readOnly === true || readOnly === "true" || readOnly === "";
+      const placeholder = this.placeholder ?? this.getAttribute("placeholder") ?? "";
+      input.placeholder = placeholder;
+      const name = this.name ?? this.getAttribute("name") ?? "";
+      input.name = name;
+      const disabled = this.disabled ?? this.getAttribute("disabled");
+      input.disabled = disabled === true || disabled === "true" || disabled === "";
+    }
+  }
+
+  render() {`,
+  );
+}
+
+after = after.replace(
+  /return html`[\s\S]*?`;/,
+  'return html`<div class="root"><style .innerHTML="${this.cssText}"></style><div class="label-wrapper"><label class="label" id="label" for="input-search">${this.labelText}</label><slot name="label-after"></slot></div><span class="label" id="description">${this.descriptionText}</span><div class="wrapper"><slot name="start"></slot><p-icon name="search" color="contrast-medium" aria-hidden="true"></p-icon><input type="search" id="input-search" dir="auto" .value=${this.inputValue} placeholder=${this.placeholderText || nothing} name=${this.name || nothing} ?disabled=${!!this.isDisabled} ?readonly=${!!this.isReadOnly} maxlength=${this.maxLengthValue || nothing} aria-disabled=${this.ariaDisabled || nothing} aria-invalid=${this.ariaInvalid || nothing} aria-readonly=${this.ariaReadonly || nothing}><p-button-pure class="button" type="button" icon="close" hide-label="true" tabindex="-1" ?disabled=${!!this.isDisabled || !!this.isReadOnly} ?hidden=${!this.isClearable}>Clear field</p-button-pure><slot name="end"></slot><p-spinner aria-hidden="true"></p-spinner></div><span class="message" id="message"><p-icon name=${this.iconName || nothing} color=${this.iconColor || nothing} aria-hidden="true"></p-icon>${this.messageText}</span><span class="loading" id="loading" role="status">${this.loadingText}</span></div>`;',
+);
+
+if (after === before) {
+  console.warn('strip-input-search-whitespace: no input-search render template to compact');
+} else {
+  await writeFile(file, after);
+  console.warn('strip-input-search-whitespace: compacted InputSearch.ts render template');
+}

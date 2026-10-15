@@ -1,0 +1,290 @@
+import { LitElement, html, css, nothing } from "lit";
+import { customElement, property, state, query } from "lit/decorators";
+
+export interface LitLinkTileProps {
+  size?: any;
+  weight?: any;
+  aspectRatio?: any;
+  label?: string;
+  description?: string;
+  align?: string;
+  gradient?: any;
+  compact?: any;
+  href?: string;
+  target?: string;
+  download?: string;
+  rel?: string;
+  aria?: any;
+}
+
+@customElement("lit-link-tile")
+export default class LitLinkTile extends LitElement {
+  @property() aria: any;
+  @property() rel: any;
+  @property() download: any;
+  @property() target: any;
+  @property() href: any;
+  static styles = css`
+      :host {
+          display: flex;
+        }
+        :host([hidden]) {
+          display: none !important;
+        }
+`;
+
+  @property() size: any;
+  @property() weight: any;
+  @property() aspectRatio: any;
+  @property() compact: any;
+  @property() align: any;
+  @property() gradient: any;
+  @property() description: any;
+  @property() label: any;
+
+  get cssText() {
+    const minWidth: any = {
+      xs: 480,
+      s: 760,
+      m: 1000,
+      l: 1300,
+      xl: 1760,
+      xxl: 1920,
+    };
+    const parse = (raw: any, fallback: any) => {
+      if (raw === undefined || raw === null || raw === "") return fallback;
+      if (typeof raw === "string" && raw.charAt(0) === "{") {
+        try {
+          return JSON.parse(
+            raw
+              .replace(/'/g, '"')
+              .replace(/[\s"]?([a-z0-9-]+)[\s"]?:/gi, '"$1":')
+          );
+        } catch (e) {
+          return fallback;
+        }
+      }
+      if (raw === "true") return true;
+      if (raw === "false") return false;
+      return raw;
+    };
+    const isTrue = (v: any) => v === true || v === "true" || v === "";
+    const sizeToken: any = {
+      "xx-small": "var(--p-typescale-2xs)",
+      "x-small": "var(--p-typescale-xs)",
+      small: "var(--p-typescale-sm)",
+      medium: "var(--p-typescale-md)",
+      large: "var(--p-typescale-lg)",
+      "x-large": "var(--p-typescale-xl)",
+      "xx-large": "var(--p-typescale-2xl)",
+      "2xs": "var(--p-typescale-2xs)",
+      xs: "var(--p-typescale-xs)",
+      sm: "var(--p-typescale-sm)",
+      md: "var(--p-typescale-md)",
+      lg: "var(--p-typescale-lg)",
+      xl: "var(--p-typescale-xl)",
+      "2xl": "var(--p-typescale-2xl)",
+      "3xl": "var(--p-typescale-3xl)",
+      "4xl": "var(--p-typescale-4xl)",
+      "5xl": "var(--p-typescale-5xl)",
+      inherit: "inherit",
+    };
+    const weightToken: any = {
+      regular: "var(--p-font-weight-normal)",
+      "semi-bold": "var(--p-font-weight-semibold)",
+      normal: "var(--p-font-weight-normal)",
+      semibold: "var(--p-font-weight-semibold)",
+      bold: "var(--p-font-weight-bold)",
+    };
+    const gradientStops =
+      "hsla(from var(--p-color-canvas) h s l / .8) 0%,hsla(from var(--p-color-canvas) h s l / .8) 8.1%,hsla(from var(--p-color-canvas) h s l / .8) 15.5%,hsla(from var(--p-color-canvas) h s l / .8) 22.5%,hsla(from var(--p-color-canvas) h s l / .78) 29%,hsla(from var(--p-color-canvas) h s l / .73) 35.3%,hsla(from var(--p-color-canvas) h s l / .67) 41.2%,hsla(from var(--p-color-canvas) h s l / .6) 47.1%,hsla(from var(--p-color-canvas) h s l / .52) 52.9%,hsla(from var(--p-color-canvas) h s l / .44) 58.8%,hsla(from var(--p-color-canvas) h s l / .33) 64.7%,hsla(from var(--p-color-canvas) h s l / .22) 71%,hsla(from var(--p-color-canvas) h s l / .12) 77.5%,hsla(from var(--p-color-canvas) h s l / .05) 84.5%,hsla(from var(--p-color-canvas) h s l / .011) 91.9%,hsla(from var(--p-color-canvas) h s l / 0) 100%";
+    const size = parse(this.size ?? this.getAttribute("size"), "medium");
+    const weight = parse(this.weight ?? this.getAttribute("weight"), "semi-bold");
+    const aspectRatio = parse(this.aspectRatio ?? this.getAttribute("aspect-ratio") ?? this.getAttribute("aspectratio"), "4/3");
+    let compact: any = parse(this.compact ?? this.getAttribute("compact"), false);
+    if ((this.compact ?? this.getAttribute("compact")) === "true") compact = true;
+    if ((this.compact ?? this.getAttribute("compact")) === "false") compact = false;
+    const align = this.align ?? this.getAttribute("align") ?? "bottom";
+    const isTop = align === "top";
+    const hasGradient = isTrue(this.gradient ?? this.getAttribute("gradient"));
+    const hasFooterSlot = !!this.querySelector('[slot="footer"]');
+    const sizeBase =
+      typeof size === "object" && size !== null ? size.base || "medium" : size;
+    const weightBase =
+      typeof weight === "object" && weight !== null
+        ? weight.base || "semi-bold"
+        : weight;
+    const ratioBase =
+      typeof aspectRatio === "object" && aspectRatio !== null
+        ? aspectRatio.base || "4/3"
+        : aspectRatio;
+    const compactBase =
+      typeof compact === "object" && compact !== null ? compact.base : compact;
+    const compactOn = compactBase === true || compactBase === "true";
+    let out =
+      ":host{display:flex;align-items:stretch;color-scheme:dark;hyphens:auto}" +
+      ":host([hidden]){display:none !important}" +
+      ":not(:defined,[data-ssr]){visibility:hidden}" +
+      "slot{display:block}" +
+      "slot:not([name]){width:100%;height:100%;transition:transform var(--p-transition-duration,var(--p-duration-md)) var(--p-ease-in-out)}" +
+      'slot[name="header"]{grid-area:' +
+      (isTop ? "4" : "2") +
+      "/2;z-index:5}" +
+      'slot[name="footer"]{grid-row:2;z-index:3}' +
+      "::slotted(:is(img,video,picture)){display:block !important;width:100% !important;height:100% !important}" +
+      "::slotted(:is(img,video)){object-fit:cover !important}" +
+      "a{grid-area:1/1/-1 /-1;z-index:4;outline:0}" +
+      "p{all:unset;z-index:3;max-width:34.375rem;font:var(--p-font-weight-normal) var(--p-typescale-sm) / var(--p-leading-normal) var(--p-font-porsche-next);color:var(--p-color-primary);hyphens:inherit;font-size:" +
+      (sizeToken[sizeBase] || sizeToken.medium) +
+      ";font-weight:" +
+      (weightToken[weightBase] || weightToken["semi-bold"]) +
+      "}" +
+      "@supports (-webkit-hyphens: auto){:host{align-items:baseline}}" +
+      ".root{display:grid;grid-template:var(--p-spacing-fluid-md) auto minmax(0px, 1fr) auto var(--p-spacing-fluid-md)/var(--p-spacing-fluid-md) minmax(0px, 1fr) var(--p-spacing-fluid-md);width:100%;border-radius:var(--p-radius-3xl);aspect-ratio:" +
+      ratioBase +
+      "}";
+    if (typeof aspectRatio === "object" && aspectRatio !== null) {
+      for (const bp of Object.keys(aspectRatio)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        out +=
+          "@media(min-width:" +
+          minWidth[bp] +
+          "px){.root{aspect-ratio:" +
+          aspectRatio[bp] +
+          "}}";
+      }
+    }
+    if (hasGradient) {
+      if (isTop) {
+        out +=
+          '.root::after{content:"";z-index:2;grid-area:1/1/3/-1;background:linear-gradient(to bottom, ' +
+          gradientStops +
+          ");;margin-bottom:calc(var(--p-spacing-fluid-lg) * -1);border-start-start-radius:inherit;border-start-end-radius:inherit}";
+      } else {
+        out +=
+          '.root::after{content:"";z-index:2;grid-area:4/1/6/-1;background:linear-gradient(to top, ' +
+          gradientStops +
+          ");;margin-top:calc(var(--p-spacing-fluid-lg) * -1);border-end-start-radius:inherit;border-end-end-radius:inherit}";
+      }
+    }
+    out +=
+      ".media{position:relative;grid-area:1/1/-1 /-1;z-index:1;overflow:hidden;border-radius:inherit}" +
+      ".footer{grid-area:" +
+      (isTop ? "2" : "4") +
+      "/2";
+    if (typeof compact === "object" && compact !== null) {
+      out += compactOn
+        ? ";display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}"
+        : ";display:flex;flex-direction:column;align-items:start}";
+      for (const bp of Object.keys(compact)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        const on = compact[bp] === true || compact[bp] === "true";
+        out += on
+          ? "@media(min-width:" +
+            minWidth[bp] +
+            "px){.footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}}"
+          : "@media(min-width:" +
+            minWidth[bp] +
+            "px){.footer{display:flex;flex-direction:column;align-items:start}}";
+      }
+    } else {
+      out += compactOn
+        ? ";display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--p-spacing-static-md)}"
+        : ";display:flex;flex-direction:column;align-items:start}";
+    }
+    out +=
+      ".link-or-button-pure{z-index:5;grid-column:2;grid-row:1/" +
+      (hasFooterSlot ? "3" : "2") +
+      ";align-self:" +
+      (isTop ? "flex-start" : "flex-end");
+    if (typeof compact === "object" && compact !== null) {
+      out += ";display:" + (compactOn ? "inline-block" : "none") + "}";
+      for (const bp of Object.keys(compact)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        const on = compact[bp] === true || compact[bp] === "true";
+        out +=
+          "@media(min-width:" +
+          minWidth[bp] +
+          "px){.link-or-button-pure{display:" +
+          (on ? "inline-block" : "none") +
+          "}}";
+      }
+    } else {
+      out += ";display:" + (compactOn ? "inline-block" : "none") + "}";
+    }
+    out +=
+      ".link-or-button{min-height:54px;z-index:5;margin-top:var(--p-spacing-static-md)";
+    if (typeof compact === "object" && compact !== null) {
+      out += ";display:" + (compactOn ? "none" : "inline-block") + "}";
+      for (const bp of Object.keys(compact)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        const on = compact[bp] === true || compact[bp] === "true";
+        out +=
+          "@media(min-width:" +
+          minWidth[bp] +
+          "px){.link-or-button{display:" +
+          (on ? "none" : "inline-block") +
+          "}}";
+      }
+    } else {
+      out += ";display:" + (compactOn ? "none" : "inline-block") + "}";
+    }
+    out +=
+      "@media(hover:hover){.root:hover slot:not([name]){transform:scale3d(1.05,1.05,1.05)}}" +
+      "@supports (-webkit-hyphens: auto){.root{height:100%}}";
+    if (typeof size === "object" && size !== null) {
+      for (const bp of Object.keys(size)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        out +=
+          "@media(min-width:" +
+          minWidth[bp] +
+          "px){p{font-size:" +
+          (sizeToken[size[bp]] || size[bp]) +
+          "}}";
+      }
+    }
+    if (typeof weight === "object" && weight !== null) {
+      for (const bp of Object.keys(weight)) {
+        if (bp === "base" || !minWidth[bp]) continue;
+        out +=
+          "@media(min-width:" +
+          minWidth[bp] +
+          "px){p{font-weight:" +
+          (weightToken[weight[bp]] || weight[bp]) +
+          "}}";
+      }
+    }
+    return out;
+  }
+  get descriptionText() {
+    return this.description ?? this.getAttribute("description") ?? "";
+  }
+  get labelText() {
+    return this.label ?? this.getAttribute("label") ?? "";
+  }
+
+  static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener("slotchange", () => this.requestUpdate());
+  }
+
+  resolvedHref() {
+    const href = this.href ?? this.getAttribute("href");
+    if (href == null || href === "" || href === "undefined") return nothing;
+    return href;
+  }
+
+  render() {
+    const label = this.label ?? this.getAttribute("label") ?? "";
+    const description = this.description ?? this.getAttribute("description") ?? "";
+    const href = this.resolvedHref();
+    const target = this.target ?? this.getAttribute("target") ?? "_self";
+    const download = this.download ?? this.getAttribute("download");
+    const rel = this.rel ?? this.getAttribute("rel");
+    const downloadAttr = download && download !== "undefined" ? download : nothing;
+    const relAttr = rel && rel !== "undefined" ? rel : nothing;
+    return html`<div class="root"><style .innerHTML="${this.cssText}"></style><a href=${href} target=${target} download=${downloadAttr} rel=${relAttr} tabindex="-1" aria-hidden="true"></a><slot name="header"></slot><div class="media"><slot></slot></div><div class="footer"><p>${description}</p><slot name="footer"></slot><p-link class="link-or-button-pure" variant="secondary" href=${href} target=${target} download=${downloadAttr} rel=${relAttr} hide-label="true" icon="arrow-right" compact="true">${label}</p-link><p-link class="link-or-button" variant="secondary" href=${href} target=${target} download=${downloadAttr} rel=${relAttr}>${label}</p-link></div></div>`;
+  }
+}

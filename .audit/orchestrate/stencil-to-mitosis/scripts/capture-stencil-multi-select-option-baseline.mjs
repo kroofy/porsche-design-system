@@ -1,0 +1,194 @@
+#!/usr/bin/env node
+/**
+ * Capture a live Stencil p-multi-select-option baseline from the playground.
+ *
+ *   node .audit/orchestrate/stencil-to-mitosis/scripts/capture-stencil-multi-select-option-baseline.mjs
+ *
+ * Parent p-multi-select / p-optgroup stay Stencil. Nested p-icon stays Stencil. Card stays closed.
+ */
+
+import { copyFile, mkdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire('/workspace/package.json');
+const { chromium } = require('playwright-core');
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = resolve(SCRIPT_DIR, '../../../..');
+
+const PLAYGROUND_URL = process.env.PLAYGROUND_URL ?? 'http://localhost:3333/?components=multi-select';
+const ARTIFACT_PNG = process.env.ARTIFACT_PNG ?? '/opt/cursor/artifacts/stencil_multi_select_option_before.png';
+const BASELINE_PNG =
+  process.env.BASELINE_PNG ??
+  resolve(REPO_ROOT, '.audit/orchestrate/stencil-to-mitosis/baseline/stencil_multi_select_option_before.png');
+
+const VIEWPORT = { width: 1440, height: 900 };
+const DEVICE_SCALE_FACTOR = 2;
+
+function fail(message) {
+  console.error(`capture-stencil-multi-select-option-baseline: ${message}`);
+  process.exit(1);
+}
+
+async function launchBrowser() {
+  const launchArgs = ['--no-sandbox', '--disable-dev-shm-usage'];
+  try {
+    return await chromium.launch({ headless: true, args: launchArgs });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    fail(`Could not launch Playwright Chromium. Last error: ${reason}`);
+  }
+}
+
+async function collectFacts(page) {
+  return page.evaluate(async () => {
+    await customElements.whenDefined('p-multi-select-option');
+    const card = document.querySelector('[data-card="multi-select"]');
+    const hosts = [...document.querySelectorAll('[data-card="multi-select"] p-multi-select-option')];
+    const parents = [...document.querySelectorAll('[data-card="multi-select"] p-multi-select')];
+    return {
+      title: document.title,
+      href: location.href,
+      cardDisplay: card ? getComputedStyle(card).display : null,
+      cardRect: card ? card.getBoundingClientRect().toJSON() : null,
+      hostCount: hosts.length,
+      parentCount: parents.length,
+      closed: parents.every((el) => el.shadowRoot?.querySelector('button')?.getAttribute('aria-expanded') === 'false'),
+      hosts: hosts.map((el) => {
+        const option = el.shadowRoot?.querySelector('.option');
+        const checkbox = el.shadowRoot?.querySelector('.checkbox');
+        const icons = [...(el.shadowRoot?.querySelectorAll('p-icon') ?? [])];
+        return {
+          parentTag: el.parentElement?.tagName ?? null,
+          value: el.getAttribute('value'),
+          disabled: el.getAttribute('disabled'),
+          hydrated: el.classList.contains('hydrated'),
+          hasOption: !!option,
+          hasCheckbox: !!checkbox,
+          text: el.textContent?.trim() ?? '',
+          iconTags: icons.map((n) => n.tagName),
+          hostRect: el.getBoundingClientRect().toJSON(),
+        };
+      }),
+    };
+  });
+}
+
+function assertLive(facts) {
+  if (facts.title !== 'Playground') {
+    fail(`Expected page title "Playground", got ${JSON.stringify(facts.title)}`);
+  }
+  if (!facts.cardRect || facts.cardDisplay === 'none') {
+    fail('Multi-select card is missing or hidden. Check PLAYGROUND_URL includes components=multi-select.');
+  }
+  if (facts.hostCount < 20) {
+    fail(`Expected at least 20 p-multi-select-option hosts, found ${facts.hostCount}`);
+  }
+  if (facts.parentCount < 4) {
+    fail(`Expected at least 4 parent p-multi-select hosts, found ${facts.parentCount}`);
+  }
+  if (!facts.closed) fail('multi-select dropdown is open; capture the closed card');
+  for (const item of facts.hosts) {
+    if (!item.hydrated) fail('p-multi-select-option is not hydrated');
+    if (item.parentTag !== 'P-MULTI-SELECT' && item.parentTag !== 'P-OPTGROUP') {
+      fail(`item parent is ${item.parentTag}`);
+    }
+    if (!item.hasOption) fail('item is missing .option');
+    if (!item.hasCheckbox) fail('item is missing .checkbox');
+    if (!/Option [A-E]/.test(item.text)) fail(`item text ${item.text}`);
+  }
+}
+
+async function main() {
+  const browser = await launchBrowser();
+  try {
+    const page = await browser.newPage({
+      viewport: VIEWPORT,
+      deviceScaleFactor: DEVICE_SCALE_FACTOR,
+    });
+    page.on('pageerror', (error) => {
+      console.warn(`pageerror: ${error.message}`);
+    });
+
+    const response = await page.goto(PLAYGROUND_URL, { waitUntil: 'networkidle', timeout: 30_000 });
+    if (!response || response.status() >= 400) {
+      fail(`GET ${PLAYGROUND_URL} returned ${response?.status() ?? 'no response'}`);
+    }
+
+    await page.waitForFunction(
+      () =>
+        customElements.get('p-multi-select') &&
+        customElements.get('p-multi-select-option') &&
+        customElements.get('p-optgroup') &&
+        customElements.get('p-icon'),
+      { timeout: 20_000 },
+    );
+    await page.waitForSelector('[data-card="multi-select"] p-multi-select-option.hydrated', {
+      timeout: 20_000,
+      state: 'attached',
+    });
+    await page.evaluate(() => document.fonts.ready);
+    await page.addStyleTag({
+      content: ':root { --p-animation-duration: 0s !important; --p-transition-duration: 0s !important; }',
+    });
+    await page.waitForFunction(() => {
+      const items = [...document.querySelectorAll('[data-card="multi-select"] p-multi-select-option')];
+      const parents = [...document.querySelectorAll('[data-card="multi-select"] p-multi-select')];
+      return (
+        items.length >= 20 &&
+        parents.length >= 4 &&
+        parents.every((el) => {
+          if (!el.classList.contains('hydrated')) return false;
+          const button = el.shadowRoot?.querySelector('button');
+          if (!button || button.getAttribute('aria-expanded') === 'true') return false;
+          const icons = [...(el.shadowRoot?.querySelectorAll('p-icon') ?? [])].filter(
+            (icon) => getComputedStyle(icon).display !== 'none',
+          );
+          return icons.every(
+            (icon) => icon.classList.contains('hydrated') && icon.shadowRoot?.querySelector('img')?.complete,
+          );
+        }) &&
+        items.every((el) => el.classList.contains('hydrated') && el.shadowRoot?.querySelector('.option'))
+      );
+    });
+
+    const facts = await collectFacts(page);
+    assertLive(facts);
+
+    const box = await page.locator('[data-card="multi-select"]').boundingBox();
+    if (!box) fail('Multi-select card has no bounding box');
+    const clip = {
+      x: Math.max(0, box.x),
+      y: Math.max(0, box.y),
+      width: box.width,
+      height: Math.min(box.height, VIEWPORT.height - Math.max(0, box.y)),
+    };
+    const png = await page.screenshot({ type: 'png', clip });
+
+    await mkdir(dirname(ARTIFACT_PNG), { recursive: true });
+    await mkdir(dirname(BASELINE_PNG), { recursive: true });
+    await writeFile(ARTIFACT_PNG, png);
+    await copyFile(ARTIFACT_PNG, BASELINE_PNG);
+
+    const summary = {
+      url: PLAYGROUND_URL,
+      artifact: ARTIFACT_PNG,
+      baseline: BASELINE_PNG,
+      viewport: VIEWPORT,
+      deviceScaleFactor: DEVICE_SCALE_FACTOR,
+      clip,
+      facts,
+    };
+    console.log(JSON.stringify(summary, null, 2));
+    console.log(`Wrote ${ARTIFACT_PNG}`);
+    console.log(`Wrote ${BASELINE_PNG}`);
+  } finally {
+    await browser.close();
+  }
+}
+
+main().catch((error) => {
+  fail(error instanceof Error ? error.stack ?? error.message : String(error));
+});

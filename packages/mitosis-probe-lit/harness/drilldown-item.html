@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-drilldown-item harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="default">
+      <lit-drilldown-item identifier="id-1" label="Some label">
+        <p>Child</p>
+      </lit-drilldown-item>
+    </section>
+    <section id="secondary">
+      <lit-drilldown-item identifier="id-1" label="Motorsport" secondary="true">
+        <p>Nested</p>
+      </lit-drilldown-item>
+    </section>
+    <section id="slots">
+      <lit-drilldown-item identifier="id-1-1" label="718">
+        <span slot="header">Header</span>
+        <button slot="button" type="button">Custom</button>
+        <p>Body</p>
+      </lit-drilldown-item>
+    </section>
+    <script src="lit-drilldown-item.bundle.js"></script>
+  </body>
+</html>

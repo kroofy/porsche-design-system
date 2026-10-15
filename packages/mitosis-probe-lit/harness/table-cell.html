@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table-cell harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      .table {
+        display: table;
+        --_p-table-a: var(--p-spacing-fluid-sm);
+      }
+      .body {
+        display: table-row-group;
+      }
+      .row {
+        display: table-row;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="pad-ref"
+      style="position: absolute; width: 1px; height: 1px; padding: var(--_p-table-a, var(--p-spacing-fluid-sm))"
+    ></div>
+    <section id="default">
+      <div class="table">
+        <div class="body">
+          <div class="row">
+            <lit-table-cell>718 Cayman</lit-table-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="hidden">
+      <div class="table">
+        <div class="body">
+          <div class="row">
+            <lit-table-cell hidden>Hidden</lit-table-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="multiline">
+      <div class="table">
+        <div class="body">
+          <div class="row">
+            <lit-table-cell multiline>Wraps onto multiple lines</lit-table-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="lit-table-cell.bundle.js"></script>
+  </body>
+</html>

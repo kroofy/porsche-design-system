@@ -1,4 +1,4 @@
-import { forceUpdate } from '@stencil/core';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import type { GroupDirection } from '../../../styles/group-direction-styles';
 import type { FormState } from '../../../utils/form/form-state';
 import type { RadioGroupOptionInternalHTMLProps } from '../radio-group-option/radio-group-option-utils';

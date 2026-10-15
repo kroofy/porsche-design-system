@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-multi-select-option harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+        --_p-multi-select-option-a: 1;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="contrast-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-high)"
+    ></div>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <div
+      id="frosted-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <section id="default">
+      <lit-multi-select-option value="a">Option A</lit-multi-select-option>
+    </section>
+    <section id="selected">
+      <lit-multi-select-option value="b" selected="true">Option B</lit-multi-select-option>
+    </section>
+    <section id="disabled">
+      <lit-multi-select-option value="e" disabled="true">Option E</lit-multi-select-option>
+    </section>
+    <section id="disabled-parent">
+      <lit-multi-select-option value="d" disabledparent="true">Option D</lit-multi-select-option>
+    </section>
+    <section id="highlighted">
+      <lit-multi-select-option value="c" highlighted="true">Option C</lit-multi-select-option>
+    </section>
+    <section id="hidden">
+      <lit-multi-select-option hidden value="a">Option A</lit-multi-select-option>
+    </section>
+    <script src="lit-multi-select-option.bundle.js"></script>
+  </body>
+</html>

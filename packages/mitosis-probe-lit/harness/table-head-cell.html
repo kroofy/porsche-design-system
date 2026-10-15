@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table-head-cell harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      .table {
+        display: table;
+        --_p-table-a: var(--p-spacing-fluid-sm);
+      }
+      .head {
+        display: table-header-group;
+      }
+      .row {
+        display: table-row;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="pad-ref"
+      style="position: absolute; width: 1px; height: 1px; padding: 2px var(--_p-table-a, var(--p-spacing-fluid-sm)) var(--_p-table-a, var(--p-spacing-fluid-sm))"
+    ></div>
+    <section id="default">
+      <div class="table">
+        <div class="head">
+          <div class="row">
+            <lit-table-head-cell>Model</lit-table-head-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="hidden">
+      <div class="table">
+        <div class="head">
+          <div class="row">
+            <lit-table-head-cell hidden>Hidden</lit-table-head-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="hide-label">
+      <div class="table">
+        <div class="head">
+          <div class="row">
+            <lit-table-head-cell hide-label>Screen reader only</lit-table-head-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="sort">
+      <div class="table">
+        <div class="head">
+          <div class="row">
+            <lit-table-head-cell sort='{"id":"col","active":true,"direction":"asc"}'>Sorted</lit-table-head-cell>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="lit-table-head-cell.bundle.js"></script>
+  </body>
+</html>

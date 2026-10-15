@@ -1,0 +1,473 @@
+{
+  "summary": {
+    "none": [
+      "divider",
+      "flyout"
+    ],
+    "static": [
+      "crest",
+      "table-body",
+      "table-head",
+      "table-head-row",
+      "table-row",
+      "tabs-item",
+      "text-list-item",
+      "toast"
+    ],
+    "static-uneval": [
+      "ai-tag"
+    ],
+    "dynamic": [
+      "accordion",
+      "banner",
+      "button",
+      "button-pure",
+      "button-tile",
+      "canvas",
+      "carousel",
+      "checkbox",
+      "display",
+      "drilldown",
+      "drilldown-item",
+      "drilldown-link",
+      "fieldset",
+      "flag",
+      "heading",
+      "icon",
+      "inline-notification",
+      "input-date",
+      "input-email",
+      "input-month",
+      "input-number",
+      "input-password",
+      "input-search",
+      "input-tel",
+      "input-text",
+      "input-time",
+      "input-url",
+      "input-week",
+      "link",
+      "link-pure",
+      "link-tile",
+      "link-tile-product",
+      "modal",
+      "model-signature",
+      "multi-select",
+      "multi-select-option",
+      "optgroup",
+      "pagination",
+      "pin-code",
+      "popover",
+      "radio-group",
+      "radio-group-option",
+      "scroller",
+      "segmented-control",
+      "segmented-control-item",
+      "select",
+      "select-option",
+      "sheet",
+      "spinner",
+      "stepper-horizontal",
+      "stepper-horizontal-item",
+      "switch",
+      "table",
+      "table-cell",
+      "table-head-cell",
+      "tabs",
+      "tabs-bar",
+      "tag",
+      "tag-dismissible",
+      "text",
+      "text-list",
+      "textarea",
+      "toast-item",
+      "wordmark"
+    ]
+  },
+  "rows": [
+    {
+      "tag": "accordion",
+      "kind": "dynamic",
+      "lite": "Accordion.lite.tsx"
+    },
+    {
+      "tag": "ai-tag",
+      "kind": "static-uneval",
+      "lite": "AiTag.lite.tsx",
+      "bytes": 0
+    },
+    {
+      "tag": "banner",
+      "kind": "dynamic",
+      "lite": "Banner.lite.tsx"
+    },
+    {
+      "tag": "button",
+      "kind": "dynamic",
+      "lite": "Button.lite.tsx"
+    },
+    {
+      "tag": "button-pure",
+      "kind": "dynamic",
+      "lite": "ButtonPure.lite.tsx"
+    },
+    {
+      "tag": "button-tile",
+      "kind": "dynamic",
+      "lite": "ButtonTile.lite.tsx"
+    },
+    {
+      "tag": "canvas",
+      "kind": "dynamic",
+      "lite": "Canvas.lite.tsx"
+    },
+    {
+      "tag": "carousel",
+      "kind": "dynamic",
+      "lite": "Carousel.lite.tsx"
+    },
+    {
+      "tag": "checkbox",
+      "kind": "dynamic",
+      "lite": "Checkbox.lite.tsx"
+    },
+    {
+      "tag": "crest",
+      "kind": "static",
+      "lite": "Crest.lite.tsx",
+      "bytes": 389
+    },
+    {
+      "tag": "display",
+      "kind": "dynamic",
+      "lite": "Display.lite.tsx"
+    },
+    {
+      "tag": "divider",
+      "kind": "none",
+      "lite": "Divider.lite.tsx"
+    },
+    {
+      "tag": "drilldown",
+      "kind": "dynamic",
+      "lite": "Drilldown.lite.tsx"
+    },
+    {
+      "tag": "drilldown-item",
+      "kind": "dynamic",
+      "lite": "DrilldownItem.lite.tsx"
+    },
+    {
+      "tag": "drilldown-link",
+      "kind": "dynamic",
+      "lite": "DrilldownLink.lite.tsx"
+    },
+    {
+      "tag": "fieldset",
+      "kind": "dynamic",
+      "lite": "Fieldset.lite.tsx"
+    },
+    {
+      "tag": "flag",
+      "kind": "dynamic",
+      "lite": "Flag.lite.tsx"
+    },
+    {
+      "tag": "flyout",
+      "kind": "none",
+      "lite": "Flyout.lite.tsx"
+    },
+    {
+      "tag": "heading",
+      "kind": "dynamic",
+      "lite": "Heading.lite.tsx"
+    },
+    {
+      "tag": "icon",
+      "kind": "dynamic",
+      "lite": "Icon.lite.tsx"
+    },
+    {
+      "tag": "inline-notification",
+      "kind": "dynamic",
+      "lite": "InlineNotification.lite.tsx"
+    },
+    {
+      "tag": "input-date",
+      "kind": "dynamic",
+      "lite": "InputDate.lite.tsx"
+    },
+    {
+      "tag": "input-email",
+      "kind": "dynamic",
+      "lite": "InputEmail.lite.tsx"
+    },
+    {
+      "tag": "input-month",
+      "kind": "dynamic",
+      "lite": "InputMonth.lite.tsx"
+    },
+    {
+      "tag": "input-number",
+      "kind": "dynamic",
+      "lite": "InputNumber.lite.tsx"
+    },
+    {
+      "tag": "input-password",
+      "kind": "dynamic",
+      "lite": "InputPassword.lite.tsx"
+    },
+    {
+      "tag": "input-search",
+      "kind": "dynamic",
+      "lite": "InputSearch.lite.tsx"
+    },
+    {
+      "tag": "input-tel",
+      "kind": "dynamic",
+      "lite": "InputTel.lite.tsx"
+    },
+    {
+      "tag": "input-text",
+      "kind": "dynamic",
+      "lite": "InputText.lite.tsx"
+    },
+    {
+      "tag": "input-time",
+      "kind": "dynamic",
+      "lite": "InputTime.lite.tsx"
+    },
+    {
+      "tag": "input-url",
+      "kind": "dynamic",
+      "lite": "InputUrl.lite.tsx"
+    },
+    {
+      "tag": "input-week",
+      "kind": "dynamic",
+      "lite": "InputWeek.lite.tsx"
+    },
+    {
+      "tag": "link",
+      "kind": "dynamic",
+      "lite": "Link.lite.tsx"
+    },
+    {
+      "tag": "link-pure",
+      "kind": "dynamic",
+      "lite": "LinkPure.lite.tsx"
+    },
+    {
+      "tag": "link-tile",
+      "kind": "dynamic",
+      "lite": "LinkTile.lite.tsx"
+    },
+    {
+      "tag": "link-tile-product",
+      "kind": "dynamic",
+      "lite": "LinkTileProduct.lite.tsx"
+    },
+    {
+      "tag": "modal",
+      "kind": "dynamic",
+      "lite": "Modal.lite.tsx"
+    },
+    {
+      "tag": "model-signature",
+      "kind": "dynamic",
+      "lite": "ModelSignature.lite.tsx"
+    },
+    {
+      "tag": "multi-select",
+      "kind": "dynamic",
+      "lite": "MultiSelect.lite.tsx"
+    },
+    {
+      "tag": "multi-select-option",
+      "kind": "dynamic",
+      "lite": "MultiSelectOption.lite.tsx"
+    },
+    {
+      "tag": "optgroup",
+      "kind": "dynamic",
+      "lite": "Optgroup.lite.tsx"
+    },
+    {
+      "tag": "pagination",
+      "kind": "dynamic",
+      "lite": "Pagination.lite.tsx"
+    },
+    {
+      "tag": "pin-code",
+      "kind": "dynamic",
+      "lite": "PinCode.lite.tsx"
+    },
+    {
+      "tag": "popover",
+      "kind": "dynamic",
+      "lite": "Popover.lite.tsx"
+    },
+    {
+      "tag": "radio-group",
+      "kind": "dynamic",
+      "lite": "RadioGroup.lite.tsx"
+    },
+    {
+      "tag": "radio-group-option",
+      "kind": "dynamic",
+      "lite": "RadioGroupOption.lite.tsx"
+    },
+    {
+      "tag": "scroller",
+      "kind": "dynamic",
+      "lite": "Scroller.lite.tsx"
+    },
+    {
+      "tag": "segmented-control",
+      "kind": "dynamic",
+      "lite": "SegmentedControl.lite.tsx"
+    },
+    {
+      "tag": "segmented-control-item",
+      "kind": "dynamic",
+      "lite": "SegmentedControlItem.lite.tsx"
+    },
+    {
+      "tag": "select",
+      "kind": "dynamic",
+      "lite": "Select.lite.tsx"
+    },
+    {
+      "tag": "select-option",
+      "kind": "dynamic",
+      "lite": "SelectOption.lite.tsx"
+    },
+    {
+      "tag": "sheet",
+      "kind": "dynamic",
+      "lite": "Sheet.lite.tsx"
+    },
+    {
+      "tag": "spinner",
+      "kind": "dynamic",
+      "lite": "Spinner.lite.tsx"
+    },
+    {
+      "tag": "stepper-horizontal",
+      "kind": "dynamic",
+      "lite": "StepperHorizontal.lite.tsx"
+    },
+    {
+      "tag": "stepper-horizontal-item",
+      "kind": "dynamic",
+      "lite": "StepperHorizontalItem.lite.tsx"
+    },
+    {
+      "tag": "switch",
+      "kind": "dynamic",
+      "lite": "Switch.lite.tsx"
+    },
+    {
+      "tag": "table",
+      "kind": "dynamic",
+      "lite": "Table.lite.tsx"
+    },
+    {
+      "tag": "table-body",
+      "kind": "static",
+      "lite": "TableBody.lite.tsx",
+      "bytes": 70
+    },
+    {
+      "tag": "table-cell",
+      "kind": "dynamic",
+      "lite": "TableCell.lite.tsx"
+    },
+    {
+      "tag": "table-head",
+      "kind": "static",
+      "lite": "TableHead.lite.tsx",
+      "bytes": 317
+    },
+    {
+      "tag": "table-head-cell",
+      "kind": "dynamic",
+      "lite": "TableHeadCell.lite.tsx"
+    },
+    {
+      "tag": "table-head-row",
+      "kind": "static",
+      "lite": "TableHeadRow.lite.tsx",
+      "bytes": 64
+    },
+    {
+      "tag": "table-row",
+      "kind": "static",
+      "lite": "TableRow.lite.tsx",
+      "bytes": 310
+    },
+    {
+      "tag": "tabs",
+      "kind": "dynamic",
+      "lite": "Tabs.lite.tsx"
+    },
+    {
+      "tag": "tabs-bar",
+      "kind": "dynamic",
+      "lite": "TabsBar.lite.tsx"
+    },
+    {
+      "tag": "tabs-item",
+      "kind": "static",
+      "lite": "TabsItem.lite.tsx",
+      "bytes": 318
+    },
+    {
+      "tag": "tag",
+      "kind": "dynamic",
+      "lite": "Tag.lite.tsx"
+    },
+    {
+      "tag": "tag-dismissible",
+      "kind": "dynamic",
+      "lite": "TagDismissible.lite.tsx"
+    },
+    {
+      "tag": "text",
+      "kind": "dynamic",
+      "lite": "Text.lite.tsx"
+    },
+    {
+      "tag": "text-list",
+      "kind": "dynamic",
+      "lite": "TextList.lite.tsx"
+    },
+    {
+      "tag": "text-list-item",
+      "kind": "static",
+      "lite": "TextListItem.lite.tsx",
+      "bytes": 453
+    },
+    {
+      "tag": "textarea",
+      "kind": "dynamic",
+      "lite": "Textarea.lite.tsx"
+    },
+    {
+      "tag": "toast",
+      "kind": "static",
+      "lite": "Toast.lite.tsx",
+      "bytes": 843
+    },
+    {
+      "tag": "toast-item",
+      "kind": "dynamic",
+      "lite": "ToastItem.lite.tsx"
+    },
+    {
+      "tag": "wordmark",
+      "kind": "dynamic",
+      "lite": "Wordmark.lite.tsx"
+    }
+  ]
+}

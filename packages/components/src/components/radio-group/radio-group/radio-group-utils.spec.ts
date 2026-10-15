@@ -1,4 +1,4 @@
-import * as stencilCore from '@stencil/core';
+import * as stencilCore from '../../../types/html-stencil-element';
 import { vi } from 'vitest';
 import * as loggerUtils from '../../../utils/log/logger';
 import {

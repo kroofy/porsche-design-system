@@ -1,0 +1,209 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { describe, it } from 'node:test';
+import { fileURLToPath } from 'node:url';
+import { adaptFile } from './adapt-frameworks.mjs';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (tag, target, file) =>
+  readFileSync(resolve(root, 'mitosis', tag, 'output/frameworks', target, file), 'utf8');
+
+const adapted = (tag, target, file) => {
+  const raw = read(tag, target, file);
+  return raw.includes('mitosis-native-host') ? raw : adaptFile(target, tag, raw);
+};
+
+describe('adaptFile react', () => {
+  it('wraps button with a host, children, pre-scoped css, and sibling components', () => {
+    const next = adapted('button', 'react', 'Button.tsx');
+    assert.match(next, /data-pds="button"/);
+    assert.match(next, /__html: "\.p-button :where\(\[data-pds-slot\]\)\{display:contents\}/);
+    assert.match(next, /\\n\s*\.p-button \{\\n/);
+    assert.doesNotMatch(next, /:host/);
+    assert.match(next, /<span data-pds-slot="">\{props\.children\}<\/span>/);
+    assert.doesNotMatch(next, /<slot/);
+    assert.match(next, /import PIcon from/);
+    assert.match(next, /import PSpinner from/);
+    assert.match(next, /<PIcon/);
+    assert.match(next, /<PSpinner/);
+    assert.doesNotMatch(next, /<style jsx>/);
+  });
+
+  it('applies hostStyle vars and mirrors :host([attr]) props on the wrapper', () => {
+    const next = adapted('button', 'react', 'Button.tsx');
+    assert.match(next, /style=\{hostStyle\(\) as React\.CSSProperties\}/);
+    assert.match(
+      next,
+      /\{\.\.\.hostAttrs\(\{ disabled: props\.disabled, icon: props\.icon, "icon-source": props\.iconSource, loading: props\.loading \}\)\}/
+    );
+    assert.match(next, /import \{ hostAttrs \} from "\.\.\/\.\.\/\.\.\/\.\.\/_runtime\/host\.js"/);
+  });
+
+  it('keeps wordmark host height in the pre-scoped css', () => {
+    const next = adapted('wordmark', 'react', 'Wordmark.tsx');
+    assert.match(next, /data-pds="wordmark"/);
+    assert.match(next, /\.p-wordmark \{[^}]*height/);
+  });
+
+  it('binds input-text value from the lite getter', () => {
+    const next = adapted('input-text', 'react', 'InputText.tsx');
+    assert.match(next, /value=\{inputValue\(\)\}/);
+    assert.match(next, /data-pds="input-text"/);
+  });
+
+  it('does not let a minified // comment eat the rest of the file', () => {
+    const raw = [
+      'import * as React from "react";',
+      'function LitButtonPure(props) {',
+      '  function iconSrc() { if (props.iconSource) return props.iconSource; // Landed LitIcon only maps car / arrow-right. Playground copy / like // would otherwise paint arrow-right. const files: any = { copy: "copy.svg" }; const icon = props.icon || "arrow-right"; if (files[icon]) return "http://localhost:3001/icons/" + files[icon]; return ""; }',
+      '  return (',
+      '    <button className="root"><style dangerouslySetInnerHTML={{ __html: cssText() }} /><slot /></button>',
+      '  );',
+      '}',
+      'export default LitButtonPure;',
+      '',
+    ].join('\n');
+    const next = adaptFile('react', 'button-pure', raw);
+    assert.match(next, /data-pds="button-pure"/);
+    assert.match(next, /const files/);
+    assert.match(next, /http:\/\/localhost:3001\/icons\//);
+    assert.match(next, /export default LitButtonPure;/);
+    assert.doesNotMatch(next, /export default LitButtonPure; \*\//);
+    assert.match(next, /\/\* Landed LitIcon[\s\S]*?\*\/\s+const files/);
+  });
+
+  it('keeps a minified return after a // comment', () => {
+    const raw = [
+      'import * as React from "react";',
+      'function LitTagDismissible(props) {',
+      '  function closeIconSrc() { // Landed LitIcon only maps car / arrow-right. name="close" would paint // arrow-right. Feed the CDN close SVG so the nested p-icon matches the // stored Stencil baseline. return \'http://localhost:3001/icons/close.eec3c5d.svg\'; }',
+      '  return (',
+      '    <button type="button"><style dangerouslySetInnerHTML={{ __html: cssText() }} /><slot /></button>',
+      '  );',
+      '}',
+      'export default LitTagDismissible;',
+      '',
+    ].join('\n');
+    const next = adaptFile('react', 'tag-dismissible', raw);
+    assert.match(next, /data-pds="tag-dismissible"/);
+    assert.match(next, /return 'http:\/\/localhost:3001\/icons\/close/);
+    assert.match(next, /export default LitTagDismissible;/);
+    assert.doesNotMatch(next, /\*\/ export default/);
+    assert.doesNotMatch(next, /export default LitTagDismissible; \*\//);
+  });
+});
+
+describe('adaptFile vue / svelte', () => {
+  it('pre-scopes vue button css into a global style block and wraps a host', () => {
+    const next = adapted('button', 'vue', 'Button.vue');
+    assert.match(next, /<div class="p-button" data-pds="button" :style="hostStyle" v-bind="pdsHostAttrs">/);
+    assert.match(next, /<style>\n\.p-button :where\(\[data-pds-slot\]\)\{display:contents\}\n\s*\.p-button \{/);
+    assert.doesNotMatch(next, /<style scoped>/);
+    assert.doesNotMatch(next, /this\.cssText/);
+    assert.match(next, /<span data-pds-slot=""><slot><\/slot><\/span>/);
+    assert.match(next, /<PIcon/);
+    assert.match(next, /from "\.\.\/\.\.\/\.\.\/\.\.\/icon\/output\/frameworks\/vue\/Icon\.vue"/);
+    assert.doesNotMatch(next, /\.vue\.vue/);
+  });
+
+  it('rewrites svelte custom-element this={p - icon} into a component', () => {
+    const next = adapted('button', 'svelte', 'Button.svelte');
+    assert.match(next, /data-pds="button"/);
+    assert.match(next, /<PIcon/);
+    assert.doesNotMatch(next, /svelte:component/);
+    assert.match(next, /from "\.\.\/\.\.\/\.\.\/\.\.\/icon\/output\/frameworks\/svelte\/Icon\.svelte"/);
+    assert.doesNotMatch(next, /\.svelte\.svelte/);
+    assert.match(next, /<\$\{"style"\}>/);
+    assert.doesNotMatch(next, /\{@html `<style>/);
+    assert.match(next, /\$: __pdsComponents = \{ PIcon, PSpinner \}/);
+    assert.match(next, /const scopedCssText = "\.p-button :where\(\[data-pds-slot\]\)/);
+    assert.match(next, /\$: pdsHostStyle = styleString\(hostStyle\(\)\);/);
+    assert.match(next, /style=\{pdsHostStyle\} \{\.\.\.pdsHostAttrs\}/);
+    assert.match(next, /<div class="p-button\{\$\$props\.class \?/);
+    assert.doesNotMatch(next, /\bcssText\b/);
+    assert.match(next, /<span data-pds-slot=""><slot \/><\/span>/);
+  });
+
+  it('rewrites svelte reads that would TDZ against a later const loading', () => {
+    const raw = [
+      '<script lang="ts">',
+      '  export let loading: any;',
+      '  export let loadingParent: any;',
+      '  export let selected: any;',
+      '  $: cssText = () => {',
+      '    const selected = selected === true;',
+      '    const optionLoading = isTrue(loading) && !selected;',
+      '    const loading = optionLoading || isTrue(loadingParent);',
+      '    return loading ? "1" : "0";',
+      '  };',
+      '</script>',
+      '<div></div>',
+      '',
+    ].join('\n');
+    const next = adaptFile('svelte', 'radio-group-option', raw);
+    assert.match(next, /isTrue\(__cmpProps\(\)\.loading\)/);
+    assert.match(next, /const loading = optionLoading/);
+    assert.match(next, /data-pds="radio-group-option"/);
+  });
+});
+
+describe('adaptFile angular', () => {
+  it('emits a standalone p-* component with nested imports and projected content', () => {
+    const next = adapted('button', 'angular', 'Button.ts');
+    assert.match(next, /selector: "p-button"/);
+    assert.match(next, /standalone: true/);
+    assert.match(next, /imports: \[CommonModule, PIcon, PSpinner\]/);
+    assert.match(next, /encapsulation: ViewEncapsulation\.None/);
+    assert.match(next, /<span data-pds-slot=""><ng-content><\/ng-content><\/span>/);
+    assert.doesNotMatch(next, /<slot/);
+    assert.doesNotMatch(next, /NgModule/);
+    assert.match(next, /\[attr\.disabled\]="hostAttr\(disabled\) \?\? null"/);
+    assert.match(next, /\[style\]="hostStyle"/);
+  });
+});
+
+describe('native field bindings', () => {
+  it('does not duplicate a binding the lite source already has', () => {
+    for (const [target, file] of [
+      ['vue', 'Checkbox.vue'],
+      ['svelte', 'Checkbox.svelte'],
+      ['react', 'Checkbox.tsx'],
+    ]) {
+      const next = adapted('checkbox', target, file);
+      const input = next.match(/<input[\s\S]*?\/>/)[0];
+      assert.equal(input.match(/disabled=/g).length, 1, `${target}: ${input}`);
+    }
+  });
+
+  it('drops angular boolean attributes instead of writing "false"', () => {
+    const next = adapted('checkbox', 'angular', 'Checkbox.ts');
+    assert.match(next, /\[attr\.checked\]="\(!!isChecked\) \? '' : null"/);
+  });
+});
+
+describe('nested component props', () => {
+  it('camelizes HTML-style attributes passed to nested PDS components', () => {
+    const react = adapted('drilldown', 'react', 'Drilldown.tsx');
+    assert.doesNotMatch(react, /<PButtonPure[^>]*\shide-label=/);
+    assert.match(react, /<PButtonPure[^>]*\shideLabel=/);
+    const angular = adapted('drilldown', 'angular', 'Drilldown.ts');
+    assert.doesNotMatch(angular, /<p-button-pure[^>]*\shide-label=/);
+    assert.match(angular, /aria-hidden=|hideLabel=/);
+  });
+
+  it('types children and named slots on the react props interface', () => {
+    const next = adapted('input-text', 'react', 'InputText.tsx');
+    assert.match(next, /"label-after"\?: React\.ReactNode;/);
+  });
+});
+
+describe('slot outlets', () => {
+  it('wraps slots whose closing tag prettier split across lines', () => {
+    const next = adapted('tag', 'angular', 'Tag.ts');
+    assert.doesNotMatch(next, /<slot/);
+    assert.match(next, /<span data-pds-slot=""><ng-content><\/ng-content><\/span>/);
+    const vue = adapted('radio-group-option', 'vue', 'RadioGroupOption.vue');
+    assert.doesNotMatch(vue, /(?<!data-pds-slot="label">)<slot name="label"/);
+  });
+});

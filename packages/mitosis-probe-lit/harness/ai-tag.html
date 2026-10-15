@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-ai-tag harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-ai-tag.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-high)"
+    ></div>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-strong)"
+    ></div>
+    <section id="generated">
+      <lit-ai-tag></lit-ai-tag>
+    </section>
+    <section id="modified">
+      <lit-ai-tag variant="modified"></lit-ai-tag>
+    </section>
+    <section id="abbreviation">
+      <lit-ai-tag variant="abbreviation"></lit-ai-tag>
+    </section>
+    <section id="de">
+      <lit-ai-tag locale="de-DE"></lit-ai-tag>
+    </section>
+    <section id="hidden">
+      <lit-ai-tag hidden></lit-ai-tag>
+    </section>
+  </body>
+</html>

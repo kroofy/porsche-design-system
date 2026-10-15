@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-input-week harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-input-week.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="readonly-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-medium)"
+    ></div>
+    <section id="default">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="2017-W01"
+      ></lit-input-week>
+    </section>
+    <section id="loading">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        value="2017-W01"
+        loading="true"
+      ></lit-input-week>
+    </section>
+    <section id="success">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        value="2017-W01"
+        state="success"
+        message="Some message."
+      ></lit-input-week>
+    </section>
+    <section id="error">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        value="2017-W01"
+        state="error"
+        message="Some message."
+      ></lit-input-week>
+    </section>
+    <section id="disabled">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        value="2017-W01"
+        disabled="true"
+      ></lit-input-week>
+    </section>
+    <section id="readonly">
+      <lit-input-week
+        label="Some label"
+        name="some-name"
+        value="2017-W01"
+        read-only="true"
+      ></lit-input-week>
+    </section>
+    <section id="hide-label">
+      <lit-input-week label="Some label" hide-label="true"></lit-input-week>
+    </section>
+    <section id="hidden">
+      <lit-input-week hidden label="Some label"></lit-input-week>
+    </section>
+    <section id="breakpoint">
+      <lit-input-week label="bp" hide-label='{"base":true,"m":false}'></lit-input-week>
+    </section>
+  </body>
+</html>

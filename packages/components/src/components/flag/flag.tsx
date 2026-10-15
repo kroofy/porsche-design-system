@@ -1,54 +1,12 @@
-import { FLAGS_MANIFEST } from '@porsche-design-system/assets';
-import { Component, Element, h, type JSX, Prop } from '@stencil/core';
-import type { BreakpointCustomizable, FlagName, PropTypes, SelectedAriaAttributes } from '../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  hasPropValueChanged,
-  parseAndGetAriaAttributes,
-  validateProps,
-} from '../../utils';
-import { getComponentCss } from './flag-styles';
-import { buildFlagUrl, FLAG_ARIA_ATTRIBUTES, FLAG_SIZES, type FlagAriaAttribute, type FlagSize } from './flag-utils';
-
-const propTypes: PropTypes<typeof Flag> = {
-  name: AllowedTypes.oneOf<FlagName>(Object.keys(FLAGS_MANIFEST) as FlagName[]),
-  size: AllowedTypes.breakpoint<FlagSize>(FLAG_SIZES),
-  aria: AllowedTypes.aria<FlagAriaAttribute>(FLAG_ARIA_ATTRIBUTES),
-};
-
-@Component({
-  tag: 'p-flag',
-  shadow: true,
-})
+/**
+ * Stencil no longer owns p-flag. The playground tag is the Mitosis Lit
+ * custom element from mitosis/flag/Flag.lite.tsx.
+ * This file stays so generateConstructorMap can still import class Flag.
+ */
 export class Flag {
-  @Element() public host!: HTMLElement;
-
-  /** Specifies the country flag to display. Use the two-letter ISO 3166-1 alpha-2 country code. For example, use `us` for the United States, `de` for Germany, `gb` for Great Britain. */
-  @Prop() public name?: FlagName = 'de';
-
-  /** Defines the size of the flag, aligned with the typographic scale used by components such as p-icon, p-spinner, p-text, and p-heading. When set to `inherit`, the size is derived from a custom font-size defined on a parent element, calculated against the global line-height (based on `ex`-unit) to remain visually consistent with other typographic-scale-based components. */
-  @Prop() public size?: BreakpointCustomizable<FlagSize> = 'sm';
-
-  /** A map of ARIA attributes to enhance the flag's accessibility. For example, use `{ 'aria-label': 'German flag' }` to provide a descriptive label for screen readers. */
-  @Prop() public aria?: SelectedAriaAttributes<FlagAriaAttribute>;
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    attachComponentCss(this.host, getComponentCss, this.size);
-
-    return (
-      <img
-        src={buildFlagUrl(this.name)}
-        width={24} // improve bootstrapping behaviour
-        height={24} // improve bootstrapping behaviour
-        loading="lazy"
-        alt={parseAndGetAriaAttributes(this.aria)?.['aria-label'] ?? ''}
-      />
-    );
-  }
+  host!: HTMLElement;
+  name?: string = 'de';
+  size?: unknown = 'sm';
+  aria?: unknown;
+  render(): void {}
 }

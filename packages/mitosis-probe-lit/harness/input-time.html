@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-input-time harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-input-time.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="readonly-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-medium)"
+    ></div>
+    <section id="default">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="09:11"
+      ></lit-input-time>
+    </section>
+    <section id="loading">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        value="09:11"
+        loading="true"
+      ></lit-input-time>
+    </section>
+    <section id="success">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        value="09:11"
+        state="success"
+        message="Some message."
+      ></lit-input-time>
+    </section>
+    <section id="error">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        value="09:11"
+        state="error"
+        message="Some message."
+      ></lit-input-time>
+    </section>
+    <section id="disabled">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        value="09:11"
+        disabled="true"
+      ></lit-input-time>
+    </section>
+    <section id="readonly">
+      <lit-input-time
+        label="Some label"
+        name="some-name"
+        value="09:11"
+        read-only="true"
+      ></lit-input-time>
+    </section>
+    <section id="hide-label">
+      <lit-input-time label="Some label" hide-label="true"></lit-input-time>
+    </section>
+    <section id="hidden">
+      <lit-input-time hidden label="Some label"></lit-input-time>
+    </section>
+    <section id="breakpoint">
+      <lit-input-time label="bp" hide-label='{"base":true,"m":false}'></lit-input-time>
+    </section>
+  </body>
+</html>

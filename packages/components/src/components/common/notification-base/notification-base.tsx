@@ -1,4 +1,4 @@
-import { type FunctionalComponent, h, type JSX } from '@stencil/core';
+import { type FunctionalComponent, h, type JSX } from '../../../types/html-stencil-element';
 
 type NotificationBaseProps = {
   heading?: string;

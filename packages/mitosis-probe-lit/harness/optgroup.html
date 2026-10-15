@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-optgroup harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+        --_p-optgroup-a: 1;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-optgroup label="Some optgroup">
+        <span data-item="b">Option B</span>
+        <span data-item="c">Option C</span>
+      </lit-optgroup>
+    </section>
+    <section id="disabled">
+      <lit-optgroup label="Some optgroup" disabled="true">
+        <span data-item="d">Option D</span>
+      </lit-optgroup>
+    </section>
+    <section id="hidden">
+      <lit-optgroup hidden label="Some optgroup">
+        <span data-item="a">Option A</span>
+      </lit-optgroup>
+    </section>
+    <script src="lit-optgroup.bundle.js"></script>
+  </body>
+</html>

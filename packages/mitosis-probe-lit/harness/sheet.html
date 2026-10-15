@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-sheet harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="closed">
+      <lit-sheet aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Some heading</p>
+        <p>Some content</p>
+      </lit-sheet>
+    </section>
+    <section id="surface">
+      <lit-sheet background="surface" aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Header</p>
+        <p>Body</p>
+      </lit-sheet>
+    </section>
+    <section id="no-dismiss">
+      <lit-sheet dismiss-button="false" aria="{'aria-label': 'Some heading'}">
+        <p>No dismiss</p>
+      </lit-sheet>
+    </section>
+    <script src="lit-sheet.bundle.js"></script>
+  </body>
+</html>

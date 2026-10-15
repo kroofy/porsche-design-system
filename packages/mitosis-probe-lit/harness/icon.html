@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-icon harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-icon.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="size-ref"
+      style="position: absolute; width: 1px; height: 1px; font-size: var(--p-typescale-sm)"
+    ></div>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-icon name="car" size="sm" color="primary" aria="{'aria-label': 'Car'}"></lit-icon>
+    </section>
+    <section id="xl">
+      <lit-icon name="car" size="5xl" color="primary"></lit-icon>
+    </section>
+    <section id="inherit">
+      <lit-icon class="text-[99px]" name="car" size="inherit" color="info"></lit-icon>
+    </section>
+    <section id="cssvar">
+      <lit-icon style="--p-icon-size:99px" name="car" color="info"></lit-icon>
+    </section>
+    <section id="bp">
+      <lit-icon name="car" size='{"base":"sm","m":"5xl"}' color="primary"></lit-icon>
+    </section>
+    <section id="hidden">
+      <lit-icon name="car" hidden size="sm"></lit-icon>
+    </section>
+    <section id="source">
+      <lit-icon
+        size="large"
+        source="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='black'/></svg>"
+      ></lit-icon>
+    </section>
+  </body>
+</html>

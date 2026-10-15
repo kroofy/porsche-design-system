@@ -1,4 +1,4 @@
-import { type FunctionalComponent, h, type JSX } from '@stencil/core';
+import { type FunctionalComponent, h, type JSX } from '../../../types/html-stencil-element';
 import type { AriaAttributes } from '../../../types';
 import { FCDismissButton } from '../fc-dismiss-button/fc-dismiss-button';
 

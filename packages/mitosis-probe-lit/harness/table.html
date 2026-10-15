@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-table harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 24px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <section id="default">
+      <lit-table caption="Some caption">
+        <div>row</div>
+      </lit-table>
+    </section>
+    <section id="slotted">
+      <lit-table>
+        <span slot="caption">Visible caption</span>
+        <div>row</div>
+      </lit-table>
+    </section>
+    <section id="compact">
+      <lit-table compact="true" caption="Compact">
+        <div>row</div>
+      </lit-table>
+    </section>
+    <section id="fixed">
+      <lit-table layout="fixed" caption="Fixed">
+        <div>row</div>
+      </lit-table>
+    </section>
+    <section id="hidden">
+      <lit-table hidden caption="Hidden">
+        <div>row</div>
+      </lit-table>
+    </section>
+    <script src="lit-table.bundle.js"></script>
+  </body>
+</html>

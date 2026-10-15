@@ -1,4 +1,4 @@
-import * as stencilCore from '@stencil/core';
+import * as stencilCore from '../../../types/html-stencil-element';
 import { vi } from 'vitest';
 import type { SegmentedControlItem } from '../segmented-control-item/segmented-control-item';
 import { ICON_SIZE, LABEL_FONT } from '../segmented-control-item/segmented-control-item-styles';

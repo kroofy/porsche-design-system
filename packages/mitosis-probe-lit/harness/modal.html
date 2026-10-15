@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-modal harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="closed">
+      <lit-modal aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Some Header</p>
+        <p>Some content</p>
+        <p slot="footer">Some Footer</p>
+      </lit-modal>
+    </section>
+    <section id="surface">
+      <lit-modal background="surface" aria="{'aria-label': 'Some heading'}">
+        <p slot="header">Header</p>
+        <p>Body</p>
+      </lit-modal>
+    </section>
+    <section id="fullscreen">
+      <lit-modal fullscreen="true">
+        <p>Full</p>
+      </lit-modal>
+    </section>
+    <section id="responsive">
+      <lit-modal fullscreen='{"base":true,"m":false}'>
+        <p>Responsive</p>
+      </lit-modal>
+    </section>
+    <script src="lit-modal.bundle.js"></script>
+  </body>
+</html>

@@ -1,11 +1,9 @@
-import { forceUpdate } from '@stencil/core';
-import type { FormFieldAriaAttribute } from '../../../types';
+import { forceUpdate } from '../../../types/html-stencil-element';
 import type { SelectComponentsDropdownDirection } from '../../../utils';
 import type { FormState } from '../../../utils/form/form-state';
 import type { SelectOptionInternalHTMLProps } from '../select-option/select-option-utils';
 
 export type SelectState = FormState;
-export type SelectAriaAttribute = FormFieldAriaAttribute;
 export type SelectOption = HTMLPSelectOptionElement & SelectOptionInternalHTMLProps;
 export type SelectDropdownDirection = SelectComponentsDropdownDirection;
 export type SelectOptgroup = HTMLPOptgroupElement;
@@ -27,11 +25,15 @@ export const resetSelectedOption = (options: SelectOption[]): void => {
   }
 };
 
+export const internalSelect = {
+  resetSelectedOption,
+};
+
 export const selectOptionByValue = (
   options: SelectOption[],
   value: string | number | null | undefined
 ): SelectOption | null => {
-  resetSelectedOption(options);
+  internalSelect.resetSelectedOption(options);
   // Strict equality matching: a host value of `null`, `undefined`, a `string` or a `number`
   // only matches an option whose `value` is strictly equal (same type and value). No
   // cross-type coercion (e.g. number `5` does NOT match string `"5"`), and `null` and
@@ -48,7 +50,7 @@ export const selectOptionByValue = (
 };
 
 export const setSelectedOption = (options: SelectOption[], selectedOption: SelectOption): void => {
-  resetSelectedOption(options);
+  internalSelect.resetSelectedOption(options);
   selectedOption.selected = true;
   forceUpdate(selectedOption);
 };

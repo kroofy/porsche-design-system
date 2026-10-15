@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-model-signature harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-model-signature.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="contrast-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-contrast-high)"
+    ></div>
+    <section id="default">
+      <lit-model-signature model="911" color="primary"></lit-model-signature>
+    </section>
+    <section id="contrast">
+      <lit-model-signature model="911" color="contrast-high"></lit-model-signature>
+    </section>
+    <section id="inherit">
+      <lit-model-signature model="turbo" color="inherit" class="text-[deeppink]" style="color: deeppink"></lit-model-signature>
+    </section>
+    <section id="no-safe-zone">
+      <lit-model-signature id="safe-off" model="911" color="primary"></lit-model-signature>
+    </section>
+    <section id="size-inherit">
+      <lit-model-signature model="911" size="inherit" style="width: 200px"></lit-model-signature>
+    </section>
+    <section id="hidden">
+      <lit-model-signature model="911" hidden></lit-model-signature>
+    </section>
+    <section id="slotted">
+      <lit-model-signature model="911" color="primary">
+        <img src="http://localhost:3001/model-signatures/911.b68f913.svg" alt="" />
+      </lit-model-signature>
+    </section>
+  </body>
+</html>

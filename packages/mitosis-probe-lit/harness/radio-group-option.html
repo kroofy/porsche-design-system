@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-radio-group-option harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+        --_p-radio-group-option-a: 1;
+      }
+      section {
+        margin-block: 12px;
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="frosted-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="primary-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-success-frosted-soft)"
+    ></div>
+    <section id="default">
+      <lit-radio-group-option value="a" label="Option A"></lit-radio-group-option>
+    </section>
+    <section id="selected">
+      <lit-radio-group-option value="b" label="Option B" selected="true"></lit-radio-group-option>
+    </section>
+    <section id="disabled">
+      <lit-radio-group-option value="e" label="Option E" disabled="true"></lit-radio-group-option>
+    </section>
+    <section id="loading">
+      <lit-radio-group-option value="d" label="Option D" loading="true"></lit-radio-group-option>
+    </section>
+    <section id="success">
+      <lit-radio-group-option value="a" label="Option A" state="success"></lit-radio-group-option>
+    </section>
+    <section id="parent-loading">
+      <lit-radio-group-option value="d" label="Option D" loading="true" loadingparent="true"></lit-radio-group-option>
+    </section>
+    <section id="hidden">
+      <lit-radio-group-option hidden value="a" label="Option A"></lit-radio-group-option>
+    </section>
+    <script src="lit-radio-group-option.bundle.js"></script>
+  </body>
+</html>

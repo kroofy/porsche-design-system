@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-stepper-horizontal-item harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+        width: 480px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="frosted-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <section id="default">
+      <p-stepper-horizontal>
+        <lit-stepper-horizontal-item state="current">Enter personal details</lit-stepper-horizontal-item>
+        <lit-stepper-horizontal-item>Confirm e-mail</lit-stepper-horizontal-item>
+      </p-stepper-horizontal>
+    </section>
+    <section id="icons">
+      <p-stepper-horizontal>
+        <lit-stepper-horizontal-item state="complete">Step 1</lit-stepper-horizontal-item>
+        <lit-stepper-horizontal-item state="warning">Step 2</lit-stepper-horizontal-item>
+      </p-stepper-horizontal>
+    </section>
+    <section id="hidden">
+      <lit-stepper-horizontal-item hidden state="current">Hidden</lit-stepper-horizontal-item>
+    </section>
+    <script src="lit-stepper-horizontal-item.bundle.js"></script>
+  </body>
+</html>

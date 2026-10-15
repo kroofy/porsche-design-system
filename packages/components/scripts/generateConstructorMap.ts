@@ -15,7 +15,6 @@ const generateConstructorMap = (): void => {
     .map((filePath) => {
       const tagName: TagName = ('p-' + path.basename(filePath).replace('.tsx', '')) as TagName;
 
-      // get rid of functional components like StateMessage
       if (TAG_NAMES.includes(tagName)) {
         const className = pascalCase(tagName.replace('p-', ''));
         const relativePath = filePath.replace(sourceDirectory, '../components').replace('.tsx', '');

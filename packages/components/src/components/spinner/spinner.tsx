@@ -1,61 +1,12 @@
-import { Component, Element, h, type JSX, Prop } from '@stencil/core';
-import type { BreakpointCustomizable, PropTypes, SelectedAriaAttributes } from '../../types';
-import {
-  AllowedTypes,
-  attachComponentCss,
-  hasPropValueChanged,
-  parseAndGetAriaAttributes,
-  validateProps,
-} from '../../utils';
-import { getComponentCss } from './spinner-styles';
-import {
-  SPINNER_ARIA_ATTRIBUTES,
-  SPINNER_COLORS,
-  SPINNER_SIZES,
-  type SpinnerAriaAttribute,
-  type SpinnerColor,
-  type SpinnerSize,
-} from './spinner-utils';
-
-const propTypes: PropTypes<typeof Spinner> = {
-  color: AllowedTypes.oneOf<SpinnerColor>(SPINNER_COLORS),
-  size: AllowedTypes.breakpoint<SpinnerSize>(SPINNER_SIZES),
-  aria: AllowedTypes.aria<SpinnerAriaAttribute>(SPINNER_ARIA_ATTRIBUTES),
-};
-
-@Component({
-  tag: 'p-spinner',
-  shadow: true,
-})
+/**
+ * Stencil no longer owns p-spinner. The playground tag is the Mitosis Lit
+ * custom element from mitosis/spinner/Spinner.lite.tsx.
+ * This file stays so generateConstructorMap can still import class Spinner.
+ */
 export class Spinner {
-  @Element() public host!: HTMLElement;
-
-  /** Sets the color of the spinning indicator using PDS semantic color tokens (e.g. `primary`, `contrast-high`, `inherit`). */
-  @Prop() public color?: SpinnerColor = 'primary';
-
-  /** Sets the size of the spinner using the PDS typographic scale. Use `inherit` to derive the size from the parent element's font-size. Supports responsive breakpoint values. */
-  @Prop() public size?: BreakpointCustomizable<SpinnerSize> = 'sm';
-
-  /** Sets ARIA attributes on the spinner's live region element; use `aria-label` to provide a descriptive loading message for screen readers. */
-  @Prop() public aria?: SelectedAriaAttributes<SpinnerAriaAttribute>;
-
-  public componentShouldUpdate(newVal: unknown, oldVal: unknown): boolean {
-    return hasPropValueChanged(newVal, oldVal);
-  }
-
-  public render(): JSX.Element {
-    validateProps(this, propTypes);
-    attachComponentCss(this.host, getComponentCss, this.color, this.size);
-
-    return (
-      <div role="alert" aria-live="assertive" {...parseAndGetAriaAttributes(this.aria)}>
-        {/* empty element needed to announce aria-label in screen readers */}
-        <span class="sr-only">&nbsp;</span>
-        <svg viewBox="-16 -16 32 32" width="100%" height="100%" focusable="false" aria-hidden="true">
-          <circle r="11" />
-          <circle r="11" />
-        </svg>
-      </div>
-    );
-  }
+  host!: HTMLElement;
+  color?: string = 'primary';
+  size?: unknown = 'sm';
+  aria?: unknown;
+  render(): void {}
 }

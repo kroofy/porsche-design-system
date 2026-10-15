@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-divider harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+      .w {
+        width: 640px;
+      }
+    </style>
+    <script src="lit-divider.bundle.js"></script>
+  </head>
+  <body>
+    <section id="default">
+      <div class="w"><lit-divider></lit-divider></div>
+    </section>
+    <section id="colors">
+      <div class="w">
+        <lit-divider color="contrast-lower"></lit-divider>
+        <lit-divider color="contrast-low"></lit-divider>
+        <lit-divider color="contrast-medium"></lit-divider>
+        <lit-divider color="contrast-high"></lit-divider>
+      </div>
+    </section>
+    <section id="vertical">
+      <lit-divider direction="vertical" style="height: 60px"></lit-divider>
+    </section>
+    <section id="bp">
+      <div class="w">
+        <lit-divider id="bpEl" direction='{"base":"horizontal","m":"vertical"}' style="height: 60px"></lit-divider>
+      </div>
+    </section>
+  </body>
+</html>

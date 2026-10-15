@@ -1,0 +1,9 @@
+GOAL         Land p-icon from the Mitosis Lit probe into packages/components as the real p-icon tag. Pixel-diff 0 vs the stored Stencil icon playground baseline.
+SCOPE        May write: packages/components (icon source, stencil exclude, mitosis build wiring for this tag only), packages/mitosis-probe-lit/src/Icon.lite.tsx if tagName must become p-icon, .audit/orchestrate/stencil-to-mitosis/reports/land-icon.md, /opt/cursor/artifacts/mitosis_land_icon_after.png. May not write: other TAG_NAME sources, packages/mitosis-probe/**, wholesale Stencil deletion, framework wrappers.
+CONTEXT      land-model-signature just passed: playground p-model-signature is Mitosis Lit, baseline byte-equal (66749). Repeat that wiring for p-icon only. Playground: http://localhost:3333/?components=icon. Card [data-card="icon"]. Stored baseline: .audit/orchestrate/stencil-to-mitosis/baseline/stencil_icon_before.png or /opt/cursor/artifacts/stencil_icon_before.png. Own mitosis.config.js. Strip @Component from icon.tsx and restart --dev so bootstrapLazy drops p-icon. If the card is taller than the viewport, use page.screenshot({ clip }). Recipe cssText/shadow/no-fragments/alias still apply. Do not edit the baseline PNG. You are the only writer.
+ACCEPTANCE   Stencil no longer compiles icon as p-icon. Mitosis Lit emits @customElement("p-icon") with useShadowDom. rg my-fragment on generated Icon.ts is empty. Live playground card pixel-diff 0 vs stored baseline. Report written.
+VERIFY       Recipe pixel-diff. Viewport 1440x900 dsf 2. threshold 0 includeAA true.
+TIMEBOX      60 minutes.
+FORBIDDEN    no gt, no rebase, no force-push, no second tag land, no deleting the Stencil toolchain, no customElement/webcomponent targets.
+REPORT       status, SHA, pixel-diff counts, follow-ups.
+STANDING     Target is lit. m is 1000px. cssText in shadow. No fragments. Alias lit/decorators.js. One TAG_NAME only.

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-button harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-button.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-primary)"
+    ></div>
+    <div
+      id="fg-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-canvas)"
+    ></div>
+    <div
+      id="secondary-bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted-strong)"
+    ></div>
+    <div
+      id="destructive-bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-error)"
+    ></div>
+    <section id="default">
+      <lit-button variant="primary">Some label</lit-button>
+    </section>
+    <section id="secondary">
+      <lit-button variant="secondary">Some label</lit-button>
+    </section>
+    <section id="destructive">
+      <lit-button variant="destructive">Some label</lit-button>
+    </section>
+    <section id="icon">
+      <lit-button variant="primary" icon="car">Some label</lit-button>
+    </section>
+    <section id="hide-label">
+      <lit-button variant="primary" icon="car" hide-label="true">Some label</lit-button>
+    </section>
+    <section id="loading">
+      <lit-button variant="primary" icon="car" loading="true">Some label</lit-button>
+    </section>
+    <section id="disabled">
+      <lit-button variant="primary" icon="car" disabled="true">Some label</lit-button>
+    </section>
+    <section id="hidden">
+      <lit-button hidden variant="primary">Some label</lit-button>
+    </section>
+    <section id="breakpoint">
+      <lit-button hide-label='{"base":true,"m":false}' icon="car">bp</lit-button>
+    </section>
+  </body>
+</html>

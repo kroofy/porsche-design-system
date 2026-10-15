@@ -1,28 +1,25 @@
-import { Component, Element, Host, h, type JSX } from '@stencil/core';
-import { attachComponentCss, throwIfParentIsNotOfKind } from '../../../utils';
-import { getComponentCss } from './text-list-item-styles';
+import { throwIfParentIsNotOfKind } from '../../../utils';
 
 /**
- * @slot {"name": "", "description": "Default slot for the content." }
+ * Stencil no longer owns p-text-list-item. The playground tag is the Mitosis Lit
+ * custom element from mitosis/text-list-item/TextListItem.lite.tsx.
+ * This file stays so generateConstructorMap can still import class TextListItem.
+ * Global HTMLPTextListItemElement stays if other files still type those hosts after
+ * Stencil drops the @Component declaration.
  */
-@Component({
-  tag: 'p-text-list-item',
-  shadow: true,
-})
 export class TextListItem {
-  @Element() public host!: HTMLElement;
+  host!: HTMLElement;
 
   public connectedCallback(): void {
     throwIfParentIsNotOfKind(this.host, 'p-text-list');
   }
 
-  public render(): JSX.Element {
-    attachComponentCss(this.host, getComponentCss);
+  render(): void {}
+}
 
-    return (
-      <Host role="listitem">
-        <slot />
-      </Host>
-    );
+declare global {
+  interface HTMLPTextListItemElement extends HTMLElement {}
+  interface HTMLElementTagNameMap {
+    'p-text-list-item': HTMLPTextListItemElement;
   }
 }

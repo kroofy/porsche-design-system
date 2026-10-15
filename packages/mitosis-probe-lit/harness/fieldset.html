@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-fieldset harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-fieldset.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="error-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-error)"
+    ></div>
+    <section id="default">
+      <lit-fieldset label="Some legend label">
+        <span>slot child</span>
+      </lit-fieldset>
+    </section>
+    <section id="small">
+      <lit-fieldset label="Some legend label" label-size="small"></lit-fieldset>
+    </section>
+    <section id="success">
+      <lit-fieldset label="Some legend label" state="success" message="Some message."></lit-fieldset>
+    </section>
+    <section id="error">
+      <lit-fieldset label="Some legend label" state="error" message="Some message."></lit-fieldset>
+    </section>
+    <section id="no-label">
+      <lit-fieldset></lit-fieldset>
+    </section>
+    <section id="hidden">
+      <lit-fieldset hidden label="Some legend label"></lit-fieldset>
+    </section>
+  </body>
+</html>

@@ -2,8 +2,8 @@ import type { TagName } from './lib/tagNames';
 
 // Specify chunking of components that can't be used standalone.
 // It's important to list the parent component first since it affects the chunk name.
-// This is the single source of truth — consumed by both shared (generateTagNamesWithChunk)
-// and components (stencil.config.ts via @porsche-design-system/shared).
+// This is the single source of truth — consumed by shared (generateTagNamesWithChunk)
+// and any consumer of TAG_NAMES_WITH_CHUNK from @porsche-design-system/shared.
 export const bundles: { components: TagName[] }[] = [
   { components: ['p-drilldown', 'p-drilldown-item', 'p-drilldown-link'] },
   { components: ['p-multi-select', 'p-multi-select-option'] },
@@ -26,4 +26,3 @@ export const bundles: { components: TagName[] }[] = [
   { components: ['p-text-list', 'p-text-list-item'] },
   { components: ['p-toast', 'p-toast-item'] },
 ];
-

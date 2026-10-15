@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-input-month harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-input-month.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="bg-ref"
+      style="position: absolute; width: 1px; height: 1px; background: var(--p-color-frosted)"
+    ></div>
+    <div
+      id="success-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-success)"
+    ></div>
+    <div
+      id="readonly-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-medium)"
+    ></div>
+    <section id="default">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        placeholder="Some placeholder"
+        value="2018-05"
+      ></lit-input-month>
+    </section>
+    <section id="loading">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        value="2018-05"
+        loading="true"
+      ></lit-input-month>
+    </section>
+    <section id="success">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        value="2018-05"
+        state="success"
+        message="Some message."
+      ></lit-input-month>
+    </section>
+    <section id="error">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        value="2018-05"
+        state="error"
+        message="Some message."
+      ></lit-input-month>
+    </section>
+    <section id="disabled">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        value="2018-05"
+        disabled="true"
+      ></lit-input-month>
+    </section>
+    <section id="readonly">
+      <lit-input-month
+        label="Some label"
+        name="some-name"
+        value="2018-05"
+        read-only="true"
+      ></lit-input-month>
+    </section>
+    <section id="hide-label">
+      <lit-input-month label="Some label" hide-label="true"></lit-input-month>
+    </section>
+    <section id="hidden">
+      <lit-input-month hidden label="Some label"></lit-input-month>
+    </section>
+    <section id="breakpoint">
+      <lit-input-month label="bp" hide-label='{"base":true,"m":false}'></lit-input-month>
+    </section>
+  </body>
+</html>

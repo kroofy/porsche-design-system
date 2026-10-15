@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>lit-button-pure harness</title>
+    <link rel="stylesheet" href="../../components/projects/stylesheets/lib/variables.css" />
+    <style>
+      body {
+        margin: 16px;
+        background: #fff;
+      }
+      section {
+        margin-block: 12px;
+      }
+    </style>
+    <script src="lit-button-pure.bundle.js"></script>
+  </head>
+  <body>
+    <div
+      id="color-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-primary)"
+    ></div>
+    <div
+      id="disabled-ref"
+      style="position: absolute; width: 1px; height: 1px; color: var(--p-color-contrast-low)"
+    ></div>
+    <section id="default">
+      <lit-button-pure>Some label</lit-button-pure>
+    </section>
+    <section id="active">
+      <lit-button-pure size="5xl" color="primary" active="true">Some label</lit-button-pure>
+    </section>
+    <section id="disabled">
+      <lit-button-pure disabled="true" color="contrast-medium">Some label</lit-button-pure>
+    </section>
+    <section id="loading">
+      <lit-button-pure loading="true">Some label</lit-button-pure>
+    </section>
+    <section id="hide-label">
+      <lit-button-pure icon="like" hide-label="true">Some label</lit-button-pure>
+    </section>
+    <section id="hidden">
+      <lit-button-pure hidden>Some label</lit-button-pure>
+    </section>
+    <section id="breakpoint">
+      <lit-button-pure size='{"base":"sm","m":"5xl"}'>bp</lit-button-pure>
+    </section>
+  </body>
+</html>
