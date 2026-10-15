@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/checkbox/output/lit/Checkbox.ts
+  // ../packages/components/mitosis/checkbox/output/lit/Checkbox.ts
   var CHECK_MASK = `url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20.22,7.47l-1.47-1.42-9.26,9.02-4.24-4.15-1.47,1.42,5.71,5.6,10.73-10.47Z"/></svg>') center/contain no-repeat`;
   var DASH_MASK = `url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20,11v2H4v-2h16Z"/></svg>') center/contain no-repeat`;
   var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
@@ -632,7 +632,8 @@
   var LitCheckbox = class extends i4 {
     get hostStyle() {
       const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
+        if (raw === void 0 || raw === null) return fallback;
+        if (raw === "") return typeof fallback === "boolean" ? true : fallback;
         if (typeof raw === "string" && raw.charAt(0) === "{") {
           try {
             return JSON.parse(

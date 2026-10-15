@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/multi-select-option/output/lit/MultiSelectOption.ts
+  // ../packages/components/mitosis/multi-select-option/output/lit/MultiSelectOption.ts
   var CHECK_MASK = `url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20.22,7.47l-1.47-1.42-9.26,9.02-4.24-4.15-1.47,1.42,5.71,5.6,10.73-10.47Z"/></svg>') center/contain no-repeat`;
   var LitMultiSelectOption = class extends i4 {
     get hostStyle() {

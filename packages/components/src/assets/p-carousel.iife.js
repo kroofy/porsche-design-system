@@ -560,7 +560,7 @@
   o4?.({ LitElement: i4 });
   (s3.litElementVersions ??= []).push("4.2.2");
 
-  // ../../../node_modules/@splidejs/splide/dist/js/splide.esm.js
+  // @splidejs/splide/dist/js/splide.esm.js
   function _defineProperties(target, props) {
     for (var i5 = 0; i5 < props.length; i5++) {
       var descriptor = props[i5];
@@ -3166,12 +3166,13 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/carousel/output/lit/Carousel.ts
+  // ../packages/components/mitosis/carousel/output/lit/Carousel.ts
   var LitCarousel = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";
       const parse = (raw, fallback) => {
-        if (raw === void 0 || raw === null || raw === "") return fallback;
+        if (raw === void 0 || raw === null) return fallback;
+        if (raw === "") return typeof fallback === "boolean" ? true : fallback;
         if (typeof raw === "string" && raw.charAt(0) === "{") {
           try {
             return JSON.parse(
@@ -3268,7 +3269,8 @@
       this._slides = slides;
     }
     _parseJson(raw, fallback) {
-      if (raw === void 0 || raw === null || raw === "") return fallback;
+      if (raw === void 0 || raw === null) return fallback;
+      if (raw === "") return typeof fallback === "boolean" ? true : fallback;
       if (typeof raw === "string" && raw.charAt(0) === "{") {
         try {
           return JSON.parse(raw.replace(/'/g, '"').replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*)\s*:/g, '$1"$2":'));

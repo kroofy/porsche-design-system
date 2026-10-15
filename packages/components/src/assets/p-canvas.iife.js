@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/canvas/output/lit/Canvas.ts
+  // ../packages/components/mitosis/canvas/output/lit/Canvas.ts
   var LitCanvas = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

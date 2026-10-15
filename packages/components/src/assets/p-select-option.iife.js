@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/select-option/output/lit/SelectOption.ts
+  // ../packages/components/mitosis/select-option/output/lit/SelectOption.ts
   var LitSelectOption = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

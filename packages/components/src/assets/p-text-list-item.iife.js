@@ -567,7 +567,7 @@
     }) : customElements.define(t4, e5);
   };
 
-  // ../../components/mitosis/text-list-item/output/lit/TextListItem.ts
+  // ../packages/components/mitosis/text-list-item/output/lit/TextListItem.ts
   var LitTextListItem = class extends i4 {
     render() {
       return b2`<div class="root"><slot></slot></div>`;

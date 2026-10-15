@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/text/output/lit/Text.ts
+  // ../packages/components/mitosis/text/output/lit/Text.ts
   var SIZE_MAP = {
     "xx-small": "var(--p-typescale-2xs)",
     "x-small": "var(--p-typescale-xs)",

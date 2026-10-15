@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/stepper-horizontal-item/output/lit/StepperHorizontalItem.ts
+  // ../packages/components/mitosis/stepper-horizontal-item/output/lit/StepperHorizontalItem.ts
   var LitStepperHorizontalItem = class extends i4 {
     constructor() {
       super(...arguments);

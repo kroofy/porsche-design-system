@@ -597,10 +597,11 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/flyout/output/lit/Flyout.ts
+  // ../packages/components/mitosis/flyout/output/lit/Flyout.ts
   var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
   var parse = (raw, fallback) => {
-    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (raw === void 0 || raw === null) return fallback;
+    if (raw === "") return typeof fallback === "boolean" ? true : fallback;
     if (typeof raw === "string" && raw.trim().charAt(0) === "{") {
       try {
         return JSON.parse(raw.replace(/'/g, '"'));

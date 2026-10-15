@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/wordmark/output/lit/Wordmark.ts
+  // ../packages/components/mitosis/wordmark/output/lit/Wordmark.ts
   var WORDMARK_H = "clamp(0.63rem, 0.42vw + 0.5rem, 1rem)";
   var WORDMARK_H_ROUND = `round(down, ${WORDMARK_H}, 1px)`;
   var LitWordmark = class extends i4 {

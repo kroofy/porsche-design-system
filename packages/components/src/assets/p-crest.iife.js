@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/crest/output/lit/Crest.ts
+  // ../packages/components/mitosis/crest/output/lit/Crest.ts
   var LitCrest = class extends i4 {
     render() {
       return b2`

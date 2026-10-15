@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/tag/output/lit/Tag.ts
+  // ../packages/components/mitosis/tag/output/lit/Tag.ts
   var TEXT = {
     primary: "var(--p-color-canvas)",
     secondary: "var(--p-color-primary)",

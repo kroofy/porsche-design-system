@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/scroller/output/lit/Scroller.ts
+  // ../packages/components/mitosis/scroller/output/lit/Scroller.ts
   var LitScroller = class extends i4 {
     constructor() {
       super(...arguments);

@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/icon/output/lit/Icon.ts
+  // ../packages/components/mitosis/icon/output/lit/Icon.ts
   var SIZE_MAP = {
     "xx-small": "var(--p-typescale-2xs)",
     "x-small": "var(--p-typescale-xs)",

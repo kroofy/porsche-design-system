@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/fieldset/output/lit/Fieldset.ts
+  // ../packages/components/mitosis/fieldset/output/lit/Fieldset.ts
   var LitFieldset = class extends i4 {
     get hostStyle() {
       const formState = (this.getAttribute("state") ?? this.state) === "success" || (this.getAttribute("state") ?? this.state) === "error" ? this.state : "none";

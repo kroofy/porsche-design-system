@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/table/output/lit/Table.ts
+  // ../packages/components/mitosis/table/output/lit/Table.ts
   var LitTable = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/tag-dismissible/output/lit/TagDismissible.ts
+  // ../packages/components/mitosis/tag-dismissible/output/lit/TagDismissible.ts
   var LitTagDismissible = class extends i4 {
     get hostStyle() {
       const compact = this.compact === true || this.compact === "true" || this.compact === "";
