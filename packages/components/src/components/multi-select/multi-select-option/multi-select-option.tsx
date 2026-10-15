@@ -6,7 +6,7 @@
 import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class MultiSelectOption {
-  host!: HTMLElement;
+  host!: HTMLPMultiSelectOptionElement;
   value?: string | number;
   disabled?: boolean = false;
   selected?: boolean;

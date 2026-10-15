@@ -14,13 +14,13 @@ export class Canvas {
   sidebarEndDismiss?: { emit: () => void };
   render(): void {}
 
-  private toggleSidebarStart = (): void => {
+  toggleSidebarStart = (): void => {
     this.sidebarStartUpdate?.emit({
       open: !this.sidebarStartOpen,
     });
   };
 
-  private onDismissSidebarEnd = (): void => {
+  onDismissSidebarEnd = (): void => {
     this.sidebarEndDismiss?.emit();
   };
 }
