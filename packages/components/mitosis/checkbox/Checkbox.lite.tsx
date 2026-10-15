@@ -465,7 +465,7 @@ export default function LitCheckbox(props: {
     <div class="root">
       <div class="wrapper">
         <div class="input-wrapper">
-          <input type="checkbox" />
+          <input type="checkbox" checked={!!state.isChecked} disabled={!!state.isDisabled} aria-invalid={state.ariaInvalid} />
           <p-spinner class="spinner" aria-hidden="true" />
         </div>
         <div class="label-wrapper">
