@@ -473,7 +473,7 @@ export default function LitCheckbox(props: {
         </div>
       </div>
       <span class="message">
-        <p-icon aria-hidden="true" />
+        <p-icon name={state.iconName} color={state.iconColor} aria-hidden="true" />
         {state.messageText}
       </span>
       <span class="loading" id="loading" role="status">

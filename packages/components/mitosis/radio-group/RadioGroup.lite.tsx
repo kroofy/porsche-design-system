@@ -513,7 +513,7 @@ export default function LitRadioGroup(props: {
         <p-spinner class="spinner" aria-hidden="true" />
       </div>
       <span class="message" id="message">
-        <p-icon aria-hidden="true" />
+        <p-icon name={state.iconName} color={state.iconColor} aria-hidden="true" />
         {state.messageText}
       </span>
       <span class="loading" id="loading">

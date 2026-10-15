@@ -473,7 +473,7 @@ export default function LitSegmentedControl(props: {
       </span>
       <slot />
       <span class="message" id="message">
-        <p-icon aria-hidden="true" />
+        <p-icon name={state.iconName} color={state.iconColor} aria-hidden="true" />
         {state.messageText}
       </span>
     </fieldset>
