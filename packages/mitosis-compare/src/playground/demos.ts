@@ -523,8 +523,8 @@ export const TARGET_LABEL: Record<Target, string> = {
   vue: 'Vue',
   svelte: 'Svelte',
   angular: 'Angular',
-  lit: 'Lit (web components)',
-  upstream: 'Upstream v4.8.0 (Stencil)',
+  lit: 'Lit',
+  upstream: 'Upstream 4.8.0',
 };
 
 export const pascal = (tag: string) =>

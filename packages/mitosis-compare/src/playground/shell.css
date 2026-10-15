@@ -202,7 +202,7 @@ code {
 
 .columns {
   display: grid;
-  grid-template-columns: repeat(var(--columns, 2), minmax(260px, 1fr));
+  grid-template-columns: repeat(var(--columns, 2), minmax(200px, 1fr));
   gap: 12px;
   overflow-x: auto;
 }
@@ -219,11 +219,15 @@ code {
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
+  white-space: nowrap;
   padding: 8px 12px;
   border-bottom: 1px solid var(--line);
 }
 
 .column h2 {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0;
   font-size: 13px;
   font-weight: 600;

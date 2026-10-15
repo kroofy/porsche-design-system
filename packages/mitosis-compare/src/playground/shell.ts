@@ -47,7 +47,7 @@ app.innerHTML = `
   <header class="topbar">
     <div class="brand">
       <strong>PDS Mitosis playground</strong>
-      <span>One <code>.lite.tsx</code> per component, compiled to React, Vue, Svelte, Angular and Lit, next to upstream Stencil v4.8.0.</span>
+      <span>One <code>.lite.tsx</code> per component, compiled to React, Vue, Svelte, Angular and Lit (web components), next to upstream Stencil v4.8.0 from the Porsche CDN.</span>
     </div>
     <div class="controls">
       <fieldset class="theme" aria-label="Color scheme">
@@ -146,7 +146,7 @@ const renderMain = () => {
       const badge = status ? `<span class="badge" data-status="${status}">${BADGE[status]}</span>` : '';
       return `
         <section class="column" data-target="${target}">
-          <header><h2>${TARGET_LABEL[target]} ${badge}</h2><a href="${url}" target="_blank" rel="noopener">open frame ↗</a></header>
+          <header><h2>${TARGET_LABEL[target]} ${badge}</h2><a href="${url}" target="_blank" rel="noopener" aria-label="Open ${TARGET_LABEL[target]} frame in a new tab">open ↗</a></header>
           <iframe title="${TARGET_LABEL[target]} p-${demo.tag}" src="${url}" loading="eager" style="height:${demo.stage ? 600 : 400}px"></iframe>
         </section>`;
     })
