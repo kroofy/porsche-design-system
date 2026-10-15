@@ -2,12 +2,17 @@
   "name": "mitosis-compare",
   "version": "0.0.0",
   "private": true,
-  "description": "Side-by-side preview of Mitosis react/vue/angular/svelte emit. Install with --workspaces=false.",
+  "description": "Playground: every Mitosis component rendered by its React, Vue, Svelte, Angular and Lit emit next to upstream Stencil v4.8.0.",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 5174",
+    "prepare:emit": "npm run build:lit-all --workspace=@porsche-design-system/components && npm run generate:frameworks-all --workspace=@porsche-design-system/components",
+    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0 --port 5174"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "verify": "node scripts/verify-targets.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "check:emit": "tsc -p emit-check/tsconfig.react.json; r=$?; ngc -p emit-check/tsconfig.angular.json; a=$?; vue-tsc -p emit-check/tsconfig.vue.json; v=$?; echo \"react=$r angular=$a vue=$v\"; [ $r -eq 0 ] && [ $a -eq 0 ] && [ $v -eq 0 ]"
   },
   "dependencies": {
     "@angular/common": "^22.1.4",
@@ -19,14 +24,18 @@
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitejs/plugin-vue": "^5.2.4",
+    "pds-upstream": "npm:@porsche-design-system/components-js@4.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "styled-jsx": "^5.1.7",
     "svelte": "^4.2.20",
     "svelte-preprocess": "^6.0.5",
     "typescript": "^5.9.3",
     "vite": "^5.4.21",
-    "vue": "^3.5.42",
-    "zone.js": "^0.16.2"
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0"
   }
 }

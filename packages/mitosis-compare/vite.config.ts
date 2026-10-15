@@ -1,70 +1,24 @@
-import { createReadStream, existsSync, statSync } from 'node:fs';
-import { extname, join, normalize, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { defineConfig, type Plugin } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import react from '@vitejs/plugin-react';
 import vue from '@vitejs/plugin-vue';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 import preprocess from 'svelte-preprocess';
-import { mitosisCompareAdapters } from './src/vite-plugins';
+import { defineConfig } from 'vite';
+import { pdsPlayground } from './vite-plugin-pds';
 
-const assetsRoot = resolve(fileURLToPath(new URL('../components/src/assets', import.meta.url)));
-const baselineRoot = resolve(
-  fileURLToPath(new URL('../../.audit/orchestrate/stencil-to-mitosis/baseline', import.meta.url))
-);
-const MIME: Record<string, string> = {
-  '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-};
-
-function staticDir(prefix: string, root: string): Plugin {
-  return {
-    name: `static-${prefix.replace(/\W+/g, '-')}`,
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        const url = req.url ?? '';
-        if (!url.startsWith(prefix)) return next();
-        const rel = decodeURIComponent(url.slice(prefix.length).split('?')[0]);
-        const file = normalize(join(root, rel));
-        if (!file.startsWith(root) || !existsSync(file) || !statSync(file).isFile()) {
-          res.statusCode = 404;
-          res.end('not found');
-          return;
-        }
-        res.setHeader('Content-Type', MIME[extname(file).toLowerCase()] ?? 'application/octet-stream');
-        createReadStream(file).pipe(res);
-      });
-    },
-  };
-}
+const here = (path: string) => resolve(fileURLToPath(new URL('.', import.meta.url)), path);
 
 export default defineConfig({
+  base: './',
   plugins: [
-    staticDir('/pds-assets/', assetsRoot),
-    staticDir('/stencil-baselines/', baselineRoot),
-    mitosisCompareAdapters(),
-    react({
-      include: /\.(jsx|tsx)$/,
-      babel: {
-        plugins: [['styled-jsx/babel', { optimizeForSpeed: true }]],
-      },
+    pdsPlayground({
+      componentsRoot: here('../components'),
+      cdnBaseUrl: process.env.PDS_CDN_BASE_URL ?? 'https://cdn.ui.porsche.com/porsche-design-system',
     }),
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('p-'),
-        },
-      },
-    }),
-    svelte({
-      preprocess: preprocess({ typescript: true }),
-    }),
+    react({ include: /\.(jsx|tsx)$/ }),
+    vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('upstream-') } } }),
+    svelte({ preprocess: preprocess({ typescript: true }) }),
   ],
   esbuild: {
     tsconfigRaw: {
@@ -75,18 +29,27 @@ export default defineConfig({
     },
   },
   resolve: {
-    dedupe: ['react', 'react-dom', 'vue'],
+    dedupe: ['react', 'react-dom', 'vue', 'svelte'],
+  },
+  build: {
+    target: 'es2022',
+    chunkSizeWarningLimit: 4000,
+    rollupOptions: {
+      input: {
+        index: here('index.html'),
+        frame: here('frame.html'),
+      },
+    },
   },
   server: {
     port: 5174,
     host: '0.0.0.0',
     hmr: { overlay: false },
-    fs: {
-      allow: [resolve(fileURLToPath(new URL('../..', import.meta.url)))],
-    },
+    fs: { allow: [here('../..')] },
   },
+  preview: { port: 5174, host: '0.0.0.0' },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'vue', 'styled-jsx/style'],
+    include: ['react', 'react-dom', 'react-dom/client', 'vue'],
     exclude: ['@angular/core', '@angular/common', '@angular/compiler', '@angular/platform-browser'],
   },
 });
