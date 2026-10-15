@@ -17,6 +17,13 @@ describe('rewriteHost', () => {
       '.p-input-text:dir(rtl) input::placeholder{direction:rtl}'
     );
   });
+
+  it('keeps nested parens of chained :not() inside :host()', () => {
+    assert.equal(
+      rewriteHost(':host(:not([icon-source]):not([icon])) p-icon{display:none}', '.p-button'),
+      '.p-button:not([icon-source]):not([icon]) p-icon{display:none}'
+    );
+  });
 });
 
 describe('rewritePdsTags', () => {

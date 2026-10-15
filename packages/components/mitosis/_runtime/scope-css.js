@@ -19,12 +19,20 @@ export function scopeCss(css, host, pdsTags = DEFAULT_PDS_TAGS) {
 }
 
 export function rewriteHost(css, host) {
-  return css
-    .replace(/:host\(([^)]+)\)/g, (_, inner) => {
-      const sel = String(inner).trim();
-      return `${host}${sel}`;
-    })
-    .replace(/:host(?![\w-(])/g, host);
+  let out = '';
+  let index = 0;
+  for (let start = css.indexOf(':host(', index); start >= 0; start = css.indexOf(':host(', index)) {
+    // Balanced: `:host(:not([a]):not([b]))` holds nested parens.
+    let depth = 0;
+    let end = start + ':host'.length;
+    for (; end < css.length; end += 1) {
+      if (css[end] === '(') depth += 1;
+      else if (css[end] === ')' && --depth === 0) break;
+    }
+    out += `${css.slice(index, start)}${host}${css.slice(start + ':host('.length, end).trim()}`;
+    index = end + 1;
+  }
+  return `${out}${css.slice(index)}`.replace(/:host(?![\w-(])/g, host);
 }
 
 export function rewritePdsTags(css, pdsTags = DEFAULT_PDS_TAGS) {
