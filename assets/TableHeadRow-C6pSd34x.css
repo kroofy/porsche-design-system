@@ -1,0 +1,1 @@
+.p-table-head-row :where([data-pds-slot]){display:contents}.p-table-head-row{display:table-row}.p-table-head-row[hidden]{display:none!important}

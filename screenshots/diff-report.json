@@ -1,0 +1,2966 @@
+[
+  {
+    "theme": "light",
+    "tag": "sheet",
+    "variant": "open",
+    "mismatch": 1
+  },
+  {
+    "theme": "light",
+    "tag": "carousel",
+    "variant": "default",
+    "mismatch": 0.9867
+  },
+  {
+    "theme": "dark",
+    "tag": "carousel",
+    "variant": "default",
+    "mismatch": 0.9867
+  },
+  {
+    "theme": "light",
+    "tag": "toast-item",
+    "variant": "success",
+    "mismatch": 0.9821
+  },
+  {
+    "theme": "light",
+    "tag": "toast-item",
+    "variant": "info",
+    "mismatch": 0.9806
+  },
+  {
+    "theme": "dark",
+    "tag": "toast-item",
+    "variant": "success",
+    "mismatch": 0.9801
+  },
+  {
+    "theme": "dark",
+    "tag": "toast-item",
+    "variant": "info",
+    "mismatch": 0.9659
+  },
+  {
+    "theme": "light",
+    "tag": "modal",
+    "variant": "open",
+    "mismatch": 0.7515
+  },
+  {
+    "theme": "dark",
+    "tag": "multi-select",
+    "variant": "default",
+    "mismatch": 0.6505
+  },
+  {
+    "theme": "dark",
+    "tag": "select",
+    "variant": "default",
+    "mismatch": 0.6305
+  },
+  {
+    "theme": "dark",
+    "tag": "select",
+    "variant": "optgroup",
+    "mismatch": 0.628
+  },
+  {
+    "theme": "dark",
+    "tag": "textarea",
+    "variant": "default",
+    "mismatch": 0.5239
+  },
+  {
+    "theme": "dark",
+    "tag": "textarea",
+    "variant": "disabled",
+    "mismatch": 0.5237
+  },
+  {
+    "theme": "dark",
+    "tag": "segmented-control",
+    "variant": "label + compact",
+    "mismatch": 0.5057
+  },
+  {
+    "theme": "dark",
+    "tag": "textarea",
+    "variant": "counter",
+    "mismatch": 0.4794
+  },
+  {
+    "theme": "dark",
+    "tag": "textarea",
+    "variant": "error",
+    "mismatch": 0.4699
+  },
+  {
+    "theme": "dark",
+    "tag": "accordion",
+    "variant": "closed",
+    "mismatch": 0.4688
+  },
+  {
+    "theme": "dark",
+    "tag": "multi-select",
+    "variant": "disabled",
+    "mismatch": 0.3776
+  },
+  {
+    "theme": "dark",
+    "tag": "select",
+    "variant": "disabled",
+    "mismatch": 0.3617
+  },
+  {
+    "theme": "dark",
+    "tag": "multi-select",
+    "variant": "error",
+    "mismatch": 0.3404
+  },
+  {
+    "theme": "dark",
+    "tag": "select",
+    "variant": "error",
+    "mismatch": 0.3251
+  },
+  {
+    "theme": "dark",
+    "tag": "inline-notification",
+    "variant": "warning",
+    "mismatch": 0.3241
+  },
+  {
+    "theme": "dark",
+    "tag": "inline-notification",
+    "variant": "success",
+    "mismatch": 0.3188
+  },
+  {
+    "theme": "light",
+    "tag": "flyout",
+    "variant": "end",
+    "mismatch": 0.3183
+  },
+  {
+    "theme": "light",
+    "tag": "flyout",
+    "variant": "start",
+    "mismatch": 0.3157
+  },
+  {
+    "theme": "dark",
+    "tag": "inline-notification",
+    "variant": "info",
+    "mismatch": 0.3152
+  },
+  {
+    "theme": "dark",
+    "tag": "inline-notification",
+    "variant": "error",
+    "mismatch": 0.3152
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "secondary",
+    "mismatch": 0.3146
+  },
+  {
+    "theme": "dark",
+    "tag": "segmented-control",
+    "variant": "default",
+    "mismatch": 0.3129
+  },
+  {
+    "theme": "dark",
+    "tag": "segmented-control",
+    "variant": "disabled",
+    "mismatch": 0.2857
+  },
+  {
+    "theme": "dark",
+    "tag": "tabs",
+    "variant": "default",
+    "mismatch": 0.2788
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "error",
+    "mismatch": 0.2595
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "success",
+    "mismatch": 0.2589
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "warning",
+    "mismatch": 0.2559
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "info",
+    "mismatch": 0.254
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "primary",
+    "mismatch": 0.2213
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "icon",
+    "mismatch": 0.2184
+  },
+  {
+    "theme": "dark",
+    "tag": "accordion",
+    "variant": "open",
+    "mismatch": 0.2163
+  },
+  {
+    "theme": "dark",
+    "tag": "text-list",
+    "variant": "nested",
+    "mismatch": 0.1761
+  },
+  {
+    "theme": "dark",
+    "tag": "tabs-bar",
+    "variant": "size lg",
+    "mismatch": 0.1624
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile-product",
+    "variant": "price original",
+    "mismatch": 0.1572
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile-product",
+    "variant": "liked",
+    "mismatch": 0.1566
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile-product",
+    "variant": "default",
+    "mismatch": 0.156
+  },
+  {
+    "theme": "dark",
+    "tag": "tabs-bar",
+    "variant": "default",
+    "mismatch": 0.1475
+  },
+  {
+    "theme": "dark",
+    "tag": "segmented-control",
+    "variant": "icons",
+    "mismatch": 0.1417
+  },
+  {
+    "theme": "dark",
+    "tag": "accordion",
+    "variant": "compact",
+    "mismatch": 0.1358
+  },
+  {
+    "theme": "dark",
+    "tag": "tabs-bar",
+    "variant": "compact",
+    "mismatch": 0.135
+  },
+  {
+    "theme": "dark",
+    "tag": "radio-group",
+    "variant": "row",
+    "mismatch": 0.1305
+  },
+  {
+    "theme": "dark",
+    "tag": "tag",
+    "variant": "compact",
+    "mismatch": 0.1235
+  },
+  {
+    "theme": "dark",
+    "tag": "scroller",
+    "variant": "default",
+    "mismatch": 0.1137
+  },
+  {
+    "theme": "dark",
+    "tag": "table",
+    "variant": "compact",
+    "mismatch": 0.1134
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile-product",
+    "variant": "price original",
+    "mismatch": 0.1113
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile-product",
+    "variant": "liked",
+    "mismatch": 0.111
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile-product",
+    "variant": "default",
+    "mismatch": 0.11
+  },
+  {
+    "theme": "dark",
+    "tag": "table",
+    "variant": "default",
+    "mismatch": 0.1094
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "icon",
+    "mismatch": 0.1078
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "secondary",
+    "mismatch": 0.0992
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "primary",
+    "mismatch": 0.0964
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "success",
+    "mismatch": 0.0934
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "warning",
+    "mismatch": 0.0932
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "error",
+    "mismatch": 0.0924
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "info",
+    "mismatch": 0.0922
+  },
+  {
+    "theme": "dark",
+    "tag": "tag-dismissible",
+    "variant": "label",
+    "mismatch": 0.0829
+  },
+  {
+    "theme": "light",
+    "tag": "radio-group",
+    "variant": "row",
+    "mismatch": 0.0646
+  },
+  {
+    "theme": "dark",
+    "tag": "radio-group",
+    "variant": "disabled",
+    "mismatch": 0.0639
+  },
+  {
+    "theme": "dark",
+    "tag": "radio-group",
+    "variant": "default",
+    "mismatch": 0.0635
+  },
+  {
+    "theme": "light",
+    "tag": "tag",
+    "variant": "compact",
+    "mismatch": 0.0619
+  },
+  {
+    "theme": "dark",
+    "tag": "radio-group",
+    "variant": "error",
+    "mismatch": 0.0616
+  },
+  {
+    "theme": "dark",
+    "tag": "pagination",
+    "variant": "page 2 of 5",
+    "mismatch": 0.0563
+  },
+  {
+    "theme": "dark",
+    "tag": "pagination",
+    "variant": "page 10 of 50",
+    "mismatch": 0.0532
+  },
+  {
+    "theme": "light",
+    "tag": "segmented-control",
+    "variant": "default",
+    "mismatch": 0.0453
+  },
+  {
+    "theme": "light",
+    "tag": "table",
+    "variant": "compact",
+    "mismatch": 0.0406
+  },
+  {
+    "theme": "light",
+    "tag": "table",
+    "variant": "default",
+    "mismatch": 0.0391
+  },
+  {
+    "theme": "light",
+    "tag": "select",
+    "variant": "error",
+    "mismatch": 0.0383
+  },
+  {
+    "theme": "light",
+    "tag": "multi-select",
+    "variant": "error",
+    "mismatch": 0.0381
+  },
+  {
+    "theme": "light",
+    "tag": "segmented-control",
+    "variant": "label + compact",
+    "mismatch": 0.0354
+  },
+  {
+    "theme": "light",
+    "tag": "radio-group",
+    "variant": "default",
+    "mismatch": 0.0323
+  },
+  {
+    "theme": "light",
+    "tag": "tabs-bar",
+    "variant": "compact",
+    "mismatch": 0.0311
+  },
+  {
+    "theme": "light",
+    "tag": "segmented-control",
+    "variant": "icons",
+    "mismatch": 0.031
+  },
+  {
+    "theme": "light",
+    "tag": "radio-group",
+    "variant": "error",
+    "mismatch": 0.0288
+  },
+  {
+    "theme": "light",
+    "tag": "accordion",
+    "variant": "compact",
+    "mismatch": 0.0282
+  },
+  {
+    "theme": "light",
+    "tag": "multi-select",
+    "variant": "default",
+    "mismatch": 0.0265
+  },
+  {
+    "theme": "light",
+    "tag": "button-tile",
+    "variant": "default",
+    "mismatch": 0.0262
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile",
+    "variant": "default",
+    "mismatch": 0.0262
+  },
+  {
+    "theme": "dark",
+    "tag": "button-tile",
+    "variant": "default",
+    "mismatch": 0.0262
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile",
+    "variant": "default",
+    "mismatch": 0.0262
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile",
+    "variant": "gradient off",
+    "mismatch": 0.026
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile",
+    "variant": "gradient off",
+    "mismatch": 0.026
+  },
+  {
+    "theme": "light",
+    "tag": "select",
+    "variant": "optgroup",
+    "mismatch": 0.0249
+  },
+  {
+    "theme": "light",
+    "tag": "select",
+    "variant": "default",
+    "mismatch": 0.0245
+  },
+  {
+    "theme": "light",
+    "tag": "scroller",
+    "variant": "default",
+    "mismatch": 0.0243
+  },
+  {
+    "theme": "light",
+    "tag": "accordion",
+    "variant": "open",
+    "mismatch": 0.0232
+  },
+  {
+    "theme": "light",
+    "tag": "radio-group",
+    "variant": "disabled",
+    "mismatch": 0.0227
+  },
+  {
+    "theme": "dark",
+    "tag": "flag",
+    "variant": "gb size lg",
+    "mismatch": 0.0227
+  },
+  {
+    "theme": "light",
+    "tag": "segmented-control",
+    "variant": "disabled",
+    "mismatch": 0.0224
+  },
+  {
+    "theme": "light",
+    "tag": "flag",
+    "variant": "gb size lg",
+    "mismatch": 0.0223
+  },
+  {
+    "theme": "light",
+    "tag": "button-tile",
+    "variant": "align top",
+    "mismatch": 0.0215
+  },
+  {
+    "theme": "dark",
+    "tag": "button-tile",
+    "variant": "align top",
+    "mismatch": 0.0215
+  },
+  {
+    "theme": "light",
+    "tag": "tabs",
+    "variant": "default",
+    "mismatch": 0.0182
+  },
+  {
+    "theme": "dark",
+    "tag": "tag-dismissible",
+    "variant": "compact",
+    "mismatch": 0.0171
+  },
+  {
+    "theme": "dark",
+    "tag": "inline-notification",
+    "variant": "action + no dismiss",
+    "mismatch": 0.0152
+  },
+  {
+    "theme": "light",
+    "tag": "textarea",
+    "variant": "error",
+    "mismatch": 0.0149
+  },
+  {
+    "theme": "light",
+    "tag": "tag-dismissible",
+    "variant": "compact",
+    "mismatch": 0.0143
+  },
+  {
+    "theme": "light",
+    "tag": "tag-dismissible",
+    "variant": "label",
+    "mismatch": 0.0131
+  },
+  {
+    "theme": "light",
+    "tag": "pagination",
+    "variant": "page 10 of 50",
+    "mismatch": 0.013
+  },
+  {
+    "theme": "light",
+    "tag": "textarea",
+    "variant": "counter",
+    "mismatch": 0.0118
+  },
+  {
+    "theme": "light",
+    "tag": "button-tile",
+    "variant": "disabled",
+    "mismatch": 0.0113
+  },
+  {
+    "theme": "light",
+    "tag": "pagination",
+    "variant": "page 2 of 5",
+    "mismatch": 0.0113
+  },
+  {
+    "theme": "dark",
+    "tag": "button-tile",
+    "variant": "disabled",
+    "mismatch": 0.0113
+  },
+  {
+    "theme": "dark",
+    "tag": "tag-dismissible",
+    "variant": "default",
+    "mismatch": 0.0107
+  },
+  {
+    "theme": "light",
+    "tag": "textarea",
+    "variant": "default",
+    "mismatch": 0.0106
+  },
+  {
+    "theme": "light",
+    "tag": "flag",
+    "variant": "jp",
+    "mismatch": 0.0104
+  },
+  {
+    "theme": "light",
+    "tag": "button-tile",
+    "variant": "compact",
+    "mismatch": 0.0098
+  },
+  {
+    "theme": "light",
+    "tag": "link-tile",
+    "variant": "compact",
+    "mismatch": 0.0098
+  },
+  {
+    "theme": "dark",
+    "tag": "button-tile",
+    "variant": "compact",
+    "mismatch": 0.0098
+  },
+  {
+    "theme": "dark",
+    "tag": "link-tile",
+    "variant": "compact",
+    "mismatch": 0.0098
+  },
+  {
+    "theme": "light",
+    "tag": "accordion",
+    "variant": "closed",
+    "mismatch": 0.0096
+  },
+  {
+    "theme": "dark",
+    "tag": "flag",
+    "variant": "jp",
+    "mismatch": 0.0092
+  },
+  {
+    "theme": "light",
+    "tag": "tag-dismissible",
+    "variant": "default",
+    "mismatch": 0.0091
+  },
+  {
+    "theme": "light",
+    "tag": "text-list",
+    "variant": "nested",
+    "mismatch": 0.0084
+  },
+  {
+    "theme": "light",
+    "tag": "select",
+    "variant": "disabled",
+    "mismatch": 0.0069
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "length 6",
+    "mismatch": 0.0069
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "length 6",
+    "mismatch": 0.0066
+  },
+  {
+    "theme": "dark",
+    "tag": "modal",
+    "variant": "open",
+    "mismatch": 0.0063
+  },
+  {
+    "theme": "dark",
+    "tag": "flyout",
+    "variant": "end",
+    "mismatch": 0.0061
+  },
+  {
+    "theme": "dark",
+    "tag": "canvas",
+    "variant": "default",
+    "mismatch": 0.0058
+  },
+  {
+    "theme": "dark",
+    "tag": "drilldown",
+    "variant": "open",
+    "mismatch": 0.0054
+  },
+  {
+    "theme": "light",
+    "tag": "multi-select",
+    "variant": "disabled",
+    "mismatch": 0.005
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "loading",
+    "mismatch": 0.0047
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "value",
+    "mismatch": 0.0046
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "value",
+    "mismatch": 0.0045
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "loading",
+    "mismatch": 0.0044
+  },
+  {
+    "theme": "dark",
+    "tag": "modal",
+    "variant": "fullscreen",
+    "mismatch": 0.0035
+  },
+  {
+    "theme": "dark",
+    "tag": "flyout",
+    "variant": "start",
+    "mismatch": 0.0035
+  },
+  {
+    "theme": "light",
+    "tag": "modal",
+    "variant": "fullscreen",
+    "mismatch": 0.0032
+  },
+  {
+    "theme": "light",
+    "tag": "canvas",
+    "variant": "default",
+    "mismatch": 0.0031
+  },
+  {
+    "theme": "light",
+    "tag": "stepper-horizontal",
+    "variant": "warning + disabled",
+    "mismatch": 0.0029
+  },
+  {
+    "theme": "dark",
+    "tag": "stepper-horizontal",
+    "variant": "warning + disabled",
+    "mismatch": 0.0029
+  },
+  {
+    "theme": "light",
+    "tag": "spinner",
+    "variant": "small",
+    "mismatch": 0.0025
+  },
+  {
+    "theme": "light",
+    "tag": "spinner",
+    "variant": "medium",
+    "mismatch": 0.0025
+  },
+  {
+    "theme": "dark",
+    "tag": "spinner",
+    "variant": "small",
+    "mismatch": 0.0025
+  },
+  {
+    "theme": "dark",
+    "tag": "spinner",
+    "variant": "medium",
+    "mismatch": 0.0025
+  },
+  {
+    "theme": "light",
+    "tag": "spinner",
+    "variant": "large",
+    "mismatch": 0.0021
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "indeterminate",
+    "mismatch": 0.0021
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "loading",
+    "mismatch": 0.0021
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "indeterminate",
+    "mismatch": 0.0021
+  },
+  {
+    "theme": "light",
+    "tag": "inline-notification",
+    "variant": "success",
+    "mismatch": 0.002
+  },
+  {
+    "theme": "light",
+    "tag": "inline-notification",
+    "variant": "warning",
+    "mismatch": 0.002
+  },
+  {
+    "theme": "dark",
+    "tag": "spinner",
+    "variant": "large",
+    "mismatch": 0.002
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "loading",
+    "mismatch": 0.002
+  },
+  {
+    "theme": "light",
+    "tag": "inline-notification",
+    "variant": "info",
+    "mismatch": 0.0019
+  },
+  {
+    "theme": "light",
+    "tag": "inline-notification",
+    "variant": "error",
+    "mismatch": 0.0019
+  },
+  {
+    "theme": "light",
+    "tag": "inline-notification",
+    "variant": "action + no dismiss",
+    "mismatch": 0.0018
+  },
+  {
+    "theme": "light",
+    "tag": "drilldown",
+    "variant": "open",
+    "mismatch": 0.0018
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "loading",
+    "mismatch": 0.0017
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "loading",
+    "mismatch": 0.0017
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "loading",
+    "mismatch": 0.0013
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "loading",
+    "mismatch": 0.0013
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "loading",
+    "mismatch": 0.0013
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "loading",
+    "mismatch": 0.0012
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "loading",
+    "mismatch": 0.0011
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "loading",
+    "mismatch": 0.0011
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "loading",
+    "mismatch": 0.0011
+  },
+  {
+    "theme": "light",
+    "tag": "stepper-horizontal",
+    "variant": "default",
+    "mismatch": 0.001
+  },
+  {
+    "theme": "dark",
+    "tag": "stepper-horizontal",
+    "variant": "default",
+    "mismatch": 0.001
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "loading",
+    "mismatch": 0.0004
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "loading",
+    "mismatch": 0.0004
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "description + placeholder",
+    "mismatch": 0.0003
+  },
+  {
+    "theme": "light",
+    "tag": "fieldset",
+    "variant": "required + error",
+    "mismatch": 0.0003
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "description + placeholder",
+    "mismatch": 0.0003
+  },
+  {
+    "theme": "dark",
+    "tag": "fieldset",
+    "variant": "required + error",
+    "mismatch": 0.0003
+  },
+  {
+    "theme": "light",
+    "tag": "textarea",
+    "variant": "disabled",
+    "mismatch": 0.0002
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "primary",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "secondary",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "destructive",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "icon",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "icon wrench",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "underline",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "active",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "align-label start",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "button-pure",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "primary",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "secondary",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "icon",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link",
+    "variant": "no href (plain text)",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link-pure",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link-pure",
+    "variant": "icon external",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link-pure",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link-pure",
+    "variant": "underline",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "link-pure",
+    "variant": "active",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "heading",
+    "variant": "size 2xl",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "heading",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "heading",
+    "variant": "weight bold",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "heading",
+    "variant": "align center",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "heading",
+    "variant": "color contrast-medium",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text",
+    "variant": "weight semibold",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text",
+    "variant": "color contrast-medium",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text",
+    "variant": "ellipsis",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "display",
+    "variant": "size md",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "display",
+    "variant": "size sm",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "display",
+    "variant": "align center",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text-list",
+    "variant": "unordered",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "text-list",
+    "variant": "numbered",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "icon",
+    "variant": "car",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "icon",
+    "variant": "wrench (manifest)",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "icon",
+    "variant": "heart size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "icon",
+    "variant": "color error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "icon",
+    "variant": "color success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "divider",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "divider",
+    "variant": "contrast-high",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "crest",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "crest",
+    "variant": "link",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "wordmark",
+    "variant": "small",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "wordmark",
+    "variant": "inherit",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "flag",
+    "variant": "de",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "model-signature",
+    "variant": "911",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "model-signature",
+    "variant": "taycan",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "model-signature",
+    "variant": "cayenne contrast-high",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "ai-tag",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "ai-tag",
+    "variant": "locale de",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "ai-tag",
+    "variant": "locale ja",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "unchecked",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "checked",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "checkbox",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "off",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "on",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "align-label start",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "switch",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-text",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-email",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-password",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-search",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-url",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-tel",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-number",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-date",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-month",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-time",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "input-week",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "pin-code",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "fieldset",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "tabs-bar",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "tabs-bar",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "popover",
+    "variant": "closed",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "banner",
+    "variant": "info",
+    "mismatch": 0
+  },
+  {
+    "theme": "light",
+    "tag": "banner",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "primary",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "secondary",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "destructive",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "icon",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "icon wrench",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "underline",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "active",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "align-label start",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "button-pure",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "primary",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "secondary",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "icon",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link",
+    "variant": "no href (plain text)",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link-pure",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link-pure",
+    "variant": "icon external",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link-pure",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link-pure",
+    "variant": "underline",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "link-pure",
+    "variant": "active",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "heading",
+    "variant": "size 2xl",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "heading",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "heading",
+    "variant": "weight bold",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "heading",
+    "variant": "align center",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "heading",
+    "variant": "color contrast-medium",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text",
+    "variant": "size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text",
+    "variant": "weight semibold",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text",
+    "variant": "color contrast-medium",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text",
+    "variant": "ellipsis",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "display",
+    "variant": "size md",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "display",
+    "variant": "size sm",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "display",
+    "variant": "align center",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text-list",
+    "variant": "unordered",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "text-list",
+    "variant": "numbered",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "icon",
+    "variant": "car",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "icon",
+    "variant": "wrench (manifest)",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "icon",
+    "variant": "heart size lg",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "icon",
+    "variant": "color error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "icon",
+    "variant": "color success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "divider",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "divider",
+    "variant": "contrast-high",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "crest",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "crest",
+    "variant": "link",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "wordmark",
+    "variant": "small",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "wordmark",
+    "variant": "inherit",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "flag",
+    "variant": "de",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "model-signature",
+    "variant": "911",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "model-signature",
+    "variant": "taycan",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "model-signature",
+    "variant": "cayenne contrast-high",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "ai-tag",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "ai-tag",
+    "variant": "locale de",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "ai-tag",
+    "variant": "locale ja",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "unchecked",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "checked",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "checkbox",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "off",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "on",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "align-label start",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "switch",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-text",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-email",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-password",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-search",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-url",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-tel",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-number",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-date",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-month",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-time",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "description + placeholder",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "compact",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "success",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "input-week",
+    "variant": "hide-label",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "error",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "pin-code",
+    "variant": "disabled",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "fieldset",
+    "variant": "default",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "popover",
+    "variant": "closed",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "sheet",
+    "variant": "open",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "banner",
+    "variant": "info",
+    "mismatch": 0
+  },
+  {
+    "theme": "dark",
+    "tag": "banner",
+    "variant": "error",
+    "mismatch": 0
+  }
+]

@@ -1,0 +1,1 @@
+.p-table-body :where([data-pds-slot]){display:contents}.p-table-body{display:table-row-group}.p-table-body[hidden]{display:none!important}

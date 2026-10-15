@@ -1,0 +1,1 @@
+.p-tabs :where([data-pds-slot]){display:contents}.p-tabs{display:block}.p-tabs[hidden]{display:none!important}.p-tabs .root{margin-bottom:var(--p-spacing-static-sm)}.p-tabs .wrap{display:contents}

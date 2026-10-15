@@ -1,0 +1,1 @@
+.p-table-cell :where([data-pds-slot]){display:contents}.p-table-cell{display:table-cell;vertical-align:middle;padding:var(--_p-table-a)!important;margin:0!important;white-space:var(--p-table-cell-ws, nowrap)!important}.p-table-cell[hidden]{display:none!important}
