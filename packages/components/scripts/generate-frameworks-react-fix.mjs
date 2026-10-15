@@ -4,16 +4,12 @@ import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { probeNodeModules } from './mitosis-node-modules.mjs';
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisRoot = resolve(componentsRoot, 'mitosis');
-const probeNodeModules = resolve(probeNodeModulesPath());
 const mitosisBin = resolve(probeNodeModules, '.bin/mitosis');
 const env = { ...process.env, NODE_PATH: probeNodeModules };
-
-function probeNodeModulesPath() {
-  return resolve(componentsRoot, '../mitosis-probe-lit/node_modules');
-}
 
 const sha256 = (buf) => createHash('sha256').update(buf).digest('hex');
 
