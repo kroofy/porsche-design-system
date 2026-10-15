@@ -46,6 +46,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # screenshots/ is committed to gh-pages by hand and embedded in PR descriptions; carry it over.
+          if git -C "$GITHUB_WORKSPACE" fetch -q --depth 1 origin gh-pages; then
+            git -C "$GITHUB_WORKSPACE" archive FETCH_HEAD screenshots 2>/dev/null | tar -x -C . || true
+          fi
           touch .nojekyll
           git init -q -b gh-pages
           git add -A
