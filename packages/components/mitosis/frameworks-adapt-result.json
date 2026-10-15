@@ -4,1650 +4,1650 @@
       "react": {
         "status": "adapted",
         "dest": "accordion/output/frameworks/react/Accordion.tsx",
-        "bytes": 10838
+        "bytes": 15309
       },
       "vue": {
         "status": "adapted",
         "dest": "accordion/output/frameworks/vue/Accordion.vue",
-        "bytes": 11244
+        "bytes": 13150
       },
       "angular": {
         "status": "adapted",
         "dest": "accordion/output/frameworks/angular/Accordion.ts",
-        "bytes": 11598
+        "bytes": 14978
       },
       "svelte": {
         "status": "adapted",
         "dest": "accordion/output/frameworks/svelte/Accordion.svelte",
-        "bytes": 11170
+        "bytes": 14168
       }
     },
     "ai-tag": {
       "react": {
         "status": "adapted",
         "dest": "ai-tag/output/frameworks/react/AiTag.tsx",
-        "bytes": 3880
+        "bytes": 9895
       },
       "vue": {
         "status": "adapted",
         "dest": "ai-tag/output/frameworks/vue/AiTag.vue",
-        "bytes": 3798
+        "bytes": 9388
       },
       "angular": {
         "status": "adapted",
         "dest": "ai-tag/output/frameworks/angular/AiTag.ts",
-        "bytes": 4380
+        "bytes": 9935
       },
       "svelte": {
         "status": "adapted",
         "dest": "ai-tag/output/frameworks/svelte/AiTag.svelte",
-        "bytes": 3891
+        "bytes": 10082
       }
     },
     "banner": {
       "react": {
         "status": "adapted",
         "dest": "banner/output/frameworks/react/Banner.tsx",
-        "bytes": 10788
+        "bytes": 17266
       },
       "vue": {
         "status": "adapted",
         "dest": "banner/output/frameworks/vue/Banner.vue",
-        "bytes": 11062
+        "bytes": 14640
       },
       "angular": {
         "status": "adapted",
         "dest": "banner/output/frameworks/angular/Banner.ts",
-        "bytes": 11405
+        "bytes": 16734
       },
       "svelte": {
         "status": "adapted",
         "dest": "banner/output/frameworks/svelte/Banner.svelte",
-        "bytes": 11049
+        "bytes": 15904
       }
     },
     "button": {
       "react": {
         "status": "adapted",
         "dest": "button/output/frameworks/react/Button.tsx",
-        "bytes": 10889
+        "bytes": 17135
       },
       "vue": {
         "status": "adapted",
         "dest": "button/output/frameworks/vue/Button.vue",
-        "bytes": 11154
+        "bytes": 14609
       },
       "angular": {
         "status": "adapted",
         "dest": "button/output/frameworks/angular/Button.ts",
-        "bytes": 11378
+        "bytes": 16679
       },
       "svelte": {
         "status": "adapted",
         "dest": "button/output/frameworks/svelte/Button.svelte",
-        "bytes": 11286
+        "bytes": 15954
       }
     },
     "button-pure": {
       "react": {
         "status": "adapted",
         "dest": "button-pure/output/frameworks/react/ButtonPure.tsx",
-        "bytes": 9047
+        "bytes": 16199
       },
       "vue": {
         "status": "adapted",
         "dest": "button-pure/output/frameworks/vue/ButtonPure.vue",
-        "bytes": 11015
+        "bytes": 13970
       },
       "angular": {
         "status": "adapted",
         "dest": "button-pure/output/frameworks/angular/ButtonPure.ts",
-        "bytes": 11407
+        "bytes": 15939
       },
       "svelte": {
         "status": "adapted",
         "dest": "button-pure/output/frameworks/svelte/ButtonPure.svelte",
-        "bytes": 11332
+        "bytes": 15402
       }
     },
     "button-tile": {
       "react": {
         "status": "adapted",
         "dest": "button-tile/output/frameworks/react/ButtonTile.tsx",
-        "bytes": 11308
+        "bytes": 17957
       },
       "vue": {
         "status": "adapted",
         "dest": "button-tile/output/frameworks/vue/ButtonTile.vue",
-        "bytes": 11756
+        "bytes": 14868
       },
       "angular": {
         "status": "adapted",
         "dest": "button-tile/output/frameworks/angular/ButtonTile.ts",
-        "bytes": 12171
+        "bytes": 17147
       },
       "svelte": {
         "status": "adapted",
         "dest": "button-tile/output/frameworks/svelte/ButtonTile.svelte",
-        "bytes": 11939
+        "bytes": 16476
       }
     },
     "canvas": {
       "react": {
         "status": "adapted",
         "dest": "canvas/output/frameworks/react/Canvas.tsx",
-        "bytes": 10994
+        "bytes": 17404
       },
       "vue": {
         "status": "adapted",
         "dest": "canvas/output/frameworks/vue/Canvas.vue",
-        "bytes": 11340
+        "bytes": 13359
       },
       "angular": {
         "status": "adapted",
         "dest": "canvas/output/frameworks/angular/Canvas.ts",
-        "bytes": 11524
+        "bytes": 16297
       },
       "svelte": {
         "status": "adapted",
         "dest": "canvas/output/frameworks/svelte/Canvas.svelte",
-        "bytes": 11090
+        "bytes": 14869
       }
     },
     "carousel": {
       "react": {
         "status": "adapted",
         "dest": "carousel/output/frameworks/react/Carousel.tsx",
-        "bytes": 9096
+        "bytes": 16740
       },
       "vue": {
         "status": "adapted",
         "dest": "carousel/output/frameworks/vue/Carousel.vue",
-        "bytes": 9369
+        "bytes": 13291
       },
       "angular": {
         "status": "adapted",
         "dest": "carousel/output/frameworks/angular/Carousel.ts",
-        "bytes": 9909
+        "bytes": 15942
       },
       "svelte": {
         "status": "adapted",
         "dest": "carousel/output/frameworks/svelte/Carousel.svelte",
-        "bytes": 9621
+        "bytes": 14919
       }
     },
     "checkbox": {
       "react": {
         "status": "adapted",
         "dest": "checkbox/output/frameworks/react/Checkbox.tsx",
-        "bytes": 12308
+        "bytes": 25271
       },
       "vue": {
         "status": "adapted",
         "dest": "checkbox/output/frameworks/vue/Checkbox.vue",
-        "bytes": 12684
+        "bytes": 20897
       },
       "angular": {
         "status": "adapted",
         "dest": "checkbox/output/frameworks/angular/Checkbox.ts",
-        "bytes": 12775
+        "bytes": 23992
       },
       "svelte": {
         "status": "adapted",
         "dest": "checkbox/output/frameworks/svelte/Checkbox.svelte",
-        "bytes": 12632
+        "bytes": 22506
       }
     },
     "crest": {
       "react": {
         "status": "adapted",
         "dest": "crest/output/frameworks/react/Crest.tsx",
-        "bytes": 2273
+        "bytes": 2509
       },
       "vue": {
         "status": "adapted",
         "dest": "crest/output/frameworks/vue/Crest.vue",
-        "bytes": 1816
+        "bytes": 1921
       },
       "angular": {
         "status": "adapted",
         "dest": "crest/output/frameworks/angular/Crest.ts",
-        "bytes": 2755
+        "bytes": 2580
       },
       "svelte": {
         "status": "adapted",
         "dest": "crest/output/frameworks/svelte/Crest.svelte",
-        "bytes": 2140
+        "bytes": 2128
       }
     },
     "display": {
       "react": {
         "status": "adapted",
         "dest": "display/output/frameworks/react/Display.tsx",
-        "bytes": 2940
+        "bytes": 4448
       },
       "vue": {
         "status": "adapted",
         "dest": "display/output/frameworks/vue/Display.vue",
-        "bytes": 2962
+        "bytes": 3887
       },
       "angular": {
         "status": "adapted",
         "dest": "display/output/frameworks/angular/Display.ts",
-        "bytes": 3500
+        "bytes": 4479
       },
       "svelte": {
         "status": "adapted",
         "dest": "display/output/frameworks/svelte/Display.svelte",
-        "bytes": 3095
+        "bytes": 4380
       }
     },
     "divider": {
       "react": {
         "status": "adapted",
         "dest": "divider/output/frameworks/react/Divider.tsx",
-        "bytes": 2438
+        "bytes": 4253
       },
       "vue": {
         "status": "adapted",
         "dest": "divider/output/frameworks/vue/Divider.vue",
-        "bytes": 2430
+        "bytes": 3691
       },
       "angular": {
         "status": "adapted",
         "dest": "divider/output/frameworks/angular/Divider.ts",
-        "bytes": 2943
+        "bytes": 4233
       },
       "svelte": {
         "status": "adapted",
         "dest": "divider/output/frameworks/svelte/Divider.svelte",
-        "bytes": 2534
+        "bytes": 4135
       }
     },
     "drilldown": {
       "react": {
         "status": "adapted",
         "dest": "drilldown/output/frameworks/react/Drilldown.tsx",
-        "bytes": 9611
+        "bytes": 12226
       },
       "vue": {
         "status": "adapted",
         "dest": "drilldown/output/frameworks/vue/Drilldown.vue",
-        "bytes": 9615
+        "bytes": 9486
       },
       "angular": {
         "status": "adapted",
         "dest": "drilldown/output/frameworks/angular/Drilldown.ts",
-        "bytes": 9826
+        "bytes": 11434
       },
       "svelte": {
         "status": "adapted",
         "dest": "drilldown/output/frameworks/svelte/Drilldown.svelte",
-        "bytes": 9447
+        "bytes": 10287
       }
     },
     "drilldown-item": {
       "react": {
         "status": "adapted",
         "dest": "drilldown-item/output/frameworks/react/DrilldownItem.tsx",
-        "bytes": 7235
+        "bytes": 9162
       },
       "vue": {
         "status": "adapted",
         "dest": "drilldown-item/output/frameworks/vue/DrilldownItem.vue",
-        "bytes": 7290
+        "bytes": 6803
       },
       "angular": {
         "status": "adapted",
         "dest": "drilldown-item/output/frameworks/angular/DrilldownItem.ts",
-        "bytes": 7548
+        "bytes": 8417
       },
       "svelte": {
         "status": "adapted",
         "dest": "drilldown-item/output/frameworks/svelte/DrilldownItem.svelte",
-        "bytes": 7361
+        "bytes": 7725
       }
     },
     "drilldown-link": {
       "react": {
         "status": "adapted",
         "dest": "drilldown-link/output/frameworks/react/DrilldownLink.tsx",
-        "bytes": 2928
+        "bytes": 3611
       },
       "vue": {
         "status": "adapted",
         "dest": "drilldown-link/output/frameworks/vue/DrilldownLink.vue",
-        "bytes": 2857
+        "bytes": 2899
       },
       "angular": {
         "status": "adapted",
         "dest": "drilldown-link/output/frameworks/angular/DrilldownLink.ts",
-        "bytes": 3239
+        "bytes": 3525
       },
       "svelte": {
         "status": "adapted",
         "dest": "drilldown-link/output/frameworks/svelte/DrilldownLink.svelte",
-        "bytes": 2936
+        "bytes": 3230
       }
     },
     "fieldset": {
       "react": {
         "status": "adapted",
         "dest": "fieldset/output/frameworks/react/Fieldset.tsx",
-        "bytes": 3660
+        "bytes": 4258
       },
       "vue": {
         "status": "adapted",
         "dest": "fieldset/output/frameworks/vue/Fieldset.vue",
-        "bytes": 3711
+        "bytes": 3810
       },
       "angular": {
         "status": "adapted",
         "dest": "fieldset/output/frameworks/angular/Fieldset.ts",
-        "bytes": 4114
+        "bytes": 4315
       },
       "svelte": {
         "status": "adapted",
         "dest": "fieldset/output/frameworks/svelte/Fieldset.svelte",
-        "bytes": 3810
+        "bytes": 4159
       }
     },
     "flag": {
       "react": {
         "status": "adapted",
         "dest": "flag/output/frameworks/react/Flag.tsx",
-        "bytes": 3474
+        "bytes": 4675
       },
       "vue": {
         "status": "adapted",
         "dest": "flag/output/frameworks/vue/Flag.vue",
-        "bytes": 3495
+        "bytes": 4183
       },
       "angular": {
         "status": "adapted",
         "dest": "flag/output/frameworks/angular/Flag.ts",
-        "bytes": 4014
+        "bytes": 4699
       },
       "svelte": {
         "status": "adapted",
         "dest": "flag/output/frameworks/svelte/Flag.svelte",
-        "bytes": 3585
+        "bytes": 4593
       }
     },
     "flyout": {
       "react": {
         "status": "adapted",
         "dest": "flyout/output/frameworks/react/Flyout.tsx",
-        "bytes": 12954
+        "bytes": 22312
       },
       "vue": {
         "status": "adapted",
         "dest": "flyout/output/frameworks/vue/Flyout.vue",
-        "bytes": 13392
+        "bytes": 18900
       },
       "angular": {
         "status": "adapted",
         "dest": "flyout/output/frameworks/angular/Flyout.ts",
-        "bytes": 13663
+        "bytes": 21593
       },
       "svelte": {
         "status": "adapted",
         "dest": "flyout/output/frameworks/svelte/Flyout.svelte",
-        "bytes": 13237
+        "bytes": 20410
       }
     },
     "heading": {
       "react": {
         "status": "adapted",
         "dest": "heading/output/frameworks/react/Heading.tsx",
-        "bytes": 4116
+        "bytes": 5638
       },
       "vue": {
         "status": "adapted",
         "dest": "heading/output/frameworks/vue/Heading.vue",
-        "bytes": 4219
+        "bytes": 5090
       },
       "angular": {
         "status": "adapted",
         "dest": "heading/output/frameworks/angular/Heading.ts",
-        "bytes": 4770
+        "bytes": 5757
       },
       "svelte": {
         "status": "adapted",
         "dest": "heading/output/frameworks/svelte/Heading.svelte",
-        "bytes": 4404
+        "bytes": 5712
       }
     },
     "icon": {
       "react": {
         "status": "adapted",
         "dest": "icon/output/frameworks/react/Icon.tsx",
-        "bytes": 5489
+        "bytes": 6569
       },
       "vue": {
         "status": "adapted",
         "dest": "icon/output/frameworks/vue/Icon.vue",
-        "bytes": 5681
+        "bytes": 5968
       },
       "angular": {
         "status": "adapted",
         "dest": "icon/output/frameworks/angular/Icon.ts",
-        "bytes": 6111
+        "bytes": 6633
       },
       "svelte": {
         "status": "adapted",
         "dest": "icon/output/frameworks/svelte/Icon.svelte",
-        "bytes": 5735
+        "bytes": 6587
       }
     },
     "inline-notification": {
       "react": {
         "status": "adapted",
         "dest": "inline-notification/output/frameworks/react/InlineNotification.tsx",
-        "bytes": 8739
+        "bytes": 10489
       },
       "vue": {
         "status": "adapted",
         "dest": "inline-notification/output/frameworks/vue/InlineNotification.vue",
-        "bytes": 8892
+        "bytes": 9148
       },
       "angular": {
         "status": "adapted",
         "dest": "inline-notification/output/frameworks/angular/InlineNotification.ts",
-        "bytes": 9523
+        "bytes": 10561
       },
       "svelte": {
         "status": "adapted",
         "dest": "inline-notification/output/frameworks/svelte/InlineNotification.svelte",
-        "bytes": 9169
+        "bytes": 10145
       }
     },
     "input-date": {
       "react": {
         "status": "adapted",
         "dest": "input-date/output/frameworks/react/InputDate.tsx",
-        "bytes": 12205
+        "bytes": 26119
       },
       "vue": {
         "status": "adapted",
         "dest": "input-date/output/frameworks/vue/InputDate.vue",
-        "bytes": 12456
+        "bytes": 22559
       },
       "angular": {
         "status": "adapted",
         "dest": "input-date/output/frameworks/angular/InputDate.ts",
-        "bytes": 12628
+        "bytes": 25374
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-date/output/frameworks/svelte/InputDate.svelte",
-        "bytes": 12558
+        "bytes": 24207
       }
     },
     "input-email": {
       "react": {
         "status": "adapted",
         "dest": "input-email/output/frameworks/react/InputEmail.tsx",
-        "bytes": 12243
+        "bytes": 26057
       },
       "vue": {
         "status": "adapted",
         "dest": "input-email/output/frameworks/vue/InputEmail.vue",
-        "bytes": 12569
+        "bytes": 22574
       },
       "angular": {
         "status": "adapted",
         "dest": "input-email/output/frameworks/angular/InputEmail.ts",
-        "bytes": 12902
+        "bytes": 25409
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-email/output/frameworks/svelte/InputEmail.svelte",
-        "bytes": 12744
+        "bytes": 24264
       }
     },
     "input-month": {
       "react": {
         "status": "adapted",
         "dest": "input-month/output/frameworks/react/InputMonth.tsx",
-        "bytes": 12242
+        "bytes": 26172
       },
       "vue": {
         "status": "adapted",
         "dest": "input-month/output/frameworks/vue/InputMonth.vue",
-        "bytes": 12491
+        "bytes": 22610
       },
       "angular": {
         "status": "adapted",
         "dest": "input-month/output/frameworks/angular/InputMonth.ts",
-        "bytes": 12680
+        "bytes": 25439
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-month/output/frameworks/svelte/InputMonth.svelte",
-        "bytes": 12603
+        "bytes": 24269
       }
     },
     "input-number": {
       "react": {
         "status": "adapted",
         "dest": "input-number/output/frameworks/react/InputNumber.tsx",
-        "bytes": 12875
+        "bytes": 26851
       },
       "vue": {
         "status": "adapted",
         "dest": "input-number/output/frameworks/vue/InputNumber.vue",
-        "bytes": 13084
+        "bytes": 23217
       },
       "angular": {
         "status": "adapted",
         "dest": "input-number/output/frameworks/angular/InputNumber.ts",
-        "bytes": 13379
+        "bytes": 26149
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-number/output/frameworks/svelte/InputNumber.svelte",
-        "bytes": 13252
+        "bytes": 24906
       }
     },
     "input-password": {
       "react": {
         "status": "adapted",
         "dest": "input-password/output/frameworks/react/InputPassword.tsx",
-        "bytes": 12551
+        "bytes": 26525
       },
       "vue": {
         "status": "adapted",
         "dest": "input-password/output/frameworks/vue/InputPassword.vue",
-        "bytes": 12831
+        "bytes": 22989
       },
       "angular": {
         "status": "adapted",
         "dest": "input-password/output/frameworks/angular/InputPassword.ts",
-        "bytes": 13174
+        "bytes": 25949
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-password/output/frameworks/svelte/InputPassword.svelte",
-        "bytes": 13022
+        "bytes": 24704
       }
     },
     "input-search": {
       "react": {
         "status": "adapted",
         "dest": "input-search/output/frameworks/react/InputSearch.tsx",
-        "bytes": 12904
+        "bytes": 26938
       },
       "vue": {
         "status": "adapted",
         "dest": "input-search/output/frameworks/vue/InputSearch.vue",
-        "bytes": 13195
+        "bytes": 23357
       },
       "angular": {
         "status": "adapted",
         "dest": "input-search/output/frameworks/angular/InputSearch.ts",
-        "bytes": 13535
+        "bytes": 26360
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-search/output/frameworks/svelte/InputSearch.svelte",
-        "bytes": 13421
+        "bytes": 25127
       }
     },
     "input-tel": {
       "react": {
         "status": "adapted",
         "dest": "input-tel/output/frameworks/react/InputTel.tsx",
-        "bytes": 12221
+        "bytes": 25949
       },
       "vue": {
         "status": "adapted",
         "dest": "input-tel/output/frameworks/vue/InputTel.vue",
-        "bytes": 12551
+        "bytes": 22470
       },
       "angular": {
         "status": "adapted",
         "dest": "input-tel/output/frameworks/angular/InputTel.ts",
-        "bytes": 12846
+        "bytes": 25275
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-tel/output/frameworks/svelte/InputTel.svelte",
-        "bytes": 12702
+        "bytes": 24136
       }
     },
     "input-text": {
       "react": {
         "status": "adapted",
         "dest": "input-text/output/frameworks/react/InputText.tsx",
-        "bytes": 13498
+        "bytes": 27354
       },
       "vue": {
         "status": "adapted",
         "dest": "input-text/output/frameworks/vue/InputText.vue",
-        "bytes": 13851
+        "bytes": 23747
       },
       "angular": {
         "status": "adapted",
         "dest": "input-text/output/frameworks/angular/InputText.ts",
-        "bytes": 14089
+        "bytes": 26597
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-text/output/frameworks/svelte/InputText.svelte",
-        "bytes": 13883
+        "bytes": 25355
       }
     },
     "input-time": {
       "react": {
         "status": "adapted",
         "dest": "input-time/output/frameworks/react/InputTime.tsx",
-        "bytes": 12202
+        "bytes": 26116
       },
       "vue": {
         "status": "adapted",
         "dest": "input-time/output/frameworks/vue/InputTime.vue",
-        "bytes": 12453
+        "bytes": 22556
       },
       "angular": {
         "status": "adapted",
         "dest": "input-time/output/frameworks/angular/InputTime.ts",
-        "bytes": 12625
+        "bytes": 25371
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-time/output/frameworks/svelte/InputTime.svelte",
-        "bytes": 12555
+        "bytes": 24204
       }
     },
     "input-url": {
       "react": {
         "status": "adapted",
         "dest": "input-url/output/frameworks/react/InputUrl.tsx",
-        "bytes": 12222
+        "bytes": 25950
       },
       "vue": {
         "status": "adapted",
         "dest": "input-url/output/frameworks/vue/InputUrl.vue",
-        "bytes": 12552
+        "bytes": 22471
       },
       "angular": {
         "status": "adapted",
         "dest": "input-url/output/frameworks/angular/InputUrl.ts",
-        "bytes": 12847
+        "bytes": 25276
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-url/output/frameworks/svelte/InputUrl.svelte",
-        "bytes": 12703
+        "bytes": 24137
       }
     },
     "input-week": {
       "react": {
         "status": "adapted",
         "dest": "input-week/output/frameworks/react/InputWeek.tsx",
-        "bytes": 12231
+        "bytes": 26119
       },
       "vue": {
         "status": "adapted",
         "dest": "input-week/output/frameworks/vue/InputWeek.vue",
-        "bytes": 12482
+        "bytes": 22559
       },
       "angular": {
         "status": "adapted",
         "dest": "input-week/output/frameworks/angular/InputWeek.ts",
-        "bytes": 12654
+        "bytes": 25374
       },
       "svelte": {
         "status": "adapted",
         "dest": "input-week/output/frameworks/svelte/InputWeek.svelte",
-        "bytes": 12584
+        "bytes": 24207
       }
     },
     "link": {
       "react": {
         "status": "adapted",
         "dest": "link/output/frameworks/react/Link.tsx",
-        "bytes": 9270
+        "bytes": 15182
       },
       "vue": {
         "status": "adapted",
         "dest": "link/output/frameworks/vue/Link.vue",
-        "bytes": 9504
+        "bytes": 12789
       },
       "angular": {
         "status": "adapted",
         "dest": "link/output/frameworks/angular/Link.ts",
-        "bytes": 9781
+        "bytes": 14640
       },
       "svelte": {
         "status": "adapted",
         "dest": "link/output/frameworks/svelte/Link.svelte",
-        "bytes": 9503
+        "bytes": 13958
       }
     },
     "link-pure": {
       "react": {
         "status": "adapted",
         "dest": "link-pure/output/frameworks/react/LinkPure.tsx",
-        "bytes": 9597
+        "bytes": 15468
       },
       "vue": {
         "status": "adapted",
         "dest": "link-pure/output/frameworks/vue/LinkPure.vue",
-        "bytes": 9968
+        "bytes": 13124
       },
       "angular": {
         "status": "adapted",
         "dest": "link-pure/output/frameworks/angular/LinkPure.ts",
-        "bytes": 10354
+        "bytes": 15005
       },
       "svelte": {
         "status": "adapted",
         "dest": "link-pure/output/frameworks/svelte/LinkPure.svelte",
-        "bytes": 10127
+        "bytes": 14429
       }
     },
     "link-tile": {
       "react": {
         "status": "adapted",
         "dest": "link-tile/output/frameworks/react/LinkTile.tsx",
-        "bytes": 10807
+        "bytes": 17594
       },
       "vue": {
         "status": "adapted",
         "dest": "link-tile/output/frameworks/vue/LinkTile.vue",
-        "bytes": 11202
+        "bytes": 14604
       },
       "angular": {
         "status": "adapted",
         "dest": "link-tile/output/frameworks/angular/LinkTile.ts",
-        "bytes": 11540
+        "bytes": 16837
       },
       "svelte": {
         "status": "adapted",
         "dest": "link-tile/output/frameworks/svelte/LinkTile.svelte",
-        "bytes": 11285
+        "bytes": 16131
       }
     },
     "link-tile-product": {
       "react": {
         "status": "adapted",
         "dest": "link-tile-product/output/frameworks/react/LinkTileProduct.tsx",
-        "bytes": 6785
+        "bytes": 9139
       },
       "vue": {
         "status": "adapted",
         "dest": "link-tile-product/output/frameworks/vue/LinkTileProduct.vue",
-        "bytes": 6886
+        "bytes": 7131
       },
       "angular": {
         "status": "adapted",
         "dest": "link-tile-product/output/frameworks/angular/LinkTileProduct.ts",
-        "bytes": 7566
+        "bytes": 8531
       },
       "svelte": {
         "status": "adapted",
         "dest": "link-tile-product/output/frameworks/svelte/LinkTileProduct.svelte",
-        "bytes": 7072
+        "bytes": 8149
       }
     },
     "modal": {
       "react": {
         "status": "adapted",
         "dest": "modal/output/frameworks/react/Modal.tsx",
-        "bytes": 10848
+        "bytes": 16886
       },
       "vue": {
         "status": "adapted",
         "dest": "modal/output/frameworks/vue/Modal.vue",
-        "bytes": 11137
+        "bytes": 14201
       },
       "angular": {
         "status": "adapted",
         "dest": "modal/output/frameworks/angular/Modal.ts",
-        "bytes": 11486
+        "bytes": 16314
       },
       "svelte": {
         "status": "adapted",
         "dest": "modal/output/frameworks/svelte/Modal.svelte",
-        "bytes": 11049
+        "bytes": 15406
       }
     },
     "model-signature": {
       "react": {
         "status": "adapted",
         "dest": "model-signature/output/frameworks/react/ModelSignature.tsx",
-        "bytes": 5101
+        "bytes": 4793
       },
       "vue": {
         "status": "adapted",
         "dest": "model-signature/output/frameworks/vue/ModelSignature.vue",
-        "bytes": 5110
+        "bytes": 4373
       },
       "angular": {
         "status": "adapted",
         "dest": "model-signature/output/frameworks/angular/ModelSignature.ts",
-        "bytes": 5837
+        "bytes": 5069
       },
       "svelte": {
         "status": "adapted",
         "dest": "model-signature/output/frameworks/svelte/ModelSignature.svelte",
-        "bytes": 5394
+        "bytes": 5060
       }
     },
     "multi-select": {
       "react": {
         "status": "adapted",
         "dest": "multi-select/output/frameworks/react/MultiSelect.tsx",
-        "bytes": 11604
+        "bytes": 26042
       },
       "vue": {
         "status": "adapted",
         "dest": "multi-select/output/frameworks/vue/MultiSelect.vue",
-        "bytes": 11826
+        "bytes": 22153
       },
       "angular": {
         "status": "adapted",
         "dest": "multi-select/output/frameworks/angular/MultiSelect.ts",
-        "bytes": 12162
+        "bytes": 25011
       },
       "svelte": {
         "status": "adapted",
         "dest": "multi-select/output/frameworks/svelte/MultiSelect.svelte",
-        "bytes": 11773
+        "bytes": 23709
       }
     },
     "multi-select-option": {
       "react": {
         "status": "adapted",
         "dest": "multi-select-option/output/frameworks/react/MultiSelectOption.tsx",
-        "bytes": 6400
+        "bytes": 8811
       },
       "vue": {
         "status": "adapted",
         "dest": "multi-select-option/output/frameworks/vue/MultiSelectOption.vue",
-        "bytes": 6422
+        "bytes": 7219
       },
       "angular": {
         "status": "adapted",
         "dest": "multi-select-option/output/frameworks/angular/MultiSelectOption.ts",
-        "bytes": 7035
+        "bytes": 8469
       },
       "svelte": {
         "status": "adapted",
         "dest": "multi-select-option/output/frameworks/svelte/MultiSelectOption.svelte",
-        "bytes": 6497
+        "bytes": 7933
       }
     },
     "optgroup": {
       "react": {
         "status": "adapted",
         "dest": "optgroup/output/frameworks/react/Optgroup.tsx",
-        "bytes": 2148
+        "bytes": 2656
       },
       "vue": {
         "status": "adapted",
         "dest": "optgroup/output/frameworks/vue/Optgroup.vue",
-        "bytes": 2040
+        "bytes": 2071
       },
       "angular": {
         "status": "adapted",
         "dest": "optgroup/output/frameworks/angular/Optgroup.ts",
-        "bytes": 2583
+        "bytes": 2506
       },
       "svelte": {
         "status": "adapted",
         "dest": "optgroup/output/frameworks/svelte/Optgroup.svelte",
-        "bytes": 2113
+        "bytes": 2400
       }
     },
     "pagination": {
       "react": {
         "status": "adapted",
         "dest": "pagination/output/frameworks/react/Pagination.tsx",
-        "bytes": 5123
+        "bytes": 7791
       },
       "vue": {
         "status": "adapted",
         "dest": "pagination/output/frameworks/vue/Pagination.vue",
-        "bytes": 5202
+        "bytes": 6472
       },
       "angular": {
         "status": "adapted",
         "dest": "pagination/output/frameworks/angular/Pagination.ts",
-        "bytes": 5744
+        "bytes": 7686
       },
       "svelte": {
         "status": "adapted",
         "dest": "pagination/output/frameworks/svelte/Pagination.svelte",
-        "bytes": 5302
+        "bytes": 7143
       }
     },
     "pin-code": {
       "react": {
         "status": "adapted",
         "dest": "pin-code/output/frameworks/react/PinCode.tsx",
-        "bytes": 11064
+        "bytes": 24546
       },
       "vue": {
         "status": "adapted",
         "dest": "pin-code/output/frameworks/vue/PinCode.vue",
-        "bytes": 11313
+        "bytes": 21249
       },
       "angular": {
         "status": "adapted",
         "dest": "pin-code/output/frameworks/angular/PinCode.ts",
-        "bytes": 11641
+        "bytes": 23765
       },
       "svelte": {
         "status": "adapted",
         "dest": "pin-code/output/frameworks/svelte/PinCode.svelte",
-        "bytes": 11297
+        "bytes": 22665
       }
     },
     "popover": {
       "react": {
         "status": "adapted",
         "dest": "popover/output/frameworks/react/Popover.tsx",
-        "bytes": 5273
+        "bytes": 7135
       },
       "vue": {
         "status": "adapted",
         "dest": "popover/output/frameworks/vue/Popover.vue",
-        "bytes": 5252
+        "bytes": 5707
       },
       "angular": {
         "status": "adapted",
         "dest": "popover/output/frameworks/angular/Popover.ts",
-        "bytes": 5779
+        "bytes": 6855
       },
       "svelte": {
         "status": "adapted",
         "dest": "popover/output/frameworks/svelte/Popover.svelte",
-        "bytes": 5300
+        "bytes": 6329
       }
     },
     "radio-group": {
       "react": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/react/RadioGroup.tsx",
-        "bytes": 10086
+        "bytes": 24085
       },
       "vue": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/vue/RadioGroup.vue",
-        "bytes": 10385
+        "bytes": 20726
       },
       "angular": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/angular/RadioGroup.ts",
-        "bytes": 10626
+        "bytes": 23304
       },
       "svelte": {
         "status": "adapted",
         "dest": "radio-group/output/frameworks/svelte/RadioGroup.svelte",
-        "bytes": 10366
+        "bytes": 22202
       }
     },
     "radio-group-option": {
       "react": {
         "status": "adapted",
         "dest": "radio-group-option/output/frameworks/react/RadioGroupOption.tsx",
-        "bytes": 9129
+        "bytes": 11910
       },
       "vue": {
         "status": "adapted",
         "dest": "radio-group-option/output/frameworks/vue/RadioGroupOption.vue",
-        "bytes": 9235
+        "bytes": 10096
       },
       "angular": {
         "status": "adapted",
         "dest": "radio-group-option/output/frameworks/angular/RadioGroupOption.ts",
-        "bytes": 9744
+        "bytes": 11652
       },
       "svelte": {
         "status": "adapted",
         "dest": "radio-group-option/output/frameworks/svelte/RadioGroupOption.svelte",
-        "bytes": 9451
+        "bytes": 11153
       }
     },
     "scroller": {
       "react": {
         "status": "adapted",
         "dest": "scroller/output/frameworks/react/Scroller.tsx",
-        "bytes": 7904
+        "bytes": 36160
       },
       "vue": {
         "status": "adapted",
         "dest": "scroller/output/frameworks/vue/Scroller.vue",
-        "bytes": 8063
+        "bytes": 28600
       },
       "angular": {
         "status": "adapted",
         "dest": "scroller/output/frameworks/angular/Scroller.ts",
-        "bytes": 8429
+        "bytes": 33673
       },
       "svelte": {
         "status": "adapted",
         "dest": "scroller/output/frameworks/svelte/Scroller.svelte",
-        "bytes": 7905
+        "bytes": 31111
       }
     },
     "segmented-control": {
       "react": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/react/SegmentedControl.tsx",
-        "bytes": 9154
+        "bytes": 22893
       },
       "vue": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/vue/SegmentedControl.vue",
-        "bytes": 9452
+        "bytes": 19892
       },
       "angular": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/angular/SegmentedControl.ts",
-        "bytes": 9925
+        "bytes": 22336
       },
       "svelte": {
         "status": "adapted",
         "dest": "segmented-control/output/frameworks/svelte/SegmentedControl.svelte",
-        "bytes": 9561
+        "bytes": 21426
       }
     },
     "segmented-control-item": {
       "react": {
         "status": "adapted",
         "dest": "segmented-control-item/output/frameworks/react/SegmentedControlItem.tsx",
-        "bytes": 5878
+        "bytes": 7680
       },
       "vue": {
         "status": "adapted",
         "dest": "segmented-control-item/output/frameworks/vue/SegmentedControlItem.vue",
-        "bytes": 6044
+        "bytes": 6969
       },
       "angular": {
         "status": "adapted",
         "dest": "segmented-control-item/output/frameworks/angular/SegmentedControlItem.ts",
-        "bytes": 6681
+        "bytes": 7896
       },
       "svelte": {
         "status": "adapted",
         "dest": "segmented-control-item/output/frameworks/svelte/SegmentedControlItem.svelte",
-        "bytes": 6217
+        "bytes": 7543
       }
     },
     "select": {
       "react": {
         "status": "adapted",
         "dest": "select/output/frameworks/react/Select.tsx",
-        "bytes": 11656
+        "bytes": 26318
       },
       "vue": {
         "status": "adapted",
         "dest": "select/output/frameworks/vue/Select.vue",
-        "bytes": 11889
+        "bytes": 22298
       },
       "angular": {
         "status": "adapted",
         "dest": "select/output/frameworks/angular/Select.ts",
-        "bytes": 12151
+        "bytes": 25157
       },
       "svelte": {
         "status": "adapted",
         "dest": "select/output/frameworks/svelte/Select.svelte",
-        "bytes": 11802
+        "bytes": 23817
       }
     },
     "select-option": {
       "react": {
         "status": "adapted",
         "dest": "select-option/output/frameworks/react/SelectOption.tsx",
-        "bytes": 4704
+        "bytes": 5683
       },
       "vue": {
         "status": "adapted",
         "dest": "select-option/output/frameworks/vue/SelectOption.vue",
-        "bytes": 4722
+        "bytes": 4830
       },
       "angular": {
         "status": "adapted",
         "dest": "select-option/output/frameworks/angular/SelectOption.ts",
-        "bytes": 5231
+        "bytes": 5581
       },
       "svelte": {
         "status": "adapted",
         "dest": "select-option/output/frameworks/svelte/SelectOption.svelte",
-        "bytes": 4841
+        "bytes": 5365
       }
     },
     "sheet": {
       "react": {
         "status": "adapted",
         "dest": "sheet/output/frameworks/react/Sheet.tsx",
-        "bytes": 8251
+        "bytes": 10516
       },
       "vue": {
         "status": "adapted",
         "dest": "sheet/output/frameworks/vue/Sheet.vue",
-        "bytes": 8381
+        "bytes": 8702
       },
       "angular": {
         "status": "adapted",
         "dest": "sheet/output/frameworks/angular/Sheet.ts",
-        "bytes": 8786
+        "bytes": 10146
       },
       "svelte": {
         "status": "adapted",
         "dest": "sheet/output/frameworks/svelte/Sheet.svelte",
-        "bytes": 8321
+        "bytes": 9460
       }
     },
     "spinner": {
       "react": {
         "status": "adapted",
         "dest": "spinner/output/frameworks/react/Spinner.tsx",
-        "bytes": 4830
+        "bytes": 7060
       },
       "vue": {
         "status": "adapted",
         "dest": "spinner/output/frameworks/vue/Spinner.vue",
-        "bytes": 4872
+        "bytes": 5904
       },
       "angular": {
         "status": "adapted",
         "dest": "spinner/output/frameworks/angular/Spinner.ts",
-        "bytes": 5333
+        "bytes": 6845
       },
       "svelte": {
         "status": "adapted",
         "dest": "spinner/output/frameworks/svelte/Spinner.svelte",
-        "bytes": 4823
+        "bytes": 6469
       }
     },
     "stepper-horizontal": {
       "react": {
         "status": "adapted",
         "dest": "stepper-horizontal/output/frameworks/react/StepperHorizontal.tsx",
-        "bytes": 2772
+        "bytes": 4178
       },
       "vue": {
         "status": "adapted",
         "dest": "stepper-horizontal/output/frameworks/vue/StepperHorizontal.vue",
-        "bytes": 2801
+        "bytes": 3502
       },
       "angular": {
         "status": "adapted",
         "dest": "stepper-horizontal/output/frameworks/angular/StepperHorizontal.ts",
-        "bytes": 3146
+        "bytes": 4082
       },
       "svelte": {
         "status": "adapted",
         "dest": "stepper-horizontal/output/frameworks/svelte/StepperHorizontal.svelte",
-        "bytes": 2759
+        "bytes": 3923
       }
     },
     "stepper-horizontal-item": {
       "react": {
         "status": "adapted",
         "dest": "stepper-horizontal-item/output/frameworks/react/StepperHorizontalItem.tsx",
-        "bytes": 6210
+        "bytes": 13732
       },
       "vue": {
         "status": "adapted",
         "dest": "stepper-horizontal-item/output/frameworks/vue/StepperHorizontalItem.vue",
-        "bytes": 6255
+        "bytes": 12204
       },
       "angular": {
         "status": "adapted",
         "dest": "stepper-horizontal-item/output/frameworks/angular/StepperHorizontalItem.ts",
-        "bytes": 6758
+        "bytes": 13333
       },
       "svelte": {
         "status": "adapted",
         "dest": "stepper-horizontal-item/output/frameworks/svelte/StepperHorizontalItem.svelte",
-        "bytes": 6205
+        "bytes": 12873
       }
     },
     "switch": {
       "react": {
         "status": "adapted",
         "dest": "switch/output/frameworks/react/Switch.tsx",
-        "bytes": 9038
+        "bytes": 20777
       },
       "vue": {
         "status": "adapted",
         "dest": "switch/output/frameworks/vue/Switch.vue",
-        "bytes": 9305
+        "bytes": 17140
       },
       "angular": {
         "status": "adapted",
         "dest": "switch/output/frameworks/angular/Switch.ts",
-        "bytes": 9563
+        "bytes": 19902
       },
       "svelte": {
         "status": "adapted",
         "dest": "switch/output/frameworks/svelte/Switch.svelte",
-        "bytes": 9457
+        "bytes": 18880
       }
     },
     "table": {
       "react": {
         "status": "adapted",
         "dest": "table/output/frameworks/react/Table.tsx",
-        "bytes": 2206
+        "bytes": 2577
       },
       "vue": {
         "status": "adapted",
         "dest": "table/output/frameworks/vue/Table.vue",
-        "bytes": 2153
+        "bytes": 2119
       },
       "angular": {
         "status": "adapted",
         "dest": "table/output/frameworks/angular/Table.ts",
-        "bytes": 2705
+        "bytes": 2595
       },
       "svelte": {
         "status": "adapted",
         "dest": "table/output/frameworks/svelte/Table.svelte",
-        "bytes": 2298
+        "bytes": 2465
       }
     },
     "table-body": {
       "react": {
         "status": "adapted",
         "dest": "table-body/output/frameworks/react/TableBody.tsx",
-        "bytes": 801
+        "bytes": 607
       },
       "vue": {
         "status": "adapted",
         "dest": "table-body/output/frameworks/vue/TableBody.vue",
-        "bytes": 673
+        "bytes": 440
       },
       "angular": {
         "status": "adapted",
         "dest": "table-body/output/frameworks/angular/TableBody.ts",
-        "bytes": 1222
+        "bytes": 688
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-body/output/frameworks/svelte/TableBody.svelte",
-        "bytes": 643
+        "bytes": 384
       }
     },
     "table-cell": {
       "react": {
         "status": "adapted",
         "dest": "table-cell/output/frameworks/react/TableCell.tsx",
-        "bytes": 1255
+        "bytes": 1163
       },
       "vue": {
         "status": "adapted",
         "dest": "table-cell/output/frameworks/vue/TableCell.vue",
-        "bytes": 1144
+        "bytes": 945
       },
       "angular": {
         "status": "adapted",
         "dest": "table-cell/output/frameworks/angular/TableCell.ts",
-        "bytes": 1700
+        "bytes": 1222
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-cell/output/frameworks/svelte/TableCell.svelte",
-        "bytes": 1229
+        "bytes": 1128
       }
     },
     "table-head": {
       "react": {
         "status": "adapted",
         "dest": "table-head/output/frameworks/react/TableHead.tsx",
-        "bytes": 1109
+        "bytes": 944
       },
       "vue": {
         "status": "adapted",
         "dest": "table-head/output/frameworks/vue/TableHead.vue",
-        "bytes": 990
+        "bytes": 714
       },
       "angular": {
         "status": "adapted",
         "dest": "table-head/output/frameworks/angular/TableHead.ts",
-        "bytes": 1530
+        "bytes": 1004
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-head/output/frameworks/svelte/TableHead.svelte",
-        "bytes": 951
+        "bytes": 679
       }
     },
     "table-head-cell": {
       "react": {
         "status": "adapted",
         "dest": "table-head-cell/output/frameworks/react/TableHeadCell.tsx",
-        "bytes": 3724
+        "bytes": 5534
       },
       "vue": {
         "status": "adapted",
         "dest": "table-head-cell/output/frameworks/vue/TableHeadCell.vue",
-        "bytes": 3726
+        "bytes": 4739
       },
       "angular": {
         "status": "adapted",
         "dest": "table-head-cell/output/frameworks/angular/TableHeadCell.ts",
-        "bytes": 4299
+        "bytes": 5477
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-head-cell/output/frameworks/svelte/TableHeadCell.svelte",
-        "bytes": 3836
+        "bytes": 5190
       }
     },
     "table-head-row": {
       "react": {
         "status": "adapted",
         "dest": "table-head-row/output/frameworks/react/TableHeadRow.tsx",
-        "bytes": 810
+        "bytes": 626
       },
       "vue": {
         "status": "adapted",
         "dest": "table-head-row/output/frameworks/vue/TableHeadRow.vue",
-        "bytes": 686
+        "bytes": 457
       },
       "angular": {
         "status": "adapted",
         "dest": "table-head-row/output/frameworks/angular/TableHeadRow.ts",
-        "bytes": 1253
+        "bytes": 712
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-head-row/output/frameworks/svelte/TableHeadRow.svelte",
-        "bytes": 646
+        "bytes": 397
       }
     },
     "table-row": {
       "react": {
         "status": "adapted",
         "dest": "table-row/output/frameworks/react/TableRow.tsx",
-        "bytes": 1087
+        "bytes": 962
       },
       "vue": {
         "status": "adapted",
         "dest": "table-row/output/frameworks/vue/TableRow.vue",
-        "bytes": 978
+        "bytes": 711
       },
       "angular": {
         "status": "adapted",
         "dest": "table-row/output/frameworks/angular/TableRow.ts",
-        "bytes": 1502
+        "bytes": 1015
       },
       "svelte": {
         "status": "adapted",
         "dest": "table-row/output/frameworks/svelte/TableRow.svelte",
-        "bytes": 931
+        "bytes": 680
       }
     },
     "tabs": {
       "react": {
         "status": "adapted",
         "dest": "tabs/output/frameworks/react/Tabs.tsx",
-        "bytes": 3040
+        "bytes": 2954
       },
       "vue": {
         "status": "adapted",
         "dest": "tabs/output/frameworks/vue/Tabs.vue",
-        "bytes": 3116
+        "bytes": 2737
       },
       "angular": {
         "status": "adapted",
         "dest": "tabs/output/frameworks/angular/Tabs.ts",
-        "bytes": 3498
+        "bytes": 3118
       },
       "svelte": {
         "status": "adapted",
         "dest": "tabs/output/frameworks/svelte/Tabs.svelte",
-        "bytes": 3182
+        "bytes": 3071
       }
     },
     "tabs-bar": {
       "react": {
         "status": "adapted",
         "dest": "tabs-bar/output/frameworks/react/TabsBar.tsx",
-        "bytes": 7287
+        "bytes": 7773
       },
       "vue": {
         "status": "adapted",
         "dest": "tabs-bar/output/frameworks/vue/TabsBar.vue",
-        "bytes": 7561
+        "bytes": 6954
       },
       "angular": {
         "status": "adapted",
         "dest": "tabs-bar/output/frameworks/angular/TabsBar.ts",
-        "bytes": 7774
+        "bytes": 7675
       },
       "svelte": {
         "status": "adapted",
         "dest": "tabs-bar/output/frameworks/svelte/TabsBar.svelte",
-        "bytes": 7473
+        "bytes": 7364
       }
     },
     "tabs-item": {
       "react": {
         "status": "adapted",
         "dest": "tabs-item/output/frameworks/react/TabsItem.tsx",
-        "bytes": 1178
+        "bytes": 1149
       },
       "vue": {
         "status": "adapted",
         "dest": "tabs-item/output/frameworks/vue/TabsItem.vue",
-        "bytes": 1108
+        "bytes": 886
       },
       "angular": {
         "status": "adapted",
         "dest": "tabs-item/output/frameworks/angular/TabsItem.ts",
-        "bytes": 1607
+        "bytes": 1209
       },
       "svelte": {
         "status": "adapted",
         "dest": "tabs-item/output/frameworks/svelte/TabsItem.svelte",
-        "bytes": 1145
+        "bytes": 967
       }
     },
     "tag": {
       "react": {
         "status": "adapted",
         "dest": "tag/output/frameworks/react/Tag.tsx",
-        "bytes": 5566
+        "bytes": 6237
       },
       "vue": {
         "status": "adapted",
         "dest": "tag/output/frameworks/vue/Tag.vue",
-        "bytes": 5576
+        "bytes": 5498
       },
       "angular": {
         "status": "adapted",
         "dest": "tag/output/frameworks/angular/Tag.ts",
-        "bytes": 6007
+        "bytes": 6200
       },
       "svelte": {
         "status": "adapted",
         "dest": "tag/output/frameworks/svelte/Tag.svelte",
-        "bytes": 5705
+        "bytes": 6081
       }
     },
     "tag-dismissible": {
       "react": {
         "status": "adapted",
         "dest": "tag-dismissible/output/frameworks/react/TagDismissible.tsx",
-        "bytes": 3854
+        "bytes": 5023
       },
       "vue": {
         "status": "adapted",
         "dest": "tag-dismissible/output/frameworks/vue/TagDismissible.vue",
-        "bytes": 4284
+        "bytes": 4255
       },
       "angular": {
         "status": "adapted",
         "dest": "tag-dismissible/output/frameworks/angular/TagDismissible.ts",
-        "bytes": 4807
+        "bytes": 4974
       },
       "svelte": {
         "status": "adapted",
         "dest": "tag-dismissible/output/frameworks/svelte/TagDismissible.svelte",
-        "bytes": 4358
+        "bytes": 4663
       }
     },
     "text": {
       "react": {
         "status": "adapted",
         "dest": "text/output/frameworks/react/Text.tsx",
-        "bytes": 4277
+        "bytes": 5901
       },
       "vue": {
         "status": "adapted",
         "dest": "text/output/frameworks/vue/Text.vue",
-        "bytes": 4394
+        "bytes": 5160
       },
       "angular": {
         "status": "adapted",
         "dest": "text/output/frameworks/angular/Text.ts",
-        "bytes": 4898
+        "bytes": 5831
       },
       "svelte": {
         "status": "adapted",
         "dest": "text/output/frameworks/svelte/Text.svelte",
-        "bytes": 4556
+        "bytes": 5794
       }
     },
     "text-list": {
       "react": {
         "status": "adapted",
         "dest": "text-list/output/frameworks/react/TextList.tsx",
-        "bytes": 2168
+        "bytes": 3009
       },
       "vue": {
         "status": "adapted",
         "dest": "text-list/output/frameworks/vue/TextList.vue",
-        "bytes": 2133
+        "bytes": 2621
       },
       "angular": {
         "status": "adapted",
         "dest": "text-list/output/frameworks/angular/TextList.ts",
-        "bytes": 2598
+        "bytes": 2999
       },
       "svelte": {
         "status": "adapted",
         "dest": "text-list/output/frameworks/svelte/TextList.svelte",
-        "bytes": 2152
+        "bytes": 2811
       }
     },
     "text-list-item": {
       "react": {
         "status": "adapted",
         "dest": "text-list-item/output/frameworks/react/TextListItem.tsx",
-        "bytes": 1209
+        "bytes": 1299
       },
       "vue": {
         "status": "adapted",
         "dest": "text-list-item/output/frameworks/vue/TextListItem.vue",
-        "bytes": 1158
+        "bytes": 955
       },
       "angular": {
         "status": "adapted",
         "dest": "text-list-item/output/frameworks/angular/TextListItem.ts",
-        "bytes": 1649
+        "bytes": 1324
       },
       "svelte": {
         "status": "adapted",
         "dest": "text-list-item/output/frameworks/svelte/TextListItem.svelte",
-        "bytes": 1063
+        "bytes": 956
       }
     },
     "textarea": {
       "react": {
         "status": "adapted",
         "dest": "textarea/output/frameworks/react/Textarea.tsx",
-        "bytes": 12227
+        "bytes": 25972
       },
       "vue": {
         "status": "adapted",
         "dest": "textarea/output/frameworks/vue/Textarea.vue",
-        "bytes": 12591
+        "bytes": 22625
       },
       "angular": {
         "status": "adapted",
         "dest": "textarea/output/frameworks/angular/Textarea.ts",
-        "bytes": 12945
+        "bytes": 25262
       },
       "svelte": {
         "status": "adapted",
         "dest": "textarea/output/frameworks/svelte/Textarea.svelte",
-        "bytes": 12662
+        "bytes": 24175
       }
     },
     "toast": {
       "react": {
         "status": "adapted",
         "dest": "toast/output/frameworks/react/Toast.tsx",
-        "bytes": 1684
+        "bytes": 1855
       },
       "vue": {
         "status": "adapted",
         "dest": "toast/output/frameworks/vue/Toast.vue",
-        "bytes": 1596
+        "bytes": 1367
       },
       "angular": {
         "status": "adapted",
         "dest": "toast/output/frameworks/angular/Toast.ts",
-        "bytes": 2077
+        "bytes": 1822
       },
       "svelte": {
         "status": "adapted",
         "dest": "toast/output/frameworks/svelte/Toast.svelte",
-        "bytes": 1534
+        "bytes": 1424
       }
     },
     "toast-item": {
       "react": {
         "status": "adapted",
         "dest": "toast-item/output/frameworks/react/ToastItem.tsx",
-        "bytes": 6216
+        "bytes": 7847
       },
       "vue": {
         "status": "adapted",
         "dest": "toast-item/output/frameworks/vue/ToastItem.vue",
-        "bytes": 6226
+        "bytes": 6531
       },
       "angular": {
         "status": "adapted",
         "dest": "toast-item/output/frameworks/angular/ToastItem.ts",
-        "bytes": 6686
+        "bytes": 7558
       },
       "svelte": {
         "status": "adapted",
         "dest": "toast-item/output/frameworks/svelte/ToastItem.svelte",
-        "bytes": 6200
+        "bytes": 7142
       }
     },
     "wordmark": {
       "react": {
         "status": "adapted",
         "dest": "wordmark/output/frameworks/react/Wordmark.tsx",
-        "bytes": 2969
+        "bytes": 3642
       },
       "vue": {
         "status": "adapted",
         "dest": "wordmark/output/frameworks/vue/Wordmark.vue",
-        "bytes": 2688
+        "bytes": 3094
       },
       "angular": {
         "status": "adapted",
         "dest": "wordmark/output/frameworks/angular/Wordmark.ts",
-        "bytes": 3493
+        "bytes": 3682
       },
       "svelte": {
         "status": "adapted",
         "dest": "wordmark/output/frameworks/svelte/Wordmark.svelte",
-        "bytes": 3000
+        "bytes": 3454
       }
     }
   },

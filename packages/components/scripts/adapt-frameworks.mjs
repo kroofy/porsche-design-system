@@ -241,8 +241,8 @@ const replacePdsTagsWithComponents = (code, nested, kind) => {
     const Comp = `P${pascal(tag)}`;
     const raw = `p-${tag}`;
     if (kind === 'react' || kind === 'vue' || kind === 'svelte') {
-      next = next.replaceAll(`<${raw}`, `<${Comp}`);
-      next = next.replaceAll(`</${raw}`, `</${Comp}`);
+      // Boundary so `p-button` does not rewrite the prefix of `<p-button-pure`.
+      next = next.replace(new RegExp(`<(/?)${raw}(?![\\w-])`, 'g'), `<$1${Comp}`);
     }
   }
   return next;
@@ -340,11 +340,14 @@ export const hostAttrProps = (css, props) => {
   return [...attrs]
     .filter((attr) => !attr.startsWith('data-') && props.has(camel(attr)))
     .sort()
-    .map((attr) => ({ attr, prop: camel(attr) }));
+    .map((attr) => ({ attr, prop: camel(attr), keepFalse: css.includes(`[${attr}="false"]`) }));
 };
 
-const hostAttrsArg = (pairs, read) =>
-  `{ ${pairs.map(({ attr, prop }) => `${/^[a-z]\w*$/.test(attr) ? attr : JSON.stringify(attr)}: ${read(prop)}`).join(', ')} }`;
+const hostAttrsArg = (pairs, read) => {
+  const object = `{ ${pairs.map(({ attr, prop }) => `${/^[a-z]\w*$/.test(attr) ? attr : JSON.stringify(attr)}: ${read(prop)}`).join(', ')} }`;
+  const keepFalse = pairs.filter((pair) => pair.keepFalse).map((pair) => JSON.stringify(pair.attr));
+  return keepFalse.length ? `${object}, [${keepFalse.join(', ')}]` : object;
+};
 
 const prescopedCss = (css, host) => scopeCss(css, `.${host}`).trim();
 
@@ -621,7 +624,9 @@ const adaptAngular = (code, tag) => {
     const statement = `import P${pascal(child)} from "${nestedImportPath(tag, child, 'angular').replace(/\.ts$/, '')}";`;
     if (!next.includes(statement)) next = ensureImport(next, statement);
   }
-  next = next.replace(/import \{ Component, Input \} from "@angular\/core";/, 'import { Component, Input, ViewEncapsulation } from "@angular/core";');
+  next = next.replace(/import \{ ([^}]*\bComponent\b[^}]*) \} from "@angular\/core";/, (statement, names) =>
+    names.includes('ViewEncapsulation') ? statement : `import { ${names}, ViewEncapsulation } from "@angular/core";`
+  );
   next = next.replace(
     /selector: "[\w-]+",/,
     `selector: "${host}",\n  standalone: true,\n  imports: [${['CommonModule', ...nestedComps].join(', ')}],\n  encapsulation: ViewEncapsulation.None,`
@@ -637,7 +642,7 @@ const adaptAngular = (code, tag) => {
   if (!next.includes(`data-pds="${tag}"`)) {
     const bindings = [
       hasHostStyle ? '[style]="hostStyle"' : '',
-      ...attrPairs.map(({ attr, prop }) => `[attr.${attr}]="hostAttr(${prop}) ?? null"`),
+      ...attrPairs.map(({ attr, prop, keepFalse }) => `[attr.${attr}]="hostAttr(${prop}${keepFalse ? ', true' : ''}) ?? null"`),
     ]
       .filter(Boolean)
       .map((binding) => ` ${binding}`)
