@@ -7,7 +7,11 @@ declare global {
   }
 }
 
-window.__PDS_DEMOS = DEMOS.map((demo) => ({ tag: demo.tag, stage: !!demo.stage, variants: demo.variants.map((v) => v.name) }));
+window.__PDS_DEMOS = DEMOS.map((demo) => ({
+  tag: demo.tag,
+  stage: !!demo.stage,
+  variants: demo.variants.map((v) => v.name),
+}));
 
 type State = { tag: string; targets: Target[]; theme: 'light' | 'dark'; variant?: string; filter: string };
 
@@ -132,10 +136,15 @@ const renderMain = () => {
   note.hidden = !NOTES[demo.tag];
   note.textContent = NOTES[demo.tag] ?? '';
   heading.innerHTML = `p-${demo.tag} <small>${demo.stage ? 'overlay · one variant per frame' : `${demo.variants.length} variants`}</small>`;
-  const variant = demo.stage ? (demo.variants.find((v) => v.name === state.variant) ?? demo.variants[0]).name : undefined;
+  const variant = demo.stage
+    ? (demo.variants.find((v) => v.name === state.variant) ?? demo.variants[0]).name
+    : undefined;
   variantPicker.innerHTML = demo.stage
     ? demo.variants
-        .map((v) => `<button type="button" data-variant="${v.name}" aria-pressed="${v.name === variant}">${v.name}</button>`)
+        .map(
+          (v) =>
+            `<button type="button" data-variant="${v.name}" aria-pressed="${v.name === variant}">${v.name}</button>`
+        )
         .join('')
     : '';
   columns.style.setProperty('--columns', String(state.targets.length));
@@ -155,8 +164,10 @@ const renderMain = () => {
 
 const render = () => {
   writeHash();
-  for (const input of app.querySelectorAll<HTMLInputElement>('input[name="theme"]')) input.checked = input.value === state.theme;
-  for (const input of app.querySelectorAll<HTMLInputElement>('input[name="target"]')) input.checked = state.targets.includes(input.value as Target);
+  for (const input of app.querySelectorAll<HTMLInputElement>('input[name="theme"]'))
+    input.checked = input.value === state.theme;
+  for (const input of app.querySelectorAll<HTMLInputElement>('input[name="target"]'))
+    input.checked = state.targets.includes(input.value as Target);
   renderNav();
   renderMain();
 };
@@ -171,11 +182,16 @@ window.addEventListener('message', (event) => {
   if (event.data?.type === 'pds-frame-rows') {
     rowsByFrame.set(event.source as Window, event.data.rows);
     const max: number[] = [];
-    for (const rows of rowsByFrame.values()) rows.forEach((height, i) => (max[i] = Math.max(max[i] ?? 0, height)));
+    for (const rows of rowsByFrame.values()) {
+      rows.forEach((height, i) => {
+        max[i] = Math.max(max[i] ?? 0, height);
+      });
+    }
     const key = max.join(',');
     if (key === lastMinRows) return;
     lastMinRows = key;
-    for (const candidate of frames) candidate.contentWindow?.postMessage({ type: 'pds-frame-min-rows', rows: max, generation }, '*');
+    for (const candidate of frames)
+      candidate.contentWindow?.postMessage({ type: 'pds-frame-min-rows', rows: max, generation }, '*');
   }
 });
 

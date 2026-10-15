@@ -22,25 +22,18 @@ const litDeps = (mitosisRoot: string) => {
     const lite = readdirSync(folder).find((name) => name.endsWith('.lite.tsx'));
     if (!lite) continue;
     const source = readFileSync(join(folder, lite), 'utf8');
-    const used = new Set([...source.matchAll(/<p-([a-z0-9-]+)/g)].map((match) => match[1]).filter((tag) => tag !== dir));
+    const used = new Set(
+      [...source.matchAll(/<p-([a-z0-9-]+)/g)].map((match) => match[1]).filter((tag) => tag !== dir)
+    );
     deps[dir] = [...used].sort();
   }
   return deps;
 };
 
-export function pdsPlayground({
-  componentsRoot,
-  cdnBaseUrl,
-}: {
-  componentsRoot: string;
-  cdnBaseUrl: string;
-}): Plugin {
+export function pdsPlayground({ componentsRoot, cdnBaseUrl }: { componentsRoot: string; cdnBaseUrl: string }): Plugin {
   const mitosisRoot = resolve(componentsRoot, 'mitosis');
   const assetsRoot = resolve(componentsRoot, 'src/assets');
-  const assetFiles = () => [
-    ...readdirSync(assetsRoot).filter((name) => /^p-.+\.iife\.js$/.test(name)),
-    'lights.jpg',
-  ];
+  const assetFiles = () => [...readdirSync(assetsRoot).filter((name) => /^p-.+\.iife\.js$/.test(name)), 'lights.jpg'];
   const readAsset = (name: string) => {
     const buffer = readFileSync(join(assetsRoot, name));
     return name.endsWith('.js') ? rewriteCdn(buffer.toString('utf8'), cdnBaseUrl) : buffer;

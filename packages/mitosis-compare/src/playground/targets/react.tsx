@@ -8,7 +8,10 @@ const modules = import.meta.glob('../../../../components/mitosis/*/output/framew
 
 type Comp = React.ComponentType<Record<string, unknown>>;
 
-class Boundary extends React.Component<{ onError: (error: Error) => void; children: React.ReactNode }, { error: string | null }> {
+class Boundary extends React.Component<
+  { onError: (error: Error) => void; children: React.ReactNode },
+  { error: string | null }
+> {
   state = { error: null as string | null };
   static getDerivedStateFromError(error: Error) {
     return { error: error.message };
@@ -18,7 +21,11 @@ class Boundary extends React.Component<{ onError: (error: Error) => void; childr
     this.props.onError(error);
   }
   render() {
-    return this.state.error ? <pre className="variant-error">react render failed: {this.state.error}</pre> : this.props.children;
+    return this.state.error ? (
+      <pre className="variant-error">react render failed: {this.state.error}</pre>
+    ) : (
+      this.props.children
+    );
   }
 }
 

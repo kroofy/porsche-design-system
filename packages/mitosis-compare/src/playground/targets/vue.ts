@@ -8,7 +8,11 @@ const modules = import.meta.glob('../../../../components/mitosis/*/output/framew
 const toVue = (node: DemoNode, comps: Record<string, Component>): VNodeChild => {
   if (typeof node === 'string') return node;
   if ('el' in node) {
-    return h(node.el, { ...node.attrs, slot: node.slot }, (node.children ?? []).map((child) => toVue(child, comps)));
+    return h(
+      node.el,
+      { ...node.attrs, slot: node.slot },
+      (node.children ?? []).map((child) => toVue(child, comps))
+    );
   }
   const { rest, named } = splitSlots(node.children);
   const slots: Record<string, () => VNodeChild[]> = {
@@ -19,7 +23,11 @@ const toVue = (node: DemoNode, comps: Record<string, Component>): VNodeChild => 
 };
 
 export async function render(mount: HTMLElement, root: RootNode) {
-  const comps = await loadComponents<Component>(modules, /mitosis\/([^/]+)\/output\/frameworks\/vue\//, collectTags(root));
+  const comps = await loadComponents<Component>(
+    modules,
+    /mitosis\/([^/]+)\/output\/frameworks\/vue\//,
+    collectTags(root)
+  );
   const errors: unknown[] = [];
   const app = createApp({ render: () => toVue(root, comps) });
   app.config.errorHandler = (error) => {

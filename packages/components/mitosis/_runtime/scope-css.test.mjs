@@ -52,7 +52,8 @@ describe('prefixSelectors', () => {
   });
 
   it('prefixes the first rule inside an @media body', () => {
-    const css = '.a{x:1}\n@media (hover: hover) {\n  a:not(:hover), button {\n    color: red;\n  }\n  .root { y: 2 }\n}';
+    const css =
+      '.a{x:1}\n@media (hover: hover) {\n  a:not(:hover), button {\n    color: red;\n  }\n  .root { y: 2 }\n}';
     assert.equal(
       prefixSelectors(css, '.p-tabs-bar'),
       '.p-tabs-bar .a{x:1}\n@media (hover: hover) {\n  .p-tabs-bar a:not(:hover), .p-tabs-bar button{\n    color: red;\n  }\n  .p-tabs-bar .root{ y: 2 }\n}'
@@ -73,7 +74,10 @@ describe('prefixSelectors', () => {
 describe('rewriteSlots', () => {
   it('limits ::slotted to direct children of the slot marker', () => {
     assert.equal(rewriteSlots('::slotted(:is(h1, h2)){all:unset}'), '[data-pds-slot] > :is(h1, h2){all:unset}');
-    assert.equal(rewriteSlots('.wrapper ::slotted(a:focus-visible){x:1}'), '.wrapper [data-pds-slot] > a:focus-visible{x:1}');
+    assert.equal(
+      rewriteSlots('.wrapper ::slotted(a:focus-visible){x:1}'),
+      '.wrapper [data-pds-slot] > a:focus-visible{x:1}'
+    );
   });
 
   it('maps slot element selectors but not [slot] attributes', () => {
@@ -92,7 +96,8 @@ describe('scopeCss', () => {
   });
 
   it('drops the formatted Lit FOUC guard', () => {
-    const css = ':host {\n  display: block;\n}\n:not(:defined, [data-ssr]) {\n  visibility: hidden;\n}\n.root { color: red }';
+    const css =
+      ':host {\n  display: block;\n}\n:not(:defined, [data-ssr]) {\n  visibility: hidden;\n}\n.root { color: red }';
     const next = scopeCss(css, '.p-button');
     assert.doesNotMatch(next, /:defined/);
     assert.match(next, /\.p-button \.root/);

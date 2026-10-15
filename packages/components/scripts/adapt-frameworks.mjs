@@ -278,7 +278,10 @@ const camelizeNestedAttrs = (code, opener) => {
     }
     const head = code
       .slice(match.index, end)
-      .replace(/(\s)(?!data-|aria-)([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?==)/g, (_, space, name) => `${space}${camel(name)}`);
+      .replace(
+        /(\s)(?!data-|aria-)([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?==)/g,
+        (_, space, name) => `${space}${camel(name)}`
+      );
     out += code.slice(index, match.index) + head;
     index = end;
   }
@@ -608,7 +611,10 @@ const adaptSvelte = (code, tag) => {
     }
   }
   const svelteStyleHtml = `{@html \`<\${"style"}>\${scopedCssText}<\${"/style"}>\`}`;
-  next = next.replace(/\{\@html `<\$\{"style"\}[^`]*>\$\{(?:scopeCss\([^}]+\)|cssText\(\))\}<\$\{\"\/style\"\}>`\}/g, svelteStyleHtml);
+  next = next.replace(
+    /\{\@html `<\$\{"style"\}[^`]*>\$\{(?:scopeCss\([^}]+\)|cssText\(\))\}<\$\{\"\/style\"\}>`\}/g,
+    svelteStyleHtml
+  );
   next = next.replace(/\{\@html `<style>\$\{[^}]+\}<\/style>`\}/g, svelteStyleHtml);
 
   // Helpers are read in script: TS preprocessing drops imports only used in markup.
@@ -703,12 +709,17 @@ const adaptAngular = (code, tag) => {
   if (!next.includes(`data-pds="${tag}"`)) {
     const bindings = [
       hasHostStyle ? '[style]="hostStyle"' : '',
-      ...attrPairs.map(({ attr, prop, keepFalse }) => `[attr.${attr}]="hostAttr(${prop}${keepFalse ? ', true' : ''}) ?? null"`),
+      ...attrPairs.map(
+        ({ attr, prop, keepFalse }) => `[attr.${attr}]="hostAttr(${prop}${keepFalse ? ', true' : ''}) ?? null"`
+      ),
     ]
       .filter(Boolean)
       .map((binding) => ` ${binding}`)
       .join('');
-    next = next.replace(/template:\s*`\s*/, `template: \`\n    <div class="${host}" data-pds="${tag}"${bindings}>\n    `);
+    next = next.replace(
+      /template:\s*`\s*/,
+      `template: \`\n    <div class="${host}" data-pds="${tag}"${bindings}>\n    `
+    );
     next = next.replace(/`,\n  styles:/, `\n    </div>\n  \`,\n  styles:`);
   }
 
@@ -742,7 +753,9 @@ export const adaptAll = ({ tags = TAGS, force = false } = {}) => {
         continue;
       }
       const raw = before.includes(MARKER)
-        ? before.replace(/^\/\* mitosis-native-host:[\s\S]*?\*\/\n/, '').replace(/^<!-- mitosis-native-host:[\s\S]*? -->\n/, '')
+        ? before
+            .replace(/^\/\* mitosis-native-host:[\s\S]*?\*\/\n/, '')
+            .replace(/^<!-- mitosis-native-host:[\s\S]*? -->\n/, '')
         : before;
       const adapted = adaptFile(target, entry.tag, raw);
       const header =

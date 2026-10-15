@@ -26,7 +26,14 @@ const allTags = await listPage.$$eval('a[data-tag]', (links) => links.map((link)
 await listPage.close();
 const tags = arg('tags', '') ? arg('tags', '').split(',') : allTags;
 
-const NOISE = [/Download the React DevTools/, /\[vite\]/, /Angular is running in development mode/, /was created with unknown prop/, /received an unexpected slot/, /unknown prop/];
+const NOISE = [
+  /Download the React DevTools/,
+  /\[vite\]/,
+  /Angular is running in development mode/,
+  /was created with unknown prop/,
+  /received an unexpected slot/,
+  /unknown prop/,
+];
 
 const check = async (target, tag) => {
   const page = await context.newPage();
@@ -73,7 +80,15 @@ const check = async (target, tag) => {
   const failed = result.variants.filter((variant) => variant.error);
   const empty = result.variants.filter((variant) => !variant.error && variant.visibleNodes === 0);
   const status = result.frameErrors.length || failed.length ? 'error' : empty.length ? 'empty' : 'ok';
-  return { target, tag, status, ...result, consoleErrors, failed: failed.map((v) => v.name), empty: empty.map((v) => v.name) };
+  return {
+    target,
+    tag,
+    status,
+    ...result,
+    consoleErrors,
+    failed: failed.map((v) => v.name),
+    empty: empty.map((v) => v.name),
+  };
 };
 
 const queue = targets.flatMap((target) => tags.map((tag) => [target, tag]));
@@ -83,7 +98,9 @@ const workers = Array.from({ length: 6 }, async () => {
     const [target, tag] = queue.shift();
     const result = await check(target, tag);
     results.push(result);
-    process.stderr.write(`${result.status.padEnd(5)} ${target.padEnd(8)} ${tag}${result.status === 'ok' ? '' : `  ${[...result.frameErrors, ...result.failed, ...result.empty].join(' | ').slice(0, 160)}`}\n`);
+    process.stderr.write(
+      `${result.status.padEnd(5)} ${target.padEnd(8)} ${tag}${result.status === 'ok' ? '' : `  ${[...result.frameErrors, ...result.failed, ...result.empty].join(' | ').slice(0, 160)}`}\n`
+    );
   }
 });
 await Promise.all(workers);
@@ -93,7 +110,14 @@ results.sort((a, b) => a.tag.localeCompare(b.tag) || targets.indexOf(a.target) -
 const summary = Object.fromEntries(
   targets.map((target) => {
     const rows = results.filter((result) => result.target === target);
-    return [target, { ok: rows.filter((r) => r.status === 'ok').length, empty: rows.filter((r) => r.status === 'empty').length, error: rows.filter((r) => r.status === 'error').length }];
+    return [
+      target,
+      {
+        ok: rows.filter((r) => r.status === 'ok').length,
+        empty: rows.filter((r) => r.status === 'empty').length,
+        error: rows.filter((r) => r.status === 'error').length,
+      },
+    ];
   })
 );
 writeFileSync(out, `${JSON.stringify({ base, theme, summary, results }, null, 2)}\n`);

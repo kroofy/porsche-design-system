@@ -18,7 +18,16 @@ export function hostAttr(value, keepFalse = false) {
 }
 
 // React warns on "true" for these and on `true` for every other attribute.
-const BOOLEAN_ATTRS = new Set(['checked', 'disabled', 'hidden', 'multiple', 'open', 'readonly', 'required', 'selected']);
+const BOOLEAN_ATTRS = new Set([
+  'checked',
+  'disabled',
+  'hidden',
+  'multiple',
+  'open',
+  'readonly',
+  'required',
+  'selected',
+]);
 
 /**
  * Spread-ready attributes for React / Vue / Svelte wrappers.

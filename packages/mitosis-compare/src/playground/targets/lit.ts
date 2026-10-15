@@ -54,5 +54,7 @@ export async function render(mount: HTMLElement, root: RootNode) {
     applyProps(element, node.props);
     return element;
   });
-  await Promise.all([...mount.querySelectorAll('*')].map((element) => (element as { updateComplete?: Promise<unknown> }).updateComplete));
+  await Promise.all(
+    [...mount.querySelectorAll('*')].map((element) => (element as { updateComplete?: Promise<unknown> }).updateComplete)
+  );
 }

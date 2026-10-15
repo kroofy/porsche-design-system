@@ -33,7 +33,10 @@ describe('adaptFile react', () => {
   it('applies hostStyle vars and mirrors :host([attr]) props on the wrapper', () => {
     const next = adapted('button', 'react', 'Button.tsx');
     assert.match(next, /style=\{hostStyle\(\) as React\.CSSProperties\}/);
-    assert.match(next, /\{\.\.\.hostAttrs\(\{ disabled: props\.disabled, icon: props\.icon, "icon-source": props\.iconSource, loading: props\.loading \}\)\}/);
+    assert.match(
+      next,
+      /\{\.\.\.hostAttrs\(\{ disabled: props\.disabled, icon: props\.icon, "icon-source": props\.iconSource, loading: props\.loading \}\)\}/
+    );
     assert.match(next, /import \{ hostAttrs \} from "\.\.\/\.\.\/\.\.\/\.\.\/_runtime\/host\.js"/);
   });
 
@@ -74,7 +77,7 @@ describe('adaptFile react', () => {
     const raw = [
       'import * as React from "react";',
       'function LitTagDismissible(props) {',
-      "  function closeIconSrc() { // Landed LitIcon only maps car / arrow-right. name=\"close\" would paint // arrow-right. Feed the CDN close SVG so the nested p-icon matches the // stored Stencil baseline. return 'http://localhost:3001/icons/close.eec3c5d.svg'; }",
+      '  function closeIconSrc() { // Landed LitIcon only maps car / arrow-right. name="close" would paint // arrow-right. Feed the CDN close SVG so the nested p-icon matches the // stored Stencil baseline. return \'http://localhost:3001/icons/close.eec3c5d.svg\'; }',
       '  return (',
       '    <button type="button"><style dangerouslySetInnerHTML={{ __html: cssText() }} /><slot /></button>',
       '  );',

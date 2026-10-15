@@ -21,11 +21,14 @@ describe('hostAttr', () => {
 
 describe('hostAttrs', () => {
   it('keeps only attributes that would be present', () => {
-    assert.deepEqual(hostAttrs({ disabled: true, loading: true, 'icon-source': undefined, icon: 'car', open: 'false' }), {
-      disabled: true,
-      loading: 'true',
-      icon: 'car',
-    });
+    assert.deepEqual(
+      hostAttrs({ disabled: true, loading: true, 'icon-source': undefined, icon: 'car', open: 'false' }),
+      {
+        disabled: true,
+        loading: 'true',
+        icon: 'car',
+      }
+    );
   });
 
   it('keeps explicit false for attributes compared against ="false"', () => {

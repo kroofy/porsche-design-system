@@ -53,7 +53,11 @@ export const loadComponents = async <T>(
   return comps;
 };
 
-export const appendDom = (parent: Node, node: DemoNode, createComponent: (node: Extract<DemoNode, { c: string }>) => Element) => {
+export const appendDom = (
+  parent: Node,
+  node: DemoNode,
+  createComponent: (node: Extract<DemoNode, { c: string }>) => Element
+) => {
   if (typeof node === 'string') {
     parent.appendChild(document.createTextNode(node));
     return;

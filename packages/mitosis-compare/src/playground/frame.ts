@@ -41,7 +41,11 @@ const postHeights = () => {
   parent.postMessage({ type: 'pds-frame-rows', target: params.target, rows }, '*');
 };
 
-const postSize = () => parent.postMessage({ type: 'pds-frame-size', target: params.target, height: Math.ceil(document.documentElement.scrollHeight) }, '*');
+const postSize = () =>
+  parent.postMessage(
+    { type: 'pds-frame-size', target: params.target, height: Math.ceil(document.documentElement.scrollHeight) },
+    '*'
+  );
 
 window.addEventListener('message', (event) => {
   if (event.data?.type !== 'pds-frame-min-rows') return;
