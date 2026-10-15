@@ -18,9 +18,10 @@ describe('adaptFile react', () => {
   it('wraps button with a host, children, pre-scoped css, and sibling components', () => {
     const next = adapted('button', 'react', 'Button.tsx');
     assert.match(next, /data-pds="button"/);
-    assert.match(next, /__html: "\.p-button \{/);
+    assert.match(next, /__html: "\.p-button :where\(\[data-pds-slot\]\)\{display:contents\}/);
+    assert.match(next, /\\n\s*\.p-button \{\\n/);
     assert.doesNotMatch(next, /:host/);
-    assert.match(next, /\{props\.children\}/);
+    assert.match(next, /<span data-pds-slot="">\{props\.children\}<\/span>/);
     assert.doesNotMatch(next, /<slot/);
     assert.match(next, /import PIcon from/);
     assert.match(next, /import PSpinner from/);
@@ -94,9 +95,10 @@ describe('adaptFile vue / svelte', () => {
   it('pre-scopes vue button css into a global style block and wraps a host', () => {
     const next = adapted('button', 'vue', 'Button.vue');
     assert.match(next, /<div class="p-button" data-pds="button" :style="hostStyle" v-bind="pdsHostAttrs">/);
-    assert.match(next, /<style>\n\.p-button \{/);
+    assert.match(next, /<style>\n\.p-button :where\(\[data-pds-slot\]\)\{display:contents\}\n\s*\.p-button \{/);
     assert.doesNotMatch(next, /<style scoped>/);
     assert.doesNotMatch(next, /this\.cssText/);
+    assert.match(next, /<span data-pds-slot=""><slot><\/slot><\/span>/);
     assert.match(next, /<PIcon/);
     assert.match(next, /from "\.\.\/\.\.\/\.\.\/\.\.\/icon\/output\/frameworks\/vue\/Icon\.vue"/);
     assert.doesNotMatch(next, /\.vue\.vue/);
@@ -112,10 +114,12 @@ describe('adaptFile vue / svelte', () => {
     assert.match(next, /<\$\{"style"\}>/);
     assert.doesNotMatch(next, /\{@html `<style>/);
     assert.match(next, /\$: __pdsComponents = \{ PIcon, PSpinner \}/);
-    assert.match(next, /const scopedCssText = "\.p-button \{/);
+    assert.match(next, /const scopedCssText = "\.p-button :where\(\[data-pds-slot\]\)/);
     assert.match(next, /\$: pdsHostStyle = styleString\(hostStyle\(\)\);/);
     assert.match(next, /style=\{pdsHostStyle\} \{\.\.\.pdsHostAttrs\}/);
+    assert.match(next, /<div class="p-button\{\$\$props\.class \?/);
     assert.doesNotMatch(next, /\bcssText\b/);
+    assert.match(next, /<span data-pds-slot=""><slot \/><\/span>/);
   });
 
   it('rewrites svelte reads that would TDZ against a later const loading', () => {
@@ -148,7 +152,7 @@ describe('adaptFile angular', () => {
     assert.match(next, /standalone: true/);
     assert.match(next, /imports: \[CommonModule, PIcon, PSpinner\]/);
     assert.match(next, /encapsulation: ViewEncapsulation\.None/);
-    assert.match(next, /<ng-content><\/ng-content>/);
+    assert.match(next, /<span data-pds-slot=""><ng-content><\/ng-content><\/span>/);
     assert.doesNotMatch(next, /<slot/);
     assert.doesNotMatch(next, /NgModule/);
     assert.match(next, /\[attr\.disabled\]="hostAttr\(disabled\) \?\? null"/);

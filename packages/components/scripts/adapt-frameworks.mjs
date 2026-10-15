@@ -228,12 +228,19 @@ const rewriteSveltePropShadowing = (code) => {
   return next;
 };
 
+// Slot outlets keep a `display: contents` marker so scopeCss can target `::slotted()` children precisely.
+const SLOT_RE = /<slot(\s+name="([^"]+)")?\s*(?:\/>|><\/slot>)/g;
+const slotMarker = (name, content) => `<span data-pds-slot="${name ?? ''}">${content}</span>`;
+
 const rewriteReactSlots = (code) =>
-  code
-    .replace(/<slot\s+name="([^"]+)"\s*\/>/g, (_, name) => `{props[${JSON.stringify(name)}] ?? null}`)
-    .replace(/<slot\s+name="([^"]+)"\s*><\/slot>/g, (_, name) => `{props[${JSON.stringify(name)}] ?? null}`)
-    .replace(/<slot\s*\/>/g, '{props.children}')
-    .replace(/<slot><\/slot>/g, '{props.children}');
+  code.replace(SLOT_RE, (_, _attr, name) =>
+    slotMarker(name, name ? `{props[${JSON.stringify(name)}] ?? null}` : '{props.children}')
+  );
+
+const wrapTemplateSlots = (code, selfClosing) =>
+  code.replace(SLOT_RE, (_, attr = '', name) =>
+    slotMarker(name, selfClosing ? `<slot${attr} />` : `<slot${attr}></slot>`)
+  );
 
 const replacePdsTagsWithComponents = (code, nested, kind) => {
   let next = code;
@@ -469,6 +476,7 @@ const adaptVue = (code, tag) => {
   const nested = findNestedTags(next, tag);
   next = replacePdsTagsWithComponents(next, nested, 'vue');
   next = bindNativeFields(next, 'vue');
+  next = wrapTemplateSlots(next, false);
   next = addNestedImports(next, tag, 'vue', nested);
 
   const host = hostClass(tag);
@@ -530,6 +538,7 @@ const adaptSvelte = (code, tag) => {
   const nested = findNestedTags(next, tag);
   next = replacePdsTagsWithComponents(next, nested, 'svelte');
   next = bindNativeFields(next, 'svelte');
+  next = wrapTemplateSlots(next, true);
 
   const host = hostClass(tag);
   const styleMatch = next.match(/<style>([\s\S]*?)<\/style>/);
@@ -574,7 +583,7 @@ const adaptSvelte = (code, tag) => {
     if (markupStart >= 0) {
       const before = next.slice(0, markupStart);
       let markup = next.slice(markupStart);
-      const open = `<div class="${host}" data-pds="${tag}"${hostBindings}>`;
+      const open = `<div class="${host}{$$props.class ? \` \${$$props.class}\` : ''}" data-pds="${tag}"${hostBindings}>`;
       if (!markup.includes('scopedCssText') && !markup.includes(svelteStyleHtml)) {
         markup = `\n${open}\n${svelteStyleHtml}\n${markup}\n</div>\n`;
       } else {
@@ -612,9 +621,9 @@ const adaptAngular = (code, tag) => {
     next = next.replace(styles[0], `styles: [\`${scoped}\`]`);
   }
 
-  next = next
-    .replace(/<slot\s+name="([^"]+)"\s*(?:\/>|><\/slot>)/g, '<ng-content select="[slot=$1]"></ng-content>')
-    .replace(/<slot\s*(?:\/>|><\/slot>)/g, '<ng-content></ng-content>');
+  next = next.replace(SLOT_RE, (_, _attr, name) =>
+    slotMarker(name, name ? `<ng-content select="[slot=${name}]"></ng-content>` : '<ng-content></ng-content>')
+  );
 
   // Standalone (Angular 19+ default) instead of the emitted NgModule declaration.
   next = next.replace(/\n@NgModule\(\{[\s\S]*?\}\)\nexport class \w+Module \{\}\n?/, '\n');

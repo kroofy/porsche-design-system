@@ -10,12 +10,52 @@
 export function scopeCss(css, host, pdsTags = DEFAULT_PDS_TAGS) {
   if (!css) return '';
   let next = String(css);
-  next = next.replace(/:not\(:defined,\[data-ssr\]\)\{visibility:hidden\}/g, '');
+  // Lit FOUC guard: framework hosts (e.g. Angular `<p-icon>`) are never `:defined`.
+  next = next.replace(/(^|[{}])\s*:not\(:defined,\s*\[data-ssr\]\)\s*\{\s*visibility:\s*hidden;?\s*\}/g, '$1');
   next = rewriteHost(next, host);
-  next = next.replace(/::slotted\(([^)]+)\)/g, ' $1');
-  next = next.replace(/slot\[name=["']([^"']+)["']\]/g, '[data-pds-slot="$1"]');
+  next = `:where(${SLOT_MARKER}){display:contents}\n${rewriteSlots(next)}`;
   next = rewritePdsTags(next, pdsTags);
   return prefixSelectors(next, host);
+}
+
+/** Framework adapters wrap every `<slot>` outlet in `<span data-pds-slot="name">`. */
+const SLOT_MARKER = '[data-pds-slot]';
+
+const closingParen = (text, open) => {
+  let depth = 0;
+  for (let i = open; i < text.length; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')' && --depth === 0) return i;
+  }
+  return text.length;
+};
+
+const mapSlotSelector = (part) => {
+  const sel = part
+    .replace(/(^|[\s>+~(,])slot(?=$|[\s>+~:.[)])/g, `$1${SLOT_MARKER}`)
+    .replace(/\[data-pds-slot\]\[name=["']?([^"'\]]+)["']?\]/g, '[data-pds-slot="$1"]');
+  let out = '';
+  let index = 0;
+  for (let start = sel.indexOf('::slotted(', index); start >= 0; start = sel.indexOf('::slotted(', index)) {
+    const end = closingParen(sel, start + '::slotted'.length);
+    const before = sel.slice(index, start);
+    const attached = /\[data-pds-slot(?:="[^"]*")?\]$/.test(before);
+    const lead = attached ? '' : `${before.trim() && !/\s$/.test(before) ? ' ' : ''}${SLOT_MARKER}`;
+    out += `${before}${lead} > ${sel.slice(start + '::slotted('.length, end)}`;
+    index = end + 1;
+  }
+  return out + sel.slice(index);
+};
+
+/**
+ * `slot` -> the marker, `::slotted(x)` -> `x` as a direct child of the marker.
+ * A plain descendant selector would also hit the component's own markup.
+ */
+export function rewriteSlots(css) {
+  return css.replace(/(?<=^|[{}])(\s*)([^{}]+)\{/g, (match, space, prelude) => {
+    if (!prelude.trim() || prelude.trim().startsWith('@')) return match;
+    return `${space}${splitSelectors(prelude).map(mapSlotSelector).join(',')}{`;
+  });
 }
 
 export function rewriteHost(css, host) {
