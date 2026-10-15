@@ -3,10 +3,10 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { probeNodeModules } from './mitosis-node-modules.mjs';
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dividerDir = resolve(componentsRoot, 'mitosis/divider');
-const probeNodeModules = resolve(componentsRoot, '../mitosis-probe-lit/node_modules');
 const mitosisBin = resolve(probeNodeModules, '.bin/mitosis');
 const configPath = resolve(dividerDir, 'mitosis.frameworks.config.js');
 const destRoot = resolve(dividerDir, 'output/frameworks');

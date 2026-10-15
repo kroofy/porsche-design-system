@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/link-tile/output/lit/LinkTile.ts
+  // ../packages/components/mitosis/link-tile/output/lit/LinkTile.ts
   var SIZE_MAP = {
     "xx-small": "var(--p-typescale-2xs)",
     "x-small": "var(--p-typescale-xs)",
@@ -626,7 +626,8 @@
   };
   var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
   var parse = (raw, fallback) => {
-    if (raw === void 0 || raw === null || raw === "") return fallback;
+    if (raw === void 0 || raw === null) return fallback;
+    if (raw === "") return typeof fallback === "boolean" ? true : fallback;
     if (typeof raw === "string" && raw.charAt(0) === "{") {
       try {
         return JSON.parse(

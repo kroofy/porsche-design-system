@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/pin-code/output/lit/PinCode.ts
+  // ../packages/components/mitosis/pin-code/output/lit/PinCode.ts
   var BREAKPOINTS = ["base", "xs", "s", "m", "l", "xl", "xxl"];
   var parse = (raw, fallback) => {
     if (raw === void 0 || raw === null) return fallback;

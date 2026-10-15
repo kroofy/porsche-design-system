@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/ai-tag/output/lit/AiTag.ts
+  // ../packages/components/mitosis/ai-tag/output/lit/AiTag.ts
   var ZH_REGION = {
     CN: "zhCN",
     HK: "zhHK",

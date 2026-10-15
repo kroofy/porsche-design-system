@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/table-head-cell/output/lit/TableHeadCell.ts
+  // ../packages/components/mitosis/table-head-cell/output/lit/TableHeadCell.ts
   var LitTableHeadCell = class extends i4 {
     parseSort() {
       let sort = this.sort ?? this.getAttribute("sort");

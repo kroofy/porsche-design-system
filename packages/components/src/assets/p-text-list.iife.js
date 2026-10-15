@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/text-list/output/lit/TextList.ts
+  // ../packages/components/mitosis/text-list/output/lit/TextList.ts
   var LitTextList = class extends i4 {
     get hostStyle() {
       const type = (this.getAttribute("type") ?? this.type) || "unordered";

@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/toast-item/output/lit/ToastItem.ts
+  // ../packages/components/mitosis/toast-item/output/lit/ToastItem.ts
   var BG = {
     info: "var(--p-color-info-frosted)",
     success: "var(--p-color-success-frosted)",

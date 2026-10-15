@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/model-signature/output/lit/ModelSignature.ts
+  // ../packages/components/mitosis/model-signature/output/lit/ModelSignature.ts
   var MANIFEST = {
     "718": {
       src: "718.493a9e3.svg",

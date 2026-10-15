@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/segmented-control-item/output/lit/SegmentedControlItem.ts
+  // ../packages/components/mitosis/segmented-control-item/output/lit/SegmentedControlItem.ts
   var LitSegmentedControlItem = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

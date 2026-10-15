@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/sheet/output/lit/Sheet.ts
+  // ../packages/components/mitosis/sheet/output/lit/Sheet.ts
   var LitSheet = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

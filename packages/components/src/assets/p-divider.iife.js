@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/divider/output/lit/divider/Divider.ts
+  // ../packages/components/mitosis/divider/output/lit/divider/Divider.ts
   var COLOR = {
     "contrast-lower": "var(--p-color-contrast-lower)",
     "contrast-low": "var(--p-color-contrast-low)",

@@ -465,7 +465,7 @@ export default function LitCheckbox(props: {
     <div class="root">
       <div class="wrapper">
         <div class="input-wrapper">
-          <input type="checkbox" />
+          <input type="checkbox" checked={!!state.isChecked} disabled={!!state.isDisabled} aria-invalid={state.ariaInvalid} />
           <p-spinner class="spinner" aria-hidden="true" />
         </div>
         <div class="label-wrapper">
@@ -473,7 +473,7 @@ export default function LitCheckbox(props: {
         </div>
       </div>
       <span class="message">
-        <p-icon aria-hidden="true" />
+        <p-icon name={state.iconName} color={state.iconColor} aria-hidden="true" />
         {state.messageText}
       </span>
       <span class="loading" id="loading" role="status">

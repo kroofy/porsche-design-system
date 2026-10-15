@@ -567,7 +567,7 @@
     }) : customElements.define(t4, e5);
   };
 
-  // ../../components/mitosis/toast/output/lit/Toast.ts
+  // ../packages/components/mitosis/toast/output/lit/Toast.ts
   var LitToast = class extends i4 {
     connectedCallback() {
       super.connectedCallback();

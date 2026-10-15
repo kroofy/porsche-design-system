@@ -4,13 +4,13 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { probeNodeModules } from './mitosis-node-modules.mjs';
 
 const require = createRequire(import.meta.url);
 const { assertLitIdiom } = require('../mitosis/_runtime/assert-lit-idiom.js');
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/popover');
-const probeNodeModules = resolve(componentsRoot, '../mitosis-probe-lit/node_modules');
 const mitosisBin = resolve(probeNodeModules, '.bin/mitosis');
 const esbuildBin = resolve(componentsRoot, '../../node_modules/.bin/esbuild');
 const outfile = resolve(componentsRoot, 'src/assets/p-popover.iife.js');

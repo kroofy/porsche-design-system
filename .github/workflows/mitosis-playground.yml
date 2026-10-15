@@ -1,0 +1,55 @@
+name: 'Mitosis Playground'
+
+# Builds packages/mitosis-compare and publishes it to the gh-pages branch.
+# Served at https://raw.githack.com/<owner>/<repo>/gh-pages/index.html without any repo setting,
+# and at https://<owner>.github.io/<repo>/ once Settings > Pages > "Deploy from a branch" > gh-pages is enabled.
+
+on:
+  push:
+    branches:
+      - 'cursor/mitosis-migration-41e6'
+      - 'cursor/mitosis-sync-preview-89b3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mitosis-playground
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: 'Build, verify and publish'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/install
+      - name: 'Build core dependencies'
+        run: npm run build:core-dependencies
+      - name: 'Generate React / Vue / Svelte / Angular emit'
+        run: npm run generate:frameworks-all --workspace=@porsche-design-system/components
+      - name: 'Adapter and runtime tests'
+        run: npm run test:mitosis --workspace=@porsche-design-system/components
+      - name: 'Build playground'
+        run: npm run build --workspace=mitosis-compare
+      - name: 'Verify every target renders every demo'
+        working-directory: packages/mitosis-compare
+        run: |
+          npx playwright install --with-deps chromium
+          npx vite preview --port 4174 --strictPort &
+          for i in $(seq 1 30); do curl -sf http://localhost:4174/ >/dev/null && break; sleep 1; done
+          node scripts/verify-targets.mjs --base http://localhost:4174 --out dist/verify-report.json
+      - name: 'Publish to gh-pages'
+        working-directory: packages/mitosis-compare/dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "deploy: mitosis playground from ${GITHUB_REF_NAME}@${GITHUB_SHA::8}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          echo "Preview: https://raw.githack.com/${GITHUB_REPOSITORY}/gh-pages/index.html" >> "$GITHUB_STEP_SUMMARY"

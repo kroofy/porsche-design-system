@@ -5,11 +5,11 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { adaptAll } from './adapt-frameworks.mjs';
+import { probeNodeModules } from './mitosis-node-modules.mjs';
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisRoot = resolve(componentsRoot, 'mitosis');
 const assetsRoot = resolve(componentsRoot, 'src/assets');
-const probeNodeModules = resolve(componentsRoot, '../mitosis-probe-lit/node_modules');
 const mitosisBin = resolve(probeNodeModules, '.bin/mitosis');
 const TARGETS = ['react', 'vue', 'angular', 'svelte'];
 const env = { ...process.env, NODE_PATH: probeNodeModules };

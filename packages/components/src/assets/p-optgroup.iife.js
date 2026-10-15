@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/optgroup/output/lit/Optgroup.ts
+  // ../packages/components/mitosis/optgroup/output/lit/Optgroup.ts
   var LitOptgroup = class extends i4 {
     get hostStyle() {
       const disabled = this.disabled === true || this.disabled === "true" || this.disabled === "";

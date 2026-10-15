@@ -1,4 +1,5 @@
 import { useMetadata, useStore, useStyle } from '@builder.io/mitosis';
+import { ICONS_MANIFEST } from '@porsche-design-system/icons';
 
 useMetadata({ tagName: 'p-icon' });
 
@@ -59,10 +60,7 @@ const FLIPPABLE: Record<string, number> = {
   send: 1,
 };
 
-const FILES: Record<string, string> = {
-  car: 'car.35229c9.svg',
-  'arrow-right': 'arrow-right.872716b.svg',
-};
+const FILES: Record<string, string> = ICONS_MANIFEST;
 
 const BREAKPOINTS = ['base', 'xs', 's', 'm', 'l', 'xl', 'xxl'] as const;
 

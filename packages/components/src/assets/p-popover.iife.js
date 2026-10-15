@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../../node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs
+  // @floating-ui/utils/dist/floating-ui.utils.mjs
   var min = Math.min;
   var max = Math.max;
   var round = Math.round;
@@ -725,7 +725,7 @@
     };
   }
 
-  // ../../../node_modules/@floating-ui/core/dist/floating-ui.core.mjs
+  // @floating-ui/core/dist/floating-ui.core.mjs
   function computeCoordsFromPlacement(_ref, placement, rtl) {
     let {
       reference,
@@ -1288,7 +1288,7 @@
     };
   };
 
-  // ../../../node_modules/@floating-ui/utils/dist/floating-ui.utils.dom.mjs
+  // @floating-ui/utils/dist/floating-ui.utils.dom.mjs
   function hasWindow() {
     return typeof window !== "undefined";
   }
@@ -1444,7 +1444,7 @@
     return win.parent && Object.getPrototypeOf(win.parent) ? win.frameElement : null;
   }
 
-  // ../../../node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs
+  // @floating-ui/dom/dist/floating-ui.dom.mjs
   function getCssDimensions(element) {
     const css = getComputedStyle2(element);
     let width = parseFloat(css.width) || 0;
@@ -2051,7 +2051,7 @@
     });
   };
 
-  // ../../components/mitosis/popover/output/lit/Popover.ts
+  // ../packages/components/mitosis/popover/output/lit/Popover.ts
   var LitPopover = class extends i4 {
     constructor() {
       super(...arguments);

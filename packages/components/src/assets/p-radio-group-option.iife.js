@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/radio-group-option/output/lit/RadioGroupOption.ts
+  // ../packages/components/mitosis/radio-group-option/output/lit/RadioGroupOption.ts
   var LitRadioGroupOption = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

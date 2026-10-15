@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/pagination/output/lit/Pagination.ts
+  // ../packages/components/mitosis/pagination/output/lit/Pagination.ts
   var LitPagination = class extends i4 {
     get hostStyle() {
       const totalItems = Number((this.getAttribute("total-items-count") ?? this.totalItemsCount) == null || (this.getAttribute("total-items-count") ?? this.totalItemsCount) === "" ? 1 : this.getAttribute("total-items-count") ?? this.totalItemsCount);

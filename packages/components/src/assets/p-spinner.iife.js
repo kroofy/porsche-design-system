@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/spinner/output/lit/Spinner.ts
+  // ../packages/components/mitosis/spinner/output/lit/Spinner.ts
   var SIZE_MAP = {
     "xx-small": "var(--p-typescale-2xs)",
     "x-small": "var(--p-typescale-xs)",

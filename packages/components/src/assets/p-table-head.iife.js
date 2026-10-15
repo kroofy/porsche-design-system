@@ -567,7 +567,7 @@
     }) : customElements.define(t4, e5);
   };
 
-  // ../../components/mitosis/table-head/output/lit/TableHead.ts
+  // ../packages/components/mitosis/table-head/output/lit/TableHead.ts
   var LitTableHead = class extends i4 {
     connectedCallback() {
       super.connectedCallback();

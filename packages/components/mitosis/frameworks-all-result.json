@@ -2,13 +2,13 @@
   "tagCount": 75,
   "iifeCount": 75,
   "iifeUnchanged": true,
-  "combinedFailures": 2,
+  "combinedFailures": 0,
   "counts": {
     "tags": 75,
     "targets": {
       "react": {
-        "compiled": 73,
-        "failed": 2
+        "compiled": 75,
+        "failed": 0
       },
       "vue": {
         "compiled": 75,
@@ -24,10 +24,12 @@
       }
     }
   },
-  "failedPairs": [
-    "button-pure/react",
-    "tag-dismissible/react"
-  ],
+  "failedPairs": [],
+  "adapt": {
+    "adapted": 300,
+    "skipped": 0,
+    "missing": 0
+  },
   "tags": {
     "accordion": {
       "lite": "accordion/Accordion.lite.tsx",
@@ -199,15 +201,16 @@
     },
     "button-pure": {
       "lite": "button-pure/ButtonPure.lite.tsx",
-      "mitosisExit": 1,
+      "mitosisExit": 0,
       "targets": {
         "react": {
-          "compiled": false,
-          "mitosisExit": 1,
-          "files": [],
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/ButtonPure.tsx"
+          ],
           "myFragment": [],
-          "stripped": false,
-          "stderr": "Format error for file: import * as React from 'react';\n\n\n\n\n\n  export interface LitButtonPureProps {\ntype?: string;\nsize?: any;\ncolor?: string;\nunderline?: any;\nactive?: any;\nstretch?: any;\nhideLabel?: any;\nalignLabel?: any;\nicon?: string;\niconSource?: string;\ndisabled?: any;\nloading?: any;\nname?: string;\nvalue?: string;\naria?: any;\n}\n\n\n\n\n\n  function LitButtonPure(props:LitButtonPureProps) {\n\n  function cssText() {\nconst sizeMap: any = {\n'xx-small': 'var(--p-typescale-2xs)',\n'x-small': 'var(--p-typescale-xs)',\nsmall: 'var(--p-typescale-sm)',\nmedium: 'var(--p-typescale-md)',\nlarge: 'var(--p-typescale-lg)',\n'x-large': 'var(--p-typescale-xl)',\n'xx-large': 'var(--p-typescale-2xl)',\n'2xs': 'var(--p-typescale-2xs)',\nxs: 'var(--p-typescale-xs)',\nsm: 'var(--p-typescale-sm)',\nmd: 'var(--p-typescale-md)',\nlg: 'var(--p-typescale-lg)',\nxl: 'var(--p-typescale-xl)',\n'2xl': 'var(--p-typescale-2xl)',\n'3xl': 'var(--p-typescale-3xl)',\n'4xl': 'var(--p-typescale-4xl)',\n'5xl': 'var(--p-typescale-5xl)',\ninherit: 'inherit'\n};\nconst colorMap: any = {\nprimary: 'var(--p-color-primary)',\n'contrast-higher': 'var(--p-color-contrast-higher)',\n'contrast-high': 'var(--p-color-contrast-high)',\n'contrast-medium': 'var(--p-color-contrast-medium)',\ninherit: 'currentcolor'\n};\nconst minWidth: any = {\nxs: 480,\ns: 760,\nm: 1000,\nl: 1300,\nxl: 1760,\nxxl: 1920\n};\nconst parse = (raw: any, fallback: any) => {\nif (raw === undefined || raw === null || raw === '') return fallback;\nif (typeof raw === 'string' && raw.charAt(0)"
+          "stripped": false
         },
         "vue": {
           "compiled": true,
@@ -2844,15 +2847,16 @@
     },
     "tag-dismissible": {
       "lite": "tag-dismissible/TagDismissible.lite.tsx",
-      "mitosisExit": 1,
+      "mitosisExit": 0,
       "targets": {
         "react": {
-          "compiled": false,
-          "mitosisExit": 1,
-          "files": [],
+          "compiled": true,
+          "mitosisExit": 0,
+          "files": [
+            "output/frameworks/react/TagDismissible.tsx"
+          ],
           "myFragment": [],
-          "stripped": false,
-          "stderr": "Format error for file: import * as React from 'react';\n\n\n\n\n\n  export interface LitTagDismissibleProps {\nlabel?: string;\ncompact?: any;\naria?: any;\n}\n\n\n\n\n\n  function LitTagDismissible(props:LitTagDismissibleProps) {\n\n  function cssText() {\nlet compact: any = props.compact;\nif (compact === true || compact === 'true' || compact === '') {\ncompact = true;\n} else {\ncompact = false;\n}\nconst hasLabel = !!(props.label && props.label !== '');\nconst scale = compact ? '0.64285714' : '1';\nconst radius = compact ? 'var(--p-radius-lg)' : 'var(--p-radius-xl)';\nconst padBlock = hasLabel ? 'calc(16.8px * (var(--_p-tag-dismissible-a) - 0.64285714))' : 'calc(28px * (var(--_p-tag-dismissible-a) - 0.64285714) + 6px)';\nconst padInline = 'calc(22.4px * (var(--_p-tag-dismissible-a) - 0.64285714) + 4px)';\nconst gap = padInline;\nconst iconPad = 'calc(11.2px * (var(--_p-tag-dismissible-a) - 0.64285714))';\nconst labelRule = hasLabel ? '.label,button>span:nth-of-type(2)>span{display:block;margin-bottom:-4px;color:var(--p-color-contrast-high);font-size:var(--p-typescale-xs)}' : '.label,button>span:nth-of-type(2)>span{display:none}';\nreturn ':host{--_p-tag-dismissible-a:' + scale + '}' + ':not(:defined,[data-ssr]){visibility:hidden}' + 'button{all:unset;display:flex;position:relative;align-items:center;gap:' + gap + ';padding:' + padBlock + ' ' + padInline + ';border-radius:' + radius + ';cursor:pointer;background:var(--p-color-frosted);color:var(--p-color-primary);text-align:start;font:var(--p-font-weight-"
+          "stripped": false
         },
         "vue": {
           "compiled": true,

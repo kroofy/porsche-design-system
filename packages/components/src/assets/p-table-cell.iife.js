@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/table-cell/output/lit/TableCell.ts
+  // ../packages/components/mitosis/table-cell/output/lit/TableCell.ts
   var LitTableCell = class extends i4 {
     get hostStyle() {
       const multiline = this.multiline === true || this.multiline === "true" || this.multiline === "";

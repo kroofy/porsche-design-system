@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/drilldown/output/lit/Drilldown.ts
+  // ../packages/components/mitosis/drilldown/output/lit/Drilldown.ts
   var LitDrilldown = class extends i4 {
     get isOpenFlag() {
       const open = this.open ?? this.getAttribute("open");

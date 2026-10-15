@@ -10,21 +10,69 @@
 export function scopeCss(css, host, pdsTags = DEFAULT_PDS_TAGS) {
   if (!css) return '';
   let next = String(css);
-  next = next.replace(/:not\(:defined,\[data-ssr\]\)\{visibility:hidden\}/g, '');
+  // Lit FOUC guard: framework hosts (e.g. Angular `<p-icon>`) are never `:defined`.
+  next = next.replace(/(^|[{}])\s*:not\(:defined,\s*\[data-ssr\]\)\s*\{\s*visibility:\s*hidden;?\s*\}/g, '$1');
   next = rewriteHost(next, host);
-  next = next.replace(/::slotted\(([^)]+)\)/g, ' $1');
-  next = next.replace(/slot\[name=["']([^"']+)["']\]/g, '[data-pds-slot="$1"]');
+  next = `:where(${SLOT_MARKER}){display:contents}\n${rewriteSlots(next)}`;
   next = rewritePdsTags(next, pdsTags);
   return prefixSelectors(next, host);
 }
 
+/** Framework adapters wrap every `<slot>` outlet in `<span data-pds-slot="name">`. */
+const SLOT_MARKER = '[data-pds-slot]';
+
+const closingParen = (text, open) => {
+  let depth = 0;
+  for (let i = open; i < text.length; i += 1) {
+    if (text[i] === '(') depth += 1;
+    else if (text[i] === ')' && --depth === 0) return i;
+  }
+  return text.length;
+};
+
+const mapSlotSelector = (part) => {
+  const sel = part
+    .replace(/(^|[\s>+~(,])slot(?=$|[\s>+~:.[)])/g, `$1${SLOT_MARKER}`)
+    .replace(/\[data-pds-slot\]\[name=["']?([^"'\]]+)["']?\]/g, '[data-pds-slot="$1"]');
+  let out = '';
+  let index = 0;
+  for (let start = sel.indexOf('::slotted(', index); start >= 0; start = sel.indexOf('::slotted(', index)) {
+    const end = closingParen(sel, start + '::slotted'.length);
+    const before = sel.slice(index, start);
+    const attached = /\[data-pds-slot(?:="[^"]*")?\]$/.test(before);
+    const lead = attached ? '' : `${before.trim() && !/\s$/.test(before) ? ' ' : ''}${SLOT_MARKER}`;
+    out += `${before}${lead} > ${sel.slice(start + '::slotted('.length, end)}`;
+    index = end + 1;
+  }
+  return out + sel.slice(index);
+};
+
+/**
+ * `slot` -> the marker, `::slotted(x)` -> `x` as a direct child of the marker.
+ * A plain descendant selector would also hit the component's own markup.
+ */
+export function rewriteSlots(css) {
+  return css.replace(/(?<=^|[{}])(\s*)([^{}]+)\{/g, (match, space, prelude) => {
+    if (!prelude.trim() || prelude.trim().startsWith('@')) return match;
+    return `${space}${splitSelectors(prelude).map(mapSlotSelector).join(',')}{`;
+  });
+}
+
 export function rewriteHost(css, host) {
-  return css
-    .replace(/:host\(([^)]+)\)/g, (_, inner) => {
-      const sel = String(inner).trim();
-      return `${host}${sel}`;
-    })
-    .replace(/:host(?![\w-(])/g, host);
+  let out = '';
+  let index = 0;
+  for (let start = css.indexOf(':host(', index); start >= 0; start = css.indexOf(':host(', index)) {
+    // Balanced: `:host(:not([a]):not([b]))` holds nested parens.
+    let depth = 0;
+    let end = start + ':host'.length;
+    for (; end < css.length; end += 1) {
+      if (css[end] === '(') depth += 1;
+      else if (css[end] === ')' && --depth === 0) break;
+    }
+    out += `${css.slice(index, start)}${host}${css.slice(start + ':host('.length, end).trim()}`;
+    index = end + 1;
+  }
+  return `${out}${css.slice(index)}`.replace(/:host(?![\w-(])/g, host);
 }
 
 export function rewritePdsTags(css, pdsTags = DEFAULT_PDS_TAGS) {
@@ -57,7 +105,8 @@ const splitSelectors = (selectors) => {
 };
 
 export function prefixSelectors(css, host) {
-  return css.replace(/(^|[}{])(\s*)([^{}@][^{}]*)\{/g, (match, brace, space, selectors) => {
+  // Lookbehind so the `{` that opens an @media body stays available to its first rule.
+  return css.replace(/(?<=^|[{}])(\s*)([^{}]+)\{/g, (match, space, selectors) => {
     const trimmed = selectors.trim();
     if (!trimmed) return match;
     if (trimmed.startsWith('@')) return match;
@@ -71,7 +120,7 @@ export function prefixSelectors(css, host) {
         return `${leading}${host} ${sel}`;
       })
       .join(',');
-    return `${brace}${space}${scoped}{`;
+    return `${space}${scoped}{`;
   });
 }
 

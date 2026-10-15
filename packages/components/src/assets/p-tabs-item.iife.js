@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/tabs-item/output/lit/TabsItem.ts
+  // ../packages/components/mitosis/tabs-item/output/lit/TabsItem.ts
   var LitTabsItem = class extends i4 {
     get labelValue() {
       return this.label || "";

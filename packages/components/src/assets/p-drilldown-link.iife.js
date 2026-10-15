@@ -597,7 +597,7 @@
     })(t4, e5, o6);
   }
 
-  // ../../components/mitosis/drilldown-link/output/lit/DrilldownLink.ts
+  // ../packages/components/mitosis/drilldown-link/output/lit/DrilldownLink.ts
   var LitDrilldownLink = class extends i4 {
     get hostStyle() {
       const isTrue = (v2) => v2 === true || v2 === "true" || v2 === "";

@@ -6,7 +6,7 @@
 import type { HTMLStencilElement } from '../../../types/html-stencil-element';
 
 export class SelectOption {
-  host!: HTMLElement;
+  host!: HTMLPSelectOptionElement;
   value?: string | number | null;
   disabled?: boolean = false;
   selected?: boolean;

@@ -3,10 +3,10 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
+import { probeNodeModules } from './mitosis-node-modules.mjs';
 
 const componentsRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const mitosisDir = resolve(componentsRoot, 'mitosis/crest');
-const probeNodeModules = resolve(componentsRoot, '../mitosis-probe-lit/node_modules');
 const mitosisBin = resolve(probeNodeModules, '.bin/mitosis');
 const esbuildBin = resolve(componentsRoot, '../../node_modules/.bin/esbuild');
 const outfile = resolve(componentsRoot, 'src/assets/p-crest.iife.js');
